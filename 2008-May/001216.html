@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Minor issue when using alternate xkb groups
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Minor%20issue%20when%20using%20alternate%20xkb%20groups&In-Reply-To=%3C1211749410.8087.13.camel%40deadeye.i.decadent.org.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001215.html">
+   <LINK REL="Next"  HREF="001217.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Minor issue when using alternate xkb groups</H1>
+    <B>Ben Hutchings</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Minor%20issue%20when%20using%20alternate%20xkb%20groups&In-Reply-To=%3C1211749410.8087.13.camel%40deadeye.i.decadent.org.uk%3E"
+       TITLE="Minor issue when using alternate xkb groups">ben at decadent.org.uk
+       </A><BR>
+    <I>Sun May 25 23:03:30 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001215.html">Minor issue when using alternate xkb groups
+</A></li>
+        <LI>Next message: <A HREF="001217.html">Minor issue when using alternate xkb groups
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1216">[ date ]</a>
+              <a href="thread.html#1216">[ thread ]</a>
+              <a href="subject.html#1216">[ subject ]</a>
+              <a href="author.html#1216">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Sat, 2008-05-24 at 10:58 +0200, Andreas H&#252;bner wrote:
+&gt;<i> I did have a very minor issue with ion3 when using alternate xkb groups.
+</I>&gt;<i> You may want to read the bug report I filed in the DBTS, if you are
+</I>&gt;<i> interested in this.
+</I>&gt;<i> [<A HREF="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=414974">http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=414974</A>]
+</I>&gt;<i> 
+</I>&gt;<i> Summary (from someone who is not really familiar with X programming):
+</I>&gt;<i> X sets some additional bits in the XKeyEvent.state when you use an
+</I>&gt;<i> alternate xkb group.
+</I>
+Good work.  I looked into the Xkb header and found this:
+
+    /*
+     * BuildCoreState: Given a keyboard group and a modifier state,
+     *                 construct the value to be reported an event.
+     * GroupForCoreState:  Given the state reported in an event,
+     *                 determine the keyboard group.
+     * IsLegalGroup:   Returns TRUE if 'g' is a valid group index.
+     */
+#define XkbBuildCoreState(m,g)  ((((g)&amp;0x3)&lt;&lt;13)|((m)&amp;0xff))
+#define XkbGroupForCoreState(s) (((s)&gt;&gt;13)&amp;0x3)
+#define XkbIsLegalGroup(g)      (((g)&gt;=0)&amp;&amp;((g)&lt;XkbNumKbdGroups))
+
+So bits 13 and 14 of the modifiers together are the group number, and
+should be ignored when looking up key bindings.  Your patch does that
+much.  I wonder whether evil_grab_key() also needs to handle them?
+
+Ben.
+
+-- 
+Ben Hutchings
+It is easier to change the specification to fit the program than vice versa.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20080525/e0986dc3/attachment.pgp">https://lists.berlios.de/pipermail/ion-general/attachments/20080525/e0986dc3/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001215.html">Minor issue when using alternate xkb groups
+</A></li>
+	<LI>Next message: <A HREF="001217.html">Minor issue when using alternate xkb groups
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1216">[ date ]</a>
+              <a href="thread.html#1216">[ thread ]</a>
+              <a href="subject.html#1216">[ subject ]</a>
+              <a href="author.html#1216">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

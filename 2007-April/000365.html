@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> xmonad: Haskell window management has arrived
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20xmonad%3A%20Haskell%20window%20management%20has%20arrived&In-Reply-To=%3C20070413030606.GE18465%40cse.unsw.EDU.AU%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000364.html">
+   <LINK REL="Next"  HREF="000368.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>xmonad: Haskell window management has arrived</H1>
+    <B>Donald Bruce Stewart</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20xmonad%3A%20Haskell%20window%20management%20has%20arrived&In-Reply-To=%3C20070413030606.GE18465%40cse.unsw.EDU.AU%3E"
+       TITLE="xmonad: Haskell window management has arrived">dons at cse.unsw.edu.au
+       </A><BR>
+    <I>Fri Apr 13 05:06:06 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000364.html">xmonad: Haskell window management has arrived
+</A></li>
+        <LI>Next message: <A HREF="000368.html">xmonad: Haskell window management has arrived
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#365">[ date ]</a>
+              <a href="thread.html#365">[ thread ]</a>
+              <a href="subject.html#365">[ subject ]</a>
+              <a href="author.html#365">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>prothall:
+&gt;<i> Quick questions (I don't want to start a thread about another WM on the  
+</I>&gt;<i> Ion list):
+</I>&gt;<i> 
+</I>&gt;<i> o Does it have tabs, or just rearrange tiled windows like dwm?
+</I>
+The basic model is dwm-ish, so:
+
+    I physical screens (Xinerama)
+view onto
+    J virtual workspaces (tags)
+grouping
+    K windows
+
+the windows are tiled in a number of ways.
+
+&gt;<i> o If tabs, nested tabs?
+</I>&gt;<i> o Ion-like arbitrary tiled client shape/relative position?
+</I>
+Sort of. Not arbitrary.
+
+&gt;<i> o Does it have some kind of scripting support? Is this in Haskell, some  
+</I>&gt;<i> shell language, or something more godforsaken?
+</I>
+All scripting languages are supported,  as long as that language is Haskell.
+
+&gt;<i> o Support for floating windows?
+</I>
+Nope. Probably in 0.2
+
+&gt;<i> o Is it possible to kill windows that don't supply their own quit button  
+</I>&gt;<i> in a sane way (not the MOD+Shift+C of wmii; I don't even know if dwm can  
+</I>&gt;<i> do that)?
+</I>
+Yes. Same as dwm. Send killClient to the window.
+
+&gt;<i> o Does it have a run dialog of any kind?
+</I>
+Yes.
+
+&gt;<i> I'm assuming it employs dwm's tagged workspace model, which is its most  
+</I>&gt;<i> interesting and useful feature. Any variations on this would be  
+</I>&gt;<i> interesting. -POLM
+</I>
+Yes, it is a variation of dwm's tags. But simpler, not needlessly
+complex regex matching (urgh!)
+
+-- Don
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000364.html">xmonad: Haskell window management has arrived
+</A></li>
+	<LI>Next message: <A HREF="000368.html">xmonad: Haskell window management has arrived
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#365">[ date ]</a>
+              <a href="thread.html#365">[ thread ]</a>
+              <a href="subject.html#365">[ subject ]</a>
+              <a href="author.html#365">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,896 @@
+From tuomov at iki.fi  Sun Nov  1 00:10:08 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 1 Nov 2009 01:10:08 +0200
+Subject: Statusbar question
+In-Reply-To: <alpine.LNX.2.00.0910301649530.2814@india.ece.cmu.edu>
+References: <alpine.LNX.2.00.0910301649530.2814@india.ece.cmu.edu>
+Message-ID: <20091031231008.GA19848@jolt.modeemi.cs.tut.fi>
+
+On 2009-10-30 16:54 -0400, Timandahaf wrote:
+> The problem is, the workspace_pager that's shown on the screen1 is
+> actually a copy of screen0's pager, and is therefore useless. How do I
+> fix this?
+
+Check if the script provides %workspace_pager_n (n=0,1) or
+something like that. If not, then modify it to do so.
+
+-- 
+Tuomo
+
+
+From deryni at unreliablesource.net  Sun Nov 15 04:19:34 2009
+From: deryni at unreliablesource.net (Etan Reisner)
+Date: Sat, 14 Nov 2009 22:19:34 -0500
+Subject: Statusbar question
+In-Reply-To: <alpine.LNX.2.00.0910301649530.2814@india.ece.cmu.edu>
+References: <alpine.LNX.2.00.0910301649530.2814@india.ece.cmu.edu>
+Message-ID: <20091115031934.GA2329@aran>
+
+Resending this as it seems not to have made it through the first time.
+
+That's just a limitation of statusbar_workspace, you can either modify the
+script to do what you want or use my statusbar_wsname which supports this
+out-of-the-box.
+
+    -Etan
+
+
+From tc.rucho at gmail.com  Tue Nov 17 22:51:30 2009
+From: tc.rucho at gmail.com (TC)
+Date: Tue, 17 Nov 2009 19:51:30 -0200 (ARST)
+Subject: Lua..
+Message-ID: <alpine.LNX.2.00.0911171916400.7880@Core2Q6600>
+
+Hello guys, I've been willing to try (and eventually switch to) ion for some time now, but what keeps me away from it is the scripting language...
+Did you check wmii? it allows the user to program the window manager with _any_ language he/she's used to, which I find a good basement philosophy if you ask me.
+It doesn't try to link/merge with any language in particular, it doesn't force the user to learn another language just to script the wm; it let's the user have it his/her way. How would this concept play with ion?
+
+I'm reluctant to learn yet another language just for the window manager. No, I don't care there are enough scripts already there, what I do care about is that if I need to do something someone else did not think about and made a script for, I'd have to go through all the hassle to learn lua, which I find far less versatile and readable than my language of choice. Again, this may be just a matter of taste, but in any case, I do not feel like messing with lua, and I think it should not be imposed.
+
+Of course, that's arguable, since there are certain apps that really do impose their own language (like vim, emacs, and some others), but this is usually because any of these reasons:
+    * Multiplatform scripting languages did not exist when they were created, so they had to make their own.
+    * Available scripting languages did not meet the expectations for the task.
+    * They needed a highly specialized language to avoid kludges.
+    * They needed a tight integration with the scripting language for performance reasons.
+
+My suggestion? Why not make ion controllable through IPC? maybe a fifo, socket, tcp, whatever, to _let the user choose_ the language to be used.
+
+I'm not saying that ion should be redesigned and reimplemented right away either. It will definitely be rewritten from scratch at some point I guess, so why not keep this in mind when the time comes?
+
+- TC
+
+
+From tuomov at iki.fi  Wed Nov 18 09:49:49 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 18 Nov 2009 10:49:49 +0200
+Subject: Lua..
+In-Reply-To: <alpine.LNX.2.00.0911171916400.7880@Core2Q6600>
+References: <alpine.LNX.2.00.0911171916400.7880@Core2Q6600>
+Message-ID: <20091118084948.GA8801@jolt.modeemi.cs.tut.fi>
+
+On 2009-11-17 19:51 -0200, TC wrote:
+> _any_ language he/she's used to, which I find a good basement philosophy if 
+> you ask me.
+
+Not quite. Such a generic scripting interface inherently has to stick to
+the lowest common denominator.. and hence it should really not be the
+main extension/scripting interface, I think, but a more simplified 
+"command interface".. For more thoughts on this, see
+
+http://iki.fi/tuomov/b/2007/scripting_configuration_and_api_design/
+http://iki.fi/tuomov/vis/
+
+> I'm reluctant to learn yet another language just for the window manager. 
+
+"Baawaawaa, it's not written in My Language Of Choice, so it must be
+rewritten." That describes something like 49% of FOSS projects
+The other 49% is "baawaawaa, it's not Free?: it doesn't use My 
+License of Choice". The remaining 2% may have some originality.
+
+There really is not much to learn in Lua, and if you can't pick up 
+a language  "on the go" -- especially as simple one as lua, with 
+a very short official reference manual -- you shouldn't be programming
+at all. It's not like you need a high level of proficiency for 
+scripting. I've written plugins for programs written in perl, ruby,
+and python, and I have never taken the time to properly learn them, 
+don't really like them (Lua is _much_ better, except for the 
+library selection), and would not start a project using them 
+myself, unless there was some very compelling reason (library 
+availability or such).
+
+> which I find far less versatile and readable than my language of choice. 
+
+Then you haven't even bothered reading the basic description of the
+language, and are criticising just because it's not Your Language of
+Choice.
+
+> Again, this may be just a matter of taste, but in any case, I do not feel 
+> like messing with lua, and I think it should not be imposed.
+
+It's not imposed. As far as I know, nobody has to use Ion, as it's
+a marginal alternative among a gazillion other window managers.
+It's not XFascistType, pukedev, Hardware Obstruction Layer (of
+the Year) or other core software that the only way to avoid is 
+to not use Linux/*nix. Which is exactly what I have done.
+
+http://iki.fi/tuomov/b/2009/defection_part_3_windows/
+
+> My suggestion? Why not make ion controllable through IPC? maybe a fifo, 
+> socket, tcp, whatever, to _let the user choose_ the language to be used.
+
+Why don't you do that?
+
+Actually there is mod_ionflux, that you can use to send Lua code...
+
+> I'm not saying that ion should be redesigned and reimplemented right away 
+> either. It will definitely be rewritten from scratch at some point I guess, 
+> so why not keep this in mind when the time comes?
+
+Ion is not being developed.  For details on any possible future, see
+
+http://article.gmane.org/gmane.comp.window-managers.ion.general/9056
+
+-- 
+Tuomo
+
+
+From ebik at drak.ucw.cz  Wed Nov 18 10:07:39 2009
+From: ebik at drak.ucw.cz (ebik)
+Date: Wed, 18 Nov 2009 10:07:39 +0100
+Subject: Lua..
+In-Reply-To: <alpine.LNX.2.00.0911171916400.7880@Core2Q6600>
+References: <alpine.LNX.2.00.0911171916400.7880@Core2Q6600>
+Message-ID: <20091118100739.5841dbb1@Chewbacca.cub>
+
+I had to learn lua because of Ion, and guess what...  I learnt the
+basics in 2 hours. After that I was reading only the ion's
+documentation.
+
+Although I'm not good at lua I will choose it as conf. language for my
+next project, because of its learning curve.
+
+-- 
+                                 Tom?? 'eb?k' Ebenlendr
+                                 PF 2009.88059858574
+
+
+
+From mobi at mobiphil.com  Wed Nov 18 11:13:01 2009
+From: mobi at mobiphil.com (mobi phil)
+Date: Wed, 18 Nov 2009 11:13:01 +0100
+Subject: Lua..
+In-Reply-To: <20091118084948.GA8801@jolt.modeemi.cs.tut.fi>
+References: <alpine.LNX.2.00.0911171916400.7880@Core2Q6600>
+	<20091118084948.GA8801@jolt.modeemi.cs.tut.fi>
+Message-ID: <a4875c0e0911180213l4a95449ch40eb38eacb1c9b8b@mail.gmail.com>
+
+I was using ratpoison ages ago... but it did not work at the
+end...Maybe one day I will give it another try. I liked in ratpoison
+is that follows the principle of gnu screen regarding keybindings.
+
+I decided to give a try to ion3, for few month now. I never wrote 1
+line of code in lua, but to be honest that did not create for me
+microscopical pain, after having gone through other at leas ten
+programming languages. What created for me a bit of pain instead, that
+the functions for manipulating different objects are still not
+perfectly documented. I mean 1-2 examples here/there would at least
+double the value of the documentation.
+
+
+> Actually there is mod_ionflux, that you can use to send Lua code...
+Hey!!! That is what I was looking for ( I think) to control ion3 from
+the console ...
+
+
+-- 
+rgrds,
+mobi phil
+
+being mobile, but including technology
+http://mobiphil.com
+
+
+From dcl441-bugs at yahoo.com  Wed Nov 18 11:17:27 2009
+From: dcl441-bugs at yahoo.com (Daniel Clemente)
+Date: Wed, 18 Nov 2009 02:17:27 -0800 (PST)
+Subject: Lua..
+In-Reply-To: <20091118084948.GA8801@jolt.modeemi.cs.tut.fi>
+Message-ID: <558161.6394.qm@web53203.mail.re2.yahoo.com>
+
+
+> "Baawaawaa, it's not written in My Language Of Choice, so
+> it must be
+> rewritten." That describes something like 49% of FOSS
+> projects
+> The other 49% is "baawaawaa, it's not Free?: it doesn't
+> use My 
+> License of Choice".
+?
+> The remaining 2% may have some originality.
+
+wmii is among that 2%:
+- it can be scripted in any language, also in your language of choice
+- it is free from restrictions; you may also sublicense it to your free license of choice
+
+ion fulfills neither. I assume you get that 98% of user unsatisfaction, if your 98%/2% numbers are correct.
+
+> 
+> It's not imposed. As far as I know, nobody has to use Ion,
+> as it's
+> a marginal alternative among a gazillion other window
+> managers.
+
+  Exactly.
+
+  To those who feel too limited by ion's complexity or Tuomo's opinions, I would recommend wmii. I successfully migrated from ion3 to wmii and don't regret it. The migration is easy since they're feature-alike, and it's faster to customize.
+
+
+-- Daniel
+
+
+      
+
+
+From tuomov at iki.fi  Wed Nov 18 11:43:15 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 18 Nov 2009 12:43:15 +0200
+Subject: Lua..
+In-Reply-To: <558161.6394.qm@web53203.mail.re2.yahoo.com>
+References: <20091118084948.GA8801@jolt.modeemi.cs.tut.fi>
+	<558161.6394.qm@web53203.mail.re2.yahoo.com>
+Message-ID: <20091118104314.GA24801@jolt.modeemi.cs.tut.fi>
+
+On 2009-11-18 02:17 -0800, Daniel Clemente wrote:
+> > "Baawaawaa, it's not written in My Language Of Choice, so
+> > it must be
+> > rewritten." That describes something like 49% of FOSS
+> > projects
+> > The other 49% is "baawaawaa, it's not Free?: it doesn't
+> > use My 
+> > License of Choice".
+> ?
+> > The remaining 2% may have some originality.
+> 
+> wmii is among that 2%:
+> - it can be scripted in any language, also in your language of choice
+> - it is free from restrictions; you may also sublicense it to your free license of choice
+
+Muahhah, looks more like belonging to both of the 49%.
+I suggest taking some language classes.
+
+And knowing the history of tabbing/tiling WMs, the 2% is
+reserved for a certain other WM or WMs...
+
+-- 
+Tuomo
+
+
+From tzz at lifelogs.com  Wed Nov 18 12:55:26 2009
+From: tzz at lifelogs.com (Ted Zlatanov)
+Date: Wed, 18 Nov 2009 05:55:26 -0600
+Subject: Lua..
+In-Reply-To: <558161.6394.qm@web53203.mail.re2.yahoo.com> (Daniel Clemente's
+	message of "Wed, 18 Nov 2009 02:17:27 -0800 (PST)")
+References: <558161.6394.qm@web53203.mail.re2.yahoo.com>
+Message-ID: <87fx8c6o9d.fsf@lifelogs.com>
+
+On Wed, 18 Nov 2009 02:17:27 -0800 (PST) Daniel Clemente <dcl441-bugs at yahoo.com> wrote: 
+
+DC> To those who feel too limited by ion's complexity or Tuomo's
+DC> opinions, I would recommend wmii. I successfully migrated from
+DC> ion3 to wmii and don't regret it. The migration is easy since
+DC> they're feature-alike, and it's faster to customize.
+
+Brief summary of my experience looking for a good window manager:
+
+Ion3: not actively developed, also I intensely dislike Lua (this is a
+matter of personal taste).  Doesn't integrate with Gnome well.
+Installation is easy.  Customization is OK.
+
+wmii (as of 6 months ago): a real duct-tape window manager, lots of
+broken advice online because there's like 30 ways to set it up.  Once
+you get it going it's all right, but you better have lots of shell
+scripting experience.  Doesn't integrate with Gnome well.  Installation
+is hard if you don't know what you're doing.  I respect the design, it's
+very powerful and flexible, but wouldn't recommend this one to new
+users.
+
+StumpWM (as of 2 months ago): pretty good feature-wise, does almost
+everything OK, very slow if you don't fine-tune the VM.  If you don't
+know Common Lisp it will be very confusing.  I like Lisp so it was OK
+for me.  Also it doesn't integrate with Gnome well.  Installation is OK
+with Ubuntu.  I would have loved to recommend this one because Lisp is
+so flexible but it's just not for everyone.
+
+XMonad: really good in every way, configuring beyond the basics requires
+learning Haskell.  To me that was actually a plus, I like Haskell a lot
+but certainly it's not for everyone.  This one is very fast, has
+multiple layouts besides tabbed (full screen, side by side, etc.).
+Supports floating windows, integrates well with Gnome.  Extending it is
+easy.  Installation is really easy with Ubuntu and the docs are good
+(lots of sample configs and every module is documented).  I'd recommend
+this one to people looking to try a new WM, unless they want deep
+customization and Haskell is outside their comfort zone.
+
+Ted
+
+
+From joqueza at gmail.com  Wed Nov 18 16:19:11 2009
+From: joqueza at gmail.com (joqueza)
+Date: Wed, 18 Nov 2009 13:19:11 -0200
+Subject: Lua..
+In-Reply-To: <87fx8c6o9d.fsf@lifelogs.com>
+References: <558161.6394.qm@web53203.mail.re2.yahoo.com>
+	<87fx8c6o9d.fsf@lifelogs.com>
+Message-ID: <104f5b40911180719p16f4cb11j9fb0cb81591881fc@mail.gmail.com>
+
+Sorry, but I'm really not following the focus of the conversation here.
+Tuomo explicitly gave his opinions on the direction that ion3 development
+should be going, so It seems pretty simple to me: Given the options of WMs,
+you use Ion if you WANT to. Not only that, Tuomo gave an explanation on his
+choices.
+
+I've tried different tilling window managers, and my 2 cents are:
+
+Awesome(3): is becoming huge project and has alot of "enhancements" over Ion
+but at each new version, the config files change and all that backward
+incompatibilties arise.
+
+Xmonad: Very well written, fast, and customizable. But since it's
+Haskell-based, you have to install a metric shitload of Haskell
+dependencies.
+
+dwm: You have to recompile it every time you change something. It's just not
+versatile enough for my tastes.
+
+stumpwm, scrotwm, wmii: never tried, will not speculate over those.
+
+
+In the end, it all boils down to how much you want to customize your WM.
+Then, it's all about programing language taste.
+
+2009/11/18 Ted Zlatanov <tzz at lifelogs.com>
+
+> On Wed, 18 Nov 2009 02:17:27 -0800 (PST) Daniel Clemente <
+> dcl441-bugs at yahoo.com> wrote:
+>
+> DC> To those who feel too limited by ion's complexity or Tuomo's
+> DC> opinions, I would recommend wmii. I successfully migrated from
+> DC> ion3 to wmii and don't regret it. The migration is easy since
+> DC> they're feature-alike, and it's faster to customize.
+>
+> Brief summary of my experience looking for a good window manager:
+>
+> Ion3: not actively developed, also I intensely dislike Lua (this is a
+> matter of personal taste).  Doesn't integrate with Gnome well.
+> Installation is easy.  Customization is OK.
+>
+> wmii (as of 6 months ago): a real duct-tape window manager, lots of
+> broken advice online because there's like 30 ways to set it up.  Once
+> you get it going it's all right, but you better have lots of shell
+> scripting experience.  Doesn't integrate with Gnome well.  Installation
+> is hard if you don't know what you're doing.  I respect the design, it's
+> very powerful and flexible, but wouldn't recommend this one to new
+> users.
+>
+> StumpWM (as of 2 months ago): pretty good feature-wise, does almost
+> everything OK, very slow if you don't fine-tune the VM.  If you don't
+> know Common Lisp it will be very confusing.  I like Lisp so it was OK
+> for me.  Also it doesn't integrate with Gnome well.  Installation is OK
+> with Ubuntu.  I would have loved to recommend this one because Lisp is
+> so flexible but it's just not for everyone.
+>
+> XMonad: really good in every way, configuring beyond the basics requires
+> learning Haskell.  To me that was actually a plus, I like Haskell a lot
+> but certainly it's not for everyone.  This one is very fast, has
+> multiple layouts besides tabbed (full screen, side by side, etc.).
+> Supports floating windows, integrates well with Gnome.  Extending it is
+> easy.  Installation is really easy with Ubuntu and the docs are good
+> (lots of sample configs and every module is documented).  I'd recommend
+> this one to people looking to try a new WM, unless they want deep
+> customization and Haskell is outside their comfort zone.
+>
+> Ted
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20091118/fd7a6f78/attachment.html>
+
+From mobi at mobiphil.com  Wed Nov 18 17:44:11 2009
+From: mobi at mobiphil.com (mobi phil)
+Date: Wed, 18 Nov 2009 17:44:11 +0100
+Subject: Lua..
+In-Reply-To: <104f5b40911180719p16f4cb11j9fb0cb81591881fc@mail.gmail.com>
+References: <558161.6394.qm@web53203.mail.re2.yahoo.com>
+	<87fx8c6o9d.fsf@lifelogs.com>
+	<104f5b40911180719p16f4cb11j9fb0cb81591881fc@mail.gmail.com>
+Message-ID: <a4875c0e0911180844i26daf4bia39583d7c06cac5b@mail.gmail.com>
+
+>
+> Xmonad: Very well written, fast, and customizable. But since it's
+> Haskell-based, you have to install a metric shitload of Haskell
+> dependencies.
+I am almost convinced that I would have ended up with Xnomad, but had
+the same problem with the metric shitload :)  apt-get install xmonad
+said: do you want me to install 300MB of shitload? My answer was not
+darling :)
+
+
+From tibor.simko at cern.ch  Wed Nov 18 18:03:39 2009
+From: tibor.simko at cern.ch (Tibor Simko)
+Date: Wed, 18 Nov 2009 18:03:39 +0100
+Subject: Lua..
+References: <558161.6394.qm@web53203.mail.re2.yahoo.com>
+	<87fx8c6o9d.fsf@lifelogs.com>
+	<104f5b40911180719p16f4cb11j9fb0cb81591881fc@mail.gmail.com>
+	<a4875c0e0911180844i26daf4bia39583d7c06cac5b@mail.gmail.com>
+Message-ID: <878we3rcic.fsf@pcuds33.cern.ch>
+
+On Wed, 18 Nov 2009, mobi phil wrote:
+>> Xmonad: Very well written, fast, and customizable. But since it's
+>> Haskell-based, you have to install a metric shitload of Haskell
+>> dependencies.
+> I am almost convinced that I would have ended up with Xnomad, but had
+> the same problem with the metric shitload :) apt-get install xmonad
+> said: do you want me to install 300MB of shitload? My answer was not
+> darling :)
+
+If you like Xmonad, but would like it to be slimmer, then you may want
+to try dwm.
+
+On Wed, 18 Nov 2009, joqueza wrote:
+> dwm: You have to recompile it every time you change something. It's
+> just not versatile enough for my tastes.
+
+Yes, you have to recompile dwm to change its settings, but it is fast
+and easy, and once you find your `perfect' settings, you are set.
+
+Best regards
+--
+Tibor Simko
+
+
+From ebik at drak.ucw.cz  Wed Nov 18 21:55:25 2009
+From: ebik at drak.ucw.cz (ebik)
+Date: Wed, 18 Nov 2009 21:55:25 +0100
+Subject: Lua..
+In-Reply-To: <a4875c0e0911180213l4a95449ch40eb38eacb1c9b8b@mail.gmail.com>
+References: <alpine.LNX.2.00.0911171916400.7880@Core2Q6600>
+	<20091118084948.GA8801@jolt.modeemi.cs.tut.fi>
+	<a4875c0e0911180213l4a95449ch40eb38eacb1c9b8b@mail.gmail.com>
+Message-ID: <20091118215525.33be5eb4@Chewbacca.cub>
+
+On Wed, 18 Nov 2009 11:13:01 +0100
+mobi phil <mobi at mobiphil.com> wrote:
+
+> I was using ratpoison ages ago... but it did not work at the
+> end...Maybe one day I will give it another try. I liked in ratpoison
+> is that follows the principle of gnu screen regarding keybindings.
+> 
+> I decided to give a try to ion3, for few month now. I never wrote 1
+> line of code in lua, but to be honest that did not create for me
+> microscopical pain, after having gone through other at leas ten
+> programming languages. What created for me a bit of pain instead, that
+> the functions for manipulating different objects are still not
+> perfectly documented. I mean 1-2 examples here/there would at least
+> double the value of the documentation.
+> 
+
+Hmm, yes examples are missing. But otherwise ion3 is documented very
+well. There are only few projects with such a good documentation. And
+you have also the META+F3 keybinding, where you can test all complex
+things and see what they are doing. This combination allowed me
+configuring ion very quickly.
+
+
+-- 
+                                 Tom?? 'eb?k' Ebenlendr
+                                 PF 2009.88193680238
+
+
+
+From timandahaf+dev at gmail.com  Fri Nov 20 23:10:56 2009
+From: timandahaf+dev at gmail.com (Timandahaf)
+Date: Fri, 20 Nov 2009 17:10:56 -0500 (EST)
+Subject: Statusbar question
+In-Reply-To: <20091115031934.GA2329@aran>
+References: <alpine.LNX.2.00.0910301649530.2814@india.ece.cmu.edu>
+	<20091115031934.GA2329@aran>
+Message-ID: <alpine.LNX.2.00.0911201708280.9467@india.ece.cmu.edu>
+
+> That's just a limitation of statusbar_workspace, you can either modify the
+> script to do what you want or use my statusbar_wsname which supports this
+> out-of-the-box.
+
+Great, thanks! I'll check out your statusbar_wsname (didn't notice the
+"per-head" in the description on the webpage until you pointed it out).
+
+Tuomo, thanks for your response too!
+
+
+From timandahaf+dev at gmail.com  Sun Nov 22 21:10:34 2009
+From: timandahaf+dev at gmail.com (Timandahaf)
+Date: Sun, 22 Nov 2009 15:10:34 -0500 (EST)
+Subject: Youtube fullscreen not working
+Message-ID: <alpine.LNX.2.00.0911221458400.24033@india.ece.cmu.edu>
+
+When I hit the fullscreen button inside a youtube video in firefox, the
+video just disappears, and I'm left with the browser without the video.
+There's no new full-screen workspace created. Pressing either alt-tab or
+Escape has the same effect: the video comes back into its original
+position embedded inside the browser. I don't think I've ever had this
+work correctly in the past either.
+
+Any idea why this is happening/how to fix this?
+
+Using ion3-2009-0110. The issue is probably similar/same as the issue in
+[1].
+
+
+[1] http://thread.gmane.org/gmane.comp.window-managers.ion.general/8699/focus=8699
+
+
+From ben at decadent.org.uk  Sun Nov 22 23:47:47 2009
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Sun, 22 Nov 2009 22:47:47 +0000
+Subject: Youtube fullscreen not working
+In-Reply-To: <1258928201.3627.63.camel@localhost>
+References: <alpine.LNX.2.00.0911221458400.24033@india.ece.cmu.edu>
+	<1258928201.3627.63.camel@localhost>
+Message-ID: <1258930067.16258.2.camel@localhost>
+
+On Sun, 2009-11-22 at 22:16 +0000, Ben Hutchings wrote:
+> On Sun, 2009-11-22 at 15:10 -0500, Timandahaf wrote:
+> > When I hit the fullscreen button inside a youtube video in firefox, the
+> > video just disappears, and I'm left with the browser without the video.
+> > There's no new full-screen workspace created. Pressing either alt-tab or
+> > Escape has the same effect: the video comes back into its original
+> > position embedded inside the browser. I don't think I've ever had this
+> > work correctly in the past either.
+> > 
+> > Any idea why this is happening/how to fix this?
+> 
+> Flash seems to do stupid things with window focus.  I had a workaround
+> for an earlier version of Flash[1] but it no longer works.
+> 
+> Ben.
+> 
+> [1] http://git.decadent.org.uk/gitweb?p=ion3.git;a=blob;f=debian/cfg_kludge_flash.lua
+
+It seems that Flash no longer sets the initial window size to 200x200
+sizes but to the current screen size.  So changing:
+
+    match = function(prop, cwin, id)
+               local geom = cwin:geom()
+               return is_fullscreen(cwin) and geom.w == 200 and geom.h == 200
+           end,
+
+to:
+
+    match = function(prop, cwin, id) return is_fullscreen(cwin); end,
+
+makes it behave, though this might have false positives.
+
+Ben.
+
+-- 
+Ben Hutchings
+Unix is many things to many people,
+but it's never been everything to anybody.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 828 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20091122/30b0a4c0/attachment.pgp>
+
+From ben at decadent.org.uk  Sun Nov 22 23:16:41 2009
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Sun, 22 Nov 2009 22:16:41 +0000
+Subject: Youtube fullscreen not working
+In-Reply-To: <alpine.LNX.2.00.0911221458400.24033@india.ece.cmu.edu>
+References: <alpine.LNX.2.00.0911221458400.24033@india.ece.cmu.edu>
+Message-ID: <1258928201.3627.63.camel@localhost>
+
+On Sun, 2009-11-22 at 15:10 -0500, Timandahaf wrote:
+> When I hit the fullscreen button inside a youtube video in firefox, the
+> video just disappears, and I'm left with the browser without the video.
+> There's no new full-screen workspace created. Pressing either alt-tab or
+> Escape has the same effect: the video comes back into its original
+> position embedded inside the browser. I don't think I've ever had this
+> work correctly in the past either.
+> 
+> Any idea why this is happening/how to fix this?
+
+Flash seems to do stupid things with window focus.  I had a workaround
+for an earlier version of Flash[1] but it no longer works.
+
+Ben.
+
+[1] http://git.decadent.org.uk/gitweb?p=ion3.git;a=blob;f=debian/cfg_kludge_flash.lua
+
+-- 
+Ben Hutchings
+Unix is many things to many people,
+but it's never been everything to anybody.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 828 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20091122/b1e3791b/attachment.pgp>
+
+From radu.berinde at gmail.com  Tue Nov 24 01:32:44 2009
+From: radu.berinde at gmail.com (Radu Berinde)
+Date: Mon, 23 Nov 2009 19:32:44 -0500
+Subject: bindings to move mouse cursor?
+Message-ID: <f6324db80911231632g164b51cey552168b464465f36@mail.gmail.com>
+
+Hi!
+
+I have been searching a lot but no luck - is it possible to have some
+key bindings that move the mouse cursor (e.g. a given number of pixels
+in a given direction) ?
+
+I think that would be a very useful way to switch to the frame you
+want, just move the cursor until it's over that frame, should normally
+only take a couple of keystrokes. The ioncore.goto_next functions
+sometimes don't do exactly what you would want, depending on the
+splitting order and such.
+
+Thanks,
+Radu
+
+
+From deryni at unreliablesource.net  Tue Nov 24 06:42:32 2009
+From: deryni at unreliablesource.net (Etan Reisner)
+Date: Tue, 24 Nov 2009 00:42:32 -0500
+Subject: bindings to move mouse cursor?
+In-Reply-To: <f6324db80911231632g164b51cey552168b464465f36@mail.gmail.com>
+References: <f6324db80911231632g164b51cey552168b464465f36@mail.gmail.com>
+Message-ID: <20091124054232.GB1920@aran>
+
+On Mon, Nov 23, 2009 at 07:32:44PM -0500, Radu Berinde wrote:
+> Hi!
+>
+> I have been searching a lot but no luck - is it possible to have some
+> key bindings that move the mouse cursor (e.g. a given number of pixels
+> in a given direction) ?
+>
+> I think that would be a very useful way to switch to the frame you
+> want, just move the cursor until it's over that frame, should normally
+> only take a couple of keystrokes. The ioncore.goto_next functions
+> sometimes don't do exactly what you would want, depending on the
+> splitting order and such.
+>
+> Thanks,
+> Radu
+
+I find it next to impossible to believe that for any even remotely
+complicated layout (and even uncomplicated layouts with warping enabled),
+that mouse pointer nudging/moving is going to work better for selecting a
+desired frame/client than the current "Go to window" query does.
+
+Is there a reason that query is not sufficient for what you want?
+
+The above notwithstanding, ion does not move the mouse, there are programs
+out there which can (and even an X accessibility setting which uses the
+numeric keypad for this) though.
+
+    -Etan
+
+
+From johannes at segitz.de  Tue Nov 24 11:46:06 2009
+From: johannes at segitz.de (Johannes Segitz)
+Date: Tue, 24 Nov 2009 11:46:06 +0100
+Subject: bindings to move mouse cursor?
+In-Reply-To: <f6324db80911231632g164b51cey552168b464465f36@mail.gmail.com>
+References: <f6324db80911231632g164b51cey552168b464465f36@mail.gmail.com>
+Message-ID: <a5cd9eed0911240246x2c81948dwe87391ec4b14a38d@mail.gmail.com>
+
+On Tue, Nov 24, 2009 at 1:32 AM, Radu Berinde <radu.berinde at gmail.com> wrote:
+> I have been searching a lot but no luck - is it possible to have some
+> key bindings that move the mouse cursor (e.g. a given number of pixels
+> in a given direction) ?
+
+xautomation => xte
+
+HTH
+
+> I think that would be a very useful way to switch to the frame you
+> want, just move the cursor until it's over that frame, should normally
+> only take a couple of keystrokes.
+
+well, it's a bit like buying a car navigation system and then only using it
+street by street ... maybe you should have a look at the commands ion
+provides.
+
+Johannes
+
+
+From olejorgenb at yahoo.no  Tue Nov 24 12:16:28 2009
+From: olejorgenb at yahoo.no (=?utf-8?Q?Ole_J=C3=B8rgen_Br=C3=B8nner?=)
+Date: Tue, 24 Nov 2009 12:16:28 +0100
+Subject: bindings to move mouse cursor?
+In-Reply-To: <f6324db80911231632g164b51cey552168b464465f36@mail.gmail.com>
+References: <f6324db80911231632g164b51cey552168b464465f36@mail.gmail.com>
+Message-ID: <op.u3wb9qnovocxtk@tabole-debian>
+
+On Tue, 24 Nov 2009 01:32:44 +0100, Radu Berinde <radu.berinde at gmail.com>  
+wrote:
+> Hi!
+>
+> I have been searching a lot but no luck - is it possible to have some
+> key bindings that move the mouse cursor (e.g. a given number of pixels
+> in a given direction) ?
+>
+> I think that would be a very useful way to switch to the frame you
+> want, just move the cursor until it's over that frame, should normally
+> only take a couple of keystrokes. The ioncore.goto_next functions
+> sometimes don't do exactly what you would want, depending on the
+> splitting order and such.
+>
+> Thanks,
+> Radu
+
+In what cases doesn't goto_next work?
+
+The two programs 'swarp' (or 'xte' as suggested) and 'xmousepos' should do  
+the trick. (you can find the exact distance needed by finding the current  
+frame's absolute coordinates)
+
+
+
+From radu.berinde at gmail.com  Tue Nov 24 16:23:40 2009
+From: radu.berinde at gmail.com (Radu Berinde)
+Date: Tue, 24 Nov 2009 10:23:40 -0500
+Subject: bindings to move mouse cursor?
+In-Reply-To: <op.u3wb9qnovocxtk@tabole-debian>
+References: <f6324db80911231632g164b51cey552168b464465f36@mail.gmail.com> 
+	<op.u3wb9qnovocxtk@tabole-debian>
+Message-ID: <f6324db80911240723o57d7c9bbx7403092d28a7f7c9@mail.gmail.com>
+
+Thanks everyone, binding some keys to xev commands worked great!
+Radu
+
+2009/11/24 Ole J?rgen Br?nner <olejorgenb at yahoo.no>:
+> On Tue, 24 Nov 2009 01:32:44 +0100, Radu Berinde <radu.berinde at gmail.com>
+> wrote:
+>>
+>> Hi!
+>>
+>> I have been searching a lot but no luck - is it possible to have some
+>> key bindings that move the mouse cursor (e.g. a given number of pixels
+>> in a given direction) ?
+>>
+>> I think that would be a very useful way to switch to the frame you
+>> want, just move the cursor until it's over that frame, should normally
+>> only take a couple of keystrokes. The ioncore.goto_next functions
+>> sometimes don't do exactly what you would want, depending on the
+>> splitting order and such.
+>>
+>> Thanks,
+>> Radu
+>
+> In what cases doesn't goto_next work?
+>
+> The two programs 'swarp' (or 'xte' as suggested) and 'xmousepos' should do
+> the trick. (you can find the exact distance needed by finding the current
+> frame's absolute coordinates)
+>
+>
+
+
+From tuomov at iki.fi  Tue Nov 24 18:54:25 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 24 Nov 2009 19:54:25 +0200
+Subject: bindings to move mouse cursor?
+In-Reply-To: <a5cd9eed0911240246x2c81948dwe87391ec4b14a38d@mail.gmail.com>
+References: <f6324db80911231632g164b51cey552168b464465f36@mail.gmail.com>
+	<a5cd9eed0911240246x2c81948dwe87391ec4b14a38d@mail.gmail.com>
+Message-ID: <20091124175425.GA777@jolt.modeemi.cs.tut.fi>
+
+> > I think that would be a very useful way to switch to the frame you
+> > want, just move the cursor until it's over that frame, should normally
+> > only take a couple of keystrokes.
+
+If you really want to do that, I suggest a Trackpoint keyboard instead.
+The difficult a foresee with key(board) control of the pointer -- based
+on experience with keyboard resize -- is control of the acceleration.
+You need some kind of acceleration for fast yet precise movement of the
+pointer, but with an on/off control device you have to do it based on
+hacks based on the time pressed, which is hacky and does not work so
+well. Trackpoint, on the other hand, does it by the pressure you apply.
+By applying little pressure, you can move the pointer very precisely;
+by a large amount of pressure, you're on the other side of the screen
+in no time. (Assuming you have sane almost maxed-out settings; the
+defaults tend to be crappy, and maybe one of the reason many people 
+give up on the Trackpoint, and become ice-skaters.)
+
+> well, it's a bit like buying a car navigation system and then only using it
+> street by street ... maybe you should have a look at the commands ion
+> provides.
+
+Isn't that what navigation systems are all about? If you actually 
+bothered looking at the map for a moment, you wouldn't need some 
+device to tell you where to go (wrong). 
+
+-- 
+Tuomo
+
+
+From timandahaf+dev at gmail.com  Fri Nov 27 06:54:11 2009
+From: timandahaf+dev at gmail.com (Timandahaf)
+Date: Fri, 27 Nov 2009 00:54:11 -0500 (EST)
+Subject: Youtube fullscreen not working
+In-Reply-To: <1258930067.16258.2.camel@localhost>
+References: <alpine.LNX.2.00.0911221458400.24033@india.ece.cmu.edu>
+	<1258928201.3627.63.camel@localhost>
+	<1258930067.16258.2.camel@localhost>
+Message-ID: <alpine.LNX.2.00.0911270050130.12279@india.ece.cmu.edu>
+
+On Sun, 22 Nov 2009, Ben Hutchings wrote:
+
+> It seems that Flash no longer sets the initial window size to 200x200
+> sizes but to the current screen size.  So changing:
+
+> makes it behave, though this might have false positives.
+
+Thanks for your response and for the pointer to your kludge!
+
+I tried to do this, but I still have the exact same problem. I see what
+your kludge is doing, but it doesn't seem to fix the problem. Regardless
+of whether or not I use your script, when I press the full-screen button
+inside the youtube player, the video disappears, and the browser window
+gets surrounded by a thin read line (which I assume is the video
+window). Any clue what else the problem could be?
+
+
+(BTW, running ion's window info on firefox tells me its class is
+"Firefox", and not "Firefox-bin", so I tried changing it to that, to no
+avail).
+
+
+
+From tuomov at iki.fi  Fri Nov 27 09:57:42 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 27 Nov 2009 10:57:42 +0200
+Subject: Youtube fullscreen not working
+In-Reply-To: <alpine.LNX.2.00.0911270050130.12279@india.ece.cmu.edu>
+References: <alpine.LNX.2.00.0911221458400.24033@india.ece.cmu.edu>
+	<1258928201.3627.63.camel@localhost>
+	<1258930067.16258.2.camel@localhost>
+	<alpine.LNX.2.00.0911270050130.12279@india.ece.cmu.edu>
+Message-ID: <20091127085742.GA5223@jolt.modeemi.cs.tut.fi>
+
+On 2009-11-27 00:54 -0500, Timandahaf wrote:
+> I tried to do this, but I still have the exact same problem. I see what
+> your kludge is doing, but it doesn't seem to fix the problem. Regardless
+> of whether or not I use your script, when I press the full-screen button
+> inside the youtube player, the video disappears, and the browser window
+> gets surrounded by a thin read line (which I assume is the video
+> window). Any clue what else the problem could be?
+
+The red line is probably Ion's marker for the source frame of a detached
+window. You can detach/reattach windows with Mod1+K D, but "too big"
+transients also get detached automatically... is flash purporting its
+fullscreen document window to be a "transient" now? And then it somehow
+fails when Ion's detach code keeps moving the window around? Maybe it
+even gives the window size hints that force it to be a single pixel,
+and hence basically invisible with the minimal transient decorations.
+(Ion always applies size hints; modern idiot-applications often request 
+sizes that do not fall into the range of their size hints.)
+
+You may be able to find the window id with xprop -tree -root or
+something, if it sets any identifying information at all (probably
+won't, being modern crapware), and then find the size hints and
+the TRANSIENT_FOR property with xprop -id the_id.
+
+I'm not running Linux or even X anymore, so that's all I can help.
+
+-- 
+Tuomo
+
+

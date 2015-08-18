@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Csanyi Pal] Re: Moving windows to an empty Workspace from Tiled	Workspace
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20%5BCsanyi%20Pal%5D%20Re%3A%20Moving%20windows%20to%20an%20empty%20Workspace%20from%20Tiled%0A%09Workspace&In-Reply-To=%3C87k5f2xvi8.fsf%40debian-asztal.csanyi-pal.info%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001318.html">
+   <LINK REL="Next"  HREF="001320.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Csanyi Pal] Re: Moving windows to an empty Workspace from Tiled	Workspace</H1>
+    <B>Csanyi Pal</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20%5BCsanyi%20Pal%5D%20Re%3A%20Moving%20windows%20to%20an%20empty%20Workspace%20from%20Tiled%0A%09Workspace&In-Reply-To=%3C87k5f2xvi8.fsf%40debian-asztal.csanyi-pal.info%3E"
+       TITLE="[Csanyi Pal] Re: Moving windows to an empty Workspace from Tiled	Workspace">csanyipal at gmail.com
+       </A><BR>
+    <I>Thu Jul 31 11:17:51 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001318.html">Moving windows to an empty Workspace from Tiled Workspace
+</A></li>
+        <LI>Next message: <A HREF="001320.html">Moving windows to an empty Workspace from Tiled	Workspace
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1319">[ date ]</a>
+              <a href="thread.html#1319">[ thread ]</a>
+              <a href="subject.html#1319">[ subject ]</a>
+              <a href="author.html#1319">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Canaan Hadley-Voth &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">ugggg at hotmail.com</A>&gt; writes:
+
+&gt;&gt;<i> I want to send a client window from a tiled workspace to an empty (not
+</I>&gt;&gt;<i> tiled) workspace with help of send_to_ws. I try to use keybinding
+</I>&gt;&gt;<i> 'Mod1+K L' to send a tagged window to the next workspace.
+</I>&gt;<i>
+</I>&gt;<i> First I wonder if you're hitting the right keys.  The script's
+</I>&gt;<i> default binding has a bracketleft between the K and the L. 
+</I>
+Yes, you are right. I'm hitting just Mod1+K L, but if I hitting
+bracketleft between K and the L, then I can't hitting L anymore
+because I'm coming out of the 'keybindings'. 
+
+Say I want to move xterm from tiled workspace to an empty WS, so I'm
+hitting Mod1+K bracketleft and here I'm again in the xterm window,
+with blinking cursor; now I'm hitting L and that L appeare in the
+xterm window as 'l'.
+
+But, if I'm hitting Mod1+K F F then xterm window are sended to a new,
+just created WGroupWS. 
+
+&gt;<i> If that doesn't solve the problem, tell me more about your layout.
+</I>
+The layout of my keyboard is Hungarian: qwertz. To get bracketleft I
+must to hit Mod5+B.
+
+In cfg_ion.lua I changed META=&quot;Mod1+&quot; to META=&quot;Mod3+&quot;.
+
+With Xmodmap I changed Control_R to Mod3. I swapped Alt_L and Control_L,
+Alt_Gr and Menu. Windows_L (Super_L) and Windows_R (Super_R) are Mod5.
+
+&gt;&gt;<i> I can't move client window that was tagged with Mod1+T in tiled
+</I>&gt;&gt;<i> workspace and then with Mod1+K A on an empty (not tiled) workspace
+</I>&gt;&gt;<i> too.
+</I>&gt;<i>
+</I>&gt;<i> cfg_ioncore.lua defines Mod1+K A for frames but not for untiled
+</I>&gt;<i> workspaces (WGroupWS), though it looks like the same function
+</I>&gt;<i> ioncore.tagged_attach does work for WGroupWS.  &quot;Attach tagged&quot; is in
+</I>&gt;<i> the context menu for WGroupWS, too, so try right clicking on the
+</I>&gt;<i> empty workspace. 
+</I>
+If I'm right clicking on the empty WS then I get the following menu:
+
+Run...
+Terminal
+Lock screen
+Help
+About Ion
+Styles -&gt;
+Debian -&gt;
+Session -&gt;
+
+Strange thing happen. I try to open Firefox and get empty black frame
+without Firefox window, but if I Close this frame, I get the Firefox
+message about closing all tabs.
+
+I reinstall the ion3_20080707-3_i386.deb package, and now Firefox
+appeares as it should to appeares.
+
+-- 
+Regards, Paul Csanyi
+<A HREF="http://www.freewebs.com/csanyi-pal/index.htm">http://www.freewebs.com/csanyi-pal/index.htm</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001318.html">Moving windows to an empty Workspace from Tiled Workspace
+</A></li>
+	<LI>Next message: <A HREF="001320.html">Moving windows to an empty Workspace from Tiled	Workspace
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1319">[ date ]</a>
+              <a href="thread.html#1319">[ thread ]</a>
+              <a href="subject.html#1319">[ subject ]</a>
+              <a href="author.html#1319">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

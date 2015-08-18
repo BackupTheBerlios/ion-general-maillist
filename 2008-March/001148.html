@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> FreeBSD 7 &amp; ion3 (man page can't view)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20FreeBSD%207%20%26%20ion3%20%28man%20page%20can%27t%20view%29&In-Reply-To=%3C26056dfc0803060207o642600abj6979a918a9beab2d%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001147.html">
+   <LINK REL="Next"  HREF="001149.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>FreeBSD 7 &amp; ion3 (man page can't view)</H1>
+    <B>Alex</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20FreeBSD%207%20%26%20ion3%20%28man%20page%20can%27t%20view%29&In-Reply-To=%3C26056dfc0803060207o642600abj6979a918a9beab2d%40mail.gmail.com%3E"
+       TITLE="FreeBSD 7 &amp; ion3 (man page can't view)">alaborie at gmail.com
+       </A><BR>
+    <I>Thu Mar  6 11:07:21 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001147.html">Option clash for package hyperref--okay again
+</A></li>
+        <LI>Next message: <A HREF="001149.html">FreeBSD 7 &amp; ion3 (man page can't view)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1148">[ date ]</a>
+              <a href="thread.html#1148">[ thread ]</a>
+              <a href="subject.html#1148">[ subject ]</a>
+              <a href="author.html#1148">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I have install ion3 on my freeBSD 7, I only needed to tweak system.mk like
+this:
+* Comment for dl library
+#DL_LIBS=-ldl
+* Uncomment this line
+DEFINES += -DCF_NO_LOCALE -DCF_NO_GETTEXT
+* And set value for the LUA.
+
+So, compilation work perfecly and ion3 use work fine. But I can't access to
+the ion3 man page (No manual entry for ion3). But when I search ion3 man
+page on my disk, I found that:
+/usr/local/share/man/man1/ion3.1
+/usr/local/share/man/fi/man1/ion3.1
+/usr/local/share/man/cs/man1/ion3.1
+
+Someone know why I can't view ion3 man page ? Maybe there are no link
+between man page system and ion3 man page. In fact, I really don't know how
+work the man page system...
+
+Thanks for your future help...
+
+Alex
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20080306/228214bf/attachment.html">https://lists.berlios.de/pipermail/ion-general/attachments/20080306/228214bf/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001147.html">Option clash for package hyperref--okay again
+</A></li>
+	<LI>Next message: <A HREF="001149.html">FreeBSD 7 &amp; ion3 (man page can't view)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1148">[ date ]</a>
+              <a href="thread.html#1148">[ thread ]</a>
+              <a href="subject.html#1148">[ subject ]</a>
+              <a href="author.html#1148">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

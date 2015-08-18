@@ -1,0 +1,245 @@
+From pr-ion3 at optivo.de  Tue Aug 19 04:55:28 2008
+From: pr-ion3 at optivo.de (Peter Romianowski)
+Date: Tue, 19 Aug 2008 04:55:28 +0200
+Subject: Preventing windows from grabbing the focus
+Message-ID: <20080819045528.638da3a2@pero-macbookpro>
+
+Hi,
+
+I am working with a java application (IntelliJ IDEA - a java IDE) that
+requests the focus after each and every operation. So if I for example
+start to compile my project within that IDE, switch to firefox on the
+other frame then the focus gets stolen bei IntelliJ IDEA as soon as
+compilation completes. 
+
+This is absolutely annoying and has been reported as bug for both the
+IDE (http://www.jetbrains.net/jira/browse/IDEABKL-3849) and in a
+slightly different context for Java itself.
+(http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=5094112).
+
+It would be great if I could just disable the focus request. Is this
+possible? I already searched the web, the documentation and the
+newsgroups for hours and hours but could not find a hint.
+
+Regards
+
+Peter
+
+(As a side note: When the app steals the focus it does not fully
+"activate" the frame. If the other frame is floating above the frame
+the app is running in then the app is still beneath that other frame.)
+
+
+From tuomov at iki.fi  Tue Aug 19 07:55:51 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 19 Aug 2008 05:55:51 +0000 (UTC)
+Subject: Preventing windows from grabbing the focus
+References: <20080819045528.638da3a2@pero-macbookpro>
+Message-ID: <slrngako37.bmj.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-08-19, Peter Romianowski <pr-ion3 at optivo.de> wrote:
+> It would be great if I could just disable the focus request. Is this
+> possible? I already searched the web, the documentation and the
+> newsgroups for hours and hours but could not find a hint.
+
+Unfortunately, focus change is not a "request", unlike geometry change.
+Geometry changes get forwarded for the WM to act upon, and according
+to the ICCCM, it can do as it pleases, and the app must not fight
+back. (Many do, these days!) Focus change messages are acted upon by
+the server, and are honoured when they can be (i.e. the window is 
+visible, no active grabs, and so). AFAIK ICCCM does not discuss 
+whether the WM is allowed to overrule such changes by switching
+focus back.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue Aug 19 12:36:38 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 19 Aug 2008 10:36:38 +0000 (UTC)
+Subject: Preventing windows from grabbing the focus
+References: <20080819045528.638da3a2@pero-macbookpro>
+	<slrngako37.bmj.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrngal8hm.763.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-08-19, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> Unfortunately, focus change is not a "request", unlike geometry change.
+> Geometry changes get forwarded for the WM to act upon, and according
+> to the ICCCM, it can do as it pleases, and the app must not fight
+> back. (Many do, these days!) Focus change messages are acted upon by
+> the server, and are honoured when they can be (i.e. the window is 
+> visible, no active grabs, and so). AFAIK ICCCM does not discuss 
+> whether the WM is allowed to overrule such changes by switching
+> focus back.
+
+PS. A more proper way for apps to actually _request_ the WM to
+give focus, instead of forcing it, is the NET_WM_ACTIVE_WINDOW 
+protocol. Ion ignores it by default, although it can be activated
+with winprops.
+
+-- 
+Tuomo
+
+
+
+From pr-ion3 at optivo.de  Wed Aug 20 12:42:52 2008
+From: pr-ion3 at optivo.de (Peter Romianowski)
+Date: Wed, 20 Aug 2008 12:42:52 +0200
+Subject: Preventing windows from grabbing the focus
+In-Reply-To: <slrngako37.bmj.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20080819045528.638da3a2@pero-macbookpro>
+	<slrngako37.bmj.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080820124252.1f1f8490@pero-macbookpro>
+
+Tuomo,
+
+thanks for your answer even though this is very sad news :(
+
+Focus changes are the most annoying thing to do and I don't
+understand why software developers do that...
+
+Anyway...
+
+Regards
+
+Peter
+
+On Tue, 19 Aug 2008 05:55:51 +0000 (UTC)
+Tuomo Valkonen <tuomov at iki.fi> wrote:
+
+> On 2008-08-19, Peter Romianowski <pr-ion3 at optivo.de> wrote:
+> > It would be great if I could just disable the focus request. Is this
+> > possible? I already searched the web, the documentation and the
+> > newsgroups for hours and hours but could not find a hint.
+> 
+> Unfortunately, focus change is not a "request", unlike geometry
+> change. Geometry changes get forwarded for the WM to act upon, and
+> according to the ICCCM, it can do as it pleases, and the app must not
+> fight back. (Many do, these days!) Focus change messages are acted
+> upon by the server, and are honoured when they can be (i.e. the
+> window is visible, no active grabs, and so). AFAIK ICCCM does not
+> discuss whether the WM is allowed to overrule such changes by
+> switching focus back.
+> 
+
+
+From tuomov at iki.fi  Mon Aug 25 18:10:30 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 25 Aug 2008 16:10:30 +0000 (UTC)
+Subject: ion-3-20080825
+Message-ID: <slrngb5mbm.uk8.tuomov@jolt.modeemi.cs.tut.fi>
+
+
+This release again fixes some issues found with the previous one.
+
+
+-- 
+Tuomo
+
+
+
+From ion at zum-news-lesen.genoetigt.de  Mon Aug 25 19:20:13 2008
+From: ion at zum-news-lesen.genoetigt.de (Tobias Hommel)
+Date: Mon, 25 Aug 2008 19:20:13 +0200
+Subject: ion3-20080825 gentoo ebuild
+Message-ID: <20080825172013.GA23204@shell>
+
+I've made a gentoo ebuild for the new ion3 version. it's based on the old one
+from http://overlays.gentoo.org/svn/dev/mabi/
+
+
+-- 
+"Machen Sie sich erst einmal unbeliebt, dann werden Sie auch ernst genommen." - Konrad Adenauer
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080825/643d409f/attachment.pgp>
+
+From ion at zum-news-lesen.genoetigt.de  Mon Aug 25 19:36:42 2008
+From: ion at zum-news-lesen.genoetigt.de (Tobias Hommel)
+Date: Mon, 25 Aug 2008 19:36:42 +0200
+Subject: ion3-20080825 gentoo ebuild
+In-Reply-To: <20080825172013.GA23204@shell>
+References: <20080825172013.GA23204@shell>
+Message-ID: <20080825173642.GA23368@shell>
+
+On Mon, Aug 25, 2008 at 07:20:13PM +0200, Tobias Hommel wrote:
+> I've made a gentoo ebuild for the new ion3 version. it's based on the old one
+> from http://overlays.gentoo.org/svn/dev/mabi/
+> 
+hm, i should go get some sleep. ;) here's the url for the subversion repository:
+https://svn.keksbude.net/repos/keks-overlay/x11-wm/ion3/
+
+
+-- 
+"Unix is user-friendly. It's just very selective about who its friends are."
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080825/10949e81/attachment.pgp>
+
+From lanek at novenine.com  Thu Aug 28 05:53:15 2008
+From: lanek at novenine.com (Roy Lanek)
+Date: Thu, 28 Aug 2008 10:53:15 +0700
+Subject: ion-doc-3-20080825
+Message-ID: <20080828035315.GA30703@sirih>
+
+ion-doc-3-20080825:
+
+make all
+
+...
+
+it finishes but with many instances of
+
+    Substitution of arg to newlabelxx delayed.
+
+    Unknown commands: bullet voidb_at_x else docode urlstyle unhbox
+    fi phantomsection ifpdf lstinline
+
+among other complaints.
+
+(I am using the last rubber from darcs; and I know, Ion's doc is included a
+forfait anyway.)
+
+/Roy
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   kalau tak ingin terlimbur pasang,
+SSSSS . s l a c k w a r e  SSSSSS   jangan berumah di tepi laut
+SSSSS +------------ linux  SSSSSS   if you don't want to get flooded,
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   don't build a house next to the sea
+
+
+From tuomov at iki.fi  Thu Aug 28 08:52:38 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 28 Aug 2008 06:52:38 +0000 (UTC)
+Subject: ion-doc-3-20080825
+References: <20080828035315.GA30703@sirih>
+Message-ID: <slrngbcipm.77o.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-08-28, Roy Lanek <lanek at novenine.com> wrote:
+> it finishes but with many instances of
+>
+>     Substitution of arg to newlabelxx delayed.
+>
+>     Unknown commands: bullet voidb_at_x else docode urlstyle unhbox
+>     fi phantomsection ifpdf lstinline
+
+Search for newlabelxx suggests that latex2html is complaining.
+(What can you expect from a HTML converter? TeX is shit being
+a programming language. But there still isn't anything better
+around.)
+
+-- 
+Tuomo
+
+
+

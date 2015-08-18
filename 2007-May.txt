@@ -1,0 +1,4221 @@
+From lists at ku-gbr.de  Wed May  2 12:49:34 2007
+From: lists at ku-gbr.de (Konstantin Kletschke)
+Date: Wed, 2 May 2007 12:49:34 +0200
+Subject: kinda newbie, nestet WS and emulating sticky
+Message-ID: <20070502104934.GA5146@anita.doom>
+
+Hi Folks!
+
+After a long time of absence to ion3 I am back starting to use it again. 
+
+I have two questions about some stuff I was playing around with in older
+ion3 versions. Now I am not able two integrate nest_ws.lua into my
+environment, ist it somehow deprecated actually? IIRC this gave me to
+features I used:
+
+I could attach a float ws into a frame in a tiled workspace, I got this
+by tagging a workspace and attaching it into a frame, is there a way to
+attach a new one? On the opposite I could attach a tiled WS to a frame.
+If I attach a tagged tiled workspace the frame is put onto a tiled ws in
+floating layer. Can this be done otherwise, like the opposite of the
+above?
+
+I was used to have some frames, mplayer video window, embedded into a
+floting frame which was present on all worksapces, emulating sticky
+mode. Can this still be done?
+
+Kind Regards, Konsti
+
+-- 
+GPG KeyID EF62FCEF
+Fingerprint: 13C9 B16B 9844 EC15 CC2E  A080 1E69 3FDA EF62 FCEF
+
+
+From EvgenyKurbatov at yandex.ru  Wed May  2 13:11:06 2007
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Wed, 02 May 2007 15:11:06 +0400
+Subject: To beat the ugly
+Message-ID: <463871CA.9060307@yandex.ru>
+
+Hello!
+
+The Iceape 1.0.8 (from Debian 4.0 Etch) has a strange dialog "Save As" 
+which tryes to change it's window size.  For some reasons Ion3 don't 
+want to allow the window's size to change so that dialog remains 
+shrinked and unusable.  The ugly method is to make it fullscreen but its 
+not beauty...
+
+Other trouble is in XTerm or Midnight Commander.  From time to time (I 
+couldn't find any correlation with something) the MC runned in XTerm 
+just created gives 80x40 layout and all the console apps thinks the 
+XTerm has this layout.  BTW I said "XTerm*geometry: 80x40" in 
+~/.Xresources.  Can it be the reason?
+
+Thanks for cool frame manager! :)
+
+Best regards,
+Evgeny
+
+
+From tuomov at iki.fi  Wed May  2 14:12:39 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 2 May 2007 12:12:39 +0000 (UTC)
+Subject: To beat the ugly
+References: <463871CA.9060307@yandex.ru>
+Message-ID: <slrnf3h01n.nf7.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-02, Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+> The Iceape 1.0.8 (from Debian 4.0 Etch) has a strange dialog "Save As" 
+> which tryes to change it's window size.  For some reasons Ion3 don't 
+> want to allow the window's size to change so that dialog remains 
+> shrinked and unusable.  The ugly method is to make it fullscreen but its 
+> not beauty...
+
+There's a typo/copy-paste error in the latest release, which causes
+size requests to be ignored..
+
+> Other trouble is in XTerm or Midnight Commander.  From time to time (I 
+> couldn't find any correlation with something) the MC runned in XTerm 
+> just created gives 80x40 layout and all the console apps thinks the 
+> XTerm has this layout.  BTW I said "XTerm*geometry: 80x40" in 
+> ~/.Xresources.  Can it be the reason?
+
+rtffaq.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Wed May  2 14:18:02 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 2 May 2007 12:18:02 +0000 (UTC)
+Subject: kinda newbie, nestet WS and emulating sticky
+References: <20070502104934.GA5146@anita.doom>
+Message-ID: <slrnf3h0bq.nf7.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-02, Konstantin Kletschke <lists at ku-gbr.de> wrote:
+> I was used to have some frames, mplayer video window, embedded into a
+> floting frame which was present on all worksapces, emulating sticky
+> mode. Can this still be done?
+
+Yes. You'll have to attach a floating frame directly to the screen
+in unnumbered mode, and with suitable size policy. See the scratchpad
+module for an example. It's doable from the Lua side too. Also
+there's Mod1+K D to detach windows, but it won't make them sticky,
+and I can't be arsed to write official sticky support. It should
+be possible to write a script that turns frames sticky , by attaching
+them directly to the screen as explained above. When they're not sticky,
+they're attached to the tiling's group. When a frame is attached
+directly to the screen, it can be toggled on and off independently.
+It's transients will also be toggled on and off independently. It is
+also possible to attach frames to unnumbered groups, so that the
+whole group can be toggled on/off. I've changed the scratchpad to
+do this, actually.
+
+
+-- 
+Tuomo
+
+
+
+From lists at ku-gbr.de  Wed May  2 16:49:11 2007
+From: lists at ku-gbr.de (Konstantin Kletschke)
+Date: Wed, 2 May 2007 16:49:11 +0200
+Subject: ion3 segfault
+Message-ID: <20070502144910.GB9488@z1.synertronixx>
+
+Well, I experienced an ion3 segfault is this the right place to post
+kind of those to, may be, improve code quality?
+
+konsti at z1:~$ gdb `which ion3` core.ion3
+GNU gdb 6.6-debian
+Copyright (C) 2006 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu"...
+Using host libthread_db library "/lib/libthread_db.so.1".
+Reading symbols from /usr/lib/libX11.so.6...done.
+Loaded symbols for /usr/lib/libX11.so.6
+Reading symbols from /usr/lib/libXext.so.6...done.
+Loaded symbols for /usr/lib/libXext.so.6
+Reading symbols from /usr/lib/liblua5.1.so.0...done.
+Loaded symbols for /usr/lib/liblua5.1.so.0
+Reading symbols from /lib/libdl.so.2...done.
+Loaded symbols for /lib/libdl.so.2
+Reading symbols from /lib/libm.so.6...done.
+Loaded symbols for /lib/libm.so.6
+Reading symbols from /lib/libc.so.6...done.
+Loaded symbols for /lib/libc.so.6
+Reading symbols from /usr/lib/libXau.so.6...done.
+Loaded symbols for /usr/lib/libXau.so.6
+Reading symbols from /usr/lib/libXdmcp.so.6...done.
+Loaded symbols for /usr/lib/libXdmcp.so.6
+Reading symbols from /lib/ld-linux-x86-64.so.2...done.
+Loaded symbols for /lib64/ld-linux-x86-64.so.2
+Reading symbols from /usr/lib/libXcursor.so.1...done.
+Loaded symbols for /usr/lib/libXcursor.so.1
+Reading symbols from /usr/lib/libXrender.so.1...done.
+Loaded symbols for /usr/lib/libXrender.so.1
+Reading symbols from /usr/lib/libXfixes.so.3...done.
+Loaded symbols for /usr/lib/libXfixes.so.3
+Reading symbols from /usr/lib/ion3/de.so...done.
+Loaded symbols for /usr/lib/ion3/de.so
+Reading symbols from /usr/lib/ion3/mod_query.so...done.
+Loaded symbols for /usr/lib/ion3/mod_query.so
+Reading symbols from /usr/lib/ion3/mod_menu.so...done.
+Loaded symbols for /usr/lib/ion3/mod_menu.so
+Reading symbols from /usr/lib/ion3/mod_tiling.so...done.
+Loaded symbols for /usr/lib/ion3/mod_tiling.so
+Reading symbols from /usr/lib/ion3/mod_statusbar.so...done.
+Loaded symbols for /usr/lib/ion3/mod_statusbar.so
+Reading symbols from /usr/lib/ion3/mod_sp.so...done.
+Loaded symbols for /usr/lib/ion3/mod_sp.so
+Core was generated by `ion3'.
+Program terminated with signal 11, Segmentation fault.
+#0  0x00002b35777a4409 in kill () from /lib/libc.so.6
+(gdb) where
+#0  0x00002b35777a4409 in kill () from /lib/libc.so.6
+#1  <signal handler called>
+#2  watch_setup (watch=0x552b58, obj=0x6e697274735b2031, handler=0x41fb5a <grab_watch_handler>) at obj.c:225
+#3  0x000000000041f87e in do_grab_install (grab=0x552b40) at grab.c:99
+#4  0x00000000004174ac in do_key (reg=<value optimized out>, ev=0x7fff33b164b0) at key.c:116
+#5  0x00000000004175f3 in ioncore_do_handle_keypress (ev=0x7fff33b164b0) at key.c:286
+#6  0x000000000041e438 in ioncore_handle_event (ev=0x552b58) at eventh.c:81
+#7  0x00000000004321bb in hook_call_alt (hk=<value optimized out>, p=0x7fff33b164b0,
+    m=0x432136 <marshall_alt_p>, em=0) at hooks.c:374
+#8  0x0000000000415ea6 in ioncore_x_connection_handler (conn=<value optimized out>,
+    unused=<value optimized out>) at event.c:214
+#9  0x0000000000415fa6 in ioncore_mainloop () at event.c:248
+#10 0x0000000000414731 in main (argc=<value optimized out>, argv=<value optimized out>) at ion.c:270
+(gdb)
+
+This is ion3 20070318-2 debian package.
+
+Regards, Konsti
+
+-- 
+GPG KeyID EF62FCEF
+Fingerprint: 13C9 B16B 9844 EC15 CC2E  A080 1E69 3FDA EF62 FCEF
+
+
+From lists at ku-gbr.de  Wed May  2 17:14:29 2007
+From: lists at ku-gbr.de (Konstantin Kletschke)
+Date: Wed, 2 May 2007 17:14:29 +0200
+Subject: ion3 segfault
+In-Reply-To: <20070502144910.GB9488@z1.synertronixx>
+References: <20070502144910.GB9488@z1.synertronixx>
+Message-ID: <20070502151429.GA12775@z1.synertronixx>
+
+Am 2007-05-02 16:49 +0200 schrieb Konstantin Kletschke:
+> Well, I experienced an ion3 segfault is this the right place to post
+
+Oops, easy to reproduce here. I simply need to press META+Return to
+fullscreen a Frame on a FloatWS...
+
+-- 
+GPG KeyID EF62FCEF
+Fingerprint: 13C9 B16B 9844 EC15 CC2E  A080 1E69 3FDA EF62 FCEF
+
+
+From lists at ku-gbr.de  Wed May  2 20:18:11 2007
+From: lists at ku-gbr.de (Konstantin Kletschke)
+Date: Wed, 2 May 2007 20:18:11 +0200
+Subject: ion3 segfault
+In-Reply-To: <20070502151429.GA12775@z1.synertronixx>
+References: <20070502144910.GB9488@z1.synertronixx>
+	<20070502151429.GA12775@z1.synertronixx>
+Message-ID: <20070502181811.GA6121@anita.doom>
+
+Am 2007-05-02 17:14 +0200 schrieb Konstantin Kletschke:
+
+> Oops, easy to reproduce here. I simply need to press META+Return to
+> fullscreen a Frame on a FloatWS...
+
+Well I uninstalled the debian package and compiled an ion3 by myself
+with clean Makefiles and the configure step explained in the sources
+regarding debian's lua lib.
+
+This binary works fine :-)
+
+Konsti
+
+-- 
+GPG KeyID EF62FCEF
+Fingerprint: 13C9 B16B 9844 EC15 CC2E  A080 1E69 3FDA EF62 FCEF
+
+
+From oksijun at nerim.net  Wed May  2 22:05:01 2007
+From: oksijun at nerim.net (Michael Gwin)
+Date: Wed, 2 May 2007 22:05:01 +0200
+Subject: dock and transients
+Message-ID: <20070502220501.185d3a01@chomsky.adrena.lan>
+
+I just upgraded to the latest darcs snapshot. Transient windows aren't
+resizing properly (e.g. the firefox 'save as' dialog). A recent post
+mentioned a "typo/copy-paste error in the latest release" which affects
+this - is that relevant to the darcs code too?
+
+For quite a while now, I've been using "docker" in a floating dock in
+order to swallow a few icons/systray stuff. Since the upgrade, they
+aren't showing up anymore. I haven't upgraded docker or any of the apps
+that display an icon. Has something changed in ion?
+
+Thanks, Mike
+
+
+From ben at decadent.org.uk  Thu May  3 10:54:29 2007
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Thu, 03 May 2007 09:54:29 +0100
+Subject: dock and transients
+In-Reply-To: <20070502220501.185d3a01@chomsky.adrena.lan>
+References: <20070502220501.185d3a01@chomsky.adrena.lan>
+Message-ID: <1178182469.3654.29.camel@deadeye.i.decadent.org.uk>
+
+On Wed, 2007-05-02 at 22:05 +0200, Michael Gwin wrote:
+> I just upgraded to the latest darcs snapshot. Transient windows aren't
+> resizing properly (e.g. the firefox 'save as' dialog). A recent post
+> mentioned a "typo/copy-paste error in the latest release" which affects
+> this - is that relevant to the darcs code too?
+> 
+> For quite a while now, I've been using "docker" in a floating dock in
+> order to swallow a few icons/systray stuff. Since the upgrade, they
+> aren't showing up anymore. I haven't upgraded docker or any of the apps
+> that display an icon. Has something changed in ion?
+
+You need to apply this patch from darcs:
+
+Mon Mar 19 18:37:26 GMT 2007  Tuomo Valkonen <tuomov at iki.fi>
+  * Oops, return in wrong place in fs rq check was breaking other cfgrqs
+
+Ben.
+
+-- 
+Ben Hutchings
+Never put off till tomorrow what you can avoid all together.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070503/0d8d5fed/attachment.pgp>
+
+From oksijun at nerim.net  Thu May  3 15:58:03 2007
+From: oksijun at nerim.net (Michael Gwin)
+Date: Thu, 03 May 2007 15:58:03 +0200
+Subject: dock and transients
+In-Reply-To: <1178182469.3654.29.camel@deadeye.i.decadent.org.uk>
+References: <20070502220501.185d3a01@chomsky.adrena.lan>
+	<1178182469.3654.29.camel@deadeye.i.decadent.org.uk>
+Message-ID: <20070503135803.3957.qmail@maelstrom.unetix.nl>
+
+Ben Hutchings writes: 
+
+> You need to apply this patch from darcs: 
+> 
+> Mon Mar 19 18:37:26 GMT 2007  Tuomo Valkonen <tuomov at iki.fi>
+>   * Oops, return in wrong place in fs rq check was breaking other cfgrqs
+
+Right. I thought I'd have that though, having done the darcs pull yesterday. 
+However, looking at the log at 
+http://modeemi.fi/~tuomov/repos/_log/ion-3.html.gz, it seems like there 
+haven't been any changes since 2007-03-18. Am I missing something here?
+Also, not being very knowledgeable w/ respect to darcs, I'm simply doing 
+"darcs get --partial http://modeemi.fi/~tuomov/repos/ion-3" - is that enough 
+to get the latest and greatest? 
+
+Thanks, Mike
+
+
+From ben at decadent.org.uk  Thu May  3 21:23:07 2007
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Thu, 03 May 2007 20:23:07 +0100
+Subject: To beat the ugly
+In-Reply-To: <slrnf3h01n.nf7.tuomov@jolt.modeemi.cs.tut.fi>
+References: <463871CA.9060307@yandex.ru>
+	<slrnf3h01n.nf7.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <1178220187.3654.31.camel@deadeye.i.decadent.org.uk>
+
+On Wed, 2007-05-02 at 12:12 +0000, Tuomo Valkonen wrote:
+> On 2007-05-02, Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+> > The Iceape 1.0.8 (from Debian 4.0 Etch) has a strange dialog "Save As" 
+> > which tryes to change it's window size.  For some reasons Ion3 don't 
+> > want to allow the window's size to change so that dialog remains 
+> > shrinked and unusable.  The ugly method is to make it fullscreen but its 
+> > not beauty...
+> 
+> There's a typo/copy-paste error in the latest release, which causes
+> size requests to be ignored..
+<snip>
+
+Do you mean the error in handling size request changes, or another bug?
+I applied your fix for that to the Debian package.
+
+Ben.
+
+-- 
+Ben Hutchings
+Never put off till tomorrow what you can avoid all together.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070503/cbbcf875/attachment.pgp>
+
+From ben at decadent.org.uk  Thu May  3 21:41:04 2007
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Thu, 03 May 2007 20:41:04 +0100
+Subject: dock and transients
+In-Reply-To: <20070503135803.3957.qmail@maelstrom.unetix.nl>
+References: <20070502220501.185d3a01@chomsky.adrena.lan>
+	<1178182469.3654.29.camel@deadeye.i.decadent.org.uk>
+	<20070503135803.3957.qmail@maelstrom.unetix.nl>
+Message-ID: <1178221264.3654.39.camel@deadeye.i.decadent.org.uk>
+
+On Thu, 2007-05-03 at 15:58 +0200, Michael Gwin wrote:
+> Ben Hutchings writes: 
+> 
+> > You need to apply this patch from darcs: 
+> > 
+> > Mon Mar 19 18:37:26 GMT 2007  Tuomo Valkonen <tuomov at iki.fi>
+> >   * Oops, return in wrong place in fs rq check was breaking other cfgrqs
+> 
+> Right. I thought I'd have that though, having done the darcs pull yesterday.
+
+Sorry, I thought by snapshot you meant the last tagged and tarred
+version.  Looking at the download web page, I see the word is used also
+for the latest repository version, which is confusing.
+
+> However, looking at the log at 
+> http://modeemi.fi/~tuomov/repos/_log/ion-3.html.gz, it seems like there 
+> haven't been any changes since 2007-03-18.
+
+There certainly were some, but I don't see them any more.
+
+> Am I missing something here?
+> Also, not being very knowledgeable w/ respect to darcs, I'm simply doing 
+> "darcs get --partial http://modeemi.fi/~tuomov/repos/ion-3" - is that enough 
+> to get the latest and greatest? 
+
+I believe it should be.
+
+Ben.
+
+-- 
+Ben Hutchings
+Never put off till tomorrow what you can avoid all together.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070503/011eec91/attachment.pgp>
+
+From oksijun at nerim.net  Fri May  4 10:19:19 2007
+From: oksijun at nerim.net (Michael Gwin)
+Date: Fri, 04 May 2007 10:19:19 +0200
+Subject: dock and transients
+In-Reply-To: <1178221264.3654.39.camel@deadeye.i.decadent.org.uk>
+References: <20070502220501.185d3a01@chomsky.adrena.lan>
+	<1178182469.3654.29.camel@deadeye.i.decadent.org.uk>
+	<20070503135803.3957.qmail@maelstrom.unetix.nl>
+	<1178221264.3654.39.camel@deadeye.i.decadent.org.uk>
+Message-ID: <20070504081919.16945.qmail@maelstrom.unetix.nl>
+
+Ben Hutchings writes: 
+
+>> However, looking at the log at 
+>> http://modeemi.fi/~tuomov/repos/_log/ion-3.html.gz, it seems like there 
+>> haven't been any changes since 2007-03-18.
+> 
+> There certainly were some, but I don't see them any more.
+
+Tuomo, is there a problem with the repository, or another way to get the 
+latest code? 
+
+Mike
+
+
+From intrigeri at boum.org  Sun May  6 04:59:07 2007
+From: intrigeri at boum.org (intrigeri)
+Date: Sun, 06 May 2007 04:59:07 +0200
+Subject: Scratchpad vs. access focus history
+Message-ID: <85ejlu64jo.fsf@boum.org>
+
+Hello,
+
+I just started using Ion3 (20070318), and playing with LUA to make it
+suit my needs. Yes, I've read the "Reporting bugs" FAQ and was able to
+reach #6 :)
+
+There's one thing that annoys me : the ioncore.goto_previous function
+does not ignore scratchpads, and this is what happens :
+  - I toggle a scratchpad display on, then off
+  - I run ioncore.goto_previous() a first time : this toggles this
+    scratchpad display on
+  - I run ioncore.goto_previous() a second time : nothing happens
+
+(NB : I'm using the named_scratchpad contrib. Anyway, what I'm
+describing above happens with the standard *scratchpad* as well as
+with my own named scratchpads.)
+
+Is this the intended behavior ?
+
+If yes, I want to write in LUA a function that would act just as
+ioncore_goto_previous, but would ignore the scratchpads from the focus
+history list. But I could not find how to access it in LUA. Is it made
+public to LUA ? Or is there a way to access a WRegion's active_next ?
+Or am I bound to do it in C ? I've seen the wcirculate contrib seems
+to manage its own focus history list, using the appropriate hooks, so
+I guess there is no other way, but I hope I'm wrong...
+
+Ciao,
+-- 
+  intrigeri <intrigeri at boum.org>
+  | gnupg key @ http://intrigeri.boum.org/intrigeri.asc
+  | Then we'll come from the shadows.
+
+
+
+From tuomov at iki.fi  Sun May  6 16:59:22 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 6 May 2007 17:59:22 +0300
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+Message-ID: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+
+
+Also known as ion-3rc-20070506.
+
+This is the first "rc" or "(stable) release candidate" release of 
+Ion3. This means that there will not be any further major changes 
+to it. Bugs will be fixed, and as an exception to the general 
+feature freeze, some hooks may still be added, if deemed useful.
+Translations may also be included. After no new bugs (that can not
+be deemed features) have been found in this or following "rc" 
+releases, the stable Ion3 will be released.
+
+Most of the changes in this release to the previous one already
+are bug fixes, in addition to some general clean-up. Other notable
+changes are:
+
+  * Winprop matching improvements: it is possible to match against
+    `is_dockapp` and `is_transient` (booleans), and there's a hack
+    to support `class` and `instance` for dockapps too.
+
+  * The default configuration puts dockapps in the statusbar's
+    tray area.
+
+  * The autoconf kludge has been removed, as I will have nothing
+    to do with it, and nobody else seems to support or maintain 
+    it either.
+
+  * Tab numbers are displayed when releasing modifiers in the
+    `Mod1+K` submap.
+
+Distributors should pay heed to the name policy notice in the
+LICENSE file.
+
+-- 
+Tuomo
+
+
+From tuomov at iki.fi  Sun May  6 17:02:57 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 6 May 2007 15:02:57 +0000 (UTC)
+Subject: Scratchpad vs. access focus history
+References: <85ejlu64jo.fsf@boum.org>
+Message-ID: <slrnf3rrh1.o0s.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-06, intrigeri <intrigeri at boum.org> wrote:
+> There's one thing that annoys me : the ioncore.goto_previous function
+> does not ignore scratchpads, and this is what happens :
+
+The latest release makes scratchpads (or the scratchws) "pseudomodal".
+You must recreate it for this to take effect.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sun May  6 17:03:41 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 6 May 2007 15:03:41 +0000 (UTC)
+Subject: ion3 segfault
+References: <20070502144910.GB9488@z1.synertronixx>
+	<20070502151429.GA12775@z1.synertronixx>
+Message-ID: <slrnf3rrid.o0s.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-02, Konstantin Kletschke <lists at ku-gbr.de> wrote:
+> Oops, easy to reproduce here. I simply need to press META+Return to
+> fullscreen a Frame on a FloatWS...
+
+Should be fixed in the new RC.
+
+-- 
+Tuomo
+
+
+
+From csant at csant.info  Mon May  7 01:51:07 2007
+From: csant at csant.info (csant)
+Date: Mon, 07 May 2007 01:51:07 +0200
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+In-Reply-To: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+Message-ID: <op.trxi7hkvd84skq@fiore>
+
+> Also known as ion-3rc-20070506.
+There seem to be no darcs changes to pull, and also the online changelog  
+doesn't show the last changes.
+/c
+
+
+
+From tuomov at iki.fi  Mon May  7 08:08:46 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 7 May 2007 06:08:46 +0000 (UTC)
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+	<op.trxi7hkvd84skq@fiore>
+Message-ID: <slrnf3tgje.isp.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-06, csant <csant at csant.info> wrote:
+>> Also known as ion-3rc-20070506.
+> There seem to be no darcs changes to pull, and also the online changelog  
+> doesn't show the last changes.
+
+I'm not going to make it easy for all the forkers...
+
+-- 
+Tuomo
+
+
+
+From alexander.shishckin at gmail.com  Mon May  7 08:52:56 2007
+From: alexander.shishckin at gmail.com (Alexander Shishkin)
+Date: Mon, 7 May 2007 10:52:56 +0400
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+In-Reply-To: <slrnf3tgje.isp.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+	<op.trxi7hkvd84skq@fiore>
+	<slrnf3tgje.isp.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <71a0d6ff0705062352t2143db46rec8194f287cd4915@mail.gmail.com>
+
+On 5/7/07, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2007-05-06, csant <csant at csant.info> wrote:
+> >> Also known as ion-3rc-20070506.
+> > There seem to be no darcs changes to pull, and also the online changelog
+> > doesn't show the last changes.
+>
+> I'm not going to make it easy for all the forkers...
+Too much of a codebase to fork anyway. Better go with something lighter. :)
+
+-- 
+I like long walks, especially when they are taken by people who annoy me.
+
+
+From tuomov at iki.fi  Mon May  7 08:58:42 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 7 May 2007 09:58:42 +0300
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+In-Reply-To: <71a0d6ff0705062352t2143db46rec8194f287cd4915@mail.gmail.com>
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+	<op.trxi7hkvd84skq@fiore>
+	<slrnf3tgje.isp.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705062352t2143db46rec8194f287cd4915@mail.gmail.com>
+Message-ID: <20070507065842.GA23605@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-07 10:52 +0400, Alexander Shishkin wrote:
+> Too much of a codebase to fork anyway. Better go with something lighter. :)
+
+You mean something not worth the distributions carrying at all,
+because you need to modify the source to configure it?
+
+Hmm.. that might be a way to stop them corrupting your work.
+Too bad such is the extreme example of the "either you're one
+of us (developers), or an idiot user" movement that the all
+of Linux is turning into, and which is driving me away from it.
+
+-- 
+Tuomo
+
+
+From alexander.shishckin at gmail.com  Mon May  7 09:22:13 2007
+From: alexander.shishckin at gmail.com (Alexander Shishkin)
+Date: Mon, 7 May 2007 11:22:13 +0400
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+In-Reply-To: <20070507065842.GA23605@jolt.modeemi.cs.tut.fi>
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+	<op.trxi7hkvd84skq@fiore>
+	<slrnf3tgje.isp.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705062352t2143db46rec8194f287cd4915@mail.gmail.com>
+	<20070507065842.GA23605@jolt.modeemi.cs.tut.fi>
+Message-ID: <71a0d6ff0705070022k72fe2e77s5b6e016c83bcfa4e@mail.gmail.com>
+
+On 5/7/07, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2007-05-07 10:52 +0400, Alexander Shishkin wrote:
+> > Too much of a codebase to fork anyway. Better go with something lighter. :)
+>
+> You mean something not worth the distributions carrying at all,
+> because you need to modify the source to configure it?
+Oh, cut off the drama, it was you who ripped off 'autoconf shit' from
+the rc, wasn't it?
+
+> Hmm.. that might be a way to stop them corrupting your work.
+> Too bad such is the extreme example of the "either you're one
+> of us (developers), or an idiot user" movement that the all
+> of Linux is turning into, and which is driving me away from it.
+Again, unless I'm very mistaken (which is fairly unlikely) it was you
+who went along the lines of 'me vs {debian,gentoo,whatever} lusers'
+some month ago in 'Debian sucks' thread, or was it your special way of
+expressing irony towards this kind of attitude in linux?
+
+-- 
+I like long walks, especially when they are taken by people who annoy me.
+
+
+From tuomov at iki.fi  Mon May  7 09:33:32 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 7 May 2007 07:33:32 +0000 (UTC)
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+	<op.trxi7hkvd84skq@fiore>
+	<slrnf3tgje.isp.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705062352t2143db46rec8194f287cd4915@mail.gmail.com>
+	<20070507065842.GA23605@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070022k72fe2e77s5b6e016c83bcfa4e@mail.gmail.com>
+Message-ID: <slrnf3tlic.q0v.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-07, Alexander Shishkin <alexander.shishckin at gmail.com> wrote:
+> Oh, cut off the drama, it was you who ripped off 'autoconf shit' from
+> the rc, wasn't it?
+
+Autoconf is autopain, a solution waiting for a problem... creating a
+problem [1]. Clear and simple makefiles are _much_ easier to use.
+
+> Again, unless I'm very mistaken (which is fairly unlikely) it was you
+> who went along the lines of 'me vs {debian,gentoo,whatever} lusers'
+> some month ago in 'Debian sucks' thread, or was it your special way of
+> expressing irony towards this kind of attitude in linux?
+
+I never said there aren't lusers and idiot users. There are, a lot
+of them. More day by day, as Linux keeps becoming even sorrier 
+imitation of Windows, and the more of the herd finds it. It's just
+that there is -- or at least used to be -- a progression of users 
+of different levels between them and the developers. You could be 
+a luser wrt. one piece of software while being the developer of 
+another. The trend in FOSS is either-or: the annihilation of that
+progression. Ion does not even try to cater for the lusers, and
+the distributions doing whatever they will with it, and still 
+calling it Ion, makes it even harder to help them to become not
+lusers. Too much of essential FOSS core software, OTOH, these days
+only tries to cater for the developers of that software, and the 
+lusers.
+
+---
+
+  [1]: http://iki.fi/tuomov/b/archives/2006/07/04/T21_20_46/
+
+-- 
+Tuomo
+
+
+
+From csant at csant.info  Mon May  7 10:27:48 2007
+From: csant at csant.info (csant)
+Date: Mon, 07 May 2007 10:27:48 +0200
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+In-Reply-To: <slrnf3tgje.isp.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+	<op.trxi7hkvd84skq@fiore>
+	<slrnf3tgje.isp.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <op.trx64mard84skq@fiore>
+
+> I'm not going to make it easy for all the forkers...
+How sad...
+
+/c
+
+
+
+From tuomov at iki.fi  Mon May  7 10:43:17 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 7 May 2007 08:43:17 +0000 (UTC)
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+	<op.trxi7hkvd84skq@fiore>
+	<slrnf3tgje.isp.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.trx64mard84skq@fiore>
+Message-ID: <slrnf3tpl5.qk.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-07, csant <csant at csant.info> wrote:
+>> I'm not going to make it easy for all the forkers...
+> How sad...
+
+The state of FOSS is sad. The license ideology of the distributions
+(that works for the distributions and the FOSS herd against and using
+the author), is sad. Better say goodbye to the sinking ship.
+
+-- 
+Tuomo
+
+
+
+From alexander.shishckin at gmail.com  Mon May  7 10:50:45 2007
+From: alexander.shishckin at gmail.com (Alexander Shishkin)
+Date: Mon, 7 May 2007 12:50:45 +0400
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+In-Reply-To: <slrnf3tlic.q0v.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+	<op.trxi7hkvd84skq@fiore>
+	<slrnf3tgje.isp.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705062352t2143db46rec8194f287cd4915@mail.gmail.com>
+	<20070507065842.GA23605@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070022k72fe2e77s5b6e016c83bcfa4e@mail.gmail.com>
+	<slrnf3tlic.q0v.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <71a0d6ff0705070150l6f2ecd92wb1afbae4610a040a@mail.gmail.com>
+
+On 5/7/07, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2007-05-07, Alexander Shishkin <alexander.shishckin at gmail.com> wrote:
+> > Oh, cut off the drama, it was you who ripped off 'autoconf shit' from
+> > the rc, wasn't it?
+>
+> Autoconf is autopain, a solution waiting for a problem... creating a
+> problem [1]. Clear and simple makefiles are _much_ easier to use.
+Errm, isn't that the same as having to edit sources to configure a program?
+
+> > Again, unless I'm very mistaken (which is fairly unlikely) it was you
+> > who went along the lines of 'me vs {debian,gentoo,whatever} lusers'
+> > some month ago in 'Debian sucks' thread, or was it your special way of
+> > expressing irony towards this kind of attitude in linux?
+>
+> I never said there aren't lusers and idiot users. There are, a lot
+> of them. More day by day, as Linux keeps becoming even sorrier
+> imitation of Windows, and the more of the herd finds it. It's just
+It's about time we agree about what 'linux' stands for. If you prefer
+to regard any of those modern linux-desktop trends with the term
+'linux', I'd disagree.
+
+> that there is -- or at least used to be -- a progression of users
+> of different levels between them and the developers. You could be
+> a luser wrt. one piece of software while being the developer of
+> another. The trend in FOSS is either-or: the annihilation of that
+> progression.
+I may be missing something, but what makes you think so?
+
+> Ion does not even try to cater for the lusers, and
+> the distributions doing whatever they will with it, and still
+> calling it Ion, makes it even harder to help them to become not
+> lusers.
+My impression is that, these days there is much less stupid questions
+on this list than there were three years ago, which makes me think
+that users tend to become less of lusers, no?
+
+> Too much of essential FOSS core software, OTOH, these days
+> only tries to cater for the developers of that software, and the
+> lusers.
+Can you please be more specific on this point?
+
+-- 
+I like long walks, especially when they are taken by people who annoy me.
+
+
+From tuomov at iki.fi  Mon May  7 11:01:34 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 7 May 2007 09:01:34 +0000 (UTC)
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+	<op.trxi7hkvd84skq@fiore>
+	<slrnf3tgje.isp.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705062352t2143db46rec8194f287cd4915@mail.gmail.com>
+	<20070507065842.GA23605@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070022k72fe2e77s5b6e016c83bcfa4e@mail.gmail.com>
+	<slrnf3tlic.q0v.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070150l6f2ecd92wb1afbae4610a040a@mail.gmail.com>
+Message-ID: <slrnf3tqne.29c.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-07, Alexander Shishkin <alexander.shishckin at gmail.com> wrote:
+>> Autoconf is autopain, a solution waiting for a problem... creating a
+>> problem [1]. Clear and simple makefiles are _much_ easier to use.
+> Errm, isn't that the same as having to edit sources to configure a program?
+
+Having to fix autoconf scripts is the same as having to edit sources,
+and worse. Having to edit a well-designed Makefile is the same as having
+to edit a decent (non-XML) configuration file.
+
+> It's about time we agree about what 'linux' stands for. If you prefer
+> to regard any of those modern linux-desktop trends with the term
+> 'linux', I'd disagree.
+
+All the distros are the same shit. Some have more WIMPshit and some
+less. All have the same shitty core software designed for WIMPshit
+idiot users and the developers (incl. distributors) themselves.
+
+> I may be missing something, but what makes you think so?
+&
+> Can you please be more specific on this point?
+
+http://iki.fi/tuomov/b/archives/2007/04/01/T19_09_22/
+
+> My impression is that, these days there is much less stupid questions
+> on this list than there were three years ago, which makes me think
+> that users tend to become less of lusers, no?
+
+It's just all moved and more appeared on IRC... and private mail. 
+The mailing list demands subscription, you know. The lusers can't 
+be arsed to do that. I can't either. Yet the mailing list would
+be the most appropriate place for the questions... but the best 
+weapon against spam is subscription presently.
+
+-- 
+Tuomo
+
+
+
+From sylvain.abelard at gmail.com  Mon May  7 11:06:03 2007
+From: sylvain.abelard at gmail.com (=?ISO-8859-1?Q?Sylvain_Ab=E9lard?=)
+Date: Mon, 7 May 2007 11:06:03 +0200
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+In-Reply-To: <71a0d6ff0705070150l6f2ecd92wb1afbae4610a040a@mail.gmail.com>
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+	<op.trxi7hkvd84skq@fiore>
+	<slrnf3tgje.isp.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705062352t2143db46rec8194f287cd4915@mail.gmail.com>
+	<20070507065842.GA23605@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070022k72fe2e77s5b6e016c83bcfa4e@mail.gmail.com>
+	<slrnf3tlic.q0v.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070150l6f2ecd92wb1afbae4610a040a@mail.gmail.com>
+Message-ID: <9c6605e40705070206t613ee13ai9411ce0246e094a5@mail.gmail.com>
+
+> My impression is that, these days there is much less stupid questions
+> on this list than there were three years ago, which makes me think
+> that users tend to become less of lusers, no?
+
+I must diagree with this point. Luser questions on ion3's ML only
+means there are less lusers that use ion3 and bother to post stupid
+questions on the ML.
+
+I think a pure luser attitude is to be discouraged at the first
+difficulty, so they'd change to another WM before posting their lame
+questions. Most of them would not even try such a strange WM (or a
+using a non-"mainstream" OS) in the first place.
+
+But you're probably right if you meant "there are less *ion* lusers
+now than before".
+
+
+I don't know about the user/lusers ratio, though I am pretty sure it
+is getting lower and lower over time (foldoc:// september that never
+ended).
+
+I mostly develop in Ruby and Rails, and the apparent ease to develop
+in such a language gathers many, many, many would-be developers (aged
+14 to 18 most of the time) that does not have the slightest clue about
+what "Object Oriented" means, why MVC stands for, or even why is their
+commented code not working.
+
+Reading doc is so painful, when you feel anyone must give you the
+right answer and do the work for you.
+
+
+So yes, in my mind, lusers' number is growing.
+
+-- 
+Sylvain Abelard,
+Railer Rubyist. Epita MTI 2008.
+
+
+From tuomov at iki.fi  Mon May  7 11:22:28 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 7 May 2007 09:22:28 +0000 (UTC)
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+	<op.trxi7hkvd84skq@fiore>
+	<slrnf3tgje.isp.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705062352t2143db46rec8194f287cd4915@mail.gmail.com>
+	<20070507065842.GA23605@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070022k72fe2e77s5b6e016c83bcfa4e@mail.gmail.com>
+	<slrnf3tlic.q0v.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070150l6f2ecd92wb1afbae4610a040a@mail.gmail.com>
+	<9c6605e40705070206t613ee13ai9411ce0246e094a5@mail.gmail.com>
+Message-ID: <slrnf3truk.3n8.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-07, Sylvain Ab?lard <sylvain.abelard at gmail.com> wrote:
+> Reading doc is so painful, when you feel anyone must give you the
+> right answer and do the work for you.
+
+Reading documentation is painful, and shouldn't be necessary (beyond
+very general documentation) for basic configuration tasks (like 
+clear crisp fonts [1], device permissions and aliases, etc.). Reading 
+documentation should only be necessary for more advanced non-luser
+configuration. In Linux these days, the non-documentation reading 
+alternative is provided only through WIMPshit, if at all.
+
+Ion also isn't perfect in that respect, and I think going for
+full scripting support may have been a mistake in the end (but
+then again, maybe Ion wouldn't have a lot of the small nice features
+it has these days, without it), but I've tried to make the basic 
+options rather tolerable (just copy over cfg_ion.lua). See also [2].
+
+I want to be a mere (l)user wrt. software i don't particularly 
+care about! But I don't want to use WIMPshit; in that case I could
+just as well use Windows.
+
+The DOS era was the pinnacle of computing.
+
+  [1]: http://iki.fi/tuomov/b/archives/2006/03/17/T20_15_31/
+
+  [2]: http://iki.fi/tuomov/b/archives/2007/02/02/T18_49_51/
+
+-- 
+Tuomo
+
+
+
+From ben at decadent.org.uk  Mon May  7 15:54:43 2007
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Mon, 07 May 2007 14:54:43 +0100
+Subject: ion3 segfault
+In-Reply-To: <20070502144910.GB9488@z1.synertronixx>
+References: <20070502144910.GB9488@z1.synertronixx>
+Message-ID: <1178546083.3654.90.camel@deadeye.i.decadent.org.uk>
+
+[I thought I already sent this, but apparently it was left in my drafts
+folder.]
+
+On Wed, 2007-05-02 at 16:49 +0200, Konstantin Kletschke wrote:
+> Well, I experienced an ion3 segfault is this the right place to post
+> kind of those to, may be, improve code quality?
+<snip>
+
+Given that:
+
+> This is ion3 20070318-2 debian package.
+
+You should use reportbug.
+
+Ben.
+
+-- 
+Ben Hutchings
+Never put off till tomorrow what you can avoid all together.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070507/25656ba3/attachment.pgp>
+
+From tuomov at iki.fi  Mon May  7 16:18:54 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 7 May 2007 14:18:54 +0000 (UTC)
+Subject: ion3 segfault
+References: <20070502144910.GB9488@z1.synertronixx>
+	<1178546083.3654.90.camel@deadeye.i.decadent.org.uk>
+Message-ID: <slrnf3udae.v3r.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-07, Ben Hutchings <ben at decadent.org.uk> wrote:
+>> This is ion3 20070318-2 debian package.
+>
+> You should use reportbug.
+
+Debian will DIEEEE! MUAHAHAHAHAHHA.
+
+I noticed from your posting that Xen has also added trademark terms
+to their license. I wonder how long Debian can keep up with the trend,
+until they will have to change their policies to respect the authors
+a bit.
+
+Then again, FOSS will DIEEE! MUAHAHAHAHA. FOSS has become irrelevant,
+offering just the same shit as Windows all over again, and no real
+choice.
+
+-- 
+Tuomo
+
+
+
+From ben at decadent.org.uk  Mon May  7 16:25:08 2007
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Mon, 07 May 2007 15:25:08 +0100
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+In-Reply-To: <slrnf3tgje.isp.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+	<op.trxi7hkvd84skq@fiore>
+	<slrnf3tgje.isp.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <1178547908.3654.104.camel@deadeye.i.decadent.org.uk>
+
+On Mon, 2007-05-07 at 06:08 +0000, Tuomo Valkonen wrote:
+> On 2007-05-06, csant <csant at csant.info> wrote:
+> >> Also known as ion-3rc-20070506.
+> > There seem to be no darcs changes to pull, and also the online changelog  
+> > doesn't show the last changes.
+> 
+> I'm not going to make it easy for all the forkers...
+
+So next time there's a bug in a release like the one with size requests,
+we'll just have to wait for your next release rather than retrieving the
+fix from your repository?  Or make a local fix?
+
+This deliberate inaccessibility seems like a good way to deter (l)users
+from following and getting involved in Ion development.  This doesn't
+seem to fit in with your apparent wish for "a progression of users  of
+different levels between them and the developers".
+
+Ben.
+
+-- 
+Ben Hutchings
+If God had intended Man to program,
+we'd have been born with serial I/O ports.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070507/1aee112f/attachment.pgp>
+
+From ben at decadent.org.uk  Mon May  7 16:30:31 2007
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Mon, 07 May 2007 15:30:31 +0100
+Subject: ion3 segfault
+In-Reply-To: <slrnf3udae.v3r.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070502144910.GB9488@z1.synertronixx>
+	<1178546083.3654.90.camel@deadeye.i.decadent.org.uk>
+	<slrnf3udae.v3r.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <1178548231.3654.110.camel@deadeye.i.decadent.org.uk>
+
+On Mon, 2007-05-07 at 14:18 +0000, Tuomo Valkonen wrote:
+> On 2007-05-07, Ben Hutchings <ben at decadent.org.uk> wrote:
+> >> This is ion3 20070318-2 debian package.
+> >
+> > You should use reportbug.
+> 
+> Debian will DIEEEE! MUAHAHAHAHAHHA.
+> 
+> I noticed from your posting that Xen has also added trademark terms
+> to their license. I wonder how long Debian can keep up with the trend,
+> until they will have to change their policies to respect the authors
+> a bit.
+<snip>
+
+Debian takes the position that authors read and understand the licences
+they place software under and that Debian should therefore act within
+the terms of those licences.  It is not our practice to guess that the
+author might have meant something else.
+
+Ben.
+
+-- 
+Ben Hutchings
+If God had intended Man to program,
+we'd have been born with serial I/O ports.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070507/0c695d8d/attachment.pgp>
+
+From tuomov at iki.fi  Mon May  7 16:35:57 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 7 May 2007 14:35:57 +0000 (UTC)
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+	<op.trxi7hkvd84skq@fiore>
+	<slrnf3tgje.isp.tuomov@jolt.modeemi.cs.tut.fi>
+	<1178547908.3654.104.camel@deadeye.i.decadent.org.uk>
+Message-ID: <slrnf3uead.cj.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-07, Ben Hutchings <ben at decadent.org.uk> wrote:
+> So next time there's a bug in a release like the one with size requests,
+> we'll just have to wait for your next release rather than retrieving the
+> fix from your repository?  Or make a local fix?
+
+If the FOSS herd and distributions change their manners and
+policies, and start respecting authors a bit, and communicating
+with them instead of just doing what they please, the repository
+might come back. But if all they want is for the author to be
+a workhorse for their own forks or ancient versions (renamed or 
+not) -- which is what most people will install due to the power 
+distributions have with their easily installable packages -- 
+well, they'd better really be prepared to really work on those 
+forks.
+
+
+> This deliberate inaccessibility seems like a good way to deter (l)users
+> from following and getting involved in Ion development.  This doesn't
+> seem to fit in with your apparent wish for "a progression of users  of
+> different levels between them and the developers".
+
+Ah, but most of the lusers will be using the distributions' forks.
+
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Mon May  7 16:39:31 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 7 May 2007 14:39:31 +0000 (UTC)
+Subject: ion3 segfault
+References: <20070502144910.GB9488@z1.synertronixx>
+	<1178546083.3654.90.camel@deadeye.i.decadent.org.uk>
+	<slrnf3udae.v3r.tuomov@jolt.modeemi.cs.tut.fi>
+	<1178548231.3654.110.camel@deadeye.i.decadent.org.uk>
+Message-ID: <slrnf3ueh3.cj.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-07, Ben Hutchings <ben at decadent.org.uk> wrote:
+> Debian takes the position that authors read and understand the licences
+> they place software under and that Debian should therefore act within
+> the terms of those licences.  It is not our practice to guess that the
+> author might have meant something else.
+
+The (L)GPL 2.* are not quite up to date with the power that 
+distributions have emerged with. I see that GPLv3 actually 
+includes provisions for additional terms governing the use 
+of the name of the project, etc.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Mon May  7 18:05:13 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 7 May 2007 16:05:13 +0000 (UTC)
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+	<op.trxi7hkvd84skq@fiore>
+	<slrnf3tgje.isp.tuomov@jolt.modeemi.cs.tut.fi>
+	<1178547908.3654.104.camel@deadeye.i.decadent.org.uk>
+	<slrnf3uead.cj.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnf3ujhp.8re.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-07, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> Ah, but most of the lusers will be using the distributions' forks.
+
+Since the site requires registration, I'll just say it here: many of
+the names at <http://forums.debian.net/viewtopic.php?p=69522> are 
+GAIM vs. AIM all over again, or even more associable to Ion. If
+you want the name to be associated with Ion, it should be 
+"Ion soup (something)" (referring to the old saying about too
+many chefs stirring the soup).
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Wed May  9 19:41:09 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 9 May 2007 20:41:09 +0300
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+In-Reply-To: <46419360.9090206@gmail.com>
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+	<op.trxi7hkvd84skq@fiore>
+	<slrnf3tgje.isp.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705062352t2143db46rec8194f287cd4915@mail.gmail.com>
+	<20070507065842.GA23605@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070022k72fe2e77s5b6e016c83bcfa4e@mail.gmail.com>
+	<slrnf3tlic.q0v.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070150l6f2ecd92wb1afbae4610a040a@mail.gmail.com>
+	<slrnf3tqne.29c.tuomov@jolt.modeemi.cs.tut.fi>
+	<46419360.9090206@gmail.com>
+Message-ID: <20070509174109.GA21952@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-09 13:24 +0400, Alex Tomas wrote:
+> Tuomo Valkonen wrote:
+> >http://iki.fi/tuomov/b/archives/2007/04/01/T19_09_22/
+> 
+> "I can't build good kernel myself -> they're idiots".
+> 
+> congrats, amazing logic!
+
+You logic is even more amazing, being able to infer
+that from my writings.
+
+-- 
+Tuomo
+
+
+From tuomov at iki.fi  Wed May  9 19:44:29 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 9 May 2007 20:44:29 +0300
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+In-Reply-To: <464194BE.5020403@gmail.com>
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+	<op.trxi7hkvd84skq@fiore>
+	<slrnf3tgje.isp.tuomov@jolt.modeemi.cs.tut.fi>
+	<1178547908.3654.104.camel@deadeye.i.decadent.org.uk>
+	<slrnf3uead.cj.tuomov@jolt.modeemi.cs.tut.fi>
+	<464194BE.5020403@gmail.com>
+Message-ID: <20070509174429.GB21952@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-09 13:30 +0400, Alex Tomas wrote:
+> this is a bi-directional process: i you do your job well, someone
+> observe this and make public on debian lists. anybody can fork and
+> compete with parent: this is FOSS nature. If you don't accept rules,
+> change the license, make it closed source, whatever you want.
+
+I thought FOSS was supposed to be about cooperation. Not that I've
+seen much of that. No, most of the FOSS herd is just competing on
+how to make Linux suck more. Well, I'm a clear loser in that match,
+because I'm thriving for the exact opposite.
+
+-- 
+Tuomo
+
+
+From ion3 at trashmail.net  Thu May 10 03:11:46 2007
+From: ion3 at trashmail.net (Susana)
+Date: Wed, 9 May 2007 21:11:46 -0400
+Subject: running ion3 from home directory
+Message-ID: <20070510011146.GA1014@evelyn.smith.edu>
+
+
+
+    I would like to know whether it is possible, and also whether it is
+    relatively simple, to install ion3 without root access, that is 
+    whether it is possible to run it from one home's directory.
+
+    I have installed it at home a couple of days ago and I am extremely
+    happy with depending less on a mouse, and with the freedom from the
+    complexities of gnome, therefore I would also like to use it at work
+    where I have no root access.
+
+    Thanks for any suggestions,
+   
+    Susana.
+
+
+    
+
+
+
+From nickmurdoch at gmail.com  Thu May 10 07:28:56 2007
+From: nickmurdoch at gmail.com (Nick Murdoch)
+Date: Thu, 10 May 2007 06:28:56 +0100
+Subject: running ion3 from home directory
+In-Reply-To: <20070510011146.GA1014@evelyn.smith.edu>
+References: <20070510011146.GA1014@evelyn.smith.edu>
+Message-ID: <4642AD98.700@gmail.com>
+
+Susana wrote:
+> 
+>     I would like to know whether it is possible, and also whether it is
+>     relatively simple, to install ion3 without root access, that is 
+>     whether it is possible to run it from one home's directory.
+> 
+>     I have installed it at home a couple of days ago and I am extremely
+>     happy with depending less on a mouse, and with the freedom from the
+>     complexities of gnome, therefore I would also like to use it at work
+>     where I have no root access.
+> 
+>     Thanks for any suggestions,
+>    
+>     Susana.
+
+I managed this fine a couple of years ago on my University Solaris
+account. It was just a case of the standard ./configure and make, IIRC.
+
+
+From jagoterr at gmail.com  Thu May 10 07:47:42 2007
+From: jagoterr at gmail.com (Vladimir Chizhov)
+Date: Thu, 10 May 2007 09:47:42 +0400
+Subject: Scratchpad vs. access focus history
+In-Reply-To: <85ejlu64jo.fsf@boum.org>
+References: <85ejlu64jo.fsf@boum.org>
+Message-ID: <92f2ef410705092247v220c6c35t6fee65490c548d17@mail.gmail.com>
+
+Also, you can try the wcirculate.lua script. It filters windows (be
+careful: windows, not frames) by the specific boolean winprop:
+winlist_ignore. It works for me.
+
+2007/5/6, intrigeri <intrigeri at boum.org>:
+> If yes, I want to write in LUA a function that would act just as
+> ioncore_goto_previous, but would ignore the scratchpads from the focus
+> history list. But I could not find how to access it in LUA. Is it made
+> public to LUA ? Or is there a way to access a WRegion's active_next ?
+> Or am I bound to do it in C ? I've seen the wcirculate contrib seems
+> to manage its own focus history list, using the appropriate hooks, so
+> I guess there is no other way, but I hope I'm wrong...
+>
+
+
+From tuomov at iki.fi  Thu May 10 08:04:33 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 10 May 2007 06:04:33 +0000 (UTC)
+Subject: Scratchpad vs. access focus history
+References: <85ejlu64jo.fsf@boum.org>
+	<92f2ef410705092247v220c6c35t6fee65490c548d17@mail.gmail.com>
+Message-ID: <slrnf45dfh.ndk.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-10, Vladimir Chizhov <jagoterr at gmail.com> wrote:
+> 2007/5/6, intrigeri <intrigeri at boum.org>:
+>> If yes, I want to write in LUA a function that would act just as
+>> ioncore_goto_previous, but would ignore the scratchpads from the focus
+>> history list. But I could not find how to access it in LUA. Is it made
+>> public to LUA ? Or is there a way to access a WRegion's active_next ?
+>> Or am I bound to do it in C ? I've seen the wcirculate contrib seems
+>> to manage its own focus history list, using the appropriate hooks, so
+>> I guess there is no other way, but I hope I'm wrong...
+>
+> Also, you can try the wcirculate.lua script. It filters windows (be
+> careful: windows, not frames) by the specific boolean winprop:
+> winlist_ignore. It works for me.
+
+wcirculate is obsolete. The same (and more) functionality is included 
+in the Mod1+K K binding `mod_menu.grabmenu(_, _sub, 'focuslist')`.
+You might want to study that code. (The `focuslist` menu puts windows
+with activity at top, `focuslist_` doesn't.)
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Thu May 10 08:06:44 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 10 May 2007 06:06:44 +0000 (UTC)
+Subject: running ion3 from home directory
+References: <20070510011146.GA1014@evelyn.smith.edu>
+Message-ID: <slrnf45djk.ndk.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-10, Susana <ion3 at trashmail.net> wrote:
+>     I would like to know whether it is possible, and also whether it is
+>     relatively simple, to install ion3 without root access, that is 
+>     whether it is possible to run it from one home's directory.
+
+PREFIX=$(HOME)/opt, for example.
+
+-- 
+Tuomo
+
+
+
+From mabi at gentoo.org  Thu May 10 11:00:15 2007
+From: mabi at gentoo.org (Matti Bickel)
+Date: Thu, 10 May 2007 11:00:15 +0200
+Subject: License change
+Message-ID: <20070510090014.GA7436@pluto.local>
+
+Hi,
+recently a fellow developer with gentoo contacted me with concerns about
+your license change. So that's why i'm here today.
+
+Simple question: your license states that anything distributed as "ion"
+must not be altered in any way. Gentoo distributes an ebuild that allows
+our users to select whether to include patches by useflags.
+
+Patches we apply unconditionally are at the moment only affecting
+configuration (adding ion-lock) or the buildsystem (--as-needed, paths).
+
+I'm seeking clarification on whether we can still distribute an ion-3
+ebuild under the name "ion3-$version".
+-- 
+Regards, Matti Bickel
+Encrypted/Signed Email preferred
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070510/9622ccd1/attachment.pgp>
+
+From tuomov at iki.fi  Thu May 10 11:40:12 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 10 May 2007 09:40:12 +0000 (UTC)
+Subject: License change
+References: <20070510090014.GA7436@pluto.local>
+Message-ID: <slrnf45q3r.b6c.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-10, Matti Bickel <mabi at gentoo.org> wrote:
+> Simple question: your license states that anything distributed as "ion"
+> must not be altered in any way. 
+
+That is not true. Minor changes can be done, as explained in the 
+license file.
+
+> (adding ion-lock) 
+
+What's that? Some script that finds a working screen locking 
+program? (I've actually thought of having something like that
+in the standard setup, and ion-terminal too, to move that out
+of the config files. But I never got around to that, and now 
+it's frozen.) That kind of changes are permitted, because not 
+all platforms can be expected to have the same programs available.
+
+> (--as-needed, paths).
+
+That flag is seriously broken, BTW.
+
+---
+
+Other unapproved patches applied by the building scripts are also 
+ok, as long as the user must explicitly request them for (catch-all
+USE=all etc. must not apply them), and is highly aware that there's 
+no point in coming crying to me after that.
+
+Really, the extra license terms should be no problem to any 
+reasonable distributor that primarily wants to provide Ion
+as I meant it to be within the constraints of the platform,
+and does a reasonable effort of keeping it up to date. The 
+terms are there remind to that shit flows upstream -- until
+the reservoir breaks.
+
+-- 
+Tuomo
+
+
+
+From mabi at gentoo.org  Thu May 10 11:51:35 2007
+From: mabi at gentoo.org (Matti Bickel)
+Date: Thu, 10 May 2007 11:51:35 +0200
+Subject: License change
+In-Reply-To: <slrnf45q3r.b6c.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070510090014.GA7436@pluto.local>
+	<slrnf45q3r.b6c.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070510095135.GD6495@pluto.local>
+
+Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2007-05-10, Matti Bickel <mabi at gentoo.org> wrote:
+> > Simple question: your license states that anything distributed as "ion"
+> > must not be altered in any way. 
+> 
+> That is not true. Minor changes can be done, as explained in the 
+> license file.
+
+Right, i missed your clarifications on the bottom. Sorry for that.
+
+> > (adding ion-lock) 
+> 
+> What's that? 
+
+From what i can tell from the patches, it just calls xscreensaver if
+existant, else uses xlock.
+
+> > (--as-needed, paths).
+> 
+> That flag is seriously broken, BTW.
+
+I don't personally use it, to begin with. But there have been users
+inquiring about, providing patches, and as it's really just a one line
+change, i added it for their convience. Might make that conditional on
+--as-needed being in LDFLAGS, though.
+
+> Other unapproved patches applied by the building scripts are also 
+> ok, as long as the user must explicitly request them for (catch-all
+> USE=all etc. must not apply them), and is highly aware that there's 
+> no point in coming crying to me after that.
+
+_rc will include a postinstall message that tells users to reproduce
+with a vanilla build before reporting bugs upstream plus a note that
+encourages users to go file the bugs at bugs.gentoo.org first.
+-- 
+Regards, Matti Bickel
+Encrypted/Signed Email preferred
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070510/3b222a77/attachment.pgp>
+
+From tuomov at iki.fi  Thu May 10 12:03:12 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 10 May 2007 10:03:12 +0000 (UTC)
+Subject: License change
+References: <20070510090014.GA7436@pluto.local>
+	<slrnf45q3r.b6c.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070510095135.GD6495@pluto.local>
+Message-ID: <slrnf45rf0.e21.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-10, Matti Bickel <mabi at gentoo.org> wrote:
+> I don't personally use it, to begin with. But there have been users
+> inquiring about, providing patches, and as it's really just a one line
+> change, i added it for their convience. Might make that conditional on
+> --as-needed being in LDFLAGS, though.
+
+I've seen some of those patches, and they're ugly workarounds to
+--as-needed being broken. They should not be needed, if the flag
+weren't broken. (Although perhaps it would be better to include some
+more explicit library dependencies in modules' Makefiles. Few of 
+Ion's modules specify the libraries they use -- and can not at build
+time be linked against ioncore, as the symbols are expected to be 
+provided by the binary. Some modules don't compile with --as-needed
+without specifying some of their library dependencies, but others do,
+and yet --as-needed is supposed to only remove unnecessary explicitly 
+specified dependencies.)
+
+> _rc will include a postinstall message that tells users to reproduce
+> with a vanilla build before reporting bugs upstream plus a note that
+> encourages users to go file the bugs at bugs.gentoo.org first.
+
+And how easy it is to overlook such a message? In a huge batch build?
+Is this also mentioned where the extra flags are documented 
+(or "documented")?
+
+
+-- 
+Tuomo
+
+
+
+From mabi at gentoo.org  Thu May 10 12:26:25 2007
+From: mabi at gentoo.org (Matti Bickel)
+Date: Thu, 10 May 2007 12:26:25 +0200
+Subject: License change
+In-Reply-To: <slrnf45rf0.e21.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070510090014.GA7436@pluto.local>
+	<slrnf45q3r.b6c.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070510095135.GD6495@pluto.local>
+	<slrnf45rf0.e21.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070510102625.GF6495@pluto.local>
+
+Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2007-05-10, Matti Bickel <mabi at gentoo.org> wrote:
+> I've seen some of those patches, and they're ugly workarounds to
+> --as-needed being broken. They should not be needed, if the flag
+> weren't broken.
+
+While i recognize the fact, that --as-needed doesn't (and probably never
+will) catch up with some of it's use cases, i see no point in denying a
+"fix" for a broken --as-needed, even if it's not against the ld or gcc
+codebase.
+
+> And how easy it is to overlook such a message? In a huge batch build?
+> Is this also mentioned where the extra flags are documented 
+> (or "documented")?
+
+The message will use elog, which is user configurable and some of our
+users have it mail them the output. In one case, namely the paludis
+package manager, elog messages get shown at the end of the complete
+batch build. In every case, the user gets a log file with the messages
+the package emitted.
+
+The use flags will have a (unsupported upstream) added to their
+description.
+-- 
+Regards, Matti Bickel
+Encrypted/Signed Email preferred
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070510/e074e20a/attachment.pgp>
+
+From EvgenyKurbatov at yandex.ru  Thu May 10 12:46:55 2007
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Thu, 10 May 2007 14:46:55 +0400
+Subject: List of windows labelled with workspace name
+Message-ID: <4642F81F.4090508@yandex.ru>
+
+Hello!
+
+My question is idle against a background of adult politic discussions in 
+this mailing list...  But...  I'll be slightly more happy if the window 
+list "mod_menu.menu(_, _sub, 'windowlist')" will write ws name with the 
+name of a window and will sort windows on a per-ws base.  Should I rtfaq 
+or rtfm or stfu and gtfo?
+
+Evgeny
+
+
+From tuomov at iki.fi  Thu May 10 12:59:31 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 10 May 2007 10:59:31 +0000 (UTC)
+Subject: License change
+References: <20070510090014.GA7436@pluto.local>
+	<slrnf45q3r.b6c.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070510095135.GD6495@pluto.local>
+	<slrnf45rf0.e21.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070510102625.GF6495@pluto.local>
+Message-ID: <slrnf45uoj.jer.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-10, Matti Bickel <mabi at gentoo.org> wrote:
+> While i recognize the fact, that --as-needed doesn't (and probably never
+> will) catch up with some of it's use cases, i see no point in denying a
+> "fix" for a broken --as-needed, even if it's not against the ld or gcc
+> codebase.
+
+I didn't say that. I just said that the flag should be fixed rather
+than keeping such workarounds there forever.
+
+> The message will use elog, which is user configurable and some of our
+> users have it mail them the output. In one case, namely the paludis
+> package manager, elog messages get shown at the end of the complete
+> batch build. In every case, the user gets a log file with the messages
+> the package emitted.
+>
+> The use flags will have a (unsupported upstream) added to their
+> description.
+
+I don't think that's quite prominent enough. Also "unsupported 
+upstream" doesn't have quite right the connotation: it could
+be mistaken that the particular feature is not supported. 
+The words "upstream support void" would perhaps be more to the
+effect. There's also the problem of users getting instructions
+from elsewhere, and never reading the description, or the log.
+Therefore, the flags themselves should perhaps be prefixed
+"support-void"; cmp. "warranty void" stickers on devices. 
+(For FOSS there's no warranty, of course.)
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Thu May 10 13:03:46 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 10 May 2007 11:03:46 +0000 (UTC)
+Subject: List of windows labelled with workspace name
+References: <4642F81F.4090508@yandex.ru>
+Message-ID: <slrnf45v0i.jer.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-10, Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+> My question is idle against a background of adult politic discussions in 
+> this mailing list...  But...  I'll be slightly more happy if the window 
+> list "mod_menu.menu(_, _sub, 'windowlist')" will write ws name with the 
+> name of a window and will sort windows on a per-ws base.  Should I rtfaq 
+> or rtfm or stfu and gtfo?
+
+You should RTFMATSSCAHLYHNHB. (You should read the fucking manual and
+the stinking source code and hack like you have never hacked before.)
+That is, there is no simple option for that, but it is possible to 
+write a script to generate such a menu by studying how the existing
+menu is generated, and adding a bit of extra code. 
+
+-- 
+Tuomo
+
+
+
+From realblades at gmail.com  Fri May 11 09:54:29 2007
+From: realblades at gmail.com (Harri Haataja)
+Date: Fri, 11 May 2007 10:54:29 +0300
+Subject: running ion3 from home directory
+In-Reply-To: <4642AD98.700@gmail.com>
+References: <20070510011146.GA1014@evelyn.smith.edu> <4642AD98.700@gmail.com>
+Message-ID: <74e3492a0705110054kc92bdeoef8e06a792ceee9@mail.gmail.com>
+
+On 10/05/07, Nick Murdoch <nickmurdoch at gmail.com> wrote:
+> Susana wrote:
+> >     I would like to know whether it is possible, and also whether it is
+> >     relatively simple, to install ion3 without root access, that is
+> >     whether it is possible to run it from one home's directory.
+> >
+> >     I have installed it at home a couple of days ago and I am extremely
+> >     happy with depending less on a mouse, and with the freedom from the
+> >     complexities of gnome, therefore I would also like to use it at work
+> >     where I have no root access.
+
+> I managed this fine a couple of years ago on my University Solaris
+> account. It was just a case of the standard ./configure and make, IIRC.
+
+I have done likewise. Apart from solaris compiler fighting, the home
+directory install went perfectly the normal and expected way. I  also
+installed lua there first. After a bit of rtfm, now when I log into a
+ray (using "CDE" as the desktop selection), ion comes up. Joy.
+
+-- 
+I appear to be temporarily using gmail's horrible interface. I
+apologise for any failure in my part in trying to make it do the right
+thing with post formatting.
+
+
+From jagoterr at gmail.com  Fri May 11 11:03:24 2007
+From: jagoterr at gmail.com (Vladimir Chizhov)
+Date: Fri, 11 May 2007 13:03:24 +0400
+Subject: darcs repo problems
+Message-ID: <92f2ef410705110203r5b60765yb439d69e5ef7c533@mail.gmail.com>
+
+Last few days a have a problem with downloading from darcs repository.
+It looks so:
+
+$ darcs get --partial http://modeemi.fi/~tuomov/repos/ion-3/
+Invalid repository:  http://modeemi.fi/~tuomov/repos/ion-3
+
+darcs failed:  Failed to download URL
+http://modeemi.fi/~tuomov/repos/ion-3/_darcs/inventory
+libcurl: HTTP error (404?)
+
+I have my doubts, that this is my mistake, cause I have such issue on
+two machines (my home laptop and a PC at work).
+
+Some thoughts?
+
+
+From tuomov at iki.fi  Fri May 11 12:18:57 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 11 May 2007 10:18:57 +0000 (UTC)
+Subject: darcs repo problems
+References: <92f2ef410705110203r5b60765yb439d69e5ef7c533@mail.gmail.com>
+Message-ID: <slrnf48goh.jn7.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-11, Vladimir Chizhov <jagoterr at gmail.com> wrote:
+> Last few days a have a problem with downloading from darcs repository.
+
+http://www.mail-archive.com/ion-general at lists.berlios.de/msg01957.html
+http://www.mail-archive.com/ion-general at lists.berlios.de/msg01972.html
+
+-- 
+Tuomo
+
+
+
+From Matthieu.Moy at imag.fr  Fri May 11 12:48:12 2007
+From: Matthieu.Moy at imag.fr (Matthieu Moy)
+Date: Fri, 11 May 2007 12:48:12 +0200
+Subject: darcs repo problems
+In-Reply-To: <slrnf48goh.jn7.tuomov@jolt.modeemi.cs.tut.fi> (Tuomo Valkonen's
+	message of "Fri\, 11 May 2007 10\:18\:57 +0000 \(UTC\)")
+References: <92f2ef410705110203r5b60765yb439d69e5ef7c533@mail.gmail.com>
+	<slrnf48goh.jn7.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <vpqirazab6b.fsf@bauges.imag.fr>
+
+Tuomo Valkonen <tuomov at iki.fi> writes:
+
+> On 2007-05-11, Vladimir Chizhov <jagoterr at gmail.com> wrote:
+>> Last few days a have a problem with downloading from darcs repository.
+>
+> http://www.mail-archive.com/ion-general at lists.berlios.de/msg01957.html
+> http://www.mail-archive.com/ion-general at lists.berlios.de/msg01972.html
+
+Why do you distribute ion3, at all, then?
+
+-- 
+Matthieu
+
+
+From tuomov at iki.fi  Fri May 11 12:59:13 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 11 May 2007 13:59:13 +0300
+Subject: darcs repo problems
+In-Reply-To: <vpqirazab6b.fsf@bauges.imag.fr>
+References: <92f2ef410705110203r5b60765yb439d69e5ef7c533@mail.gmail.com>
+	<slrnf48goh.jn7.tuomov@jolt.modeemi.cs.tut.fi>
+	<vpqirazab6b.fsf@bauges.imag.fr>
+Message-ID: <20070511105913.GA24258@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-11 12:48 +0200, Matthieu Moy wrote:
+> Why do you distribute ion3, at all, then?
+
+Sometimes I wonder that myself. Doing so hasn't managed to 
+stop the degradation of all the rest of the software I have
+to use, after all. So what's the point? Computing is doomed
+to become ever more painful, or more like the idiot box.
+
+-- 
+Tuomo
+
+
+From pedro at ambientworks.net  Fri May 11 13:26:47 2007
+From: pedro at ambientworks.net (Pedro Martelletto)
+Date: Fri, 11 May 2007 13:26:47 +0200
+Subject: darcs repo problems
+In-Reply-To: <20070511105913.GA24258@jolt.modeemi.cs.tut.fi>
+References: <92f2ef410705110203r5b60765yb439d69e5ef7c533@mail.gmail.com>
+	<slrnf48goh.jn7.tuomov@jolt.modeemi.cs.tut.fi>
+	<vpqirazab6b.fsf@bauges.imag.fr>
+	<20070511105913.GA24258@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070511112647.GD17919@static.protection.cx>
+
+On Fri, May 11, 2007 at 01:59:13PM +0300, Tuomo Valkonen wrote:
+> On 2007-05-11 12:48 +0200, Matthieu Moy wrote:
+> > Why do you distribute ion3, at all, then?
+> 
+> Sometimes I wonder that myself. Doing so hasn't managed to 
+> stop the degradation of all the rest of the software I have
+> to use, after all. So what's the point? Computing is doomed
+> to become ever more painful, or more like the idiot box.
+
+There is no point. Stop distributing it, Tuomo. You won't stop people
+from being idiots by adding clauses to your license.
+
+-p.
+
+
+From tuomov at iki.fi  Fri May 11 14:11:09 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 11 May 2007 12:11:09 +0000 (UTC)
+Subject: darcs repo problems
+References: <92f2ef410705110203r5b60765yb439d69e5ef7c533@mail.gmail.com>
+	<slrnf48goh.jn7.tuomov@jolt.modeemi.cs.tut.fi>
+	<vpqirazab6b.fsf@bauges.imag.fr>
+	<20070511105913.GA24258@jolt.modeemi.cs.tut.fi>
+	<20070511112647.GD17919@static.protection.cx>
+Message-ID: <slrnf48nat.ucc.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-11, Pedro Martelletto <pedro at ambientworks.net> wrote:
+> There is no point. Stop distributing it, Tuomo. You won't stop people
+> from being idiots by adding clauses to your license.
+
+At least, maybe, I can preserve a flower on the shores of an 
+expanding sea of shit.
+
+-- 
+Tuomo
+
+
+
+From EvgenyKurbatov at yandex.ru  Fri May 11 14:28:27 2007
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Fri, 11 May 2007 16:28:27 +0400
+Subject: darcs repo problems
+In-Reply-To: <slrnf48nat.ucc.tuomov@jolt.modeemi.cs.tut.fi>
+References: <92f2ef410705110203r5b60765yb439d69e5ef7c533@mail.gmail.com>	<slrnf48goh.jn7.tuomov@jolt.modeemi.cs.tut.fi>	<vpqirazab6b.fsf@bauges.imag.fr>	<20070511105913.GA24258@jolt.modeemi.cs.tut.fi>	<20070511112647.GD17919@static.protection.cx>
+	<slrnf48nat.ucc.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <4644616B.9060901@yandex.ru>
+
+Tuomo Valkonen wrote:
+> At least, maybe, I can preserve a flower on the shores of an 
+> expanding sea of shit.
+
+We believe in you, Man!  You are a knight, a Templar.  Hold on!
+
+
+From alexander.shishckin at gmail.com  Fri May 11 14:46:58 2007
+From: alexander.shishckin at gmail.com (Alexander Shishkin)
+Date: Fri, 11 May 2007 16:46:58 +0400
+Subject: darcs repo problems
+In-Reply-To: <4644616B.9060901@yandex.ru>
+References: <92f2ef410705110203r5b60765yb439d69e5ef7c533@mail.gmail.com>
+	<slrnf48goh.jn7.tuomov@jolt.modeemi.cs.tut.fi>
+	<vpqirazab6b.fsf@bauges.imag.fr>
+	<20070511105913.GA24258@jolt.modeemi.cs.tut.fi>
+	<20070511112647.GD17919@static.protection.cx>
+	<slrnf48nat.ucc.tuomov@jolt.modeemi.cs.tut.fi>
+	<4644616B.9060901@yandex.ru>
+Message-ID: <71a0d6ff0705110546s10eee48s94567a0262469f21@mail.gmail.com>
+
+On 5/11/07, Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+> Tuomo Valkonen wrote:
+> > At least, maybe, I can preserve a flower on the shores of an
+> > expanding sea of shit.
+>
+> We believe in you, Man!  You are a knight, a Templar.  Hold on!
+Making fun of someone usually isn't helpful in getting what you want from them.
+
+-- 
+I like long walks, especially when they are taken by people who annoy me.
+
+
+From tuomov at iki.fi  Fri May 11 14:50:00 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 11 May 2007 12:50:00 +0000 (UTC)
+Subject: darcs repo problems
+References: <92f2ef410705110203r5b60765yb439d69e5ef7c533@mail.gmail.com>
+	<slrnf48goh.jn7.tuomov@jolt.modeemi.cs.tut.fi>
+	<vpqirazab6b.fsf@bauges.imag.fr>
+	<20070511105913.GA24258@jolt.modeemi.cs.tut.fi>
+	<20070511112647.GD17919@static.protection.cx>
+	<slrnf48nat.ucc.tuomov@jolt.modeemi.cs.tut.fi>
+	<4644616B.9060901@yandex.ru>
+	<71a0d6ff0705110546s10eee48s94567a0262469f21@mail.gmail.com>
+Message-ID: <slrnf48pjo.25e.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-11, Alexander Shishkin <alexander.shishckin at gmail.com> wrote:
+> On 5/11/07, Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+>> We believe in you, Man!  You are a knight, a Templar.  Hold on!
+>
+> Making fun of someone usually isn't helpful in getting what you want from
+> them.
+
+You're too serious.
+
+-- 
+Tuomo
+
+
+
+From jrobson at cachelogic.com  Fri May 11 14:17:25 2007
+From: jrobson at cachelogic.com (John Robson)
+Date: Fri, 11 May 2007 13:17:25 +0100
+Subject: darcs repo problems
+In-Reply-To: <slrnf48nat.ucc.tuomov@jolt.modeemi.cs.tut.fi>
+References: <92f2ef410705110203r5b60765yb439d69e5ef7c533@mail.gmail.com>
+	<slrnf48goh.jn7.tuomov@jolt.modeemi.cs.tut.fi>
+	<vpqirazab6b.fsf@bauges.imag.fr>
+	<20070511105913.GA24258@jolt.modeemi.cs.tut.fi>
+	<20070511112647.GD17919@static.protection.cx>
+	<slrnf48nat.ucc.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <op.tr5wfblc5yfyku@hercules.cachelogic.com>
+
+On Fri, 11 May 2007 13:11:09 +0100, Tuomo Valkonen <tuomov at iki.fi> wrote:
+
+> On 2007-05-11, Pedro Martelletto <pedro at ambientworks.net> wrote:
+>> There is no point. Stop distributing it, Tuomo. You won't stop people
+>> from being idiots by adding clauses to your license.
+>
+> At least, maybe, I can preserve a flower on the shores of an
+> expanding sea of shit.
+>
+
+
+Makes good fertiliser ;)
+
+
+From alexander.shishckin at gmail.com  Sat May 12 17:36:43 2007
+From: alexander.shishckin at gmail.com (Alexander Shishkin)
+Date: Sat, 12 May 2007 19:36:43 +0400
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+In-Reply-To: <slrnf3tqne.29c.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+	<op.trxi7hkvd84skq@fiore>
+	<slrnf3tgje.isp.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705062352t2143db46rec8194f287cd4915@mail.gmail.com>
+	<20070507065842.GA23605@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070022k72fe2e77s5b6e016c83bcfa4e@mail.gmail.com>
+	<slrnf3tlic.q0v.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070150l6f2ecd92wb1afbae4610a040a@mail.gmail.com>
+	<slrnf3tqne.29c.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <71a0d6ff0705120836v12636173q2eb6a530160cfb5e@mail.gmail.com>
+
+On 5/7/07, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> Having to fix autoconf scripts is the same as having to edit sources,
+> and worse. Having to edit a well-designed Makefile is the same as having
+> to edit a decent (non-XML) configuration file.
+At least, autoconf deals with cross-compilation while most of those
+who think that they can write decent makefiles fail to do so. Average
+software package will require tweaking sources regardless of the
+build/configuration system it employs.
+
+> > It's about time we agree about what 'linux' stands for. If you prefer
+> > to regard any of those modern linux-desktop trends with the term
+> > 'linux', I'd disagree.
+>
+> All the distros are the same shit. Some have more WIMPshit and some
+> less. All have the same shitty core software designed for WIMPshit
+> idiot users and the developers (incl. distributors) themselves.
+Any of this fails to attract my attention in debian, for example.
+Except, probably the case when I discovered that ion3 no longer does
+xinerama due to you being somehow upset with xinerama API. Just like
+you rolled back to an older kernel, I had to roll back to a
+known-to-work snapshot of ion3. And I do not take that 'mindless
+consumerism' shit; I can tell what's convenient for me from 4+ years
+experience with dualhead setups and ion.
+
+-- 
+I like long walks, especially when they are taken by people who annoy me.
+
+
+From tuomov at iki.fi  Sat May 12 20:02:47 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 12 May 2007 18:02:47 +0000 (UTC)
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+	<op.trxi7hkvd84skq@fiore>
+	<slrnf3tgje.isp.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705062352t2143db46rec8194f287cd4915@mail.gmail.com>
+	<20070507065842.GA23605@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070022k72fe2e77s5b6e016c83bcfa4e@mail.gmail.com>
+	<slrnf3tlic.q0v.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070150l6f2ecd92wb1afbae4610a040a@mail.gmail.com>
+	<slrnf3tqne.29c.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705120836v12636173q2eb6a530160cfb5e@mail.gmail.com>
+Message-ID: <slrnf4c0a7.ubj.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-12, Alexander Shishkin <alexander.shishckin at gmail.com> wrote:
+> At least, autoconf deals with cross-compilation while most of those
+> who think that they can write decent makefiles fail to do so. 
+
+If cross-compilation needs more than changing the compiler used 
+and/or its flags, and library/include paths, that system is fucked
+up. (Alternatively a chroot jail should be used.)
+
+> Any of this fails to attract my attention in debian, for example.
+
+Debian is a complex fucked up mess.
+
+> Except, probably the case when I discovered that ion3 no longer does
+> xinerama due to you being somehow upset with xinerama API. 
+
+Not the API -- there isn't much of it; just that the whole thing 
+is a pointless [1] exercise in mutually incompatible extensions, 
+which combined with ICCCM incompleteness in the nested WM window
+department, makes it impossible to get working Right. Given this,
+the state of the planet, and the general distaste I have for the
+consumerist culture, I'm not going to waste my time supporting 
+and helping anyone enlarging their penises with multihead 
+configurations.
+
+> I can tell what's convenient for me from 4+ years experience 
+> with dualhead setups and ion.
+
+Convenient or not, I doubt you have a justifiable (to me, not the
+FOSS herd and other conspicious consumers) need for a multihead 
+setup.
+
+  [1]: http://osdir.com/ml/window-managers.ion.general/2007-01/msg00032.html
+
+-- 
+Tuomo
+
+
+
+From alexander.shishckin at gmail.com  Sat May 12 22:13:40 2007
+From: alexander.shishckin at gmail.com (Alexander Shishkin)
+Date: Sun, 13 May 2007 00:13:40 +0400
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+In-Reply-To: <slrnf4c0a7.ubj.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+	<slrnf3tgje.isp.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705062352t2143db46rec8194f287cd4915@mail.gmail.com>
+	<20070507065842.GA23605@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070022k72fe2e77s5b6e016c83bcfa4e@mail.gmail.com>
+	<slrnf3tlic.q0v.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070150l6f2ecd92wb1afbae4610a040a@mail.gmail.com>
+	<slrnf3tqne.29c.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705120836v12636173q2eb6a530160cfb5e@mail.gmail.com>
+	<slrnf4c0a7.ubj.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <71a0d6ff0705121313q440ebe3fxc57db295642e0d52@mail.gmail.com>
+
+On 5/12/07, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2007-05-12, Alexander Shishkin <alexander.shishckin at gmail.com> wrote:
+> > At least, autoconf deals with cross-compilation while most of those
+> > who think that they can write decent makefiles fail to do so.
+>
+> If cross-compilation needs more than changing the compiler used
+> and/or its flags, and library/include paths, that system is fucked
+> up. (Alternatively a chroot jail should be used.)
+How can you tell if malloc(0) in target's C library returns zero or
+behaves like glibc's, for example? What with 1500 of such little
+conditional settings? Defining all those in a makefile is what I
+prefer to call being fucked up.
+Does ion3 cross-compile at all, btw? Does luac produce 100%
+architecture-independent bytecode?
+
+> > Any of this fails to attract my attention in debian, for example.
+>
+> Debian is a complex fucked up mess.
+I'm not a poet, but it still sucks less.
+
+Again, the only major concerns of mine (with debian or not) is ion's breakage.
+You've taken to talk a lot of fud recently, btw.
+
+> > Except, probably the case when I discovered that ion3 no longer does
+> > xinerama due to you being somehow upset with xinerama API.
+>
+> Not the API -- there isn't much of it; just that the whole thing
+> is a pointless [1] exercise in mutually incompatible extensions,
+> which combined with ICCCM incompleteness in the nested WM window
+> department, makes it impossible to get working Right. Given this,
+Oh right, now with xinerama being supported in ion for so many years,
+you figured out that problem. However, being a mere luser in the
+context of window management, I don't care since I've never hit any
+problem with that and now with xinerama support removed my feelings
+are hurt.
+
+> the state of the planet, and the general distaste I have for the
+> consumerist culture, I'm not going to waste my time supporting
+Now you sound like those sinister FOSS people from your previous mails
+and blog entries. Being asshole towards not-completely-dumb users for
+no apparent reason (or should I say: a problem that may arise in a
+galaxy far-far away is not really a convincing reason?).
+
+> and helping anyone enlarging their penises with multihead
+> configurations.
+Want to talk about penises?
+And yes, here in Russia we're totally buried in consumerism. My BMW
+X5, for instance, has a platinum steering wheel.
+
+> Convenient or not, I doubt you have a justifiable (to me, not the
+> FOSS herd and other conspicious consumers) need for a multihead
+> setup.
+I can walk my way to New Zealand sooner than you accept the
+probability of the fact that you're not 100% right sometimes, let
+along the xinerama thing. I don't feel like wasting my breath on this
+any more.
+
+-- 
+I like long walks, especially when they are taken by people who annoy me.
+
+
+From tuomov at iki.fi  Sat May 12 22:33:50 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 12 May 2007 20:33:50 +0000 (UTC)
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+	<slrnf3tgje.isp.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705062352t2143db46rec8194f287cd4915@mail.gmail.com>
+	<20070507065842.GA23605@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070022k72fe2e77s5b6e016c83bcfa4e@mail.gmail.com>
+	<slrnf3tlic.q0v.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070150l6f2ecd92wb1afbae4610a040a@mail.gmail.com>
+	<slrnf3tqne.29c.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705120836v12636173q2eb6a530160cfb5e@mail.gmail.com>
+	<slrnf4c0a7.ubj.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705121313q440ebe3fxc57db295642e0d52@mail.gmail.com>
+Message-ID: <slrnf4c95e.c5a.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-12, Alexander Shishkin <alexander.shishckin at gmail.com> wrote:
+> How can you tell if malloc(0) in target's C library returns zero or
+> behaves like glibc's, for example? What with 1500 of such little
+> conditional settings? Defining all those in a makefile is what I
+> prefer to call being fucked up.
+
+Every program containing the same slow-to-run, unmaintainable and
+broken M4 mess to check for those 1500 such little conditions, is
+what I call fucked up. Autoconf is an ad hoc solution typical of
+the FOSS herd and its cherished "worse is better" fallacy, that 
+is itself worse a problem than the original [1].
+
+> Does ion3 cross-compile at all, btw? Does luac produce 100%
+> architecture-independent bytecode?
+
+Luac produces architecture dependent code.
+
+>> Debian is a complex fucked up mess.
+> I'm not a poet, but it still sucks less.
+
+Sucking less is not good enough, when the base level is so low.
+
+> Oh right, now with xinerama being supported in ion for so many years,
+> you figured out that problem. However, being a mere luser in the
+> context of window management, 
+
+I god fed up with the lusers complaining of the problems whilst 
+waving their enlarged penises.
+
+> I don't care since I've never hit any problem with that and now with
+> xinerama support removed my feelings are hurt.
+
+In case you haven't noticed, someone wrote a module that will
+
+	VOID SUPPORT
+
+if installed.
+
+> Want to talk about penises?
+> And yes, here in Russia we're totally buried in consumerism. My BMW
+> X5, for instance, has a platinum steering wheel.
+
+Yes, and my bicycle has diamond frame. (Seriously, it has.)
+
+
+  [1]: http://iki.fi/tuomov/b/archives/2006/07/04/T21_20_46/
+
+
+-- 
+Tuomo
+
+
+
+From alexander.shishckin at gmail.com  Sat May 12 23:26:58 2007
+From: alexander.shishckin at gmail.com (Alexander Shishkin)
+Date: Sun, 13 May 2007 01:26:58 +0400
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+In-Reply-To: <slrnf4c95e.c5a.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+	<20070507065842.GA23605@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070022k72fe2e77s5b6e016c83bcfa4e@mail.gmail.com>
+	<slrnf3tlic.q0v.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070150l6f2ecd92wb1afbae4610a040a@mail.gmail.com>
+	<slrnf3tqne.29c.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705120836v12636173q2eb6a530160cfb5e@mail.gmail.com>
+	<slrnf4c0a7.ubj.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705121313q440ebe3fxc57db295642e0d52@mail.gmail.com>
+	<slrnf4c95e.c5a.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <71a0d6ff0705121426s6a94e567m7db7d5d9e259ae82@mail.gmail.com>
+
+On 5/13/07, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2007-05-12, Alexander Shishkin <alexander.shishckin at gmail.com> wrote:
+> Every program containing the same slow-to-run, unmaintainable and
+> broken M4 mess to check for those 1500 such little conditions, is
+> what I call fucked up.
+And for that reason let's have 1500 pieces of software each one with
+it's own private little "clean and simple" Makefile. Utter bullshit.
+
+> Autoconf is an ad hoc solution typical of
+> the FOSS herd and its cherished "worse is better" fallacy, that
+> is itself worse a problem than the original [1].
+That [1] entry is full of fud also. As for autoconf, it's a known and
+tolerable way to get things done IFF you know what you're doing and
+don't get bored in 10 minutes just because there's m4 and you can't or
+won't read it. Nobody really likes it and it's still there.
+
+> > Does ion3 cross-compile at all, btw? Does luac produce 100%
+> > architecture-independent bytecode?
+>
+> Luac produces architecture dependent code.
+So what is fucked up then?
+
+> > Oh right, now with xinerama being supported in ion for so many years,
+> > you figured out that problem. However, being a mere luser in the
+> > context of window management,
+>
+> I god fed up with the lusers complaining of the problems whilst
+> waving their enlarged penises.
+How do you tell an enlarged one from a naturally big one?
+
+> > I don't care since I've never hit any problem with that and now with
+> > xinerama support removed my feelings are hurt.
+>
+> In case you haven't noticed, someone wrote a module that will
+>
+>         VOID SUPPORT
+>
+> if installed.
+The point is that I did not have to look at how ion works for several
+years now and I don't even remember what a module is in this context.
+Now I'll have to dig this again and then install everything by hand
+once a month. Too complicated for a luser, now that even autoconf is
+carved out.
+
+> Yes, and my bicycle has diamond frame. (Seriously, it has.)
+And owning a bike is a consumer trend there.
+
+>   [1]: http://iki.fi/tuomov/b/archives/2006/07/04/T21_20_46/
+"Life sucks, and then you die." (C)
+
+-- 
+I like long walks, especially when they are taken by people who annoy me.
+
+
+From tuomov at iki.fi  Sat May 12 23:55:27 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 12 May 2007 21:55:27 +0000 (UTC)
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+	<20070507065842.GA23605@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070022k72fe2e77s5b6e016c83bcfa4e@mail.gmail.com>
+	<slrnf3tlic.q0v.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070150l6f2ecd92wb1afbae4610a040a@mail.gmail.com>
+	<slrnf3tqne.29c.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705120836v12636173q2eb6a530160cfb5e@mail.gmail.com>
+	<slrnf4c0a7.ubj.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705121313q440ebe3fxc57db295642e0d52@mail.gmail.com>
+	<slrnf4c95e.c5a.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705121426s6a94e567m7db7d5d9e259ae82@mail.gmail.com>
+Message-ID: <slrnf4cduf.jbu.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-12, Alexander Shishkin <alexander.shishckin at gmail.com> wrote:
+> That [1] entry is full of fud also. As for autoconf, it's a known and
+> tolerable way to get things done IFF you know what you're doing and
+> don't get bored in 10 minutes just because there's m4 and you can't or
+> won't read it. Nobody really likes it and it's still there.
+
+You're full of FUD. I'm sick of programs with broken autoconf 
+scripts that take ages to run, and that are practically unfixable.
+I will have nothing to do with the autoconf mess, since better 
+solutions are possible.
+
+>> Luac produces architecture dependent code.
+> So what is fucked up then?
+
+Ah, gcc is fucked up too then.
+
+> How do you tell an enlarged one from a naturally big one?
+
+The show-off.
+
+> The point is that I did not have to look at how ion works for several
+> years now and I don't even remember what a module is in this context.
+
+I didn't have to look at how font systems work for several years, and
+then they made everything use Xft and fontconfig, and now I have to
+spend hours on it to get nice clear crisp fonts.
+
+I didn't have to look at how device mapping works for several years,
+and then they started the SCSI-mapping insanity and practically 
+demanding udev. Now I have to waste hours to create a fucking symlink
+in /dev.
+
+>> Yes, and my bicycle has diamond frame. (Seriously, it has.)
+> And owning a bike is a consumer trend there.
+
+No, SUV the size of a high-rise building is the penis enlargement
+trend over here. The bicycle is a mere transportation necessity, 
+assuming you agree that people need to move around faster and
+longer distances than is practical by walking -- which isn't much
+given the low densities. There's practically no public transport
+thanks to the trend of enlarging penisis with the infernal machines
+known cars, and the bicycle beats it in ecology in any case.
+
+(And, yeah, "diamond" above of course refers to the standard 
+bicycle frame shape.)
+
+-- 
+Tuomo
+
+
+
+From alexander.shishckin at gmail.com  Sun May 13 00:42:45 2007
+From: alexander.shishckin at gmail.com (Alexander Shishkin)
+Date: Sun, 13 May 2007 02:42:45 +0400
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+In-Reply-To: <slrnf4cduf.jbu.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+	<slrnf3tlic.q0v.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070150l6f2ecd92wb1afbae4610a040a@mail.gmail.com>
+	<slrnf3tqne.29c.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705120836v12636173q2eb6a530160cfb5e@mail.gmail.com>
+	<slrnf4c0a7.ubj.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705121313q440ebe3fxc57db295642e0d52@mail.gmail.com>
+	<slrnf4c95e.c5a.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705121426s6a94e567m7db7d5d9e259ae82@mail.gmail.com>
+	<slrnf4cduf.jbu.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <71a0d6ff0705121542w4705d360xec49e63befccd2cf@mail.gmail.com>
+
+On 5/13/07, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2007-05-12, Alexander Shishkin <alexander.shishckin at gmail.com> wrote:
+> > That [1] entry is full of fud also. As for autoconf, it's a known and
+> > tolerable way to get things done IFF you know what you're doing and
+> > don't get bored in 10 minutes just because there's m4 and you can't or
+> > won't read it. Nobody really likes it and it's still there.
+>
+> You're full of FUD. I'm sick of programs with broken autoconf
+> scripts that take ages to run, and that are practically unfixable.
+> I will have nothing to do with the autoconf mess, since better
+> solutions are possible.
+Note, that I'm not trying to talk you into merging autoconf scripts
+back, all I was saying is that the fact that you're uncomfortable with
+something doesn't make it suck or "a fucked up mess". Statements that
+you make here are solely based upon your feelings and you try to use
+as if they were objectively correct which is often not the case.
+
+> >> Luac produces architecture dependent code.
+> > So what is fucked up then?
+>
+> Ah, gcc is fucked up too then.
+With regards to cross compilation capability it obviously is not.
+
+> > How do you tell an enlarged one from a naturally big one?
+>
+> The show-off.
+So you don't believe in natural ones at all?
+
+> > The point is that I did not have to look at how ion works for several
+> > years now and I don't even remember what a module is in this context.
+>
+> I didn't have to look at how font systems work for several years, and
+> then they made everything use Xft and fontconfig, and now I have to
+> spend hours on it to get nice clear crisp fonts.
+>
+> I didn't have to look at how device mapping works for several years,
+> and then they started the SCSI-mapping insanity and practically
+> demanding udev. Now I have to waste hours to create a fucking symlink
+> in /dev.
+Deep inside we're all scared and lonely and offended by those FOSS
+developers doing what they please. So that's why you mistreat your
+users likewise?
+
+> >> Yes, and my bicycle has diamond frame. (Seriously, it has.)
+> > And owning a bike is a consumer trend there.
+>
+> No, SUV the size of a high-rise building is the penis enlargement
+> trend over here. The bicycle is a mere transportation necessity,
+Those penises that can't afford this type of enlargement still often
+have an urge to be enlarged somehow.
+
+> assuming you agree that people need to move around faster and
+> longer distances than is practical by walking -- which isn't much
+Is it still practical to ride a bike below -10C in winter considering
+wind and humidity?
+
+-- 
+I like long walks, especially when they are taken by people who annoy me.
+
+
+From ben at decadent.org.uk  Sun May 13 04:50:50 2007
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Sun, 13 May 2007 03:50:50 +0100
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+In-Reply-To: <71a0d6ff0705120836v12636173q2eb6a530160cfb5e@mail.gmail.com>
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+	<op.trxi7hkvd84skq@fiore>
+	<slrnf3tgje.isp.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705062352t2143db46rec8194f287cd4915@mail.gmail.com>
+	<20070507065842.GA23605@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070022k72fe2e77s5b6e016c83bcfa4e@mail.gmail.com>
+	<slrnf3tlic.q0v.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070150l6f2ecd92wb1afbae4610a040a@mail.gmail.com>
+	<slrnf3tqne.29c.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705120836v12636173q2eb6a530160cfb5e@mail.gmail.com>
+Message-ID: <1179024650.23224.2.camel@deadeye.i.decadent.org.uk>
+
+On Sat, 2007-05-12 at 19:36 +0400, Alexander Shishkin wrote:
+<snip>
+> Except, probably the case when I discovered that ion3 no longer does
+> xinerama due to you being somehow upset with xinerama API. Just like
+> you rolled back to an older kernel, I had to roll back to a
+> known-to-work snapshot of ion3.
+<snip>
+
+Have you tried mod_xinerama?  There is a Debian package (currently
+ion3-mod-xinerama; may need to be renamed) and it has just entered the
+archive.
+
+Ben.
+
+-- 
+Ben Hutchings
+Klipstein's 4th Law of Prototyping and Production:
+                                    A fail-safe circuit will destroy others.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070513/d05e27db/attachment.pgp>
+
+From tuomov at iki.fi  Sun May 13 11:59:06 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 13 May 2007 09:59:06 +0000 (UTC)
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+	<slrnf3tlic.q0v.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070150l6f2ecd92wb1afbae4610a040a@mail.gmail.com>
+	<slrnf3tqne.29c.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705120836v12636173q2eb6a530160cfb5e@mail.gmail.com>
+	<slrnf4c0a7.ubj.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705121313q440ebe3fxc57db295642e0d52@mail.gmail.com>
+	<slrnf4c95e.c5a.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705121426s6a94e567m7db7d5d9e259ae82@mail.gmail.com>
+	<slrnf4cduf.jbu.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705121542w4705d360xec49e63befccd2cf@mail.gmail.com>
+Message-ID: <slrnf4doba.idm.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-12, Alexander Shishkin <alexander.shishckin at gmail.com> wrote:
+> all I was saying is that the fact that you're uncomfortable with
+> something doesn't make it suck or "a fucked up mess". Statements that
+> you make here are solely based upon your feelings and you try to use
+> as if they were objectively correct which is often not the case.
+
+Objective correctness is fiction. All that matters is what I think.
+
+> Deep inside we're all scared and lonely and offended by those FOSS
+> developers doing what they please. So that's why you mistreat your
+> users likewise?
+
+I'm not going to waste time serving the fancies of the FOSS herd,
+especially ones that I have no use for, when all it tries to do 
+is make my life more difficult and laboursome. 
+
+>> No, SUV the size of a high-rise building is the penis enlargement
+>> trend over here. The bicycle is a mere transportation necessity,
+> Those penises that can't afford this type of enlargement still often
+> have an urge to be enlarged somehow.
+
+Maybe, but it can be something as simple as a bicycle model that 
+suits your style, and such small differences have quite insignificant 
+environmental impact, on a vehicle that runs on your own power and
+demands little space. (Recumbent tricycles can demand quite a bit of 
+space, though. It could also be argued that aluminium frames should 
+be used less than they presently are, in favour of heavier steel 
+frames that only tend to be used on very basic and el cheapo bicycles
+anymore. I'm not sure if such out-of-the-sight construction materials
+fall into the penis enlargement department, though.)
+
+>> assuming you agree that people need to move around faster and
+>> longer distances than is practical by walking -- which isn't much
+> Is it still practical to ride a bike below -10C in winter considering
+> wind and humidity?
+
+-10C is nothing. -20C is still quite tolerable. In -30C breathing
+has become quite difficult, but it's still doable. (Some cheapo
+components designed for warmer climates don't seem to like it much:
+I broke one crankarm in such temperatures just by standing on the 
+pedal. Derailleurs also start to freeze, when you have to leave the
+bike outside for the day.) Walking starts to become more convenient
+below -20C, though, as it demands more warming motion than cycling, 
+and has less chance of making you breathless.
+
+I'd actually like to try skiing for commuting in the winter -- it's 
+faster than walking, and also demands more warming exercise than 
+cycling -- but the vehicles of terror (cars) having consumed most
+of the space, with all the rest being squeezed on narrow gritted
+multi-use paths that frequently intersect the largely dry asphalted
+domain of these infernal machines, it's not possible.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sun May 13 21:20:30 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 13 May 2007 19:20:30 +0000 (UTC)
+Subject: ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+	<op.trxi7hkvd84skq@fiore>
+	<slrnf3tgje.isp.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705062352t2143db46rec8194f287cd4915@mail.gmail.com>
+	<20070507065842.GA23605@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070022k72fe2e77s5b6e016c83bcfa4e@mail.gmail.com>
+	<slrnf3tlic.q0v.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070150l6f2ecd92wb1afbae4610a040a@mail.gmail.com>
+	<slrnf3tqne.29c.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705120836v12636173q2eb6a530160cfb5e@mail.gmail.com>
+	<1179024650.23224.2.camel@deadeye.i.decadent.org.uk>
+Message-ID: <slrnf4ep7u.7ju.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-13, Ben Hutchings <ben at decadent.org.uk> wrote:
+> Have you tried mod_xinerama?  There is a Debian package (currently
+> ion3-mod-xinerama; may need to be renamed) and it has just entered the
+> archive.
+
+I think it (and other modules I don't care for) should somehow indicate
+that it will void upstream support. This could be done with names like
+'mod_xinerama-for-ion3', 'ion3-support-void-mod_xinerama', etc., but
+an unignorable notification might also suffice.
+
+-- 
+Tuomo
+
+
+
+From michael at cadilhac.name  Mon May 14 17:59:10 2007
+From: michael at cadilhac.name (=?iso-8859-1?Q?Micha=EBl?= Cadilhac)
+Date: Mon, 14 May 2007 17:59:10 +0200
+Subject: min_tabs with latest ion.
+Message-ID: <87ejlj4cs1.fsf@lrde.org>
+
+Hi!
+
+I've just updated a very old revision of ion3 to the latest RC. It
+appears that one of the script I use, min_tabs, stopped working.
+
+I modified the MOD1 to META thing, but there's still a problem with
+floating workspaces.  I'm just some kind of lusers, but as such, what
+I see is that windows in a floating workspaces are now frames [1] and
+the test
+
+    if obj_typename(fp) ~= "WFrame" then
+	-- Escape: floatws thing should not be handled
+        return
+    end
+
+never fails (the obj_typename is always WFrame).
+
+Any idea how to fix that ?
+
+Thanks !
+
+Footnotes: 
+[1]  Speaking of which, is there a way to restore the old behavior of
+     the ? mouse on window selects it ? ? Or at least, when clicking on
+     a window ? Well, and my M-<tab> doesn't work now, but it's probably
+     just a wrong config line.
+
+-- 
+ |   Micha?l `Micha' Cadilhac       |  Isn't vi that text editor with        |
+ |   http://michael.cadilhac.name   |   two modes... One that beeps and      |
+ |   JID/MSN:                       |     one that corrupts your file?       |
+ `----  michael.cadilhac at gmail.com  |           -- Dan Jacobson         -  --'
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 188 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070514/8701d9b1/attachment.pgp>
+
+From tuomov at iki.fi  Mon May 14 18:06:11 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 14 May 2007 16:06:11 +0000 (UTC)
+Subject: min_tabs with latest ion.
+References: <87ejlj4cs1.fsf@lrde.org>
+Message-ID: <slrnf4h27j.pqt.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-14, Micha?l Cadilhac <michael at cadilhac.name> wrote:
+> Any idea how to fix that ?
+
+WFrame.mode(_)=='floating', etc.
+
+> [1]  Speaking of which, is there a way to restore the old behavior of
+>      the =AB mouse on window selects it =BB ? Or at least, when clicking on
+>      a window ? Well, and my M-<tab> doesn't work now, but it's probably
+>      just a wrong config line.
+
+It's a bug.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Mon May 14 19:59:50 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 14 May 2007 17:59:50 +0000 (UTC)
+Subject: module naming [Was: Re:
+	ion-3rc-09f911029d74e35bd84156c5635688c0.tar.gz]
+References: <20070506145921.GA24410@jolt.modeemi.cs.tut.fi>
+	<op.trxi7hkvd84skq@fiore>
+	<slrnf3tgje.isp.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705062352t2143db46rec8194f287cd4915@mail.gmail.com>
+	<20070507065842.GA23605@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070022k72fe2e77s5b6e016c83bcfa4e@mail.gmail.com>
+	<slrnf3tlic.q0v.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705070150l6f2ecd92wb1afbae4610a040a@mail.gmail.com>
+	<slrnf3tqne.29c.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0705120836v12636173q2eb6a530160cfb5e@mail.gmail.com>
+	<1179024650.23224.2.camel@deadeye.i.decadent.org.uk>
+	<slrnf4ep7u.7ju.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnf4h8sm.3or.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-13, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> I think it (and other modules I don't care for) should somehow indicate
+> that it will void upstream support. This could be done with names like
+> 'mod_xinerama-for-ion3', 'ion3-support-void-mod_xinerama', etc., but
+> an unignorable notification might also suffice.
+
+The above package names are, of course a bit cumbersome. One possibility
+pointed out to me, would be to name unofficial modules according to the
+scheme 'mod_(supportvoid|unsupported|unofficial)_xinerama'. Then the 
+distributions would not have to give their packages peculiar names.
+I don't want to force module authors to use this scheme [1], but I 
+do recommend using it.
+
+  [1]: They're not the problem. The problem is distributions 
+       effectively hiding this and other information (version,
+       patches, etc.) that the user would gain by using the 
+       original sources.
+
+-- 
+Tuomo
+
+
+
+From oksijun at nerim.net  Mon May 14 20:46:01 2007
+From: oksijun at nerim.net (Michael Gwin)
+Date: Mon, 14 May 2007 20:46:01 +0200
+Subject: ion-3rc-20070506, transients and scratchpad
+Message-ID: <20070514204601.7a25c207@chomsky.adrena.lan>
+
+Hi all, 
+
+A couple of problems with the latest release (ion-3rc-20070506):
+
+- Some transient windows still aren't entirely functional, for example
+the firefox 'save as' dialog goes haywire after more than one size
+change (if I click 'Browse for other folders', the size change is
+honoured, but if I collapse the window after that it starts jumping
+between sizes).
+
+- The scratchpad sometimes occupies the whole screen and can't be
+resized (at least I don't know how to do it, the usual bindings have
+no effect). 
+
+Thanks in advance,
+
+Michael 
+
+
+From tuomov at iki.fi  Mon May 14 21:04:13 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 14 May 2007 19:04:13 +0000 (UTC)
+Subject: ion-3rc-20070506, transients and scratchpad
+References: <20070514204601.7a25c207@chomsky.adrena.lan>
+Message-ID: <slrnf4hcld.9t3.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-14, Michael Gwin <oksijun at nerim.net> wrote:
+> - Some transient windows still aren't entirely functional, for example
+> the firefox 'save as' dialog goes haywire after more than one size
+> change (if I click 'Browse for other folders', the size change is
+> honoured, but if I collapse the window after that it starts jumping
+> between sizes).
+
+Any window size jumping (supposing you mean what I think) is likely
+to be the result of application not complying with the ICCCM. Gtk 
+apps are notorious of this.
+
+> - The scratchpad sometimes occupies the whole screen and can't be
+> resized (at least I don't know how to do it, the usual bindings have
+> no effect). 
+
+Works for me. Maybe there's some problem with upgrade from an old
+version? Try destroying the scratchpad (by closing it), and opening
+it again.
+
+-- 
+Tuomo
+
+
+
+From oksijun at nerim.net  Mon May 14 21:59:12 2007
+From: oksijun at nerim.net (Michael Gwin)
+Date: Mon, 14 May 2007 21:59:12 +0200
+Subject: ion-3rc-20070506, transients and scratchpad
+In-Reply-To: <slrnf4hcld.9t3.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070514204601.7a25c207@chomsky.adrena.lan>
+	<slrnf4hcld.9t3.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070514215912.7f716e29@chomsky.adrena.lan>
+
+On Mon, 14 May 2007 19:04:13 +0000 (UTC)
+Tuomo Valkonen <tuomov at iki.fi> wrote:
+
+> Any window size jumping (supposing you mean what I think) is likely
+> to be the result of application not complying with the ICCCM. Gtk 
+> apps are notorious of this.
+
+I don't remember this happening in earlier versions (but I'll check
+before I shoot my mouth off). What's strange though is that the first
+size change request is ok - only subsequent changes cause a problem.
+
+> 
+> > - The scratchpad sometimes occupies the whole screen and can't be
+> > resized (at least I don't know how to do it, the usual bindings have
+> > no effect). 
+> 
+> Works for me. Maybe there's some problem with upgrade from an old
+> version? Try destroying the scratchpad (by closing it), and opening
+> it again.
+
+Yes, that works, thanks. I'm not sure about any upgrade issues -
+I went from a recent darcs repository version to 3rc-20070506 -
+something in saved_layout.lua maybe? 
+
+- Michael
+
+
+From michael at cadilhac.name  Mon May 14 22:49:38 2007
+From: michael at cadilhac.name (=?iso-8859-1?Q?Micha=EBl?= Cadilhac)
+Date: Mon, 14 May 2007 22:49:38 +0200
+Subject: min_tabs with latest ion.
+References: <87ejlj4cs1.fsf@lrde.org>
+	<slrnf4h27j.pqt.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <873b1z3zbx.fsf@lrde.org>
+
+Tuomo Valkonen <tuomov at iki.fi> writes:
+
+> On 2007-05-14, Micha?l Cadilhac <michael-0Y5htV5oSMuLwutG50LtGA at public.gmane.org> wrote:
+>> Any idea how to fix that ?
+>
+> WFrame.mode(_)=='floating', etc.
+
+Thank you very much! FYI, the changes I had to make are the following?:
+-------------- next part --------------
+An embedded and charset-unspecified text was scrubbed...
+Name: min_tabs.diff
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070514/fec4f377/attachment.ksh>
+-------------- next part --------------
+
+>> [1]  Speaking of which, is there a way to restore the old behavior of
+>>      the =AB mouse on window selects it =BB ? Or at least, when clicking on
+>>      a window ? Well, and my M-<tab> doesn't work now, but it's probably
+>>      just a wrong config line.
+>
+> It's a bug.
+
+Oh, well...  So let's hope you'll kill it then?:-) Thanks again?!
+
+-- 
+ |   Micha?l `Micha' Cadilhac       |   An error can become exact            |
+ |   http://michael.cadilhac.name   |     as the one who committed it        |
+ |   JID/MSN:                       |  made a mistake or not.                |
+ `----  michael.cadilhac at gmail.com  |          -- Pierre Dac            -  --'
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 188 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070514/fec4f377/attachment.pgp>
+
+From groleo at gmail.com  Tue May 15 07:34:28 2007
+From: groleo at gmail.com (Groleo Marius)
+Date: Tue, 15 May 2007 01:34:28 -0400
+Subject: ion-3rc-20070506, transients and scratchpad
+In-Reply-To: <20070514204601.7a25c207@chomsky.adrena.lan>
+References: <20070514204601.7a25c207@chomsky.adrena.lan>
+Message-ID: <a54d2e230705142234l5f1cc0a8ldbd9c7247f089885@mail.gmail.com>
+
+On 5/14/07, Michael Gwin <oksijun at nerim.net> wrote:
+> Hi all,
+>
+> A couple of problems with the latest release (ion-3rc-20070506):
+>
+> - Some transient windows still aren't entirely functional, for example
+> the firefox 'save as' dialog goes haywire after more than one size
+> change (if I click 'Browse for other folders', the size change is
+> honoured, but if I collapse the window after that it starts jumping
+> between sizes).
+>
+
+It happens on e17 too.
+Basically the save-as dialog oscillates between two sizes, horizontally.
+Maybe you upgraded to gtk-2.10 ?
+
+> - The scratchpad sometimes occupies the whole screen and can't be
+> resized (at least I don't know how to do it, the usual bindings have
+> no effect).
+>
+> Thanks in advance,
+>
+> Michael
+>
+
+
+-- 
+Regards, Groleo!
+
+
+From tuomov at iki.fi  Tue May 15 08:28:22 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 15 May 2007 06:28:22 +0000 (UTC)
+Subject: min_tabs with latest ion.
+References: <87ejlj4cs1.fsf@lrde.org>
+	<slrnf4h27j.pqt.tuomov@jolt.modeemi.cs.tut.fi>
+	<873b1z3zbx.fsf@lrde.org>
+Message-ID: <slrnf4iko6.7du.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-14, Micha?l Cadilhac <michael at cadilhac.name> wrote:
+> Thank you very much! FYI, the changes I had to make are the following=A0:
+
+Please don't post your changes here; send them back to the repository
+with darcs.
+
+> Oh, well...  So let's hope you'll kill it then=A0:-) Thanks again=A0!
+
+It's been killed days ago.
+
+-- 
+Tuomo
+
+
+
+From michael at cadilhac.name  Tue May 15 12:43:01 2007
+From: michael at cadilhac.name (=?iso-8859-1?Q?Micha=EBl?= Cadilhac)
+Date: Tue, 15 May 2007 12:43:01 +0200
+Subject: min_tabs with latest ion.
+References: <87ejlj4cs1.fsf@lrde.org>
+	<slrnf4h27j.pqt.tuomov@jolt.modeemi.cs.tut.fi>
+	<873b1z3zbx.fsf@lrde.org>
+	<slrnf4iko6.7du.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <87odkm2wqy.fsf@lrde.org>
+
+Tuomo Valkonen <tuomov at iki.fi> writes:
+
+> On 2007-05-14, Micha?l Cadilhac <michael-0Y5htV5oSMuLwutG50LtGA at public.gmane.org> wrote:
+>> Thank you very much! FYI, the changes I had to make are the following=A0:
+>
+> Please don't post your changes here; send them back to the repository
+> with darcs.
+
+(Painfully) done?:)
+
+>> Oh, well...  So let's hope you'll kill it then=A0:-) Thanks again=A0!
+>
+> It's been killed days ago.
+
+Well, yeah, so we have to wait for a new release, isn't it?? Or have I
+misunderstood the new policy??
+
+-- 
+ |   Micha?l `Micha' Cadilhac       |       One user is enough.              |
+ |   http://michael.cadilhac.name   |    People suck.                        |
+ |   JID/MSN:                       |                                        |
+ `----  michael.cadilhac at gmail.com  |          -- Tuomo Valkonen        -  --'
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 188 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070515/0f434cb5/attachment.pgp>
+
+From tuomov at iki.fi  Tue May 15 12:52:45 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 15 May 2007 10:52:45 +0000 (UTC)
+Subject: min_tabs with latest ion.
+References: <87ejlj4cs1.fsf@lrde.org>
+	<slrnf4h27j.pqt.tuomov@jolt.modeemi.cs.tut.fi>
+	<873b1z3zbx.fsf@lrde.org>
+	<slrnf4iko6.7du.tuomov@jolt.modeemi.cs.tut.fi>
+	<87odkm2wqy.fsf@lrde.org>
+Message-ID: <slrnf4j47t.vvv.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-15, Micha?l Cadilhac <michael at cadilhac.name> wrote:
+> Well, yeah, so we have to wait for a new release, isn't it=A0?
+
+Yes. The repository is gone until we see what the distros do.
+If they end up simply providing their own forks.. well, I'm 
+not going to be their workhorse. 
+
+(Presently it seems that Debian at least is likely to simply 
+include a dirty hack in the package to check that it is the 
+latest, and possibly include ion3-old-$version packages in
+the following stable releases. Not that there are likely to
+be any Ion3 releases after the next stable Debian is out.)
+
+-- 
+Tuomo
+
+
+
+From nigifabio at gmx.it  Tue May 15 15:53:15 2007
+From: nigifabio at gmx.it (Fabio Nigi -)
+Date: Tue, 15 May 2007 15:53:15 +0200
+Subject: newuser debian scripting problem
+Message-ID: <20070515135315.GA6311@vaiolo.homenet.telecomitalia.it>
+
+hi to all,
+i'm an italian user of ion3 running on a debian unstable pc, 
+i try RTFM way to know how i can run ion3 script, that i find on
+ufficial repository but i think that i made it in a wrong way.
+
+but, due to i'm on a laptop, i love to see in the status bar the acpi
+battery manitor and other statistic.
+
+how can i include script at the starting of ion3?
+
+sorry for the very stupid question..
+
+Fabio
+
+
+From tuomov at iki.fi  Tue May 15 16:30:17 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 15 May 2007 14:30:17 +0000 (UTC)
+Subject: newuser debian scripting problem
+References: <20070515135315.GA6311@vaiolo.homenet.telecomitalia.it>
+Message-ID: <slrnf4jgvp.kdf.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-15, Fabio Nigi - <nigifabio at gmx.it> wrote:
+> how can i include script at the starting of ion3?
+
+- make the ~/.ion3/ directory
+- put the script in ~/.ion3/
+- copy one of {/usr/local/etc,/etc/X11}/ion3/cfg_ion.lua in ~/.ion3/
+- add the line
+
+	dopath("script name") 
+
+  at the end of ~/.ion3/cfg_ion.lua
+
+
+-- 
+Tuomo
+
+
+
+From dadark at dadark.de  Tue May 15 17:23:33 2007
+From: dadark at dadark.de (Pascal Ehlert)
+Date: Tue, 15 May 2007 17:23:33 +0200
+Subject: ion3 eyecandy - gnome-dock
+Message-ID: <4649D075.1000100@dadark.de>
+
+Hi all,
+although I'm a long-time fan of ion now and using it since ion2, this is
+my first post to the mailing list!
+
+I know the whole eyecandy stuff is against the fundamental idea of ion
+but I love as well ion as eyecandy..
+Well, ok, I'm not talking about fancy window moving effects or
+semi-transparent windows or something like that,
+but I need at least one eyecandy and, I have to admit, I like OS X and
+Aqua ;) At least parts of it.
+
+One part I really like is that cool dock application.
+Now I've spent my last night looking for a clone of that app - and I
+found one.
+
+It's called gnome-dock, you can find it at http://www.gnome-dock.org/,
+and it looks really great.. In gnome :-(
+In ion it's not really nice, it's surrounded by a large black border,
+making the actual window being 3-4 times larger than the panel itself ;)
+
+I now would really like to know whether there is any way to integrate it
+into ion.. That would be amazing.
+
+
+
+Thank you a lot
+Pascal
+
+
+
+From sylvain.abelard at gmail.com  Tue May 15 18:04:29 2007
+From: sylvain.abelard at gmail.com (=?ISO-8859-1?Q?Sylvain_Ab=E9lard?=)
+Date: Tue, 15 May 2007 18:04:29 +0200
+Subject: ion3 eyecandy - gnome-dock
+In-Reply-To: <4649D075.1000100@dadark.de>
+References: <4649D075.1000100@dadark.de>
+Message-ID: <9c6605e40705150904t4733148ua6a8f6567c3cff8c@mail.gmail.com>
+
+> It's called gnome-dock, you can find it at http://www.gnome-dock.org/,
+> and it looks really great.. In gnome :-(
+
+I guess Tuomo's answer will look like that :
+
+RTFFAQ (item #4) : http://modeemi.fi/~tuomov/ion/faq/entries/Reporting_bugs.html
+Which means Gnome is such a pain to deal with that you'd better not even ask.
+
+RTFML : http://lists.berlios.de/pipermail/ion-general/2007-March/001786.html
+Even a non-Gnome-related requested feature would not have been
+implemented anyway.
+
+-- 
+Sylvain Abelard,
+Railer Rubyist. Epita MTI 2008.
+
+
+From tuomov at iki.fi  Tue May 15 18:05:14 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 15 May 2007 16:05:14 +0000 (UTC)
+Subject: ion3 eyecandy - gnome-dock
+References: <4649D075.1000100@dadark.de>
+Message-ID: <slrnf4jmhq.sbn.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-15, Pascal Ehlert <dadark at dadark.de> wrote:
+> I now would really like to know whether there is any way to integrate it
+> into ion.. That would be amazing.
+
+No. Gnome is an anti-ion. Once you put matter and anti-matter 
+together, they annihilate each other.
+
+-- 
+Tuomo
+
+
+
+From oksijun at nerim.net  Tue May 15 19:18:12 2007
+From: oksijun at nerim.net (Michael Gwin)
+Date: Tue, 15 May 2007 19:18:12 +0200
+Subject: ion-3rc-20070506, transients and scratchpad
+In-Reply-To: <a54d2e230705142234l5f1cc0a8ldbd9c7247f089885@mail.gmail.com>
+References: <20070514204601.7a25c207@chomsky.adrena.lan>
+	<a54d2e230705142234l5f1cc0a8ldbd9c7247f089885@mail.gmail.com>
+Message-ID: <20070515191812.60d2d579@chomsky.adrena.lan>
+
+On Tue, 15 May 2007 01:34:28 -0400
+"Groleo Marius" <groleo at gmail.com> wrote:
+ 
+> It happens on e17 too.
+> Basically the save-as dialog oscillates between two sizes,
+> horizontally. Maybe you upgraded to gtk-2.10 ?
+
+Yes I did, actually. So it's nothing to do with ion then. Oh well...
+
+Regards,
+Michael
+
+
+From deryni at unreliablesource.net  Tue May 15 19:27:46 2007
+From: deryni at unreliablesource.net (Etan S. C. Reisner)
+Date: Tue, 15 May 2007 13:27:46 -0400
+Subject: ion3 eyecandy - gnome-dock
+In-Reply-To: <4649D075.1000100@dadark.de>
+References: <4649D075.1000100@dadark.de>
+Message-ID: <20070515172746.GB31892@aran>
+
+So despite the name gnome-dock according to the website it doesn't
+actually depend on anything Gnome. It does however claim to require a
+compositing manager which ion doesn't have.
+
+So I don't think you will have much luck getting it to look right without
+one, if you provide a screenshot of what you are seeing there may be
+slight things that can be tweaked to make it look better but I don't know
+how much.
+
+Also you are aware that ion has (at least for the moment) a dock module,
+correct?
+
+        -Etan
+
+
+From oksijun at nerim.net  Tue May 15 20:00:33 2007
+From: oksijun at nerim.net (Michael Gwin)
+Date: Tue, 15 May 2007 20:00:33 +0200
+Subject: ion-3rc-20070506, transients and scratchpad
+In-Reply-To: <20070515191812.60d2d579@chomsky.adrena.lan>
+References: <20070514204601.7a25c207@chomsky.adrena.lan>
+	<a54d2e230705142234l5f1cc0a8ldbd9c7247f089885@mail.gmail.com>
+	<20070515191812.60d2d579@chomsky.adrena.lan>
+Message-ID: <20070515200033.16c037d2@chomsky.adrena.lan>
+
+Just to finish up on this, and in case any one else is having the
+same problem, this bugzilla entry has a patch which fixed it for me :
+
+http://bugzilla.gnome.org/show_bug.cgi?id=420285
+
+- Michael
+
+
+From dadark at dadark.de  Tue May 15 22:01:39 2007
+From: dadark at dadark.de (Pascal Ehlert)
+Date: Tue, 15 May 2007 22:01:39 +0200
+Subject: "connect" two windows
+In-Reply-To: <4649D075.1000100@dadark.de>
+References: <4649D075.1000100@dadark.de>
+Message-ID: <464A11A3.3090104@dadark.de>
+
+Hi again!
+
+I've another question.. Is it somewhat possible to "connect" two windows 
+in different frames (are they called frames btw?) .
+To make it a little clearer let's assume I have an instant messenger and 
+the buddy list is in one frame, the actual conversation in another.. If 
+I now switch to the messanger's buddy list in the first frame, I would 
+like the conversation to appear automatically in the second frame.
+
+
+Thank you
+
+--
+Pascal
+
+
+From sylvain.abelard at gmail.com  Tue May 15 22:15:40 2007
+From: sylvain.abelard at gmail.com (=?ISO-8859-1?Q?Sylvain_Ab=E9lard?=)
+Date: Tue, 15 May 2007 22:15:40 +0200
+Subject: "connect" two windows
+In-Reply-To: <464A11A3.3090104@dadark.de>
+References: <4649D075.1000100@dadark.de> <464A11A3.3090104@dadark.de>
+Message-ID: <9c6605e40705151315r6a9e3789je913a344519ff2f@mail.gmail.com>
+
+> I've another question.. Is it somewhat possible to "connect" two windows
+> in different frames (are they called frames btw?) .
+> To make it a little clearer let's assume I have an instant messenger and
+> the buddy list is in one frame, the actual conversation in another.. If
+> I now switch to the messanger's buddy list in the first frame, I would
+> like the conversation to appear automatically in the second frame.
+
+You can use winprops to attach your client windows in the frames you want.
+I'm not sure about what you want to do, but I must warn you that very
+few (if any)
+IM client "correctly" sets its winprops, ie. setting them in a usable manner
+(if setting them differently than the buddy list at all). But then, I
+didn't try the
+new version of GAIM or whatever they named it.
+
+-- 
+Sylvain Abelard,
+Railer Rubyist. Epita MTI 2008.
+
+
+From deryni at unreliablesource.net  Wed May 16 00:28:04 2007
+From: deryni at unreliablesource.net (Etan S. C. Reisner)
+Date: Tue, 15 May 2007 18:28:04 -0400
+Subject: "connect" two windows
+In-Reply-To: <464A11A3.3090104@dadark.de>
+References: <4649D075.1000100@dadark.de> <464A11A3.3090104@dadark.de>
+Message-ID: <20070515222804.GD31892@aran>
+
+On Tue, May 15, 2007 at 10:01:39PM +0200, Pascal Ehlert wrote:
+> I've another question.. Is it somewhat possible to "connect" two windows
+> in different frames (are they called frames btw?) .
+> To make it a little clearer let's assume I have an instant messenger and
+> the buddy list is in one frame, the actual conversation in another.. If
+> I now switch to the messanger's buddy list in the first frame, I would
+> like the conversation to appear automatically in the second frame.
+>
+>
+> Thank you
+>
+> --
+> Pascal
+
+A 'frame' is a split on the screen, the default layout has two (unless
+that's changed recently), a 'tab' or 'client window' (cwin) is an item in
+a frame.  If you have the buddy list in one frame and the conversation
+window in another then you should be able to see them both at the same
+time. If instead you mean that you have them both as cwins in the same
+frame then you can only see one at a time and if you want to see them both
+make two frames.
+
+If I didn't answer your question please try again.
+
+    -Etan
+
+
+From deryni at unreliablesource.net  Wed May 16 00:21:15 2007
+From: deryni at unreliablesource.net (Etan S. C. Reisner)
+Date: Tue, 15 May 2007 18:21:15 -0400
+Subject: "connect" two windows
+In-Reply-To: <9c6605e40705151315r6a9e3789je913a344519ff2f@mail.gmail.com>
+References: <4649D075.1000100@dadark.de> <464A11A3.3090104@dadark.de>
+	<9c6605e40705151315r6a9e3789je913a344519ff2f@mail.gmail.com>
+Message-ID: <20070515222115.GC31892@aran>
+
+On Tue, May 15, 2007 at 10:15:40PM +0200, Sylvain Ab?lard wrote:
+<snip>
+> (if setting them differently than the buddy list at all). But then, I
+> didn't try the
+> new version of GAIM or whatever they named it.
+>
+> --
+> Sylvain Abelard,
+> Railer Rubyist. Epita MTI 2008.
+
+gaim and pidgin have been setting meaningful wm_window_role:s on the
+windows for *ages*. I know because I've been using them and made sure they
+got put there in the code in the first place. The conversation window, the
+buddy list, the accounts window, the preferences window, and the status
+window all have roles (as do many of the dialogs though they tend to share
+roles).
+
+    -Etan
+
+
+From tuomov at iki.fi  Wed May 16 08:40:15 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 16 May 2007 06:40:15 +0000 (UTC)
+Subject: "connect" two windows
+References: <4649D075.1000100@dadark.de> <464A11A3.3090104@dadark.de>
+Message-ID: <slrnf4l9qf.as6.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-15, Pascal Ehlert <dadark at dadark.de> wrote:
+> I've another question.. Is it somewhat possible to "connect" two windows 
+> in different frames (are they called frames btw?) .
+> To make it a little clearer let's assume I have an instant messenger and 
+> the buddy list is in one frame, the actual conversation in another.. If 
+> I now switch to the messanger's buddy list in the first frame, I would 
+> like the conversation to appear automatically in the second frame.
+
+As already mentioned, you can create such fixed policies with 
+"winprops" or ("kludges" or some like to call them, by the name
+of the configuration file that contains some defaults), by matching
+against the windows' classes, roles and instances, supposing the
+application provides such information. Too few applications do
+these days.
+
+More flexible policies could perhaps be implemented, if someone
+could be arsed to write that FDO startup spec support module, that
+I've been suggesting quite a few times. (I won't do it, as I seldom
+use applications that would both have the support and could be 
+improved by Ion supporting it too. Most importantly xterm and the
+shell don't. Plus the protocol is painful, like all FDO shit.) 
+Then, supposing that the application supports it too, and sets the
+LAUNCHED_BY property, you could have rules like "windows opened by 
+windows in this frame go to a nearby frame" or "windows opened by 
+this window go in another frame". 
+
+Perhaps it might in this case also be possible to use the "window
+groups" of ICCCM, if the application does set the group leader 
+suitably, but I don't know if they do (never used any IM, and don't
+plan to... unless IRC counts), and I've never bothered with window 
+groups. (Applications, or more appropriately "documents", should 
+generally have only one window as far as I'm concerned! And the 
+prototypical use for window groups is grouping of separate toolbox
+windows and such abominations with the main document(s). Perhaps a 
+conversion window is a different document from a buddy list, but 
+would belong in the same group nevertheless. But does such a group
+have a natural leader, which the ICCCM window groups suppose?)
+
+-- 
+Tuomo
+
+
+
+From cothrige at gmail.com  Fri May 18 19:28:28 2007
+From: cothrige at gmail.com (cothrige)
+Date: Fri, 18 May 2007 12:28:28 -0500
+Subject: Cycling through tiled windows
+Message-ID: <adb998e60705181028g6396ab85w8a09caf375d688c7@mail.gmail.com>
+
+Okay, probably a very dumb question here.  If I split a screen into
+three tiled windows, such as:
+
+___________________________
+|                               |                             |
+|                               |              B            |
+|                               |                             |
+|              A               | ____________|
+|                               |                             |
+|                               |               C           |
+|                               |                             |
+| _____________|____________ |
+
+How can I cycle focus among all three windows using the keyboard?  I
+can Alt-Tab (actually Super-Tab on my box) from left to right, which
+would be like A -> B and B -> A, but I cannot move from B -> C or
+vice-versa.  To do that I have to use the mouse, which is obviously
+less than desirable.  I have read through the docs and the config
+files hoping to see something which may relate to this in the
+bindings, but there seems to be nothing there beyond the side to side
+action.
+
+Surely this is possible, but for some reason I am overlooking it.  How
+exactly would I manage to cycle through all three of these windows?
+
+Patrick
+
+
+From tuomov at iki.fi  Fri May 18 19:46:43 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 18 May 2007 17:46:43 +0000 (UTC)
+Subject: Cycling through tiled windows
+References: <adb998e60705181028g6396ab85w8a09caf375d688c7@mail.gmail.com>
+Message-ID: <slrnf4rpk3.htq.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-18, cothrige <cothrige at gmail.com> wrote:
+> Surely this is possible, but for some reason I am overlooking it.  How
+> exactly would I manage to cycle through all three of these windows?
+
+The defaults provide no way of _cycling_ through them: the movement
+is geometrical. RTFM:
+
+   Bindings for tilings and tiled frames [mod_tiling]
+
+       Mod1+P, Mod1+N, Mod1+Tab, Mod1+K Tab
+              Go to frame above/below/right/left of current frame.
+
+
+-- 
+Tuomo
+
+
+
+From cothrige at gmail.com  Fri May 18 20:59:27 2007
+From: cothrige at gmail.com (cothrige)
+Date: Fri, 18 May 2007 13:59:27 -0500
+Subject: Cycling through tiled windows
+In-Reply-To: <slrnf4rpk3.htq.tuomov@jolt.modeemi.cs.tut.fi>
+References: <adb998e60705181028g6396ab85w8a09caf375d688c7@mail.gmail.com>
+	<slrnf4rpk3.htq.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <adb998e60705181159l3289d36k88ef7be42db7953f@mail.gmail.com>
+
+On 5/18/07, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> The defaults provide no way of _cycling_ through them: the movement
+> is geometrical. RTFM:
+
+Oh, I see.  I guess it just seemed natural to think that I would be
+able to cycle through all windows seamlessly.  Perhaps I got that
+thinking from using ratpoison, which seemed to work that way.
+
+>
+>    Bindings for tilings and tiled frames [mod_tiling]
+>
+>        Mod1+P, Mod1+N, Mod1+Tab, Mod1+K Tab
+>               Go to frame above/below/right/left of current frame.
+>
+
+Many thanks for the info.  Don't know why I overlooked that, but I
+figured it was a dumb question.
+
+Patrick
+
+
+From voltaic at gmail.com  Mon May 21 07:18:11 2007
+From: voltaic at gmail.com (volt 9)
+Date: Mon, 21 May 2007 01:18:11 -0400
+Subject: Sloppy focus with Floating WS
+Message-ID: <12c5d10b0705202218u8d0a6eeg9349731ba7519a5a@mail.gmail.com>
+
+Up to today I have been using ion3 20060524, so my question may be very out
+of day.
+
+I installed version 20070506 today and noticed that floating workspaces
+don't use sloppy focus anymore. The only way I can cycle through floating
+frames is by clicking on their title bars. Tiled workspaces work as
+expected: mouse-over gives focus to the appropriate frames.
+
+Is this intended behavior for floating workspaces, or do I have a
+configuration issue on my end? Could anyone help me with regaining sloppy
+focus functionality with floating frames?
+
+Thanks in advance,
+-voltaic
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070521/d3c626bb/attachment.html>
+
+From tuomov at iki.fi  Mon May 21 08:22:59 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 21 May 2007 06:22:59 +0000 (UTC)
+Subject: Sloppy focus with Floating WS
+References: <12c5d10b0705202218u8d0a6eeg9349731ba7519a5a@mail.gmail.com>
+Message-ID: <slrnf52em3.npr.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-21, volt 9 <voltaic at gmail.com> wrote:
+> I installed version 20070506 today and noticed that floating workspaces
+> don't use sloppy focus anymore. 
+
+It's a b00g.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Mon May 21 08:58:27 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 21 May 2007 06:58:27 +0000 (UTC)
+Subject: License change
+References: <20070510090014.GA7436@pluto.local>
+	<slrnf45q3r.b6c.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070510095135.GD6495@pluto.local>
+	<slrnf45rf0.e21.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070510102625.GF6495@pluto.local>
+	<slrnf45uoj.jer.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnf52goj.p5h.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-10, Tuomo Valkonen <tuomov at iki.fi> wrote:
+>> The message will use elog, which is user configurable and some of our
+>> users have it mail them the output. In one case, namely the paludis
+>> package manager, elog messages get shown at the end of the complete
+>> batch build. In every case, the user gets a log file with the messages
+>> the package emitted.
+>>
+>> The use flags will have a (unsupported upstream) added to their
+>> description.
+>
+> I don't think that's quite prominent enough. Also "unsupported 
+> upstream" doesn't have quite right the connotation: it could
+> be mistaken that the particular feature is not supported. 
+> The words "upstream support void" would perhaps be more to the
+> effect. There's also the problem of users getting instructions
+> from elsewhere, and never reading the description, or the log.
+> Therefore, the flags themselves should perhaps be prefixed
+> "support-void"; cmp. "warranty void" stickers on devices. 
+> (For FOSS there's no warranty, of course.)
+
+
+Might I clarify, that the log (as a reminder) might be enough if
+the options themselves already contain the information in condensed
+form. The whole point of the "name policy" is that the user knows
+what he's doing, and therefore must explicitly request for additional
+features and old versions, and know that they're unsupported. If
+the use downloaded the official tarball, it would automatically be
+the latest. If he would then patch it with random patches from the
+net, anyone who is not a semi-moron should know that the version
+is unsupported. Distributions may provided "shortcuts" to applying
+such patches, and they may provide old versions, but they should
+still approximate the process the user would go through when patching
+the official tarball, or obtaining an older one.
+
+I think I will refine the "Ion soup" part to something like follows,
+to avoid confusion:
+
+    b) The standard non-significantly modified version must be
+    provided by default. Options may, however, be provided to
+    modify the program on the user's explicit request, when these
+    options make it clear, that the modified version is no longer 
+    supported by the author, and not considered the standard version.
+    The version displayed by the program must be updated to mention
+    the modifications and the unsupported nature.
+
+Something like 'USE=ion3-supportvoid-xft' should do that, with
+additional reminder in the log or wherever.
+Likewise, old versions may be explicitly requested for. If not,
+the installation should fail or ask whether the user really wants
+to continue. The best way to do the old version check is probably
+a "dead man switch" somewhere in the packages or tools. The crudest
+form is packages that start complaining when they're more than 28
+days old. A more refined form would have packages download a small
+database of triples (package, upstream-version, checked-when),
+updated in the distribution's repositories either automatically or
+manually by the package maintainer. (Checking upstream version and
+Setting the switch once a month should not be that much work. 
+Package maintainer should pay at least that much attention.) Then,
+the package or package maintenance tools would check whether the/a
+package request to be complained when upstream-version does not
+match, checked-when is too old, or this information is not available.
+With package maintainer comind and going, such a _service_ would be
+useful -- essential even -- in general. Users could also use it to
+check whether the version provided of other packages by the 
+distribution is too old to bother with -- which is too often the
+case, maintainer MIA. 
+
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Mon May 21 09:04:34 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 21 May 2007 07:04:34 +0000 (UTC)
+Subject: License change
+References: <20070510090014.GA7436@pluto.local>
+	<slrnf45q3r.b6c.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070510095135.GD6495@pluto.local>
+	<slrnf45rf0.e21.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070510102625.GF6495@pluto.local>
+	<slrnf45uoj.jer.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrnf52goj.p5h.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnf52h42.p5h.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-21, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> The best way to do the old version check is probably
+> a "dead man switch" somewhere in the packages or tools. 
+
+Source-based packages that already download the official tarball,
+might also simply want to use the 
+
+	http://iki.fi/tuomov/dl/ion-3-latest.tar.gz
+
+(and .asc for signature) redirection. Obviously the package may
+break when I release a new version, but that should give the
+package maintainer a bit more incentive in updating it...
+
+--
+
+Also forgot to mention that the dead man switch DB would only
+have to be downloaded by the package maintenance tools' update/
+sync process. An alternative approach currently apparently taken 
+by Debian is to check the package's site for the version on every
+install, which is quite ugly.
+
+-- 
+Tuomo
+
+
+
+From benno.kroeck at web.de  Mon May 21 15:21:02 2007
+From: benno.kroeck at web.de (Benno =?utf-8?b?S3LDtmNr?=)
+Date: Mon, 21 May 2007 13:21:02 +0000 (UTC)
+Subject: Failed to start ion-statusd
+Message-ID: <loom.20070521T150223-874@post.gmane.org>
+
+Hello,
+
+this startup message has already been discussed in this list. But I haven't 
+understood how to avoid it. I'm using latest release candidate. The message 
+appears almost every time after booting the system. It doesn't occur after 
+restarting the xorg server.
+I remember the error message might be result of a too small delay. So where can 
+I change its value?
+
+Greetings from Germany!
+Benno
+
+
+
+From tuomov at iki.fi  Tue May 22 12:26:52 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 22 May 2007 10:26:52 +0000 (UTC)
+Subject: Failed to start ion-statusd
+References: <loom.20070521T150223-874@post.gmane.org>
+Message-ID: <slrnf55hbc.oa1.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-21, Benno Kr??ck <benno.kroeck at web.de> wrote:
+> this startup message has already been discussed in this list. But I haven't 
+> understood how to avoid it. I'm using latest release candidate. The message 
+> appears almost every time after booting the system. It doesn't occur after 
+> restarting the xorg server.
+
+Your system is too loaded... probably loading Gnome or KDE shit... 
+Or perhaps your using some additional meter that takes ages on load,
+or $MAIL is huge.
+
+> I remember the error message might be result of a too small delay. So
+> where can I change its value?
+
+mod_statusbar/main.c 
+
+It's a huge 5 seconds by default -- longer than a program should wait.
+I will do something about it for the next RC. The simplest approach
+is to not wait. It's not strictly necessary, but there are some
+benefits: 1) calculating the statusbar size before workspaces are
+loaded. If this is not done, it may be necessary to considerably 
+adjust the current layout later on. 2) Displaying error messages
+in the same xmessage as rest of Ion startup errors are displayed.
+
+I'll probably go for the next simplest approach: wait just a few
+seconds, and if there's not enough response, don't wait, but don't
+fail either. It's a dirty hack, but much simpler than other 
+possibilities.
+
+(I don't particularly like the present statusd that much. It's in
+general a quick and dirty hack. I'd like a better general-purpose 
+one, that used unix sockets, etc. DBus would in theory also be an
+option -- in principle it's just the right thing -- I just don't 
+like the complex API that much, and the UTF-8 monoculturism [1]. 
+Not that I plan to write a better statusd, but it's a project idea
+for someone.)
+
+  [1]: http://iki.fi/tuomov/b/archives/2006/08/26/T20_16_06/
+
+-- 
+Tuomo
+
+
+
+From nigifabio at gmx.it  Wed May 23 15:40:04 2007
+From: nigifabio at gmx.it (Fabio Nigi -)
+Date: Wed, 23 May 2007 15:40:04 +0200
+Subject: close only one window and leave the other son process
+Message-ID: <20070523134004.GA4313@vaiolo.homenet.telecomitalia.it>
+
+hi to all,
+there is certainly a way but i don't find it.
+
+if i have 10 ooffice windows open and i want to close only one of it
+wich keybind i must use?
+if i press meta+c all ooffice window die.
+
+Fabio
+-- 
+Nigi Fabio
+mail:echo "kfdfc^_fl=dju+fq" | perl -pe 's/(.)/chr(ord($1)+3)/ge'
+www.nigifabio.com || www.debianhardstyle.net || 
+
+
+From sylvain.abelard at gmail.com  Wed May 23 16:52:47 2007
+From: sylvain.abelard at gmail.com (=?ISO-8859-1?Q?Sylvain_Ab=E9lard?=)
+Date: Wed, 23 May 2007 16:52:47 +0200
+Subject: close only one window and leave the other son process
+In-Reply-To: <20070523134004.GA4313@vaiolo.homenet.telecomitalia.it>
+References: <20070523134004.GA4313@vaiolo.homenet.telecomitalia.it>
+Message-ID: <9c6605e40705230752m7b3c48a3sf6ebc53e871fd573@mail.gmail.com>
+
+> if i have 10 ooffice windows open and i want to close only one of it
+
+OpenOffice provides C-W and C-Q to respectively close one document and
+all documents.
+This is certainly not a ion problem.
+
+-- 
+Sylvain Abelard,
+Railer Rubyist. Epita MTI 2008.
+
+
+From c.nicolas at gmail.com  Wed May 23 16:53:48 2007
+From: c.nicolas at gmail.com (Cyprien Nicolas)
+Date: Wed, 23 May 2007 16:53:48 +0200
+Subject: close only one window and leave the other son process
+In-Reply-To: <20070523134004.GA4313@vaiolo.homenet.telecomitalia.it>
+References: <20070523134004.GA4313@vaiolo.homenet.telecomitalia.it>
+Message-ID: <dd79b93d0705230753w24adb05dtb5485208710af13c@mail.gmail.com>
+
+> if i have 10 ooffice windows open and i want to close only one of it
+> wich keybind i must use?
+
+Maybe you can try Ctrl+W which is not ion-related
+
+> if i press meta+c all ooffice window die.
+
+Its only close one window on my computer... I can't reproduce it...
+
+-- 
+Cyprien Nicolas
+c.nicolas at gmail.com
+
+
+From tuomov at iki.fi  Wed May 23 16:55:20 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 23 May 2007 14:55:20 +0000 (UTC)
+Subject: close only one window and leave the other son process
+References: <20070523134004.GA4313@vaiolo.homenet.telecomitalia.it>
+	<9c6605e40705230752m7b3c48a3sf6ebc53e871fd573@mail.gmail.com>
+Message-ID: <slrnf58leo.iu5.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-23, Sylvain Ab?lard <sylvain.abelard at gmail.com> wrote:
+>> if i have 10 ooffice windows open and i want to close only one of it
+>
+> OpenOffice provides C-W and C-Q to respectively close one document and
+> all documents.
+> This is certainly not a ion problem.
+
+This is almost certainly an ooffice bug. Mod1+C simply sends the 
+WM_DELETE message to the window, that the "close" button in more 
+conventional WMs sends. Does ooffice exit then too? Certainly it
+shouldn't.
+
+-- 
+Tuomo
+
+
+
+From lanek at novenine.com  Wed May 23 16:57:38 2007
+From: lanek at novenine.com (Roy Lanek)
+Date: Wed, 23 May 2007 21:57:38 +0700
+Subject: Failed to start ion-statusd
+In-Reply-To: <slrnf55hbc.oa1.tuomov@jolt.modeemi.cs.tut.fi>
+References: <loom.20070521T150223-874@post.gmane.org>
+	<slrnf55hbc.oa1.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070523145738.GA11684@kayumanis>
+
+> It's a huge 5 seconds by default -- longer than a
+> program should wait.
+
+> I'll probably go for the next simplest approach: wait
+> just a few seconds, and if there's not enough response,
+> don't wait, but don't fail either. It's a dirty hack,
+> but much simpler than other possibilities.
+
+The next simplest and ... WISE approach. "Huge 5 seconds"
+are ZERO, provided the delay is constant. (I know about
+what I am talking, I am using a P166 with 32MB and an ATI
+card with 4MB--an acceptable, functional box still, no
+kidding.)
+
+Much worse and irritating are programs that start in 0
+seconds once, in 10 seconds another time, and in 4 a third
+time.
+
+A program that regularly lets you wait 5 seconds, and
+whose complexity is beyond writing just "hello," is okay.
+
+
+Cheers,
+
+
+/Roy Lanek (West Sumatra)
+
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   buruk muka cermin dibelah
+SSSSS . s l a c k w a r e  SSSSSS   ugly face, the mirror is split [blaming
+SSSSS +------------ linux  SSSSSS   the wrong cause or creating a scapegoat]
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+
+
+From benno.kroeck at web.de  Wed May 23 18:49:09 2007
+From: benno.kroeck at web.de (Benno =?utf-8?b?S3LDtmNr?=)
+Date: Wed, 23 May 2007 16:49:09 +0000 (UTC)
+Subject: Failed to start ion-statusd
+References: <loom.20070521T150223-874@post.gmane.org>
+	<slrnf55hbc.oa1.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <loom.20070523T183902-48@post.gmane.org>
+
+Tuomo Valkonen <tuomov at ...> writes:
+
+> ... probably loading Gnome or KDE shit... 
+Nothing of the sort!
+
+> Or perhaps your using some additional meter that takes ages on load,
+> or $MAIL is huge.
+Yes, I think that's it. I'll try to find the evildoer.
+
+> It's a huge 5 seconds by default -- longer than a program should wait.
+I've tried 10 s without success. So I will identify the "bad" monitor first.
+
+Thanks alot!
+Benno
+
+
+
+
+
+From udvzsolt at gmail.com  Mon May 28 10:04:13 2007
+From: udvzsolt at gmail.com (Zsolt Udvari)
+Date: Mon, 28 May 2007 10:04:13 +0200
+Subject: Startup programs
+Message-ID: <760ece280705280104p48060e5ucbec02b74a2ef0e0@mail.gmail.com>
+
+Hello!
+
+I'm newbie in Ion (I've used just a few days) and I've a question:
+How can I run programs (gkrellm, gtubeclock, peksystray, liferea,
+mail-notification) at Ion startup?
+I'm using ion-2-20040729 and start via "startx" (I don't use *dm).
+
+I've tried in ~/.xinitrc ( ion & gkrellm ) but it doesn't works :(
+
+Any suggestions?
+
+Thanks.
+Zsolt
+
+
+From tuomov at iki.fi  Mon May 28 10:06:13 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 28 May 2007 08:06:13 +0000 (UTC)
+Subject: Startup programs
+References: <760ece280705280104p48060e5ucbec02b74a2ef0e0@mail.gmail.com>
+Message-ID: <slrnf5l3bl.6ls.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-28, Zsolt Udvari <udvzsolt at gmail.com> wrote:
+> I've tried in ~/.xinitrc ( ion & gkrellm ) but it doesn't works :(
+
+Where do you start Ion from? There's the answer.
+
+-- 
+Tuomo
+
+
+
+From roman.cheplyaka at gmail.com  Mon May 28 10:20:22 2007
+From: roman.cheplyaka at gmail.com (Roman Cheplyaka)
+Date: Mon, 28 May 2007 11:20:22 +0300
+Subject: Startup programs
+In-Reply-To: <760ece280705280104p48060e5ucbec02b74a2ef0e0@mail.gmail.com>
+References: <760ece280705280104p48060e5ucbec02b74a2ef0e0@mail.gmail.com>
+Message-ID: <20070528082022.GA6362@crematorium>
+
+* Zsolt Udvari <udvzsolt at gmail.com> [2007-05-28 10:04:13+0200]
+> I've tried in ~/.xinitrc ( ion & gkrellm ) but it doesn't works :(
+
+Try this in your .xinitrc:
+gkrellm&
+ion
+
+-- 
+Roman I. Cheplyaka
+http://ro-che.info/
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 307 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070528/2ac18cdc/attachment.pgp>
+
+From Matthieu.Moy at imag.fr  Mon May 28 17:57:14 2007
+From: Matthieu.Moy at imag.fr (Matthieu Moy)
+Date: Mon, 28 May 2007 17:57:14 +0200
+Subject: Detach a transient from a frame
+Message-ID: <vpqwsytc55x.fsf@bauges.imag.fr>
+
+Hi,
+
+I'm trying to detach a transient window from its parent in ion, using
+WTiling. Some applications require interaction between the application
+window and a transient, and in this case, having two real frames for
+the two clientwin is handy.
+
+Here's the current state of my work :
+
+
+detach = {
+   
+}
+
+function detach.topmost_transient(group)
+   group:managed_i(function(cwin) 
+                      if cwin==group:current() then
+                         io.stderr:write("attach " .. cwin:name() .. " to " .. group:manager():name() .. "\n")
+                         detach.cwin = cwin
+                         ioncore.defer(function ()
+                                          --ioncore.detach(cwin, 'toggle')
+                                          group:manager():attach(cwin)
+                                          detach.put_in_group(cwin)
+                                       end)
+                      end
+                      return true
+                   end)
+   return true
+end
+
+function detach.put_in_group(cwin)
+   local m = cwin:manager()
+   ioncore.defer(function()
+                    local g = m:attach_new({type = 'WGroupCW', name = cwin:name()})
+                    g:attach(cwin)
+                 end)
+end
+
+
+The first problem I have is that it seems the clientwin are usually
+not attached to a frame, they're instead managed by a WGroupCW, whose
+manager is a WFrame. If I attach a WClientWin directly to a WFrame,
+then ioncore.detach(_, 'toggle') doesn't work anymore for it. So I
+tried to reproduce the usual behavior with detach.put_in_group(), but
+then, I get some strange behavior. For example, if I detach this
+WGroupCW, and then resize it, the WClientWin doesn't resize. And if I
+do MOD-c on the WGroupCW, then the WClientWin is closed, leaving an
+empty WGroupCW.
+
+What am I missing?
+
+Thanks,
+
+-- 
+Matthieu
+
+
+From tuomov at iki.fi  Mon May 28 18:49:01 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 28 May 2007 16:49:01 +0000 (UTC)
+Subject: Detach a transient from a frame
+References: <vpqwsytc55x.fsf@bauges.imag.fr>
+Message-ID: <slrnf5m1vt.mcq.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-28, Matthieu Moy <Matthieu.Moy at imag.fr> wrote:
+> What am I missing?
+
+You have to make the client window the "bottom" of the group. 
+(Set bottom=true in the attach parameter table). Also note that
+you don't need to attach the window separately to the group;
+you can attach it when creating the group with attach_new.
+(Set managed = { { reg = cwin, bottom = true, ... }, }, )
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Mon May 28 18:51:18 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 28 May 2007 16:51:18 +0000 (UTC)
+Subject: Detach a transient from a frame
+References: <vpqwsytc55x.fsf@bauges.imag.fr>
+	<slrnf5m1vt.mcq.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnf5m246.mcq.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-28, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> You have to make the client window the "bottom" of the group. 
+> (Set bottom=true in the attach parameter table). Also note that
+
+One more thing: The name=cwin:name() setting is also unnecessary,
+because the "displayname" is always the bottom's name, when bottom
+is set.
+
+
+-- 
+Tuomo
+
+
+
+From Matthieu.Moy at imag.fr  Mon May 28 21:05:25 2007
+From: Matthieu.Moy at imag.fr (Matthieu Moy)
+Date: Mon, 28 May 2007 21:05:25 +0200
+Subject: Detach a transient from a frame
+In-Reply-To: <slrnf5m1vt.mcq.tuomov@jolt.modeemi.cs.tut.fi> (Tuomo Valkonen's
+	message of "Mon\, 28 May 2007 16\:49\:01 +0000 \(UTC\)")
+References: <vpqwsytc55x.fsf@bauges.imag.fr>
+	<slrnf5m1vt.mcq.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <vpqodk4ahvu.fsf@bauges.imag.fr>
+
+Tuomo Valkonen <tuomov at iki.fi> writes:
+
+> On 2007-05-28, Matthieu Moy <Matthieu.Moy at imag.fr> wrote:
+>> What am I missing?
+>
+> You have to make the client window the "bottom" of the group. 
+
+OK, that's it.
+
+Tuomo Valkonen <tuomov at iki.fi> writes:
+
+> On 2007-05-28, Tuomo Valkonen <tuomov at iki.fi> wrote:
+>> You have to make the client window the "bottom" of the group. 
+>> (Set bottom=true in the attach parameter table). Also note that
+>
+> One more thing: The name=cwin:name() setting is also unnecessary,
+> because the "displayname" is always the bottom's name, when bottom
+> is set.
+
+It should be unnecessary, but there's a bug. The name remains
+WGroupCW<something> until the first redraw (resize the frame or so).
+
+Here's the result :
+
+
+detach = {
+   
+}
+
+function detach.topmost_transient(cwin)
+   local reg = cwin
+   while obj_typename(reg) ~= "WGroupCW" do
+      reg = reg:manager()
+   end
+   ioncore.defer(function ()
+                    local g = reg:manager():attach_new({type = 'WGroupCW', switchto = true})
+                    g:attach(cwin, {bottom = true})
+                 end)
+   return false
+end
+
+
+function detach.topmost_transient_fl(cwin)
+   local reg = cwin
+   while obj_typename(reg) ~= "WGroupCW" do
+      reg = reg:manager()
+   end
+   ioncore.defer(function ()
+                    local g = reg:manager():attach_new({type = 'WGroupCW', switchto = true})
+                    local cwing = cwin:geom()
+                    ioncore.detach(g)
+                    -- g is a group of window, we set the size of the containing frame.
+                    g:manager():rqgeom(cwing)
+                    g:attach(cwin, {bottom = true, switchto = true})
+                    g:goto()
+                 end)
+   return false
+end
+
+
+Thanks a lot,
+
+-- 
+Matthieu
+
+
+From tuomov at iki.fi  Mon May 28 21:20:12 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 28 May 2007 19:20:12 +0000 (UTC)
+Subject: Detach a transient from a frame
+References: <vpqwsytc55x.fsf@bauges.imag.fr>
+	<slrnf5m1vt.mcq.tuomov@jolt.modeemi.cs.tut.fi>
+	<vpqodk4ahvu.fsf@bauges.imag.fr>
+Message-ID: <slrnf5marc.54m.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-28, Matthieu Moy <Matthieu.Moy at imag.fr> wrote:
+> It should be unnecessary, but there's a bug. The name remains
+> WGroupCW<something> until the first redraw (resize the frame or so).
+
+Hmm. Maybe I'd call it a feature :). The name of the group does not
+change, and displayname changes are not signalled at all.
+
+However, if you do as I explained in the follow-up posting, the name
+should be initially correct.
+
+-- 
+Tuomo
+
+
+
+From Matthieu.Moy at imag.fr  Mon May 28 21:52:22 2007
+From: Matthieu.Moy at imag.fr (Matthieu Moy)
+Date: Mon, 28 May 2007 21:52:22 +0200
+Subject: Detach a transient from a frame
+In-Reply-To: <slrnf5marc.54m.tuomov@jolt.modeemi.cs.tut.fi> (Tuomo Valkonen's
+	message of "Mon\, 28 May 2007 19\:20\:12 +0000 \(UTC\)")
+References: <vpqwsytc55x.fsf@bauges.imag.fr>
+	<slrnf5m1vt.mcq.tuomov@jolt.modeemi.cs.tut.fi>
+	<vpqodk4ahvu.fsf@bauges.imag.fr>
+	<slrnf5marc.54m.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <vpqk5us20ax.fsf@bauges.imag.fr>
+
+Tuomo Valkonen <tuomov at iki.fi> writes:
+
+> On 2007-05-28, Matthieu Moy <Matthieu.Moy at imag.fr> wrote:
+>> It should be unnecessary, but there's a bug. The name remains
+>> WGroupCW<something> until the first redraw (resize the frame or so).
+>
+> Hmm. Maybe I'd call it a feature :). The name of the group does not
+> change, and displayname changes are not signalled at all.
+>
+> However, if you do as I explained in the follow-up posting, the name
+> should be initially correct.
+
+OK, I didn't understand the explanations at first (btw, {bottom = ...}
+and {reg = ...} are not documented on
+http://modeemi.cs.tut.fi/~tuomov/ion-doc-3/ionconf/node7.html ).
+
+I think I've got it now:
+
+
+detach = {
+   
+}
+
+function detach.topmost_transient(cwin, float)
+   local reg = cwin
+   while obj_typename(reg) ~= "WGroupCW" do
+      reg = reg:manager()
+   end
+   ioncore.defer(function ()
+                    local cwing = {}
+                    if float then
+                       cwing = cwin:geom()
+                    end
+                    local managed_list = {{ reg = cwin, bottom = true}}
+                    local newparam = {type = 'WGroupCW', sizepolicy = 'free', switchto = true, managed = managed_list, geom = cwing}
+                    local g = reg:manager():attach_new(newparam)
+                    if float then
+                       ioncore.detach(g, 'set')
+                       g:goto()
+                    end
+                 end)
+   return false
+end
+
+-- 
+Matthieu
+
+
+From fantasai.lists at inkedblade.net  Wed May 30 17:52:46 2007
+From: fantasai.lists at inkedblade.net (fantasai)
+Date: Wed, 30 May 2007 11:52:46 -0400
+Subject: Cycling through tiled windows
+In-Reply-To: <adb998e60705181028g6396ab85w8a09caf375d688c7@mail.gmail.com>
+References: <adb998e60705181028g6396ab85w8a09caf375d688c7@mail.gmail.com>
+Message-ID: <f3k6ke$472$1@sea.gmane.org>
+
+cothrige wrote:
+> Okay, probably a very dumb question here.  If I split a screen into
+> three tiled windows, such as:
+> 
+> ___________________________
+> |                               |                             |
+> |                               |              B            |
+> |                               |                             |
+> |              A               | ____________|
+> |                               |                             |
+> |                               |               C           |
+> |                               |                             |
+> | _____________|____________ |
+> 
+> How can I cycle focus among all three windows using the keyboard?  I
+> can Alt-Tab (actually Super-Tab on my box) from left to right, which
+> would be like A -> B and B -> A, but I cannot move from B -> C or
+> vice-versa.  To do that I have to use the mouse, which is obviously
+> less than desirable.  I have read through the docs and the config
+> files hoping to see something which may relate to this in the
+> bindings, but there seems to be nothing there beyond the side to side
+> action.
+> 
+> Surely this is possible, but for some reason I am overlooking it.  How
+> exactly would I manage to cycle through all three of these windows?
+
+Look in cfg_ioncore.lua, there's a comment about "Forward-circulate focus".
+Below it there are two keybindings. Change 'left' and 'right' to 'next'
+and 'prev'.
+
+~fantasai
+
+
+
+
+From fantasai.lists at inkedblade.net  Wed May 30 19:05:41 2007
+From: fantasai.lists at inkedblade.net (fantasai)
+Date: Wed, 30 May 2007 13:05:41 -0400
+Subject: split at root broken when statusbar is full screen
+Message-ID: <f3kat5$m36$1@sea.gmane.org>
+
+If in cfg_statusbar.lua I set fullsize=true, split at root stops working.
+Tested in ion-3rc-20070506.
+
+A lesser problem is that a root split doesn't do anything when there's only
+one frame.
+
+A behavior that you may or may not consider a problem is the way such splits
+are merged. If I split the screen twice normally, a frame always merges with
+a frame that is adjacent to it. If I split the screen twice, but the second
+time is a root split, the right/bottom frame merges with the left/top one
+instead of with the middle one.
+
+~fantasai
+
+
+
+From tuomov at iki.fi  Thu May 31 08:46:31 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 31 May 2007 06:46:31 +0000 (UTC)
+Subject: split at root broken when statusbar is full screen
+References: <f3kat5$m36$1@sea.gmane.org>
+Message-ID: <slrnf5srq7.cgt.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-05-30, fantasai <fantasai.lists at inkedblade.net> wrote:
+> If in cfg_statusbar.lua I set fullsize=true, split at root stops working.
+> Tested in ion-3rc-20070506.
+>
+> A lesser problem is that a root split doesn't do anything when there's only
+> one frame.
+
+The problem was that the code can't move the statusbar "out of the way",
+when the root node being operated contains the statusbar (the stdisp node)
+as immediate child. This is because the split tree "balancing" code only
+does simple "rotations" of the tree (cf. rotations in red-black trees), 
+and does not change in it considerably. In consequence the statusbar 
+always has the same parent node. I worked around this by operating on
+the non-stdisp child of the root node in this case.
+
+-- 
+Tuomo
+
+
+

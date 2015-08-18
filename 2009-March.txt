@@ -1,0 +1,2415 @@
+From dcl441-bugs at yahoo.com  Mon Mar  2 02:16:57 2009
+From: dcl441-bugs at yahoo.com (Daniel Clemente)
+Date: Sun, 1 Mar 2009 17:16:57 -0800 (PST)
+Subject: Keyboard focus lost in Swing applications (ex: Netbeans) after
+	changing to window
+In-Reply-To: <slrngp2mr4.dtv.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <506284.47993.qm@web53210.mail.re2.yahoo.com>
+
+
+  Sorry for the long wait; I had other compilation problems (I inform briefly about that).
+
+> You could, again, try reversing the order of the
+> finalise_focus and
+> sendmsg in the TAKE_FOCUS branch of the clientwin focus
+> function.
+> 
+
+  That didn't work; with JDK 1.7 it still fails. It must be due to something new of JDK 1.7 since earlier versions work now.
+  Your patch fixed the focus loss in Java 1.6 but makes Java 1.7 applications not receive focus; it is a bug for a bug but I think Java 1.6 apps are more important right now; so I will start using it.
+
+
+-- Daniel
+
+
+      
+
+
+From dcl441-bugs at yahoo.com  Mon Mar  2 02:18:42 2009
+From: dcl441-bugs at yahoo.com (Daniel Clemente)
+Date: Sun, 1 Mar 2009 17:18:42 -0800 (PST)
+Subject: Difficulties when running ion on place
+Message-ID: <58294.48221.qm@web53210.mail.re2.yahoo.com>
+
+
+ Hi, I tried to compile and run ion3 without installing it and I took apparently the painful way.
+ I ended up copying most .lua and configuration files to ~/.ion3/lib just because ion3 was looking for them there and otherwise couldn't find them. (Why can't it try also in the current directory?).
+
+ Then I found that ion started with a ?segmentation fault? error (more info below). Much later I discovered the cause: there was a file I couldn't copy to ~/.ion3/lib because it wasn't in ion's source. It is look.lua and is created in the etc/Makefile as a symlink to look_newviolet.lua.
+
+ My request is: instead of creating a link to it at install time, can ion really have a look.lua file which refers (like in #include) look_newviolet.lua? In this way the file doesn't need a special installation step; it is just copied like the others.
+ If not, maybe the defaulting to look_newviolet.lua can be included in the C code, so that if it doesn't find look.lua at least it doesn't crash with a segmentation fault.
+ I would even find better if ion stopped with an useful error message when it can't find look.lua.
+
+
+-- Daniel
+backtrace:
+
+(gdb) run  
+Starting program: /Werkstatt/ion-3-20090110/ion/ion3 
+[Thread debugging using libthread_db enabled]
+[New Thread 0xb7d79a70 (LWP 13761)]
+>> Unable to find 'look' on search path.
+>> drawing engines loaded, trying "de".
+>> Unable to find brush for style 'frame-unknown'.
+
+Program received signal SIGSEGV, Segmentation fault.
+[Switching to Thread 0xb7d79a70 (LWP 13761)]
+0x00000000 in ?? ()
+(gdb) bt
+#0  0x00000000 in ?? ()
+#1  0x0806e4a7 in grbrush_set_window_shape (brush=0x0, rough=1, n=0, rects=0x0) at gr.c:594
+
+
+
+      
+
+
+From tuomov at iki.fi  Mon Mar  2 10:28:50 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 2 Mar 2009 09:28:50 +0000 (UTC)
+Subject: Difficulties when running ion on place
+References: <58294.48221.qm@web53210.mail.re2.yahoo.com>
+Message-ID: <slrngqn9mi.5uc.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-03-02, Daniel Clemente <dcl441-bugs at yahoo.com> wrote:
+>  My request is: instead of creating a link to it at install time, can ion
+>  really have a look.lua file which refers (like in #include)
+>  look_newviolet.lua? 
+
+The reason for symlinking is a marginal startup performance improvement :).
+
+Actually, the styles menu does write dopath code in the session directory
+look.lua, so maybe that should be done in the initial setup too.
+
+> Program received signal SIGSEGV, Segmentation fault.
+> [Switching to Thread 0xb7d79a70 (LWP 13761)]
+> 0x00000000 in ?? ()
+> (gdb) bt
+> #0  0x00000000 in ?? ()
+> #1  0x0806e4a7 in grbrush_set_window_shape (brush=0x0, rough=1, n=0, rects=0x0) at gr.c:594
+
+Probably fixed by adding if(frame->brush!=NULL) test in frame_clear_shape.
+
+I can't currently properly push these patches in the repository, as
+I have yet to set up cygwin properly. The default "cygwin" darcs is
+100% broken -- it's not a real cygwin build, but a super-dirty hack
+that simply uses cygwin to build a native program, as is the case
+with ghc -- and does not properly work with cygwin.
+
+(Yes, I got a "new" computer, and at the moment it seems that it really
+is Goodbye Linux! Incidentally, the biggest troubles with the Windows
+(XP) switch are again that FOSS -- Cygwin -- is crap, slow, and doesn't 
+even properly support multibyte encodings. Linux, well, it may be ready 
+for the desktop, but it isn't ready for the laptop by a long stretch. 
+But maybe I'll write something in the non-blog about it. Though I have 
+to remark that the Trackpoint simply rocks.)
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and local vendors and
+artisans have had to yield to "all under one roof" big box hypermarkets.
+
+
+
+From elmico.filos at gmail.com  Tue Mar  3 06:29:06 2009
+From: elmico.filos at gmail.com (=?ISO-8859-1?Q?Mico_Fil=F3s?=)
+Date: Tue, 3 Mar 2009 00:29:06 -0500
+Subject: [Slightly-OT] On usability: managing usb devices & network profiles 
+	in a ion3 environment
+Message-ID: <e700999f0903022129q129db083l3af0b289b254c2d0@mail.gmail.com>
+
+Hi,
+
+I am just curious to know what do ion3 users do to manage painlessly
+usb devices and network profiles.
+
+I've done my tinkering with udev to configure my usb gadgets, but when
+I have to read others' pendrives I simply spend an embarassingly long
+time trying to figure out what node the device is attached to (plus
+additional time spent on mount points & permissions issues). I've
+heard that graphical environments like gnome or kde do that quite
+automatically, but I don't see why a non-graphical environment could
+not do the same thing.
+
+The same goes for managing network profiles in a laptop. Gnome has
+network-manager, a graphical tool that seems to do a good job. Again,
+there is no need to rely on a widget to do this kind of task, but I
+haven't found yet a convincing non-graphical solution.
+
+Any ideas?
+
+Best
+
+
+From jan0sch at gmx.net  Tue Mar  3 08:53:04 2009
+From: jan0sch at gmx.net (Jens Jahnke)
+Date: Tue, 3 Mar 2009 08:53:04 +0100
+Subject: [Slightly-OT] On usability: managing usb devices & network
+	profiles  in a ion3 environment
+In-Reply-To: <e700999f0903022129q129db083l3af0b289b254c2d0@mail.gmail.com>
+References: <e700999f0903022129q129db083l3af0b289b254c2d0@mail.gmail.com>
+Message-ID: <20090303085304.603eba4a.jan0sch@gmx.net>
+
+Hi,
+
+On Tue, 3 Mar 2009 00:29:06 -0500
+Mico Fil?s <elmico.filos at gmail.com> wrote:
+
+MF> I am just curious to know what do ion3 users do to manage painlessly
+MF> usb devices and network profiles.
+
+Tuomov has written up something that brings it quite to the point:
+http://modeemi.cs.tut.fi/~tuomov/b/archives/2008/10/29/T20_34_21/
+
+As I only use a handfull of usb devices I have added entries in /etc/fstab
+for them (see http://www.jan0sch.de/wissen/ubuntu-usb-per-hand-mounten if
+your familiar with german language).
+
+Greetings,
+
+Jens
+
+-- 
+03. Lenzing 2009, 08:49
+Homepage : http://www.jan0sch.de
+
+Your heart is pure, and your mind clear, and your soul devout.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 705 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20090303/7ac0381d/attachment.pgp>
+
+From EvgenyKurbatov at yandex.ru  Tue Mar  3 08:54:44 2009
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Tue, 3 Mar 2009 10:54:44 +0300
+Subject: [Slightly-OT] On usability: managing usb devices & network
+	profiles  in a ion3 environment
+In-Reply-To: <e700999f0903022129q129db083l3af0b289b254c2d0@mail.gmail.com>
+References: <e700999f0903022129q129db083l3af0b289b254c2d0@mail.gmail.com>
+Message-ID: <20090303105444.79342326@hnum.inasan.ru>
+
+Hi, Mico!
+
+I'm risking to get a pail of slops on my head but stupid, braindead,
+shit-styled, awful, G*d damned, and despite this widely used desktop
+environments like *nome, *DE, *FCE etc are much more user friendly than
+progressive (and marginal, be honest) ones.  I use Ion since 2nd
+release and quite bored to fix daughter windows properties for some
+poorly designed (actually just not Ion-designed) applications.  Last
+times I run *nome-panel before Ion in my .xsession to get a bit of
+usability and comfortable mounting also.
+
+I like Ion.  I like its minimalism.  But actually I like the
+possibility to create/destroy as much desktops as I want and make it
+dynamically.  That is all I really need.  Now I'm looking for
+possibility of this in *nome DE or FVWM, which can be runned beneath
+*nome DE.  If I'd do, I'll leave Ion forever.  Man must be ready for
+hard decisions, yeah...
+
+
+On Tue, 3 Mar 2009 00:29:06 -0500
+Mico Fil?s <elmico.filos at gmail.com> wrote:
+
+> Hi,
+> 
+> I am just curious to know what do ion3 users do to manage painlessly
+> usb devices and network profiles.
+> 
+> I've done my tinkering with udev to configure my usb gadgets, but when
+> I have to read others' pendrives I simply spend an embarassingly long
+> time trying to figure out what node the device is attached to (plus
+> additional time spent on mount points & permissions issues). I've
+> heard that graphical environments like gnome or kde do that quite
+> automatically, but I don't see why a non-graphical environment could
+> not do the same thing.
+> 
+> The same goes for managing network profiles in a laptop. Gnome has
+> network-manager, a graphical tool that seems to do a good job. Again,
+> there is no need to rely on a widget to do this kind of task, but I
+> haven't found yet a convincing non-graphical solution.
+> 
+> Any ideas?
+> 
+> Best
+
+
+From tuomov at iki.fi  Tue Mar  3 09:27:52 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 3 Mar 2009 08:27:52 +0000 (UTC)
+Subject: [Slightly-OT] On usability: managing usb devices & network
+	profiles in a ion3 environment
+References: <e700999f0903022129q129db083l3af0b289b254c2d0@mail.gmail.com>
+	<20090303085304.603eba4a.jan0sch@gmx.net>
+Message-ID: <slrngqpqg8.ljj.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-03-03, Jens Jahnke <jan0sch at gmx.net> wrote:
+> MF> I am just curious to know what do ion3 users do to manage painlessly
+> MF> usb devices and network profiles.
+
+SafelyRemove <http://safelyremove.com/> is quite nice.
+
+For Windows, that is.
+
+> Tuomov has written up something that brings it quite to the point:
+> http://modeemi.cs.tut.fi/~tuomov/b/archives/2008/10/29/T20_34_21/
+
+An update: pmount is actually crap, because there's no way to
+specify mount options. So FAT and NTFS are permissions are broken,
+which most USB devices carry.
+
+I can provide my ls-removable script that lists removable devices
+and lets you mount/unmount with pmount by pressing a number, if
+someone is interested. I don't have it right now with me.
+
+However, at least in (X)ubuntu 8.10 they've managed to stop pmount
+from working, apparently due to changes in /sys layout. It can't 
+decide whether a device is removable. So much for that. The only
+way I know of mounting without suding in my current not-much-used
+Linux installation is to run Thunar. Sucks. Well, at least it uses
+the label instead of the *random* device node name under /media, unlike
+pmount. But /media sucks donkey balls. The Windows scheme of simple and
+short drive letters is _so_ _much_ _more_ convenient to use. 
+
+(Incidentally (X)ubuntu (8.10) must be one of the most broken operating
+systems on planet earth. But Lenny wasn't much better: still no hibernate
+out of the box, would need kernel compilation. No thanks. Not anymore. 
+It only works if you sacrifice a goat before the act in Xubuntu too, 
+though. If one wants reliability, one chooses Windows today. Wouldn't
+have guessed it ten years ago. 
+
+And when Xubuntu does actually wake up from suspend or hibernate, I 
+really don't like seeing the display contents flash before the screen
+lock activates... What a total POS: gnome-power-damager. Crapware, 
+where switching to AC lowers screen brightness! (8.04) Idiotic crap 
+without absolute battery backlight levels, but rather adjustment 
+percentages and rounding, that causes drift.)
+
+-- 
+Stop Gnomes and other pests! Purchase Windows today!
+
+
+
+From jstadermann at gmxpro.de  Tue Mar  3 09:34:21 2009
+From: jstadermann at gmxpro.de (Joerg Stadermann)
+Date: Tue, 3 Mar 2009 09:34:21 +0100
+Subject: [Slightly-OT] On usability: managing usb devices & network
+	profiles in a ion3 environment
+In-Reply-To: <e700999f0903022129q129db083l3af0b289b254c2d0@mail.gmail.com>
+References: <e700999f0903022129q129db083l3af0b289b254c2d0@mail.gmail.com>
+Message-ID: <200903030934.21787.jstadermann@gmxpro.de>
+
+On Dienstag 03 M?rz 2009, Mico Fil?s wrote:
+> Hi,
+>
+> I am just curious to know what do ion3 users do to manage
+> painlessly usb devices and network profiles.
+>
+
+Use a filemanager with udev-dbus support like dolphin.
+Circumvent the whole udev-dbus stuff by putting your usb devices in 
+/etc/fstab or use sudo mount.
+
+> I've done my tinkering with udev to configure my usb gadgets,
+> but when I have to read others' pendrives I simply spend an
+> embarassingly long time trying to figure out what node the
+> device is attached to (plus additional time spent on mount
+> points & permissions issues). I've heard that graphical
+> environments like gnome or kde do that quite automatically, but
+> I don't see why a non-graphical environment could not do the
+> same thing.
+>
+Why do you concider ion3 a non-graphical environment? 
+
+> The same goes for managing network profiles in a laptop. Gnome
+> has network-manager, a graphical tool that seems to do a good
+> job. Again, there is no need to rely on a widget to do this
+> kind of task, but I haven't found yet a convincing
+> non-graphical solution.
+>
+
+Usually it would be easy enough to have a shell script for each 
+connection profile, except "managing network profiles in a laptop" 
+means something that can't be done with a simple script.
+
+Joerg
+
+
+
+From skuratovich at gmail.com  Tue Mar  3 09:35:48 2009
+From: skuratovich at gmail.com (Vladimir Skuratovich)
+Date: Tue, 3 Mar 2009 10:35:48 +0200
+Subject: [Slightly-OT] On usability: managing usb devices & network
+	profiles in a ion3 environment
+In-Reply-To: <e700999f0903022129q129db083l3af0b289b254c2d0@mail.gmail.com>
+References: <e700999f0903022129q129db083l3af0b289b254c2d0@mail.gmail.com>
+Message-ID: <20090303083548.GA3543@fl>
+
+Hi,
+
+It seems that with USB sticks the only option you have (apart from
+finding and mounting them manually) is HAL-based automounting, for
+example, HAL + ivman + pmount. Then you can add some nice tricks with
+mod_ionflux, for example, create a menu with all mounted drives and
+commands to unmount & eject them.
+
+With network profiles you actually have a lot of options, starting from
+ifupdown scripts in Debian, where you can specify a profile manually,
+through 'divine', a nice small program that is able to send ARP requests
+to specified hosts to check if they are on the network and then
+configure the interface, to 'guessnet' - a plug-in for ifupdown, which
+can do the same things as 'divine' and some more.
+
+While the last configuration (ifupdown + guessnet) is quite complex to
+set up, it offers you the most flexibility - for example. your laptop
+can select network profiles based on the ESSID of the Wi-Fi access point
+you are connected to, or on the presence of specific hosts on the wired
+network, and you can always override the selection manually.
+
+
+On Tue, Mar 03, 2009 at 12:29:06AM -0500, Mico Fil?s wrote:
+> Hi,
+> 
+> I am just curious to know what do ion3 users do to manage painlessly
+> usb devices and network profiles.
+> 
+> I've done my tinkering with udev to configure my usb gadgets, but when
+> I have to read others' pendrives I simply spend an embarassingly long
+> time trying to figure out what node the device is attached to (plus
+> additional time spent on mount points & permissions issues). I've
+> heard that graphical environments like gnome or kde do that quite
+> automatically, but I don't see why a non-graphical environment could
+> not do the same thing.
+> 
+> The same goes for managing network profiles in a laptop. Gnome has
+> network-manager, a graphical tool that seems to do a good job. Again,
+> there is no need to rely on a widget to do this kind of task, but I
+> haven't found yet a convincing non-graphical solution.
+> 
+> Any ideas?
+> 
+> Best
+
+
+From jan0sch at gmx.net  Tue Mar  3 09:39:35 2009
+From: jan0sch at gmx.net (Jens Jahnke)
+Date: Tue, 3 Mar 2009 09:39:35 +0100
+Subject: [Slightly-OT] On usability: managing usb devices & network
+	profiles  in a ion3 environment
+In-Reply-To: <20090303105444.79342326@hnum.inasan.ru>
+References: <e700999f0903022129q129db083l3af0b289b254c2d0@mail.gmail.com>
+	<20090303105444.79342326@hnum.inasan.ru>
+Message-ID: <20090303093935.61362a1e.jan0sch@gmx.net>
+
+Hi,
+
+On Tue, 3 Mar 2009 10:54:44 +0300
+Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+
+EK> I'm risking to get a pail of slops on my head [...]
+
+don't you worry. ;-)
+Have you tried e17 (enlightenment dr17)? I use it on my laptop (compiled
+from svn/cvs) and it is quite nice. Meanwhile it even has a tiling mode
+(mod_tile) that is not as good as ion's tiling but it is usable.
+I prefer ion on my workstation but on the laptop e17 does well.
+
+Regards,
+
+Jens
+
+-- 
+03. Lenzing 2009, 09:35
+Homepage : http://www.jan0sch.de
+
+Mal: "Use of a swhat?"
+				--Episode #4, "Shindig"
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 705 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20090303/8d8e6bed/attachment.pgp>
+
+From tuomov at iki.fi  Tue Mar  3 09:45:36 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 3 Mar 2009 08:45:36 +0000 (UTC)
+Subject: [Slightly-OT] On usability: managing usb devices & network
+	profiles in a ion3 environment
+References: <e700999f0903022129q129db083l3af0b289b254c2d0@mail.gmail.com>
+	<20090303083548.GA3543@fl>
+Message-ID: <slrngqprhg.ljj.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-03-03, Vladimir Skuratovich <skuratovich at gmail.com> wrote:
+> With network profiles you actually have a lot of options, starting from
+> ifupdown scripts in Debian, where you can specify a profile manually,
+> through 'divine', a nice small program that is able to send ARP requests
+> to specified hosts to check if they are on the network and then
+> configure the interface, to 'guessnet' - a plug-in for ifupdown, which
+> can do the same things as 'divine' and some more.
+
+NetworkManager (and its applet) are one of the few things that actually
+didn't totally suck abount Xubuntu. Could even get VPN working with less
+effort than Windows. (F-secure + Cisco VPN client -> BSOD, if you install
+them in that order. The only one I've had, while Linux has locked up many
+times on console switches etc.) Otherwise, can't say much good about 
+wireless in Xubuntu: all the radios blasting at full power on startup, 
+have to manually turn them off, instead of it remembering the settings.      
+And in 8.04 the Fn-key radio button just toggled the first device of
+wifi/bluetooth, while in 8.10 it cycles through the combos without  
+indicating the current choice: bluetooth led works, but wifi led doesn't.
+In Windows I get a nice popup where to turn radios on/off, and it 
+remembers the settings.
+
+(As a temporary measure, I've been just running the XFCE panel as 
+Ion's stdisp for all the systray shit. But it sucks, because it 
+can't align stuff to the right in the non-fullwidth mode.)
+
+-- 
+Stop Gnomes and other pests! Purchase Windows today!
+
+
+
+From aldleonm at gmail.com  Tue Mar  3 23:21:56 2009
+From: aldleonm at gmail.com (Antonio De Leon)
+Date: Tue, 3 Mar 2009 17:21:56 -0500
+Subject: [Slightly-OT] On usability: managing usb devices & network 
+	profiles in a ion3 environment
+In-Reply-To: <slrngqprhg.ljj.tuomov@jolt.modeemi.cs.tut.fi>
+References: <e700999f0903022129q129db083l3af0b289b254c2d0@mail.gmail.com>
+	<20090303083548.GA3543@fl>
+	<slrngqprhg.ljj.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <7cb80b4d0903031421i735ed086j1748e502aa8e43bc@mail.gmail.com>
+
+On the question of detecting usb devices this tool can help on the
+detection part.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: lookfor-sd-devs.sh
+Type: application/x-sh
+Size: 1417 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20090303/246fa1b4/attachment.sh>
+
+From tuomov at iki.fi  Tue Mar  3 23:47:06 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 4 Mar 2009 00:47:06 +0200
+Subject: [Slightly-OT] On usability: managing usb devices & network
+	profiles in a ion3 environment
+In-Reply-To: <7cb80b4d0903031421i735ed086j1748e502aa8e43bc@mail.gmail.com>
+References: <e700999f0903022129q129db083l3af0b289b254c2d0@mail.gmail.com>
+	<20090303083548.GA3543@fl>
+	<slrngqprhg.ljj.tuomov@jolt.modeemi.cs.tut.fi>
+	<7cb80b4d0903031421i735ed086j1748e502aa8e43bc@mail.gmail.com>
+Message-ID: <20090303224706.GA18973@jolt.modeemi.cs.tut.fi>
+
+On 2009-03-03 17:21 -0500, Antonio De Leon wrote:
+> On the question of detecting usb devices this tool can help on the
+> detection part.
+
+Here's my ls-removable script too. It's in Lua, and needs
+both luafilesystem and posix packages for Lua.
+
+There are two versions. The suffix-1 version worked with
+the old 2.6.18 or whateveritwas Etch. Suffix-2 is a
+conversion to work the modified /sys layout in *buntu 8.10,
+but it fails to work because pmount doesn't seem to have
+been upgraded to to reflect that. It, however, shouldn't be
+too difficult to create a suid-root counterpart based on my
+code, that just calls mount -- this time with sane FAT and
+NTFS mounting arguments.
+
+(*sigh*, even the ntfs-3g in 8.10 ubuntu is old, and does
+not seem to support .NTFS-3G/UserMapping. A lot of shit in
+it is _old_, and yet it has just half-a-year release
+cycles.)
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+-------------- next part --------------
+#!/usr/local/bin/lua
+--
+-- Copyright (c) Tuomo Valkonen 2008.
+--
+
+require('lfs')
+require('posix')
+
+local function filtered_dir(d) 
+    local f, s_, v_ = lfs.dir(d)
+    local function g(s, v)
+        while true do
+            local vn=f(s, v)
+            if vn~='.' and vn~='..' then
+                return vn
+            end
+        end
+    end
+    return g, s_, v_
+end
+
+local function readfile(d)
+    local f, err = io.open(d, 'r')
+    if f then
+        local s=f:read('*a')
+        f:close()
+        return s
+    end
+end
+
+local function simplify_string(s)
+    if s then
+        return string.gsub(s, "\n$", "")
+    end
+end
+
+local function readfile_simple(d)
+    return simplify_string(readfile(d))
+end
+
+local function removable(d)
+    return readfile_simple(d.."/removable")=="1";
+end
+
+local function removable_class(d)
+    -- Super-dirty hack
+    return d and string.match(d, "/usb%d+/")
+end
+
+local function simplify_path(p)
+    local capts={}
+    local start=string.match(p, "^(/)")
+    string.gsub(p, "([^/]+)",
+                   function(e)
+                       if e==".." and #capts > 1 then
+                           capts[#capts]=nil
+                       elseif e~="." then
+                           table.insert(capts, e)
+                       end
+                    end) 
+    return (start or "")..table.concat(capts, "/")
+end
+
+local function get_device(d)
+    l=posix.readlink(d.."/device")
+    if not l then
+        return nil
+    end
+    if string.match(l, "^.") then
+        return simplify_path(d.."/"..l)
+    else
+        return simplify_path(l)
+    end
+end
+
+local function get_info(dev)
+    return {
+        vendor=readfile_simple(dev.."/vendor"),
+        model=readfile_simple(dev.."/model"),
+        serial=readfile_simple(dev.."/serial")
+    }
+end
+
+local function get_info_usb(dev)
+    par=string.match(dev, "(.*)/[^/]+")
+    if not par then
+        return {}
+    else
+        local m=readfile_simple(par.."/manufacturer")
+        if not m then
+            return get_info_usb(par)
+        else
+            return {
+                vendor=m,
+                model=readfile_simple(par.."/product"),
+                serial=readfile_simple(par.."/serial")
+            }
+        end
+    end
+end
+
+local function scan_volumes(bd, d)
+    local function g()
+        local found=false
+        for v in filtered_dir(bd..d) do
+            if string.match(v, "^"..d.."%d+$") then
+                coroutine.yield(v)
+                found=true
+            end
+        end
+        if not found then
+            coroutine.yield(d)
+        end
+    end
+    
+    return coroutine.wrap(g)
+end
+
+
+
+local mounts={}
+--local mounts_=io.popen("mount"):read('*a')
+--string.gsub(mounts_, "[^\n]+", function(l) table.insert(mounts, l) end)
+local f=io.open("/etc/mtab")
+for l in f:lines() do
+    table.insert(mounts, l)
+end
+f:close()
+
+local function mounted(v)
+    for _, l in ipairs(mounts) do
+        local mp=string.match(l, "^/dev/"..v.."%s+([^%s]+)")
+        if mp then
+            return mp
+        end
+    end
+    return false
+end
+
+local bd='/sys/block/'
+
+local volumes={}
+
+for d in filtered_dir(bd) do
+    local dev=get_device(bd..d)
+    if removable(bd..d) or removable_class(dev) then
+        local i1=get_info(dev)
+        local i2=get_info_usb(dev)
+        
+        if i2 and i2.vendor then
+            info=table.concat({i2.vendor, i2.model, i2.serial}, " ")
+        else
+            info=table.concat({i1.vendor, i1.model, i1.serial}, " ")
+        end
+        
+        for v in scan_volumes(bd, d) do
+            table.insert(volumes, {
+                kernel=v,
+                info=info,
+                mountpoint=mounted(v),
+            })
+        end
+    end
+end
+
+table.sort(volumes,
+           function(a, b) 
+               if a.mountpoint and not b.mountpoint then
+                   return false
+               elseif not a.mountpoint and b.mountpoint then
+                   return true
+               else
+                   return (a.kernel < b.kernel)
+               end
+           end)
+
+
+for k, v in ipairs(volumes) do
+    if not v.mountpoint then
+        io.write(string.format("%d) %s (%s)\n",  k, v.kernel, v.info))
+    else
+        io.write(string.format("[ %d) %s (%s) %s ]\n",  k, v.kernel, v.info, v.mountpoint))
+    end
+end
+io.write("Choice (1): ")
+local a=io.read()
+local i=((not a or a=="") and 1) or tonumber(a)
+
+if i then
+    if volumes[i].mountpoint then
+        os.execute("pumount "..volumes[i].mountpoint)
+    else
+        os.execute("pmount /dev/"..volumes[i].kernel)
+    end
+end
+
+-------------- next part --------------
+#!/usr/bin/lua
+--
+-- Copyright (c) Tuomo Valkonen 2008.
+--
+
+require('lfs')
+require('posix')
+
+local function filtered_dir(d) 
+    local f, s_, v_ = lfs.dir(d)
+    local function g(s, v)
+        while true do
+            local vn=f(s, v)
+            if vn~='.' and vn~='..' then
+                return vn
+            end
+        end
+    end
+    return g, s_, v_
+end
+
+local function readfile(d)
+    local f, err = io.open(d, 'r')
+    if f then
+        local s=f:read('*a')
+        f:close()
+        return s
+    end
+end
+
+local function basename(d)
+    return string.gsub(d, "^(.*)/[^/]*$", "%1")
+end
+
+local function simplify_string(s)
+    if s then
+        return string.gsub(s, "\n$", "")
+    end
+end
+
+local function readfile_simple(d)
+    return simplify_string(readfile(d))
+end
+
+local function removable(d)
+    return readfile_simple(d.."/removable")=="1";
+end
+
+local function removable_class(d)
+    -- Super-dirty hack
+    return d and string.match(d, "/usb%d+/")
+end
+
+local function simplify_path(p)
+    local capts={}
+    local start=string.match(p, "^(/)")
+    string.gsub(p, "([^/]+)",
+                   function(e)
+                       if e==".." and #capts > 1 then
+                           capts[#capts]=nil
+                       elseif e~="." then
+                           table.insert(capts, e)
+                       end
+                    end) 
+    return (start or "")..table.concat(capts, "/")
+end
+
+local function get_device(d)
+    --l=posix.readlink(d.."/device")
+    l=posix.readlink(d)
+    if not l then
+        return nil
+    end
+    if string.match(l, "^.") then
+        return simplify_path(basename(d).."/"..l.."/device")
+    else
+        return simplify_path(l.."/device")
+    end
+end
+
+local function get_info(dev)
+    return {
+        vendor=readfile_simple(dev.."/vendor"),
+        model=readfile_simple(dev.."/model"),
+        serial=readfile_simple(dev.."/serial")
+    }
+end
+
+local function get_info_usb(dev)
+    par=string.match(dev, "(.*)/[^/]+")
+    if not par then
+        return {}
+    else
+        local m=readfile_simple(par.."/manufacturer")
+        if not m then
+            return get_info_usb(par)
+        else
+            return {
+                vendor=m,
+                model=readfile_simple(par.."/product"),
+                serial=readfile_simple(par.."/serial")
+            }
+        end
+    end
+end
+
+local function scan_volumes(bd, d)
+    local function g()
+        local found=false
+        for v in filtered_dir(bd..d) do
+            if string.match(v, "^"..d.."%d+$") then
+                coroutine.yield(v)
+                found=true
+            end
+        end
+        if not found then
+            coroutine.yield(d)
+        end
+    end
+    
+    return coroutine.wrap(g)
+end
+
+
+
+local mounts={}
+--local mounts_=io.popen("mount"):read('*a')
+--string.gsub(mounts_, "[^\n]+", function(l) table.insert(mounts, l) end)
+local f=io.open("/etc/mtab")
+for l in f:lines() do
+    table.insert(mounts, l)
+end
+f:close()
+
+local function mounted(v)
+    for _, l in ipairs(mounts) do
+        local mp=string.match(l, "^/dev/"..v.."%s+([^%s]+)")
+        if mp then
+            return mp
+        end
+    end
+    return false
+end
+
+local bd='/sys/block/'
+
+local volumes={}
+
+for d in filtered_dir(bd) do
+    local dev=get_device(bd..d)
+    if removable(bd..d) or removable_class(dev) then
+        local i1=get_info(dev)
+        local i2=get_info_usb(dev)
+        
+        if i2 and i2.vendor then
+            info=table.concat({i2.vendor, i2.model, i2.serial}, " ")
+        else
+            info=table.concat({i1.vendor, i1.model, i1.serial}, " ")
+        end
+        
+        for v in scan_volumes(bd, d) do
+            table.insert(volumes, {
+                kernel=v,
+                info=info,
+                mountpoint=mounted(v),
+            })
+        end
+    end
+end
+
+table.sort(volumes,
+           function(a, b) 
+               if a.mountpoint and not b.mountpoint then
+                   return false
+               elseif not a.mountpoint and b.mountpoint then
+                   return true
+               else
+                   return (a.kernel < b.kernel)
+               end
+           end)
+
+
+for k, v in ipairs(volumes) do
+    if not v.mountpoint then
+        io.write(string.format("%d) %s (%s)\n",  k, v.kernel, v.info))
+    else
+        io.write(string.format("[ %d) %s (%s) %s ]\n",  k, v.kernel, v.info, v.mountpoint))
+    end
+end
+io.write("Choice (1): ")
+local a=io.read()
+local i=((not a or a=="") and 1) or tonumber(a)
+
+if i then
+    if volumes[i].mountpoint then
+        os.execute("pumount "..volumes[i].mountpoint)
+    else
+        os.execute("pmount /dev/"..volumes[i].kernel)
+    end
+end
+
+
+From urwithsughosh at gmail.com  Wed Mar  4 07:27:46 2009
+From: urwithsughosh at gmail.com (urwithsughosh at gmail.com)
+Date: Wed, 4 Mar 2009 11:57:46 +0530
+Subject: Problem with LC_CTYPE in ubuntu intrepid
+Message-ID: <20090304062746.GI17199@Hardy>
+
+Hi,
+  Upgraded my distribution to ubuntu 8.10 on my PC and laptop a few
+  days back. Built and installed the latest version of ion. On doing
+  so, i am not able to type in queries. This problem is notoriously
+  similar to the one i faced a few months back on my laptop running
+  8.04. But back then changing the locale to en_US.utf8 had got it
+  working. This time around, i am not so lucky. The errors reported in
+  .xsession-errors are a bit different now.
+
+
+/etc/gdm/Xsession: Beginning session setup...
+Setting IM through im-switch for locale=en_IN.
+Start IM through /etc/X11/xinit/xinput.d/default linked to /etc/X11/xinit/xinput.d/default.
+ion3: No encoding given in LC_CTYPE.
+
+  Not sure why is it complaining about the LC_CTYPE. Tried a multitude
+  of places of exporting LC_CTYPE (.xsession, bashrc,
+  /etc/environment), but the same error/message is reported. Could not
+  find much relevant information on searching. Not sure where the
+  problem is, although my doubt is that some configuration is done a
+  bit differently in ubuntu intrepid. Could someone suggest a way for
+  ion to read the LC_CTYPE variable. Typing in the command 'locale'
+  gives out this
+
+
+sughosh at Hardy:~$ locale
+LANG=en_IN
+LC_CTYPE="en_IN"
+LC_NUMERIC="en_IN"
+LC_TIME="en_IN"
+LC_COLLATE="en_IN"
+LC_MONETARY="en_IN"
+LC_MESSAGES="en_IN"
+LC_PAPER="en_IN"
+LC_NAME="en_IN"
+LC_ADDRESS="en_IN"
+LC_TELEPHONE="en_IN"
+LC_MEASUREMENT="en_IN"
+LC_IDENTIFICATION="en_IN"
+LC_ALL=
+
+-- 
+sughosh
+
+
+From urwithsughosh at gmail.com  Wed Mar  4 11:23:11 2009
+From: urwithsughosh at gmail.com (urwithsughosh at gmail.com)
+Date: Wed, 4 Mar 2009 15:53:11 +0530
+Subject: Problem with LC_CTYPE in ubuntu intrepid
+In-Reply-To: <e053ca9d0903040132p6797fe8en4d2d7542798ffc2e@mail.gmail.com>
+References: <20090304062746.GI17199@Hardy>
+	<e053ca9d0903040132p6797fe8en4d2d7542798ffc2e@mail.gmail.com>
+Message-ID: <20090304102311.GB5660@Hardy>
+
+Hi Jasbir,
+
+On Wed Mar 04, 2009 at 03:02:55PM +0530, Jasbir Khehra wrote:
+> On Wed, Mar 4, 2009 at 11:57 AM,  <urwithsughosh at gmail.com> wrote:
+> > Hi,
+> > ?Upgraded my distribution to ubuntu 8.10 on my PC and laptop a few
+> > ?days back. Built and installed the latest version of ion. On doing
+> > ?so, i am not able to type in queries. This problem is notoriously
+> > ?similar to the one i faced a few months back on my laptop running
+> > ?8.04. But back then changing the locale to en_US.utf8 had got it
+> > ?working. This time around, i am not so lucky. The errors reported in
+> > ?.xsession-errors are a bit different now.
+> >
+> >
+> I am using Ubuntu 8.10 on my work PC with  Ion3 from the Ubuntu repos
+> (ver 20080411-1).
+> I had to change LANG in /etc/default/locale to "en_IN.UTF-8" and
+> reboot , that fixed the problem of typing in queries.
+> Output ->
+> jasbir at jasbir-desktop:~$ cat /etc/default/locale
+> LANG="en_IN.UTF-8"
+> jasbir at jasbir-desktop:~$ locale
+> LANG=en_IN.UTF-8
+> LC_CTYPE="en_IN.UTF-8"
+> LC_NUMERIC="en_IN.UTF-8"
+> LC_TIME="en_IN.UTF-8"
+> LC_COLLATE="en_IN.UTF-8"
+> LC_MONETARY="en_IN.UTF-8"
+> LC_MESSAGES="en_IN.UTF-8"
+> LC_PAPER="en_IN.UTF-8"
+> LC_NAME="en_IN.UTF-8"
+> LC_ADDRESS="en_IN.UTF-8"
+> LC_TELEPHONE="en_IN.UTF-8"
+> LC_MEASUREMENT="en_IN.UTF-8"
+> LC_IDENTIFICATION="en_IN.UTF-8"
+> LC_ALL=
+
+
+  Whoa! Thanks a million. This got it up and running indeed. Not being
+  able to type in queries was turning out to be quite a
+  inconvenience.
+
+-- 
+sughosh
+
+
+From tuomov at iki.fi  Wed Mar  4 11:43:16 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 4 Mar 2009 10:43:16 +0000 (UTC)
+Subject: Problem with LC_CTYPE in ubuntu intrepid
+References: <20090304062746.GI17199@Hardy>
+	<e053ca9d0903040132p6797fe8en4d2d7542798ffc2e@mail.gmail.com>
+	<20090304102311.GB5660@Hardy>
+Message-ID: <slrngqsmq4.rqc.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-03-04, <urwithsughosh at gmail.com> <urwithsughosh at gmail.com> wrote:
+>   Whoa! Thanks a million. This got it up and running indeed. Not being
+>   able to type in queries was turning out to be quite a
+>   inconvenience.
+
+Yes, it's a typical problem that the encoding part of locale
+is left unspecified. Xlib can't handle that, although AFAIK
+the encoding configured for the locale should be available
+from libc. Ion used to refuse localisation and complain loudly
+if the encoding was missing from LC_CTYPE, but these days it 
+just prints a warning which will only be seen in the logs.
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and the cycle paths 
+have been replaced with polluted motorways.
+
+
+
+From elmico.filos at gmail.com  Sat Mar  7 22:35:39 2009
+From: elmico.filos at gmail.com (=?ISO-8859-1?Q?Mico_Fil=F3s?=)
+Date: Sat, 7 Mar 2009 16:35:39 -0500
+Subject: [Slightly-OT] On usability: managing usb devices & network 
+	profiles in a ion3 environment
+In-Reply-To: <20090303224706.GA18973@jolt.modeemi.cs.tut.fi>
+References: <e700999f0903022129q129db083l3af0b289b254c2d0@mail.gmail.com>
+	<20090303083548.GA3543@fl>
+	<slrngqprhg.ljj.tuomov@jolt.modeemi.cs.tut.fi>
+	<7cb80b4d0903031421i735ed086j1748e502aa8e43bc@mail.gmail.com>
+	<20090303224706.GA18973@jolt.modeemi.cs.tut.fi>
+Message-ID: <e700999f0903071335s7367aa8fw5564898ef853ba5e@mail.gmail.com>
+
+Thank you all for your feedback. I will play with the scripts a little...
+
+
+From tuomov at iki.fi  Mon Mar  9 20:29:26 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 9 Mar 2009 19:29:26 +0000 (UTC)
+Subject: [Slightly-OT] On usability: managing usb devices & network
+	profiles in a ion3 environment
+References: <e700999f0903022129q129db083l3af0b289b254c2d0@mail.gmail.com>
+	<20090303083548.GA3543@fl>
+	<slrngqprhg.ljj.tuomov@jolt.modeemi.cs.tut.fi>
+	<7cb80b4d0903031421i735ed086j1748e502aa8e43bc@mail.gmail.com>
+	<20090303224706.GA18973@jolt.modeemi.cs.tut.fi>
+	<e700999f0903071335s7367aa8fw5564898ef853ba5e@mail.gmail.com>
+Message-ID: <slrngrargm.3ej.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-03-07, Mico Fil?s <elmico.filos at gmail.com> wrote:
+> Thank you all for your feedback. I will play with the scripts a little...
+
+While you're at it, write ion-power-manager. Something simple 
+and reliable to replace the awful bloated and complicated 
+gnome and kde crap. No fucking HAL crap; just talk to /sys,
+acpi, whatever. Can be Thinkpad-specific. Indeed probably 
+should be based on plugins specific to particular computer
+models or classes instead of over-engineered low-level 
+abstr^Windirection.
+
+(I tried reading the gnome-power-damager code to see how it works... 
+with the effort I put into it, I couldn't make heads and tails
+of how it's interacting with other HAL/DBus crap; how the XSync 
+extension is supposed to keep track of idle times -- the documentation
+of the extension is poor at best -- if it is supposed to do that. 
+You have to trace a gazillion levels of indirection.
+
+I'd probably just use the screensaver extension for idle timing, 
+if it can be tricked into multiple timeouts. After all, you want
+to run the screen lock _before_  suspend/hibernate; the scripts
+should synchronise the locking program startup, or just include
+the screen lock in the power manager. The Gnome crap doesn't do 
+this, and all the system-level scripts have finished restoring 
+the system from suspension -- when all the sun spots are correctly
+aligned and it all works -- before it seems to run the locker, 
+which is a big gleaming security black hole.
+
+But it's a lot of work to do all that, and for now Windows mostly
+works for me. I'm really liking _reliable_ suspend and hibernate
+in Windowsland, foobar2k, undervolting -- even that requires a fucking
+kernel patch on the piece of shit Linux -- etc. Finally even managed
+to get locales/UTF-8 working in Cygwin: the trick is to use
+LC_CTYPE=C-UTF-8.UTF-8. The biggest problem ATM is getting a cygwin
+version of darcs. If it doesn't work out, I may have to switch to 
+Mercurial for Ion and my other projects.)
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and local vendors and
+artisans have had to yield to "all under one roof" big box hypermarkets.
+
+
+
+From tuomov at iki.fi  Mon Mar  9 20:35:44 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 9 Mar 2009 19:35:44 +0000 (UTC)
+Subject: [Slightly-OT] On usability: managing usb devices & network
+	profiles in a ion3 environment
+References: <e700999f0903022129q129db083l3af0b289b254c2d0@mail.gmail.com>
+	<20090303083548.GA3543@fl>
+	<slrngqprhg.ljj.tuomov@jolt.modeemi.cs.tut.fi>
+	<7cb80b4d0903031421i735ed086j1748e502aa8e43bc@mail.gmail.com>
+	<20090303224706.GA18973@jolt.modeemi.cs.tut.fi>
+	<e700999f0903071335s7367aa8fw5564898ef853ba5e@mail.gmail.com>
+	<slrngrargm.3ej.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrngrarsg.ciq.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-03-09, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> to get locales/UTF-8 working in Cygwin: the trick is to use
+> LC_CTYPE=C-UTF-8.UTF-8. 
+
+(Correction for the record: in the "hidden" 1.7 version; not 1.5.)
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+
+From j.schoon at kabelmail.de  Thu Mar 12 14:05:01 2009
+From: j.schoon at kabelmail.de (=?ISO-8859-1?Q?Per_Johannes_Sch=F6=F6n?=)
+Date: Thu, 12 Mar 2009 14:05:01
+Subject: Scratchpad stuck in max size "mode"
+Message-ID: <156407D9030C0D05013E3@kabelmail.de>
+
+Hi all,
+
+I have been struck by a very curious problem. The scratchpad, from one day to the next, decided it wanted to be, and remain, as large as my screen. It is not the full screen mode, that I can still toggle, but the frame size itself. I cannot reduce the size, and -- this is kinda spoky -- it has hit me at home as well as at work.
+
+The two computers could hardly be any more different. One runs an old version of SuSE, the other a continually updated version of Ubuntu. (Guess which one is my own (-: )
+
+I have tried to restart ion3, reboot, remove the $HOME/.ion directory, update ion3, etc, etc, but nothing seems to help.
+
+Has anyone of you any idea of what's going on, and/or how it can be cured?
+
+Most gratefully
+
+Yours
+
+Johannes
+
+
+
+
+From tuomov at iki.fi  Thu Mar 12 14:19:45 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 12 Mar 2009 13:19:45 +0000 (UTC)
+Subject: Scratchpad stuck in max size "mode"
+References: <156407D9030C0D05013E3@kabelmail.de>
+Message-ID: <slrngri2vh.rec.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-03-12, Per Johannes Sch??n <j.schoon at kabelmail.de> wrote:
+> I have been struck by a very curious problem. The scratchpad, from one day
+> to the next, decided it wanted to be, and remain, as large as my screen.
+
+Have you upgraded recently? It may have wrong size policies etc. in 
+that case. I suggest deleting the scratchpad (Mod1+C), and then 
+reopening it (Mod1+space), when it will be recreated with correct
+settings.
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+
+From marc.hartstein at alum.vassar.edu  Thu Mar 12 16:44:42 2009
+From: marc.hartstein at alum.vassar.edu (Marc Hartstein)
+Date: Thu, 12 Mar 2009 11:44:42 -0400
+Subject: Scratchpad stuck in max size "mode"
+In-Reply-To: <156407D9030C0D05013E3@kabelmail.de>
+References: <156407D9030C0D05013E3@kabelmail.de>
+Message-ID: <20090312154442.GB4227@cabinet.hsd1.ma.comcast.net>
+
+On Thu, Mar 12, 2009 at 02:05:01PM +0000, Per Johannes Sch??n wrote:
+> I have been struck by a very curious problem. The scratchpad, from one
+> day to the next, decided it wanted to be, and remain, as large as my
+> screen. It is not the full screen mode, that I can still toggle, but
+> the frame size itself. I cannot reduce the size, and -- this is kinda
+> spoky -- it has hit me at home as well as at work.
+
+It's probably not this simple, but Meta-Enter toggles the current frame
+between being the size of the entire display and its old size...pressing
+it again might help, or get you to a mode where you can manually resize
+with Meta-R?
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20090312/384d38fe/attachment.pgp>
+
+From ugggg at hotmail.com  Fri Mar 13 01:23:12 2009
+From: ugggg at hotmail.com (Canaan Hadley-Voth)
+Date: Thu, 12 Mar 2009 17:23:12 -0700
+Subject: Scratchpad stuck in max size "mode"
+In-Reply-To: <156407D9030C0D05013E3@kabelmail.de>
+References: <156407D9030C0D05013E3@kabelmail.de>
+Message-ID: <BAY120-W156D4BB17CF1D1FFF8A1A6BA9C0@phx.gbl>
+
+
+
+> 
+> I have been struck by a very curious problem. The scratchpad, 
+> from one day to the next, decided it wanted to be, and remain, 
+> as large as my screen. 
+
+This happens to me as well every now and again.  The frame won't shrink by keyboard or by mouse or by _:rqgeom and has to be closed, and then the newly recreated scratchpad resizes as normal until it happens again.  I'm also running the latest Ubuntu package.  I haven't been able to figure out what causes it.
+
+_________________________________________________________________
+Express your personality in color! Preview and select themes for Hotmail?. 
+http://www.windowslive-hotmail.com/LearnMore/personalize.aspx?ocid=TXT_MSGTX_WL_HM_express_032009#colortheme
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20090312/8dd940e5/attachment.html>
+
+From g-ss at mail.ru  Fri Mar 13 12:54:04 2009
+From: g-ss at mail.ru (G-$$)
+Date: Fri, 13 Mar 2009 14:54:04 +0300
+Subject: Resizing attached workspaces.
+Message-ID: <1e34058b0903130454o6ad5abd5l3be0400e9a79d1aa@mail.gmail.com>
+
+Hello.
+
+I have a scratchpad for IMs with a nested workspace in it
+_:attach_new({type="WTiling"})
+I can resize the frames in it now, but I am unable to resize the whole
+scratchpad. How am I supposed to do so?
+
+
+From tuomov at iki.fi  Fri Mar 13 13:09:29 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 13 Mar 2009 12:09:29 +0000 (UTC)
+Subject: Abandoning darcs
+Message-ID: <slrngrkj7p.bme.tuomov@jolt.modeemi.cs.tut.fi>
+
+
+The Ion darcs repositories have been taken offline, and I will
+switch away from darcs. Reason: no version for the most viable
+*nix platform of the day, Cygwin. The website will be upgraded 
+when I manage to replace Ikiwiki, which also does not work under
+Cygwin.
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and the cycle paths 
+have been replaced with polluted motorways.
+
+
+
+From realblades at gmail.com  Fri Mar 13 21:01:05 2009
+From: realblades at gmail.com (Harri Haataja)
+Date: Fri, 13 Mar 2009 22:01:05 +0200
+Subject: [SEMI-OT] Applications in a typical ion3 desktop environment
+In-Reply-To: <20090111163916.GA9245@umbach-racing.de>
+References: <20090111163916.GA9245@umbach-racing.de>
+Message-ID: <74e3492a0903131301v2ce0fc3fma4229676dc44a432@mail.gmail.com>
+
+2009/1/11 Klaus Umbach <treibholz-ion at sozial-inkompetent.de>:
+> Just out of curiosity, I'm interessted in what you are using on your
+> desktop/notebook. I just want to have new ideas.
+
+On the desktop I use varying things. TI-86, analog scope, loupe,
+soldering station, random breadboards and stuff. Lots of pens and
+paper. It might benefit from some automation but I can't find a
+computer and interface of suitable size and connectivity.
+
+Since I can't find Rotring XONOX any more, only the sloppy fat Tikky,
+I have a Pigma Micron 005 (0.20mm line is maybe even too thin). It
+doesn't have a straight clip, though so it tore the back of the
+Moleskine in record time. I need a tougher notebook.
+
+
+You may freely consider this a snipe at crap analogies used in
+computing. Throw them away and things start to work better. Ion is a
+good step forward in that.
+
+-- 
+I appear to be temporarily using gmail's horrible interface. I
+apologise for any failure in my part in trying to make it do the right
+thing with post formatting.
+
+
+From ebik at drak.ucw.cz  Sun Mar 15 12:56:49 2009
+From: ebik at drak.ucw.cz (ebik)
+Date: Sun, 15 Mar 2009 12:56:49 +0100
+Subject: Proportional tab sizes (ugly patch).
+Message-ID: <20090315125649.7137a39d@u-pl17.ms.mff.cuni.cz>
+
+Here I send patch for proportional tab sizes.
+
+The patch itself is not acceptable because of two (interdependent)
+issues:
+  1.) I haven't time to examine source code to optimize for speed, and
+      correct flow. (See using of 'complete' flag of
+      grbrush_draw_textboxes, etc.)
+  2.) It is the 'first shot' programming, i.e. it just works, but the
+      code itself is rather ugly (e.g., I haven't put the new function
+      in header file.)
+
+But I haven't time for cleaning the code for next month or two, so I
+send the patch as is.
+
+--------------------------------------------------------------------
+
+The algorithm now works in following way (I omit some border
+widths here in the description as well as rounding errors.):
+
+ * There are two constants:
+   - float_tab_min_w (former tab_min_w, default 100)
+       ... that is soft minimum width
+   - propor_tab_min_w (new, default 30, I did not write code for
+       redefinig) ... that is hard minimum width
+ Let "n" be number of tabs.
+
+ * If n*propor_tab_min_w is greater than space allocated to tabs
+   ( ~ width of the frame in tiled workspace ), then tabs get sizes
+   proportionaly like it was before this patch.
+
+   |<--->| ... propor_tab_min_w
+   _____________________________________________
+   |T|A|B|S|_|T|H|A|T|_|A|R|E|_|T|O|O|_|M|A|N|Y|
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ * Else each tab gets at least propor_tab_min_w (even if it contains
+   shorter label).
+
+ * Now we set max_width to propor_tab_min_w, and we keep incrementing
+   max_width until all tabs have their width or we use all the space
+   reserved for tabs. In the latter case we stop and assign the widths
+   to the tabs.
+
+   |<--->| ... propor_tab_min_w
+   |<-------------->| ... float_tab_min_w
+   _____________________________________________
+   | tab |  x  |a long ta...|another l...| xx  |
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ * At this point all tabs have sizes of their labels (but at least
+   propor_tab_min_w), but we may have some space left, now
+   flow_tab_min_w comes to play. We set min_width to propor_tab_min_w
+   and again we increment it until float_tab_min_w or all the space
+   reserved for tabs is used. In the latter case we again stop and
+   assign the widths.
+
+   |<-------------->| ... float_tab_min_w
+   _____________________________________________
+   |here is a long tab|    tab    |     x      |
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+ * Now, each tab has at least float_tab_min_w width. If the frame is
+   floating, then the tab sizes are used. If not, then remaining space
+   is distributed among tabs, where we want padded space to be same
+   for all tabs (but we don't shorten tabs that have float_tab_min_w
+   width)
+
+   |<-------------->| ... float_tab_min_w
+   tiled:
+   _____________________________________________
+   |      tab       |    here is a long tab    |
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   float:
+   _______________________________________
+   |      tab       | here is a long tab |
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+-- 
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: ion-3plus.proportional.patch
+Type: text/x-patch
+Size: 10796 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20090315/8fabba2d/attachment.bin>
+
+From tuomov at iki.fi  Mon Mar 16 10:11:24 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 16 Mar 2009 09:11:24 +0000 (UTC)
+Subject: Ikiwiki replacement etc.
+Message-ID: <slrngrs5ts.d9i.tuomov@jolt.modeemi.cs.tut.fi>
+
+
+I will have to replace Ikiwiki as the Ion site generator, since
+it fails to work under Cygwin. (Excessive and ugly mangling of
+all input into UTF-8 breaks down in the 2007 snapshot I'd been
+using. *sigh*. The compiler doesn't need to know the encoding
+used; only the web frontend does. Newer versions don't build. 
+No response from the author.)
+
+One thing that has been suggested, is webgen. But it seems that to do
+all the inlining or even listing of all the FAQ entries, I'd have to
+spend time learning Ruby/ERB/webgen internals, and I really have spent
+far too much time on the computer/OS switch [1] already. A quick&dirty
+Lua or shell script would be faster to write. (Actually, I hate the
+way Ikiwiki handles intra-wiki links, with its own syntax instead of
+using markdown. Webgen, OTOH, doesn't have any support for easy linking.
+I'd like to just define ready aliases for markdown for pages on the
+site. There actually exists a markdown implementation in Lua...)
+
+Does anyone have any other suggestions for site generator, or what 
+to do with the site, that wouldn't involve too much effort from me? 
+This could also be tied to the scripts repository, distribution of 
+extra patches etc..
+
+I still refuse to edit pages through crappy browsers' editors,
+and whatever is chosen should support markdown for easy conversion
+(and because most other ASCII markup languages are too bloated).
+
+  [1]: http://iki.fi/tuomov/b/archives/2009/03/13/T16_46_57/
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+
+From EvgenyKurbatov at yandex.ru  Mon Mar 16 10:37:14 2009
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Mon, 16 Mar 2009 12:37:14 +0300
+Subject: Ikiwiki replacement etc.
+In-Reply-To: <slrngrs5ts.d9i.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrngrs5ts.d9i.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20090316123714.0d589d33@hnum.inasan.ru>
+
+Hi, Tuomo,
+
+> Does anyone have any other suggestions for site generator, or what 
+> to do with the site, that wouldn't involve too much effort from me? 
+> This could also be tied to the scripts repository, distribution of 
+> extra patches etc..
+
+Try AsciiDOC.  It has not any web engine just text-to-html converter.
+Nice syntax, I spent an hour to get a site.  One page -- one
+file.  UTF-8 is native for it.  Links look like
+link:awesome-page.txt[The awesome page]
+
+http://www.methods.co.nz/asciidoc/
+
+There is a highlighter for vim.
+
+Best witches,
+Evgeny
+
+
+From tuomov at iki.fi  Mon Mar 16 10:48:29 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 16 Mar 2009 09:48:29 +0000 (UTC)
+Subject: Ikiwiki replacement etc.
+References: <slrngrs5ts.d9i.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090316123714.0d589d33@hnum.inasan.ru>
+Message-ID: <slrngrs83d.m3s.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-03-16, Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+> Try AsciiDOC.  It has not any web engine just text-to-html converter.
+
+I'm not looking for a markup language -- I'm sticking to markdown.
+I'm looking for a web engine.
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+
+From EvgenyKurbatov at yandex.ru  Mon Mar 16 11:16:48 2009
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Mon, 16 Mar 2009 13:16:48 +0300
+Subject: Ikiwiki replacement etc.
+In-Reply-To: <slrngrs83d.m3s.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrngrs5ts.d9i.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090316123714.0d589d33@hnum.inasan.ru>
+	<slrngrs83d.m3s.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20090316131648.7bfa47d4@hnum.inasan.ru>
+
+On Mon, 16 Mar 2009 09:48:29 +0000 (UTC)
+Tuomo Valkonen <tuomov at iki.fi> wrote:
+
+> > Try AsciiDOC.  It has not any web engine just text-to-html
+> > converter.
+> 
+> I'm not looking for a markup language -- I'm sticking to markdown.
+> I'm looking for a web engine.
+
+Which means "web engine"?  I meant no web engine -- no cgi, no web
+forms, no page editor thru web forms, just kosher html.  You can manage
+your pages with ftp.  Let the web server be engine.
+
+
+Best witches,
+Evgeny
+
+
+From tuomov at iki.fi  Mon Mar 16 12:01:46 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 16 Mar 2009 11:01:46 +0000 (UTC)
+Subject: Ikiwiki replacement etc.
+References: <slrngrs5ts.d9i.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090316123714.0d589d33@hnum.inasan.ru>
+	<slrngrs83d.m3s.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090316131648.7bfa47d4@hnum.inasan.ru>
+Message-ID: <slrngrsccq.lq.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-03-16, Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+> Which means "web engine"?  I meant no web engine -- no cgi, no web
+> forms, no page editor thru web forms, just kosher html.  You can manage
+> your pages with ftp.  Let the web server be engine.
+
+No, I'm not looking for dynamic content. I'm looking for something
+to generate static web pages; not he nicer-markup-to-html converter,
+which will be markdown, but the part that wraps that into templates;
+generates RSS; inlines multiple pages into one for news, FAQ;
+offers nicer wiki-like linking rather than referring to individual
+files; etc.
+
+-- 
+Stop Gnomes and other pests! Purchase Windows today!
+
+
+
+From chris at mretc.net  Tue Mar 17 05:11:52 2009
+From: chris at mretc.net (Chris Burkhardt)
+Date: Mon, 16 Mar 2009 22:11:52 -0600
+Subject: Resizing attached workspaces.
+In-Reply-To: <1e34058b0903130454o6ad5abd5l3be0400e9a79d1aa@mail.gmail.com>
+References: <1e34058b0903130454o6ad5abd5l3be0400e9a79d1aa@mail.gmail.com>
+Message-ID: <gpn7ub$95u$1@ger.gmane.org>
+
+G-$$ wrote:
+> Hello.
+> 
+> I have a scratchpad for IMs with a nested workspace in it
+> _:attach_new({type="WTiling"})
+> I can resize the frames in it now, but I am unable to resize the whole
+> scratchpad. How am I supposed to do so?
+
+I just experimented with that quickly. I can resize the whole scratch pad with
+the mouse (by clicking and dragging on its frame rather than the nested
+tiling's). To resize with the keyboard, I have to switch to a tab on the
+workspace which is not a nested WTiling.
+
+You can bind something like the following to resize/move the parent of the
+WTiling (which would be the scratch pad in this case):
+
+ _:parent():begin_kbresize()
+
+- Chris B
+
+
+
+From tuomov at iki.fi  Thu Mar 26 20:39:57 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 26 Mar 2009 21:39:57 +0200
+Subject: Abandoning darcs
+In-Reply-To: <slrngrkj7p.bme.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrngrkj7p.bme.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20090326193957.GA12895@jolt.modeemi.cs.tut.fi>
+
+On 2009-03-13 12:09 +0000, Tuomo Valkonen wrote:
+> The Ion darcs repositories have been taken offline, and I will
+> switch away from darcs. Reason: no version for the most viable
+> *nix platform of the day, Cygwin. The website will be upgraded 
+> when I manage to replace Ikiwiki, which also does not work under
+> Cygwin.
+
+This is going to take some time. I, of course, can't even use the
+usual tools to convert from darcs to another format, because
+the non-deterministic windows-cygwin hybrid darcs does not even
+print dates etc. in a standard format, so parsers fail.
+
+(No, passing TZ does not work. Darcs shouldn't know about it,
+as it's not a cygwin program. In truth, though, setting TZ
+messes everything up. Must be a leak in GHC from depending
+on cygwin for compilation, although it can not be compiled
+for cygwin -- which is the reason why there's no cygwin
+verion of darcs.)
+
+...
+
+Has anyone any experience of a simple coLinux setup?
+That wouldn't mess hibernate/standby up? With internal
+samba? No udev and other crap; Windows handles devices.
+
+-- 
+Tuomo
+
+
+From tuomov at iki.fi  Fri Mar 27 06:50:34 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 27 Mar 2009 05:50:34 +0000 (UTC)
+Subject: Abandoning darcs
+References: <slrngrkj7p.bme.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090326193957.GA12895@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrngsoq9a.q1o.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-03-26, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> This is going to take some time. I, of course, can't even use the
+> usual tools to convert from darcs to another format, because
+> the non-deterministic windows-cygwin hybrid darcs does not even
+> print dates etc. in a standard format, so parsers fail.
+
+Another big project is writing a non-Haskell (read: Lua)
+implementation of lua-xgettext. Fuck GHC and its unportability.
+Help appreciated.
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and local vendors and
+artisans have had to yield to "all under one roof" big box hypermarkets.
+
+
+
+From schier at shf.de  Fri Mar 27 07:33:59 2009
+From: schier at shf.de (Nicolas Schier)
+Date: Fri, 27 Mar 2009 07:33:59 +0100
+Subject: Abandoning darcs
+References: <slrngrkj7p.bme.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090326193957.GA12895@jolt.modeemi.cs.tut.fi>
+	<slrngsoq9a.q1o.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrngsosqn.an3.schier@shf.de>
+
+Hi Tuomo,
+
+have you already decided which SCM you want to switch to? I have noticed
+you took a look at mercurial... I for myself am very content with it,
+but I know that your requirements have mostly a little higher level.
+
+Regards,
+Nicolas
+
+
+
+
+From tuomov at iki.fi  Fri Mar 27 09:19:02 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 27 Mar 2009 08:19:02 +0000 (UTC)
+Subject: Abandoning darcs
+References: <slrngrkj7p.bme.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090326193957.GA12895@jolt.modeemi.cs.tut.fi>
+	<slrngsoq9a.q1o.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrngsosqn.an3.schier@shf.de>
+Message-ID: <slrngsp2vm.4nm.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-03-27, Nicolas Schier <schier at shf.de> wrote:
+> have you already decided which SCM you want to switch to? I have noticed
+> you took a look at mercurial... I for myself am very content with it,
+> but I know that your requirements have mostly a little higher level.
+
+Probably Mercurial. I've been using it for all new repositories 
+anyway. It mostly sucks compared to darcs, but I don't know anything
+better that's portable. Stupid GHC, stupid compilers, their
+bootstrapping, and complicated build systems.
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and local vendors and
+artisans have had to yield to "all under one roof" big box hypermarkets.
+
+
+
+From tuomov at iki.fi  Fri Mar 27 10:18:56 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 27 Mar 2009 11:18:56 +0200
+Subject: Abandoning darcs
+In-Reply-To: <slrngsp2vm.4nm.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrngrkj7p.bme.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090326193957.GA12895@jolt.modeemi.cs.tut.fi>
+	<slrngsoq9a.q1o.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrngsosqn.an3.schier@shf.de>
+	<slrngsp2vm.4nm.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20090327091856.GA13240@jolt.modeemi.cs.tut.fi>
+
+On 2009-03-27 08:19 +0000, Tuomo Valkonen wrote:
+> On 2009-03-27, Nicolas Schier <schier at shf.de> wrote:
+> > have you already decided which SCM you want to switch to? I have noticed
+> > you took a look at mercurial... I for myself am very content with it,
+> > but I know that your requirements have mostly a little higher level.
+> 
+> Probably Mercurial. I've been using it for all new repositories 
+> anyway. It mostly sucks compared to darcs, but I don't know anything
+> better that's portable. Stupid GHC, stupid compilers, their
+> bootstrapping, and complicated build systems.
+
+*sigh* Even in my Windows switch, FOSS crap causes the most trouble. 
+GHC: fail (=> Darcs: fail, lua-xgettext: fail, riot: fail).
+Ikiwiki: fail. And Cygwin itself poorly supports locales (i.e., UTF-8
+in practise), although with some effort I've managed to make it mostly
+work. Ion is one that doesn't support non-ascii... with the settings 
+that other stuff works with. The problem seems to be, once again, that
+X doesn't quite understand the cygwin/libc locales. Cygwin bash is 
+also _slow_... actually wrote my first _much_ faster (still under cygwin)
+python program [1] ever thanks to this.
+
+Windows (XP) itself works quite smoothly.. far better than Modern
+Linux, so far.. but doesn't natively provide all the software I'd 
+like to use. Maybe coLinux would work better than Cygwin, although
+it's in principle an ugly solution, and seems to be poorly supported
+and difficult to set up... plus you have to deal with all the current
+Linux crap [2] that I want to escape from, unless there's some lightweight
+coLinux-oriented distro that strips away all that useless crap.
+
+If only Apple wasn't so blur-fascist, and had 4:3 laptops with a
+nipple... Although, I did try the _huge_ touchpad on one of the newer
+Apple laptops recently, and it was far better than most I've come 
+across: no need to be skating back and forth, actually quite comfortable
+to move the cursor with it. But, still, it's in the way of typing -- 
+can't rest your thumbs anywhere, whereas on the Trackpoint you can 
+comfortable rest them on the buttons, ready to press -- and you need
+to move your hand to actually use it, while the Trackpoint is simply
+an integral part of the keyboard.
+
+  [1]: A small tool to backup ID3 tags, eyeD3 providing a python library for
+       reading and copying the raw frames to dummy files. Since copying my
+       music collection from CDs and DVDs to a hard drive -- it's quite
+       incredible in how small a package 500G goes in a usb-powered 2.5"
+       disk, compared to the pile of 3.5" disks I had with combined capacity
+       of just 300G... and these aren't big compared to stuff you find from
+       the 80's -- and switching from mocp to foobar2000, I've been adding
+       tags to my collection and downloading cover art, and need to back them
+       up separately.
+
+  [2]: http://iki.fi/tuomov/b/archives/2009/03/13/T16_46_57/
+
+
+\end{another status report written in a moment of boredom and tiredness}
+
+-- 
+Tuomo
+
+
+From sylvain.abelard at gmail.com  Fri Mar 27 10:36:12 2009
+From: sylvain.abelard at gmail.com (=?UTF-8?Q?Sylvain_Ab=C3=A9lard?=)
+Date: Fri, 27 Mar 2009 10:36:12 +0100
+Subject: Abandoning darcs
+In-Reply-To: <20090327091856.GA13240@jolt.modeemi.cs.tut.fi>
+References: <slrngrkj7p.bme.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090326193957.GA12895@jolt.modeemi.cs.tut.fi>
+	<slrngsoq9a.q1o.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrngsosqn.an3.schier@shf.de>
+	<slrngsp2vm.4nm.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090327091856.GA13240@jolt.modeemi.cs.tut.fi>
+Message-ID: <9c6605e40903270236s3210627as84d225938c75f764@mail.gmail.com>
+
+> If only Apple wasn't so blur-fascist, and had 4:3 laptops with a nipple...
+And non-glossy screens for all configurations, not just for > 2000? ones.
+
+ Although, I did try the _huge_ touchpad on one of the newer
+> Apple laptops recently, and it was far better than most I've come
+> across: no need to be skating back and forth, actually quite comfortable
+
+And the "slide with two fingers scrolls whatever content you have" is
+incredibly handy. Luckily this is being copied to more and more
+computers (netbooks).
+The rest is mostly candy for demoes, but the zoom and rotate features
+are cool and handy for the visual stuff.
+
+> to move the cursor with it. But, still, it's in the way of typing --
+> can't rest your thumbs anywhere
+
+I'm testing this right now. That's not really a problem to keep your
+thumbs on the trackpad, even with the "tap-mode" activated. If they
+move a little, your mouse will flicker (thak God, it disappears when
+you're typing), but that's not really a big deal.
+
+The most painful is Window Management (missing ion so much) and that
+"Spaces" multi-desktop thing not well integrated, especially
+overriding some keyboard bindings (which are "customisable with
+limited choices", all of them not satisfying).
+
+You may find yourself disappointed at their quite-non-standard
+keyboard layout and some other inconsistencies, but they're less
+painful.
+
+Apparently there are some external tools but they tend to break things
+more than they solve problems.
+
+-- 
+Sylvain Ab?lard
+"J?ai d?cid? d??tre heureux, c?est meilleur pour la sant?." -Voltaire
+
+
+From tuomov at iki.fi  Fri Mar 27 11:00:20 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 27 Mar 2009 10:00:20 +0000 (UTC)
+Subject: Abandoning darcs
+References: <slrngrkj7p.bme.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090326193957.GA12895@jolt.modeemi.cs.tut.fi>
+	<slrngsoq9a.q1o.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrngsosqn.an3.schier@shf.de>
+	<slrngsp2vm.4nm.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090327091856.GA13240@jolt.modeemi.cs.tut.fi>
+	<9c6605e40903270236s3210627as84d225938c75f764@mail.gmail.com>
+Message-ID: <slrngsp8tk.spn.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-03-27, Sylvain Ab??lard <sylvain.abelard at gmail.com> wrote:
+>> If only Apple wasn't so blur-fascist, and had 4:3 laptops with a nipple...
+> And non-glossy screens for all configurations, not just for > 2000??? ones.
+
+Well, yes, but the situation is almost the same on PCs: all the 
+affordable models have a glossy screen.. and typically crappy 
+keyboards. And the nipple you find only on the el cheapo Thinkpad
+SL models. The better T-model Thinkpads are just as expensive
+as Macbook Pros in .fi but come with a shallowscreen and megabezels
+these days. (The Thinkpads tend to be about 500e cheaper in .de 
+compared to .fi!)
+
+> I'm testing this right now. That's not really a problem to keep your
+> thumbs on the trackpad, even with the "tap-mode" activated. If they
+> move a little, your mouse will flicker (thak God, it disappears when
+> you're typing), but that's not really a big deal.
+
+Would have to try for an extended period to find out if they'd
+have managed to make it work tolerably, but so far I've always had
+to disable to trackpad to be able to use a laptop.
+
+> The most painful is Window Management (missing ion so much) and that
+> "Spaces" multi-desktop thing not well integrated, especially
+> overriding some keyboard bindings (which are "customisable with
+> limited choices", all of them not satisfying).
+
+Sure you can run Ion in X in OS X? I run it in Windows XP under
+Cygwin/X, and half of my apps/windows there. (In Xterm, but
+also plan to use gv/xpdf/xdvi for TeXing when it comes time 
+to write something again.) It works comfortably enough, switching
+between Windows and Ion, after I changed Mod1+Tab to Mod1+Q
+in Ion, instead of passing -keyhook to X, which disables the
+Windows key too, which I'd like to work (could then Win+tab
+on the taskbar). This keeps the Windows window-count tolerable;
+it couldn't handle the gazillion terminals comfortably without 
+a tabbing terminal emulator or something... but that's just Ion
+then; I consider it my "IDE".
+
+> You may find yourself disappointed at their quite-non-standard
+> keyboard layout 
+
+I have to reconfigure the keyboard on any system I plan to actually
+use for anything, in any case. Done that on Windows too. (Caps lock = 
+control, extra altgr between shift and z, extra altgr+key bindings [1].
+No dead keys, they suck.) 
+
+  [1]: http://article.gmane.org/gmane.comp.window-managers.ion.general/8542
+
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and the cycle paths 
+have been replaced with polluted motorways.
+
+
+
+From treibholz-ion at sozial-inkompetent.de  Fri Mar 27 20:39:14 2009
+From: treibholz-ion at sozial-inkompetent.de (Klaus Umbach)
+Date: Fri, 27 Mar 2009 20:39:14 +0100
+Subject: Abandoning darcs
+In-Reply-To: <20090326193957.GA12895@jolt.modeemi.cs.tut.fi>
+References: <slrngrkj7p.bme.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090326193957.GA12895@jolt.modeemi.cs.tut.fi>
+Message-ID: <20090327193914.GC3659@umbach-racing.de>
+
+On 26/03/09 21:39, Tuomo Valkonen wrote:
+> On 2009-03-13 12:09 +0000, Tuomo Valkonen wrote:
+> Has anyone any experience of a simple coLinux setup?
+> That wouldn't mess hibernate/standby up? With internal
+> samba? No udev and other crap; Windows handles devices.
+
+I used to use it for a while with the default-debian-image, which I
+upgraded to a recent version. Hibernation works flawlessly, as it is just a
+Windows-Application as any other. It's much faster as cygwin. I don't know
+if it can be suspended alone, so you can reboot windows without rebooting
+your Linux.
+
+I even used it to connect to my real XFS-partition of the real Linux
+besides my Windows, so I could access the data via samba, because there is
+no XFS-driver for Windows.
+
+I used XMing as X-Server, which was quite fast.
+
+I don't use it anymore, because Windows drove me crazy, so now I
+virtualized Windows in VirtualBox for the few applications I need.
+
+-
+	Klaus
+
+-- 
+BOFH excuse #266:
+
+All of the packets are empty.
+
+
+From tuomov at iki.fi  Sat Mar 28 07:38:35 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 28 Mar 2009 06:38:35 +0000 (UTC)
+Subject: Abandoning darcs
+References: <slrngrkj7p.bme.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090326193957.GA12895@jolt.modeemi.cs.tut.fi>
+	<20090327193914.GC3659@umbach-racing.de>
+Message-ID: <slrngsrhfb.asg.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-03-27, Klaus Umbach <treibholz-ion at sozial-inkompetent.de> wrote:
+> On 26/03/09 21:39, Tuomo Valkonen wrote:
+>> On 2009-03-13 12:09 +0000, Tuomo Valkonen wrote:
+>> Has anyone any experience of a simple coLinux setup?
+>> That wouldn't mess hibernate/standby up? With internal
+>> samba? No udev and other crap; Windows handles devices.
+>
+> I used to use it for a while with the default-debian-image, which I
+> upgraded to a recent version. Hibernation works flawlessly, as it is just a
+> Windows-Application as any other. 
+
+Nope, it's a driver.
+
+> I don't use it anymore, because Windows drove me crazy, so now I
+> virtualized Windows in VirtualBox for the few applications I need.
+
+Modern Linux and Linux politics drives me crazy.
+
+-- 
+Stop Gnomes and other pests! Purchase Windows today!
+
+
+
+From treibholz-ion at sozial-inkompetent.de  Sat Mar 28 08:50:09 2009
+From: treibholz-ion at sozial-inkompetent.de (Klaus Umbach)
+Date: Sat, 28 Mar 2009 08:50:09 +0100
+Subject: Abandoning darcs
+In-Reply-To: <slrngsrhfb.asg.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrngrkj7p.bme.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090326193957.GA12895@jolt.modeemi.cs.tut.fi>
+	<20090327193914.GC3659@umbach-racing.de>
+	<slrngsrhfb.asg.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20090328075009.GE3659@umbach-racing.de>
+
+On 28/03/09 06:38, Tuomo Valkonen wrote:
+> On 2009-03-27, Klaus Umbach <treibholz-ion at sozial-inkompetent.de> wrote:
+> > On 26/03/09 21:39, Tuomo Valkonen wrote:
+> >> On 2009-03-13 12:09 +0000, Tuomo Valkonen wrote:
+> >> Has anyone any experience of a simple coLinux setup?
+> >> That wouldn't mess hibernate/standby up? With internal
+> >> samba? No udev and other crap; Windows handles devices.
+> >
+> > I used to use it for a while with the default-debian-image, which I
+> > upgraded to a recent version. Hibernation works flawlessly, as it is just a
+> > Windows-Application as any other. 
+> 
+> Nope, it's a driver.
+
+Ah, OK. So it's a driver and a service. Anyway, it was pretty stable.
+
+> 
+> > I don't use it anymore, because Windows drove me crazy, so now I
+> > virtualized Windows in VirtualBox for the few applications I need.
+> 
+> Modern Linux and Linux politics drives me crazy.
+
+Yes, but I can use both my cores and don't have to reserve one for my
+virus-scanner. From my point of view, Windows is still worse.
+
+e.g. you can't overwrite a file, when it is executed.
+You can't open a file when another application writes in it (how am a I
+supposed to read logfiles?). A path in NTFS is not allowed to be longer
+than 255 chars... And worst of all: it lacks a package-management.
+
+-
+	Klaus
+
+-- 
+BOFH excuse #341:
+
+HTTPD Error 666 : BOFH was here
+
+
+From tuomov at iki.fi  Sun Mar 29 11:46:27 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 29 Mar 2009 09:46:27 +0000 (UTC)
+Subject: Abandoning darcs
+References: <slrngrkj7p.bme.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090326193957.GA12895@jolt.modeemi.cs.tut.fi>
+	<20090327193914.GC3659@umbach-racing.de>
+	<slrngsrhfb.asg.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090328075009.GE3659@umbach-racing.de>
+Message-ID: <slrngsugrj.psc.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-03-28, Klaus Umbach <treibholz-ion at sozial-inkompetent.de> wrote:
+> Ah, OK. So it's a driver and a service. Anyway, it was pretty stable.
+
+Maybe I'll try it one day. No time now.
+
+> Yes, but I can use both my cores and don't have to reserve one for my
+> virus-scanner. From my point of view, Windows is still worse.
+
+Both cores.. doing fine with just one. Only really notice the scanner
+at login, which takes ages, just like the boot too. But with reliable
+standby/hibernate, it's not necessary to boot often, and you can still
+shut down the system for the night, etc. 
+
+> e.g. you can't overwrite a file, when it is executed.
+> You can't open a file when another application writes in it (how am a I
+> supposed to read logfiles?). 
+
+This is indeed a major annoyance that you can't delete a file
+in use, as on *nix. At least in cygwin they can, however, be 
+renamed out of the way. I've been told this should've been
+improved in Vista.
+
+> A path in NTFS is not allowed to be longer than 255 chars... 
+
+Path? You mean file name? It's the same on ext2/3 as far as I
+recall, and no practical limitation, just Linux fanboy FUD -- 
+especially as NTFS uses Unicode, so special characters don't 
+take many bytes as with UTF-8.
+
+> And worst of all: it lacks a package-management.
+
+Worst of all: Linux has fragmented centralised package 
+management. All the gazillion distributions doing redundant
+work have de facto central control over what software you 
+can easily install on that particular distribution.
+
+On Windows I can just download software from the ISV, and 
+easily run it. In a sandbox if I want to. And, best of all,
+nearly all the latest sofware still runs on Windows XP, which
+is from 2001 (and largely still uninfected by the current 
+blur-fascist IT regime). Try running latest Linux binaries
+-- or even source, for that matter -- on Linux from 2001. 
+FAIL.
+
+It's sick. Linux is outright against independent software 
+vendors, and yet it's Microsoft that gets sued for any 
+feature they add to their OS.
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+
+From tiagomatos at gmail.com  Sun Mar 29 14:16:55 2009
+From: tiagomatos at gmail.com (=?UTF-8?Q?Rui_Tiago_Ca=C3=A7=C3=A3o_Matos?=)
+Date: Sun, 29 Mar 2009 13:16:55 +0100
+Subject: Abandoning darcs
+In-Reply-To: <slrngsugrj.psc.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrngrkj7p.bme.tuomov@jolt.modeemi.cs.tut.fi> 
+	<20090326193957.GA12895@jolt.modeemi.cs.tut.fi>
+	<20090327193914.GC3659@umbach-racing.de> 
+	<slrngsrhfb.asg.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090328075009.GE3659@umbach-racing.de> 
+	<slrngsugrj.psc.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <eae3b3410903290516k2765dfbfydedb6b9ae2658508@mail.gmail.com>
+
+Tuomo,
+
+2009/3/29 Tuomo Valkonen <tuomov at iki.fi>:
+> On Windows I can just download software from the ISV, and
+> easily run it. In a sandbox if I want to.
+
+I'm curious. Does Windows have that capability built in or do you use
+some kind of sandboxing third party solution?
+
+Rui
+
+
+From tuomov at iki.fi  Sun Mar 29 14:19:52 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 29 Mar 2009 12:19:52 +0000 (UTC)
+Subject: Abandoning darcs
+References: <slrngrkj7p.bme.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090326193957.GA12895@jolt.modeemi.cs.tut.fi>
+	<20090327193914.GC3659@umbach-racing.de>
+	<slrngsrhfb.asg.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090328075009.GE3659@umbach-racing.de>
+	<slrngsugrj.psc.tuomov@jolt.modeemi.cs.tut.fi>
+	<eae3b3410903290516k2765dfbfydedb6b9ae2658508@mail.gmail.com>
+Message-ID: <slrngsupr8.akt.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-03-29, Rui Tiago Ca????o Matos <tiagomatos at gmail.com> wrote:
+> I'm curious. Does Windows have that capability built in or do you use
+> some kind of sandboxing third party solution?
+
+I use Sandboxie (the first I found).
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+
+From tuomov at iki.fi  Tue Mar 31 09:20:55 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 31 Mar 2009 10:20:55 +0300
+Subject: Ikiwiki replacement etc.
+In-Reply-To: <slrngrs5ts.d9i.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrngrs5ts.d9i.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20090331072054.GA7000@jolt.modeemi.cs.tut.fi>
+
+Ok, the site should be back in updatable condition, using webgen
+after all. Let me know if something is broken. Next up: VCS switch.
+
+(Suggestions about what to do about the site, the scripts repository,
+and other repositories are still welcome.)
+
+-- 
+Tuomo
+
+
+From ion at rutschle.net  Tue Mar 31 09:59:49 2009
+From: ion at rutschle.net (Yves Rutschle)
+Date: Tue, 31 Mar 2009 09:59:49 +0200
+Subject: Abandoning darcs
+In-Reply-To: <slrngsugrj.psc.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrngrkj7p.bme.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090326193957.GA12895@jolt.modeemi.cs.tut.fi>
+	<20090327193914.GC3659@umbach-racing.de>
+	<slrngsrhfb.asg.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090328075009.GE3659@umbach-racing.de>
+	<slrngsugrj.psc.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20090331075949.GV17313@naryves.com>
+
+On Sun, Mar 29, 2009 at 09:46:27AM +0000, Tuomo Valkonen wrote:
+> > A path in NTFS is not allowed to be longer than 255 chars... 
+> 
+> Path? You mean file name? It's the same on ext2/3 as far as I
+> recall,
+
+Just tried it out of curiosity, I got bored after about 6000
+characters.
+
+> and no practical limitation, just Linux fanboy FUD -- 
+
+Yeah, the biggest problem is Windows users naming
+directories like "Program Files", "Last year's review",
+"Deliveries for this and that", which means the 255
+limitation actually comes up quickly. Then try to convince
+them to use short names and no spaces.
+
+> especially as NTFS uses Unicode, so special characters don't 
+> take many bytes as with UTF-8.
+
+Actually I think NTFS uses UTF-16 which is about twice as
+big as UTF-8 (Unicode being the numbering of letters, UTF-8
+and UTF-16 being two encodings of Unicode).
+
+Y.
+
+
+From tuomov at iki.fi  Tue Mar 31 10:21:26 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 31 Mar 2009 08:21:26 +0000 (UTC)
+Subject: Abandoning darcs
+References: <slrngrkj7p.bme.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090326193957.GA12895@jolt.modeemi.cs.tut.fi>
+	<20090327193914.GC3659@umbach-racing.de>
+	<slrngsrhfb.asg.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090328075009.GE3659@umbach-racing.de>
+	<slrngsugrj.psc.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090331075949.GV17313@naryves.com>
+Message-ID: <slrngt3kk6.mar.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-03-31, Yves Rutschle <ion at rutschle.net> wrote:
+> Yeah, the biggest problem is Windows users naming
+> directories like "Program Files", "Last year's review",
+> "Deliveries for this and that", which means the 255
+> limitation actually comes up quickly. Then try to convince
+> them to use short names and no spaces.
+
+Yeah, it sucks.. but it's coming in Linux too.
+I absolutely fucking hate the Desktop directory
+that every now and then shows up in ~.
+IT'S MY HOME DIRECTORY YOU GNOME FUCKTARDS! DON'T PUT ANYTHING
+VISIBLE THERE! I'S ***MIIIINE***, NOT YOURS, YOU  PIECE OF SHIT
+RETARDS!! GET IT?!?!?
+
+>> especially as NTFS uses Unicode, so special characters don't 
+>> take many bytes as with UTF-8.
+>
+> Actually I think NTFS uses UTF-16 which is about twice as
+
+NTFS: 255 UTF-16 code points = 510 bytes
+ext2: 255 _bytes_ = less than 255 UTF-8 characters even with latin alphabet.
+
+This is what I meant.
+
+Of course, even with UTF-16 you get less than 255 glyphs when
+using combining characters and stuff. 
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and the cycle paths 
+have been replaced with polluted motorways.
+
+
+
+From adam.ian.duck at gmail.com  Tue Mar 31 10:25:43 2009
+From: adam.ian.duck at gmail.com (Adam Duck)
+Date: Tue, 31 Mar 2009 10:25:43 +0200
+Subject: Abandoning darcs
+In-Reply-To: <20090331075949.GV17313@naryves.com>
+References: <slrngrkj7p.bme.tuomov@jolt.modeemi.cs.tut.fi>	<20090326193957.GA12895@jolt.modeemi.cs.tut.fi>	<20090327193914.GC3659@umbach-racing.de>	<slrngsrhfb.asg.tuomov@jolt.modeemi.cs.tut.fi>	<20090328075009.GE3659@umbach-racing.de>	<slrngsugrj.psc.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090331075949.GV17313@naryves.com>
+Message-ID: <49D1D387.6030506@gmail.com>
+
+On 31.03.2009 09:59, Yves Rutschle wrote:
+> On Sun, Mar 29, 2009 at 09:46:27AM +0000, Tuomo Valkonen wrote:
+>    
+>>> A path in NTFS is not allowed to be longer than 255 chars...
+>>>        
+>> Path? You mean file name? It's the same on ext2/3 as far as I
+>> recall,
+>>      
+>
+> Just tried it out of curiosity, I got bored after about 6000
+> characters.
+>    
+Yes, it is possible to _create_ such file names, but you can't use 
+them.  Here at WinXP I can create (best under "Desktop") dirs close to 
+255 chars.
+But if you try to put files into them, it won't work.  You can also put 
+files in dirs <255 chars and then rename some of the dirs so that the 
+full file name is
+longer than 255 chars.  Then they become unusable: no icons, no clicks, 
+nothing...
+
+bye, Adam.
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20090331/ae04cc0c/attachment.html>
+
+From tuomov at iki.fi  Tue Mar 31 10:39:13 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 31 Mar 2009 08:39:13 +0000 (UTC)
+Subject: Abandoning darcs
+References: <slrngrkj7p.bme.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090326193957.GA12895@jolt.modeemi.cs.tut.fi>
+	<20090327193914.GC3659@umbach-racing.de>
+	<slrngsrhfb.asg.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090328075009.GE3659@umbach-racing.de>
+	<slrngsugrj.psc.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090331075949.GV17313@naryves.com> <49D1D387.6030506@gmail.com>
+Message-ID: <slrngt3llh.qfu.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-03-31, Adam Duck <adam.ian.duck at gmail.com> wrote:
+> Yes, it is possible to _create_ such file names, but you can't use 
+> them.  Here at WinXP I can create (best under "Desktop") dirs close to 
+> 255 chars.
+
+Actually, I've been succesfully using file names with colons in them
+in Linux on NTFS (stupid NTFS-3g not failing on such names), and
+Windows shows them, but you can't access them.
+
+Actually, there is a low path length limit not in NTFS but in the some
+old versions of the _Windows API_ itself.  This is probably what the FUD
+was about. (And if you consider an API originating for 8+3 names -- if
+this is the case -- 255 is a tolerable limitation for path length.)
+
+http://msdn.microsoft.com/en-us/library/aa365247.aspx
+
+"""
+In the Windows API (with some exceptions discussed in the following
+paragraphs), the maximum length for a path is MAX_PATH, which is defined as
+260 characters. A local path is structured in the following order: drive
+letter, colon, backslash, components separated by backslashes, and a
+terminating null character. For example, the maximum path on drive D is
+"D:\<some 256 character path string><NUL>" where "<NUL>" represents the
+invisible terminating null character for the current system codepage. (The
+characters < > are used here for visual clarity and cannot be part of a
+valid path string.)
+
+Note  File I/O functions in the Windows API convert "/" to "\" as part of
+converting the name to an NT-style name, except when using the "\\?\" prefix
+as detailed in the following sections.
+
+The Windows API has many functions that also have Unicode versions to permit
+an extended-length path for a maximum total path length of 32,767 characters
+"""
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and the cycle paths 
+have been replaced with polluted motorways.
+
+
+
+From dcl441-bugs at yahoo.com  Tue Mar 31 14:54:23 2009
+From: dcl441-bugs at yahoo.com (Daniel Clemente)
+Date: Tue, 31 Mar 2009 14:54:23 +0200
+Subject: Abandoning darcs
+References: <slrngrkj7p.bme.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090326193957.GA12895@jolt.modeemi.cs.tut.fi>
+	<20090327193914.GC3659@umbach-racing.de>
+	<slrngsrhfb.asg.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090328075009.GE3659@umbach-racing.de>
+	<slrngsugrj.psc.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090331075949.GV17313@naryves.com>
+	<slrngt3kk6.mar.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <871vsdj1j4.fsf@CPU107.opentrends.net>
+
+
+> Yeah, it sucks.. but it's coming in Linux too.
+> I absolutely fucking hate the Desktop directory
+> that every now and then shows up in ~.
+> IT'S MY HOME DIRECTORY YOU GNOME FUCKTARDS! DON'T PUT ANYTHING
+> VISIBLE THERE! I'S ***MIIIINE***, NOT YOURS, YOU  PIECE OF SHIT
+> RETARDS!! GET IT?!?!?
+>
+  No, I don't think they get it... Try in a Gnome discussion list, there may be some Gnome developers there.
+
+  By the way, is ~ really yours? Who created it? :-)
+
+  Yes, I also hate it, but I have learnt to ignore it with version control. Or better, I use it to store trash. And if I want a directory that I control myself, I create one, it's not so complex.
+
+
+
+
+
+From tuomov at iki.fi  Tue Mar 31 17:42:13 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 31 Mar 2009 15:42:13 +0000 (UTC)
+Subject: Abandoning darcs
+References: <slrngrkj7p.bme.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090326193957.GA12895@jolt.modeemi.cs.tut.fi>
+	<20090327193914.GC3659@umbach-racing.de>
+	<slrngsrhfb.asg.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090328075009.GE3659@umbach-racing.de>
+	<slrngsugrj.psc.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090331075949.GV17313@naryves.com>
+	<slrngt3kk6.mar.tuomov@jolt.modeemi.cs.tut.fi>
+	<871vsdj1j4.fsf@CPU107.opentrends.net>
+Message-ID: <slrngt4eel.m34.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-03-31, Daniel Clemente <dcl441-bugs at yahoo.com> wrote:
+>   Yes, I also hate it, but I have learnt to ignore it with version
+>   control. Or better, I use it to store trash. 
+>   And if I want a directory
+>   that I control myself, I create one, it's not so complex.
+
+But it's not ~, it's ~/my or /my or something long and non-automatic.
+
+I suspect that when they realise this home directory cluttering problem,
+instead of choosing saner names, they'll reinvent the wheel and introduce
+a Hidden attribute to file systems... in an additional gnome indirection
+layer, not the kernel.
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+

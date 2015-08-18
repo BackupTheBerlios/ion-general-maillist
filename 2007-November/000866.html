@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Forbiding focus to floating window
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Forbiding%20focus%20to%20floating%20window&In-Reply-To=%3C20071121130330.GA12716%40tardis.terramar.selidor.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000865.html">
+   <LINK REL="Next"  HREF="000870.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Forbiding focus to floating window</H1>
+    <B>Ivan Vilata i Balaguer</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Forbiding%20focus%20to%20floating%20window&In-Reply-To=%3C20071121130330.GA12716%40tardis.terramar.selidor.net%3E"
+       TITLE="Forbiding focus to floating window">ivan at selidor.net
+       </A><BR>
+    <I>Wed Nov 21 14:03:30 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000865.html">Forbiding focus to floating window
+</A></li>
+        <LI>Next message: <A HREF="000870.html">Forbiding focus to floating window
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#866">[ date ]</a>
+              <a href="thread.html#866">[ thread ]</a>
+              <a href="subject.html#866">[ subject ]</a>
+              <a href="author.html#866">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Tuomo Valkonen (el 2007-11-21 a les 10:09:58 +0000) va dir::
+
+&gt;<i> On 2007-11-21, Ivan Vilata i Balaguer &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">ivan at selidor.net</A>&gt; wrote:
+</I>&gt;<i> &gt; Umm, running that makes the floating window disappear!  
+</I>&gt;<i> 
+</I>&gt;<i> Ion version? Setup? Does setting the 'geom' field/table to something useful
+</I>&gt;<i> help? (See the docs for WMPlex.attach.)
+</I>
+Right!  Providing a geometry keeps the window visible and it is no
+longer active or focusable unless attached to a frame.  I guess this is
+closer to the solution. :)
+
+(BTW, latest Ion 3rc-20071109, only the aforementioned winprops
+affecting XWrits windows.)
+
+&gt;<i> &gt;  a. Floating windows with that flag do not take focus when they are
+</I>&gt;<i> &gt;     mapped to the screen, even if they happen to pop under the current
+</I>&gt;<i> &gt;     location of the mouse cursor.
+</I>&gt;<i> 
+</I>&gt;<i> switchto=false might work (for the initial focus), but I'm not 100% sure.
+</I>
+Yes, it works OK, except when the window happens to pop under the mouse
+cursor.  In that case it takes focus.  Maybe this is too difficult to
+avoid without complicating the sloppy focus code...
+
+&gt;<i> &gt;  b. Framed windows with that flag pop into the current frame, but they
+</I>&gt;<i> &gt;     just aren't shown: the current window is undisturbed (i.e. they pop
+</I>&gt;<i> &gt;     &quot;under&quot; the current window, so to say, maybe with an urgent flag).
+</I>&gt;<i> 
+</I>&gt;<i> switchto=false.
+</I>
+Of course!  It seems that I was too obfuscated with the floating
+problem! :P  Thanks!
+
+::<i>
+</I>
+  Ivan Vilata i Balaguer   @ Welcome to the European Banana Republic! @
+  <A HREF="http://www.selidor.net/">http://www.selidor.net/</A>  @     <A HREF="http://www.nosoftwarepatents.com/">http://www.nosoftwarepatents.com/</A>    @
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 307 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20071121/fc174b52/attachment.pgp">https://lists.berlios.de/pipermail/ion-general/attachments/20071121/fc174b52/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000865.html">Forbiding focus to floating window
+</A></li>
+	<LI>Next message: <A HREF="000870.html">Forbiding focus to floating window
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#866">[ date ]</a>
+              <a href="thread.html#866">[ thread ]</a>
+              <a href="subject.html#866">[ subject ]</a>
+              <a href="author.html#866">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

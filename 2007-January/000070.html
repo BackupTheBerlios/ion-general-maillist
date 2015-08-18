@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> keyboard focus
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20keyboard%20focus&In-Reply-To=%3Cslrnerekiu.nhc.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000069.html">
+   <LINK REL="Next"  HREF="000071.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>keyboard focus</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20keyboard%20focus&In-Reply-To=%3Cslrnerekiu.nhc.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="keyboard focus">tuomov at iki.fi
+       </A><BR>
+    <I>Wed Jan 24 13:34:38 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000069.html">keyboard focus
+</A></li>
+        <LI>Next message: <A HREF="000071.html">keyboard focus
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#70">[ date ]</a>
+              <a href="thread.html#70">[ thread ]</a>
+              <a href="subject.html#70">[ subject ]</a>
+              <a href="author.html#70">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2007-01-24, Renee Klawitter &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">klawitter at email.de</A>&gt; wrote:
+&gt;<i> Is it possible to have the float, that has no keyboard input expanded
+</I>&gt;<i> (don't know if there is an &quot;official&quot; other word for it) ? i.e. see my
+</I>&gt;<i> opera window in full size but type in my partly hidden emacs ? 
+</I>
+No. It wouldn't be a lot of work to add a function that momentarily
+lowers a frame: there's the generic rqorder function, that's just
+missing an implementation on WTilings. However, the stacking order
+would likely be reset the moment anything else is done on the layout.
+Just switching the workspace could reset it, if an stdisp is used. 
+To maintain the layout, the architecture should be changed considerably
+again, and I don't want to do anything of the sort in relation to Ion3
+anymore. Just finish it quickly, work on other things, and get back
+to Ion in the form of Ion4 in a few decades :) or so.
+
+I've actually been thinking, that a fish-eye view of the presently
+partially hidden window, might be nice. Especially if the program
+could provide a focus point itself, so that things under the cursor
+are not much distorted, but they get more distorted towards the 
+edges (that often contain unimportant controls etc.). This kind
+of things, of course, demand the use of XComposite or such...
+*sigh*, another mostly undocumented X API to learn... which will
+probably delay the work on Ion4 for yet another decade, as a lot
+of ideas I am starting to have for Ion4 almost depend on it.
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000069.html">keyboard focus
+</A></li>
+	<LI>Next message: <A HREF="000071.html">keyboard focus
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#70">[ date ]</a>
+              <a href="thread.html#70">[ thread ]</a>
+              <a href="subject.html#70">[ subject ]</a>
+              <a href="author.html#70">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

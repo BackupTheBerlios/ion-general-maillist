@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> emulating xinerama?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20emulating%20xinerama%3F&In-Reply-To=%3C20070401134945.GA12207%40mbox.bz%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000329.html">
+   <LINK REL="Next"  HREF="000331.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>emulating xinerama?</H1>
+    <B>moe</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20emulating%20xinerama%3F&In-Reply-To=%3C20070401134945.GA12207%40mbox.bz%3E"
+       TITLE="emulating xinerama?">filter-ion at mbox.bz
+       </A><BR>
+    <I>Sun Apr  1 15:49:46 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000329.html">emulating xinerama?
+</A></li>
+        <LI>Next message: <A HREF="000331.html">emulating xinerama?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#330">[ date ]</a>
+              <a href="thread.html#330">[ thread ]</a>
+              <a href="subject.html#330">[ subject ]</a>
+              <a href="author.html#330">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Sun, Apr 01, 2007 at 01:50:03PM +0100, Nick Murdoch wrote:
+&gt;<i> moe wrote:
+</I>&gt;<i> &gt; hi list and tuomov,
+</I>&gt;<i> &lt;snip&gt;
+</I>&gt;<i> &gt; maybe we can get away with a bit of cheating here?
+</I>&gt;<i> 
+</I>&gt;<i> I think being hacky and horrible was the main reason Xinerama support
+</I>&gt;<i> was dropped ;)
+</I>
+well, i read tuomovs rants as &quot;it was dropped because the
+horror creeped into many areas of the code&quot; but i may be
+mistaken.
+
+i hope that the hack i proposed would be much less intrusive
+and could get the job done at a minimum cost (both in terms of
+lines of code and in terms of uglyness).
+
+i imagine that the only changes needed would be to add
+a &quot;create workspace hook&quot; and to make the placement of
+floating windows &quot;virtual screen aware&quot;. ideally this
+could all be done in lua but i haven't looked for the
+necessary hooks, yet.
+
+&gt;<i> Just for the record, I was also using ion3 until Xinerama support was
+</I>&gt;<i> dropped. I have a TV card and like to run tvtime on the second monitor.
+</I>&gt;<i> I've switched back to ion2 for now.
+</I>&gt;<i> 
+</I>&gt;<i> To be fair, Xinerama does tend to have awful support elsewhere too. The
+</I>&gt;<i> Gimp really hates dual-monitor set-ups (Every time I want to use my
+</I>&gt;<i> graphics tablet I have to start a new display that only uses one of my
+</I>&gt;<i> monitors), and qiv also breaks in fullscreen mode. I'm sure there are
+</I>&gt;<i> other examples.
+</I> 
+agree'd. i have given up on using the gimp under ion a
+long time ago, tho (prefer shotophop under vmware anyways).
+
+but i think the fact that there are so few apps that benefit
+from &quot;proper&quot; xinerama support only fuels my argument that
+a comparably small hack might be good enough here
+(think pareto principle).
+
+
+moe
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000329.html">emulating xinerama?
+</A></li>
+	<LI>Next message: <A HREF="000331.html">emulating xinerama?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#330">[ date ]</a>
+              <a href="thread.html#330">[ thread ]</a>
+              <a href="subject.html#330">[ subject ]</a>
+              <a href="author.html#330">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

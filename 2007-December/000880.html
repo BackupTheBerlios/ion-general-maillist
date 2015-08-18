@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> SIGSEGV on screen_deinit()
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20SIGSEGV%20on%20screen_deinit%28%29&In-Reply-To=%3C475712FE.7040701%40csub.edu%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000879.html">
+   <LINK REL="Next"  HREF="000881.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>SIGSEGV on screen_deinit()</H1>
+    <B>Russell Jackson</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20SIGSEGV%20on%20screen_deinit%28%29&In-Reply-To=%3C475712FE.7040701%40csub.edu%3E"
+       TITLE="SIGSEGV on screen_deinit()">raj at csub.edu
+       </A><BR>
+    <I>Wed Dec  5 22:07:10 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000879.html">tabnum
+</A></li>
+        <LI>Next message: <A HREF="000881.html">SIGSEGV on screen_deinit()
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#880">[ date ]</a>
+              <a href="thread.html#880">[ thread ]</a>
+              <a href="subject.html#880">[ subject ]</a>
+              <a href="author.html#880">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I didn't have this problem under FreeBSD 6.2. Could this be due to gcc 4.2?
+
+Xorg last reports:
+
+Object destroyed while deferred actions are still pending.
+
+gdb bt:
+
+#0  0x0805f25f in screen_deinit ()
+#1  0x08086621 in destroy_obj ()
+#2  0x0806010e in ioncore_deinit ()
+#3  0x0805b970 in ioncore_do_exit ()
+#4  0x0807a2be in l2chnd_v__ ()
+#5  0x08080deb in extl_l1_call_handler2 ()
+#6  0x0808b205 in luaD_precall ()
+#7  0x0808b623 in luaD_call ()
+#8  0x08088e83 in f_call ()
+#9  0x0808ae1e in luaD_rawrunprotected ()
+#10 0x0808ae75 in luaD_pcall ()
+#11 0x08088d03 in lua_pcall ()
+#12 0x0807fc5d in extl_l1_call_handler ()
+#13 0x0808b205 in luaD_precall ()
+#14 0x08092ea4 in luaV_execute ()
+#15 0x0808b65e in luaD_call ()
+#16 0x08088e83 in f_call ()
+#17 0x0808ae1e in luaD_rawrunprotected ()
+#18 0x0808ae75 in luaD_pcall ()
+#19 0x08088d03 in lua_pcall ()
+#20 0x0807f74b in extl_do_collect_errors ()
+#21 0x0808b205 in luaD_precall ()
+#22 0x0808b623 in luaD_call ()
+#23 0x08088e83 in f_call ()
+#24 0x0808ae1e in luaD_rawrunprotected ()
+#25 0x0808ae75 in luaD_pcall ()
+#26 0x08088d03 in lua_pcall ()
+#27 0x0808239e in extl_collect_errors ()
+#28 0x0808b205 in luaD_precall ()
+#29 0x08092ea4 in luaV_execute ()
+#30 0x0808b65e in luaD_call ()
+#31 0x08088e83 in f_call ()
+#32 0x0808ae1e in luaD_rawrunprotected ()
+#33 0x0808ae75 in luaD_pcall ()
+#34 0x08088d03 in lua_pcall ()
+#35 0x08080a2f in extl_do_call_vararg ()
+#36 0x0807f0eb in extl_docpcall ()
+#37 0x0808b205 in luaD_precall ()
+#38 0x0808b623 in luaD_call ()
+#39 0x08088e5b in f_Ccall ()
+#40 0x0808ae1e in luaD_rawrunprotected ()
+#41 0x0808ae75 in luaD_pcall ()
+#42 0x08088cb0 in lua_cpcall ()
+#43 0x0807ea58 in extl_cpcall ()
+#44 0x0807f870 in extl_call_vararg ()
+#45 0x0808160a in extl_call ()
+#46 0x2851e272 in wedln_do_finish () from /usr/local/lib/ion3/mod/mod_query.so
+#47 0x0807c2aa in mainloop_execute_deferred_on_list ()
+#48 0x0807c302 in mainloop_execute_deferred ()
+#49 0x0805b6b4 in ioncore_mainloop ()
+#50 0x08059906 in main ()
+
+ion3 -version:
+
+3rc-20071130
+
+lua-5.1 -v:
+
+Lua 5.1.1  Copyright (C) 1994-2006 Lua.org, PUC-Rio
+
+Xorg -version:
+
+X.Org X Server 1.4.0
+Release Date: 5 September 2007
+X Protocol Version 11, Revision 0
+Build Operating System: FreeBSD 7.0-BETA3 i386
+Current Operating System: FreeBSD cserv65.csub.edu 7.0-BETA4 FreeBSD 7.0-BETA4 #2: Wed Dec
+ 5 11:52:27 PST 2007     <A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">raj at cserv65.csub.edu</A>:/usr/obj/usr/src/sys/CSERV65 i386
+Build Date: 05 December 2007  11:31:41AM
+
+uname -a:
+
+FreeBSD cserv65.csub.edu 7.0-BETA4 FreeBSD 7.0-BETA4 #2: Wed Dec  5 11:52:27 PST 2007
+<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">raj at cserv65.csub.edu</A>:/usr/obj/usr/src/sys/CSERV65  i386
+
+gcc -v:
+
+Using built-in specs.
+Target: i386-undermydesk-freebsd
+Configured with: FreeBSD/i386 system compiler
+Thread model: posix
+gcc version 4.2.1 20070719  [FreeBSD]
+
+Thanks,
+-- 
+Russell A. Jackson &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">raj at csub.edu</A>&gt;
+Network Analyst
+California State University, Bakersfield
+
+Time sharing: The use of many people by the computer.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: smime.p7s
+Type: application/x-pkcs7-signature
+Size: 4291 bytes
+Desc: S/MIME Cryptographic Signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20071205/bf7880bb/attachment.bin">https://lists.berlios.de/pipermail/ion-general/attachments/20071205/bf7880bb/attachment.bin</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000879.html">tabnum
+</A></li>
+	<LI>Next message: <A HREF="000881.html">SIGSEGV on screen_deinit()
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#880">[ date ]</a>
+              <a href="thread.html#880">[ thread ]</a>
+              <a href="subject.html#880">[ subject ]</a>
+              <a href="author.html#880">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

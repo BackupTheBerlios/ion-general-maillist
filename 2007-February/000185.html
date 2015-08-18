@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Feature freeze imminent
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Feature%20freeze%20imminent&In-Reply-To=%3C20070228182816.GO13216%40samason.me.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000177.html">
+   <LINK REL="Next"  HREF="000179.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Feature freeze imminent</H1>
+    <B>Sam Mason</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Feature%20freeze%20imminent&In-Reply-To=%3C20070228182816.GO13216%40samason.me.uk%3E"
+       TITLE="Feature freeze imminent">mason at f2s.com
+       </A><BR>
+    <I>Wed Feb 28 19:28:17 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000177.html">Feature freeze imminent
+</A></li>
+        <LI>Next message: <A HREF="000179.html">Feature freeze imminent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#185">[ date ]</a>
+              <a href="thread.html#185">[ thread ]</a>
+              <a href="subject.html#185">[ subject ]</a>
+              <a href="author.html#185">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Tue, Feb 27, 2007 at 08:06:43PM +0000, Tuomo Valkonen wrote:
+&gt;<i> But aren't there limits on the lengths of strings? I seem to recall
+</I>&gt;<i> there being.  
+</I>
+Depends on the database, Postgres limits a single field to 1GB[1]
+which should be enough to keep most people happy, MySQL seems to have
+a LONGTEXT datatype that could store up to 4GB of data but in practise
+seems to be limited to a few MB[2] without special effort.
+
+I'm not aware of any limits in Postgres like that of MySQL.  As a test
+I've just tried to put a 256MB string into a TEXT column in Postgres in
+the most naive way possible then counted the number of characters in the
+field, everything went OK.
+
+I'm constantly amazed at why MySQL has such a larger mindshare than
+Postgres, Postgres just works and MySQL doesn't.
+
+&gt;<i> You could, of course, have one column for each tag up
+</I>&gt;<i> to a maximum number of tags, and sort the tags lexicographically 
+</I>&gt;<i> (or by ID, if the IDs listed in a table of tags are used instead),
+</I>&gt;<i> but that might be inefficient with the, say, max. 64 tags?
+</I>
+That would help with Postgres, but not with MySQL.  It's about as
+unidiomatic as you can get though!
+
+
+  Sam
+
+ [1] <A HREF="http://www.postgresql.org/about/">http://www.postgresql.org/about/</A>
+ [2] <A HREF="http://dev.mysql.com/doc/refman/5.0/en/packet-too-large.html">http://dev.mysql.com/doc/refman/5.0/en/packet-too-large.html</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000177.html">Feature freeze imminent
+</A></li>
+	<LI>Next message: <A HREF="000179.html">Feature freeze imminent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#185">[ date ]</a>
+              <a href="thread.html#185">[ thread ]</a>
+              <a href="subject.html#185">[ subject ]</a>
+              <a href="author.html#185">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

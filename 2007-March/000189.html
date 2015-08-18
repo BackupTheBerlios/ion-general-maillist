@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Hierarchical tag structure in SetFS
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Hierarchical%20tag%20structure%20in%20SetFS&In-Reply-To=%3Cslrneueaj3.o9q.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000188.html">
+   <LINK REL="Next"  HREF="000190.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Hierarchical tag structure in SetFS</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Hierarchical%20tag%20structure%20in%20SetFS&In-Reply-To=%3Cslrneueaj3.o9q.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Hierarchical tag structure in SetFS">tuomov at iki.fi
+       </A><BR>
+    <I>Thu Mar  1 20:32:51 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000188.html">Hierarchical tag structure in SetFS
+</A></li>
+        <LI>Next message: <A HREF="000190.html">Hierarchical tag structure in SetFS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#189">[ date ]</a>
+              <a href="thread.html#189">[ thread ]</a>
+              <a href="subject.html#189">[ subject ]</a>
+              <a href="author.html#189">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>To avoid further confusions, a clarifying example is perhaps
+in order:
+
+Suppose we're dealing with two files, e.g. the README files for 
+Ion, and, say, gcc. On a traditional hierarchical FS, we might 
+store these as
+
+	ion/README
+	gcc/README
+
+and these paths would be the unique identifiers of these files. 
+But we could just as well have chosen
+
+	README/ion
+	README/gcc
+
+You can of course have both by symlinking, but it gets cumbersome.
+The solution: setfs, removing the order from identies. A file
+is not identified by an (ordered) sequence of strings/tags, but an
+(unordered) set of them.
+
+Now, both of these files also have additional data associated with
+them: the author of Ion and ion/README is me, Tuomo Valkonen, the 
+authorfc gcc/README is someone else. Both files have some creation
+dates, and so on. Some of this data could be considered to be &quot;tags&quot;
+(say, tuomov.author), and some of it not (the creation time). But
+this information is not really essential to the &quot;identity&quot; of the
+file. It's merely meta-data. That is not something that a basic 
+version of setfs would deal with, and it something not to be had
+in the identity of the file. 
+
+Now, setfs could of course support meta-data, but it has to be done
+in a peculiar manner, so that the unique identifier can be easily
+picked out from the path. I have thought to reserve path elements
+beginning with a '#' symbol for that (so that identifying tags can
+not begin with the symbol). For example: the path
+'#author:tuomov/ion/README' clearly indicates, that 'ion' and
+'README' are the _persistent_ identifying tags, and '#author:tuomov'
+is merely a meta-data filter used for searching the file, and __can
+be ignored by non-search functions__. Likewise, you could support
+'or'ing meta-data for searches: for example, the result from the
+search '#author:tuomov|project:gcc/README' could list the tags 'ion'
+and 'gcc' -- and still we could get the persistent identifier for
+both results by dropping the '#author:tuomov|project:gcc' term.
+(Meta-data filters with an 'and' in them can simply '/#' instead
+of '|', since the terms in the path are 'anded'.)
+
+Hard links are also possible: you just give two different tag sets
+to a file. However, you can't just 'or' the search for such 
+identifier tag sets directly: you must still use the special 
+syntax to be able to pick out the persistent parts of the result.
+So suppose the same file had two identifying sets of tag 'foo/bar'
+and 'baz/quk'. Then you might make the search '#tag:foo/#tag:bar',
+and this might return both 'foo/bar' and 'baz/quk'. Yes, either
+'foo' or 'bar' is in a sense &quot;twice&quot; for both results, but the
+other instance is encoded in a manner that indicates a search 
+filter that is not part of the identity of the result.
+
+So, you see, basic setfs is about identity, not meta-data.
+It is about providing persistent human-readable identifiers
+to files (unlike a basic meta-data -based database file system),
+without a constraining hierarchy (unlike traditional file 
+systems). Meta-data/filters/informational tags is something 
+else that can be had on top of that, but is not the fundamental
+principle behind setfs: partial order instead of total order is.
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000188.html">Hierarchical tag structure in SetFS
+</A></li>
+	<LI>Next message: <A HREF="000190.html">Hierarchical tag structure in SetFS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#189">[ date ]</a>
+              <a href="thread.html#189">[ thread ]</a>
+              <a href="subject.html#189">[ subject ]</a>
+              <a href="author.html#189">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

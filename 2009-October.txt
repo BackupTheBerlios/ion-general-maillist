@@ -1,0 +1,37 @@
+From timandahaf+dev at gmail.com  Fri Oct 30 21:54:11 2009
+From: timandahaf+dev at gmail.com (Timandahaf)
+Date: Fri, 30 Oct 2009 16:54:11 -0400 (EDT)
+Subject: Statusbar question
+Message-ID: <alpine.LNX.2.00.0910301649530.2814@india.ece.cmu.edu>
+
+I'd trying to configure separate, different statusbars on each of my two
+screens. I use statusbar_workspace, and want it to display each screen's
+workspaces on that screen.
+
+I added a create in my cfg_statusbar.lua, so it looks like:
+
+------------------------------------------------------------------------------
+mod_statusbar.create{
+     screen=0,
+     pos='bl',
+     fullsize=false,
+     systray=false,
+     template="[ %date || %workspace_pager ] %filler%systray",
+}
+
+mod_statusbar.create{
+     screen=1,
+     pos='bl',
+     fullsize=false,
+     systray=false,
+     template="[ %workspace_pager ] %filler%systray",
+}
+------------------------------------------------------------------------------
+
+The problem is, the workspace_pager that's shown on the screen1 is
+actually a copy of screen0's pager, and is therefore useless. How do I
+fix this?
+
+Thanks much in advance!
+
+

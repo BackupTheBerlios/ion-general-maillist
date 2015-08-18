@@ -1,0 +1,2479 @@
+From tzz at lifelogs.com  Sun Apr  1 00:11:48 2007
+From: tzz at lifelogs.com (Ted Zlatanov)
+Date: Sat, 31 Mar 2007 18:11:48 -0400
+Subject: Tutorial vs. help screen
+In-Reply-To: <200703211229.41532.gilesc@hyperlink-interactive.co.uk> (Giles
+	Constant's message of "Wed, 21 Mar 2007 12:29:41 +0000")
+References: <slrneuu2ua.i5u.tuomov@jolt.modeemi.cs.tut.fi>
+	<200703211216.06329.gilesc@hyperlink-interactive.co.uk>
+	<slrnf028ot.jlj.tuomov@jolt.modeemi.cs.tut.fi>
+	<200703211229.41532.gilesc@hyperlink-interactive.co.uk>
+Message-ID: <m38xddnjvf.fsf@lifelogs.com>
+
+On Wed, 21 Mar 2007 12:29:41 +0000 Giles Constant <gilesc at hyperlink-interactive.co.uk> wrote: 
+
+GC> I've got this lot.  I also disabled F3/F5/F6, because many apps use F3 
+GC> for "find next", F5 for "reload", and F6 for "highlight location bar" (in web 
+GC> browsers).
+
+GC>     kpress(MOD1.."XF86AudioNext", "ioncore.exec_on(_, 'mpc seek +00:00:10')"),
+GC>     kpress(MOD1.."XF86AudioPrev", "ioncore.exec_on(_, 'mpc seek -00:00:10')"),
+GC>     kpress("XF86Standby", "ioncore.exec_on(_, 'xlock')"),
+GC>     kpress(MOD1.."T", "WRegion.set_tagged(_sub, 'toggle')", "_sub:non-nil"),
+GC>     kpress(MOD1.."A", "WFrame.attach_tagged(_)"),
+GC>         ^^^  got rid of the alt-k
+GC>     kpress(MOD1.."I", "WFrame.switch_next(_)"),
+GC>     kpress(MOD1.."U", "WFrame.switch_prev(_)"),
+GC>         ^^^ easy to switch around with the right hand.
+GC>     kpress(MOD1.."P", "WIonWS.goto_dir(_, 'above')"),
+GC>     kpress(MOD1.."N", "WIonWS.goto_dir(_, 'below')"),
+GC>     kpress(MOD1.."F", "WIonWS.goto_dir(_, 'right')"),
+GC>     kpress(MOD1.."B", "WIonWS.goto_dir(_, 'left')"),
+GC>         ^^^^ emacs-style window navigation
+GC>     kpress("XF86AudioLowerVolume", "ioncore.exec_on(_, 'umix vol 4-')"),
+GC>     kpress("XF86AudioRaiseVolume", "ioncore.exec_on(_, 'umix vol 4+')"),
+GC>     kpress("XF86AudioPlay", "ioncore.exec_on(_, 'mpc toggle')"),
+GC>     kpress("XF86AudioStop", "ioncore.exec_on(_, 'mpc stop')"),
+GC>     kpress("XF86AudioNext", "ioncore.exec_on(_, 'mpc next')"),
+GC>     kpress("XF86AudioPrev", "ioncore.exec_on(_, 'mpc prev')"),
+
+I've posted on this in the past.  Any modifier keys are bad, because
+they strain the hand in unnatural ways.  There are several medical
+problems that can come from overuse of the wrong fingers, especially
+using the pinky finger (which is weakest) to hit key combinations.
+I'm a heavy Emacs user, and I map as much as possible to single-key
+combinations (Meta is just "Escape" for me, I usually don't use Alt).
+If I have to use modifiers, I make sure I use either the thumb (the
+strongest finger) or multiple fingers at once.
+
+I had wrist and finger joint problems before adopting the "no
+modifiers when possible" rule, and have been OK since.  I would
+recommend it to anyone concerned about their physical health who types
+more than 2 hours per day.  Of course, you should also consult an
+ergonomics specialist or a doctor if you are uncomfortable or in pain,
+and consider things like elbow angle, eye level with the top of the
+monitor, etc.  This is just my experience, and I hope others find it
+useful.
+
+For Ion specifically, I've long used the keypad.  It's almost never
+used by applications, so why not?  Here's a summary without the actual
+config stanza, just the interesting bits.  Just think about how often
+you use the keypad--almost never!  Try this for a few days and you'll
+see how convenient keypad-based navigation is.
+
+Ted
+
+-- move left/right between tabs
+   kpress("KP_6", "WFrame.switch_next(_)"),
+   kpress("KP_4", "WFrame.switch_prev(_)"),
+-- 'close' should not be a single key, of course
+    kpress_wait(META.."W", "WRegion.rqclose_propagate(_, _sub)"),
+
+-- split H/V
+    kpress("Pause", "WTiling.split_at(_, _sub, 'right', true)"),
+    kpress(MOD1.."Pause", "WTiling.split_at(_, _sub, 'bottom', true)"),    
+-- unsplit is not a single key
+    kpress("Shift+Pause", "WTiling.unsplit_at(_, _sub)"),
+
+-- these are the keys around the numbers in the keypad, sequentially clockwise
+    kpress("KP_Divide",   "WScreen.switch_nth(_, 0)"),
+    kpress("KP_Multiply", "WScreen.switch_nth(_, 1)"),
+    kpress("KP_Subtract", "WScreen.switch_nth(_, 2)"),
+    kpress("KP_Add",      "WScreen.switch_nth(_, 3)"),
+    kpress("KP_Enter",    "WScreen.switch_nth(_, 4)"),
+    kpress("KP_Delete",   "WScreen.switch_nth(_, 5)"),
+    kpress("KP_Insert",   "WScreen.switch_nth(_, 6)"),
+
+-- navigate between splits: 5 and Shift+5 on the keypad to go
+-- left/right (I almost never need Shift+5);
+-- 8 and 2 to go up and down between splits
+    kpress("KP_5", "ioncore.goto_next(_chld, 'right')", 
+    kpress("KP_8", "ioncore.goto_next(_chld, 'up')", 
+    kpress("Shift+KP_5", "ioncore.goto_next(_chld, 'left')", 
+    kpress("KP_2", "ioncore.goto_next(_chld, 'down')", 
+
+
+From jurjenm at stack.nl  Sun Apr  1 12:14:35 2007
+From: jurjenm at stack.nl (Jurjen Middendorp)
+Date: Sun, 01 Apr 2007 12:14:35 +0200
+Subject: transient windows are being weird?
+Message-ID: <20070401121435.31es7icvksk0kwk8@webmail0.stack.nl>
+
+Hello, i just installed a newer version of the ion window manager  
+(20070203), but
+every time a window that's a subwindow for some application comes up  
+(those are
+called transient windows right?) nothing happens, however when i try  
+to close that
+window, it turns into a black thing and ion hangs and i have to restart X.
+
+I am not sure what is causing this problem but i can "solve" it by  
+just making a
+lot of winprops which set float=true for said windows.  However it is  
+quite abit
+of work to set all those kludges and not all programs give an explicit  
+instance-name
+for all dialogs, so i am kinda stumped :(
+
+If anyone knows of this problem or knows how to fix it or knows how to  
+debug it
+i'd like to hear it!
+
+- jurjen
+
+ps. i made ion dump core after it hang by doing sleep 10 && kill -12  
+"ion3" and
+then making it hang, i have the core laying around somewhere but i'm not
+sure how to get more info out of it then this:
+
+(gdb) bt
+(gdb) #0  0xbfbfff90 in ?? ()
+(gdb) #1  0x00000001 in ?? ()
+(gdb) #2  0x00000000 in ?? ()
+(gdb) #3  0xbfbfe060 in ?? ()
+(gdb) #4  0x00000002 in ?? ()
+(gdb) #5  0x08078988 in fatal_signal_handler ()
+(gdb) #6  0x2827aebd in _swrite () from /lib/libc.so.6
+(gdb) #7  0x282799b7 in __sflush () from /lib/libc.so.6
+(gdb) #8  0x28279a25 in __fflush () from /lib/libc.so.6
+(gdb) #9  0x2826f52c in __vfprintf () from /lib/libc.so.6
+(gdb) #10 0x28272404 in vfprintf () from /lib/libc.so.6
+(gdb) #11 0x282606da in fprintf () from /lib/libc.so.6
+(gdb) #12 0x0807db87 in put_prog_name ()
+(gdb) #13 0x0807dbff in default_warn_handler ()
+(gdb) #14 0x0807dc76 in do_dispatch_message ()
+(gdb) #15 0x0807e1c0 in warn_v ()
+(gdb) #16 0x0807e232 in warn ()
+(gdb) #17 0x08081431 in do_watches ()
+(gdb) #18 0x0808146a in destroy_obj ()
+(gdb) #19 0x0806877b in frame_destroy_empty ()
+(gdb) #20 0x08078216 in mainloop_execute_deferred_on_list ()
+(gdb) #21 0x08078260 in mainloop_execute_deferred ()
+(gdb) #22 0x0805a3dd in ioncore_mainloop ()
+(gdb) #23 0x0805863f in main ()
+
+It seems like ion gets stuck somewhere after trying to print "object destroyed
+while actions pending" (something like that) because i am not seeing  
+those messages
+anymore (ion used to give me those quite a bit when i used 20061223)  
+and that is
+kind of what is happening.  But i am not sure why or how to get more  
+info from gdb :S
+please help! :)
+
+ps2. I'm not sure if it's an ion, because i also installed a newer version of
+freebsd (6.2), but other window managers seem to have no problems?
+
+ps3. Is there a way to see if one window is a child window of another
+window without using winprops?
+
+
+
+From filter-ion at mbox.bz  Sun Apr  1 14:28:21 2007
+From: filter-ion at mbox.bz (moe)
+Date: Sun, 1 Apr 2007 14:28:21 +0200
+Subject: emulating xinerama?
+Message-ID: <20070401122821.GA11295@mbox.bz>
+
+hi list and tuomov,
+
+i'm one of those wierdos who use ion3 in a xinerama
+setup and enjoy it quite a lot (hard-on and all).
+
+consequently i'm a bit disappointed that the support has
+been dropped in the latest version. especially since that
+new version seems to fix some other annoying glitches wrt
+floating transients.
+
+but playing with the new ion i was surprised to learn
+that it still works "almost" right for me, even without
+knowing about xinerema.
+
+maybe we can get away with a bit of cheating here?
+
+i found only two things that ion really needs to do
+differently in a multihead setup:
+
+- on each new workspace create n frames (n=2 in a dualhead setup),
+  fix them to the screen-borders and make sure they cannot be
+  resized or closed
+
+- never position floats across a screen border
+
+so, how about giving ion a notion of "virtual screens"
+through a setting in the config file and working with that?
+i imagine the above should be much less code to write than
+going for real xinerama support. can someone with
+insight comment on that?
+
+compared to the old xinerama-version we'd lose the ability
+to have independent workspaces on each screen but imho
+that would be a lesser pain than the current issues
+with detach.lua in older ion versions.
+and maybe, just maybe, even that could be hacked up later on?
+
+what do the others think?
+
+
+moe
+
+
+
+From nickmurdoch at gmail.com  Sun Apr  1 14:50:03 2007
+From: nickmurdoch at gmail.com (Nick Murdoch)
+Date: Sun, 01 Apr 2007 13:50:03 +0100
+Subject: emulating xinerama?
+In-Reply-To: <20070401122821.GA11295@mbox.bz>
+References: <20070401122821.GA11295@mbox.bz>
+Message-ID: <460FAA7B.6020408@gmail.com>
+
+moe wrote:
+> hi list and tuomov,
+<snip>
+> maybe we can get away with a bit of cheating here?
+
+I think being hacky and horrible was the main reason Xinerama support
+was dropped ;)
+
+
+Just for the record, I was also using ion3 until Xinerama support was
+dropped. I have a TV card and like to run tvtime on the second monitor.
+I've switched back to ion2 for now.
+
+To be fair, Xinerama does tend to have awful support elsewhere too. The
+Gimp really hates dual-monitor set-ups (Every time I want to use my
+graphics tablet I have to start a new display that only uses one of my
+monitors), and qiv also breaks in fullscreen mode. I'm sure there are
+other examples.
+
+
+Nick Murdoch
+
+
+From filter-ion at mbox.bz  Sun Apr  1 15:49:46 2007
+From: filter-ion at mbox.bz (moe)
+Date: Sun, 1 Apr 2007 15:49:46 +0200
+Subject: emulating xinerama?
+In-Reply-To: <460FAA7B.6020408@gmail.com>
+References: <20070401122821.GA11295@mbox.bz> <460FAA7B.6020408@gmail.com>
+Message-ID: <20070401134945.GA12207@mbox.bz>
+
+On Sun, Apr 01, 2007 at 01:50:03PM +0100, Nick Murdoch wrote:
+> moe wrote:
+> > hi list and tuomov,
+> <snip>
+> > maybe we can get away with a bit of cheating here?
+> 
+> I think being hacky and horrible was the main reason Xinerama support
+> was dropped ;)
+
+well, i read tuomovs rants as "it was dropped because the
+horror creeped into many areas of the code" but i may be
+mistaken.
+
+i hope that the hack i proposed would be much less intrusive
+and could get the job done at a minimum cost (both in terms of
+lines of code and in terms of uglyness).
+
+i imagine that the only changes needed would be to add
+a "create workspace hook" and to make the placement of
+floating windows "virtual screen aware". ideally this
+could all be done in lua but i haven't looked for the
+necessary hooks, yet.
+
+> Just for the record, I was also using ion3 until Xinerama support was
+> dropped. I have a TV card and like to run tvtime on the second monitor.
+> I've switched back to ion2 for now.
+> 
+> To be fair, Xinerama does tend to have awful support elsewhere too. The
+> Gimp really hates dual-monitor set-ups (Every time I want to use my
+> graphics tablet I have to start a new display that only uses one of my
+> monitors), and qiv also breaks in fullscreen mode. I'm sure there are
+> other examples.
+ 
+agree'd. i have given up on using the gimp under ion a
+long time ago, tho (prefer shotophop under vmware anyways).
+
+but i think the fact that there are so few apps that benefit
+from "proper" xinerama support only fuels my argument that
+a comparably small hack might be good enough here
+(think pareto principle).
+
+
+moe
+
+
+
+From nickmurdoch at gmail.com  Sun Apr  1 16:04:47 2007
+From: nickmurdoch at gmail.com (Nick Murdoch)
+Date: Sun, 01 Apr 2007 15:04:47 +0100
+Subject: emulating xinerama?
+In-Reply-To: <20070401134945.GA12207@mbox.bz>
+References: <20070401122821.GA11295@mbox.bz> <460FAA7B.6020408@gmail.com>
+	<20070401134945.GA12207@mbox.bz>
+Message-ID: <460FBBFF.10608@gmail.com>
+
+moe wrote:
+> On Sun, Apr 01, 2007 at 01:50:03PM +0100, Nick Murdoch wrote:
+>> moe wrote:
+>>> hi list and tuomov,
+>> <snip>
+>>> maybe we can get away with a bit of cheating here?
+>> I think being hacky and horrible was the main reason Xinerama support
+>> was dropped ;)
+> 
+> well, i read tuomovs rants as "it was dropped because the
+> horror creeped into many areas of the code" but i may be
+> mistaken.
+> 
+> i hope that the hack i proposed would be much less intrusive
+> and could get the job done at a minimum cost (both in terms of
+> lines of code and in terms of uglyness).
+> 
+> i imagine that the only changes needed would be to add
+> a "create workspace hook" and to make the placement of
+> floating windows "virtual screen aware". ideally this
+> could all be done in lua but i haven't looked for the
+> necessary hooks, yet.
+
+The main advantage of dual monitor support for me is the fact that the
+workspaces are independent (so I can switch workspace on monitor 1 and
+monitor 2 remains the same), and that fullscreening a window makes it
+fullscreen, rather than stretching across two monitors. Without those
+two things, I might as well just tile such that no tile crosses between
+monitors.
+
+>> Just for the record, I was also using ion3 until Xinerama support was
+>> dropped. I have a TV card and like to run tvtime on the second monitor.
+>> I've switched back to ion2 for now.
+>>
+>> To be fair, Xinerama does tend to have awful support elsewhere too. The
+>> Gimp really hates dual-monitor set-ups (Every time I want to use my
+>> graphics tablet I have to start a new display that only uses one of my
+>> monitors), and qiv also breaks in fullscreen mode. I'm sure there are
+>> other examples.
+>  
+> agree'd. i have given up on using the gimp under ion a
+> long time ago, tho (prefer shotophop under vmware anyways).
+
+Photoshop actually runs quite well under Wine these days, if that's
+handy at all for you :)
+
+
+From sylvain.abelard at gmail.com  Sun Apr  1 16:22:39 2007
+From: sylvain.abelard at gmail.com (=?ISO-8859-1?Q?Sylvain_Ab=E9lard?=)
+Date: Sun, 1 Apr 2007 16:22:39 +0200
+Subject: emulating xinerama?
+In-Reply-To: <460FBBFF.10608@gmail.com>
+References: <20070401122821.GA11295@mbox.bz> <460FAA7B.6020408@gmail.com>
+	<20070401134945.GA12207@mbox.bz> <460FBBFF.10608@gmail.com>
+Message-ID: <9c6605e40704010722y50df7697r237c6858e1fef7ce@mail.gmail.com>
+
+> The main advantage of dual monitor support
+
+We've already been discussing that on this ML, I think everything that
+had to be said has been said. Tuomo only says three things which are
+in essence, these :
+- I won't support Xinerama
+- Development on ion3 is coming to an end anyway
+- I won't answer to questions that I am not responsible for
+
+However he certainly is OK with people using ion3 for whatever purpose
+they want and any hacks in the code they want (support of antialiasing
+or Xinerama for instance) provided you don't bother him with that.
+
+> > agree'd. i have given up on using the gimp under ion a
+> > long time ago, tho (prefer shotophop under vmware anyways).
+
+GIMP/Photoshop is a matter of personal preference (and money), but
+using Gimp under ion3 is really fantastic. That's also a matter of
+presonal preference but I think :
+
+- combinating GIMP's shortcuts if you know/like them, and ion's
+shortcuts for window management, is super-comfortable
+- using winprops to position this annoying GIMP tool preferences away
+from your drawing frame is cool
+- switching from windowed to fullscreen mode is easy
+
+Which in the end makes your mouse used only for the graphic art stuff
+and eliminates useless and time-eating movements back and forth the
+applications' options. Priceless :)
+
+-- 
+Sylvain Abelard,
+Railer Rubyist. Epita MTI 2008.
+
+
+From nickmurdoch at gmail.com  Sun Apr  1 17:12:14 2007
+From: nickmurdoch at gmail.com (Nick Murdoch)
+Date: Sun, 01 Apr 2007 16:12:14 +0100
+Subject: emulating xinerama?
+In-Reply-To: <9c6605e40704010722y50df7697r237c6858e1fef7ce@mail.gmail.com>
+References: <20070401122821.GA11295@mbox.bz> <460FAA7B.6020408@gmail.com>	
+	<20070401134945.GA12207@mbox.bz> <460FBBFF.10608@gmail.com>
+	<9c6605e40704010722y50df7697r237c6858e1fef7ce@mail.gmail.com>
+Message-ID: <460FCBCE.3090504@gmail.com>
+
+Sylvain Ab?lard wrote:
+>> The main advantage of dual monitor support
+> 
+> We've already been discussing that on this ML, I think everything that
+> had to be said has been said. Tuomo only says three things which are
+> in essence, these :
+> - I won't support Xinerama
+> - Development on ion3 is coming to an end anyway
+> - I won't answer to questions that I am not responsible for
+
+*nod* I read the other thread quite recently. It's Tuomo's project so
+it's fair for him to say what he will and won't do with it.
+
+> However he certainly is OK with people using ion3 for whatever purpose
+> they want and any hacks in the code they want (support of antialiasing
+> or Xinerama for instance) provided you don't bother him with that.
+
+Indeed. If I had more time I'd probably work on one myself. Although I
+couldn't care less about anti-aliasing -- one of the things I like about
+ion is how small the title bars are. I've never been keen on the amount
+of space that Gnome/KDE/Windows/etc waste on them.
+
+>> > agree'd. i have given up on using the gimp under ion a
+>> > long time ago, tho (prefer shotophop under vmware anyways).
+> 
+> GIMP/Photoshop is a matter of personal preference (and money), but
+> using Gimp under ion3 is really fantastic. That's also a matter of
+> presonal preference but I think :
+> 
+> - combinating GIMP's shortcuts if you know/like them, and ion's
+> shortcuts for window management, is super-comfortable
+> - using winprops to position this annoying GIMP tool preferences away
+> from your drawing frame is cool
+> - switching from windowed to fullscreen mode is easy
+> 
+> Which in the end makes your mouse used only for the graphic art stuff
+> and eliminates useless and time-eating movements back and forth the
+> applications' options. Priceless :)
+
+*nod* I should figure out winprops at some point since at the moment I
+have to gimp in a floating workspace, and I don't like floating windows :)
+
+
+From tuomov at iki.fi  Sun Apr  1 17:57:03 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 1 Apr 2007 15:57:03 +0000 (UTC)
+Subject: emulating xinerama?
+References: <20070401122821.GA11295@mbox.bz> <460FAA7B.6020408@gmail.com>
+	<20070401134945.GA12207@mbox.bz>
+Message-ID: <slrnf0vlif.n70.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-04-01, moe <filter-ion at mbox.bz> wrote:
+> i hope that the hack i proposed would be much less intrusive
+> and could get the job done at a minimum cost (both in terms of
+> lines of code and in terms of uglyness).
+
+The hack you propose is exactly what a Xinecrap module based on
+my instructions would do -- automatically.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sun Apr  1 18:02:19 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 1 Apr 2007 16:02:19 +0000 (UTC)
+Subject: emulating xinerama?
+References: <20070401122821.GA11295@mbox.bz> <460FAA7B.6020408@gmail.com>
+	<20070401134945.GA12207@mbox.bz>
+Message-ID: <slrnf0vlsb.n70.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-04-01, moe <filter-ion at mbox.bz> wrote:
+> but i think the fact that there are so few apps that benefit
+> from "proper" xinerama support
+
+That's because Xinerama is absolutely stupid. If you run multiple
+screens (itself stupid most of the time) of widely differing sizes,
+you most likely want them to behave as _separate_ screens, and hence
+Xinerama complicates matters too much. OTOH, if you want to emulate
+a single big screen (seems totally lame to me, unless you have some
+huge billboard or something, what with the screen edges), you don't
+really need the physical screen positioning information on the
+root window. 
+
+So, once again, a better extension than the crappy Xinerama, would 
+have been a small extension to the already existing X protocols, 
+to allow reparenting of windows between root windows with matching
+"visuals" -- something that is only artificially forbidden presently.
+But, you can't hope for a decent X extension these days -- it's all
+crap that they spew out. (Well, I haven't looked into Xcb in detail,
+and in principle agree that asynchronity is the way to go. But then
+again, Xcb isn't really an X extension, just a new library.)
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sun Apr  1 18:04:04 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 1 Apr 2007 16:04:04 +0000 (UTC)
+Subject: Documentation bughunt
+References: <slrnevvhhp.752.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070330131443.GD886@pcjas.obspm.fr>
+Message-ID: <slrnf0vlvk.n70.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-03-30, Albert Shih <Albert.Shih at obspm.fr> wrote:
+> Is there any place I can download this doc in ... one piece ? 
+
+How about the Ion documentation page?
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sun Apr  1 18:04:44 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 1 Apr 2007 16:04:44 +0000 (UTC)
+Subject: transient windows are being weird?
+References: <20070401121435.31es7icvksk0kwk8@webmail0.stack.nl>
+Message-ID: <slrnf0vm0s.n70.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-04-01, Jurjen Middendorp <jurjenm at stack.nl> wrote:
+> Hello, i just installed a newer version of the ion window manager  
+> (20070203), 
+
+Ancient.
+
+-- 
+Tuomo
+
+
+
+From bdcht3 at gmail.com  Sun Apr  1 20:59:25 2007
+From: bdcht3 at gmail.com (captp bdcht)
+Date: Sun, 1 Apr 2007 20:59:25 +0200
+Subject: Documentation bughunt
+In-Reply-To: <slrnf0vlvk.n70.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnevvhhp.752.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070330131443.GD886@pcjas.obspm.fr>
+	<slrnf0vlvk.n70.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <90d147170704011159i3c9fb020u5c815d092e7abd98@mail.gmail.com>
+
+in section 5.1, link to "ioncore.get_hook" is dangling because no
+ioncore.get_hook function exists
+in section 6 (node7).
+
+bdcht
+
+
+From j.van_den_hoff at fzd.de  Mon Apr  2 21:34:26 2007
+From: j.van_den_hoff at fzd.de (Joerg van den Hoff)
+Date: Mon, 2 Apr 2007 21:34:26 +0200
+Subject: (not quite) full-sreen
+In-Reply-To: <slrnf0duk4.nvg.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070322143744.GA3068@marco.fz-rossendorf.de>
+	<slrnf0duk4.nvg.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070402193426.GA28074@kati.fz-rossendorf.de>
+
+On Sun, Mar 25, 2007 at 10:41:08PM +0000, Tuomo Valkonen wrote:
+> On 2007-03-22, Joerg van den Hoff <j.van_den_hoff at fzd.de> wrote:
+> > but what I noted now is, that when hitting mod1+<CR> the fullscreen window does,
+> > too, no longer extent all the way  to the screen edges, but rather leaves a
+> > substantial rim
+> 
+> It always has done that. RTFFAQ.
+> 
+
+well, it has'nt under OSX, at least not as obviously (rather wide rim)
+as it does now, at least not with the version (3ds-20060524) I used
+previously. reading the f..ing (or any other) FAQ does'nt change this
+fact. I can only state this behaviour. you need not believe it, of
+course.
+
+another thing I've noticed since I moved to 3ds-20070203 is, that I
+encountered a few freezes of the mouse cursor (I wanted to select some
+text for the paste buffer, I leave the mouse alone otherwise as far as
+possible) and, when I restarted ion, a crash of the X11 server. the
+crashes might well be attributed to OSX, but the cursor freezes I've
+never seen in ~ 2 y of ion use previously. just to let you know. hope
+it's not in the
+doing-it's-best-to-replicate-or-at-least-have-some-fun-FAQ, too.
+
+and, finally, I managed to get 3ds-20070203 into a state where it
+believed the scratchpad had height and widht zero (as saved in the
+default-session file). no idea how it happened. at least it never
+happened before and I don't think this should occur at all.
+
+joerg
+
+
+From janj+ion at wenf.org  Tue Apr  3 12:23:08 2007
+From: janj+ion at wenf.org (Jan Johansson)
+Date: Tue, 3 Apr 2007 12:23:08 +0200
+Subject: Bug in ioncore.goto_next() ?
+Message-ID: <20070403102308.GA7733@tuvok.wenf.org>
+
+Hello.
+
+For testing I created a WTiling looking like 
+
+  AABBCC
+  AABBCC
+  AABBDD
+  AABBDD
+
+In defbindings("WScreen" .. I created a binding for
+
+kpress(PREFIX.."F", "ioncore.goto_next(_chld, <DIR>)",
+"_chld:non-nil"),
+
+Movement was like the following table where i think that "next"
+is quite odd.
+
+<DIR> - movement
+right - A -> B -> D -> A
+left  - A -> D -> B -> A
+next  - A -> B -> D -> A
+prev  - A -> D -> C -> B -> A
+
+Bug, feature or nothing of the kind?
+
+Jan J
+
+
+
+From ngtmagicks at gmail.com  Tue Apr  3 15:18:57 2007
+From: ngtmagicks at gmail.com (Night Magicks)
+Date: Tue, 3 Apr 2007 06:18:57 -0700
+Subject: I'm feeling stupid sound-deamons anyone?
+Message-ID: <4e88f0b0704030618n2012692ah689fe3f3ab33e964@mail.gmail.com>
+
+Heys,
+
+I know this is stupd and in the docs it simply states to put startup
+programs in the xinit or xsessions file but I've done that for
+gnome-sound-manager to get sound playing in ion and no luck.  Am I
+missing something here or is there also a way to call it in ion.lua or
+bindings?
+
+Thanks
+
+-- 
+Night Magicks  @}-,-`----
+Ngtmagicks at gmail.com
+Creator and Owner: Queen Creek Pagans
+QC_Pagans at yahoogroups.com
+
+
+From cptsalek at gmail.com  Tue Apr  3 16:22:41 2007
+From: cptsalek at gmail.com (Christian Walther)
+Date: Tue, 3 Apr 2007 16:22:41 +0200
+Subject: I'm feeling stupid sound-deamons anyone?
+In-Reply-To: <4e88f0b0704030618n2012692ah689fe3f3ab33e964@mail.gmail.com>
+References: <4e88f0b0704030618n2012692ah689fe3f3ab33e964@mail.gmail.com>
+Message-ID: <14989d6e0704030722x5af6ab1ey460914c55b6f702@mail.gmail.com>
+
+On 03/04/07, Night Magicks <ngtmagicks at gmail.com> wrote:
+> Heys,
+>
+> I know this is stupd and in the docs it simply states to put startup
+> programs in the xinit or xsessions file but I've done that for
+> gnome-sound-manager to get sound playing in ion and no luck.  Am I
+> missing something here or is there also a way to call it in ion.lua or
+> bindings?
+>
+> Thanks
+
+Well, IMO this is not exactly Ion related, in fact i'm not even sure
+that this is related to X at all. AFAIK Gnome uses some "sound daemon"
+to playback audio. Normally it uses esd to do so. So what you need is
+to install esd and launch it, preferably at startup.
+esd (enlighted/enlightenment sound daemon) should be available as a
+package for installation on your OS. Just figure out how it is started
+at system startup.
+And make sure your sound apps are using esd for output, otherwise
+you'll end up with a "device busy".
+
+
+From tuomov at iki.fi  Tue Apr  3 17:24:26 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 3 Apr 2007 15:24:26 +0000 (UTC)
+Subject: Bug in ioncore.goto_next() ?
+References: <20070403102308.GA7733@tuvok.wenf.org>
+Message-ID: <slrnf14sda.vev.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-04-03, Jan Johansson <janj+ion at wenf.org> wrote:
+> Bug, feature or nothing of the kind?
+
+Semi-feature. Semi-fixed.
+
+-- 
+Tuomo
+
+
+
+From ben at decadent.org.uk  Wed Apr  4 00:50:46 2007
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Tue, 03 Apr 2007 23:50:46 +0100
+Subject: If it is still unclear to someone...
+In-Reply-To: <1174012840.3584.12.camel@deadeye.i.decadent.org.uk>
+References: <slrneuu2ua.i5u.tuomov@jolt.modeemi.cs.tut.fi>
+	<1174012840.3584.12.camel@deadeye.i.decadent.org.uk>
+Message-ID: <1175640646.11297.44.camel@deadeye.i.decadent.org.uk>
+
+I wrote:
+> I agree, actually; I think Debian has very variable levels of support
+> for released packages and this is not made clear to users.  Since you
+> say ion3 is not in a state to be supported for the lifetime of a Debian
+> release, I must accept that.  Therefore I will try to keep it up-to-date
+> in unstable and backports.
+
+Sorry, not backports.  I forgot that only packages in testing are
+eligible for backports, so ion3 is now gone from there.
+
+Ben.
+
+-- 
+Ben Hutchings
+I'm not a reverse psychological virus.  Please don't copy me into your sig.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070403/648ec225/attachment.pgp>
+
+From janj+ion at wenf.org  Wed Apr  4 09:10:25 2007
+From: janj+ion at wenf.org (Jan Johansson)
+Date: Wed, 4 Apr 2007 09:10:25 +0200
+Subject: Documentation errata mod_query.
+Message-ID: <20070404071025.GA9253@tuvok.wenf.org>
+
+Hello.
+
+On the page 
+http://modeemi.fi/~tuomov/ion-doc-3/ionconf/node7.html#SECTION00730000000000000000
+
+there seems to be a mixup between the descriptions for 
+
+mod_query.query_attachclient
+
+and
+
+mod_query.query_gotoclient
+
+
+Jan J
+
+
+
+From ion at themel.com  Sat Apr  7 01:42:14 2007
+From: ion at themel.com (Thomas Themel)
+Date: Sat, 7 Apr 2007 01:42:14 +0200
+Subject: Xinerama
+Message-ID: <20070406234214.GU13216@themel.com>
+
+Hi,
+
+I just had a first stab at implementing a Xinerama module as outlined in
+Tuomo's 2007-01-17 post[0], see attached mod_xinerama.c.
+
+I get my two screens well enough, but whenever I switch from one to the
+other, the non-focused screen "goes blank", ie all windows are unmapped
+from it. I take it that this is the standard behaviour for switching
+inside an mplex, but couldn't figure out how to prevent it.
+
+Hints?
+
+[0] <http://www.mail-archive.com/ion-general at lists.berlios.de/msg01581.html>
+
+ciao,
+-- 
+[*Thomas  Themel*] "As the world's richest, most powerful software company,
+[extended contact] Microsoft is number one. And you, the millions of
+[info provided in] consumers who use our products, are the zeroes."
+[*message header*] <http://www.theonion.com/content/node/29130>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: mod_xinerama.c
+Type: text/x-csrc
+Size: 2261 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070407/27c76669/attachment.c>
+
+From ion at themel.com  Sat Apr  7 10:31:21 2007
+From: ion at themel.com (Thomas Themel)
+Date: Sat, 7 Apr 2007 10:31:21 +0200
+Subject: Xinerama
+In-Reply-To: <20070406234214.GU13216@themel.com>
+References: <20070406234214.GU13216@themel.com>
+Message-ID: <20070407083121.GV13216@themel.com>
+
+Thomas Themel (ion at themel.com) wrote on 2007-04-07:
+> Hints?
+
+After a good night's sleep, I figured out that MPLEX_ATTACH_UNNUMBERED
+is what I was looking for.
+
+ciao,
+-- 
+[*Thomas  Themel*] "Die meisten Raucher sterben nicht an
+[extended contact]  Lungenkrebs, sondern erfrieren auf
+[info provided in]  Balkonen."
+[*message header*]   -- Timo Maier in <676704295.2650.t_am at gmx.de>
+
+
+From nickmurdoch at gmail.com  Sat Apr  7 10:42:37 2007
+From: nickmurdoch at gmail.com (Nick Murdoch)
+Date: Sat, 07 Apr 2007 09:42:37 +0100
+Subject: Xinerama
+In-Reply-To: <20070406234214.GU13216@themel.com>
+References: <20070406234214.GU13216@themel.com>
+Message-ID: <4617597D.3010502@gmail.com>
+
+Thomas Themel wrote:
+> Hi,
+> 
+> I just had a first stab at implementing a Xinerama module as outlined in
+> Tuomo's 2007-01-17 post[0], see attached mod_xinerama.c.
+
+Well done! I've been missing ion3's new features since I switched back
+to ion2 :)
+
+How would I go about installing that module?
+
+
+
+From tuomov at iki.fi  Sat Apr  7 12:28:21 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 7 Apr 2007 10:28:21 +0000 (UTC)
+Subject: Distributions and Xinerama etc.
+Message-ID: <slrnf1esi5.i52.tuomov@jolt.modeemi.cs.tut.fi>
+
+
+Since it appears that there will soon be a Xinerama module, I 
+should not that just like with the ugly Xft patches, I will 
+have nothing to do with distributions that enable this module
+by default, and their users. (But then again, Linux is turning
+into a pile of steaming shit, so maybe I'll just switch to
+Windows soon, and have nothing to do with Ion or Linux at all.)
+
+-- 
+Tuomo
+
+
+
+From ion at themel.com  Mon Apr  9 10:47:17 2007
+From: ion at themel.com (Thomas Themel)
+Date: Mon, 9 Apr 2007 10:47:17 +0200
+Subject: Xinerama
+In-Reply-To: <4617597D.3010502@gmail.com>
+References: <20070406234214.GU13216@themel.com> <4617597D.3010502@gmail.com>
+Message-ID: <20070409084717.GW13216@themel.com>
+
+Hi,
+Nick Murdoch (nickmurdoch at gmail.com) wrote on 2007-04-07:
+> How would I go about installing that module?
+
+I'll publish a complete version including the build/install stuff and
+docs after a little testing (maybe after I figure out the bindmap stuff
+that tuomov was referring to :)).
+
+ciao,
+-- 
+[*Thomas  Themel*]
+[extended contact] /* Conforms to the XENIX standard. */
+[info provided in]     - Microsoft Platform SDK errno.h
+[*message header*]
+
+
+From ion at themel.com  Mon Apr  9 22:45:22 2007
+From: ion at themel.com (Thomas Themel)
+Date: Mon, 9 Apr 2007 22:45:22 +0200
+Subject: Xinerama
+In-Reply-To: <20070409084717.GW13216@themel.com>
+References: <20070406234214.GU13216@themel.com> <4617597D.3010502@gmail.com>
+	<20070409084717.GW13216@themel.com>
+Message-ID: <20070409204522.GX13216@themel.com>
+
+Hi,
+Thomas Themel (ion at themel.com) wrote on 2007-04-09:
+> I'll publish a complete version including the build/install stuff and
+> docs after a little testing (maybe after I figure out the bindmap stuff
+> that tuomov was referring to :)).
+
+Okay, since it works for me, here goes:
+
+darcs get http://wannabehacker.com/repos/mod_xinerama-3/
+
+or via HTTP: http://wannabehacker.com/src/mod_xinerama-20070409.tar.gz
+
+It works on my personal unecological penis enlargement using a pretty
+much unmodified ion3 config. If you encounter any problems, please let
+me know.  Thanks to tuomov for the outline (and of course the window
+manager running it).
+
+ciao,
+-- 
+[*Thomas  Themel*] Freedom includes the freedom to be foolish,
+[extended contact] to be sick. Free choice includes the freedom to
+[info provided in] choose badly.
+[*message header*]      - P.W. Huber, Orwell's Revenge
+
+
+From stefan at xsteve.at  Tue Apr 10 08:31:25 2007
+From: stefan at xsteve.at (Stefan =?iso-8859-1?Q?Reich=F6r?=)
+Date: Tue, 10 Apr 2007 08:31:25 +0200
+Subject: sending keystroke to unfocused window
+References: <87wt2ohq2t.fsf@Ishmael.Pequod>
+Message-ID: <m04pnoyc3m.fsf@ge-research.com>
+
+Renee Klawitter writes:
+
+> Hi!!
+>
+> Is it possible to send a keystroke to an unfocused window ? What I
+> think of is emacslike C-M-v to scroll down in another (emacs-)window.
+>
+> If you have your editor on one side of a splitted frame and maybe a
+> xpdf on the other, pressing META-v will send the <down key> event to
+> xpdf. The appropriate keystroke could be chosen by the receiving
+> window's window-info; and the receiving window itself could be chosen
+> by tagging it.
+>
+> Could this be done by a script ? And if so, how ?
+
+You can use xautomation to send keystrokes.
+
+I have written an emacs interface for xte. You can find it here:
+http://www.xsteve.at/prg/emacs/xte.el
+
+I have a similar demand. The following two functions jump to the
+recent window, send prior/next and switch back to the actual one:
+
+(defun xte-recent-win-page-up ()
+  (interactive)
+  (xte [(hyper ?k) ?k prior sleep (hyper ?k) ?k]))
+
+(defun xte-recent-win-page-down ()
+  (interactive)
+  (xte [(hyper ?k) ?k next sleep (hyper ?k) ?k]))
+
+
+Note: I use hyper ?k ?k to switch to the most recent window.
+
+Stefan.
+
+
+
+From seb at sig11.org  Tue Apr 10 10:34:04 2007
+From: seb at sig11.org (Seb)
+Date: Tue, 10 Apr 2007 10:34:04 +0200
+Subject: Xinerama
+In-Reply-To: <20070409204522.GX13216@themel.com>
+References: <20070406234214.GU13216@themel.com> <4617597D.3010502@gmail.com>
+	<20070409084717.GW13216@themel.com>
+	<20070409204522.GX13216@themel.com>
+Message-ID: <4b6bfc440704100134k7bc6888bi898669c3d5f42916@mail.gmail.com>
+
+On 4/9/07, Thomas Themel <ion at themel.com> wrote:
+> Hi,
+> Thomas Themel (ion at themel.com) wrote on 2007-04-09:
+> > I'll publish a complete version including the build/install stuff and
+> > docs after a little testing (maybe after I figure out the bindmap stuff
+> > that tuomov was referring to :)).
+>
+> Okay, since it works for me, here goes:
+>
+> darcs get http://wannabehacker.com/repos/mod_xinerama-3/
+>
+> or via HTTP: http://wannabehacker.com/src/mod_xinerama-20070409.tar.gz
+>
+> It works on my personal unecological penis enlargement using a pretty
+> much unmodified ion3 config. If you encounter any problems, please let
+> me know.  Thanks to tuomov for the outline (and of course the window
+> manager running it).
+>
+> ciao,
+
+Thank you very much! Great job.
+I have been thinking about doing it myself but I never found the time...
+
+Seb
+
+-- 
+I've never played by the rules, but I've played with the rules.
+
+
+From tuomov at iki.fi  Tue Apr 10 12:37:05 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 10 Apr 2007 10:37:05 +0000 (UTC)
+Subject: sending keystroke to unfocused window
+References: <87wt2ohq2t.fsf@Ishmael.Pequod> <m04pnoyc3m.fsf@ge-research.com>
+Message-ID: <slrnf1mq6h.uc3.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-04-10, Stefan Reich?r <stefan at xsteve.at> wrote:
+> You can use xautomation to send keystrokes.
+
+Ah, such a program exists. Now I can just point everyone asking to
+include all sorts of fancy key forwarding to stuff in Ion, to it.
+
+(I have not included that stuff in Ion, because I don't think it
+is the WM's job to do arbitrary event-sending, and because it is
+not that reliable in any case. Only the quote-next functionality
+has any place in the WM, because there would be various race
+conditions involved in implementing it in any other way.)
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue Apr 10 16:59:01 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 10 Apr 2007 14:59:01 +0000 (UTC)
+Subject: sending keystroke to unfocused window
+References: <87wt2ohq2t.fsf@Ishmael.Pequod> <m04pnoyc3m.fsf@ge-research.com>
+	<slrnf1mq6h.uc3.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnf1n9hl.o29.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-04-10, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2007-04-10, Stefan Reich?r <stefan at xsteve.at> wrote:
+>> You can use xautomation to send keystrokes.
+>
+> Ah, such a program exists. Now I can just point everyone asking to
+> include all sorts of fancy key forwarding to stuff in Ion, to it.
+
+Actually... xautomation doesn't work. You can't send keys to a
+particular windows with it. It uses XTest, so X will normally
+forward grabbed keys to the grabbing application.
+
+-- 
+Tuomo
+
+
+
+From denisg at suckless.org  Tue Apr 10 20:35:14 2007
+From: denisg at suckless.org (Denis Grelich)
+Date: Tue, 10 Apr 2007 20:35:14 +0200
+Subject: sending keystroke to unfocused window
+In-Reply-To: <slrnf1n9hl.o29.tuomov@jolt.modeemi.cs.tut.fi>
+References: <87wt2ohq2t.fsf@Ishmael.Pequod> <m04pnoyc3m.fsf@ge-research.com>
+	<slrnf1mq6h.uc3.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrnf1n9hl.o29.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070410203514.b745cfe7.denisg@suckless.org>
+
+On Tue, 10 Apr 2007 14:59:01 +0000 (UTC)
+Tuomo Valkonen <tuomov at iki.fi> wrote:
+
+> On 2007-04-10, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> > On 2007-04-10, Stefan Reich?r <stefan at xsteve.at> wrote:
+> >> You can use xautomation to send keystrokes.
+> >
+> > Ah, such a program exists. Now I can just point everyone asking to
+> > include all sorts of fancy key forwarding to stuff in Ion, to it.
+> 
+> Actually... xautomation doesn't work. You can't send keys to a
+> particular windows with it. It uses XTest, so X will normally
+> forward grabbed keys to the grabbing application.
+
+For what I know, sending artificial events is not satisfactorily doable
+under X11. There's XSendEvent, which sends events that are flagged
+artificial. They are not equivalent to true events, since some apps
+(most notoriously XTerm) refuse to accept them for some dubious
+"security concerns." On the other hand, there's XTest which is not
+ubiquitous and which has limitations such as the one mentioned above.
+
+I don't know of any other means of achieving something similar. Tools
+like xautomation thus can only be ugly, crooked and way too short
+kludges.
+
+Denis
+
+
+From prothall at gmail.com  Wed Apr 11 00:59:53 2007
+From: prothall at gmail.com (Paul McCann)
+Date: Tue, 10 Apr 2007 18:59:53 -0400
+Subject: Nest-WS
+In-Reply-To: <op.tqkyirqhpl9hl7@localhost>
+References: <op.tqkyirqhpl9hl7@localhost>
+Message-ID: <5b865e110704101559i694a6ecfwf67660fc5e688f0c@mail.gmail.com>
+
+I recently noticed this laptop, which I don't use very often, was using
+3ds-20062019. I upgraded to the latest version, but nest_ws.lua has
+stopped working. I don't know Lua and can't really figure out what's going
+on - it can't find the W*WS classes. Anyone else use it or have an idea
+how to fix it? -POLM
+
+
+From j at codemac.net  Wed Apr 11 02:29:27 2007
+From: j at codemac.net (codemac)
+Date: Tue, 10 Apr 2007 20:29:27 -0400
+Subject: Nest-WS
+In-Reply-To: <5b865e110704101559i694a6ecfwf67660fc5e688f0c@mail.gmail.com>
+References: <op.tqkyirqhpl9hl7@localhost>
+	<5b865e110704101559i694a6ecfwf67660fc5e688f0c@mail.gmail.com>
+Message-ID: <20070411002926.GA4501@stryder>
+
+* On Tuesday, April 10 2007, Paul McCann wrote:
+
+>I recently noticed this laptop, which I don't use very often, was using
+>3ds-20062019. I upgraded to the latest version, but nest_ws.lua has
+>stopped working. I don't know Lua and can't really figure out what's going
+>on - it can't find the W*WS classes. Anyone else use it or have an idea
+>how to fix it? -POLM
+
+I like reading changelogs.
+
+http://modeemi.cs.tut.fi/~tuomov/ion/download/ion-3-changelog.html
+
+-- 
+.: [ + carpe diem totus tuus + ] :.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070410/c21f8204/attachment.pgp>
+
+From idealbsd at gmail.com  Wed Apr 11 14:47:17 2007
+From: idealbsd at gmail.com (Jeff Zhang)
+Date: Wed, 11 Apr 2007 20:47:17 +0800
+Subject: how to floating popup windows in default created workplace?
+Message-ID: <1bf39a2f0704110547k305db459k6a6e91925db9e45d@mail.gmail.com>
+
+Is it possible to make new popup windows floating in default created
+workplace?
+I'm working in rxvt and will be forced change into another new frame created
+by popup message from apps in other workplaces, like workrave created hint
+window and download process window of seamonkey.
+
+Thanks in advance!
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070411/68e4d0a5/attachment.html>
+
+From ion at rrod.net  Wed Apr 11 15:14:13 2007
+From: ion at rrod.net (Jarrod Lowe)
+Date: Wed, 11 Apr 2007 14:14:13 +0100
+Subject: Xinerama
+In-Reply-To: <20070409204522.GX13216@themel.com>
+References: <20070406234214.GU13216@themel.com> <4617597D.3010502@gmail.com>
+	<20070409084717.GW13216@themel.com>
+	<20070409204522.GX13216@themel.com>
+Message-ID: <15f314a40704110614t1a51ced5n6bae5757e283797a@mail.gmail.com>
+
+On 09/04/07, Thomas Themel <ion at themel.com> wrote:
+> Hi,
+> Thomas Themel (ion at themel.com) wrote on 2007-04-09:
+> > I'll publish a complete version including the build/install stuff and
+> > docs after a little testing (maybe after I figure out the bindmap stuff
+> > that tuomov was referring to :)).
+>
+> Okay, since it works for me, here goes:
+>
+> darcs get http://wannabehacker.com/repos/mod_xinerama-3/
+>
+> or via HTTP: http://wannabehacker.com/src/mod_xinerama-20070409.tar.gz
+>
+> It works on my personal unecological penis enlargement using a pretty
+> much unmodified ion3 config. If you encounter any problems, please let
+> me know.  Thanks to tuomov for the outline (and of course the window
+> manager running it).
+
+Very nice! I was a bit confused for a bit when dopath("mod_xinerama")
+did nothing, but adding it to cfg_ion.lua and "killall -USR1 ion3"
+applied it. I haven't been using it very long, but it seems to "just
+work."
+
+Thanks muchly!
+
+-- 
+Jarrod Lowe
+
+
+From tuomov at iki.fi  Wed Apr 11 23:56:19 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 11 Apr 2007 21:56:19 +0000 (UTC)
+Subject: how to floating popup windows in default created workplace?
+References: <1bf39a2f0704110547k305db459k6a6e91925db9e45d@mail.gmail.com>
+Message-ID: <slrnf1qmc3.88v.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-04-11, Jeff Zhang <idealbsd at gmail.com> wrote:
+> Is it possible to make new popup windows floating in default created
+> workplace?
+
+There's the "float" winprop, if that's what you want.
+
+-- 
+Tuomo
+
+
+
+From idealbsd at gmail.com  Thu Apr 12 02:09:55 2007
+From: idealbsd at gmail.com (Jeff Zhang)
+Date: Thu, 12 Apr 2007 08:09:55 +0800
+Subject: how to floating popup windows in default created workplace?
+In-Reply-To: <slrnf1qmc3.88v.tuomov@jolt.modeemi.cs.tut.fi>
+References: <1bf39a2f0704110547k305db459k6a6e91925db9e45d@mail.gmail.com>
+	<slrnf1qmc3.88v.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <1bf39a2f0704111709s37caeb27ga7bc361c3e0ca254@mail.gmail.com>
+
+On 4/12/07, Tuomo Valkonen <tuomov at iki.fi> wrote:
+>
+> On 2007-04-11, Jeff Zhang <idealbsd at gmail.com> wrote:
+> > Is it possible to make new popup windows floating in default created
+> > workplace?
+>
+> There's the "float" winprop, if that's what you want.
+>
+> --
+> Tuomo
+>
+> Thanks!
+Find related document in ionconf and very sorry for the bad habit to ask
+question.  :)
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070412/51cbe99d/attachment.html>
+
+From geoffw at cis.upenn.edu  Fri Apr 13 04:31:34 2007
+From: geoffw at cis.upenn.edu (Geoffrey Alan Washburn)
+Date: Thu, 12 Apr 2007 22:31:34 -0400
+Subject: xmonad: Haskell window management has arrived
+Message-ID: <evmq26$u3h$1@sea.gmane.org>
+
+http://lennartkolmodin.blogspot.com/2007/04/xmonad.html
+
+
+
+From prothall at gmail.com  Fri Apr 13 04:54:16 2007
+From: prothall at gmail.com (Paul O'Leary McCann)
+Date: Thu, 12 Apr 2007 22:54:16 -0400
+Subject: xmonad: Haskell window management has arrived
+In-Reply-To: <evmq26$u3h$1@sea.gmane.org>
+References: <evmq26$u3h$1@sea.gmane.org>
+Message-ID: <op.tqpboqx1pl9hl7@localhost>
+
+Quick questions (I don't want to start a thread about another WM on the  
+Ion list):
+
+o Does it have tabs, or just rearrange tiled windows like dwm?
+o If tabs, nested tabs?
+o Ion-like arbitrary tiled client shape/relative position?
+(This last one is a reference to a "feature" of wmii. Most people at the  
+university I'm at used Ion for some time, but migrated to wmii in the last  
+six months to a year. I've tried it but dislike it because the menu tab  
+complets, but does not let you tab through things, there aren't any real  
+tabs (tabs stack, and therefore take an irritating amount of screen  
+space), and, if it's possible, nobody knows how to have windows of varying  
+widths over each other (say, three panes, two in the bottom half of the  
+screen, one spanning them both on top.)
+o Does it have some kind of scripting support? Is this in Haskell, some  
+shell language, or something more godforsaken?
+o Support for floating windows?
+o Is it possible to kill windows that don't supply their own quit button  
+in a sane way (not the MOD+Shift+C of wmii; I don't even know if dwm can  
+do that)?
+o Does it have a run dialog of any kind?
+
+I'm assuming it employs dwm's tagged workspace model, which is its most  
+interesting and useful feature. Any variations on this would be  
+interesting. -POLM
+
+On Thu, 12 Apr 2007 22:31:34 -0400, Geoffrey Alan Washburn  
+<geoffw at cis.upenn.edu> wrote:
+
+> http://lennartkolmodin.blogspot.com/2007/04/xmonad.html
+>
+
+
+
+-- 
+Remember always the last words of Pancho Villa:
+"Don't let it end like this. Tell them I said something."
+
+2 3   S K I D D O O
+
+
+From dons at cse.unsw.edu.au  Fri Apr 13 05:06:06 2007
+From: dons at cse.unsw.edu.au (Donald Bruce Stewart)
+Date: Fri, 13 Apr 2007 13:06:06 +1000
+Subject: xmonad: Haskell window management has arrived
+In-Reply-To: <op.tqpboqx1pl9hl7@localhost>
+References: <evmq26$u3h$1@sea.gmane.org> <op.tqpboqx1pl9hl7@localhost>
+Message-ID: <20070413030606.GE18465@cse.unsw.EDU.AU>
+
+prothall:
+> Quick questions (I don't want to start a thread about another WM on the  
+> Ion list):
+> 
+> o Does it have tabs, or just rearrange tiled windows like dwm?
+
+The basic model is dwm-ish, so:
+
+    I physical screens (Xinerama)
+view onto
+    J virtual workspaces (tags)
+grouping
+    K windows
+
+the windows are tiled in a number of ways.
+
+> o If tabs, nested tabs?
+> o Ion-like arbitrary tiled client shape/relative position?
+
+Sort of. Not arbitrary.
+
+> o Does it have some kind of scripting support? Is this in Haskell, some  
+> shell language, or something more godforsaken?
+
+All scripting languages are supported,  as long as that language is Haskell.
+
+> o Support for floating windows?
+
+Nope. Probably in 0.2
+
+> o Is it possible to kill windows that don't supply their own quit button  
+> in a sane way (not the MOD+Shift+C of wmii; I don't even know if dwm can  
+> do that)?
+
+Yes. Same as dwm. Send killClient to the window.
+
+> o Does it have a run dialog of any kind?
+
+Yes.
+
+> I'm assuming it employs dwm's tagged workspace model, which is its most  
+> interesting and useful feature. Any variations on this would be  
+> interesting. -POLM
+
+Yes, it is a variation of dwm's tags. But simpler, not needlessly
+complex regex matching (urgh!)
+
+-- Don
+
+
+
+From idealbsd at gmail.com  Sat Apr 14 03:01:18 2007
+From: idealbsd at gmail.com (Jeff Zhang)
+Date: Sat, 14 Apr 2007 09:01:18 +0800
+Subject: frameless border?
+Message-ID: <1bf39a2f0704131801u127419e6h491725e1e00350db@mail.gmail.com>
+
+I find the old thread in the list archives:
+http://article.gmane.org/gmane.comp.window-managers.ion.general/2099/match=mplayer
+
+I've set mplayer with:
+defwinprop{
+    class = "MPlayer",
+    instance = "gl",
+    float = true,
+}
+
+The upper-left tile in the video window is a little superfluous, at the same
+time many video files can't fit to zoom enough for full screen either.
+So is it possible to remove title bar in float window?
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070414/4908a664/attachment.html>
+
+From tuomov at iki.fi  Sun Apr 15 14:27:49 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 15 Apr 2007 12:27:49 +0000 (UTC)
+Subject: Ion translations
+References: <20070319110038.GA1496@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnf246i5.74c.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-03-19, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> The translations (currently cs, de, fi, ru) need to be updated
+> before Ion goes to "rc" stage. This includes both the .po files,
+> and the manual pages. Any translations that have not been 
+> upgraded by then, will be removed.
+>
+> That said, it may be wise to wait a while to see if there are
+> any big problems that might end up changing the translations.
+> I'd suppose it will take at least a month, possibly longer,
+> before the first "rc" is released.
+
+(Just a reminder)
+
+-- 
+Tuomo
+
+
+
+From droundy at darcs.net  Mon Apr 16 03:27:20 2007
+From: droundy at darcs.net (David Roundy)
+Date: Sun, 15 Apr 2007 18:27:20 -0700
+Subject: xmonad: Haskell window management has arrived
+In-Reply-To: <20070413030606.GE18465@cse.unsw.EDU.AU>
+References: <evmq26$u3h$1@sea.gmane.org> <op.tqpboqx1pl9hl7@localhost>
+	<20070413030606.GE18465@cse.unsw.EDU.AU>
+Message-ID: <20070416012720.GA11752@abridgegame.org>
+
+On Fri, Apr 13, 2007 at 01:06:06PM +1000, Donald Bruce Stewart wrote:
+> prothall:
+> > o Does it have tabs, or just rearrange tiled windows like dwm?
+...
+> the windows are tiled in a number of ways.
+
+Incidentally, I've implemented a tabbed view that doesn't display any tabs,
+but responds to clicks where they would be.  It's equivalent to the setup I
+have in ion3 for my web browser, where I've just got one large tile with a
+bunch of tabs.
+
+I can send a patch if anyone's interested.  It has to modify Main to
+intercept the mouse clicks, but the layout itself is done in Config.  It's
+still pretty crude, and doesn't make much sense without the tags being
+visible, but drawing to screen is something that intimidates me...
+-- 
+David Roundy
+http://www.darcs.net
+
+
+From tuomov at iki.fi  Mon Apr 16 08:44:57 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 16 Apr 2007 06:44:57 +0000 (UTC)
+Subject: xmonad: Haskell window management has arrived
+References: <evmq26$u3h$1@sea.gmane.org> <op.tqpboqx1pl9hl7@localhost>
+	<20070413030606.GE18465@cse.unsw.EDU.AU>
+	<20070416012720.GA11752@abridgegame.org>
+Message-ID: <slrnf266r9.ll1.tuomov@jolt.modeemi.cs.tut.fi>
+
+Could you keep tinkering with this shit off the Ion list?
+
+-- 
+Tuomo
+
+
+
+From EvgenyKurbatov at yandex.ru  Mon Apr 16 18:19:33 2007
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Mon, 16 Apr 2007 20:19:33 +0400
+Subject: Fvwm-like menu
+Message-ID: <4623A215.4060907@yandex.ru>
+
+Hello!
+
+I tryed to use Ion2 and Ion3.  Now I have Ion2 installed (because Ion3 
+misteriously gone from current stable Debian, huh).  In Fvwm which is 
+ised by me for a few years I have very attractive feature - hotkeys in 
+menus.  It is possible to define menu with item "Foo &bar" so "b" key 
+will be a hot key in it.  So it is possible not to use mouse at all and 
+to achieve a great comfort using that hotkeys instead of kicking "Down" 
+key for eternity to descend to wishful menu item.
+
+So I have two questions.  1st: is there exists ready solution for such 
+hotkeys in menus, especially for Debian system menu with hotkeys 
+associated already.  2nd: if yes, if there exists a solution with 
+application launcher (like "make_exec_fn") which depends on key 
+modifyers (i.e. Shift+hotkey starts application in a separate workspace 
+etc)?
+
+Thanks,
+EK
+
+
+From tuomov at iki.fi  Mon Apr 16 19:25:20 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 16 Apr 2007 17:25:20 +0000 (UTC)
+Subject: Fvwm-like menu
+References: <4623A215.4060907@yandex.ru>
+Message-ID: <slrnf27cc0.k7b.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-04-16, Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+> So I have two questions.  1st: is there exists ready solution for such 
+> hotkeys in menus, especially for Debian system menu with hotkeys 
+> associated already.  2nd: if yes, if there exists a solution with 
+> application launcher (like "make_exec_fn") which depends on key 
+> modifyers (i.e. Shift+hotkey starts application in a separate workspace 
+> etc)?
+
+Ion3 has the query menus, which are better than lame hot keys. Ion2
+IIRC also does have type-ahead search in the menus, so you'll just
+have to type a part (even a middle part, IIRC) of the name of the 
+entry. Ion3 is gone from Debian, because I do not want development
+releases distributed by megafrozen distributions for years to come.
+Stable Ion3 will be released "soon" anyway, and Ion2 will be obsoleted.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue Apr 17 10:02:54 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 17 Apr 2007 11:02:54 +0300
+Subject: Longpress patch (for N700 etc.)
+Message-ID: <20070417080254.GA5900@jolt.modeemi.cs.tut.fi>
+
+
+I thought I'd lost it, but I accidentally just found the following
+old 'longpress' patch by Oleg Romashin in my mailbox. I never applied
+it, because I never got a proper darcs patch bundle. I don't know if
+it even applies anymore, but if someone wants to play with it, and
+perhaps submit a proper darcs patch, here it is.
+
+-- 
+Tuomo
+-------------- next part --------------
+diff -ruN ion-3.orig/build/mkman.lua ion-3.new/build/mkman.lua
+--- ion-3.orig/build/mkman.lua	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/build/mkman.lua	2005-09-23 12:33:42.000000000 +0300
+@@ -113,6 +113,10 @@
+         return mact("mpress", buttonspec, cmd, guard)
+     end
+ 
++    function p.mlongpress(buttonspec, cmd, guard)
++        return mact("mlongpress", buttonspec, cmd, guard)
++    end
++
+     function p.mdrag(buttonspec, cmd, guard)
+         return mact("mdrag", buttonspec, cmd, guard)
+     end
+@@ -186,6 +190,7 @@
+ local function combine_bindings(v)    
+     local nact={
+         ["mpress"]=TR("press"),
++	["mlongpress"]=TR("longpress"),
+         ["mclick"]=TR("click"),
+         ["mdrag"]=TR("drag"),
+         ["mdblclick"]=TR("double click"),
+diff -ruN ion-3.orig/config.h ion-3.new/config.h
+--- ion-3.orig/config.h	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/config.h	2005-09-23 12:33:42.000000000 +0300
+@@ -18,6 +18,7 @@
+ /*#define CF_FALLBACK_FONT_NAME "-*-helvetica-medium-r-normal-*-12-*-*-*-*-*-*-*"*/
+ #define CF_DRAG_TRESHOLD 2
+ #define CF_DBLCLICK_DELAY 250
++#define CF_LONGPRESS_DELAY 1000
+ 
+ #define CF_MAX_MOVERES_STR_SIZE 32
+ 
+diff -ruN ion-3.orig/etc/cfg_ion.lua ion-3.new/etc/cfg_ion.lua
+--- ion-3.orig/etc/cfg_ion.lua	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/etc/cfg_ion.lua	2005-09-23 12:33:42.000000000 +0300
+@@ -16,6 +16,8 @@
+     -- Maximum delay between clicks in milliseconds to be considered a
+     -- double click.
+     dblclick_delay=250,
++    
++    longpress_delay=1000,
+ 
+     -- For keyboard resize, time (in milliseconds) to wait after latest
+     -- key press before automatically leaving resize mode (and doing
+diff -ruN ion-3.orig/ioncore/binding.c ion-3.new/ioncore/binding.c
+--- ion-3.orig/ioncore/binding.c	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/ioncore/binding.c	2005-09-23 12:33:43.000000000 +0300
+@@ -363,6 +363,7 @@
+     }
+     
+     if(binding->act!=BINDING_BUTTONPRESS &&
++       binding->act!=BINDING_BUTTONLONGPRESS &&
+        binding->act!=BINDING_BUTTONCLICK &&
+        binding->act!=BINDING_BUTTONDBLCLICK &&
+        binding->act!=BINDING_BUTTONMOTION)
+@@ -394,6 +395,7 @@
+     }
+     
+     if(binding->act!=BINDING_BUTTONPRESS &&
++       binding->act!=BINDING_BUTTONLONGPRESS &&
+        binding->act!=BINDING_BUTTONCLICK &&
+        binding->act!=BINDING_BUTTONDBLCLICK &&
+        binding->act!=BINDING_BUTTONMOTION)
+diff -ruN ion-3.orig/ioncore/binding.h ion-3.new/ioncore/binding.h
+--- ion-3.orig/ioncore/binding.h	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/ioncore/binding.h	2005-09-23 12:33:43.000000000 +0300
+@@ -25,8 +25,9 @@
+ #define BINDING_BUTTONMOTION    2
+ #define BINDING_BUTTONCLICK     3
+ #define BINDING_BUTTONDBLCLICK  4
++#define BINDING_BUTTONLONGPRESS 5
+ 
+-#define BINDMAP_INIT        {0, NULL, NULL, NULL, NULL}
++#define BINDMAP_INIT        {0, NULL, NULL, NULL, NULL, NULL}
+ 
+ #define FOR_ALL_BINDINGS(B, NODE, MAP) \
+         rb_traverse(NODE, MAP) if(((B)=(WBinding*)rb_val(NODE))!=NULL)
+diff -ruN ion-3.orig/ioncore/conf-bindings.c ion-3.new/ioncore/conf-bindings.c
+--- ion-3.orig/ioncore/conf-bindings.c	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/ioncore/conf-bindings.c	2005-09-23 12:33:43.000000000 +0300
+@@ -239,6 +239,7 @@
+     {"mclick", BINDING_BUTTONCLICK},
+     {"mdblclick", BINDING_BUTTONDBLCLICK},
+     {"mdrag", BINDING_BUTTONMOTION},
++    {"mlongpress", BINDING_BUTTONLONGPRESS},
+     {NULL, 0}
+ };
+ 
+diff -ruN ion-3.orig/ioncore/conf.c ion-3.new/ioncore/conf.c
+--- ion-3.orig/ioncore/conf.c	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/ioncore/conf.c	2005-09-23 12:33:43.000000000 +0300
+@@ -47,6 +47,7 @@
+  *  \var{frame_add_last} & (boolean) Add new regions in frames last instead
+  *                        of after current region. \\
+  *  \var{dblclick_delay} & (integer) Delay between clicks of a double click.\\
++ *  \var{longpress_delay} & (integer) Delay between clicks of a double click.\\
+  *  \var{default_ws_type} & (string) Default workspace type for operations
+  *                         that create a workspace.\\
+  *  \var{kbresize_delay} & (integer) Delay in milliseconds for ending keyboard
+@@ -80,6 +81,8 @@
+     
+     if(extl_table_gets_i(tab, "dblclick_delay", &dd))
+         ioncore_g.dblclick_delay=maxof(0, dd);
++    if(extl_table_gets_i(tab, "longpress_delay", &dd))
++        ioncore_g.longpress_delay=maxof(0, dd);
+     if(extl_table_gets_s(tab, "default_ws_type", &wst)){
+         if(ioncore_default_ws_type!=NULL)
+             free(ioncore_default_ws_type);
+@@ -102,6 +105,7 @@
+     extl_table_sets_b(tab, "warp", ioncore_g.warp_enabled);
+     extl_table_sets_b(tab, "switchto", ioncore_g.switchto_new);
+     extl_table_sets_i(tab, "dblclick_delay", ioncore_g.dblclick_delay);
++    extl_table_sets_i(tab, "longpress_delay", ioncore_g.longpress_delay);
+     extl_table_sets_b(tab, "screen_notify", ioncore_g.screen_notify);
+     extl_table_sets_s(tab, "default_ws_type", ioncore_default_ws_type);
+     extl_table_sets_b(tab, "frame_add_last", ioncore_g.frame_add_last);
+diff -ruN ion-3.orig/ioncore/global.h ion-3.new/ioncore/global.h
+--- ion-3.orig/ioncore/global.h	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/ioncore/global.h	2005-09-23 12:33:43.000000000 +0300
+@@ -72,6 +72,7 @@
+     int previous_protect;
+     
+     Time dblclick_delay;
++    Time longpress_delay;
+     int opaque_resize;
+     bool warp_enabled;
+     bool switchto_new;
+diff -ruN ion-3.orig/ioncore/ioncore_bindings.lua ion-3.new/ioncore/ioncore_bindings.lua
+--- ion-3.orig/ioncore/ioncore_bindings.lua	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/ioncore/ioncore_bindings.lua	2005-09-23 12:33:43.000000000 +0300
+@@ -157,6 +157,14 @@
+ end
+ 
+ --DOC
++-- Similar to \fnref{mlongpress} but for just pressing the mouse button.
++-- Also see section \ref{sec:bindings}.
++function ioncore.mlongpress(buttonspec, cmd, guard)
++    return mact("mlongpress", buttonspec, cmd, guard)
++end
++
++
++--DOC
+ -- Creates a binding description table for the action of moving the mouse
+ -- (or other pointing device) while the button given by \var{buttonspec}
+ -- is held pressed and the modifiers given by \var{buttonspec} were pressed
+diff -ruN ion-3.orig/ioncore/ioncore.c ion-3.new/ioncore/ioncore.c
+--- ion-3.orig/ioncore/ioncore.c	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/ioncore/ioncore.c	2005-09-23 12:33:43.000000000 +0300
+@@ -312,6 +312,7 @@
+     ioncore_g.opmode=IONCORE_OPMODE_INIT;
+     ioncore_g.previous_protect=0;
+     ioncore_g.dblclick_delay=CF_DBLCLICK_DELAY;
++    ioncore_g.longpress_delay=CF_LONGPRESS_DELAY;
+     ioncore_g.opaque_resize=0;
+     ioncore_g.warp_enabled=TRUE;
+     ioncore_g.switchto_new=TRUE;
+diff -ruN ion-3.orig/ioncore/ioncore_ext.lua ion-3.new/ioncore/ioncore_ext.lua
+--- ion-3.orig/ioncore/ioncore_ext.lua	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/ioncore/ioncore_ext.lua	2005-09-23 12:33:43.000000000 +0300
+@@ -35,6 +35,7 @@
+        "kpress",
+        "kpress_wait",
+        "mpress",
++       "mlongpress",
+        "mclick",
+        "mdblclick",
+        "mdrag",
+diff -ruN ion-3.orig/ioncore/pointer.c ion-3.new/ioncore/pointer.c
+--- ion-3.orig/ioncore/pointer.c	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/ioncore/pointer.c	2005-09-23 12:33:43.000000000 +0300
+@@ -18,7 +18,7 @@
+ #include "regbind.h"
+ #include "grab.h"
+ #include "xwindow.h"
+-
++#include <libmainloop/signal.h>
+ 
+ /*{{{ Variables */
+ 
+@@ -30,6 +30,12 @@
+ static int p_clickcnt=0;
+ static Time p_time=0;
+ static int p_area=0;
++static WTimer *long_press_timer=NULL;
++static bool p_long_press = FALSE;
++static int long_press_delay = 1000;
++
++static XButtonEvent last_mbutton_event;
++
+ static enum{ST_NO, ST_INIT, ST_HELD} p_grabstate=ST_NO;
+ 
+ static WButtonHandler *p_motion_end_handler=NULL;
+@@ -46,7 +52,6 @@
+ 
+ /*}}}*/
+ 
+-
+ /*{{{ Handler setup */
+ 
+ 
+@@ -218,6 +223,49 @@
+     finish_pointer();
+ }
+ 
++static void tmr_end_long_press(WTimer *unused, void *a_ev)
++{
++    XButtonEvent *ev = &last_mbutton_event;
++    WBinding *pressbind=NULL;
++    WRegion *reg=NULL;
++    WRegion *subreg=NULL;
++    uint button, state;
++    bool dblclick;
++
++    state=ev->state;
++    button=ev->button;
++    ev->type = ButtonPress;
++    pressbind=region_lookup_binding(p_reg, BINDING_BUTTONLONGPRESS, p_state,
++                                             p_button, p_area);
++    call_button(pressbind, ev);
++    p_long_press = FALSE;
++    return;
++}
++
++static bool setup_long_press_timer(void *ev)
++{
++    if(long_press_timer==NULL){
++        long_press_timer=create_timer();
++        if(long_press_timer==NULL)
++            return FALSE;
++    }
++    p_long_press = TRUE;
++    timer_set(long_press_timer, ioncore_g.longpress_delay,
++              (WTimerHandler*)tmr_end_long_press, ev);
++    return TRUE;
++}
++
++
++static void reset_long_press_timer()
++{
++    if(long_press_timer!=NULL){	
++        timer_reset(long_press_timer);
++        destroy_obj((Obj*)long_press_timer);
++        long_press_timer=NULL;
++    }
++    p_long_press = FALSE;
++}
++
+ 
+ bool ioncore_do_handle_buttonpress(XButtonEvent *ev)
+ {
+@@ -270,6 +321,13 @@
+     if(subreg!=NULL)
+         watch_setup(&p_subregwatch, (Obj*)subreg, NULL);
+ 
++
++    if (!p_long_press)
++    {
++	last_mbutton_event = *ev;
++	setup_long_press_timer(NULL);
++    }
++
+     if(dblclick){
+         pressbind=region_lookup_binding(reg, BINDING_BUTTONDBLCLICK, state,
+                                              button, p_area);
+@@ -309,6 +367,7 @@
+     }
+     
+     ioncore_grab_remove(handle_key);
++    reset_long_press_timer();
+     finish_pointer();
+     
+     return TRUE;
+@@ -319,7 +378,12 @@
+ {
+     int dx, dy;
+     WBinding *binding=NULL;
+-    
++    if (p_long_press)
++    {
++	last_mbutton_event.x_root = ev->x_root;
++	last_mbutton_event.y_root = ev->y_root;
++	return;
++    }
+     if(p_reg==NULL)
+         return;
+     
+diff -ruN ion-3.orig/pwm/cfg_pwm.lua ion-3.new/pwm/cfg_pwm.lua
+--- ion-3.orig/pwm/cfg_pwm.lua	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/pwm/cfg_pwm.lua	2005-09-23 12:33:42.000000000 +0300
+@@ -19,6 +19,8 @@
+     -- double click.
+     dblclick_delay=250,
+ 
++    longpress_delay=1000,
++
+     -- For keyboard resize, time (in milliseconds) to wait after latest
+     -- key press before automatically leaving resize mode (and doing
+     -- the resize in case of non-opaque move).
+
+From ben at decadent.org.uk  Thu Apr 26 00:42:52 2007
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Wed, 25 Apr 2007 23:42:52 +0100
+Subject: Font rendering oddity in status bar
+Message-ID: <1177540972.4347.18.camel@deadeye.i.decadent.org.uk>
+
+A Debian user reported a cosmetic bug in Ion3 where the top pixel of a
+vertical bar character (U+2502) in the status bar could be left behind
+when the text changed.  This suggests some sort of error in finding the
+text extents (but at what level, I don't know).  The bug report is at
+http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=417651 and includes a
+screenshot of this behaviour.  I identified the font for most characters
+as being fixed 6x13, but the vertical bar appears to be 14 pixels tall;
+perhaps it comes from another font in a fontset?  I have spent some time
+investigating this (explanations attached to the report) but have not
+been able to work out where the mismatch is.  In particular I have not
+been able to construct a fontset that includes fixed 6x13.
+
+Can anyone help me work out what's going on?
+
+Ben.
+
+-- 
+Ben Hutchings
+All extremists should be taken out and shot.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070425/a5555559/attachment.pgp>
+
+From ben at decadent.org.uk  Thu Apr 26 00:52:33 2007
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Wed, 25 Apr 2007 23:52:33 +0100
+Subject: Dodgy function pointer casts
+Message-ID: <1177541553.15681.127.camel@deadeye.i.decadent.org.uk>
+
+When checking over the Debian package of mod_xinerama, I noticed that
+the code was casting a pointer to a callback function because the
+function's argument types didn't quite match those expected for the
+callback.  When I objected to this, the package's maintainer pointed out
+that there were similar casts throughout Ion3, which is indeed true.
+While this obviously works on most platforms, calling through a function
+pointer that doesn't match the type of the function it points to has
+undefined behaviour.  I would like to clear this up by adding wrapper
+functions and changing function parameter types so that only data
+pointer casts are needed.
+
+Is this change likely to be acceptable, Tuomo?
+
+Ben.
+
+-- 
+Ben Hutchings
+All extremists should be taken out and shot.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070425/f6336006/attachment.pgp>
+
+From tuomov at iki.fi  Thu Apr 26 09:07:40 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 26 Apr 2007 07:07:40 +0000 (UTC)
+Subject: Font rendering oddity in status bar
+References: <1177540972.4347.18.camel@deadeye.i.decadent.org.uk>
+Message-ID: <slrnf30jts.a72.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-04-25, Ben Hutchings <ben at decadent.org.uk> wrote:
+> I identified the font for most characters
+> as being fixed 6x13, but the vertical bar appears to be 14 pixels tall;
+> perhaps it comes from another font in a fontset?  I have spent some time
+> investigating this (explanations attached to the report) but have not
+> been able to work out where the mismatch is.  In particular I have not
+> been able to construct a fontset that includes fixed 6x13.
+
+This would indeed seem like an error in the font metrics: it is 
+using the metrics for 6x13, but for some reason, some character is
+taller and that. The statusbar code draws the text with the 'needfill'
+attribute set for the drawing engine, which causes the X(mb)DrawImageString
+routine to be used instead of X(mb)DrawString. This should fill the 
+text background with the background colour, and cause any previous 
+text to be erased. It seems this isn't happening, because some of 
+the characters are bigger than the rectangle where the text should 
+be contained. 
+
+So, all Ion does, is draw text over itself at the same position as
+before, with a function that should clear the background. This isn't 
+happenning. Hence, not my problem.
+
+---
+
+XExtentsOfFontSet (and XmbTextExtents) returns two rectangles: logical 
+extent and ink extent. Intuitively logical extent should be bigger 
+than ink extent. But maybe this is not so, in case of this font at
+least: it does not seem to be mentioned in the man pages. Ion uses
+the logical extents for its own calculations (that should not matter
+here!), and so does X use for the filled background rectangle of the
+text. If the ink extent is actually bigger than the logical extent, 
+this obviously won't work. You could try checking if there's such
+a problem.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Thu Apr 26 09:12:14 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 26 Apr 2007 07:12:14 +0000 (UTC)
+Subject: Dodgy function pointer casts
+References: <1177541553.15681.127.camel@deadeye.i.decadent.org.uk>
+Message-ID: <slrnf30k6e.a72.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-04-25, Ben Hutchings <ben at decadent.org.uk> wrote:
+> Is this change likely to be acceptable, Tuomo?
+
+Umm... any kind of OO shit in C absolutely positively depends on
+function pointer casts. Or are you going to wrap all the _hundreds_
+of pseudo-dynamic functions? Over my dead body.
+
+More uglier is the case of function pointers to data pointers used
+somewhere in the code. I haven't checked if there's a way around it,
+but then again, any sane architechture will have matching function 
+and data pointers. (Functions should be nothing special! They should
+be data like everything else! Stuff of the first class!)
+
+-- 
+Tuomo
+
+
+
+From ben at decadent.org.uk  Fri Apr 27 01:54:59 2007
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Fri, 27 Apr 2007 00:54:59 +0100
+Subject: Dodgy function pointer casts
+In-Reply-To: <slrnf30k6e.a72.tuomov@jolt.modeemi.cs.tut.fi>
+References: <1177541553.15681.127.camel@deadeye.i.decadent.org.uk>
+	<slrnf30k6e.a72.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <1177631699.4540.33.camel@deadeye.i.decadent.org.uk>
+
+0On Thu, 2007-04-26 at 07:12 +0000, Tuomo Valkonen wrote:
+> On 2007-04-25, Ben Hutchings <ben at decadent.org.uk> wrote:
+> > Is this change likely to be acceptable, Tuomo?
+> 
+> Umm... any kind of OO shit in C absolutely positively depends on
+> function pointer casts.
+
+I haven't noticed this being necessary in the GObject system.  It does
+rely on data pointer casts, but those are fine.
+
+> Or are you going to wrap all the _hundreds_
+> of pseudo-dynamic functions? Over my dead body.
+> 
+> More uglier is the case of function pointers to data pointers used
+> somewhere in the code. I haven't checked if there's a way around it,
+> but then again, any sane architechture will have matching function 
+> and data pointers. (Functions should be nothing special! They should
+> be data like everything else! Stuff of the first class!)
+
+While these casts aren't allowed in standard C, casting between void *
+and function pointer types must work on any system which has dlopen().
+
+Ben.
+
+-- 
+Ben Hutchings
+If God had intended Man to program,
+we'd have been born with serial I/O ports.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070427/84e9ccde/attachment.pgp>
+
+From tuomov at iki.fi  Fri Apr 27 08:57:38 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 27 Apr 2007 06:57:38 +0000 (UTC)
+Subject: Dodgy function pointer casts
+References: <1177541553.15681.127.camel@deadeye.i.decadent.org.uk>
+	<slrnf30k6e.a72.tuomov@jolt.modeemi.cs.tut.fi>
+	<1177631699.4540.33.camel@deadeye.i.decadent.org.uk>
+Message-ID: <slrnf337n2.i9q.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-04-26, Ben Hutchings <ben at decadent.org.uk> wrote:
+>> Umm... any kind of OO shit in C absolutely positively depends on
+>> function pointer casts.
+>
+> I haven't noticed this being necessary in the GObject system.  It does
+> rely on data pointer casts, but those are fine.
+
+G-shit just hides casts in A_ZILLION_AWFUL_MACROS_WITH_UNMANAGEABLE_NAMES.
+
+Anyway, the _FooClass structures contain function pointers for the 
+pseudo-dynamic functions. The first parameter is of type Foo*. A 
+subclass Bar must fill these in. Obviously in the subclass's 
+implementation of these functions, the first parameter is Bar*. 
+Ion's _much_ more usable object system, on the other hand, uses 
+a table of mappings {dynfun, implementation}, so that it isn't 
+necessary to fill in complex hierarchies of structures: you just
+list the functions that you do implement. It actually needs
+_less_ explicit casts than the G-shit, because the function 
+pointers in the structure are of type void (*)(), which any
+function 'returning' void can be implicitly cast to. Functions
+that do not return a void, need (DynFun*) explicit casts, however.
+Cast of 'void (*)(Bar*)' to 'void (*)(Foo*)' must always be explicit.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Fri Apr 27 18:15:31 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 27 Apr 2007 19:15:31 +0300
+Subject: License change
+Message-ID: <20070427161531.GA7072@jolt.modeemi.cs.tut.fi>
+
+
+Attached are the contents of the new LICENSE file. I'm fed up with
+assholes providing as the standard version, both old versions, as
+well as versions with unapproved patches [1]. The new license is
+actually free'er than LGPL, if you ask me. It merely acts to guard
+what is considered "Ion" or "Ion3"; to give credit where it is due,
+without any direct restrictions on code use. (And to give credit
+where it is due, I used the Zlib license [2] as basis for it.)
+
+  [1]: http://aur.archlinux.org/packages.php?do_Details=1&ID=10622
+
+  [2]: http://www.gzip.org/zlib/zlib_license.html
+
+-- 
+Tuomo
+-------------- next part --------------
+
+Parts of this software not explicitely indicated to be licensed 
+otherwise, are covered by the following license. Other parts are
+covered by the indicated license. In particular, mod_dock is 
+under the LGPL.
+
+---
+
+Copyright (c) Tuomo Valkonen 1999-2007.
+
+This software is provided 'as-is', without any express or implied
+warranty. In no event will the authors be held liable for any damages
+arising from the use of this software.
+
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it
+freely, subject to the following restrictions guarding the artistic
+integrity of the project:
+
+  1. The origin of this software must not be misrepresented; you must 
+     not claim that you wrote the original software. Any derived works
+     must acknowledge that they use code from this software.
+
+  2. Altered versions must be clearly and explicitly marked as such,
+     and must not be misrepresented as being the original software.
+     Significantly altered versions may not be distributed (neither
+     in source nor binary form), by a name that could be confused 
+     with a name of this software ("ion", "ion3", etc.), without 
+     additional very explicit component that indicates that the 
+     version is non-standard.
+
+  3. Redistributions of this software accessible plainly with a name
+     of this software ("ion", "ion3", etc.), must provide the latest
+     release with a reasonable delay from its release (normally 28 days).
+     Older releases may be distributed, if the full version, or some 
+     other explicit indicator, such as the word "ancient", is part of 
+     the name that the package is accessed with, or if this identifier
+     is completely unrelated to a name of this software.
+
+  4. This notice may not be removed or altered from any source 
+     distribution.
+
+
+---
+
+# Question and answers
+
+## On significant changes:
+
+A feature patch to the source code would be considered a "significant"
+change. A patch that fixes minor bugs, would a priori be considered
+insignificant, especially if it is available from the author. Basic
+changes in compiler options and installation paths would obviously
+be insignificant. Changes to the configuration files, that merely 
+add to the standard version, without obstructing the standard setup, 
+would a priori be considered insignificant. Changes to the 
+configuration files that are incompatible with the standard setup, 
+would be considered significant. When in doubt, ask.
+
+
+## On distributions:
+
+If the software can be installed with `$pkgtool install ion3` (resp. 
+`$pkgtool install ion`), where `$pkgtool install` stands for the install
+feature of the distribution's package management tool, this should
+always install the latest standard release of Ion3 (resp. in the whole 
+Ion project). The action `$pkgtool install ion-3ds-20070318` may, 
+however, at any date install this particular marked release. Likewise
+`$pkgtool ion-with-tonnes-of-unsupported-pathces` may install any 
+altered version.
+
+
+From tuomov at iki.fi  Fri Apr 27 18:33:48 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 27 Apr 2007 19:33:48 +0300
+Subject: License change
+In-Reply-To: <20070427161531.GA7072@jolt.modeemi.cs.tut.fi>
+References: <20070427161531.GA7072@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070427163348.GA8908@jolt.modeemi.cs.tut.fi>
+
+
+(Hmm... I wonder where the first try wen't.)
+
+As a further note, I consider the restrictions on the name use
+retroactive: this is also an issue of trademark law, and as the
+author, I am the (unregistered) trademark holder for Ion, Ion3,
+etc. The new license and copyright law merely act as additional
+enforcement devices.
+
+-- 
+Tuomo
+
+
+From oskar.nordquist at gmail.com  Fri Apr 27 18:44:04 2007
+From: oskar.nordquist at gmail.com (Oskar Nordquist)
+Date: Fri, 27 Apr 2007 18:44:04 +0200
+Subject: Winprop suggestion: "jumpback"
+Message-ID: <46322854.8030206@gmail.com>
+
+Hi,
+
+I do lots of graphics programming in opengl and I absolutely love the 
+"jumpto" and "target" winprops, but something to regain focus to the 
+original frame would be nice. How difficult do you predict this would be 
+to implement, or if it is at all possible?
+
+/Oskar
+
+
+From tuomov at iki.fi  Fri Apr 27 19:03:33 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 27 Apr 2007 17:03:33 +0000 (UTC)
+Subject: Winprop suggestion: "jumpback"
+References: <46322854.8030206@gmail.com>
+Message-ID: <slrnf34b75.biu.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-04-27, Oskar Nordquist <oskar.nordquist at gmail.com> wrote:
+> I do lots of graphics programming in opengl and I absolutely love the 
+> "jumpto" and "target" winprops, but something to regain focus to the 
+> original frame would be nice. How difficult do you predict this would be 
+> to implement, or if it is at all possible?
+
+What do you exactly mean by regaining focus?
+
+-- 
+Tuomo
+
+
+
+From oskar.nordquist at gmail.com  Fri Apr 27 20:09:35 2007
+From: oskar.nordquist at gmail.com (Oskar Nordquist)
+Date: Fri, 27 Apr 2007 20:09:35 +0200
+Subject: Winprop suggestion: "jumpback"
+In-Reply-To: <slrnf34b75.biu.tuomov@jolt.modeemi.cs.tut.fi>
+References: <46322854.8030206@gmail.com>
+	<slrnf34b75.biu.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <46323C5F.7090907@gmail.com>
+
+Tuomo Valkonen wrote:
+> On 2007-04-27, Oskar Nordquist <oskar.nordquist at gmail.com> wrote:
+>> I do lots of graphics programming in opengl and I absolutely love the 
+>> "jumpto" and "target" winprops, but something to regain focus to the 
+>> original frame would be nice. How difficult do you predict this would be 
+>> to implement, or if it is at all possible?
+> 
+> What do you exactly mean by regaining focus?
+> 
+
+I mean something like "jumpto" but back to the original frame when I 
+close my application.
+Say I have two frames, and when I open my app it opens in my target and 
+receives focus. Now, when I quit I want my the spawning frame to have 
+focus again and not the frame set as target. If that makes sense?
+
+
+
+From ben at decadent.org.uk  Fri Apr 27 20:25:14 2007
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Fri, 27 Apr 2007 19:25:14 +0100
+Subject: License change
+In-Reply-To: <20070427163348.GA8908@jolt.modeemi.cs.tut.fi>
+References: <20070427161531.GA7072@jolt.modeemi.cs.tut.fi>
+	<20070427163348.GA8908@jolt.modeemi.cs.tut.fi>
+Message-ID: <1177698314.4540.50.camel@deadeye.i.decadent.org.uk>
+
+On Fri, 2007-04-27 at 19:33 +0300, Tuomo Valkonen wrote:
+> (Hmm... I wonder where the first try wen't.)
+> 
+> As a further note, I consider the restrictions on the name use
+> retroactive: this is also an issue of trademark law, and as the
+> author, I am the (unregistered) trademark holder for Ion, Ion3,
+> etc.
+
+IANAL, but I think you are too late to make a trademark claim against
+modified or outdated versions of Ion3 not labelled as such, having
+allowed them in the past.
+
+> The new license and copyright law merely act as additional
+> enforcement devices.
+
+They certainly allow you to give rather more specific permissions and
+restrictions to distributors than trademark law supports.
+
+Ben.
+
+-- 
+Ben Hutchings
+If God had intended Man to program,
+we'd have been born with serial I/O ports.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070427/68e2de58/attachment.pgp>
+
+From tuomov at iki.fi  Fri Apr 27 20:59:44 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 27 Apr 2007 21:59:44 +0300
+Subject: License change
+In-Reply-To: <20070427161531.GA7072@jolt.modeemi.cs.tut.fi>
+References: <20070427161531.GA7072@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070427185944.GA30054@jolt.modeemi.cs.tut.fi>
+
+
+After some discussions, I also formulated the following version,
+that is still based on the LGPL. It is more complex, but the
+name-related stuff is better separated.
+
+-- 
+Tuomo
+-------------- next part --------------
+
+The code of this project is licensed under the LGPL, unless otherwise
+indicated in components taken from elsewhere. It is reproduced below.
+Additionally, the following (trademark+copyright) restrictions apply
+to the use of the names Ion, Ion3, and other derived names:
+
+  1. Significantly altered versions of this software may not be
+     distributed (neither in source nor binary form), by a name that
+     could be confused with a name of this software ("ion", "ion3", etc.), 
+     without additional very explicit component that indicates that the 
+     version is non-standard. Such significantly altered versions must
+     in no way point to the original author(s) for support.
+
+  3. Redistributions of this software accessible plainly with a name
+     of this software ("ion", "ion3", etc.), must provide the latest
+     release with a reasonable delay from its release (normally 28 days).
+     Older releases may be distributed, if the full version, or some 
+     other explicit indicator, such as the word "ancient", is part of 
+     the name that the package is accessed with, or if this identifier
+     is completely unrelated to a name of this software.
+
+  3. This notice may not be removed from or altered in any source 
+     or binary distribution, whose name still indicates it to
+     be an (altered) version of this software. It may be removed
+     from proper derivative works.
+
+
+---
+
+# Question and answers
+
+## On significant changes:
+
+A feature patch to the source code would be considered a "significant"
+change. A patch that fixes minor bugs, would a priori be considered
+insignificant, especially if it is available from the author. Basic
+changes in compiler options and installation paths would obviously
+be insignificant. Changes to the configuration files, that merely 
+add to the standard version, without obstructing the standard setup, 
+would a priori be considered insignificant. Changes to the 
+configuration files that are incompatible with the standard setup, 
+would be considered significant. When in doubt, ask.
+
+
+## On distributions:
+
+If the software can be installed with `$pkgtool install ion3` (resp. 
+`$pkgtool install ion`), where `$pkgtool install` stands for the install
+feature of the distribution's package management tool, this should
+always install the latest standard release of Ion3 (resp. in the whole 
+Ion project). The action `$pkgtool install ion-3ds-20070318` may, 
+however, at any date install this particular marked release. Likewise
+`$pkgtool ion-with-tonnes-of-unsupported-patches` may install any 
+altered version.
+
+
+## Proper derivative works
+
+Proper derivative works, i.e. works based on Ion, that no longer
+can be considered merely altered versions of Ion, do not have
+to carry the above notice. As long as these works are still
+competing window managers, they should prevented from being 
+given names that could be confused with Ion, by trademark law.
+
+From tuomov at iki.fi  Fri Apr 27 21:11:52 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 27 Apr 2007 19:11:52 +0000 (UTC)
+Subject: Winprop suggestion: "jumpback"
+References: <46322854.8030206@gmail.com>
+	<slrnf34b75.biu.tuomov@jolt.modeemi.cs.tut.fi>
+	<46323C5F.7090907@gmail.com>
+Message-ID: <slrnf34ino.ts3.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-04-27, Oskar Nordquist <oskar.nordquist at gmail.com> wrote:
+> Say I have two frames, and when I open my app it opens in my target and 
+> receives focus. Now, when I quit I want my the spawning frame to have 
+> focus again and not the frame set as target. If that makes sense?
+
+It might be scriptable by some placement_hook or getwinprop, and
+deinit_hook (or something like that) hacks. It would be ugly, though.
+
+There's also the "return placeholder" code, that could be used to
+store the location where the window would have been put if the
+target winprop wasn't set. But setting it would depend on changes 
+in the code, and I'm not sure if this should be the behaviour...
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Fri Apr 27 23:11:30 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 27 Apr 2007 21:11:30 +0000 (UTC)
+Subject: License change
+References: <20070427161531.GA7072@jolt.modeemi.cs.tut.fi>
+	<20070427185944.GA30054@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnf34po2.bfm.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-04-27, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> After some discussions, I also formulated the following version,
+> that is still based on the LGPL. It is more complex, but the
+> name-related stuff is better separated.
+
+Yet further discussions resulted in the following name usage
+guidelines/restrictions, that should lie entirely in the
+trademark domain, and therefore should also should apply to
+how to refer to old releases. (LGPL not touching that domain.)
+
+
+---
+
+
+The code of this project is licensed under the LGPL, version 2.1, unless
+otherwise indicated in components taken from elsewhere. It is reproduced 
+below. Additionally, the following guidelines/restrictions apply to the 
+use of the names Ion, Ion3, and other derived names:
+
+The name 'Ion' refers to the project as a whole, and may not without
+further qualifiers be used to refer to any particular version of this
+software, or derived work.
+
+The names 'Ion1', 'Ion2', 'Ion3', etc. without further qualifiers refer
+to branches of the project. They may not be used to refer to packages 
+of versions or derived works that significantly differ from the latest
+release on the corresponding branch, as provided by the author, with
+a reasonable delay (normally 28 days). Unqualified, they may also not
+be used to refer to executables of derived works that significantly 
+differ from releases by the author.
+
+The names of particular releases (such as 'ion-3ds-yyyymmdd', with the
+last part indicating release date), may not be used to refer to versions
+that significantly differ from that release.
+
+Significantly altered versions that are not yet "proper" derived 
+works (which would need a new name and maintainer), may use these
+names together with a further qualifier that indicates the nature 
+of the change, provided that they in no way point to the original 
+author for support.
+
+A feature patch to the source code would be considered a "significant"
+change. A patch that fixes minor bugs, would a priori be considered
+insignificant, especially if it is available from the author. Basic
+changes in compiler options and installation paths would obviously
+be insignificant. Changes to the configuration files, that merely 
+add to the standard version, without obstructing the standard setup, 
+would a priori be considered insignificant. Changes to configuration
+files that are incompatible with the standard setup, would be 
+considered significant. When in doubt, ask.
+
+
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sat Apr 28 10:55:19 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 28 Apr 2007 08:55:19 +0000 (UTC)
+Subject: License change
+References: <20070427161531.GA7072@jolt.modeemi.cs.tut.fi>
+	<20070427163348.GA8908@jolt.modeemi.cs.tut.fi>
+	<1177698314.4540.50.camel@deadeye.i.decadent.org.uk>
+Message-ID: <slrnf362vn.an2.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-04-27, Ben Hutchings <ben at decadent.org.uk> wrote:
+> IANAL, but I think you are too late to make a trademark claim against
+> modified or outdated versions of Ion3 not labelled as such, having
+> allowed them in the past.
+
+I have never allowed significantly modified or outdated versions
+to be distributed as "ion". If such have been distributed, it's
+because I don't have eyes in my ass.
+
+-- 
+Tuomo
+
+
+
+From dkgip at speakeasy.net  Sun Apr 29 05:12:45 2007
+From: dkgip at speakeasy.net (Derek Gipson)
+Date: Sat, 28 Apr 2007 20:12:45 -0700
+Subject: Latest darcs snapshot
+Message-ID: <20070429031245.GA8647@loquat>
+
+Was the repo rolled back? The latest snapshot compiled fine, but here
+are the errors when starting ion3
+
+>> Unable to find 'de' on search path.
+>> Stack trace:
+   0 [C]: in 'select_engine'
+   1 /etc/ion3/look.lua:6
+     [Skipping unnamed C functions.]
+>> No drawing engines loaded, trying "de".
+>> Unable to find 'de' on search path.
+>> Unable to find 'ioncore_ext' on search path.
+>> Refusing to start due to encountered errors.
+
+
+Thanks, Derek
+
+
+

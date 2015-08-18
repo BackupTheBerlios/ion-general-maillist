@@ -1,0 +1,2524 @@
+From tuomov at iki.fi  Fri May  2 11:32:25 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 2 May 2008 09:32:25 +0000 (UTC)
+Subject: Ion3 wishlist / a note about Ion4
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+	<20080423133831.GA7806@tuvok.wenf.org>
+	<slrng0uhis.usr.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080430152745.GB20293@tuvok.wenf.org>
+Message-ID: <slrng1lnt9.kn4.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-04-30, Jan Johansson <janj+ion at wenf.org> wrote:
+> On the contrary I think it fits very well. For my optimal setup I
+> would only have one single workspace. Split in two or four
+> (equal) parts. As the day goes on it fills with windows for
+> different tasks. Just staring up I load my IM client, calendar
+> and mail client. Then starting work in an a number of xterms. If
+> I then want to dig into a problem I need to stop the IM, mail and
+> such. I think it would be nice to just hide/unmap the tag/group
+> "Interupters".
+
+Ah, so you want to show/hide window within a group of frames, based
+on a tag? That certainly does fit the Ion tiling approach relatively
+well. Selection should be a fairly trivial extension of the bookmarks
+script [1] to support multiple frames (bms[frame][tag] -- although the
+binding setup of the script uses, numbers, it is possible to use 
+arbitrary index objects, such as string tags). Hiding demands a little
+bit more work: you have to find out if an object with the given tag is
+active in any frame, and then if the frame contains objects with other
+tags that could be activated, etc. Ion does not provide a ready command
+to hide a particular object on the "mutually exclusive" list a multiplexer.
+
+  [1]: http://modeemi.fi/~tuomov/repos/ion-scripts-3/scripts/bookmarks.lua
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Fri May  2 11:50:04 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 2 May 2008 12:50:04 +0300
+Subject: Ion3 wishlist / a note about Ion4
+In-Reply-To: <4818ADA1.30507@yandex.ru>
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+	<4815C835.8030908@yandex.ru>
+	<slrng1bulf.jbk.tuomov@jolt.modeemi.cs.tut.fi>
+	<4818ADA1.30507@yandex.ru>
+Message-ID: <20080502095004.GA23267@jolt.modeemi.cs.tut.fi>
+
+On 2008-04-30 21:34 +0400, Evgeny Kurbatov wrote:
+> Yes.  Such a behaviour I observed since first release if ion3 I used, it
+> was far ago (I was too lasy to report this bug).  The bug looks like
+> this.  The workspace list binded on Win+W combination and this list
+> raised when I press Win+W or Win+Tse (Tse is russian symbol mapped onto
+> W key in russian layout).  After list raised I can select something with
+> mouse or cursor keys.  The mouse selection works independently on
+> current keyboard layout but keyboard selection (i.e. when I press enter
+> on needed item) works for default layout only, so if the russian layout
+> set, pressing Enter do not lead to any action until I switch keyboard
+> layout to default.  This is the bug.
+
+Keys that are not available in the russian layout, clearly can not
+be bound then, because the binding mechanism is symbol-based instead
+of positional (standard X not offering positional information; that
+would demand the piece of crap known as XKb). You should use
+Mode_Switch for multiple keymaps (which can be either locking or
+or not). However, there also appears to be a bug in keymap refresh
+when the keymaps are changed: if I did 'setxkbmap -layout ru' and
+then returned to 'fi', some of the keys were gone for good in already
+existing frames. The attached patch should fix that.
+
+-- 
+Tuomo
+-------------- next part --------------
+Fri May  2 12:45:18 EEST 2008  Tuomo Valkonen <tuomov at iki.fi>
+  * Binding refresh fixes on keymap change
+diff -rN -u old-ion-3-work1.1/ioncore/binding.c new-ion-3-work1.1/ioncore/binding.c
+--- old-ion-3-work1.1/ioncore/binding.c	2008-05-02 12:45:58.828442190 +0300
++++ new-ion-3-work1.1/ioncore/binding.c	2008-05-02 12:45:58.836440838 +0300
+@@ -95,18 +95,13 @@
+ }
+ 
+ /* This is only used for searching AnyKey etc. */
+-static int compare_bindings_ksb(const WBinding *a, const WBinding *b)
++static int compare_bindings_any(const WBinding *a, const WBinding *b)
+ {
+-    int r=CVAL(a, b, act);
+-    if(r==0){
++    int r=compare_bindings(a, b);
++    
++    if(r==0)
+         r=CVAL(a, b, ksb);
+-        if(r==0){
+-            r=CVAL(a, b, state);
+-            if(r==0){
+-                r=CVAL(a, b, area);
+-            }
+-        }
+-    }
++    
+     return r;
+ }
+                     
+@@ -398,7 +393,7 @@
+ 
+ void binding_ungrab_on(const WBinding *binding, Window win)
+ {
+-    if(binding->act==BINDING_KEYPRESS){
++    if(binding->act==BINDING_KEYPRESS && binding->kcb!=0){
+ #ifndef CF_HACK_IGNORE_EVIL_LOCKS
+         XUngrabKey(ioncore_g.dpy, binding->kcb, binding->state, win);
+ #else
+@@ -444,7 +439,7 @@
+ }
+ 
+ 
+-static WBinding *search_binding_ksb(WBindmap *bindmap, WBinding *binding)
++static WBinding *search_binding_any(WBindmap *bindmap, WBinding *binding)
+ {
+     Rb_node node;
+     int found=0;
+@@ -453,7 +448,7 @@
+         return NULL;
+     
+     node=rb_find_gkey_n(bindmap->bindings, binding,
+-                        (Rb_compfn*)compare_bindings_ksb, &found);
++                        (Rb_compfn*)compare_bindings_any, &found);
+     
+     if(found==0)
+         return NULL;
+@@ -494,13 +489,14 @@
+ 
+         if(binding==NULL){
+             tmp.state=state;
++            tmp.kcb=0;
+             tmp.ksb=(act==BINDING_KEYPRESS ? AnyKey : AnyButton);
+             
+-            binding=search_binding_ksb(bindmap, &tmp);
++            binding=search_binding_any(bindmap, &tmp);
+ 
+             if(binding==NULL){
+                 tmp.state=AnyModifier;
+-                binding=search_binding_ksb(bindmap, &tmp);
++                binding=search_binding_any(bindmap, &tmp);
+             }
+         }
+     }
+
+
+From Kevin at RawFedDogs.net  Sat May 17 00:49:57 2008
+From: Kevin at RawFedDogs.net (Kevin Monceaux)
+Date: Fri, 16 May 2008 17:49:57 -0500 (CDT)
+Subject: New Ion User - Focus Question
+Message-ID: <alpine.DEB.1.10.0805161742180.14603@Chesterton.RawFedDogs.net>
+
+Ion Fans,
+
+A couple of days ago I discovered Ion and I'm just about hooked.  For most 
+apps I prefer fullscreen mode.  But, there are a few things, like xv, that 
+work better in float mode.  I've added defwinprop entries for xv to a 
+cfg_kludges.lua file in my ~/.ion3 directory with float, jumpto, and 
+switchto set to true.  Focus works almost as I want it to, unless I move 
+the mouse which smegs up the focus.  I've tried adding 
+mousefocus='disabled' to the ioncore.set section of the cfg_ion.lua file 
+in my ~/.ion3 directory, but it seems to be ignored.  How does one disable 
+the focus following the mouse.
+
+
+
+Kevin
+http://www.RawFedDogs.net
+http://www.WacoAgilityGroup.org
+Bruceville, TX
+
+Si hoc legere scis nimium eruditionis habes.
+Longum iter est per praecepta, breve et efficax per exempla!!!
+
+
+
+From tuomov at iki.fi  Sat May 17 10:40:46 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 17 May 2008 08:40:46 +0000 (UTC)
+Subject: New Ion User - Focus Question
+References: <alpine.DEB.1.10.0805161742180.14603@Chesterton.RawFedDogs.net>
+Message-ID: <slrng2t6ge.vh1.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-05-16, Kevin Monceaux <Kevin at RawFedDogs.net> wrote:
+> I've tried adding 
+> mousefocus='disabled' to the ioncore.set section of the cfg_ion.lua file 
+> in my ~/.ion3 directory, but it seems to be ignored.  How does one disable 
+> the focus following the mouse.
+
+Probably by upgrading to the latest version.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sat May 17 10:45:20 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 17 May 2008 08:45:20 +0000 (UTC)
+Subject: Ion3 wishlist / a note about Ion4
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+	<20080425064832.GA16299@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrng2t6p0.vh1.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-04-25, Tuomo Valkonen <tuomov at iki.fi> wrote:
+>   * Additional drawing engines, with better configurability than
+>     the simple default one.
+
+One funny (and laboursome) idea once played around on the IRC channel
+involved the use of CSS.
+
+Click-to-focus is one occasionally requested feature.
+
+-- 
+Tuomo
+
+
+
+From Kevin at RawFedDogs.net  Sun May 18 16:06:26 2008
+From: Kevin at RawFedDogs.net (Kevin Monceaux)
+Date: Sun, 18 May 2008 09:06:26 -0500 (CDT)
+Subject: New Ion User - Focus Question
+In-Reply-To: <slrng2t6ge.vh1.tuomov@jolt.modeemi.cs.tut.fi>
+References: <alpine.DEB.1.10.0805161742180.14603@Chesterton.RawFedDogs.net>
+	<slrng2t6ge.vh1.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <alpine.DEB.1.10.0805180900310.14603@Chesterton.RawFedDogs.net>
+
+On Sat, 17 May 2008, Tuomo Valkonen wrote:
+
+> On 2008-05-16, Kevin Monceaux <Kevin at RawFedDogs.net> wrote:
+>> I've tried adding
+>> mousefocus='disabled' to the ioncore.set section of the cfg_ion.lua file
+>> in my ~/.ion3 directory, but it seems to be ignored.  How does one disable
+>> the focus following the mouse.
+>
+> Probably by upgrading to the latest version.
+
+Thanks for the pointer.  I'm running Ion3 via the ion3 Debian package. 
+Debian shows it's version as 20080411-1.  By latest version do you mean 
+the Ion3+ development branch available via darcs?  If so, I'll give it a 
+try.
+
+
+
+
+Kevin
+http://www.RawFedDogs.net
+http://www.WacoAgilityGroup.org
+Bruceville, TX
+
+Si hoc legere scis nimium eruditionis habes.
+Longum iter est per praecepta, breve et efficax per exempla!!!
+
+
+
+From Matthieu.Moy at imag.fr  Sun May 18 21:20:06 2008
+From: Matthieu.Moy at imag.fr (Matthieu Moy)
+Date: Sun, 18 May 2008 21:20:06 +0200
+Subject: New Ion User - Focus Question
+In-Reply-To: <alpine.DEB.1.10.0805180900310.14603@Chesterton.RawFedDogs.net>
+	(Kevin Monceaux's message of "Sun\,
+	18 May 2008 09\:06\:26 -0500 \(CDT\)")
+References: <alpine.DEB.1.10.0805161742180.14603@Chesterton.RawFedDogs.net>
+	<slrng2t6ge.vh1.tuomov@jolt.modeemi.cs.tut.fi>
+	<alpine.DEB.1.10.0805180900310.14603@Chesterton.RawFedDogs.net>
+Message-ID: <vpqej7zqv15.fsf@bauges.imag.fr>
+
+Kevin Monceaux <Kevin at RawFedDogs.net> writes:
+
+> On Sat, 17 May 2008, Tuomo Valkonen wrote:
+>
+>> On 2008-05-16, Kevin Monceaux <Kevin at RawFedDogs.net> wrote:
+>>> I've tried adding
+>>> mousefocus='disabled' to the ioncore.set section of the cfg_ion.lua file
+>>> in my ~/.ion3 directory, but it seems to be ignored.  How does one disable
+>>> the focus following the mouse.
+>>
+>> Probably by upgrading to the latest version.
+>
+> Thanks for the pointer.  I'm running Ion3 via the ion3 Debian package.
+> Debian shows it's version as 20080411-1.  By latest version do you
+> mean the Ion3+ development branch available via darcs?  If so, I'll
+> give it a try.
+
+After discovering ion3, you're about to discover the author's
+passionate relationship with Debian, by posting such messages ;-).
+
+-- 
+Matthieu
+
+
+From ben at decadent.org.uk  Sun May 18 21:07:08 2008
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Sun, 18 May 2008 20:07:08 +0100
+Subject: New Ion User - Focus Question
+In-Reply-To: <alpine.DEB.1.10.0805180900310.14603@Chesterton.RawFedDogs.net>
+References: <alpine.DEB.1.10.0805161742180.14603@Chesterton.RawFedDogs.net>
+	<slrng2t6ge.vh1.tuomov@jolt.modeemi.cs.tut.fi>
+	<alpine.DEB.1.10.0805180900310.14603@Chesterton.RawFedDogs.net>
+Message-ID: <1211137628.12863.28.camel@deadeye.i.decadent.org.uk>
+
+On Sun, 2008-05-18 at 09:06 -0500, Kevin Monceaux wrote:
+> On Sat, 17 May 2008, Tuomo Valkonen wrote:
+> 
+> > On 2008-05-16, Kevin Monceaux <Kevin at RawFedDogs.net> wrote:
+> >> I've tried adding
+> >> mousefocus='disabled' to the ioncore.set section of the cfg_ion.lua file
+> >> in my ~/.ion3 directory, but it seems to be ignored.  How does one disable
+> >> the focus following the mouse.
+> >
+> > Probably by upgrading to the latest version.
+> 
+> Thanks for the pointer.  I'm running Ion3 via the ion3 Debian package. 
+> Debian shows it's version as 20080411-1.  By latest version do you mean 
+> the Ion3+ development branch available via darcs?  If so, I'll give it a 
+> try.
+
+If you've modified some of the configuration files in /etc/X11/ion3 and
+then upgraded, it's possible that you've missed some significant changes
+there.  "debsums --config ion3" will show you which configuration files
+are different, if any (listed as "FAILED").  The default configuration
+files will have been installed with the extension ".dpkg-dist".
+
+Ben.
+
+-- 
+Ben Hutchings
+The two most common things in the universe are hydrogen and stupidity.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080518/e82729bf/attachment.pgp>
+
+From lists at ku-gbr.de  Tue May 20 10:40:17 2008
+From: lists at ku-gbr.de (Konstantin Kletschke)
+Date: Tue, 20 May 2008 10:40:17 +0200
+Subject: Main window's focus with active transient
+Message-ID: <20080520084017.GA2568@anita>
+
+Hi Folks! 
+
+I just discovered a little issue I stumbled upon.
+
+If I open a transient, for example cadsoft eagle DRC window seems to be
+a transient or simply konqueror's settings dialog, in tiled mode, I can
+switch focus to main application and type stuff on keyboard still. The
+application gets the keys and mouse focus back. This is essential for
+this f****** eagle DRC dialog, it is kept open while I solve things in
+the main window. Even manually overriding an existing transient/settings
+dialog seems to be more intuitive to me, since the main window is
+actually there.
+
+When the application is tiled, I can switch focus back to it with mouse
+but not type keys to it.
+
+Is that behaviour a known limitation, configurable by me or intentional?
+
+Kind regards, Konsti
+
+-- 
+GPG KeyID EF62FCEF
+Fingerprint: 13C9 B16B 9844 EC15 CC2E  A080 1E69 3FDA EF62 FCEF
+
+
+From tuomov at iki.fi  Wed May 21 10:30:53 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 21 May 2008 08:30:53 +0000 (UTC)
+Subject: Main window's focus with active transient
+References: <20080520084017.GA2568@anita>
+Message-ID: <slrng37ndt.scn.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-05-20, Konstantin Kletschke <lists at ku-gbr.de> wrote:
+> When the application is tiled, I can switch focus back to it with mouse
+> but not type keys to it.
+
+If you can't type in it, you can't switch focus to it.. unless the
+application is itself refusing the input. Focus means keyboard input,
+although some toolkits also expect the pointer to be in the field and
+indicate that.
+
+> Is that behaviour a known limitation, configurable by me or intentional?
+
+I consider all transients modal. They're _transient_ windows, after
+all. Separate _toolbox windows_ -- which are in themselves a fundamental 
+design flaw -- should not be marked as transient. 
+
+You can override the application-provided transient hint with 
+transient_mode winprop. That will, however, place the toolbox as a new
+client in the current frame. The 'float' winprop might do something more
+useful. Maybe some of the scripts in the scripts repository also did 
+something useful; check it. 
+
+It is also possible to put windows managed in the group of a main window 
+on a non-modal stacking level. This will, however, require a custom
+clientwin_do_manage_alt hook handler or an attach script, as it is only
+possible to set the stacking level from a WMPlex.attach[_new] call. 
+(Levels starting from 1024 are modal.) Maybe someone can write a script...
+
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Wed May 21 10:36:43 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 21 May 2008 08:36:43 +0000 (UTC)
+Subject: New Ion User - Focus Question [+ Gentoo braindamage]
+References: <alpine.DEB.1.10.0805161742180.14603@Chesterton.RawFedDogs.net>
+	<slrng2t6ge.vh1.tuomov@jolt.modeemi.cs.tut.fi>
+	<alpine.DEB.1.10.0805180900310.14603@Chesterton.RawFedDogs.net>
+Message-ID: <slrng37nor.scn.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-05-18, Kevin Monceaux <Kevin at RawFedDogs.net> wrote:
+> Thanks for the pointer.  I'm running Ion3 via the ion3 Debian package. 
+> Debian shows it's version as 20080411-1.  By latest version do you mean 
+> the Ion3+ development branch available via darcs?  If so, I'll give it a 
+> try.
+
+There was a problem with the mousefocus setting being ignored, but
+it should be fixed in 20080411. Maybe Debian have broken it again,
+or you're doing something wrong -- such as expecting what would
+normally work to work with Debian's fucked up config that probably
+overrides everything you set in Debian-specific files.
+
+---
+
+In other news: Gentoo has managed to patch Lua 5.1 to no longer
+work with Ion, requiring special USE flags to not apply a patch
+that makes it incompatible with stock Lua 5.1 with default settings.
+Just like the case with Arch Linux assholes distributing
+XFascistType-patched Ion as the standard Ion. 
+
+That's typical distro behaviour for you. Fuck them. 
+Use the original, not cheap plastic imitations that the
+distros spew out.
+
+-- 
+Tuomo
+
+
+
+From apmanine at free.fr  Wed May 21 11:15:40 2008
+From: apmanine at free.fr (Alain-Pierre Manine)
+Date: Wed, 21 May 2008 11:15:40 +0200
+Subject: Ion3 wishlist / a note about Ion4
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+Message-ID: <op.ubhyoer9tcvb7l@localhost>
+
+Le Wed, 23 Apr 2008 08:32:12 +0200, Tuomo Valkonen  
+<tuomov-X3B1VOXEql0 at public.gmane.org> a ?crit:
+
+> 1. I thought it would be good to collect somewhere, some possible
+> things to work on in Ion3plus, if anyone can be arsed.
+
+(First of all, I am a happy user of Ion since three or four years. Thanks  
+to Tuomo for this wonderful WM.)
+
+Some wishes for Ion3+.
+
+1) An easy way to save a workspace configuration to cfg_layouts.lua: after  
+have set frames configuration of a workspace to fit a specific task, I  
+would like to save it, just in case.
+
+2) A "modal" keyboard handling (VI-like): for instance, a default "App  
+Mode", in which all keys would be handling by the application, until the  
+user presses an "echap" key, which would allow to switch between several  
+modes (frames modes, tabs mode, resize mode, etc.). The main benefices of  
+this approach would be that: i) Ion won't anymore interfere with the  
+default softwares shortcuts (functions keys in Opera, Midnight Commander,  
+etc.); ii) we could use the same set of unique keys to manage similar  
+tasks (ex. H, J, K and L to move between frames and tabs, to resize frame,  
+etc.).
+
+3) A screen-like "detach" functionality: I already use scripts to, when I  
+press a key, open a new terminal in a screen session named according to  
+the workspace name. That allows to "import" consoles of a workspace into a  
+distant computer, and continue the work where we left it. Nevertheless, it  
+would be great to have this feature built-in in the WM, in order to import  
+a complete distant Ion workspace, including the frame configuration. The  
+only work I know related to this is done here:  
+http://partiwm.org/wiki/xpra .
+
+
+
+From ben at decadent.org.uk  Wed May 21 11:44:45 2008
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Wed, 21 May 2008 10:44:45 +0100
+Subject: New Ion User - Focus Question [+ Gentoo braindamage]
+In-Reply-To: <slrng37nor.scn.tuomov@jolt.modeemi.cs.tut.fi>
+References: <alpine.DEB.1.10.0805161742180.14603@Chesterton.RawFedDogs.net>
+	<slrng2t6ge.vh1.tuomov@jolt.modeemi.cs.tut.fi>
+	<alpine.DEB.1.10.0805180900310.14603@Chesterton.RawFedDogs.net>
+	<slrng37nor.scn.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <1211363085.25252.3.camel@deadeye.i.decadent.org.uk>
+
+On Wed, 2008-05-21 at 08:36 +0000, Tuomo Valkonen wrote:
+> On 2008-05-18, Kevin Monceaux <Kevin at RawFedDogs.net> wrote:
+> > Thanks for the pointer.  I'm running Ion3 via the ion3 Debian package. 
+> > Debian shows it's version as 20080411-1.  By latest version do you mean 
+> > the Ion3+ development branch available via darcs?  If so, I'll give it a 
+> > try.
+> 
+> There was a problem with the mousefocus setting being ignored, but
+> it should be fixed in 20080411. Maybe Debian have broken it again,
+> or you're doing something wrong -- such as expecting what would
+> normally work to work with Debian's fucked up config that probably
+> overrides everything you set in Debian-specific files.
+
+Tuomo, you should know very well that I don't make such changes.  You
+reviewed all the patches, remember?
+
+Ben.
+
+-- 
+Ben Hutchings
+If the facts do not conform to your theory, they must be disposed of.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080521/0bb8b4e5/attachment.pgp>
+
+From tuomov at iki.fi  Wed May 21 11:58:14 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 21 May 2008 09:58:14 +0000 (UTC)
+Subject: New Ion User - Focus Question [+ Gentoo braindamage]
+References: <alpine.DEB.1.10.0805161742180.14603@Chesterton.RawFedDogs.net>
+	<slrng2t6ge.vh1.tuomov@jolt.modeemi.cs.tut.fi>
+	<alpine.DEB.1.10.0805180900310.14603@Chesterton.RawFedDogs.net>
+	<slrng37nor.scn.tuomov@jolt.modeemi.cs.tut.fi>
+	<1211363085.25252.3.camel@deadeye.i.decadent.org.uk>
+Message-ID: <slrng37shm.5mh.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-05-21, Ben Hutchings <ben at decadent.org.uk> wrote:
+> Tuomo, you should know very well that I don't make such changes.  You
+> reviewed all the patches, remember?
+
+The problem with cfg_debian being loaded too late pops up every now
+and then. I don't remember if it's been fixed.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Wed May 21 13:34:57 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 21 May 2008 11:34:57 +0000 (UTC)
+Subject: Ion3 wishlist / a note about Ion4
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+	<op.ubhyoer9tcvb7l@localhost>
+Message-ID: <slrng38271.dae.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-05-21, Alain-Pierre Manine <apmanine at free.fr> wrote:
+> 1) An easy way to save a workspace configuration to cfg_layouts.lua: after  
+> have set frames configuration of a workspace to fit a specific task, I  
+> would like to save it, just in case.
+
+This should be implementable as a script with WRegion.get_configuration,
+ioncore.write/read_savefile, and WMPlex.attach_new (after possibly
+filtering the results a bit from stuff related to currently attached
+client windows).
+
+> 2) A "modal" keyboard handling (VI-like): for instance, a default "App  
+> Mode", in which all keys would be handling by the application, until the  
+> user presses an "echap" key, which would allow to switch between several  
+> modes (frames modes, tabs mode, resize mode, etc.). 
+
+On my old TODO-list there indeed was an entry for locking submaps
+(that are only explicitly terminated). I however never got around to 
+doing that, although it shouldn't be too difficult. A nice simple
+exercise for the budding Ion hacker. (Properly altering _ and _sub
+passed to binding handlers after focus change within the mode demands 
+a bit more work, although initially it can be emulated within the
+binding handlers.)
+
+> 3) A screen-like "detach" functionality: I already use scripts to, when I  
+> press a key, open a new terminal in a screen session named according to  
+> the workspace name. That allows to "import" consoles of a workspace into a  
+> distant computer, and continue the work where we left it. Nevertheless, it  
+> would be great to have this feature built-in in the WM, in order to import  
+> a complete distant Ion workspace, including the frame configuration. The  
+> only work I know related to this is done here:  
+> http://partiwm.org/wiki/xpra .
+
+An interesting hack, but *eugh*. I think VNC is quite enough for access of
+running remote programs (if VNC implementations itself didn't suck). For
+finer workspace/task or even single program level control I'd rather do 
+this through proper session management: instead of saving individual 
+workspaces as above, you could save the state of all the programs on that
+workspace and start the session anywhere, even after reboots. I'd like my
+tasks/workspaces to be truly mobile, their state possibly living anywhere 
+in cyberspace, and attachable/restartable on any computer I might stumble
+upon (and deem safe enough), possibly without constant a high-speed internet
+connection.
+
+-- 
+Tuomo
+
+
+
+From apmanine at free.fr  Thu May 22 10:21:34 2008
+From: apmanine at free.fr (Alain-Pierre Manine)
+Date: Thu, 22 May 2008 10:21:34 +0200
+Subject: Ion3 wishlist / a note about Ion4
+In-Reply-To: <slrng38271.dae.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+	<op.ubhyoer9tcvb7l@localhost>
+	<slrng38271.dae.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <op.ubjqt8pxtcvb7l@localhost>
+
+> On my old TODO-list there indeed was an entry for locking submaps
+> (that are only explicitly terminated). I however never got around to
+> doing that, although it shouldn't be too difficult. A nice simple
+> exercise for the budding Ion hacker. (Properly altering _ and _sub
+> passed to binding handlers after focus change within the mode demands
+> a bit more work, although initially it can be emulated within the
+> binding handlers.)
+
+Just a naive question: doesn't the code for locking submaps exist in a way  
+or another, as resizing a frame is done following a modal way (contrary to  
+the other frames operations)?
+
+A few other suggestions:
+
+4) In most cases, the Ion "static" approach of setting frames fully  
+satisfies me. Nevertheless, I think that introducing some dynamical  
+aspects could be useful from time to time, when the user needs it. For  
+instance, I would wish to see together several windows, otherwise in  
+different workspaces, or hidden by floating splits. To do this, I may tag  
+the relevant windows, hit a magic key, and after that, the windows will  
+show in a temporary workspace (i.e. fullscreen-like way), organized  
+following an user-defined heuristic. Hit the magic keys again, and all  
+windows would go back to their original location.
+
+4bis) Somehow related to 4): when you organize your workspaces by task, it  
+may happen that a window is common to multiple tasks. Thus, it might be  
+useful to have a way to duplicate a window. With xterms, I (ok, very  
+seldom) use "screen -x" to do this.
+
+
+From oskar.nordquist at gmail.com  Thu May 22 13:25:38 2008
+From: oskar.nordquist at gmail.com (Oskar Nordquist)
+Date: Thu, 22 May 2008 13:25:38 +0200
+Subject: Ion3 wishlist / a note about Ion4
+In-Reply-To: <op.ubjqt8pxtcvb7l@localhost>
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+	<op.ubhyoer9tcvb7l@localhost>
+	<slrng38271.dae.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.ubjqt8pxtcvb7l@localhost>
+Message-ID: <bced70ce0805220425l65139bbbu8d85bc7169e3edb1@mail.gmail.com>
+
+Wmii-like auto-resize of frames, i.e. after splitting, the frames would
+auto-resize to occupy the same amount of area.
+
+     (1)
++-----------+
+|           |
+|           |
++-----------+
+
+     (2)
++-----+-----+
+|     |     |
+|     |     |
++-----+-----+
+
+     (3)
++---+---+---+
+|   |   |   |
+|   |   |   |
++---+---+---+
+
+
+-- 
+Oskar
+
+
+From tuomov at iki.fi  Thu May 22 23:28:09 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 22 May 2008 21:28:09 +0000 (UTC)
+Subject: Ion3 wishlist / a note about Ion4
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+	<op.ubhyoer9tcvb7l@localhost>
+	<slrng38271.dae.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.ubjqt8pxtcvb7l@localhost>
+Message-ID: <slrng3bpb9.gt5.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-05-22, Alain-Pierre Manine <apmanine at free.fr> wrote:
+> Just a naive question: doesn't the code for locking submaps exist in a way  
+> or another, as resizing a frame is done following a modal way (contrary to  
+> the other frames operations)?
+
+Indeed, there's some code to that end there too. However, the resize
+modes etc. don't support further submaps. (Not that one would likely
+want them in a vi-style mode anyway.)
+
+Infact, now that I recall, I did write mod_mgmtmode, but never
+finished it and removed it for the release. I can make it available
+of there's interest in finishing it.
+
+> To do this, I may tag  
+> the relevant windows, hit a magic key, and after that, the windows will  
+> show in a temporary workspace (i.e. fullscreen-like way), organized  
+> following an user-defined heuristic. Hit the magic keys again, and all  
+> windows would go back to their original location.
+
+It's not difficult to script this. However, the 'placeholder'
+mechanisms of Ion would be very useful in returning windows more
+intelligently where they were. That is not currently exported on
+the Lua side. It should not be that much work, and really should
+be done, but once again I can't have been arsed. (I don't have
+immediate personal use for the feature, it's gruntwork, and
+I don't have much time for coding anyway.)
+
+(A lot of the complexity of Ion's code is actually due to these
+"placeholders" and pointers to them in other structures. They're
+used to ensure that windows return from full screen mode exactly
+where they were, that under a session manager applications restart
+exactly where they were, and so on. Ion tries very hard to do these
+things "right".)
+
+> 4bis) Somehow related to 4): when you organize your workspaces by task, it  
+> may happen that a window is common to multiple tasks. Thus, it might be  
+> useful to have a way to duplicate a window. With xterms, I (ok, very  
+> seldom) use "screen -x" to do this.
+
+Scriptable, but a bit ugly. Maybe there even was a script already,
+as this is a sort FAQ item?
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Thu May 22 23:37:04 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 22 May 2008 21:37:04 +0000 (UTC)
+Subject: Ion3 wishlist / a note about Ion4
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+	<op.ubhyoer9tcvb7l@localhost>
+	<slrng38271.dae.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.ubjqt8pxtcvb7l@localhost>
+	<bced70ce0805220425l65139bbbu8d85bc7169e3edb1@mail.gmail.com>
+Message-ID: <slrng3bps0.gt5.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-05-22, Oskar Nordquist <oskar.nordquist at gmail.com> wrote:
+> Wmii-like auto-resize of frames, i.e. after splitting, the frames would
+> auto-resize to occupy the same amount of area.
+
+If it's acceptable to rebalance manually after split, it shouldn't
+be too complex to script. Otherwise perhaps a callback to Lua might
+be the best: either a simple hook if minor drawing glitches are
+acceptable, and if not, then something else. 
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Thu May 22 23:41:41 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 22 May 2008 21:41:41 +0000 (UTC)
+Subject: Ion3 wishlist / a note about Ion4
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+	<20080425064832.GA16299@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrng3bq4l.itj.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-04-25, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> Here are some. There may be others that I can't recall right now.
+
+A compositing manager does have real functional uses too, although
+mostly the feature of X seems to be intended for anti-usability glitz.
+It would be nice to have one and experiment with various things.
+
+-- 
+Tuomo
+
+
+
+From psionic at gmail.com  Fri May 23 01:24:07 2008
+From: psionic at gmail.com (Jordan Sissel)
+Date: Thu, 22 May 2008 16:24:07 -0700
+Subject: Ion3 wishlist / a note about Ion4
+In-Reply-To: <slrng3bq4l.itj.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+	<20080425064832.GA16299@jolt.modeemi.cs.tut.fi>
+	<slrng3bq4l.itj.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <5ad23a300805221624s47092d62n3f4c38d73fb05d95@mail.gmail.com>
+
+On Thu, May 22, 2008 at 2:41 PM, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2008-04-25, Tuomo Valkonen <tuomov at iki.fi> wrote:
+>> Here are some. There may be others that I can't recall right now.
+>
+> A compositing manager does have real functional uses too, although
+> mostly the feature of X seems to be intended for anti-usability glitz.
+> It would be nice to have one and experiment with various things.
+>
+
++1 for having a compositing manager that does useful things.
+
+-Jordan
+
+
+From ivan at selidor.net  Fri May 23 09:58:08 2008
+From: ivan at selidor.net (Ivan Vilata i Balaguer)
+Date: Fri, 23 May 2008 09:58:08 +0200
+Subject: Ion3 wishlist / a note about Ion4
+In-Reply-To: <5ad23a300805221624s47092d62n3f4c38d73fb05d95@mail.gmail.com>
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+	<20080425064832.GA16299@jolt.modeemi.cs.tut.fi>
+	<slrng3bq4l.itj.tuomov@jolt.modeemi.cs.tut.fi>
+	<5ad23a300805221624s47092d62n3f4c38d73fb05d95@mail.gmail.com>
+Message-ID: <20080523075808.GA25936@tardis.terramar.selidor.net>
+
+Jordan Sissel (el 2008-05-22 a les 16:24:07 -0700) va dir::
+
+> On Thu, May 22, 2008 at 2:41 PM, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> > On 2008-04-25, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> >> Here are some. There may be others that I can't recall right now.
+> >
+> > A compositing manager does have real functional uses too, although
+> > mostly the feature of X seems to be intended for anti-usability glitz.
+> > It would be nice to have one and experiment with various things.
+> 
+> +1 for having a compositing manager that does useful things.
+
++1 on my side, too.  It turns out that Ion lets me switch windows so
+fast I have to wait for them to redraw!  A compositing manager could
+take all that flickering away.
+
+Cheers,
+
+::
+
+  Ivan Vilata i Balaguer   @ Welcome to the European Banana Republic! @
+  http://www.selidor.net/  @     http://www.nosoftwarepatents.com/    @
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 307 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080523/d5cd882a/attachment.pgp>
+
+From tuomov at iki.fi  Fri May 23 11:17:46 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 23 May 2008 09:17:46 +0000 (UTC)
+Subject: Ion3 wishlist / a note about Ion4
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+	<20080425064832.GA16299@jolt.modeemi.cs.tut.fi>
+	<slrng3bq4l.itj.tuomov@jolt.modeemi.cs.tut.fi>
+	<5ad23a300805221624s47092d62n3f4c38d73fb05d95@mail.gmail.com>
+	<20080523075808.GA25936@tardis.terramar.selidor.net>
+Message-ID: <slrng3d2tq.jiq.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-05-23, Ivan Vilata i Balaguer <ivan at selidor.net> wrote:
+> +1 on my side, too.  It turns out that Ion lets me switch windows so
+> fast I have to wait for them to redraw!  A compositing manager could
+> take all that flickering away.
+
+.. by turning it all slow by constant swapping. Seriously, all apps
+initially drawing into backbuffers is an absurd and unnecessary waste
+of memory (and natural resources). It may not show when you run a single
+program with one big window along with a few auxiliary windows, which is
+most the WIMP interface can really handle. But Ion you typically have 
+dozens of windows open. Now consider all of them having a backbuffer 
+constantly allocated. Is there any way to turn it off (discarding drawing
+requests as normal) for (invisible) windows, when not needed? I haven't
+studied the protocols in detail. 
+
+I do, however, think that in general a proxy program (compositing manager) 
+copying damaged regions is a wasteful na?ve/ad hoc approach plagued various
+problems, such as memory waste and programs needing speedy redraws
+(requiring lots of communication and multiple context switches between
+the original program, X, and the compositing manager, unless the program
+is set to bypass the compositing manager). An approach reminiscent of pixel
+and vertex shader programs would probably be better. Instead of uploading
+shaders to a graphics card, you'd upload a transformation program on the X 
+server, in a non-Turing complete language with guaranteed time bounds.
+(Of course that program might also specify shaders.) You might then also
+support general drawing programs, being able to just upload widget drawing
+programs and stuff, instead of sending all the commands over the socket
+each time, improving performance over slow networks.
+
+In any case, if someone wants to write a compositing manager, please go
+ahead. I don't think I'll ever find the time; I rather spend what time
+I find on more "fundamental" ideas... that might be improved by a CM.
+
+-- 
+Tuomo
+
+
+
+From ivan at selidor.net  Fri May 23 11:52:01 2008
+From: ivan at selidor.net (Ivan Vilata i Balaguer)
+Date: Fri, 23 May 2008 11:52:01 +0200
+Subject: Ion3 wishlist / a note about Ion4
+In-Reply-To: <slrng3d2tq.jiq.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+	<20080425064832.GA16299@jolt.modeemi.cs.tut.fi>
+	<slrng3bq4l.itj.tuomov@jolt.modeemi.cs.tut.fi>
+	<5ad23a300805221624s47092d62n3f4c38d73fb05d95@mail.gmail.com>
+	<20080523075808.GA25936@tardis.terramar.selidor.net>
+	<slrng3d2tq.jiq.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080523095201.GA26613@tardis.terramar.selidor.net>
+
+Tuomo Valkonen (el 2008-05-23 a les 09:17:46 +0000) va dir::
+
+> On 2008-05-23, Ivan Vilata i Balaguer <ivan at selidor.net> wrote:
+> > +1 on my side, too.  It turns out that Ion lets me switch windows so
+> > fast I have to wait for them to redraw!  A compositing manager could
+> > take all that flickering away.
+> 
+> .. by turning it all slow by constant swapping. Seriously, all apps
+> initially drawing into backbuffers is an absurd and unnecessary waste
+> of memory (and natural resources). It may not show when you run a single
+> program with one big window along with a few auxiliary windows, which is
+> most the WIMP interface can really handle. But Ion you typically have 
+> dozens of windows open. Now consider all of them having a backbuffer 
+> constantly allocated. Is there any way to turn it off (discarding drawing
+> requests as normal) for (invisible) windows, when not needed? I haven't
+> studied the protocols in detail. 
+
+Umm, I was curious about what the real memory consumption would be.  For
+instance, let's imagine having no less than 30 windows taking a full
+1024x768, 32-bit screen (a *really* bad case, I currently have 12
+windows, only three of them near-fullscreen: 30 * 1024 * 768 * 4 = 90
+Mib, 150 MiB for 1280x1024.  That's not so much by today's standards,
+given graphics memory size, main memory size and intelligent memory
+swapping techniques.  It may not be right for a small system, but I
+think it's OK for a desktop system, if the user makes the decision to go
+into compositing.
+
+Regarding your question, I don't know the answer either, but maybe some
+kind of LRU strategy could be used for selecting which windows have the
+backbuffer enabled.
+
+> I do, however, think that in general a proxy program (compositing manager) 
+> copying damaged regions is a wasteful na?ve/ad hoc approach plagued various
+> problems, such as memory waste and programs needing speedy redraws
+> (requiring lots of communication and multiple context switches between
+> the original program, X, and the compositing manager, unless the program
+> is set to bypass the compositing manager). An approach reminiscent of pixel
+> and vertex shader programs would probably be better. Instead of uploading
+> shaders to a graphics card, you'd upload a transformation program on the X 
+> server, in a non-Turing complete language with guaranteed time bounds.
+> (Of course that program might also specify shaders.) You might then also
+> support general drawing programs, being able to just upload widget drawing
+> programs and stuff, instead of sending all the commands over the socket
+> each time, improving performance over slow networks.
+
+Nice, that slightly reminds me of the architecture of the NeWS window
+system, which used PostScript as that drawing language (a very
+interesting system and an also interesting read):
+http://en.wikipedia.org/wiki/NeWS
+
+Cheers,
+
+::
+
+  Ivan Vilata i Balaguer   @ Welcome to the European Banana Republic! @
+  http://www.selidor.net/  @     http://www.nosoftwarepatents.com/    @
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 307 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080523/f1e4e18d/attachment.pgp>
+
+From lists at ku-gbr.de  Fri May 23 11:53:01 2008
+From: lists at ku-gbr.de (Konstantin Kletschke)
+Date: Fri, 23 May 2008 11:53:01 +0200
+Subject: Main window's focus with active transient
+In-Reply-To: <slrng37ndt.scn.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20080520084017.GA2568@anita>
+	<slrng37ndt.scn.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080523095301.GE4932@anita>
+
+Am 2008-05-21 08:30 +0000 schrieb Tuomo Valkonen:
+> > When the application is tiled, I can switch focus back to it with mouse
+> > but not type keys to it.
+> 
+> If you can't type in it, you can't switch focus to it.. unless the
+
+May be I was misleaded by the fact, that the color of the titlebar keeps
+color style of focused frame but in the frame the transient does not
+give focus away though.
+
+> application is itself refusing the input. Focus means keyboard input,
+
+Thats not the case here, this works fine in float mode.
+
+> although some toolkits also expect the pointer to be in the field and
+> indicate that.
+
+Yes :-) Even more annoying this is.
+
+> I consider all transients modal. They're _transient_ windows, after
+
+But not in float mode, right? In float mode of these Application the
+DRC-Error Box is above the Main Application though, but I can move back
+to Main Window and type keys into it then.
+
+When i invoke the application in float mode and activate the DRC-Error
+toolbox and tag main application and attach it to a new tiled frame, 
+still I can input keys into main application and use the tool box.
+
+Only when invoked from tiled mode this tool box seems to not give 
+keyboard focus away. I realize now in order to poke around with xprops.
+This is what me annoys a bit since the "not not givefocus away" is my
+desired behaviour...
+
+Before there is misunderstanding on my side, is this a transient?
+tool box involed in float mode:
+
+_NET_WM_STATE(ATOM) =
+WM_STATE(WM_STATE):
+                window state: Normal
+                icon window: 0x0
+_NET_WM_NAME(UTF8_STRING) = 0x44, 0x52, 0x43, 0x20, 0x45, 0x72, 0x72, 0x6f, 0x72
+, 0x73
+WM_CLIENT_LEADER(WINDOW): window id # 0x1400008
+WM_WINDOW_ROLE(STRING) = "Dialog.Errors"
+_NET_WM_PID(CARDINAL) = 3466
+_NET_WM_WINDOW_TYPE(ATOM) = _NET_WM_WINDOW_TYPE_DIALOG, _NET_WM_WINDOW_TYPE_NORM
+AL
+WM_PROTOCOLS(ATOM): protocols  WM_DELETE_WINDOW, WM_TAKE_FOCUS, _NET_WM_PING, _N
+ET_WM_CONTEXT_HELP
+WM_NAME(STRING) = "DRC Errors"
+WM_LOCALE_NAME(STRING) = "en_US.UTF-8"
+WM_CLASS(STRING) = "eagle", "eagle"
+WM_HINTS(WM_HINTS):
+                Client accepts input or input focus: True
+                Initial state is Normal State.
+                bitmap id # to use for icon: 0x1400268
+                bitmap id # of mask for icon: 0x1400269
+                window id # of group leader: 0x140026b
+WM_NORMAL_HINTS(WM_SIZE_HINTS):
+                user specified location: 738, 269
+                program specified location: 738, 269
+                user specified size: 323 by 443
+                program specified size: 323 by 443
+                program specified minimum size: 175 by 133
+                window gravity: NorthWest
+WM_CLIENT_MACHINE(STRING) = "elektra"
+WM_TRANSIENT_FOR(WINDOW): window id # 0x140026b
+
+invoked in tiled mode:
+
+WM_STATE(WM_STATE):
+                window state: Normal
+                icon window: 0x0
+_NET_WM_STATE(ATOM) =
+WM_ICON_NAME(STRING) = "untitled.brd"
+_NET_WM_NAME(UTF8_STRING) = 0x31, 0x20, 0x42, 0x6f, 0x61, 0x72, 0x64, 0x20, 0x2d, 0x20, 0x2f, 0x68, 0x6f, 0x6d, 0x65, 0x2f, 0x6b, 0x6f, 0x6e, 0x73, 0x74, 0x69, 0x2f, 0x75, 0x6e, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x64, 0x2e, 0x62, 0x72, 0x64, 0x20, 0x2d, 0x20, 0x45, 0x41, 0x47, 0x4c, 0x45, 0x20, 0x34, 0x2e, 0x31, 0x36, 0x72, 0x32, 0x20, 0x50, 0x72, 0x6f, 0x66, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x61, 0x6c
+XdndAware(ATOM) = ATOM
+_MOTIF_DRAG_RECEIVER_INFO(_MOTIF_DRAG_RECEIVER_INFO) = 0x6c, 0x0, 0x5, 0x8, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x10, 0x0, 0x0, 0x0
+_QT_SIZEGRIP(WINDOW): window id # 0x1400275
+WM_CLIENT_LEADER(WINDOW): window id # 0x1400008
+WM_WINDOW_ROLE(STRING) = "unnamed"
+_NET_WM_PID(CARDINAL) = 3466
+_NET_WM_WINDOW_TYPE(ATOM) = _NET_WM_WINDOW_TYPE_NORMAL
+WM_PROTOCOLS(ATOM): protocols  WM_DELETE_WINDOW, WM_TAKE_FOCUS, _NET_WM_PING
+WM_NAME(STRING) = "1 Board - /home/konsti/untitled.brd - EAGLE 4.16r2 Professional"
+WM_LOCALE_NAME(STRING) = "en_US.UTF-8"
+WM_CLASS(STRING) = "eagle", "eagle"
+WM_HINTS(WM_HINTS):
+                Client accepts input or input focus: True
+                Initial state is Normal State.
+                bitmap id # to use for icon: 0x1400268
+                bitmap id # of mask for icon: 0x1400269
+WM_NORMAL_HINTS(WM_SIZE_HINTS):
+                program specified minimum size: 263 by 161
+                window gravity: NorthWest
+WM_CLIENT_MACHINE(STRING) = "elektra"
+
+Semi-PS.:
+Such Dialogs invoked in tiled frames are strechted about the horizontal
+width completely, can this be switched off somewhere?
+
+> all. Separate _toolbox windows_ -- which are in themselves a fundamental 
+> design flaw -- should not be marked as transient. 
+
+I agree completely, this is a rotten mess...
+
+> client in the current frame. The 'float' winprop might do something more
+> useful. Maybe some of the scripts in the scripts repository also did 
+> something useful; check it. 
+
+Nice Idea, I woll check this area for something like this now.
+
+> It is also possible to put windows managed in the group of a main window 
+> on a non-modal stacking level. This will, however, require a custom
+> clientwin_do_manage_alt hook handler or an attach script, as it is only
+> possible to set the stacking level from a WMPlex.attach[_new] call. 
+> (Levels starting from 1024 are modal.) Maybe someone can write a script...
+
+This also sounds useful and I am interested getting a point to look at
+where and how to start such a script :-)
+
+Kind Regards, Konsti
+
+
+-- 
+GPG KeyID EF62FCEF
+Fingerprint: 13C9 B16B 9844 EC15 CC2E  A080 1E69 3FDA EF62 FCEF
+
+
+From tuomov at iki.fi  Fri May 23 12:07:36 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 23 May 2008 10:07:36 +0000 (UTC)
+Subject: Ion3 wishlist / a note about Ion4
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+	<20080425064832.GA16299@jolt.modeemi.cs.tut.fi>
+	<slrng3bq4l.itj.tuomov@jolt.modeemi.cs.tut.fi>
+	<5ad23a300805221624s47092d62n3f4c38d73fb05d95@mail.gmail.com>
+	<20080523075808.GA25936@tardis.terramar.selidor.net>
+	<slrng3d2tq.jiq.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080523095201.GA26613@tardis.terramar.selidor.net>
+Message-ID: <slrng3d5r8.p24.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-05-23, Ivan Vilata i Balaguer <ivan at selidor.net> wrote:
+> Umm, I was curious about what the real memory consumption would be.  For
+> instance, let's imagine having no less than 30 windows taking a full
+> 1024x768, 32-bit screen (a *really* bad case, I currently have 12
+> windows, only three of them near-fullscreen: 30 * 1024 * 768 * 4 =3D 90
+> Mib, 150 MiB for 1280x1024.  That's not so much by today's standards,
+> given graphics memory size, 
+
+It's too much. It's better to use less resources than always add more
+memory/disk/power plants. But people seldom try to conserve anything, 
+they always take the easy and wasteful way.
+
+(A study ordered by Greenpeace [so take it with a small grain of salt]
+published recently claims that with simple power-saving techniques it 
+would be possible conserve energy in Finland (a country of 5Mpeople) up 
+to the worth of two nuclear power plants capacity or the whole country's 
+coal power plant capacity. Probably they'll actually just build two more
+nuke  plants... there are already applications in. This place is becoming 
+a nuke plant haven/colony.)
+
+> Nice, that slightly reminds me of the architecture of the NeWS window
+> system, which used PostScript as that drawing language (a very
+> interesting system and an also interesting read):
+> http://en.wikipedia.org/wiki/NeWS
+
+Of course, Postscript is Turing-complete AFAIK, which is quite 
+problematic since programs may halt the the server unless it 
+employs hacky watchdog techniques, and is also likely more
+difficult to optimise for pipelines and so on.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Fri May 23 12:12:33 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 23 May 2008 10:12:33 +0000 (UTC)
+Subject: Main window's focus with active transient
+References: <20080520084017.GA2568@anita>
+	<slrng37ndt.scn.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080523095301.GE4932@anita>
+Message-ID: <slrng3d64h.p24.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-05-23, Konstantin Kletschke <lists at ku-gbr.de> wrote:
+>> I consider all transients modal. They're _transient_ windows, after
+>
+> But not in float mode, right? 
+
+That consideration is simply not enforced on float mode...
+
+> Before there is misunderstanding on my side, is this a transient?
+> tool box involed in float mode:
+
+> WM_TRANSIENT_FOR(WINDOW): window id # 0x140026b
+
+Yes.
+
+> Semi-PS.:
+> Such Dialogs invoked in tiled frames are strechted about the horizontal
+> width completely, can this be switched off somewhere?
+
+There's a per-group transient_szplcy setting that can be altered by
+WGroupCW.toggle_transients_pos, but it only supports moving them up/down
+IIRC. It would be simple to add support for alternative (default) size
+policies.
+
+-- 
+Tuomo
+
+
+
+From lists at ku-gbr.de  Fri May 23 12:30:10 2008
+From: lists at ku-gbr.de (Konstantin Kletschke)
+Date: Fri, 23 May 2008 12:30:10 +0200
+Subject: Main window's focus with active transient
+In-Reply-To: <slrng3d64h.p24.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20080520084017.GA2568@anita>
+	<slrng37ndt.scn.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080523095301.GE4932@anita>
+	<slrng3d64h.p24.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080523103010.GA1665@anita>
+
+Am 2008-05-23 10:12 +0000 schrieb Tuomo Valkonen:
+
+> > But not in float mode, right? 
+> 
+> That consideration is simply not enforced on float mode...
+
+Yes, you are right, I ditched around with a couple of applications
+meanwhile. Simply it is cadsoft eagle behaving in such a weird way only.
+
+What I realize now is that extending cfg_kludges by
+
+defwinprop{
+    class = "eagle",
+    name = "DRC.*",
+    transient_mode = "on",
+    float = "on"
+}
+
+gives me the exact expected behaviour back. The DRC Dialog is "normal"
+sized and gives the focus back to the main application while it exists.
+
+Can this be done for all transients, this normal sized and floated
+placement? 
+
+> There's a per-group transient_szplcy setting that can be altered by
+> WGroupCW.toggle_transients_pos, but it only supports moving them up/down
+> IIRC. It would be simple to add support for alternative (default) size
+> policies.
+
+I will poke around there a bit :-)
+
+Regards, Konsti
+
+-- 
+GPG KeyID EF62FCEF
+Fingerprint: 13C9 B16B 9844 EC15 CC2E  A080 1E69 3FDA EF62 FCEF
+
+
+From dcl441-bugs at yahoo.com  Fri May 23 12:37:24 2008
+From: dcl441-bugs at yahoo.com (Daniel Clemente)
+Date: Fri, 23 May 2008 12:37:24 +0200 (CEST)
+Subject: Open frame to the right of the parent window
+Message-ID: <779975.62839.qm@web53203.mail.re2.yahoo.com>
+
+
+Hi,
+  there's just one thing I still couldn't configure in
+ion3, namely a solution to cases like the following:
+  - a slow program will open shortly in workspace 3,
+and I must stay waiting at workspace 3 because I want
+it to be really in workspace 3 (and no other) when it
+pops up
+  - I am in workspace 2, and a program in workspace 3
+opens a window. The window shows up in the current
+workspace 2 and interrupts what I was doing
+
+  The problem is just one: when a new window was
+opened from a frame which is not the current one, the
+window opens up in the current frame instead of in the
+original one.
+
+  You can reproduce this by issuing &#8222;sleep 2;
+xeyes&#8220; from a terminal, then switching to
+another workspace.
+
+  The behavior I want is that the window opens in the
+tab to the right of the tab of the parent window. By
+&#8222;parent window&#8220; I mean the window which
+decided to open the new one.
+  
+  There is a variable for controlling where to open
+new frames:
+    
+    -- Default index for windows in frames: one of
+'last', 'next' (for
+    -- after current), or 'next-act' (for after
+current and anything with
+    -- activity right after it).
+    --frame_default_index='next',
+
+  I suggest adding a parameter
+frame_default_index='parent-next' or similar to mean
+&#8222;after the window who issued the request (even
+if it's in another frame)&#8220;.
+
+
+  Note that if switchto=true, then the focus could
+switch to other frame/workspace just because a new
+window opened up there. Another parameter might be
+needed to mean &#8222;switchto=true, but only if it
+doesn't imply moving the focus to another frame or
+workspace&#8220;.
+
+
+  What do you think?
+
+  Thanks,
+Daniel
+
+
+
+
+      ______________________________________________ 
+Enviado desde Correo Yahoo! La bandeja de entrada m?s inteligente.
+
+
+From tuomov at iki.fi  Fri May 23 12:53:07 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 23 May 2008 10:53:07 +0000 (UTC)
+Subject: Open frame to the right of the parent window
+References: <779975.62839.qm@web53203.mail.re2.yahoo.com>
+Message-ID: <slrng3d8gj.u45.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-05-23, Daniel Clemente <dcl441-bugs at yahoo.com> wrote:
+>   The behavior I want is that the window opens in the
+> tab to the right of the tab of the parent window. By
+> &#8222;parent window&#8220; I mean the window which
+> decided to open the new one.
+
+http://iki.fi/tuomov/ion/faq/entries/Initial_window_placement.html
+
+You're free to add support (module) to Ion _as well as applications_
+for the startup protocol.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Fri May 23 12:54:56 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 23 May 2008 10:54:56 +0000 (UTC)
+Subject: Main window's focus with active transient
+References: <20080520084017.GA2568@anita>
+	<slrng37ndt.scn.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080523095301.GE4932@anita>
+	<slrng3d64h.p24.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080523103010.GA1665@anita>
+Message-ID: <slrng3d8k0.u45.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-05-23, Konstantin Kletschke <lists at ku-gbr.de> wrote:
+> Can this be done for all transients, this normal sized and floated
+> placement? 
+
+By matching against is_transient, yes; see Section 3.5.2 of the docs.
+
+
+-- 
+Tuomo
+
+
+
+From lists at ku-gbr.de  Fri May 23 18:06:58 2008
+From: lists at ku-gbr.de (Konstantin Kletschke)
+Date: Fri, 23 May 2008 18:06:58 +0200
+Subject: Main window's focus with active transient
+In-Reply-To: <slrng3d8k0.u45.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20080520084017.GA2568@anita>
+	<slrng37ndt.scn.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080523095301.GE4932@anita>
+	<slrng3d64h.p24.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080523103010.GA1665@anita>
+	<slrng3d8k0.u45.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080523160658.GA4743@anita>
+
+Am 2008-05-23 10:54 +0000 schrieb Tuomo Valkonen:
+
+> By matching against is_transient, yes; see Section 3.5.2 of the docs.
+
+Ah - cool! Works fine so far :-)
+
+K
+
+-- 
+GPG KeyID EF62FCEF
+Fingerprint: 13C9 B16B 9844 EC15 CC2E  A080 1E69 3FDA EF62 FCEF
+
+
+From andhu at gmx.de  Sat May 24 10:58:43 2008
+From: andhu at gmx.de (Andreas =?iso-8859-1?Q?H=FCbner?=)
+Date: Sat, 24 May 2008 10:58:43 +0200
+Subject: Minor issue when using alternate xkb groups
+Message-ID: <20080524085841.GA19261@kytoma>
+
+I did have a very minor issue with ion3 when using alternate xkb groups.
+You may want to read the bug report I filed in the DBTS, if you are
+interested in this.
+[http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=414974]
+
+Summary (from someone who is not really familiar with X programming):
+X sets some additional bits in the XKeyEvent.state when you use an
+alternate xkb group.
+
+Thanks for making ion!
+
+Andreas
+
+
+From ben at decadent.org.uk  Sun May 25 23:03:30 2008
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Sun, 25 May 2008 22:03:30 +0100
+Subject: Minor issue when using alternate xkb groups
+In-Reply-To: <20080524085841.GA19261@kytoma>
+References: <20080524085841.GA19261@kytoma>
+Message-ID: <1211749410.8087.13.camel@deadeye.i.decadent.org.uk>
+
+On Sat, 2008-05-24 at 10:58 +0200, Andreas H?bner wrote:
+> I did have a very minor issue with ion3 when using alternate xkb groups.
+> You may want to read the bug report I filed in the DBTS, if you are
+> interested in this.
+> [http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=414974]
+> 
+> Summary (from someone who is not really familiar with X programming):
+> X sets some additional bits in the XKeyEvent.state when you use an
+> alternate xkb group.
+
+Good work.  I looked into the Xkb header and found this:
+
+    /*
+     * BuildCoreState: Given a keyboard group and a modifier state,
+     *                 construct the value to be reported an event.
+     * GroupForCoreState:  Given the state reported in an event,
+     *                 determine the keyboard group.
+     * IsLegalGroup:   Returns TRUE if 'g' is a valid group index.
+     */
+#define XkbBuildCoreState(m,g)  ((((g)&0x3)<<13)|((m)&0xff))
+#define XkbGroupForCoreState(s) (((s)>>13)&0x3)
+#define XkbIsLegalGroup(g)      (((g)>=0)&&((g)<XkbNumKbdGroups))
+
+So bits 13 and 14 of the modifiers together are the group number, and
+should be ignored when looking up key bindings.  Your patch does that
+much.  I wonder whether evil_grab_key() also needs to handle them?
+
+Ben.
+
+-- 
+Ben Hutchings
+It is easier to change the specification to fit the program than vice versa.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080525/e0986dc3/attachment.pgp>
+
+From tuomov at iki.fi  Mon May 26 12:35:57 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 26 May 2008 10:35:57 +0000 (UTC)
+Subject: Minor issue when using alternate xkb groups
+References: <20080524085841.GA19261@kytoma>
+Message-ID: <slrng3l4kd.q01.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-05-24, Andreas H?bner <andhu at gmx.de> wrote:
+> I did have a very minor issue with ion3 when using alternate xkb groups.
+> You may want to read the bug report I filed in the DBTS, if you are
+> interested in this.
+> [http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=414974]
+>
+> Summary (from someone who is not really familiar with X programming):
+> X sets some additional bits in the XKeyEvent.state when you use an
+> alternate xkb group.
+
+Have you checked the FAQ?
+
+    http://iki.fi/tuomov/ion/faq/entries/Modifier_releases.html
+
+What are this Xkb groups? Some dirty hack that will change the keyboard
+layout, or just Mode_Switch? (I don't use the anti-user-configuration
+Xkb crud at all.)
+
+-- 
+Tuomo
+
+
+
+From andhu at gmx.de  Mon May 26 16:13:42 2008
+From: andhu at gmx.de (Andreas =?iso-8859-1?Q?H=FCbner?=)
+Date: Mon, 26 May 2008 16:13:42 +0200
+Subject: Minor issue when using alternate xkb groups
+In-Reply-To: <slrng3l4kd.q01.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20080524085841.GA19261@kytoma>
+	<slrng3l4kd.q01.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080526141341.GA29778@kytoma>
+
+Tuomo Valkonen wrote:
+> Have you checked the FAQ?
+> 
+>     http://iki.fi/tuomov/ion/faq/entries/Modifier_releases.html
+
+I did, Ben pointed me to it in the bug report.
+It's related to the modifier releases but has nothing to do with
+some misconfigured modifier map.
+
+> What are this Xkb groups? Some dirty hack that will change the keyboard
+> layout, or just Mode_Switch? (I don't use the anti-user-configuration
+> Xkb crud at all.)
+
+Yes, they allow you to switch the keyboard layout. I basically only need
+this, when somebody else wants to type on my laptop, who isn't familiar
+with the us layout.
+
+The crude patch in the BTS simply adds two bits to evilignoremask.
+
+Andreas
+
+
+From stephane.mourey at gmail.com  Mon May 26 20:31:18 2008
+From: stephane.mourey at gmail.com (=?UTF-8?Q?St=C3=A9phane_Mourey?=)
+Date: Mon, 26 May 2008 20:31:18 +0200
+Subject: Compilation problem
+Message-ID: <949481560805261131t45e41c71y929ef4a5de5832f7@mail.gmail.com>
+
+Hello everybody,
+
+I'm new to Ion (at least, trying to be), and far from an expert in many
+domains regarding Linux... but I want to try Iont. In particular, I'm not
+familiar with compilation of sources, most of the time yum do the work I
+need, and for the rest "./configure;make;make install" is successful most of
+the time.
+But with Ion, I have a problem, it seems with lua dependency, as far as I
+understand.
+For information, I'm using Fedora Core 9, have install Lua using yum.
+When I send the make command, it failed. Here is the output (the first few
+lines, surely enough):
+>
+set -e; for i in libtu libextl libmainloop mod_tiling mod_query mod_menu
+mod_dock mod_sp mod_sm mod_statusbar de ioncore ion pwm etc utils man po ;
+do make -C $i; done
+make[1]: Entering directory `/root/ion-3-20080411/libtu'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/root/ion-3-20080411/libtu'
+make[1]: Entering directory `/root/ion-3-20080411/libextl'
+gcc -Os -W -Wimplicit -Wreturn-type -Wswitch -Wcomment -Wtrigraphs -Wformat
+-Wchar-subscripts -Wparentheses -pedantic -Wuninitialized
+-DCF_XFREE86_TEXTPROP_BUG_WORKAROUND -I./.. -I/usr/include    -c luaextl.c
+-o luaextl.o
+luaextl.c:21:17: error: lua.h: No such file or directory
+luaextl.c:22:20: error: lualib.h: No such file or directory
+luaextl.c:23:21: error: lauxlib.h: No such file or directory
+luaextl.c:40: error: expected '=', ',', ';', 'asm' or '__attribute__' before
+'*' token
+luaextl.c:42: error: expected ')' before '*' token
+luaextl.c:46: error: expected ')' before '*' token
+>eof
+
+Before, I have install both lua and lua sources (using yum). I've tried to
+change the path to lua in the system.mk file (LUA_DIR=/usr), but it does not
+change anything.
+
+Can anyone help me to solve this issue?
+
+Best regards,
+
+BrokenClock
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080526/a0987834/attachment.html>
+
+From ben at decadent.org.uk  Tue May 27 00:21:22 2008
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Mon, 26 May 2008 23:21:22 +0100
+Subject: Compilation problem
+In-Reply-To: <949481560805261131t45e41c71y929ef4a5de5832f7@mail.gmail.com>
+References: <949481560805261131t45e41c71y929ef4a5de5832f7@mail.gmail.com>
+Message-ID: <1211840482.8087.23.camel@deadeye.i.decadent.org.uk>
+
+On Mon, 2008-05-26 at 20:31 +0200, St?phane Mourey wrote:
+> Hello everybody,
+> 
+> I'm new to Ion (at least, trying to be), and far from an expert in
+> many domains regarding Linux... but I want to try Iont. In particular,
+> I'm not familiar with compilation of sources, most of the time yum do
+> the work I need, and for the rest "./configure;make;make install" is
+> successful most of the time.
+> But with Ion, I have a problem, it seems with lua dependency, as far
+> as I understand.
+> For information, I'm using Fedora Core 9, have install Lua using yum.
+> When I send the make command, it failed. Here is the output (the first
+> few lines, surely enough)
+<snip>
+
+The headers that ion3 needs are probably in a package called something
+like "lua-devel".
+
+Ben.
+
+-- 
+Ben Hutchings
+Power corrupts.  Absolute power is kind of neat.
+                           - John Lehman, Secretary of the US Navy 1981-1987
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080526/f14e396d/attachment.pgp>
+
+From tuomov at iki.fi  Tue May 27 09:17:52 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 27 May 2008 07:17:52 +0000 (UTC)
+Subject: Minor issue when using alternate xkb groups
+References: <20080524085841.GA19261@kytoma>
+	<slrng3l4kd.q01.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080526141341.GA29778@kytoma>
+Message-ID: <slrng3ndd0.ftv.tuomov@jolt.modeemi.cs.tut.fi>
+
+Obviously Xkb is doing something braindead that's not compatible
+with standard X keyboard protocols. Ion does not support Xkb crud.
+My advice is to steer away from it. 
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue May 27 09:43:31 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 27 May 2008 07:43:31 +0000 (UTC)
+Subject: Compilation problem
+References: <949481560805261131t45e41c71y929ef4a5de5832f7@mail.gmail.com>
+	<1211840482.8087.23.camel@deadeye.i.decadent.org.uk>
+Message-ID: <slrng3net3.igb.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-05-26, Ben Hutchings <ben at decadent.org.uk> wrote:
+> The headers that ion3 needs are probably in a package called something
+> like "lua-devel".
+
+Or maybe they've fucked up things the way Debian does, by renaming the
+locations. Not merely by altering installation prefix, but also the
+library files, header sub-directories, and so on. That said, given the
+unusable all-in-one-basket brain damage that the Unis FHS is, Lua should
+include the version numbers in the paths and library names by default. 
+But an app-dir installation would be much better and easier to use 
+(the exact version needed). I suggest compiling manually in the standard
+/usr/local locations. It's easy; lua does not use autocrap either.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue May 27 11:45:44 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 27 May 2008 09:45:44 +0000 (UTC)
+Subject: Minor issue when using alternate xkb groups
+References: <20080524085841.GA19261@kytoma>
+	<slrng3l4kd.q01.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080526141341.GA29778@kytoma>
+	<slrng3ndd0.ftv.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrng3nm28.ti4.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-05-27, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> Obviously Xkb is doing something braindead that's not compatible
+> with standard X keyboard protocols. Ion does not support Xkb crud.
+> My advice is to steer away from it. 
+
+On further inspection, standard Mode_Switch also seems to 
+set the state mask 0x2000, but it is typically non-locking,
+so there's no problem. We certainly should not ignore 
+a non-locking Mode_Switch bit (typically AltGr in non-braindead
+xmodmap user-customisable keymaps). Perhaps the only solution
+is configurability of locking mods. (Or does Xkb offer that
+info? In any case I CBA.)
+
+-- 
+Tuomo
+
+
+
+From sunwayforever at gmail.com  Tue May 27 11:53:51 2008
+From: sunwayforever at gmail.com (sunway)
+Date: Tue, 27 May 2008 17:53:51 +0800
+Subject: is it possible to restrict the mouse to the current window?
+Message-ID: <20080527095351.GA2882@sunway.bupt.edu.cn>
+
+when playing the "wesnoth" game in it's windowed mode, i need to use mouse
+to scroll the game's screen, however when the mouse is at the edge of the
+screen, it will be moved out of the screen instead of scroll the game's
+screen. how to solve the problem? I have found that if i play the game
+in full screen mode, it is ok
+-- 
+"Nothing for nothing."
+
+
+From tuomov at iki.fi  Tue May 27 13:23:30 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 27 May 2008 11:23:30 +0000 (UTC)
+Subject: is it possible to restrict the mouse to the current window?
+References: <20080527095351.GA2882@sunway.bupt.edu.cn>
+Message-ID: <slrng3nrpi.7o9.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-05-27, sunway <sunwayforever at gmail.com> wrote:
+> when playing the "wesnoth" game in it's windowed mode, i need to use mouse
+> to scroll the game's screen, however when the mouse is at the edge of the
+> screen, it will be moved out of the screen instead of scroll the game's
+> screen. how to solve the problem? I have found that if i play the game
+> in full screen mode, it is ok
+
+It's possible to restrict a pointer to a given window when it's 
+grabbed. But the application itself should then grab the pointer 
+to get the events; forwarding is too cumbersome. I know of no 
+other clean way. Maybe a poll-and-warp hack could be implemented 
+as an external program, but it's very ugly. 
+
+-- 
+Tuomo
+
+
+
+From stephane.mourey at gmail.com  Wed May 28 12:53:04 2008
+From: stephane.mourey at gmail.com (=?UTF-8?Q?St=C3=A9phane_Mourey?=)
+Date: Wed, 28 May 2008 12:53:04 +0200
+Subject: Compilation problem
+In-Reply-To: <1211840482.8087.23.camel@deadeye.i.decadent.org.uk>
+References: <949481560805261131t45e41c71y929ef4a5de5832f7@mail.gmail.com>
+	<1211840482.8087.23.camel@deadeye.i.decadent.org.uk>
+Message-ID: <949481560805280353k76d650bcr50ead63af28a0eee@mail.gmail.com>
+
+2008/5/27 Ben Hutchings <ben at decadent.org.uk>:
+
+> On Mon, 2008-05-26 at 20:31 +0200, St?phane Mourey wrote:
+> > Hello everybody,
+> >
+> > I'm new to Ion (at least, trying to be), and far from an expert in
+> > many domains regarding Linux... but I want to try Iont. In particular,
+> > I'm not familiar with compilation of sources, most of the time yum do
+> > the work I need, and for the rest "./configure;make;make install" is
+> > successful most of the time.
+> > But with Ion, I have a problem, it seems with lua dependency, as far
+> > as I understand.
+> > For information, I'm using Fedora Core 9, have install Lua using yum.
+> > When I send the make command, it failed. Here is the output (the first
+> > few lines, surely enough)
+> <snip>
+>
+> The headers that ion3 needs are probably in a package called something
+> like "lua-devel".
+>
+> Ben.
+>
+> --
+> Ben Hutchings
+> Power corrupts.  Absolute power is kind of neat.
+>                           - John Lehman, Secretary of the US Navy 1981-1987
+
+Installing lua-devel made the point. A few more dependencies was also
+resolved using yum, google, and by adding often the related devel package.
+About 20 packages were required. And I did not need to make anychange to the
+system.mk file. Thanks for your help.
+
+Best regards,
+
+BrokenClock
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080528/ff5f661d/attachment.html>
+
+From tuomov at iki.fi  Wed May 28 13:23:29 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 28 May 2008 14:23:29 +0300
+Subject: Minor issue when using alternate xkb groups
+In-Reply-To: <slrng3nm28.ti4.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20080524085841.GA19261@kytoma>
+	<slrng3l4kd.q01.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080526141341.GA29778@kytoma>
+	<slrng3ndd0.ftv.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrng3nm28.ti4.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080528112329.GA16263@jolt.modeemi.cs.tut.fi>
+
+On 2008-05-27 09:45 +0000, Tuomo Valkonen wrote:
+> On further inspection, standard Mode_Switch also seems to 
+> set the state mask 0x2000, but it is typically non-locking,
+> so there's no problem. We certainly should not ignore 
+> a non-locking Mode_Switch bit (typically AltGr in non-braindead
+> xmodmap user-customisable keymaps). Perhaps the only solution
+> is configurability of locking mods. (Or does Xkb offer that
+> info? In any case I CBA.)
+
+Another strange thing is that ISO_Level3_Shit does not set
+a special "group" bit. Rather, to even remotely emulate appearing 
+to work^1, it seems to depend on being mapped to _some_ modifier.
+I suppose Xlib then uses Dirty Hacks to check whether modifiers
+are mapped to that key specifically.
+
+---
+
+^1 My keymap depends heavily on remapping of AltGr, traditionally mapped
+as Mode_Switch, configurable in the third and fourth fields of xmodmap
+keycode lines. Xkb keymaps killed that user configurability, by switching
+to ISO_Level3_Shit not accessible with xmodmap at that time -- and not
+as conveniently as Mode_Switch even now, plus ISO_Level3_Shit+j and 
+a few other keys also don't work at all. (No, it's not keyboard hardware
+crappiness; the same keycombo as Mode_Switch+j works.) I therefore use 
+a full custom .Xmodmap stored from pre-Xkb X. (Xkb isn't user-configurable;
+its keymaps are essential program source code, as are fontconfig's XML 
+crap and udev's properietary shit. They're not configuration files, 
+they're source code meant for developers only.)
+
+As for my keymap, as it might be of some interest:
+
+The mostly useless caps lock has of course become a control key.
+Tilde and caret have swapped the shift modifier from standard 
+.fi layout. The _very_ conveniently placed altgr (=Mode_Switch) 
+right of left shift has <>| (plain, shift, altgr) on it in the 
+standard layout, whereas the standard altgr is right of spacebar,
+which makes for very cumbersome combos for braces etc. found in 
+the number row of the altgr map. That row of my altgr map along 
+with the euro sign and the two accents on the right are standard
+(in the X map; some of the keys are not printed on the layouts),
+the rest are my additions. (The key left of right shift is n-dash,
+quite undistinguishable from a short dash in a fixed-width font.)
+
+plain 
+
+?          1 2 3 4 5 6 7 8 9 0 + ?   bsp
+tab         q w e r t y u i o p ? ~  ent
+ctrl        a s d f g h j k l ? ? '   er
+lshift altgr z x c v b n m , . -  rshift
+
+shift
+
+?          ! " # ? % & / ( ) = ? `   bsp
+tab         Q W E R T Y U I O P ? ^  ent
+ctrl        A S D F G H J K L ? ? *   er
+lshift altgr Z X C V B N M ; : _  rshift
+
+altgr (= Mode_Switch)
+
+?          ? @ ? $ ? ? { [ ] } \ ?   bsp
+tab             ?         [ ]     ?  ent
+ctrl          < | >   { } ( ) \   ?   er
+lshift altgr       ? ? ? ?   ? ?  rshift
+
+
+-- 
+Tuomo
+
+
+From ebik at drak.ucw.cz  Wed May 28 15:09:20 2008
+From: ebik at drak.ucw.cz (=?iso-8859-2?Q?Tom=E1=B9_Ebenlendr?=)
+Date: Wed, 28 May 2008 15:09:20 +0200 (CEST)
+Subject: Minor issue when using alternate xkb groups
+In-Reply-To: <20080528112329.GA16263@jolt.modeemi.cs.tut.fi>
+References: <20080524085841.GA19261@kytoma>
+	<slrng3l4kd.q01.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080526141341.GA29778@kytoma>
+	<slrng3ndd0.ftv.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrng3nm28.ti4.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080528112329.GA16263@jolt.modeemi.cs.tut.fi>
+Message-ID: <54171.88.146.1.38.1211980160.squirrel@drak.ucw.cz>
+
+Yes, xkb was very shitty last years, now sucks bit less:
+Option "XkbLayout" "us+cz:2+inet6720+group(switch)+group(shifts_toggle)"
+
+So I have us keyboard as group 1, czech keyboard as group 2,
+inet6720 defines additional keys on my usb keyboard, group(switch) changes
+AltGr to group modifier, and group(shifts_toggle) makes press of both
+shifts to be inerpreted as group-lock. Also I use xkbvleds swallowed by
+statusbar (as tray application) to indicate status of group-lock and
+all three standard locks. - my notebook doesn't have keyboard leds and also
+it is more comfortable to have the leds in front of my head instead of
+"below fingers".
+
+Speaking about the additional keys: I have some bindings in ion, and after
+last upgrade of Xorg/debian it complains it does not know the keysyms like
+XF86WWW and so on (these I map in inet6720 file). But it complains only
+when X is is started. Later, when restarted it founds these keysyms. I did
+not searched what the xorg did fu**ed up, so if anybody knows...
+
+Dne 28 Kv?ten 2008, 13:23, Tuomo Valkonen napsal(a):
+> On 2008-05-27 09:45 +0000, Tuomo Valkonen wrote:
+>
+>> On further inspection, standard Mode_Switch also seems to
+>> set the state mask 0x2000, but it is typically non-locking, so there's no
+>> problem. We certainly should not ignore a non-locking Mode_Switch bit
+>> (typically AltGr in non-braindead
+>> xmodmap user-customisable keymaps). Perhaps the only solution is
+>> configurability of locking mods. (Or does Xkb offer that info? In any
+>> case I CBA.)
+>
+> Another strange thing is that ISO_Level3_Shit does not set
+> a special "group" bit. Rather, to even remotely emulate appearing to
+> work^1, it seems to depend on being mapped to _some_ modifier. I suppose
+> Xlib then uses Dirty Hacks to check whether modifiers
+> are mapped to that key specifically.
+>
+> ---
+>
+>
+> ^1 My keymap depends heavily on remapping of AltGr, traditionally mapped
+> as Mode_Switch, configurable in the third and fourth fields of xmodmap
+> keycode lines. Xkb keymaps killed that user configurability, by switching
+>  to ISO_Level3_Shit not accessible with xmodmap at that time -- and not as
+> conveniently as Mode_Switch even now, plus ISO_Level3_Shit+j and a few
+> other keys also don't work at all. (No, it's not keyboard hardware
+> crappiness; the same keycombo as Mode_Switch+j works.) I therefore use a
+> full custom .Xmodmap stored from pre-Xkb X. (Xkb isn't user-configurable;
+>  its keymaps are essential program source code, as are fontconfig's XML
+> crap and udev's properietary shit. They're not configuration files,
+> they're source code meant for developers only.)
+>
+> As for my keymap, as it might be of some interest:
+>
+>
+> The mostly useless caps lock has of course become a control key.
+> Tilde and caret have swapped the shift modifier from standard
+> .fi layout. The _very_ conveniently placed altgr (=Mode_Switch)
+> right of left shift has <>| (plain, shift, altgr) on it in the standard
+> layout, whereas the standard altgr is right of spacebar, which makes for
+> very cumbersome combos for braces etc. found in the number row of the
+> altgr map. That row of my altgr map along with the euro sign and the two
+> accents on the right are standard (in the X map; some of the keys are not
+> printed on the layouts), the rest are my additions. (The key left of right
+> shift is n-dash, quite undistinguishable from a short dash in a
+> fixed-width font.)
+>
+> plain
+>
+> ?          1 2 3 4 5 6 7 8 9 0 + ?   bsp
+> tab         q w e r t y u i o p ? ~  ent ctrl        a s d f g h j k l ? ?
+> '   er
+> lshift altgr z x c v b n m , . -  rshift
+>
+> shift
+>
+> ?          ! " # ? % & / ( ) = ? `   bsp
+> tab         Q W E R T Y U I O P ? ^  ent ctrl        A S D F G H J K L ? ?
+> *   er
+> lshift altgr Z X C V B N M ; : _  rshift
+>
+> altgr (= Mode_Switch)
+>
+> ?          ? @ ? $ ? ? { [ ] } \ ?   bsp
+> tab             ?         [ ]     ?  ent ctrl          < | >   { } ( ) \
+> ?   er
+> lshift altgr       ? ? ? ?   ? ?  rshift
+>
+>
+> --
+> Tuomo
+>
+>
+>
+
+
+-- 
+Tomas Ebenlendr
+                            http://drak.ucw.cz/~ebik
+
+
+
+From tuomov at iki.fi  Wed May 28 16:02:10 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 28 May 2008 14:02:10 +0000 (UTC)
+Subject: Minor issue when using alternate xkb groups
+References: <20080524085841.GA19261@kytoma>
+	<slrng3l4kd.q01.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080526141341.GA29778@kytoma>
+	<slrng3ndd0.ftv.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrng3nm28.ti4.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080528112329.GA16263@jolt.modeemi.cs.tut.fi>
+	<54171.88.146.1.38.1211980160.squirrel@drak.ucw.cz>
+Message-ID: <slrng3qpf2.s79.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-05-28, Tom?? Ebenlendr <ebik at drak.ucw.cz> wrote:
+> Yes, xkb was very shitty last years, now sucks bit less:
+> Option "XkbLayout" "us+cz:2+inet6720+group(switch)+group(shifts_toggle)"
+>
+> So I have us keyboard as group 1, czech keyboard as group 2,
+> inet6720 defines additional keys on my usb keyboard, group(switch) changes
+> AltGr to group modifier, and group(shifts_toggle) makes press of both
+> shifts to be inerpreted as group-lock. Also I use xkbvleds swallowed by
+> statusbar (as tray application) to indicate status of group-lock and
+> all three standard locks. - my notebook doesn't have keyboard leds and also
+> it is more comfortable to have the leds in front of my head instead of
+> "below fingers".
+
+So you can both lock groups, and switch to them while a modifier is
+pressed, within the same keymap. Clearly it is not possible handle 
+this right through XGrabKey, i.e. not grabbing combos when a group-switch
+modifier is held (unless the modifier is bound to one of the standard
+modifiers as well), but grabbing during lock group states. Xkb groups
+are fucked up. Indication of different keymaps should be completely 
+separate from modifier states. (That is, a modifier may be mapped 
+to switch to a given group while pressed, but there is a separate 
+bit indicating the modifier being pressed.)
+
+Actually, there even seems to be variation in how X handles
+grab masks and Mode_Switch: at home Ion receives combos with
+Mod1Mask|Mode_Switch set, if it has grabbed on Mod1Mask, but
+IIRC on the box at work it doesn't... Another interesting thing
+is that even if I map Mode_Switch to the Mod3 modifier or
+so, X still does not set this bit in the state, only the 0x2000 
+bit! So there's no way to separate the modifier and group switching
+bits, and Ion still receives the key, although it has grabbed only
+the states with Mod1 or one of the lock modifiers set (Lock or
+Mod2=Num_Lock... num lock should really be another group, BTW,
+not tied to a modifier bit, as it is not a key that is typically 
+held down. Lock should also not be interpreted in grabs as a modifier
+bit, but rather a group bit, so it wouldn't be necessary to make
+redundant grabs on Lock-combos too.) The original complainer
+should therefore have no problems on the version of X I'm running
+(from Etch), because the server simply masks the groups, or at
+least the one tied to Mode_Switch, and for some reason Ion actually 
+masks the state with KNOWN_MODIFIERS_MASK in the binding search code
+although it does not ask as to grab things with other modifiers set.
+
+It's all fucked up.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Thu May 29 00:32:08 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 29 May 2008 01:32:08 +0300
+Subject: Minor issue when using alternate xkb groups
+In-Reply-To: <slrng3qpf2.s79.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20080524085841.GA19261@kytoma>
+	<slrng3l4kd.q01.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080526141341.GA29778@kytoma>
+	<slrng3ndd0.ftv.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrng3nm28.ti4.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080528112329.GA16263@jolt.modeemi.cs.tut.fi>
+	<54171.88.146.1.38.1211980160.squirrel@drak.ucw.cz>
+	<slrng3qpf2.s79.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080528223208.GA25581@jolt.modeemi.cs.tut.fi>
+
+On 2008-05-28 14:02 +0000, Tuomo Valkonen wrote:
+> The original complainer
+> should therefore have no problems on the version of X I'm running
+> (from Etch), because the server simply masks the groups, or at
+> least the one tied to Mode_Switch, and for some reason Ion actually 
+> masks the state with KNOWN_MODIFIERS_MASK in the binding search code
+> although it does not ask as to grab things with other modifiers set.
+
+Actually, making Ion print things instead of relying on xev 
+alone, it appears that the X server does not set the Mode_Switch 
+bit (0x2000) on key events for grabbed keys, although it does set 
+it in events for non-grabbed keys (that xev can catch). Thus the 
+stray KNOWN_MODIFIERS_MASK code actually does nothing, and the 
+X server completely hides Mode_Switch (and any modifiers bound to
+it) in events for grabbed keys -- but only for them. On my system, 
+that is. Smells like a rotting pile of kludges...
+
+-- 
+Tuomo
+
+
+From ben at decadent.org.uk  Thu May 29 05:09:39 2008
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Thu, 29 May 2008 04:09:39 +0100
+Subject: Minor issue when using alternate xkb groups
+In-Reply-To: <20080528223208.GA25581@jolt.modeemi.cs.tut.fi>
+References: <20080524085841.GA19261@kytoma>
+	<slrng3l4kd.q01.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080526141341.GA29778@kytoma>
+	<slrng3ndd0.ftv.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrng3nm28.ti4.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080528112329.GA16263@jolt.modeemi.cs.tut.fi>
+	<54171.88.146.1.38.1211980160.squirrel@drak.ucw.cz>
+	<slrng3qpf2.s79.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080528223208.GA25581@jolt.modeemi.cs.tut.fi>
+Message-ID: <1212030579.8794.4.camel@deadeye.i.decadent.org.uk>
+
+On Thu, 2008-05-29 at 01:32 +0300, Tuomo Valkonen wrote:
+> On 2008-05-28 14:02 +0000, Tuomo Valkonen wrote:
+> > The original complainer
+> > should therefore have no problems on the version of X I'm running
+> > (from Etch), because the server simply masks the groups, or at
+> > least the one tied to Mode_Switch, and for some reason Ion actually 
+> > masks the state with KNOWN_MODIFIERS_MASK in the binding search code
+> > although it does not ask as to grab things with other modifiers set.
+> 
+> Actually, making Ion print things instead of relying on xev 
+> alone, it appears that the X server does not set the Mode_Switch 
+> bit (0x2000) on key events for grabbed keys, although it does set 
+> it in events for non-grabbed keys (that xev can catch). Thus the 
+> stray KNOWN_MODIFIERS_MASK code actually does nothing, and the 
+> X server completely hides Mode_Switch (and any modifiers bound to
+> it) in events for grabbed keys -- but only for them. On my system, 
+> that is. Smells like a rotting pile of kludges...
+
+Yeah, grabbed keys are kluged so you don't see group modifiers.  This is
+all spelled out in <http://www.xfree86.org/current/XKBproto.pdf> section
+12.3.  I still haven't worked out how to ignore group locking when
+looking at non-grab events.
+
+Ben.
+
+-- 
+Ben Hutchings
+Everything should be made as simple as possible, but not simpler.
+                                                           - Albert Einstein
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080529/c52088b4/attachment.pgp>
+
+From tuomov at iki.fi  Thu May 29 10:35:29 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 29 May 2008 08:35:29 +0000 (UTC)
+Subject: Minor issue when using alternate xkb groups
+References: <20080524085841.GA19261@kytoma>
+	<slrng3l4kd.q01.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080526141341.GA29778@kytoma>
+	<slrng3ndd0.ftv.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrng3nm28.ti4.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080528112329.GA16263@jolt.modeemi.cs.tut.fi>
+	<54171.88.146.1.38.1211980160.squirrel@drak.ucw.cz>
+	<slrng3qpf2.s79.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080528223208.GA25581@jolt.modeemi.cs.tut.fi>
+	<1212030579.8794.4.camel@deadeye.i.decadent.org.uk>
+Message-ID: <slrng3sqmh.dvi.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-05-29, Ben Hutchings <ben at decadent.org.uk> wrote:
+> Yeah, grabbed keys are kluged so you don't see group modifiers.  This is
+> all spelled out in <http://www.xfree86.org/current/XKBproto.pdf> section
+> 12.3.  
+
+*puke* 
+
+Adn the example in ?12.1... *eugh*. Mod3 held, but mapped to group 
+switch ==> don't let "XKB-aware" apps know that it is held. And 
+apparently "XKB-aware" in this context means that Xlib is aware
+of it, not that your program is. 
+
+Fuck Xkb. It's not only the anti-configuration files that are shit.
+All of it is.
+
+Someone needs to be taken behind the sauna.
+
+> I still haven't worked out how to ignore group locking when
+> looking at non-grab events.
+
+You probably need to specifically support the piece of shit Xkb
+extension for that.
+
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Fri May 30 10:28:52 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 30 May 2008 08:28:52 +0000 (UTC)
+Subject: Minor issue when using alternate xkb groups
+References: <20080524085841.GA19261@kytoma>
+Message-ID: <slrng3vem4.pth.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-05-24, Andreas H?bner <andhu at gmx.de> wrote:
+> I did have a very minor issue with ion3 when using alternate xkb groups.
+> You may want to read the bug report I filed in the DBTS, if you are
+> interested in this.
+> [http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=414974]
+
+I suppose that with regard to this problem, it suffices to 
+apply KNOWN_MODIFIERS_MASK -- recently removed as redundant,
+so rollback -- in the 'ioncore_unmod' and such functions. 
+They're merely used to check that all modifiers have been 
+released. But we only have to care about those modifiers
+that we ourselves use; it doesn't matter if modifiers we
+don't know about are still held, because we shouldn't get
+to handle any repeated presses then, if it was a properly
+handled additional modifier -- and the vomit-inducing Xkb
+masks others anyway. (That is, if AltGr is both Mod3 and
+Mode_Switch, we never see the Mod3 -- or does it actually
+show it in events for grabs on it? *puke*, if it does.)
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Fri May 30 10:51:56 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 30 May 2008 08:51:56 +0000 (UTC)
+Subject: Minor issue when using alternate xkb groups
+References: <20080524085841.GA19261@kytoma>
+	<slrng3vem4.pth.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrng3vg1c.ro5.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-05-30, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> vomit-inducing Xkb
+
+How should it have been done then? 
+
+Without higher-level semantics and hacks in the protocol. All the
+groups/tranlations could be handled entirely in the library that
+converts events to characters. The X key events should simply report
+the key pressed as well as logical states of modifiers and locks
+without any group interpretations and mangling, locks clearly marked
+separate from modifiers. Modifiers should never lock. Any
+applications not aware of the two new lock bits (that fit in the
+state), either simply should be entirely masked from them, or 
+shouldn't be cared about not knowing what to do with them. KISS.
+
+(An AnyLock bit to XGrabKey would be nice in addition to AnyModifier,
+but there's no space if the state is 16bit. The variables are ints
+though. Perhaps for that it would be necessary to, say, interpret
+either no lock bits set or all of them set as AnyLock. But no further
+hacks should be needed. Or perhaps lock bits in grabs should merely
+indicate that the lock being set is required if set, and can have any
+value if unset, slightly restricting the combinations that can be
+grabbed, but maybe without practical significance.)
+
+-- 
+Tuomo
+
+
+
+From psionic at gmail.com  Fri May 30 17:54:12 2008
+From: psionic at gmail.com (Jordan Sissel)
+Date: Fri, 30 May 2008 08:54:12 -0700
+Subject: extended window manager hints
+Message-ID: <5ad23a300805300854r2a0f30b9hca277d1a84d1d17c@mail.gmail.com>
+
+Howdy folks,
+
+Does ion-3 support any of the documented ways of expressing the number
+of available desktops (workspaces, whatever you want to call them)?
+
+I've tried _NET_NUMBER_OF_DESKTOPS and _NET_VIRTUAL_ROOTS. Neither
+return any data in ion. I'm not totally versed in ICCCM or the
+extended wm hints spec, but it seems like ion claims that
+_NET_VIRTUAL_ROOTS is supported. 'xprop' on the root window while
+running ion says:
+
+_NET_SUPPORTED(ATOM) = _NET_WM_NAME, _NET_WM_STATE,
+_NET_WM_STATE_FULLSCREEN, _NET_SUPPORTING_WM_CHECK,
+_NET_VIRTUAL_ROOTS, _NET_ACTIVE_WINDOW
+
+It's totally possible I've misread the wm spec (from freedesktop). Am
+I wrong in assuming _NET_VIRTUAL_ROOTS should return me a list of
+workspace window parents in ion? It's also possible that ion doesn't
+use virtual roots for workspaces, but briefly looking at the screen
+code in ion shows it creates them.
+
+xprop(1) shows:
+_ION_WORKSPACE(STRING) = "WGroupWS<1>"
+
+Should I be walking the window tree for a window with that title? I
+have some code that tried that, but failed to find any with 'WGroupWS'
+in the title.
+
+-Jordan
+
+
+From tuomov at iki.fi  Fri May 30 18:24:06 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 30 May 2008 16:24:06 +0000 (UTC)
+Subject: extended window manager hints
+References: <5ad23a300805300854r2a0f30b9hca277d1a84d1d17c@mail.gmail.com>
+Message-ID: <slrng40ah6.976.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-05-30, Jordan Sissel <psionic at gmail.com> wrote:
+> Does ion-3 support any of the documented ways of expressing the number
+> of available desktops (workspaces, whatever you want to call them)?
+
+RTFFAQ. The workspace properties of EWMH don't map nicely into Ion's
+way of handling them.
+
+> extended wm hints spec, but it seems like ion claims that
+> _NET_VIRTUAL_ROOTS is supported. 
+
+Leftover from Xinerama hacks.
+
+> xprop(1) shows:
+> _ION_WORKSPACE(STRING) = "WGroupWS<1>"
+
+It's the (internal) name of the currently selected region within 
+the mutually exclusive list of the screen. It can be also a client
+window, and is therefore very dynamic, whereas EWMH properties are
+geared towards a static set of traditional workspaces.
+
+-- 
+Tuomo
+
+
+
+From psionic at gmail.com  Fri May 30 20:35:45 2008
+From: psionic at gmail.com (Jordan Sissel)
+Date: Fri, 30 May 2008 11:35:45 -0700
+Subject: extended window manager hints
+In-Reply-To: <slrng40ah6.976.tuomov@jolt.modeemi.cs.tut.fi>
+References: <5ad23a300805300854r2a0f30b9hca277d1a84d1d17c@mail.gmail.com>
+	<slrng40ah6.976.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <5ad23a300805301135n4c6e5415n7d4d64801d74f7aa@mail.gmail.com>
+
+On Fri, May 30, 2008 at 9:24 AM, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2008-05-30, Jordan Sissel <psionic at gmail.com> wrote:
+>> Does ion-3 support any of the documented ways of expressing the number
+>> of available desktops (workspaces, whatever you want to call them)?
+>
+> RTFFAQ. The workspace properties of EWMH don't map nicely into Ion's
+> way of handling them.
+
+Gotcha.
+
+I didn't see _NET_ACTIVE_WINDOW mentioned in the faq entry, and I see
+code in ion-3 that looks like this request is supported. However, when
+I send it, the window chosen isn't activated. Testing in gnome2
+(metacity?) shows the same code working.
+
+Is _NET_ACTIVE_WINDOW supported?
+
+-Jordan
+
+>
+>> extended wm hints spec, but it seems like ion claims that
+>> _NET_VIRTUAL_ROOTS is supported.
+>
+> Leftover from Xinerama hacks.
+>
+>> xprop(1) shows:
+>> _ION_WORKSPACE(STRING) = "WGroupWS<1>"
+>
+> It's the (internal) name of the currently selected region within
+> the mutually exclusive list of the screen. It can be also a client
+> window, and is therefore very dynamic, whereas EWMH properties are
+> geared towards a static set of traditional workspaces.
+>
+> --
+> Tuomo
+>
+>
+
+
+From tuomov at iki.fi  Sat May 31 00:58:16 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 30 May 2008 22:58:16 +0000 (UTC)
+Subject: extended window manager hints
+References: <5ad23a300805300854r2a0f30b9hca277d1a84d1d17c@mail.gmail.com>
+	<slrng40ah6.976.tuomov@jolt.modeemi.cs.tut.fi>
+	<5ad23a300805301135n4c6e5415n7d4d64801d74f7aa@mail.gmail.com>
+Message-ID: <slrng411k8.e4d.tuomov@jolt.modeemi.cs.tut.fi>
+
+(Bah, I probably pressed the wrong key for the first reply.)
+
+On 2008-05-30, Jordan Sissel <psionic at gmail.com> wrote:
+> Is _NET_ACTIVE_WINDOW supported?
+
+It was supported the least time I tested such mostly useless 
+feature, but it isn't enabled by default. Applications tend to 
+abuse such features^1. You have to specifically enable it.
+
+---
+
+^1 Latest in Shitware(tm): Google Earth. It opens a top-level
+window for the photos etc. that it wants to show, doesn't
+mark it transient, and then closes the window when its main
+window gets hidden. Furthermore, if you manage to kludge its
+photo-windows into transients, or use it in floating mode,
+_the fuckwits who wrote that software draw custom decorations
+around those frames, within the main window of the shitware_.
+Please decide: use WM-managed windows, or just draw all your 
+shit within the main window, do not mix them both.
+
+There aren't enough cluebats in the world to satisfy the
+demand.
+
+-- 
+Tuomo
+
+
+
+From psionic at gmail.com  Sat May 31 01:46:47 2008
+From: psionic at gmail.com (Jordan Sissel)
+Date: Fri, 30 May 2008 16:46:47 -0700
+Subject: extended window manager hints
+In-Reply-To: <slrng411k8.e4d.tuomov@jolt.modeemi.cs.tut.fi>
+References: <5ad23a300805300854r2a0f30b9hca277d1a84d1d17c@mail.gmail.com>
+	<slrng40ah6.976.tuomov@jolt.modeemi.cs.tut.fi>
+	<5ad23a300805301135n4c6e5415n7d4d64801d74f7aa@mail.gmail.com>
+	<slrng411k8.e4d.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <5ad23a300805301646s20e97e74x954d0e3fb0917642@mail.gmail.com>
+
+On Fri, May 30, 2008 at 3:58 PM, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> (Bah, I probably pressed the wrong key for the first reply.)
+>
+> On 2008-05-30, Jordan Sissel <psionic at gmail.com> wrote:
+>> Is _NET_ACTIVE_WINDOW supported?
+>
+> It was supported the least time I tested such mostly useless
+> feature, but it isn't enabled by default. Applications tend to
+> abuse such features^1. You have to specifically enable it.
+>
+
+Ahh I see it now. I'm horrible at searching today.
+
+The _NET_ACTIVE_WINDOW message has the option of indicating who is
+making the request, a pager or a normal application. I suppose the
+answer is probably 'no', but would you consider allowing requests from
+pagers? I don't use a pager, but the application I'm writing acts like
+a command-line pager.
+
+If the answer is no, that's ok too, I'm just trying to adjust my expectations :)
+
+-Jordan
+
+> ---
+>
+> ^1 Latest in Shitware(tm): Google Earth. It opens a top-level
+> window for the photos etc. that it wants to show, doesn't
+> mark it transient, and then closes the window when its main
+> window gets hidden. Furthermore, if you manage to kludge its
+> photo-windows into transients, or use it in floating mode,
+> _the fuckwits who wrote that software draw custom decorations
+> around those frames, within the main window of the shitware_.
+> Please decide: use WM-managed windows, or just draw all your
+> shit within the main window, do not mix them both.
+>
+> There aren't enough cluebats in the world to satisfy the
+> demand.
+>
+> --
+> Tuomo
+>
+>
+
+
+From tuomov at iki.fi  Sat May 31 10:43:32 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 31 May 2008 08:43:32 +0000 (UTC)
+Subject: extended window manager hints
+References: <5ad23a300805300854r2a0f30b9hca277d1a84d1d17c@mail.gmail.com>
+	<slrng40ah6.976.tuomov@jolt.modeemi.cs.tut.fi>
+	<5ad23a300805301135n4c6e5415n7d4d64801d74f7aa@mail.gmail.com>
+	<slrng411k8.e4d.tuomov@jolt.modeemi.cs.tut.fi>
+	<5ad23a300805301646s20e97e74x954d0e3fb0917642@mail.gmail.com>
+Message-ID: <slrng423tk.79h.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-05-30, Jordan Sissel <psionic at gmail.com> wrote:
+> The _NET_ACTIVE_WINDOW message has the option of indicating who is
+> making the request, a pager or a normal application. I suppose the
+> answer is probably 'no', but would you consider allowing requests from
+> pagers? I don't use a pager, but the application I'm writing acts like
+> a command-line pager.
+
+It does? Probably all the apps will just abuse that bit then.
+
+Anyway, I'm not personally working on Ion3+, where such changes
+would go. Maybe I'll apply a patch if someone sends one.
+
+-- 
+Tuomo
+
+
+
+From me at robin.com.au  Sat May 31 17:33:16 2008
+From: me at robin.com.au (Robin Chew)
+Date: Sat, 31 May 2008 22:33:16 +0700
+Subject: Mouse Click Context Menu Instead of Mouse Down
+Message-ID: <23808e2d0805310833t3855f11dkda1a4231f586e3b8@mail.gmail.com>
+
+Currently you have to mouse press and hold on to the tab in order for
+the context menu to pop up. The menu will disappear on mouse release.
+
+I think it would be more usable if you can mouse press and release for
+the menu to pop up and remain up, until you click elsewhere for the
+menu to disappear.
+
+I tried to write this in cfg_ioncore.lua :
+mclick("Button3 at tab", "mod_menu.pmenu(_, _sub, 'ctxmenu')"),
+
+It does not work.
+Would anyone be interested in implementing something like this in the future?
+
+Thanks
+
+
+From nickmurdoch at gmail.com  Sat May 31 18:35:12 2008
+From: nickmurdoch at gmail.com (Nick Murdoch)
+Date: Sat, 31 May 2008 17:35:12 +0100
+Subject: Mouse Click Context Menu Instead of Mouse Down
+In-Reply-To: <23808e2d0805310833t3855f11dkda1a4231f586e3b8@mail.gmail.com>
+References: <23808e2d0805310833t3855f11dkda1a4231f586e3b8@mail.gmail.com>
+Message-ID: <op.ub01oywfq54ctd@localhost>
+
+On Sat, 31 May 2008 16:33:16 +0100, Robin Chew <me at robin.com.au> wrote:
+> Currently you have to mouse press and hold on to the tab in order for
+> the context menu to pop up. The menu will disappear on mouse release.
+>
+> I think it would be more usable if you can mouse press and release for
+> the menu to pop up and remain up, until you click elsewhere for the
+> menu to disappear.
+
+I'm not sure about that being more usable on normal systems where you have  
+a second mouse button available. You have to wait for a second for the  
+menu to appear, which is time-wastey.
+
+However, it'd be a useful feature if, say, you'd just installed linux and  
+ion3 on a MacBook, where there's only one button available without  
+kludging the touchpad.
+
+On the other hand, you can bring up the context menu with Mod+m, which is  
+better than both because you don't even have to touch the mouse :)
+
+
+Nick
+
+

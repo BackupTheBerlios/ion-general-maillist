@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> configuration files not respected on ubuntu?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20configuration%20files%20not%20respected%20on%20ubuntu%3F&In-Reply-To=%3C1186327621.25168.138.camel%40deadeye.i.decadent.org.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000651.html">
+   <LINK REL="Next"  HREF="000654.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>configuration files not respected on ubuntu?</H1>
+    <B>Ben Hutchings</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20configuration%20files%20not%20respected%20on%20ubuntu%3F&In-Reply-To=%3C1186327621.25168.138.camel%40deadeye.i.decadent.org.uk%3E"
+       TITLE="configuration files not respected on ubuntu?">ben at decadent.org.uk
+       </A><BR>
+    <I>Sun Aug  5 17:27:01 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000651.html">configuration files not respected on ubuntu?
+</A></li>
+        <LI>Next message: <A HREF="000654.html">configuration files not respected on ubuntu?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#656">[ date ]</a>
+              <a href="thread.html#656">[ thread ]</a>
+              <a href="subject.html#656">[ subject ]</a>
+              <a href="author.html#656">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I am not responsible for the Ubuntu package, but it is based on the
+Debian package that I now maintain.
+
+On Sun, 2007-08-05 at 00:14 -0700, Red Daly wrote:
+&gt;<i> I have recently installed ion3 and am trying to use the windows key 
+</I>&gt;<i> rather than the alt key for META.  xmodmap shows the windows key is 
+</I>&gt;<i> Mod4, so I made the following edit to cfg_ion.lua in my ~/.ion3/ directory:
+</I>&gt;<i>
+</I>&gt;<i> -- Set default modifiers. Alt should usually be mapped to Mod1 on
+</I>&gt;<i> -- XFree86-based systems. The flying window keys are probably Mod3
+</I>&gt;<i> -- or Mod4; see the output of 'xmodmap'.
+</I>&gt;<i> META=&quot;Mod4+&quot;
+</I>&gt;<i> --ALTMETA=&quot;&quot;
+</I>&gt;<i> 
+</I>&gt;<i> from
+</I>&gt;<i> 
+</I>&gt;<i> -- Set default modifiers. Alt should usually be mapped to Mod1 on
+</I>&gt;<i> -- XFree86-based systems. The flying window keys are probably Mod3
+</I>&gt;<i> -- or Mod4; see the output of 'xmodmap'.
+</I>&gt;<i> -- META=&quot;Mod1+&quot;
+</I>&gt;<i> --ALTMETA=&quot;&quot;
+</I>&gt;<i> 
+</I>&gt;<i> I restarted the session and nothing doing.  I restarted my computer and 
+</I>&gt;<i> still windows does nothing.
+</I>
+META and ALTMETA are set in /etc/default/ion3 so that they are easy to
+change on a system-wide basis without modifying the default
+configuration files.  There is a comment about this in cfg_ion.lua
+though it is possibly not as obviously as it should be.
+
+&lt;snip&gt;
+&gt;<i> p.s.  I am running the ion3 that I apt-got with my ubuntu feisty machine.
+</I>&gt;<i> &gt; $ ion3 -V
+</I>&gt;<i> &gt; 3ds-20061029
+</I>
+Please be aware that this is quite outdated and will not be supported by
+the author (and probably not by Ubuntu either).  You should be able to
+build the current version from the Debian source package
+&lt;<A HREF="http://ftp.debian.org/debian/pool/non-free/i/ion3/ion3_20070720-1.dsc">http://ftp.debian.org/debian/pool/non-free/i/ion3/ion3_20070720-1.dsc</A>&gt;
+(&lt;<A HREF="http://www.debian.org/doc/FAQ/ch-pkg_basics.en.html#s-sourcepkgs">http://www.debian.org/doc/FAQ/ch-pkg_basics.en.html#s-sourcepkgs</A>&gt;
+explains how to do this) or from the original tarball
+&lt;<A HREF="http://modeemi.fi/~tuomov/ion/download.html">http://modeemi.fi/~tuomov/ion/download.html</A>&gt;.
+
+Ben.
+
+-- 
+Ben Hutchings
+[W]e found...that it wasn't as easy to get programs right as we had thought.
+... I realized that a large part of my life from then on was going to be spent
+in finding mistakes in my own programs. - Maurice Wilkes, 1949
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20070805/0fc793b1/attachment.pgp">https://lists.berlios.de/pipermail/ion-general/attachments/20070805/0fc793b1/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000651.html">configuration files not respected on ubuntu?
+</A></li>
+	<LI>Next message: <A HREF="000654.html">configuration files not respected on ubuntu?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#656">[ date ]</a>
+              <a href="thread.html#656">[ thread ]</a>
+              <a href="subject.html#656">[ subject ]</a>
+              <a href="author.html#656">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

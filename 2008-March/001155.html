@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> ion-3-20080207 won't compile: lua incompatibility?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion-3-20080207%20won%27t%20compile%3A%20lua%20incompatibility%3F&In-Reply-To=%3Cslrnftvp09.qeb.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001154.html">
+   <LINK REL="Next"  HREF="001157.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>ion-3-20080207 won't compile: lua incompatibility?</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion-3-20080207%20won%27t%20compile%3A%20lua%20incompatibility%3F&In-Reply-To=%3Cslrnftvp09.qeb.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="ion-3-20080207 won't compile: lua incompatibility?">tuomov at iki.fi
+       </A><BR>
+    <I>Tue Mar 18 16:47:21 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001154.html">ion-3-20080207 won't compile: lua incompatibility?
+</A></li>
+        <LI>Next message: <A HREF="001157.html">ion-3-20080207 won't compile: lua incompatibility?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1155">[ date ]</a>
+              <a href="thread.html#1155">[ thread ]</a>
+              <a href="subject.html#1155">[ subject ]</a>
+              <a href="author.html#1155">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-03-18, Jarrod Lowe &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">ion at rrod.net</A>&gt; wrote:
+&gt;<i> $ lua -v
+</I>&gt;<i> Lua 5.1.3  Copyright (C) 1994-2008 Lua.org, PUC-Rio
+</I>&gt;<i>
+</I>&gt;<i> Is Ion not compatible with this version of lua?
+</I>
+
+&quot;&quot;&quot;
+7 - Incompatibilities with the Previous Version
+
+Here we list the incompatibilities that may be found when moving a program
+from Lua 5.0 to Lua 5.1. You can avoid most of the incompatibilities
+compiling Lua with appropriate options (see file luaconf.h). However, all
+these compatibility options will be removed in the next version of Lua.
+
+...
+
+  * Function string.gfind was renamed string.gmatch. (Option LUA_COMPAT_GFIND)
+&quot;&quot;&quot;
+
+<A HREF="file://localhost/usr/share/doc/lua5.1-doc/doc/manual.html">file://localhost/usr/share/doc/lua5.1-doc/doc/manual.html</A>
+
+(Or the same doc from web, the but lua.org is dead-slow, so I can't
+be bothered accessing it.)
+
+So it should bejust your compile that is incompatible. Or have they
+changed the compile options between 5.1.2 and 5.1.3? Which would be 
+fucking braindead. (I can get them completely removing gfind for 5.2, 
+but not changing options between 5.1 releases. Or just disabling it
+by default in the whole 5.1 series -- which would've made discovery
+of this change easier -- but net between 5.1 releases.)
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001154.html">ion-3-20080207 won't compile: lua incompatibility?
+</A></li>
+	<LI>Next message: <A HREF="001157.html">ion-3-20080207 won't compile: lua incompatibility?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1155">[ date ]</a>
+              <a href="thread.html#1155">[ thread ]</a>
+              <a href="subject.html#1155">[ subject ]</a>
+              <a href="author.html#1155">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

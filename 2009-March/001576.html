@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Problem with LC_CTYPE in ubuntu intrepid
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Problem%20with%20LC_CTYPE%20in%20ubuntu%20intrepid&In-Reply-To=%3C20090304062746.GI17199%40Hardy%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001581.html">
+   <LINK REL="Next"  HREF="001577.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Problem with LC_CTYPE in ubuntu intrepid</H1>
+    <B>urwithsughosh at gmail.com</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Problem%20with%20LC_CTYPE%20in%20ubuntu%20intrepid&In-Reply-To=%3C20090304062746.GI17199%40Hardy%3E"
+       TITLE="Problem with LC_CTYPE in ubuntu intrepid">urwithsughosh at gmail.com
+       </A><BR>
+    <I>Wed Mar  4 07:27:46 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001581.html">[Slightly-OT] On usability: managing usb devices &amp; network	profiles in a ion3 environment
+</A></li>
+        <LI>Next message: <A HREF="001577.html">Problem with LC_CTYPE in ubuntu intrepid
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1576">[ date ]</a>
+              <a href="thread.html#1576">[ thread ]</a>
+              <a href="subject.html#1576">[ subject ]</a>
+              <a href="author.html#1576">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+  Upgraded my distribution to ubuntu 8.10 on my PC and laptop a few
+  days back. Built and installed the latest version of ion. On doing
+  so, i am not able to type in queries. This problem is notoriously
+  similar to the one i faced a few months back on my laptop running
+  8.04. But back then changing the locale to en_US.utf8 had got it
+  working. This time around, i am not so lucky. The errors reported in
+  .xsession-errors are a bit different now.
+
+
+/etc/gdm/Xsession: Beginning session setup...
+Setting IM through im-switch for locale=en_IN.
+Start IM through /etc/X11/xinit/xinput.d/default linked to /etc/X11/xinit/xinput.d/default.
+ion3: No encoding given in LC_CTYPE.
+
+  Not sure why is it complaining about the LC_CTYPE. Tried a multitude
+  of places of exporting LC_CTYPE (.xsession, bashrc,
+  /etc/environment), but the same error/message is reported. Could not
+  find much relevant information on searching. Not sure where the
+  problem is, although my doubt is that some configuration is done a
+  bit differently in ubuntu intrepid. Could someone suggest a way for
+  ion to read the LC_CTYPE variable. Typing in the command 'locale'
+  gives out this
+
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">sughosh at Hardy</A>:~$ locale
+LANG=en_IN
+LC_CTYPE=&quot;en_IN&quot;
+LC_NUMERIC=&quot;en_IN&quot;
+LC_TIME=&quot;en_IN&quot;
+LC_COLLATE=&quot;en_IN&quot;
+LC_MONETARY=&quot;en_IN&quot;
+LC_MESSAGES=&quot;en_IN&quot;
+LC_PAPER=&quot;en_IN&quot;
+LC_NAME=&quot;en_IN&quot;
+LC_ADDRESS=&quot;en_IN&quot;
+LC_TELEPHONE=&quot;en_IN&quot;
+LC_MEASUREMENT=&quot;en_IN&quot;
+LC_IDENTIFICATION=&quot;en_IN&quot;
+LC_ALL=
+
+-- 
+sughosh
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001581.html">[Slightly-OT] On usability: managing usb devices &amp; network	profiles in a ion3 environment
+</A></li>
+	<LI>Next message: <A HREF="001577.html">Problem with LC_CTYPE in ubuntu intrepid
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1576">[ date ]</a>
+              <a href="thread.html#1576">[ thread ]</a>
+              <a href="subject.html#1576">[ subject ]</a>
+              <a href="author.html#1576">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

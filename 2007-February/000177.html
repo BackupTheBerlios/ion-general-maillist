@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Feature freeze imminent
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Feature%20freeze%20imminent&In-Reply-To=%3Cslrneu93qj.fd6.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000175.html">
+   <LINK REL="Next"  HREF="000185.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Feature freeze imminent</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Feature%20freeze%20imminent&In-Reply-To=%3Cslrneu93qj.fd6.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Feature freeze imminent">tuomov at iki.fi
+       </A><BR>
+    <I>Tue Feb 27 21:06:43 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000175.html">Feature freeze imminent
+</A></li>
+        <LI>Next message: <A HREF="000185.html">Feature freeze imminent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#177">[ date ]</a>
+              <a href="thread.html#177">[ thread ]</a>
+              <a href="subject.html#177">[ subject ]</a>
+              <a href="author.html#177">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2007-02-27, Ted Zlatanov &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tzz at lifelogs.com</A>&gt; wrote:
+&gt;<i> SELECT fileid FROM tagset WHERE tag = 'A'
+</I>&gt;<i> INTERSECT
+</I>&gt;<i> SELECT fileid FROM tagset WHERE tag = 'B'
+</I>
+Oh, yes, you can select single columns. I still wonder about the
+efficiency of INTERSECT, though. 
+
+&gt;<i> The known file name is just an extra column in the files table, and
+</I>&gt;<i> searching for it is fast if the column is indexed.
+</I>
+But aren't there limits on the lengths of strings? I seem to recall
+there being. You could, of course, have one column for each tag up
+to a maximum number of tags, and sort the tags lexicographically 
+(or by ID, if the IDs listed in a table of tags are used instead),
+but that might be inefficient with the, say, max. 64 tags?
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000175.html">Feature freeze imminent
+</A></li>
+	<LI>Next message: <A HREF="000185.html">Feature freeze imminent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#177">[ date ]</a>
+              <a href="thread.html#177">[ thread ]</a>
+              <a href="subject.html#177">[ subject ]</a>
+              <a href="author.html#177">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

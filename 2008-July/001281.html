@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Ion seems to ignore my ~/.ion3
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion%20seems%20to%20ignore%20my%20%7E/.ion3&In-Reply-To=%3Cg5238m%24d4n%241%40ger.gmane.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001279.html">
+   <LINK REL="Next"  HREF="001282.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Ion seems to ignore my ~/.ion3</H1>
+    <B>Andrea</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion%20seems%20to%20ignore%20my%20%7E/.ion3&In-Reply-To=%3Cg5238m%24d4n%241%40ger.gmane.org%3E"
+       TITLE="Ion seems to ignore my ~/.ion3">aremo at ngi.it
+       </A><BR>
+    <I>Wed Jul  9 12:17:52 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001279.html">Ion seems to ignore my ~/.ion3
+</A></li>
+        <LI>Next message: <A HREF="001282.html">Ion seems to ignore my ~/.ion3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1281">[ date ]</a>
+              <a href="thread.html#1281">[ thread ]</a>
+              <a href="subject.html#1281">[ subject ]</a>
+              <a href="author.html#1281">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Wed, 9 Jul 2008 07:23:25 +0000 (UTC),
+Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt; wrote:
+
+&gt;<i> On 2008-07-09, Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt; wrote:
+</I>&gt;&gt;<i> Anyway, this sounds like a race condition with whatever sets
+</I>&gt;&gt;<i> up your X keymap: it's still mapping keys when Ion starts
+</I>&gt;&gt;<i> initialising itself, but isn't yet listening to X events.
+</I>&gt;<i>
+</I>&gt;<i> On closer inspection, this shouldn't happen.
+</I>
+
+Yeah, I've tried putting a &quot;sleep 5&quot; before &quot;ion3&quot; in my .xinitrc, but
+that didn't fix things.
+
+I'm attaching my ~/.xinitrc and my ~/.ion3/cfg_ion.lua. From the latter,
+I'm removing lines matching /^ *--/ and /^$/ for brevity's sake, hope
+it's OK.
+
+Thanks,
+Andrea
+
+
+-----BEGIN ~/.xinitrc-----
+echo $HOME
+xrdb ~/.Xdefaults
+xmodmap ~/.Xmodmap
+xgamma -rgamma 0.64 -ggamma 0.69 -bgamma 0.66
+xset b 10 880 600 dpms 420 430 440 r rate 400 28
+unclutter &amp;
+ion3
+
+------END ~/.xinitrc------
+
+
+-----BEGIN ~/.ion3/cfg_ion.lua-----
+ALTMETA=&quot;Mod4+&quot;
+ioncore.set{
+    
+    
+    
+    
+}
+dopath(&quot;cfg_defaults&quot;)
+
+------END ~/.ion3/cfg_ion.lua------
+
+
+-- 
+~&gt; uname -a
+Linux acerrimo.local 2.6.18-92.1.6.el5 #1 SMP Wed Jun 25 12:46:39 EDT
+2008 i686 athlon i386 GNU/Linux
+~&gt; head -n1 /etc/issue
+Scientific Linux SL release 5.1 (Boron)
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001279.html">Ion seems to ignore my ~/.ion3
+</A></li>
+	<LI>Next message: <A HREF="001282.html">Ion seems to ignore my ~/.ion3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1281">[ date ]</a>
+              <a href="thread.html#1281">[ thread ]</a>
+              <a href="subject.html#1281">[ subject ]</a>
+              <a href="author.html#1281">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

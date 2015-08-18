@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> ion-3ds-20070318
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion-3ds-20070318&In-Reply-To=%3C1174860347.11281.61.camel%40deadeye.i.decadent.org.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000273.html">
+   <LINK REL="Next"  HREF="000320.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>ion-3ds-20070318</H1>
+    <B>Ben Hutchings</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion-3ds-20070318&In-Reply-To=%3C1174860347.11281.61.camel%40deadeye.i.decadent.org.uk%3E"
+       TITLE="ion-3ds-20070318">ben at decadent.org.uk
+       </A><BR>
+    <I>Mon Mar 26 00:05:47 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000273.html">ion-3ds-20070318
+</A></li>
+        <LI>Next message: <A HREF="000320.html">ion-3ds-20070318
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#319">[ date ]</a>
+              <a href="thread.html#319">[ thread ]</a>
+              <a href="subject.html#319">[ subject ]</a>
+              <a href="author.html#319">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Sun, 2007-03-18 at 21:02 +0000, Tuomo Valkonen wrote:
+&gt;<i> This may be the last &quot;ds&quot; release if Ion3; if all goes well, the next
+</I>&gt;<i> release is likely to be an &quot;rc&quot;. Some minor improvements will still
+</I>&gt;<i> be done, and minor requests may be accepted, so be quick.
+</I>
+I'm just about to upload a Debian package of this.  Some things I noted
+while preparing it:
+
+- Context menus for frames now affect the current object.  Previously
+  (certainly in 20061223; I'm not sure about 20070203) they would
+  affect the tab that the context menu was opened on.  This change
+  doesn't seem to have been documented, but I've noted it in
+  NEWS.Debian.  Was it an intentional change?
+
+- Size request changes by docked applications (I use &quot;docker&quot;) seem to
+  be ignored.  I narrowed this down to the patch 'Full screen mode fixes
+  and improvements'.  I don't understand quite what this is doing, so
+  for now I've simply reverted it in the Debian package.
+
+- Minor nit: rootwin_init() does:
+    LINK_ITEM(*(WRegion**)&amp;ioncore_g.rootwins, (WRegion*)rootwin, p_next, p_prev);
+  and similarly rootwin_deinit() does:
+    UNLINK_ITEM(*(WRegion**)&amp;ioncore_g.rootwins, (WRegion*)rw, p_next, p_prev);
+  I think these casts violate the aliasing rules, but I'm not certain.
+
+Ben.
+
+-- 
+Ben Hutchings
+compatible: Gracefully accepts erroneous data from any source
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20070325/ad667529/attachment.pgp">https://lists.berlios.de/pipermail/ion-general/attachments/20070325/ad667529/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000273.html">ion-3ds-20070318
+</A></li>
+	<LI>Next message: <A HREF="000320.html">ion-3ds-20070318
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#319">[ date ]</a>
+              <a href="thread.html#319">[ thread ]</a>
+              <a href="subject.html#319">[ subject ]</a>
+              <a href="author.html#319">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

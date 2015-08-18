@@ -1,0 +1,75 @@
+From mrawash at gmail.com  Wed Feb 10 23:21:01 2010
+From: mrawash at gmail.com (M Rawash)
+Date: Thu, 11 Feb 2010 00:21:01 +0200
+Subject: mouse jumping to first tab
+Message-ID: <1265840461.13010.13.camel@localhost>
+
+hi, i make use of nested (WTiling) workspaces alot, but whenever i
+switch to a workspace using the mouse (either by clicking or using the
+mousewheel) the cursor jumps to the first 'tab' in that workspace, this
+is extremely annoying (especially in the mouseweel case), how do i stop
+this behaviour?
+
+thank you,
+M Rawash
+
+
+
+From olejorgenb at yahoo.no  Thu Feb 11 17:55:58 2010
+From: olejorgenb at yahoo.no (=?utf-8?Q?Ole_J=C3=B8rgen_Br=C3=B8nner?=)
+Date: Thu, 11 Feb 2010 17:55:58 +0100
+Subject: mouse jumping to first tab
+In-Reply-To: <1265840461.13010.13.camel@localhost>
+References: <1265840461.13010.13.camel@localhost>
+Message-ID: <op.u7y2nhlmvocxtk@tabole-debian>
+
+Try changing the
+    mclick("Button1 at tab", "WFrame.p_switch_tab(_)")
+to
+    mclick("Button1 at tab", "ioncore.set({warp=false} WFrame.p_switch_tab(_) ioncore.set({warp=true}")
+
+On Wed, 10 Feb 2010 23:21:01 +0100, M Rawash <mrawash at gmail.com> wrote:
+
+> hi, i make use of nested (WTiling) workspaces alot, but whenever i
+> switch to a workspace using the mouse (either by clicking or using the
+> mousewheel) the cursor jumps to the first 'tab' in that workspace, this
+> is extremely annoying (especially in the mouseweel case), how do i stop
+> this behaviour?
+>
+> thank you,
+> M Rawash
+>
+
+
+From mrawash at gmail.com  Thu Feb 11 20:23:43 2010
+From: mrawash at gmail.com (M Rawash)
+Date: Thu, 11 Feb 2010 21:23:43 +0200
+Subject: mouse jumping to first tab
+In-Reply-To: <op.u7y2nhlmvocxtk@tabole-debian>
+References: <1265840461.13010.13.camel@localhost>
+	<op.u7y2nhlmvocxtk@tabole-debian>
+Message-ID: <1265916223.4006.121.camel@localhost>
+
+On Thu, 2010-02-11 at 17:55 +0100, Ole J?rgen Br?nner wrote:
+> Try changing the
+>     mclick("Button1 at tab", "WFrame.p_switch_tab(_)")
+> to
+>     mclick("Button1 at tab", "ioncore.set({warp=false} WFrame.p_switch_tab(_) ioncore.set({warp=true}")
+> 
+> On Wed, 10 Feb 2010 23:21:01 +0100, M Rawash <mrawash at gmail.com> wrote:
+> 
+> > hi, i make use of nested (WTiling) workspaces alot, but whenever i
+> > switch to a workspace using the mouse (either by clicking or using the
+> > mousewheel) the cursor jumps to the first 'tab' in that workspace, this
+> > is extremely annoying (especially in the mouseweel case), how do i stop
+> > this behaviour?
+> >
+> > thank you,
+> > M Rawash
+> >
+
+ah, yes, i just changed ioncore.set 'warp' to 'false' globally, didn't
+know that is what it meant (guess i should have RTFM), thank you :)
+
+
+

@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> 2.7 (=~e)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%202.7%20%28%3D%7Ee%29&In-Reply-To=%3Cslrnfqn3hi.c8j.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001062.html">
+   <LINK REL="Next"  HREF="001129.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>2.7 (=~e)</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%202.7%20%28%3D%7Ee%29&In-Reply-To=%3Cslrnfqn3hi.c8j.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="2.7 (=~e)">tuomov at iki.fi
+       </A><BR>
+    <I>Fri Feb  8 00:03:14 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001062.html">2.7 (=~e)
+</A></li>
+        <LI>Next message: <A HREF="001129.html">2.7 (=~e)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1063">[ date ]</a>
+              <a href="thread.html#1063">[ thread ]</a>
+              <a href="subject.html#1063">[ subject ]</a>
+              <a href="author.html#1063">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-02-07, Samuel Baldwin &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">shardz4217 at gmail.com</A>&gt; wrote:
+&gt;<i> What about the other kernel tasks? Just handled by other processes in
+</I>&gt;<i> userspace? 
+</I>
+Mostly, yes. Scheduler may need to be in the kernel. Dunno how it
+is in existing exokernels, but they do not e.g. include message-
+passing as microkernels too. That's handled by user side through
+the kernel-provided memory management. File systems are obviously
+in user space.. and programs can simply directly allocate disk
+pages from the kernel, if they don't care to use a file system 
+service. (Over reboots they somehow have to remember their
+root pages, however. This is actually related to the orthogonal
+persistence of EROS.)
+
+&gt;<i> That'd be very interesting and very cool. Abstraction is
+</I>&gt;<i> very very good. I wouldn't imagine writing an OS that wouldn't include
+</I>&gt;<i> device abstraction (for drives, at the very least).
+</I>
+Actually, I see the lightweight exokernel as a somewhat of a 
+return to the golden age of DOS. Device drivers can be abstracted
+as libraries too, when the device doesn't have to be shared, and
+any program can use the library. The kernel just takes care that 
+no two processes use the device's memory space simultaneously. 
+Now, obviously a sound server that mixes multiple streams is a 
+useful one, as is a display multiplexer, but you don't particularly
+need a specific low-level driver service, but rather drivers within
+such much higher level services. Basically a bit like the X server
+presently is actually, but hopefully without its reliability 
+problems.. (also to consider how to do DRI shit nicely while not
+giving any bloated and unreliable program full control of such 
+a critical resource).
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001062.html">2.7 (=~e)
+</A></li>
+	<LI>Next message: <A HREF="001129.html">2.7 (=~e)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1063">[ date ]</a>
+              <a href="thread.html#1063">[ thread ]</a>
+              <a href="subject.html#1063">[ subject ]</a>
+              <a href="author.html#1063">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

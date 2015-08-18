@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Main window's focus with active transient
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Main%20window%27s%20focus%20with%20active%20transient&In-Reply-To=%3Cslrng37ndt.scn.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001191.html">
+   <LINK REL="Next"  HREF="001207.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Main window's focus with active transient</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Main%20window%27s%20focus%20with%20active%20transient&In-Reply-To=%3Cslrng37ndt.scn.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Main window's focus with active transient">tuomov at iki.fi
+       </A><BR>
+    <I>Wed May 21 10:30:53 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001191.html">Main window's focus with active transient
+</A></li>
+        <LI>Next message: <A HREF="001207.html">Main window's focus with active transient
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1192">[ date ]</a>
+              <a href="thread.html#1192">[ thread ]</a>
+              <a href="subject.html#1192">[ subject ]</a>
+              <a href="author.html#1192">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-05-20, Konstantin Kletschke &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">lists at ku-gbr.de</A>&gt; wrote:
+&gt;<i> When the application is tiled, I can switch focus back to it with mouse
+</I>&gt;<i> but not type keys to it.
+</I>
+If you can't type in it, you can't switch focus to it.. unless the
+application is itself refusing the input. Focus means keyboard input,
+although some toolkits also expect the pointer to be in the field and
+indicate that.
+
+&gt;<i> Is that behaviour a known limitation, configurable by me or intentional?
+</I>
+I consider all transients modal. They're _transient_ windows, after
+all. Separate _toolbox windows_ -- which are in themselves a fundamental 
+design flaw -- should not be marked as transient. 
+
+You can override the application-provided transient hint with 
+transient_mode winprop. That will, however, place the toolbox as a new
+client in the current frame. The 'float' winprop might do something more
+useful. Maybe some of the scripts in the scripts repository also did 
+something useful; check it. 
+
+It is also possible to put windows managed in the group of a main window 
+on a non-modal stacking level. This will, however, require a custom
+clientwin_do_manage_alt hook handler or an attach script, as it is only
+possible to set the stacking level from a WMPlex.attach[_new] call. 
+(Levels starting from 1024 are modal.) Maybe someone can write a script...
+
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001191.html">Main window's focus with active transient
+</A></li>
+	<LI>Next message: <A HREF="001207.html">Main window's focus with active transient
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1192">[ date ]</a>
+              <a href="thread.html#1192">[ thread ]</a>
+              <a href="subject.html#1192">[ subject ]</a>
+              <a href="author.html#1192">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

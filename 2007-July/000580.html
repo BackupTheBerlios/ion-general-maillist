@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Dock padding_pixels suggestion
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Dock%20padding_pixels%20suggestion&In-Reply-To=%3Cf70oqf%24mv8%241%40sea.gmane.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000611.html">
+   <LINK REL="Next"  HREF="000581.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Dock padding_pixels suggestion</H1>
+    <B>Thomas Leonard</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Dock%20padding_pixels%20suggestion&In-Reply-To=%3Cf70oqf%24mv8%241%40sea.gmane.org%3E"
+       TITLE="Dock padding_pixels suggestion">talex5 at gmail.com
+       </A><BR>
+    <I>Tue Jul 10 22:05:35 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000611.html">Some kind of &quot;proxy-tool&quot; for Apps running inside Xnest?
+</A></li>
+        <LI>Next message: <A HREF="000581.html">Dock padding_pixels suggestion 
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#580">[ date ]</a>
+              <a href="thread.html#580">[ thread ]</a>
+              <a href="subject.html#580">[ subject ]</a>
+              <a href="author.html#580">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I'm trying to use Ion 3 with ROX[1], and fixing a few problems as I go
+(we're missing transient-for in places, etc... oops!).
+
+One minor issue I noticed is that the dock has a 1 pixel border by
+default. Normally, to run something in ROX's panel you just whack the
+pointer in the general direction of the screen edge and click, but with
+the border gap that doesn't work.
+
+Perhaps the style below could be added to the default theme to change that?
+
+de.defstyle(&quot;stdisp&quot;, {
+    padding_pixels = 0,
+})
+
+Thanks,
+
+BTW, I noticed this in the not-a-blog:
+
+ &quot;The middlemen known as &#8220;distributions&#8221; have effective control over the
+ software that people install. Authors can not hope to compete with the
+ juggernaut distributions' easily installable packages, the only practical
+ method for them to distribute their software being laboursome source
+ packages that users must hunt down from the Web. [...] They provide old
+ buggy versions and even out-dated development snapshots for years without
+ prominent version qualifiers, and expect the author to deal with the
+ users having problems with the bugs and incompatibilities in these
+ versions.&quot;
+
+I used to have exactly the same problems with ROX-Filer, but now I just
+provide a Zero Install[2] feed for it. On most modern Linux distributions
+(including Ubuntu and Fedora), any user can just do:
+
+$ 0alias rox <A HREF="http://rox.sourceforge.net/2005/interfaces/ROX-Filer">http://rox.sourceforge.net/2005/interfaces/ROX-Filer</A>
+
+Then they can run it with the command 'rox'. It gets the latest binary
+version from my site, checks the signature using my GPG key and installs
+it. It also checks for updates from time-to-time. Have you thought of
+providing Ion that way?
+
+
+[1] <A HREF="http://rox.sourceforge.net/desktop/rox_with_ion">http://rox.sourceforge.net/desktop/rox_with_ion</A>
+[2] <A HREF="http://0install.net">http://0install.net</A>  (and yes, I wrote it so I'm biased)
+
+
+-- 
+Dr Thomas Leonard		<A HREF="http://rox.sourceforge.net">http://rox.sourceforge.net</A>
+GPG: 9242 9807 C985 3C07 44A6  8B9A AE07 8280 59A5 3CC1
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000611.html">Some kind of &quot;proxy-tool&quot; for Apps running inside Xnest?
+</A></li>
+	<LI>Next message: <A HREF="000581.html">Dock padding_pixels suggestion 
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#580">[ date ]</a>
+              <a href="thread.html#580">[ thread ]</a>
+              <a href="subject.html#580">[ subject ]</a>
+              <a href="author.html#580">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

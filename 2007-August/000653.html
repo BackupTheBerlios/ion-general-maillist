@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Not all bindings are defined in cfg_ioncore.lua
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Not%20all%20bindings%20are%20defined%20in%20cfg_ioncore.lua&In-Reply-To=%3Cslrnfbbtgm.qdc.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000652.html">
+   <LINK REL="Next"  HREF="000661.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Not all bindings are defined in cfg_ioncore.lua</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Not%20all%20bindings%20are%20defined%20in%20cfg_ioncore.lua&In-Reply-To=%3Cslrnfbbtgm.qdc.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Not all bindings are defined in cfg_ioncore.lua">tuomov at iki.fi
+       </A><BR>
+    <I>Sun Aug  5 18:08:54 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000652.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+        <LI>Next message: <A HREF="000661.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#653">[ date ]</a>
+              <a href="thread.html#653">[ thread ]</a>
+              <a href="subject.html#653">[ subject ]</a>
+              <a href="author.html#653">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+My take on the use scripting languages for configuration may be read
+in [1,2]. In summary: I'm not too happy about using scripting languages
+for configuration, and would rather have separate somewhat _standard_
+config system for basic configuration (integrated with Vis [3], possibly
+providing access through the FS, and maybe providing _rudimentary_
+command-level scripting as well) [1]. Support for real scripting should
+be provided by a general exported API usable through any language being
+able to access some ___simplistic___ common language runtime 
+infrastructure [2]. However, since decent versions of neither of these
+systems exist, using an easily embeddable scripting language like Lua
+is the path of least effort. And since Ion is &quot;research code&quot; (although
+in Ion2 and especially Ion3 it has recently strayed too far into becoming
+a proper software development project, which I don't like), I'm not going
+to spend too much time polishing it to be a flashy luser-compatible 
+product. I rather concentrate on the ideas.
+
+---
+
+  [1]: <A HREF="http://iki.fi/tuomov/b/archives/2007/01/20/T11_58_29/">http://iki.fi/tuomov/b/archives/2007/01/20/T11_58_29/</A>
+
+  [2]: <A HREF="http://iki.fi/tuomov/b/archives/2007/02/02/T18_49_51/">http://iki.fi/tuomov/b/archives/2007/02/02/T18_49_51/</A>
+
+  [3]: <A HREF="http://iki.fi/tuomov/vis/">http://iki.fi/tuomov/vis/</A>
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000652.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+	<LI>Next message: <A HREF="000661.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#653">[ date ]</a>
+              <a href="thread.html#653">[ thread ]</a>
+              <a href="subject.html#653">[ subject ]</a>
+              <a href="author.html#653">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

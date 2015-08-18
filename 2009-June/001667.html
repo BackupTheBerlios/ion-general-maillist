@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Scripting problem
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-June/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Scripting%20problem&In-Reply-To=%3Ch097kv%24mmm%241%40ger.gmane.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001666.html">
+   <LINK REL="Next"  HREF="001670.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Scripting problem</H1>
+    <B>Seb Haezebrouck</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Scripting%20problem&In-Reply-To=%3Ch097kv%24mmm%241%40ger.gmane.org%3E"
+       TITLE="Scripting problem">seb at borriglion.fr
+       </A><BR>
+    <I>Thu Jun  4 21:30:18 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001666.html">Scripting problem
+</A></li>
+        <LI>Next message: <A HREF="001670.html">Scripting problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1667">[ date ]</a>
+              <a href="thread.html#1667">[ thread ]</a>
+              <a href="subject.html#1667">[ subject ]</a>
+              <a href="author.html#1667">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Working fine - thank you.
+
+BTW, I also had to change the default behaviour of the splitting bindings.
+By default, they have the 'attach_current' parameter set to true. This
+prevented splitting a frame which had only one client: the frame was split,
+the only client of the  previous frame was moved to the new split, the hook
+triggered and the previous frame (now empty) was destroyed.
+In this situation, I would see is the frame briefly flashing, but no split
+occurring.
+
+Changing the default split binding to use 'attach_current' false fixed this.
+
+Thanks a lot for your answers,
+
+Seb
+
+&quot;Ole J&#248;rgen Br&#248;nner&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">olejorgenb at yahoo.no</A>&gt; a &#233;crit dans
+le message de news: <A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">op.uuytvjusvocxtk at tabole-debian...</A>
+ioncore.defer takes a _function_. In your code WRegion.rqclose(wmp) will
+be executed and the result will be passed to defer.
+
+You need to wrap the function call in a lamba like this:
+   ioncore.defer(function () WRegion.rqclose(wmp) end)
+
+--
+Ole J&#248;rgen Br&#248;nner
+
+
+
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001666.html">Scripting problem
+</A></li>
+	<LI>Next message: <A HREF="001670.html">Scripting problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1667">[ date ]</a>
+              <a href="thread.html#1667">[ thread ]</a>
+              <a href="subject.html#1667">[ subject ]</a>
+              <a href="author.html#1667">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Experimental ZeroInstall feed [Was: ion-3rc-20071109]
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Experimental%20ZeroInstall%20feed%20%5BWas%3A%20ion-3rc-20071109%5D&In-Reply-To=%3Cslrnfj8v2b.fre.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000842.html">
+   <LINK REL="Next"  HREF="000844.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Experimental ZeroInstall feed [Was: ion-3rc-20071109]</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Experimental%20ZeroInstall%20feed%20%5BWas%3A%20ion-3rc-20071109%5D&In-Reply-To=%3Cslrnfj8v2b.fre.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Experimental ZeroInstall feed [Was: ion-3rc-20071109]">tuomov at iki.fi
+       </A><BR>
+    <I>Fri Nov  9 16:27:07 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000842.html">ion-3rc-20071109
+</A></li>
+        <LI>Next message: <A HREF="000844.html">Experimental ZeroInstall feed [Was: ion-3rc-20071109]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#843">[ date ]</a>
+              <a href="thread.html#843">[ thread ]</a>
+              <a href="subject.html#843">[ subject ]</a>
+              <a href="author.html#843">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>There's also now an experimental ZeroInstall [1] feed for Ion. To use 
+it, just put
+
+    0launch <A HREF="http://iki.fi/tuomov/dl/Ion3.xml">http://iki.fi/tuomov/dl/Ion3.xml</A>
+
+directly in your `.xsession`, assuming you have all the libaries it wants,
+and compatible hardware and OS (built on Linux 2.6/i386). Alternatively,
+create an alias
+
+    0alias ion3 <A HREF="http://iki.fi/tuomov/dl/Ion3.xml">http://iki.fi/tuomov/dl/Ion3.xml</A>
+
+and use that.
+
+Presently the library requirements appear to be:
+
+    $ ldd bin/ion3 |cut -f 1 -d ' '
+        linux-gate.so.1
+        librt.so.1
+        libX11.so.6
+        libXext.so.6
+        libdl.so.2
+        libm.so.6
+        libc.so.6
+        libpthread.so.0
+        /lib/ld-linux.so.2
+        libXau.so.6
+        libXdmcp.so.6
+
+and I don't think I can express these in ZeroInstall in any way, there
+being no packages for them to my knowledge. It's rather standard stuff,
+however, so most Linux folks shouldn't have a problem. I wanted to create
+a static binary, but apparently GNU libc is just utter and total crap 
+these days, and it can not be linked against statically, with libc.a
+(as installable on etch) depending on dynamically loaded modules. 
+Sigh. A megatonne monolith with pretensions of dynamics.
+
+The binary does not appear to entirely work in FreeBSD, statusd in
+particular having some timing troubles and even encountering illegal
+instructions or so. I thought of adding a native Frisbee binary, but
+as my previous experience from years ago suggests, source and 
+autocrap-based packaging systems and the all-in-one-basket unix
+file system hierarchy are hopeless crap, and I was unable to build
+ZeroInstall, so would be unable to fully test it. 
+
+...
+
+Some things are broken, such as display of Ion's own man page, and
+paths within it. There's no good way around that, because there's
+no easy and portable way to display a particular _file_ with `man`.
+
+
+  [1]: <A HREF="http://0install.net/">http://0install.net/</A>
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000842.html">ion-3rc-20071109
+</A></li>
+	<LI>Next message: <A HREF="000844.html">Experimental ZeroInstall feed [Was: ion-3rc-20071109]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#843">[ date ]</a>
+              <a href="thread.html#843">[ thread ]</a>
+              <a href="subject.html#843">[ subject ]</a>
+              <a href="author.html#843">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

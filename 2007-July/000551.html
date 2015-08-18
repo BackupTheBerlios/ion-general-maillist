@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> problem with statusbar_external
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20problem%20with%20statusbar_external&In-Reply-To=%3C92f2ef410707060518i603f2d58u5e1c12bd23459b8%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000550.html">
+   <LINK REL="Next"  HREF="000552.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>problem with statusbar_external</H1>
+    <B>Vladimir Chizhov</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20problem%20with%20statusbar_external&In-Reply-To=%3C92f2ef410707060518i603f2d58u5e1c12bd23459b8%40mail.gmail.com%3E"
+       TITLE="problem with statusbar_external">jagoterr at gmail.com
+       </A><BR>
+    <I>Fri Jul  6 14:18:22 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000550.html">Dialogs winprop
+</A></li>
+        <LI>Next message: <A HREF="000552.html">problem with statusbar_external
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#551">[ date ]</a>
+              <a href="thread.html#551">[ thread ]</a>
+              <a href="subject.html#551">[ subject ]</a>
+              <a href="author.html#551">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I use the latest snapshot (20070608) and statusbar_external script this way:
+In my cfg_ion.lua I have:
+-- ---
+statusbar_external = {
+...
+}
+dopath (&quot;statusbar_external&quot;)
+dopath(&quot;mod_statusbar&quot;)
+-- ---
+and on startup ion says:
+
+Ion startup error log:
+&gt;&gt;<i> Errors starting ion-statusd:
+</I>   /usr/lib/ion3/bin/ion-statusd: Unable to find 'statusd_cpufreq' on
+search path.
+   /usr/lib/ion3/bin/ion-statusd: Unable to find 'statusd_acpibat' on
+search path.
+   /usr/lib/ion3/bin/ion-statusd: Unable to find 'statusd_cpupolicy'
+on search path.
+
+These are meters, defined in statusbar_external={}. And they work
+fine! But such message is being displayed on each startup. Should I
+try to fix statusbar_external.lua in any way or is it a mod_statusbar
+issue?
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000550.html">Dialogs winprop
+</A></li>
+	<LI>Next message: <A HREF="000552.html">problem with statusbar_external
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#551">[ date ]</a>
+              <a href="thread.html#551">[ thread ]</a>
+              <a href="subject.html#551">[ subject ]</a>
+              <a href="author.html#551">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

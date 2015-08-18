@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> xkbion.lua
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-December/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20xkbion.lua&In-Reply-To=%3C494C3423.1070309%40citrin.ru%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001504.html">
+   <LINK REL="Next"  HREF="001507.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>xkbion.lua</H1>
+    <B>Anton Yuzhaninov</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20xkbion.lua&In-Reply-To=%3C494C3423.1070309%40citrin.ru%3E"
+       TITLE="xkbion.lua">citrin at citrin.ru
+       </A><BR>
+    <I>Sat Dec 20 00:54:11 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001504.html">ion scripts location
+</A></li>
+        <LI>Next message: <A HREF="001507.html">xkbion.lua
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1505">[ date ]</a>
+              <a href="thread.html#1505">[ thread ]</a>
+              <a href="subject.html#1505">[ subject ]</a>
+              <a href="author.html#1505">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>xkbion.lua from ion scripts collection works for me only with this patch:
+
+--- xkbion.lua.orig	2008-12-20 02:43:25.000000000 +0300
++++ xkbion.lua	2008-12-20 02:48:24.000000000 +0300
+@@ -149,7 +149,7 @@
+
+      ioncore.get_hook(&quot;region_notify_hook&quot;):add(
+          function(reg, action)
+-            if (tostring(reg.__typename) == &quot;WClientWin&quot;) and (action == &quot;activated&quot;) then
++            if (reg and tostring(reg.__typename) == &quot;WClientWin&quot;) and (action == &quot;activated&quot;) then
+                  set_group(reg)
+              end
+          end
+@@ -158,7 +158,7 @@
+      local key = groups.key
+      if key and type(key) == &quot;string&quot; then
+          defbindings(&quot;WClientWin&quot;, {
+-            kpress(key, function (_, _sub) set_group(_, true)  end, &quot;_sub:WClientWin&quot;)
++            kpress(key, function (_, _sub) set_group(_, true)  end)
+          })
+      end
+
+Without first change this error appeared:
+
+Ion startup error log:
+ &gt;&gt; /home/citrin/.ion3/xkbion.lua:152: attempt to index local 'reg' (a nil value)
+ &gt;&gt; /home/citrin/.ion3/xkbion.lua:152: attempt to index local 'reg' (a nil value)
+
+Without second change key binding don't work.
+
+Why guard _sub:WClientWin was added?
+_sub seems to be nil in most cases, when this key bind checked.
+
+-- 
+  Anton Yuzhaninov
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001504.html">ion scripts location
+</A></li>
+	<LI>Next message: <A HREF="001507.html">xkbion.lua
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1505">[ date ]</a>
+              <a href="thread.html#1505">[ thread ]</a>
+              <a href="subject.html#1505">[ subject ]</a>
+              <a href="author.html#1505">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> alignment of 2x2 tilings
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-October/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20alignment%20of%202x2%20tilings&In-Reply-To=%3Cslrnfi4meb.mqc.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000809.html">
+   <LINK REL="Next"  HREF="000811.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>alignment of 2x2 tilings</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20alignment%20of%202x2%20tilings&In-Reply-To=%3Cslrnfi4meb.mqc.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="alignment of 2x2 tilings">tuomov at iki.fi
+       </A><BR>
+    <I>Fri Oct 26 23:19:07 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000809.html">alignment of 2x2 tilings
+</A></li>
+        <LI>Next message: <A HREF="000811.html">alignment of 2x2 tilings
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#810">[ date ]</a>
+              <a href="thread.html#810">[ thread ]</a>
+              <a href="subject.html#810">[ subject ]</a>
+              <a href="author.html#810">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2007-10-26, Joerg van den Hoff &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">j.van_den_hoff at fzd.de</A>&gt; wrote:
+&gt;<i> I would think the final 2x2 layout should always look the same (and
+</I>&gt;<i> have aligned title bars). would this really require some &quot;dirty&quot;
+</I>&gt;<i> fiddling?
+</I>
+Yes. When you first split horizontally, the left frame (in the stock
+setup) is smaller than the right one because of the statusbar. Now
+when you split both of them vertically into two equal parts, they
+can't align. Seeking for another tab to align at would be an ugly
+heuristic -- that would likely give you a different result depending
+on which frame you split first -- and I don't like heuristics. 
+Aligning the splits at some grid coarser than the statusbar might
+work more nicely, but what's the point anyway? You can't operate
+the frames as if you'd split the other way around in the first
+place. I know of no good way around this limitation/feature of 
+the Ion and perhaps any tiling model. You could of course write
+some dirty heuristics to alter the layout on some resize operations,
+but heuristics suck, and so does requiring the user to indicate 
+whether they intend to resize a whole column or just one frame 
+altering the layout to suit this. If such input is required, you
+could just as well call a transpose or such command.
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000809.html">alignment of 2x2 tilings
+</A></li>
+	<LI>Next message: <A HREF="000811.html">alignment of 2x2 tilings
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#810">[ date ]</a>
+              <a href="thread.html#810">[ thread ]</a>
+              <a href="subject.html#810">[ subject ]</a>
+              <a href="author.html#810">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

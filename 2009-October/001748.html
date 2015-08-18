@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Statusbar question
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-October/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Statusbar%20question&In-Reply-To=%3Calpine.LNX.2.00.0910301649530.2814%40india.ece.cmu.edu%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Statusbar question</H1>
+    <B>Timandahaf</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Statusbar%20question&In-Reply-To=%3Calpine.LNX.2.00.0910301649530.2814%40india.ece.cmu.edu%3E"
+       TITLE="Statusbar question">timandahaf+dev at gmail.com
+       </A><BR>
+    <I>Fri Oct 30 21:54:11 CET 2009</I>
+    <P><UL>
+        
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1748">[ date ]</a>
+              <a href="thread.html#1748">[ thread ]</a>
+              <a href="subject.html#1748">[ subject ]</a>
+              <a href="author.html#1748">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I'd trying to configure separate, different statusbars on each of my two
+screens. I use statusbar_workspace, and want it to display each screen's
+workspaces on that screen.
+
+I added a create in my cfg_statusbar.lua, so it looks like:
+
+------------------------------------------------------------------------------
+mod_statusbar.create{
+     screen=0,
+     pos='bl',
+     fullsize=false,
+     systray=false,
+     template=&quot;[ %date || %workspace_pager ] %filler%systray&quot;,
+}
+
+mod_statusbar.create{
+     screen=1,
+     pos='bl',
+     fullsize=false,
+     systray=false,
+     template=&quot;[ %workspace_pager ] %filler%systray&quot;,
+}
+------------------------------------------------------------------------------
+
+The problem is, the workspace_pager that's shown on the screen1 is
+actually a copy of screen0's pager, and is therefore useless. How do I
+fix this?
+
+Thanks much in advance!
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1748">[ date ]</a>
+              <a href="thread.html#1748">[ thread ]</a>
+              <a href="subject.html#1748">[ subject ]</a>
+              <a href="author.html#1748">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> configuration files not respected on ubuntu?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20configuration%20files%20not%20respected%20on%20ubuntu%3F&In-Reply-To=%3C46B646FB.608%40stanford.edu%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000655.html">
+   <LINK REL="Next"  HREF="000658.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>configuration files not respected on ubuntu?</H1>
+    <B>Red Daly</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20configuration%20files%20not%20respected%20on%20ubuntu%3F&In-Reply-To=%3C46B646FB.608%40stanford.edu%3E"
+       TITLE="configuration files not respected on ubuntu?">reddaly at stanford.edu
+       </A><BR>
+    <I>Sun Aug  5 23:54:03 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000655.html">configuration files not respected on ubuntu?
+</A></li>
+        <LI>Next message: <A HREF="000658.html">configuration files not respected on ubuntu?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#657">[ date ]</a>
+              <a href="thread.html#657">[ thread ]</a>
+              <a href="subject.html#657">[ subject ]</a>
+              <a href="author.html#657">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I removed the ubuntu package and manually installed from the ion3 
+tarball.  My configuration changes now seem to work correctly from the 
+~/.ion3 directory.  It is a shame that the Ubuntu package is so out of 
+date, though :(
+
+The only tricky part was adding a new file to start ion3 from GDM:
+$ cat /usr/share/gdm/BuiltInSessions/ion3.desktop
+[Desktop Entry]
+Encoding=UTF-8
+Name=Ion3
+Comment=A tiling tabbed window manager designed with keyboard users in mind.
+Exec=ion3
+TryExec=ion3
+# no icon yet, only the top three are currently used
+Icon=
+Type=Application
+
+
+thanks for your help!
+
+Red
+
+Nick Murdoch wrote:
+&gt;<i> Red Daly wrote:
+</I>&gt;<i>   
+</I>&gt;&gt;<i> p.s.  I am running the ion3 that I apt-got with my ubuntu feisty machine.
+</I>&gt;&gt;<i>     
+</I>&gt;&gt;&gt;<i> $ ion3 -V
+</I>&gt;&gt;&gt;<i> 3ds-20061029
+</I>&gt;&gt;&gt;<i>       
+</I>&gt;<i>
+</I>&gt;<i> Ubuntu are shipping software that old?! Even Debian (sid) has
+</I>&gt;<i> 3rc-20070708 at the moment. Are you sure you haven't forgotten to
+</I>&gt;<i> apt-get update first?
+</I>&gt;<i>
+</I>&gt;<i> Hint: download and build from source. I managed it with ion2 on Solaris
+</I>&gt;<i> a couple of years ago; if I can do that you can manage it fine on Ubuntu.
+</I>&gt;<i> l
+</I>&gt;<i> Oh, and read the FAQ
+</I>&gt;<i> <A HREF="http://modeemi.fi/~tuomov/ion/faq/entries/Reporting_bugs.html">http://modeemi.fi/~tuomov/ion/faq/entries/Reporting_bugs.html</A> :)
+</I>&gt;<i> Removing all Gnome software on a Ubuntu box should be fun. Presumably
+</I>&gt;<i> installing xdm (how do you feel about kdm, Tuomo?) and writing a simple
+</I>&gt;<i> .xsession (mine has one line: &quot;ion2&quot;) is good enough to eliminate any
+</I>&gt;<i> side effects of Gnome just for testing that the bug is real?
+</I>&gt;<i>
+</I>&gt;<i> Nick
+</I>&gt;<i>   
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000655.html">configuration files not respected on ubuntu?
+</A></li>
+	<LI>Next message: <A HREF="000658.html">configuration files not respected on ubuntu?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#657">[ date ]</a>
+              <a href="thread.html#657">[ thread ]</a>
+              <a href="subject.html#657">[ subject ]</a>
+              <a href="author.html#657">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

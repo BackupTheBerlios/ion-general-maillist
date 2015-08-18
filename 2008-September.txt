@@ -1,0 +1,3779 @@
+From lanek at novenine.com  Fri Sep  5 08:55:26 2008
+From: lanek at novenine.com (Roy Lanek)
+Date: Fri, 5 Sep 2008 13:55:26 +0700
+Subject: "Other/Proprietary License with Source"
+Message-ID: <20080905065526.GA25853@sirih>
+
+I am wondering about the license displaying at freshmeat.net ...
+
+    Software          License
+
+    Ion ............. Other/Proprietary License with Source
+    daemontools ..... Public Domain
+    qmail ........... Public Domain
+    djbdns .......... Freeware
+    cdb ............. Freeware
+
+Yes, is it so?! I am not a champion in license discrimination and disputing,
+but I am skeptic a bit on the assignment: DJB's software as public domain or
+freeware (not even sure the latter are synonyms by the way).
+
+In a sense, I do also not care too much on a--perhaps?!--sloppiness in license
+discrimination at freshmeat.net (or who for them); *legally* binding (I am
+guessing, correct me please) are rather the license or the disclaimer that
+come with the software.
+
+I find ... bizarre (bizarre rhetorically speaking) those *double-standards*
+(provided they are such--I apologize if I am mistaken). DJB's software getting
+a ... *green light*, so to speak, and Tuomo's software getting a *red light*
+(after all, seeing an "Other/Proprietary License with Source" is likely to
+scare away enough people).
+
+To let us understand, the ratings (for what they are worth, okay--but still,
+they likely influence people nonetheless) at freshmeat.net are
+
+    Ion .............. 8.81/10.00
+    wmii ............. 8.87/10.00
+    dwm .............. 8.74/10.00
+
+Time ago (remembering ... correct me please) the ratings were: Ion #1, wmii
+#2, and dwm last ... BUT: last with a significantly lower score. (Not sure
+whether Ion's score has augmented in the meantime.)
+
+Cheers,
+
+/Roy Lanek
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   bagai air di daun talas--as if water on a
+SSSSS . s l a c k w a r e  SSSSSS   leaf of talas [two things that never get
+SSSSS +------------ linux  SSSSSS   along ... talas has a thin waxy layer and
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   therefore is waterproof]
+
+
+From sylvain.abelard at gmail.com  Fri Sep  5 10:21:56 2008
+From: sylvain.abelard at gmail.com (=?ISO-8859-1?Q?Sylvain_Ab=E9lard?=)
+Date: Fri, 5 Sep 2008 10:21:56 +0200
+Subject: "Other/Proprietary License with Source"
+In-Reply-To: <20080905065526.GA25853@sirih>
+References: <20080905065526.GA25853@sirih>
+Message-ID: <9c6605e40809050121n722f0198l3d42805c68dc0e1f@mail.gmail.com>
+
+>    Ion ............. Other/Proprietary License with Source
+>    daemontools ..... Public Domain
+>    qmail ........... Public Domain
+>    djbdns .......... Freeware
+>    cdb ............. Freeware
+>
+> Yes, is it so?! I am not a champion in license discrimination and disputing,
+> but I am skeptic a bit on the assignment: DJB's software as public domain or
+> freeware (not even sure the latter are synonyms by the way).
+
+Freeware only means "free as in free beer" to use. ie no money required.
+A freeware license does not include source, or many of the "OSS
+freedoms". I've seen this quite often: you can use it for freee, your
+friend can use it for free, but according ti the EULA you can't share
+it to your friends : the vendor demands they come and download it
+themselves from the institutional website.
+
+I don't really know aobout public domain. Guess it changes between
+countries. IIRC it means the intellectual property is public and you
+can use it. But it does not means the source is released (like,
+abandonware) neither the original product becomes totally free for all
+: in music, you are free to play Bach (even make money from it)
+without risking being sued, but you can't share MP3s because you still
+have to pay for the musicians and whatever.
+
+Anyway I've quite forgotten the details and IANAL.
+
+> I find ... bizarre (bizarre rhetorically speaking) those *double-standards*
+> (provided they are such--I apologize if I am mistaken). DJB's software getting
+> a ... *green light*, so to speak, and Tuomo's software getting a *red light*
+> (after all, seeing an "Other/Proprietary License with Source" is likely to
+> scare away enough people).
+
+I agree, this can scare people, and license problems really are
+bothering distributions (which seems to be Tuomo's intent).
+
+For those reading this mailing list for a long time, however, and
+knowing the details of the license, I don't feel like my freedoms are
+hindered at all : it's LGPL with added clauses, and these clauses
+merely states that one should not seek support or hold Tuomo
+responsible for outdated versions nor unapproved patches.
+
+This has been put in rough terms all over the Net and distros MLs, but
+it seems to me that Tuomo only want to protect his free time from
+hassles of lusers and distro maintainers. As he is kind enough te
+develop and frely provid ion on his free time, and I'd rather see ion3
+advance or ion4 be created, I can only agree with that.
+
+Finally, since ion still is at core an Open Source project, everyone
+is free to make a fork. I guess debian already does so, by copying ion
+and changing just the name and possibly some Xft/Xinerama patches (I
+may be wrong). Then Tuomo is then no longer responsible for this,
+never gets complaints, and everyone is happy.
+
+
+DISCLAIMER : That's just my view of things. I may recall wrongly.
+I made it simple, therefore it does not show every side of the debate.
+
+-- 
+Sylvain Ab?lard
+"J'ai d?cid? d'?tre heureux, c'est meilleur pour la sant?." -Voltaire
+
+
+From tuomov at iki.fi  Fri Sep  5 13:02:06 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 5 Sep 2008 11:02:06 +0000 (UTC)
+Subject: "Other/Proprietary License with Source"
+References: <20080905065526.GA25853@sirih>
+	<9c6605e40809050121n722f0198l3d42805c68dc0e1f@mail.gmail.com>
+Message-ID: <slrngc24de.r9i.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-05, Sylvain Ab?lard <sylvain.abelard at gmail.com> wrote:
+> For those reading this mailing list for a long time, however, and
+> knowing the details of the license, I don't feel like my freedoms are
+> hindered at all : it's LGPL with added clauses, and these clauses
+> merely states that one should not seek support or hold Tuomo
+> responsible for outdated versions nor unapproved patches.
+...
+>
+> DISCLAIMER : That's just my view of things. I may recall wrongly.
+> I made it simple, therefore it does not show every side of the debate.
+
+You're right. It has never been my intention to hinder the "freedoms" 
+of users. The terms are there to limit the power of distros, which
+has grown far too great, with them fielding de facto central control
+over easily installable software.
+
+In the distro-centric FOSS climate, to upgrade the most insignificant
+program, you have to upgrade the whole OS, and suffer all the hurdles.
+And there are a lot of them, because the movement produces shit that 
+turns Linux into more and more like Windows: no user-serviceable parts
+inside. Fontconfig, udev, HAL/evdev, and the XML madness in general
+being cases in point, not to even speak of the kernel becoming more
+and more bloated and uncompilable by mere users. So I rather stick
+to an older distro, without all the new shit that the corporate-sponsored
+FOSScracy of fuckwits and dickheads spews out. But that means I can't
+run any new programs easily either. And unlike the 5-10 year cycle 
+of Windows, Linux distro are obsolete in one month.
+
+I could not even test Gnomefox 3 (known to some as Firefox) on Etch,
+which is only a year old. Gtk is apparently 0.02 versions too old. No, I
+won't even try compiling such bloatware. (And, no, I wouldn't use it; I
+only wanted to test how crappy they've made it.) More recently, I was
+trying to find a photo management program slightly better than gqview
+(which still remains the best image viewer I've come across for Linux, 
+and suprisingly usable for WIMPshit). The digikam provided in Etch was
+ancient crap, but I was told newer versions would be slightly better..
+off to hunting and compiling a gazillion dependencies, wasting hours only
+to find out that it segfaults. I wish authors would provide binary
+packages, like I do. But no, the herd just loves its distros, and some
+projects (e.g. KDE) bluntly tell you to eat the shit that the distros
+shove at you. Maybe it works for big projects like them, with the distros
+doing the final polishing, but little projects don't get even that.
+Shit flows upstream.
+
+Megadistros should die, and to be replaced with minimalist core systems
+(possibly providing a few packages customised for their audiences) and
+a decent system for distribution of third party packages. Maybe then basic
+GPL can work again, when authors are again the primary source of their
+own software, intead of being reduced into unpaid subcontractors for 
+powerful distributors.
+
+Down with the distros!
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Fri Sep  5 13:19:24 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 5 Sep 2008 14:19:24 +0300
+Subject: "Other/Proprietary License with Source"
+In-Reply-To: <20080905065526.GA25853@sirih>
+References: <20080905065526.GA25853@sirih>
+Message-ID: <20080905111924.GA6764@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-05 13:55 +0700, Roy Lanek wrote:
+> To let us understand, the ratings (for what they are worth, okay--but still,
+> they likely influence people nonetheless) at freshmeat.net are
+
+Who cares about such numbers, can always astroturf them up.
+
+-- 
+Tuomo
+
+
+From carlosjosepita at gmail.com  Sun Sep  7 01:01:01 2008
+From: carlosjosepita at gmail.com (Carlos)
+Date: Sat, 6 Sep 2008 23:01:01 +0000 (UTC)
+Subject: Shade tiled frame
+Message-ID: <g9v23d$ns4$1@ger.gmane.org>
+
+Hi all,
+
+I'd like to write a function to shade a tiled frame taking into account
+that the frame tabbar could have been hidden (mode = 'tiled-alt'). I
+found out that set_shaded('set') won't work for tiled-alt frames, which
+seems sensible to me. So before setting the shaded state I save the
+frame mode, which I restore later when unshading the frame. The problem
+is that some unshades are triggered automatically by the manager (?)
+when the alternative frame is shaded and there is nothing left to be
+shown. For example, let A and B be the two frames for my current
+workspace: 1) I shade A so B is maximized. 2) Now I shade B and A is
+forced to maximize, leaving the shaded state. I can't figure out a
+simple way to intercept this automatic shaded->unshaded transition so
+that I can restore the original frame mode as explained before. Could
+you give me a clue? I'm new to ion and still getting my way through the
+api.
+
+Thank you in advance
+
+Regards
+-Carlos
+
+
+
+From carlosjosepita at gmail.com  Sun Sep  7 01:15:22 2008
+From: carlosjosepita at gmail.com (Carlos)
+Date: Sat, 6 Sep 2008 23:15:22 +0000 (UTC)
+Subject: Shade tiled frame
+References: <g9v23d$ns4$1@ger.gmane.org>
+Message-ID: <g9v2ua$ns4$2@ger.gmane.org>
+
+Addenda et corrigenda.
+
+> I'd like to write a function to shade a tiled frame taking into account
+> that the frame tabbar could have been hidden (mode = 'tiled-alt'). I
+> found out that set_shaded('set') won't work for tiled-alt frames, which
+> seems sensible to me. So before setting the shaded state I save the
+> frame mode, 
+
+Here I forgot to mention that I temporarily change the mode to 'tiled',
+of course, which is the entire point of saving/restoring the original
+mode.
+
+Regards
+-Carlos
+
+
+
+From ap at acat.cc  Sun Sep  7 01:24:29 2008
+From: ap at acat.cc (Andreas Poisel)
+Date: Sun, 7 Sep 2008 01:24:29 +0200
+Subject: "Other/Proprietary License with Source"
+In-Reply-To: <slrngc24de.r9i.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20080905065526.GA25853@sirih>
+	<9c6605e40809050121n722f0198l3d42805c68dc0e1f@mail.gmail.com>
+	<slrngc24de.r9i.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080906232429.GK19832@trude>
+
+* Tuomo Valkonen <tuomov at iki.fi> [080905 13:10]:
+
+> Megadistros should die, and to be replaced with minimalist core systems
+> (possibly providing a few packages customised for their audiences) and
+> a decent system for distribution of third party packages. Maybe then basic
+> GPL can work again, when authors are again the primary source of their
+> own software, intead of being reduced into unpaid subcontractors for 
+> powerful distributors.
+
+I'm using toast (http://www.toastball.net/toast/) to conveniently build
+current versions of software packages I care about on top of a linux
+distro.  Toast can't handle Ion, because Ion doesn't use
+autoconf/automake or similar tool chains (anymore).
+
+Editing system.mk is easy and I've been keeping my systems up on the
+latest version of Ion for years.  On the other hand, a standard build
+chain would make it even easier for users to follow your vision (by
+using tools like toast).  Wouldn't it serve your intents to provide a
+method to build Ion without having to manually edit a file (system.mk)?
+
+-- 
+Bye, Andreas
+
+
+From lanek at novenine.com  Sun Sep  7 10:04:04 2008
+From: lanek at novenine.com (Roy Lanek)
+Date: Sun, 7 Sep 2008 15:04:04 +0700
+Subject: "Other/Proprietary License with Source"
+In-Reply-To: <20080905111924.GA6764@jolt.modeemi.cs.tut.fi>
+References: <20080905065526.GA25853@sirih>
+	<20080905111924.GA6764@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080907080404.GA6051@sirih>
+
+> Who cares about such numbers, can always astroturf them up.
+
+Agreed ... in part.
+
+On the other hand, consider that becoming familiar and acquainted with Ion
+demands some effort (why?--is another story; would all the users not be
+*spoiled*, in the Pavlovian sense, the situation might be different).
+
+Thankfully, Ion's rating can't be diminished ... not *normally*; but it
+can be brought to *starvation* (to borrow from some vocabulary).
+
+Let's consider another window manager, Fluxbox. Well, the rating of Fluxbox is
+an astronomical 9.33/10.00. (There are other projects overrated, just for not
+departing in other considerations; or for not digressing right now already.)
+
+Who has tried Fluxbox? I have (for a limited period in the O( weeks )
+say, I don't remember, though)--this for not making a scandal of my
+"astronomical"-remarking; and meaning, I have seen Fluxbox from near a bit
+once ... hence, I have made my idea on what it's worth in truth--today,
+anno 2008 minus a couple, 2-3, of years. (Would you rate ... 9/10, say, the
+discovery of hot water in contemporary times?)
+
+So, assuming that one is trying and snooping a bit (possibly the case of
+many), which *escape* ways has he for shifting away from GNOME or KDE? Let him
+google a bit, or do a search at freshmeat.net.
+
+Let him try Ion. He will quickly, on the average, found himself in the
+situation of Pinocchio when he has to swallow the bitter medicine.
+
+I have been an experienced scuba diver, have even been in the Swiss national
+team (underwater orientation: things such, e.g., 'M's for those who know);
+have been in a rescue team for years, and have been a rescue-swimming trainer.
+
+Believe me, and I have seen it with my eyes: swallow a bit too much water at
+once in the wrong canal while swimming, or within the water for any other
+reasons, and you will instantly find yourself paddling like a dog in the
+water, and desperately trying to climb an imaginary staircase on *surplace*.
+Even if you are a good swimmer, and a support is at reach, say 1-2 meters from
+you. You would not be able to break this vicious circle, and wold inexorably
+drawn unless another person helps you--but not anyhow!, or there could be
+easily two, instead of one, people paddling to their death in the water.
+
+Back to Ion (Vim, elvis, Mutt, LyX, cdrtools, ...), if you don't have a
+knowledgeable tutor at hand, are not *enlightened* enough (but then we have
+a kind of ideological *bootstrapping*, or chicken-egg problem) to know that
+you will be fully rewarded because of your efforts, or are not trained/used
+in logical thinking too much, you will grasp the nearest familiar thing you
+know--when daring to experiment. (Adorno talks of the cow, which *happily*
+returns home the evening, following the path she knows and has learned.)
+
+In those cases, "such numbers" (ratings) may not be without their ... ehm,
+effect. The chances to have to pass through m metastable, often contradictory
+or unnecessary stages in your Gulliver-trips-like travel before being able
+to reach a valuable and worthy destination (provided you manage to get there
+eventually), are augmented. Not to your advantage in general, though 2-3-4
+other direct *experiences* may not be completely useless, and may not waste
+your time unconditionally.
+
+Do you know what 'pheromones'^1 are? Pheromones are also used in
+agriculture--e.g., as implicit pesticides ... to build traps for insects
+(which are attracted by the pheromones). (Alternatively, male insects
+populations are grown, irradiated, or chemically treated ... but so that they
+still can fecundate females; and freed at given times where desired; of course
+the goal is to have life-incompatible defects for the [insects'] offspring.)
+
+
+/Roy
+
+     1. A pheromone (from Greek "to bear" + "hormone") is a chemical that
+triggers a natural behavioral response in another member of the same species.
+There are alarm pheromones, food trail pheromones, sex pheromones, and many
+others that affect behavior or physiology. Their use among insects has been
+particularly well documented, although many vertebrates and plants also
+communicate using pheromones. [http://en.wikipedia.org/wiki/Pheromone]
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   buruk muka cermin dibelah
+SSSSS . s l a c k w a r e  SSSSSS   ugly face, the mirror is split [blaming
+SSSSS +------------ linux  SSSSSS   the wrong cause or creating a scapegoat]
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+
+
+From tuomov at iki.fi  Sun Sep  7 10:28:46 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 7 Sep 2008 08:28:46 +0000 (UTC)
+Subject: "Other/Proprietary License with Source"
+References: <20080905065526.GA25853@sirih>
+	<9c6605e40809050121n722f0198l3d42805c68dc0e1f@mail.gmail.com>
+	<slrngc24de.r9i.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080906232429.GK19832@trude>
+Message-ID: <slrngc745u.emc.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-06, Andreas Poisel <ap at acat.cc> wrote:
+> Editing system.mk is easy and I've been keeping my systems up on the
+> latest version of Ion for years.  On the other hand, a standard build
+> chain would make it even easier for users to follow your vision (by
+> using tools like toast).  Wouldn't it serve your intents to provide a
+> method to build Ion without having to manually edit a file (system.mk)?
+
+make is standard. autocrap [1] is a vomit-inducing pile of kludges 
+created  by people utterly incapable of software *design* (just like 
+most of the FOSScracy). It can not be considered a proper standard, 
+because, being program source code, only one program can read the files
+and hope to do the right thing. (Cf. the hopeless task of producing
+a latex to html converter that actually works.) It's all hacks upon
+hacks, because the information is not in a well-specified structural
+format, as in my "capable packages" [2] proposal... or even most 
+distros' package descriptions, that do redundant work because autocrap
+doesn't easily provide adequate specifications.
+
+   [1]: http://permalink.gmane.org/gmane.os.freebsd.current/82891
+
+   [2]: http://iki.fi/tuomov/b/archives/2007/07/16/T22_41_22/
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sun Sep  7 10:47:49 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 7 Sep 2008 08:47:49 +0000 (UTC)
+Subject: Shade tiled frame
+References: <g9v23d$ns4$1@ger.gmane.org>
+Message-ID: <slrngc759l.emc.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-06, Carlos <carlosjosepita at gmail.com> wrote:
+> I can't figure out a
+> simple way to intercept this automatic shaded->unshaded transition so
+> that I can restore the original frame mode as explained before. Could
+> you give me a clue? I'm new to ion and still getting my way through the
+> api.
+
+It appears there's no hook that would notify of geometry change.
+The unshaded state transition happens in the resize handler of the
+frame (frame_fitrep), once the tiling managing it has decided that
+its size needs to be changed.
+
+You could add a (generic) region_fitrep_hook to be called on resizes,
+or maybe an action to region_notify_hook, since no special parameters
+need be passed. But perhaps it be simply better to internally (in the
+C code) support sharing frames without a tab-bar by enabling it. But
+that depends on an option choosing the tab-bar mode (inside, outside, 
+shaped)... either patch may be accepted into ion3plus after review
+(in particular of more detailed design decisions before the code is
+even written).
+
+-- 
+Tuomo
+
+
+
+From nickmurdoch at gmail.com  Sun Sep  7 11:36:40 2008
+From: nickmurdoch at gmail.com (Nick Murdoch)
+Date: Sun, 07 Sep 2008 10:36:40 +0100
+Subject: "Other/Proprietary License with Source"
+In-Reply-To: <20080907080404.GA6051@sirih>
+References: <20080905065526.GA25853@sirih>
+	<20080905111924.GA6764@jolt.modeemi.cs.tut.fi>
+	<20080907080404.GA6051@sirih>
+Message-ID: <op.ug3ube2fq54ctd@localhost>
+
+On Sun, 07 Sep 2008 09:04:04 +0100, Roy Lanek <lanek at novenine.com> wrote:
+
+>> Who cares about such numbers, can always astroturf them up.
+>
+> Agreed ... in part.
+>
+> On the other hand, consider that becoming familiar and acquainted with  
+> Ion
+> demands some effort (why?--is another story; would all the users not be
+> *spoiled*, in the Pavlovian sense, the situation might be different).
+
+Well, ease of use doesn't necessarily mean a short learning curve. If you  
+want to be able to use something 'intuitively' from the word go, of course  
+you're going to go for the WM with the most familiar concepts. That's why  
+Gnome's so popular -- they've gone out of their way to make themselves  
+more Windowsy (or, lack the imagination to come up with anything original,  
+depending on your POV).
+
+> Back to Ion (Vim, elvis, Mutt, LyX, cdrtools, ...), if you don't have a
+> knowledgeable tutor at hand, are not *enlightened* enough (but then we  
+> have
+
+I've found ion's documentation a lot, lot better than most other WM's. A  
+lot of them seem to take the approach "oh, well, we're 'easy to use' so we  
+shouldn't /need/ documentation", which works well until you want to do  
+something that isn't on their very pretty GUI.
+
+Vim's actually an excellent example of my previous point, that ease of use  
+!= short learning curve. I'm pretty sure I don't know half of vim's  
+keybindings yet, but the ones I do know make it a lot easier than, say,  
+gedit. If I want to do something in vim, I'm usually quite confident that  
+that's because I don't know how to do it (and subsequently look it up)  
+rather than it lacks the feature.
+
+> <snip>
+
+I'm not sure I follow your scuba anecdotes and talk of pheromones. But if  
+people want to use ion, great. If not, who cares? It's not like Tuomo's  
+trying to make money from having a large user base. It's a tool; you can  
+either choose to use it because it suits your needs, or you can use  
+something else.
+
+Anyway, that's my 2p on it!
+
+Nick
+
+
+From lanek at novenine.com  Sun Sep  7 12:00:46 2008
+From: lanek at novenine.com (Roy Lanek)
+Date: Sun, 7 Sep 2008 17:00:46 +0700
+Subject: "Other/Proprietary License with Source" [2]
+In-Reply-To: <20080907080404.GA6051@sirih>
+References: <20080905065526.GA25853@sirih>
+	<20080905111924.GA6764@jolt.modeemi.cs.tut.fi>
+	<20080907080404.GA6051@sirih>
+Message-ID: <20080907100046.GA8648@sirih>
+
+> > Who cares about such numbers, can always astroturf them up.
+> 
+> Agreed ... in part.
+
+A bit off-topic, but not that much off--provided we apply some [algebraic]
+substitutions ... keep reading: from globalresearch.ca's "Politics and
+Religion in America: Imagine There's No Heaven^1," which I am reading right
+now by the way, and perhaps dramatizing [given the context] a bit
+
+    ...
+    Belief in theism, on the other hand, can have serious consequences. In
+    fact, theism is unavoidably a simplistic and utopian vision. It may not
+    result in adoption of any other simplistic visions, and it may not result
+    in the use of force, but it does put one's mind in the habit of accepting
+    nonsensical wishful thinking. Theism includes a "belief" that something
+    called a god controls the world, and usually includes a "belief" that
+    death is not real. Some of the most admirable people in the history of
+    the world and living today have held these beliefs, and some of them have
+    not. But these are beliefs that, if they have any impact at all, tend as
+    a rule to encourage acceptance of the status quo, to discourage personal
+    responsibility, and to put one in the habit of believing transparent
+    falsehoods. That many people overcome these influences, with various
+    degrees of success, does not make them less real.
+    ...
+
+... seen the last sentence?
+
+/Roy
+
+     1. Politics and Religion in America: Imagine There's No Heaven, by
+David Swanson, Global Research, September 6, 2008,
+
+http://globalresearch.ca/index.php?context=va&aid=10096
+
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  asam di gunung, garam di laut bertemu dalam
+SSSSS . s l a c k w a r e  SSSSSS  satu belanga--tamarind in the mountain,
+SSSSS +------------ linux  SSSSSS  salt in the sea meet in a cauldron [even
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  things that are far apart can meet as one]
+
+
+From lanek at novenine.com  Sun Sep  7 16:41:01 2008
+From: lanek at novenine.com (Roy Lanek)
+Date: Sun, 7 Sep 2008 21:41:01 +0700
+Subject: "Other/Proprietary License with Source"
+In-Reply-To: <op.ug3ube2fq54ctd@localhost>
+References: <20080905065526.GA25853@sirih>
+	<20080905111924.GA6764@jolt.modeemi.cs.tut.fi>
+	<20080907080404.GA6051@sirih> <op.ug3ube2fq54ctd@localhost>
+Message-ID: <20080907144101.GA15975@sirih>
+
+
+> Well, ease of use doesn't necessarily mean a short learning curve.
+
+Indeed. The author of one of the best books on vi, The Utlimate Guide to the
+VI and EX Text Editors [Hewlett Packard, Benjamin Cummings], around writes
+somewhere--I am recalling--and if I am not mistaken, that the first time he
+has invoked vi ... out of curiosity, or something like that, he has then tried
+for half an hour to quit the program, unsuccessfully [killed process]. (It has
+happened to me too, by the way, I am consoled.) >:)
+
+Similarly, if one would try Ion to get a *feeling*, and look a bit for
+his entertainment and leisure, without being prepared [having done a bit
+preliminary homework], he would be headed for a few surprises. Ion is not the
+thing exactly for playing with the mouse around, and roll, and unroll, menus
+to see how pretty garnishing has been implemented and how much fun it takes.
+
+> If you want to be able to use something 'intuitively' from the word ...
+
+And what should "intuitively" be?
+
+Example: I am *illiterate* on using Windows (really) ... never have used KDE
+or GNOME desktops [have used a P166 with 32MB and an ATI XPress 4MB till one
+year and half ago], and since one month or two I am using--very rarely thank
+god, and for reasons xyz alas--Firefox, perhaps the biggest piece of bloated
+crap I have on my box [a decently fast, and well equipped notebook].
+
+"intuitively." Uuuuh. And in the even more rare times I had to use a computer
+from an Internet Cafe' [Windows formerly, now being replaced extensively with
+Linux + KDE mostly], I had to kindly invite, and bring with me, someone to
+help me doing things. (I am not disabled, no.)
+
+In the series of the strange [a bit overboard, agreed] "anecdotes," here
+there is another one: intuitively ... if you would have been blind since
+birth, and would now, say thank surgery, have your sight reestablished--in
+the mere physiological sense [neurons firing, etc.]--you would not be able
+to see *anything* ... nothing that would help you, or be assimilable to
+what we understand as seeing.
+
+Why?! Because seeing is not at all intuitive as it may be believed, it's not
+like turning a switch on or off. [A years' long process of learning--but at
+the right period--is needed; exactly like with speaking ... compare with the
+Mowgli shit, and the cases of humans that have grown with animal stories, and
+which even can't walk properly; and the like] Alternatively, if you would
+begin to read, say, Adorno's History of Philosophy, you would be confronted on
+more general and broad thoughts and consideration on ... *intuit*.
+
+> I've found ion's documentation a lot, lot better than most other WM's.
+
+Agreed, beautiful. And the code is better still.
+
+> But if people want to use ion, great. If not, who cares?
+
+Disagree. Mostly because of *political* reasons ... but please, don't mistake
+me for a FLOSS fan (I am more thinking, and shuddering at it, at [algebra
+substitutions again] things such Reporters Sans Frontieres; at articles such
+Enquete sur les reseaux d'influence etats-uniens: Quand la CIA financait les
+intellectuels italiens^1; at google, etc. but never mind; also, in case it's
+not clear, I find SICKENING *proprietary software*, but the true proprietary
+one). And disagree because ... but let's see if a joke succeds where the scuba
+divers don't:
+
+from the *carabinieri* in Italy series [guessing you know the *reputation*
+they have there as *smart guys*] of jokes:
+
+    brains for sale ... for organ transplantation [let's say we can]
+
+    brain              price [Euro] :)
+
+    professor .......  100'000
+    engineer ........   50'000
+    teacher .........   20'000
+    carabiniere .....  500'000
+
+Okay, I don't ask you the obvious question, but give you the explanation
+directly: surprise, the carabiniere's brain costs the most because it's
+practically like new. (It has never used.) 8-)
+
+Moral: people not using Ion is BAD.
+
+Moreover: [borrowing from Adorno] epicurean-*philosophy* fails always. Soon
+enough, you begin to become [I am abusing the language a bit, sorry] autistic,
+solipsistic, and in the *mildest* of the cases, you start to interiorize self
+censorship.
+
+Anyway, I CARE--if people want to use Ion or not.
+
+/Roy
+
+
+     1. http://www.voltairenet.org/article157970.html
+
+Enquete sur les reseaux d'influence etats-uniens: Quand la CIA financait les
+intellectuels italiens
+
+5 septembre 2008
+
+par Federico Roberti | Rome (Italie) | Focus | Faisant suite ? un article
+que nous avions publie en 2003 ? propos du financement des intellectuels
+europeens durant la Guerre froide, Federico Roberti revient sur le cas precis
+de l'intelligentsia italienne. Loin d'etre superflu, ce bref rappel historique
+nous montre que les choses n'ont guere change et que les auteurs a la mode ne
+sont souvent que des mercenaires de la plume.
+
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  habis manis sepah dibuang--after the sweet
+SSSSS . s l a c k w a r e  SSSSSS  part is finished and becomes tasteless,
+SSSSS +------------ linux  SSSSSS  the cane is thrown away [when we only call
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  our friends if we need help]
+
+
+From tuomov at iki.fi  Sun Sep  7 19:10:25 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 7 Sep 2008 17:10:25 +0000 (UTC)
+Subject: "Other/Proprietary License with Source"
+References: <20080905065526.GA25853@sirih>
+	<20080905111924.GA6764@jolt.modeemi.cs.tut.fi>
+	<20080907080404.GA6051@sirih>
+Message-ID: <slrngc82o1.po.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-07, Roy Lanek <lanek at novenine.com> wrote:
+> In those cases, "such numbers" (ratings) may not be without their ... ehm,
+> effect. 
+
+Does someone actually stare at the freshmeat ratings when looking for
+software? Or even use freshmeat? All these sites from the late nineties
+(such as slashdot) seem more like dead meat to me.
+
+And if someone does really stare at those numbers, maybe that already
+indicates that Ion isn't right for them?
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sun Sep  7 19:26:06 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 7 Sep 2008 17:26:06 +0000 (UTC)
+Subject: "Other/Proprietary License with Source"
+References: <20080905065526.GA25853@sirih>
+	<20080905111924.GA6764@jolt.modeemi.cs.tut.fi>
+	<20080907080404.GA6051@sirih> <op.ug3ube2fq54ctd@localhost>
+Message-ID: <slrngc83le.po.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-07, Nick Murdoch <nickmurdoch at gmail.com> wrote:
+> On Sun, 07 Sep 2008 09:04:04 +0100, Roy Lanek <lanek at novenine.com> wrote:
+>
+>>> Who cares about such numbers, can always astroturf them up.
+>>
+>> Agreed ... in part.
+>>
+>> On the other hand, consider that becoming familiar and acquainted with  
+>> Ion
+>> demands some effort (why?--is another story; would all the users not be
+>> *spoiled*, in the Pavlovian sense, the situation might be different).
+>
+> Well, ease of use doesn't necessarily mean a short learning curve. 
+
+It really depends on whether the learning effort is comparable
+the effort the skill saves later on. If you use the program a lot, 
+such as WM or an editor for many in the present audience, clearly 
+learning the tool isn't really that much of an effort compared to how
+much you are going to use the skill. But when you have to read a book
+(or two) to disable font blurring, something very basic that you should 
+only have to once on each computer (or ever!), the learning effort is 
+far too high compared to the use-once-and-forget demand of the skill.
+
+> they've gone out of their way to make themselves  
+> more Windowsy (or, lack the imagination to come up with anything original,  
+> depending on your POV).
+
+More like stevejobsy. Only Mac is as much against user choice as Gnome.
+
+> Vim's actually an excellent example of my previous point, that ease of use  
+> != short learning curve. I'm pretty sure I don't know half of vim's  
+> keybindings yet, but the ones I do know make it a lot easier than, say,  
+> gedit. If I want to do something in vim, I'm usually quite confident that  
+> that's because I don't know how to do it (and subsequently look it up)  
+> rather than it lacks the feature.
+
+joe <joe-editor.sf.net> was easy for me to learn when I started with Linux
+in 1995 or so, thanks to the ^K H help screen that stays open while you
+edit. It still does most I need from an editor, and still use it for all 
+my editing needs. (Used to use jed for a couple of years, with joe-like
+bindings, but its development has stalled with many remaining problems.
+Then joe got syntax HL and jed didn't offer anything I really needed.
+Language-specific auto-indentation is mostly just in the way.)
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sun Sep  7 19:53:00 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 7 Sep 2008 17:53:00 +0000 (UTC)
+Subject: "Other/Proprietary License with Source"
+References: <20080905065526.GA25853@sirih>
+	<20080905111924.GA6764@jolt.modeemi.cs.tut.fi>
+	<20080907080404.GA6051@sirih> <op.ug3ube2fq54ctd@localhost>
+	<20080907144101.GA15975@sirih>
+Message-ID: <slrngc857s.po.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-07, Roy Lanek <lanek at novenine.com> wrote:
+>> But if people want to use ion, great. If not, who cares?
+>
+> Disagree. Mostly because of *political* reasons ... 
+
+For political reasons, I'm dissociating myself from the bulk of the
+*self-destructive* *institutionalised* FOSS movement. It has become
+*blind* only following the written rules of their *sacred texts*, 
+and no longer stands for the choice that might have once been found 
+in a between-the-lines sense as one of the core values. The bulk of 
+the movement has become mainstream, and adopted mainstream values, 
+and keeps destroying the software base that even marginal programs 
+depend on.
+
+In related not-so-news, I quit (or didn't bother to pay the membership
+anyway) from EFFI (Electronic Frontier Finland). One of the reasons is 
+that they're also *blind* and too close to the FOSS mainstream. They 
+keep working against me, using my money against me, by fighting against 
+Microsoft's dominance by promoting the same shit in a different package:
+OpenOffice and ODF [1]. (Other reasons include secrecy, e.g. secret 
+mailing lists for the board's buddies, closed from regular members; 
+Helsinki-centricism; etc.)
+
+(Single-issue movements tend to be *blind* like that. They only see
+a few of their stated values, but not how the same repression repeats
+in other contexts.)
+
+  [1]: http://iki.fi/tuomov/b/archives/2007/09/01/T09_27_29/
+
+-- 
+Tuomo
+
+
+
+From lanek at novenine.com  Sun Sep  7 22:07:27 2008
+From: lanek at novenine.com (Roy Lanek)
+Date: Mon, 8 Sep 2008 03:07:27 +0700
+Subject: "Other/Proprietary License with Source"
+In-Reply-To: <slrngc82o1.po.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20080905065526.GA25853@sirih>
+	<20080905111924.GA6764@jolt.modeemi.cs.tut.fi>
+	<20080907080404.GA6051@sirih>
+	<slrngc82o1.po.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080907200727.GA14684@sirih>
+
+
+> Does someone actually stare at the freshmeat ratings when looking for
+> software? Or even use freshmeat?
+
+I do. I am in Sumatra somewhere, not in an university environment, where I can
+ask on the right and on the left, or get help and tips first hand. By the way,
+you could also sort searches [default setting inclusive, if you like so and I
+am not mistaken] by rating ranking [very rarely used for what it regards me].
+
+I don't read much *nix magazines, nearly zero indeed, so I am following
+*transitive closures* of references typically. Then you go to freshmeat.net,
+or to freebsd.org often.
+
+When you look for an entry, you get a *window* of other, similar applications,
+very often. It's like within a bookshop: you have your list of titles of books
+to buy--then you see other books too, which may be interesting. And voila',
+one group of cherries hook the next.
+
+Notice that one could also even look for fun at the ratings: e.g., a
+phony designation of *proprietary software* for Ion, makes me even more
+like the software [good for when I am sometimes mooded with Tuomo ...
+kidding--technically you are 1st rate, and in the meantime I have learned
+to know Finnish humor a bit] >:)
+
+And no, I am not contradicting myself, unfortunately: I suspect that my
+reaction (ditto for most subscribers here on the list, I imagine) is not
+average.
+
+I can program a bit--the main deciding criteria remains: personal inspection
+of the code [a look over a few sections are enough in general], and of the
+documentation.
+
+> (such as slashdot)
+
+Uuuh, slashdot is even on the [proxy] list of my forbidden URLs, along sites
+such BBC and others since years--I don't want to get my day ruined because a
+link has me brought there. (There are routine blackouts a bit everywhere in
+Indonesia, Bali excepted *of course* ... I am guessing--I never have been,
+nor do I count to go there) ... now a bit less because of the Ramadan; I
+am economizing with water to wash: if I read slashdot, BBC and similar, I
+have then to take a shower. Well, I am exaggerating: the routine blackouts
+have started only a couple of months ago. In truth, it's hard then to resist
+putting a glance--and wasting time--for 5-10 minutes more getting some cheap
+*laughs*, actually it would be more reasonable to cry.)
+
+    { +block }
+    ...
+    .slashdot.org
+    .counterpunch.org
+    .cnn.com
+    .bbc.co.uk
+    .nytimes.com
+    .reuters.com
+    ...
+    { +block-as-image }
+    ...
+
+I should sort the entries one day.
+
+> And if someone does really stare at those numbers, maybe that already
+> indicates that Ion isn't right for them?
+
+How to tell?, most don't know of it.
+
+/Roy
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  jadilah kumbang, hidup sekali di taman bunga,
+SSSSS . s l a c k w a r e  SSSSSS  jangan jadi lalat, hidup sekali di bukit sampah
+SSSSS +------------ linux  SSSSSS  be a bee, lived once in a flowery garden,
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  not a fly, lived once in heaps of garbage
+
+
+From carlosjosepita at gmail.com  Sun Sep  7 22:48:22 2008
+From: carlosjosepita at gmail.com (Carlos Pita)
+Date: Sun, 7 Sep 2008 17:48:22 -0300
+Subject: Attach WGroupCWs or WClientWins?
+Message-ID: <20080907204822.GA16440@monad>
+
+Hi,
+
+I'm writing a custom startup sequence that hooks in
+clientwin_do_manage_alt to arrange windows in frames (I need a bit more
+flexibility than that offered by the provided winprops mechanism, as
+it's documented in the faq and the configuration guide, because I also
+want to specify the mx index for each window, not only its target
+frame).  From inspection I discovered that the default ion handling of
+new client windows put them inside singleton wc groups instead of
+directly under the frame. Dialogs later opened by these windows are
+implemented as framed transients inside the wc group. That's fine, I get
+the idea. But then, I would like to do the same from my hook although
+the configuration guide only shows the simpler -no wc group involved-
+way:
+
+"""
+Hook name:
+    clientwin_do_manage_alt 
+
+[...]
+
+
+This hook is not called in protected mode and can be used for arbitrary
+placement policies (deciding in which workspace a new WClientWin should
+go). In this case, you can call
+
+reg:attach(cwin)
+"""
+
+Can you explain me how to achieve the frame-->wgroupcw-->clientwin setup
+instead?
+
+Thank you in advance
+Regards
+-Carlos
+
+
+
+From christian.glindkamp at gmail.com  Mon Sep  8 00:01:03 2008
+From: christian.glindkamp at gmail.com (Christian Glindkamp)
+Date: Mon, 8 Sep 2008 00:01:03 +0200
+Subject: ion3-20080825 gentoo ebuild
+In-Reply-To: <20080825173642.GA23368@shell>
+References: <20080825172013.GA23204@shell>
+	<20080825173642.GA23368@shell>
+Message-ID: <20080908000103.511006b4@gmail.com>
+
+On Mon, 25 Aug 2008 19:36:42 +0200 Tobias Hommel <ion at zum-news-lesen.genoetigt.de> wrote:
+> On Mon, Aug 25, 2008 at 07:20:13PM +0200, Tobias Hommel wrote:
+> > I've made a gentoo ebuild for the new ion3 version. it's based on the old one
+> > from http://overlays.gentoo.org/svn/dev/mabi/
+> > 
+> hm, i should go get some sleep. ;) here's the url for the subversion repository:
+> https://svn.keksbude.net/repos/keks-overlay/x11-wm/ion3/
+
+Thanks for the ebuilds. I've also added your overlay to my layman configuration.
+Are you going to update these ebuilds for future releases? Mabi's overlay seems
+to be dead. I've also updated ion3 ebuilds for some older versions, but I was
+mostly hacking the patches until they worked for new releases. So it would be
+great, if I don't have to do that again. ;)
+
+
+From carlosjosepita at gmail.com  Mon Sep  8 00:17:35 2008
+From: carlosjosepita at gmail.com (Carlos Pita)
+Date: Sun, 7 Sep 2008 19:17:35 -0300
+Subject: Attach WGroupCWs or WClientWins?
+In-Reply-To: <20080907204822.GA16440@monad>
+References: <20080907204822.GA16440@monad>
+Message-ID: <20080907221735.GA16475@monad>
+
+> Can you explain me how to achieve the frame-->wgroupcw-->clientwin setup
+> instead?
+
+I've been messing a little more with this and discovered that the
+difference is more subtle that I had thought. In both cases the parent
+is the frame, but reg:attach(cwin) will make the frame also the manager
+while customary ion handling of new windows will put them under a new wc
+group management, which is itself ultimately managed by the frame. Could
+you clarify this please? Which is the rationale behind this slightly
+complex setup? A snippet of lua (?) code showing the creation and/or
+connection of the different collaborators (the wc group, the frame, the
+window) will be very enlightening.
+
+Thank you again
+Regards
+-Carlos
+
+
+
+From tuomov at iki.fi  Mon Sep  8 10:17:57 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 8 Sep 2008 08:17:57 +0000 (UTC)
+Subject: Attach WGroupCWs or WClientWins?
+References: <20080907204822.GA16440@monad> <20080907221735.GA16475@monad>
+Message-ID: <slrngc9ntl.mqa.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-07, Carlos Pita <carlosjosepita at gmail.com> wrote:
+>> Can you explain me how to achieve the frame-->wgroupcw-->clientwin setup
+>> instead?
+>
+> I've been messing a little more with this and discovered that the
+> difference is more subtle that I had thought. In both cases the parent
+> is the frame, but reg:attach(cwin) will make the frame also the manager
+> while customary ion handling of new windows will put them under a new wc
+> group management, which is itself ultimately managed by the frame. Could
+> you clarify this please? Which is the rationale behind this slightly
+> complex setup? A snippet of lua (?) code showing the creation and/or
+> connection of the different collaborators (the wc group, the frame, the
+> window) will be very enlightening.
+
+The layout savefiles (~/.ion3/SESSIONNAME/saved_layout.lua) can be
+englightening. It's exactly the same data that can be passed to
+the attach functions.
+
+The template for the WGroupCW container attach is. For details,
+see the documentation and the savefiles.
+
+reg:attach{
+    type = "WGroupCW",
+    ...,
+    managed = {
+        {
+            type = "WClientWin",
+            ...
+        }
+    },
+}
+
+---
+
+As for rationale.. client windows within frames are managed
+in groups just like workspaces (and FS client windows) are
+groups within the screen. Also, both WFrames and WScreens 
+(incl. WRootWins) are WMPlexes; a frame is just a decorated 
+one, but the bulk of the code for the functionality is the 
+same. 
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Mon Sep  8 10:37:26 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 8 Sep 2008 08:37:26 +0000 (UTC)
+Subject: "Other/Proprietary License with Source"
+References: <20080905065526.GA25853@sirih>
+	<20080905111924.GA6764@jolt.modeemi.cs.tut.fi>
+	<20080907080404.GA6051@sirih>
+	<slrngc82o1.po.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080907200727.GA14684@sirih>
+Message-ID: <slrngc9p26.mqa.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-07, Roy Lanek <lanek at novenine.com> wrote:
+> When you look for an entry, you get a *window* of other, similar applications,
+> very often. It's like within a bookshop: you have your list of titles of books
+> to buy--then you see other books too, which may be interesting. And voila',
+> one group of cherries hook the next.
+
+In a *proper* bookshop, you can try before you buy. You scan through the
+isles, find something interesting, can read the blurb, can scan through
+the pages, even read a few, to see if you might like it. Likewise you can
+download freeware and shareware to try before you buy, although it's a
+bit more cumbersome than scanning through a book in a *proper* bookshop.
+*Alas*, there's only one bookshop worth anything anymore in .fi, and it's
+(of course) 300km from where I live. Most of the so-called bookshops just 
+sell sudoku sheets, biographies, Harry Potter, Dan Brown and stuff like 
+that. So, alas, one is stuck to online bookshops (primarily amazon.co.uk, 
+because the more local ones run by the dying brick&mortar bookshops are
+comparably expensive and slow^1) where one can't try before one buys. 
+So one rather trusts external reviews and previous experience with a
+particular author, and only seldom buys something previously unknown.
+
+Anyway, choosing software by ratings on a site is like buying blindly 
+from an online bookshops as opposed to a proper bookshop.
+
+(Some say that deregulation killed the bookshop; when the big box
+hypermarkets were allowed to sell books -- only mainstream crap, of
+course -- the masses started buying that mainstream crap from there, and
+the bookshops no longer could support sales and display of more marginal
+with larger sales of mainstream products.)
+
+(^1 And I'm not talking about super-fast courier services, just plain 
+old snailmail, because I prefer picking up the package from the post 
+office when it suits me to having to wait for a courier. The more
+local shops don't seem to have their own stock, instead ordering 
+everything from the publisher, and this takes time.)
+
+> Uuuh, slashdot is even on the [proxy] list of my forbidden URLs, 
+
+I also put in junkbuster (how approriate!) at some point, but later
+I've learned to mostly just stay away from time-waster sites full 
+of idiots.
+
+-- 
+Tuomo
+
+
+
+From carlosjosepita at gmail.com  Mon Sep  8 14:34:27 2008
+From: carlosjosepita at gmail.com (Carlos Pita)
+Date: Mon, 8 Sep 2008 09:34:27 -0300
+Subject: Attach WGroupCWs or WClientWins?
+In-Reply-To: <slrngc9ntl.mqa.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20080907204822.GA16440@monad> <20080907221735.GA16475@monad>
+	<slrngc9ntl.mqa.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080908123427.GA22035@monad>
+
+> reg:attach{
+>     type = "WGroupCW",
+>     ...,
+>     managed = {
+>         {
+>             type = "WClientWin",
+>             ...
+>         }
+>     },
+
+Thanks a lot Tuomo, frame:attach_new({ type = "WGroupCW", managed = {{ reg =
+window }}}) did the job. Deadly easy. I think you should add a mention to the
+managed field here
+http://modeemi.fi/~tuomov/ion-doc-3/ionconf/node7.html#fn:WMPlex.attach_new.
+
+Regards
+-Carlos
+
+
+
+From tuomov at iki.fi  Mon Sep  8 15:01:28 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 8 Sep 2008 13:01:28 +0000 (UTC)
+Subject: Attach WGroupCWs or WClientWins?
+References: <20080907204822.GA16440@monad> <20080907221735.GA16475@monad>
+	<slrngc9ntl.mqa.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080908123427.GA22035@monad>
+Message-ID: <slrngca8h8.iq2.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-08, Carlos Pita <carlosjosepita at gmail.com> wrote:
+> Thanks a lot Tuomo, frame:attach_new({ type = "WGroupCW", managed = {{ reg =
+> window }}}) did the job. Deadly easy. I think you should add a mention to the
+> managed field here
+> http://modeemi.fi/~tuomov/ion-doc-3/ionconf/node7.html#fn:WMPlex.attach_new.
+
+"In addition parameters to the region to be created are passed in this same
+table."
+
+WMPlex.attach_new documentation isn't really the place for more detailed
+documentation of 'managed', as it depends on the type of region being
+created. But, you're right, it should be better documented somewhere.
+
+-- 
+Tuomo
+
+
+
+From carlosjosepita at gmail.com  Tue Sep  9 05:41:13 2008
+From: carlosjosepita at gmail.com (Carlos Pita)
+Date: Tue, 9 Sep 2008 00:41:13 -0300
+Subject: winprop.target and nested workspace
+Message-ID: <7798eaa0809082041s79a42e8atf92dfbf471d4c08@mail.gmail.com>
+
+Hi,
+
+I have saved the following layout into my session:
+
+groupws1 - frame1 ------groupcw1 -- window1
+                                     |_ groupws2 -- frame2 -- groupcw2
+-- window2
+
+I also defined winprops with target = frame1 for app1 and target =
+frame2 for app2.
+
+The point is to have a workspace (groupws1) with a frame (frame1) than
+contains a window (window1) for app1 and a nested workspace (groupws2)
+with a frame (frame2) that contains a window (window2) for app2. This
+is how I see it when I save the session and this is how I want to see
+it when ion starts up again.
+
+But when I restart ion both app1 and app2 end up managed by the tiling
+of frame2. In terms of what I see they're siblings at the nested ws
+level (groupws2). If I manually attach app1 to frame1 the layout is in
+fact rearranged as I desire, so it seems that win.target = frame has a
+different semantic than frame:attach(win).
+
+Is this a bug or am I missing something? How can I achieve the desired result?
+
+Sorry for the plethora of questions, I can't wait to master ion :).
+
+Regards
+-Carlos
+
+
+From tuomov at iki.fi  Tue Sep  9 08:38:59 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 9 Sep 2008 06:38:59 +0000 (UTC)
+Subject: winprop.target and nested workspace
+References: <7798eaa0809082041s79a42e8atf92dfbf471d4c08@mail.gmail.com>
+Message-ID: <slrngcc6g3.nj3.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-09, Carlos Pita <carlosjosepita at gmail.com> wrote:
+> Hi,
+>
+> I have saved the following layout into my session:
+>
+> groupws1 - frame1 ------groupcw1 -- window1
+>                                      |_ groupws2 -- frame2 -- groupcw2
+> -- window2
+
+I wouldn't attach a group within a group.. it's asking for a bleeding
+nose, although in theory the code can handle that. Why not just
+attach frame2 directly under groupcw1?
+
+> But when I restart ion both app1 and app2 end up managed by the tiling
+> of frame2. In terms of what I see they're siblings at the nested ws
+> level (groupws2). If I manually attach app1 to frame1 the layout is in
+> fact rearranged as I desire, so it seems that win.target = frame has a
+> different semantic than frame:attach(win).
+
+When there's no target winprop, Ion starts searching for a place to
+manage window at, starting from the root window. The target winprop
+has the semantic of changing that start node (plus a few other things).
+WGroupCW shouldn't forward prepare_manage calls, though... 
+There could also be some problem with the app2 winprop matching both
+windows. (Some apps are slow at setting the properties.)
+
+-- 
+Tuomo
+
+
+
+From carlosjosepita at gmail.com  Tue Sep  9 16:36:08 2008
+From: carlosjosepita at gmail.com (Carlos Pita)
+Date: Tue, 9 Sep 2008 11:36:08 -0300
+Subject: winprop.target and nested workspace
+In-Reply-To: <slrngcc6g3.nj3.tuomov@jolt.modeemi.cs.tut.fi>
+References: <7798eaa0809082041s79a42e8atf92dfbf471d4c08@mail.gmail.com>
+	<slrngcc6g3.nj3.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080909143608.GA9213@monad>
+
+> I wouldn't attach a group within a group.. it's asking for a bleeding
+
+Maybe it's not clear from my poor ascii art but groupws2 is attached to
+frame1, not groupcw1. I wasn't at home when I sent that email and maybe
+I didn't realize that the mua wasn't configured with monospaced fonts. I
+just followed this faq entry
+http://modeemi.fi/~tuomov/ion/faq/entries/Nested_workspaces.html to get
+the layout. Here is the graph again:
+
+groupws1 --- frame1 --- groupcw1 --- window1
+                    |__ groupws2 --- frame2 --- groupcw2 --- window2
+
+> nose, although in theory the code can handle that. Why not just attach
+> frame2 directly under groupcw1?
+
+And then attaching the nested workspace groupws2 directly under frame2?
+I'll try that.
+
+> When there's no target winprop, Ion starts searching for a place to
+> manage window at, starting from the root window. The target winprop
+> has the semantic of changing that start node (plus a few other things).
+> WGroupCW shouldn't forward prepare_manage calls, though...
+
+Let me be more precise. The resulting parent is frame2 in both cases,
+and the resulting manager is the tilling for frame2 in both cases. It's
+exactly as if both winprop targets were pointing to frame2. I don't
+understand what do you mean with "forward prepare_manage calls". Is it
+that groupcw1 "refuses" to manage app1 so it forwards the management to
+the next group (groupws2) ?
+
+> There could also be some problem with the app2 winprop matching both
+> windows. (Some apps are slow at setting the properties.)
+
+I don't think this is the case because if I layout the workspace as a
+vsplit with frames A and B -just to say- and app1.target  = A and
+app2.target = B, then both apps are positioned at the expected places
+after startup.
+
+Regards
+-Carlos
+
+
+From tuomov at iki.fi  Tue Sep  9 19:06:16 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 9 Sep 2008 17:06:16 +0000 (UTC)
+Subject: winprop.target and nested workspace
+References: <7798eaa0809082041s79a42e8atf92dfbf471d4c08@mail.gmail.com>
+	<slrngcc6g3.nj3.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080909143608.GA9213@monad>
+Message-ID: <slrngcdb88.j5s.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-09, Carlos Pita <carlosjosepita at gmail.com> wrote:
+> groupws1 --- frame1 --- groupcw1 --- window1
+>                     |__ groupws2 --- frame2 --- groupcw2 --- window2
+>
+>> nose, although in theory the code can handle that. Why not just attach
+>> frame2 directly under groupcw1?
+>
+> And then attaching the nested workspace groupws2 directly under frame2?
+> I'll try that.
+
+You should probably disregard that advice given the improved ASCII
+schematic, which describes a different kind of setup.
+
+> Let me be more precise. The resulting parent is frame2 in both cases,
+> and the resulting manager is the tilling for frame2 in both cases. It's
+> exactly as if both winprop targets were pointing to frame2. I don't
+> understand what do you mean with "forward prepare_manage calls". 
+
+To manage a window, Ion calls the region_prepare_manage dynamic
+function on the root window that the window was mapped on. The 
+implementation (mplex_prepare_manage) forwards the request to 
+the currently chosen object managed by it, if it supports 
+region_prepare_manage. If the currently selected object is 
+a WGroupWS, it supports the request, so the implementation
+groupws_prepare_manage is called, etc.
+
+When you set the target winprop, the only difference is that
+the "root" of the chain of prepare_manage cals is not the root
+window, but the set target object. In your case, the implementation
+frame_prepare_manage is called on frame1, which is a wrapper for
+mplex_prepare_manage, that forwards the request to the implmentation
+group_prepare_manage on groupws2, if that is the current selected
+region, etc.
+
+Now, there is a parameter to region_prepare_manage that asks it
+to not forward the request, but there's no winprop to set it.
+
+-- 
+Tuomo
+
+
+
+From lanek at novenine.com  Tue Sep  9 20:38:19 2008
+From: lanek at novenine.com (Roy Lanek)
+Date: Wed, 10 Sep 2008 01:38:19 +0700
+Subject: "Other/Proprietary License with Source"
+In-Reply-To: <op.ug3ube2fq54ctd@localhost>
+References: <20080905065526.GA25853@sirih>
+	<20080905111924.GA6764@jolt.modeemi.cs.tut.fi>
+	<20080907080404.GA6051@sirih> <op.ug3ube2fq54ctd@localhost>
+Message-ID: <20080909183819.GA7699@sirih>
+
+
+> Vim's actually an excellent example of my previous point, that ease of
+> use != short learning curve. I'm pretty sure I don't know half of vim's
+> keybindings yet, but the ones I do know make it a lot easier than, say,
+> gedit. If I want to do something in vim, I'm usually quite confident that
+> that's because I don't know how to do it (and subsequently look it up)
+> rather than it lacks the feature.
+
+I am crazy for elvis, actually. I am bit worried because elvis seems (I would
+welcome to be mistaken), in the carabinieri-joke sense (see the other reply)
+perhaps, unmaintained since too many years ... it can't be, real world error
+less programs do not exist.
+
+Or then, not in the way [maintained] that makes me enthusiastic really: I
+have seen a GNOME patch in the news (shudder ... I am think at the Midnight
+Commander). In fact, I am increasingly feeling like I would be in company of
+a given Mr. Procrustes, the fellow from the bed: I suspect that I will have
+to accept/envisage the idea to become *stretched* a bit up to the size of vim
+(elvis is significantly slimmer: less code/bloat <=> less errors in general).
+The alternative being: starting to maintain elvis by myself.
+
+Anyway, while nervously browsing links on elvis, right now, I have not been
+able to resist revisiting a classic link (helps keeping the morale up):
+
+    Why, oh WHY, do those #?@! nutheads use vi?
+    http://www.viemu.com/a-why-vi-vim.html
+
+Maybe this following point (Misconception #3), which is perfectly applicable to
+Ion too, will find us in agreement:
+
+    Misconception #3: you gotta be nuts and/or a genius to use it
+
+    Well, I hope that with the above explanations and examples, you have
+    already seen some of the power that vi/vim provides. Learning it is tough
+    (see below), but if you're going to be editing code 8 hours or more a day
+    for years, it's the second best investment after learning touch typing
+    (which you already know, right? If not, don't bother with vi, learn
+    that first). A learning curve of weeks make sense for such a lifetime
+    investment. And, at least, you won't have a dumb assistant to annoy you to
+    death.
+
+    The point is, with vi, your keyboard becomes a huge specialized
+    text-editing gamepad with almost a hundred buttons. Each of them has
+    at least two functions, shifted and unshifted, so you have almost two
+    hundred functions at a single keypress (not counting Shift). Commands
+    are incredibly powerful for text editing, and you can even combine them
+    to obtain the best results. While typing some text, it is a regular
+    keyboard, but when you're back to normal mode you have the best-designed
+    text-editing machine there is, and it shows.
+
+I do not intend to start a flame war on editors otherwise. The author of the
+article (and pheromone-bait resistant *insect*) ;) tells in his intro
+
+    No, they are not dinosaurs [Roy: vi/vim users ... with reference to
+    the "30-years-old vi"] who don't want to catch up with the times - the
+    community of vi users just keeps growing: myself, I only got started
+    2 years ago (after over 10 years of being a professional programmer).
+    Friends of mine are converting today. Heck, most vi users were not even
+    born when vi was written!
+
+just in case.
+
+Cheers,
+
+/Roy Lanek
+
+P.S.
+
+More subtly, in linguistic, oral and written languages are regarded as
+different beasts--with divergent/discrepant modalities--within every different
+language. It would be nonsense to approach text in language as it would be
+an oral medium (I am thinking at your "intuitive" referring ... perhaps; in
+the sense of *more comfortable*) in general. The difficulty is insurmountable.
+A summation of half-truths/things done half-way (half-way because they are
+inherently limited) do not make a truth or something conclusive. One is still
+left at case zero, and so till he decides to take the adequate path.
+
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   dimana tak da lang, aku lah lang, kata
+SSSSS . s l a c k w a r e  SSSSSS   belalang--where there are no eagles, I am
+SSSSS +------------ linux  SSSSSS   the one, said the grasshopper [where's no
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   top dogs, underdogs will be seen as one]
+
+
+From nicolas.chauvat at logilab.fr  Tue Sep  9 22:45:54 2008
+From: nicolas.chauvat at logilab.fr (Nicolas Chauvat)
+Date: Tue, 9 Sep 2008 22:45:54 +0200
+Subject: example of query completion
+Message-ID: <20080909204554.GJ19016@logilab.fr>
+
+Hi,
+
+I am working on a simple desktop environment
+http://www.logilab.org/project/simpled
+
+I am trying to get completion to work when querying for user input in
+the ion command bar. 
+
+I read the documentation at
+http://modeemi.fi/~tuomov/ion-doc-3/ionconf/node7.html#SECTION00730000000000000000
+I looked for examples on the web, I tried to reuse code from the
+ion3-scripts (as in
+http://modeemi.fi/~tuomov/repos/ion-scripts-3/scripts/query_url.lua).
+
+So far I had no success. The API changed recently and the scripts are
+not working any more. The doc does not provide a working example.
+
+Could anyone give me an example of a completion setup similar to the
+one from the query_url script ?
+
+Thanks in advance,
+
+-- 
+Nicolas
+
+
+From tuomov at iki.fi  Tue Sep  9 23:43:27 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 9 Sep 2008 21:43:27 +0000 (UTC)
+Subject: example of query completion
+References: <20080909204554.GJ19016@logilab.fr>
+Message-ID: <slrngcdrfv.fjk.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-09, Nicolas Chauvat <nicolas.chauvat at logilab.fr> wrote:
+> I am trying to get completion to work when querying for user input in
+> the ion command bar. 
+
+Querying for what? How? At what level do you need help?
+
+-- 
+Tuomo
+
+
+
+From carlosjosepita at gmail.com  Wed Sep 10 01:45:37 2008
+From: carlosjosepita at gmail.com (Carlos Pita)
+Date: Tue, 9 Sep 2008 20:45:37 -0300
+Subject: winprop.target and nested workspace
+In-Reply-To: <slrngcdb88.j5s.tuomov@jolt.modeemi.cs.tut.fi>
+References: <7798eaa0809082041s79a42e8atf92dfbf471d4c08@mail.gmail.com>
+	<slrngcc6g3.nj3.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080909143608.GA9213@monad>
+	<slrngcdb88.j5s.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080909234537.GA6035@carlos>
+
+> > groupws1 --- frame1 --- groupcw1 --- window1
+> >                     |__ groupws2 --- frame2 --- groupcw2 --- window2
+> >
+> > Let me be more precise. The resulting parent is frame2 in both cases,
+> > and the resulting manager is the tilling for frame2 in both cases. It's
+> 
+> window, but the set target object. In your case, the implementation
+> frame_prepare_manage is called on frame1, which is a wrapper for
+> mplex_prepare_manage, that forwards the request to the implmentation
+> group_prepare_manage on groupws2, if that is the current selected
+> region, etc.
+
+I see. Two solutions come to my mind (besides from modifying the
+sources which I still not dare to do).
+
+One is tweaking the saved session in order to change the current
+selected region, if this makes any sense at all (if the active region
+isn't stored there, where is it then? Maybe nowhere?). Inspecting the
+saved session the only field I suppose that could be related is
+switchto. But anyway this fix would be too fragile, ready to be broken
+again after saving the session.
+
+The second possibility is to implement a custom clientwin_do_manage_alt
+hook and do all the work myself, at least for the windows that must
+reside at nested workspaces.
+
+What do you think Tuomo? Any suggestion from the ion savvy?
+
+Regards
+-Carlos
+
+
+
+From tuomov at iki.fi  Wed Sep 10 08:33:14 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 10 Sep 2008 06:33:14 +0000 (UTC)
+Subject: winprop.target and nested workspace
+References: <7798eaa0809082041s79a42e8atf92dfbf471d4c08@mail.gmail.com>
+	<slrngcc6g3.nj3.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080909143608.GA9213@monad>
+	<slrngcdb88.j5s.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080909234537.GA6035@carlos>
+Message-ID: <slrngceqha.1er.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-09, Carlos Pita <carlosjosepita at gmail.com> wrote:
+> One is tweaking the saved session in order to change the current
+> selected region, 
+
+I don't recommend such kludges.
+
+> The second possibility is to implement a custom clientwin_do_manage_alt
+> hook and do all the work myself, at least for the windows that must
+> reside at nested workspaces.
+
+This sounds better.
+
+Although maybe the 'target' winprop should simply behave differently
+by default.. it would be a small change.
+
+-- 
+Tuomo
+
+
+
+From carlosjosepita at gmail.com  Wed Sep 10 09:11:35 2008
+From: carlosjosepita at gmail.com (Carlos Pita)
+Date: Wed, 10 Sep 2008 04:11:35 -0300
+Subject: winprop.target and nested workspace
+In-Reply-To: <slrngceqha.1er.tuomov@jolt.modeemi.cs.tut.fi>
+References: <7798eaa0809082041s79a42e8atf92dfbf471d4c08@mail.gmail.com>
+	<slrngcc6g3.nj3.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080909143608.GA9213@monad>
+	<slrngcdb88.j5s.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080909234537.GA6035@carlos>
+	<slrngceqha.1er.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080910071135.GA21789@monad>
+
+> > The second possibility is to implement a custom clientwin_do_manage_alt
+> > hook and do all the work myself, at least for the windows that must
+> > reside at nested workspaces.
+> 
+> This sounds better.
+> 
+> Although maybe the 'target' winprop should simply behave differently
+> by default.. it would be a small change.
+
+I think a very flexible approach would be allowing cw groups to be
+targets. This way arbitrarily complex layouts, including mplex indexes
+and nested workspaces, could be setup, saved and restored, without
+depending on a default positioning strategy. In fact that kind of
+layouts are nowadays setup and saved, but never completely restored
+because of the initial discarding of previous cw groups. Also the
+ambiguity issue that motivated my question would disappear as target cw
+and ws groups of interest are presumably leaf regions in the saved
+layout (while frames aren't when there are nested ws around). I suppose
+the problem is that cw groups are volatile regions that in the general
+case aren't expected to persist from session to session. Maybe some of
+them could be flagged sticky or something, so they are not discarded at
+startup.
+
+Anyway I've managed myself to get a quick hack working that allows
+for specifying mx indexes, nested floating and tiled workspaces, unsets
+initial activity alerts, plus a couple of other goodies that I'm not
+able to remember now, all that from a clientwin_do_manage_alt hook. It's
+indecent code that I'd rather keep for myself :), but it talks about the
+extreme flexibility of ion.
+
+Regards
+-Carlos
+
+
+> 
+> -- 
+> Tuomo
+> 
+
+
+From nicolas.chauvat at logilab.fr  Wed Sep 10 09:51:24 2008
+From: nicolas.chauvat at logilab.fr (Nicolas Chauvat)
+Date: Wed, 10 Sep 2008 09:51:24 +0200
+Subject: example of query completion
+In-Reply-To: <slrngcdrfv.fjk.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20080909204554.GJ19016@logilab.fr>
+	<slrngcdrfv.fjk.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080910075124.GA22187@logilab.fr>
+
+On Tue, Sep 09, 2008 at 09:43:27PM +0000, Tuomo Valkonen wrote:
+> On 2008-09-09, Nicolas Chauvat <nicolas.chauvat at logilab.fr> wrote:
+> > I am trying to get completion to work when querying for user input in
+> > the ion command bar. 
+> 
+> Querying for what? How? At what level do you need help?
+
+As stated in my first email, I am trying to get a script like
+http://modeemi.fi/~tuomov/repos/ion-scripts-3/scripts/query_url.lua
+to work with the latest release of ion.
+
+You'll find attached my attempt at such a script. I started with
+query_url.lua and modified it.
+
+-- 
+Nicolas Chauvat
+
+logilab.fr - services en informatique scientifique et gestion de connaissances  
+-------------- next part --------------
+local simpled_verb = "simpled-verbs"
+
+function get_possible_verbs ()
+  local verbs = {}
+
+  local f = io.popen(simpled_verb .. " --list")
+  for line in f:lines() do
+     table.insert(verbs, line)
+  end
+  f:close()
+
+  return verbs
+end
+
+function query_verb(mplex)
+   local possible_verbs = get_possible_verbs()
+   print(possible_verbs,"\n")
+   local function handler(mplex, str)
+      ioncore.exec_on(mplex, simpled_verb .. ' ' .. str)
+   end
+   local function completor(wedln, what)
+      wedln:set_completions(mod_query.complete_from_list(possible_verbs, what))
+   end
+   mod_query.query(mplex, "verb: ", nil, handler, completor)
+end
+
+From tuomov at iki.fi  Wed Sep 10 10:02:17 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 10 Sep 2008 08:02:17 +0000 (UTC)
+Subject: example of query completion
+References: <20080909204554.GJ19016@logilab.fr>
+	<slrngcdrfv.fjk.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080910075124.GA22187@logilab.fr>
+Message-ID: <slrngcevo9.9np.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-10, Nicolas Chauvat <nicolas.chauvat at logilab.fr> wrote:
+> As stated in my first email, I am trying to get a script like
+> http://modeemi.fi/~tuomov/repos/ion-scripts-3/scripts/query_url.lua
+> to work with the latest release of ion.
+
+complete_from_list is obsolete. The current equivalent function
+prototype is
+
+        mod_query.complete_keys(list, str, sub_ok, casei_ok)
+
+but it is an internal undocumented function. (It completes among
+the _keys_ of 'list', not values!)
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Wed Sep 10 10:09:56 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 10 Sep 2008 08:09:56 +0000 (UTC)
+Subject: winprop.target and nested workspace
+References: <7798eaa0809082041s79a42e8atf92dfbf471d4c08@mail.gmail.com>
+	<slrngcc6g3.nj3.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080909143608.GA9213@monad>
+	<slrngcdb88.j5s.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080909234537.GA6035@carlos>
+	<slrngceqha.1er.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080910071135.GA21789@monad>
+Message-ID: <slrngcf06k.9np.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-10, Carlos Pita <carlosjosepita at gmail.com> wrote:
+> Maybe some of
+> them could be flagged sticky or something, so they are not discarded at
+> startup.
+
+Actually, there's a complex (implementation-wise, although fundamentally
+simple) mechanism for not completely discarding WGroupCWs on startup: 
+the placeholders. If you're running Ion under a session manager, it will
+insert a 'placeholder' in place of the WGroupCW, and if windows that were
+previously contained within the WGroupCW are later (within a certain
+timeframe) created (as identified by the session manager), it will recreate
+the WGroupCW. The same placeholder mechanism is used for returning windows
+from full screen mode to exactly where the were, the region_prepare_manage
+calls actually create temporary placeholders where the client window is
+soon to be inserted (unless it is actually put in FS mode), and so on.
+The placeholders are unfortunately not ATM exported to the Lua side.
+
+-- 
+Tuomo
+
+
+
+From nicolas.chauvat at logilab.fr  Wed Sep 10 11:24:50 2008
+From: nicolas.chauvat at logilab.fr (Nicolas Chauvat)
+Date: Wed, 10 Sep 2008 11:24:50 +0200
+Subject: example of query completion
+In-Reply-To: <slrngcevo9.9np.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20080909204554.GJ19016@logilab.fr>
+	<slrngcdrfv.fjk.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080910075124.GA22187@logilab.fr>
+	<slrngcevo9.9np.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080910092450.GB22187@logilab.fr>
+
+On Wed, Sep 10, 2008 at 08:02:17AM +0000, Tuomo Valkonen wrote:
+> complete_from_list is obsolete. The current equivalent function
+> prototype is
+> 
+>         mod_query.complete_keys(list, str, sub_ok, casei_ok)
+> 
+> but it is an internal undocumented function. (It completes among
+> the _keys_ of 'list', not values!)
+
+In case someone else would need the same thing, here is code that
+works for me:
+
+local simpled_verb = "simpled-verbs"
+
+function get_possible_verbs ()
+  local verbs = {}
+
+  local f = io.popen(simpled_verb .. " --list")
+  for line in f:lines() do
+     verbs[line] = line 
+  end
+  f:close()
+
+  return verbs
+end
+
+function query_verb(mplex)
+   local possible_verbs = get_possible_verbs()
+   print(possible_verbs,"\n")
+   local function handler(mplex, str)
+      ioncore.exec_on(mplex, simpled_verb .. ' ' .. str)
+   end
+   local function completor(cp, str, point)
+      completions = mod_query.complete_keys(possible_verbs, str, true, true)
+      cp:set_completions(completions)
+   end
+   mod_query.query(mplex, "verb: ", nil, handler, completor)
+end
+
+
+-- 
+Nicolas Chauvat
+
+logilab.fr - services en informatique scientifique et gestion de connaissances  
+
+
+From tuomov at iki.fi  Wed Sep 10 11:31:29 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 10 Sep 2008 12:31:29 +0300
+Subject: example of query completion
+In-Reply-To: <20080910092450.GB22187@logilab.fr>
+References: <20080909204554.GJ19016@logilab.fr>
+	<slrngcdrfv.fjk.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080910075124.GA22187@logilab.fr>
+	<slrngcevo9.9np.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080910092450.GB22187@logilab.fr>
+Message-ID: <20080910093129.GA19160@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-10 11:24 +0200, Nicolas Chauvat wrote:
+>   local f = io.popen(simpled_verb .. " --list")
+
+I don't recommend using io.popen. It blocks the whole WM
+while the program is processing. ioncore.popen_bgread is better,
+and there's actually mod_query.popen_completions that might
+work almost directly.
+
+http://iki.fi/tuomov/ion-doc-3/ionconf/node7.html#fn:mod_query.popen_completions
+
+-- 
+Tuomo
+
+
+From thotypous at gmail.com  Fri Sep 12 19:12:34 2008
+From: thotypous at gmail.com (Paulo Matias)
+Date: Fri, 12 Sep 2008 14:12:34 -0300
+Subject: ion3 packaging advice
+Message-ID: <acb0c1690809121012s55a36758w277bc6bfc0bfea2@mail.gmail.com>
+
+Hi,
+
+First of all, thanks for the great work in ion3, it's really my
+preferred window manager, and I use it everyday.
+
+I'm writing to the list to ask for advice, specially from Tuomo
+Valkonen, about how to create ion3 binary packages.
+
+As an ion3 fan and archlinux user, I had created a packaging script
+(this is called PKGBUILD in archlinux - it's a shell script that
+builds a package) some time ago, so I could easily recommend ion3 to
+friends that use archlinux too.
+
+Until now, I have only distributed this script, but I was planning to
+distribute pre-built binary packages. So I'm asking here to be sure
+I'm not infringing Ion trademark license and to be sure I will not
+attack Ion's reputation or image in any way.
+
+The packages will be purely vanilla - it will not include any patches
+against ion3 source code. It's purely the official released source
+code.
+
+The packaging script is located at:
+http://aur.archlinux.org/packages/ion-3/ion-3/PKGBUILD
+
+It simply builds ion3 with a system.mk file adequate to match the
+default system directories at archlinux (/usr/bin for binaries,
+/etc/ion3 for etcdir, etc.). The system.mk file I use is located at:
+http://aur.archlinux.org/packages/ion-3/ion-3/system.mk
+
+When building, the packaging script copies the release date to a
+script that runs when the user tries to install ion3. This install
+script is located here:
+http://aur.archlinux.org/packages/ion-3/ion-3/ion-3.install
+
+The install script calls a small Lua snippet to compare the release
+date against the system clock. If it's more than 28 days older, it
+displays a message to the user, alerting the package is potentially
+outdated. I can change this message if you think it could be rewritten
+in a better way.
+
+Should it be enough to produce freely redistributable binary packages?
+
+I will always do all I can do to provide the latest version packaged
+to my friends and to anyone interested in ion3 that uses archlinux,
+but I would like to be sure there would be no problem before starting
+to distribute any binary packages.
+
+
+Thanks a lot and best regards,
+
+Paulo Matias
+
+
+From tuomov at iki.fi  Fri Sep 12 20:00:00 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 12 Sep 2008 18:00:00 +0000 (UTC)
+Subject: ion3 packaging advice
+References: <acb0c1690809121012s55a36758w277bc6bfc0bfea2@mail.gmail.com>
+Message-ID: <slrngclbh0.knm.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-12, Paulo Matias <thotypous at gmail.com> wrote:
+> When building, the packaging script copies the release date to a
+> script that runs when the user tries to install ion3. This install
+> script is located here:
+> http://aur.archlinux.org/packages/ion-3/ion-3/ion-3.install
+
+Per the license, it is ok if takes conscious user effort to disable
+the post-install script, and the message is displayed prominently,
+i.e. not hidden among long install logs in batch installs. (Perhaps
+a 'read' would fix that, although annoying...) 
+
+Other than that, I'd obviously prefer more intelligent notifications
+that actually checked whether the package is really obsolete (which
+should rarely become the case as Ion3 is "stable" now). Notifications
+that haven't got anything of real importance to say, are like "crying 
+the wolf", and people will start ignoring them. But the license does
+not require smarter notifications.
+
+(It is very simple to find out the latest version:
+
+    curl -sI http://modeemi.fi/~tuomov/dl/ion-3-latest.tar.gz | \
+        sed 's!^Location:.*/ion-3-\(.*\).tar.gz!\1!p; d;'
+
+Obviously, such "call home" is somewhat annoying.. although much
+less than the application itself doing it at times other than the
+installation.. and it would be better if the information was 
+obtained from the same source as the package. Distributors could
+keep a database of the information for all packages...)
+
+-- 
+Tuomo
+
+
+
+From thotypous at gmail.com  Fri Sep 12 20:34:57 2008
+From: thotypous at gmail.com (Paulo Matias)
+Date: Fri, 12 Sep 2008 15:34:57 -0300
+Subject: ion3 packaging advice
+In-Reply-To: <slrngclbh0.knm.tuomov@jolt.modeemi.cs.tut.fi>
+References: <acb0c1690809121012s55a36758w277bc6bfc0bfea2@mail.gmail.com>
+	<slrngclbh0.knm.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <acb0c1690809121134m12eba9c6n2cb10884df214f44@mail.gmail.com>
+
+Hi,
+
+On Fri, Sep 12, 2008 at 3:00 PM, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> Per the license, it is ok if takes conscious user effort to disable
+> the post-install script,
+
+The only way to disable the post-install script file (besides removing
+the .INSTALL file that is created inside the package tarball) would be
+to pass the --noscriptlet option to the pacman package manager. The
+pacman man page says:
+
+ "--noscriptlet   If an install scriptlet exists, do not execute it.
+Do not use this unless you know what you are doing."
+
+> and the message is displayed prominently,
+> i.e. not hidden among long install logs in batch installs. (Perhaps
+> a 'read' would fix that, although annoying...)
+
+If today was Sep 25, the output when installing ion-3-20080825 would
+look as follows:
+
+bash-3.2# date 09251522
+Thu Sep 25 15:22:00 BRT 2008
+bash-3.2# pacman -U ion-3-20080825-1-i686.pkg.tar.gz
+loading package data...
+checking dependencies...
+(1/1) checking for file conflicts
+[#######################] 100%
+(1/1) upgrading ion-3
+[#######################] 100%
+PLEASE NOTE:
+------------------------------------------------------------------------
+This package is older than 28 days, so it may not be the latest version
+of Ion-3. The author does not support old and/or obsoleted versions.
+Please send any bug reports to the package maintainer, not the author.
+------------------------------------------------------------------------
+
+
+These install messages are considered to be very important in
+archlinux, and will never be hidden from the user by the package
+manager.
+
+>
+> Other than that, I'd obviously prefer more intelligent notifications
+[snip]
+> Obviously, such "call home" is somewhat annoying.. although much
+> less than the application itself doing it at times other than the
+> installation.. and it would be better if the information was
+> obtained from the same source as the package. Distributors could
+> keep a database of the information for all packages...)
+
+Problems could arrise if the user is currently not connected to the
+Internet when installing the package, too.
+
+
+Thanks a lot for your reviews and advise. Do you confirm the packages,
+if packaged as I described here, are freely redistributable according
+to the trademark license?
+
+
+Thanks and best regards,
+
+Paulo Matias
+
+
+From tuomov at iki.fi  Fri Sep 12 20:40:58 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 12 Sep 2008 18:40:58 +0000 (UTC)
+Subject: ion3 packaging advice
+References: <acb0c1690809121012s55a36758w277bc6bfc0bfea2@mail.gmail.com>
+	<slrngclbh0.knm.tuomov@jolt.modeemi.cs.tut.fi>
+	<acb0c1690809121134m12eba9c6n2cb10884df214f44@mail.gmail.com>
+Message-ID: <slrngcldtq.q2h.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-12, Paulo Matias <thotypous at gmail.com> wrote:
+>  "--noscriptlet   If an install scriptlet exists, do not execute it.
+> Do not use this unless you know what you are doing."
+
+Ok, seems like something few would do without knowing what they're
+doing.
+
+> These install messages are considered to be very important in
+> archlinux, and will never be hidden from the user by the package
+> manager.
+
+I was more thinking of being shown but hidden amidst a flood of
+install messages, if you install multiple packages (such as 
+upgrading all of them).
+
+> Problems could arrise if the user is currently not connected to the
+> Internet when installing the package, too.
+
+Then one could of course fall back to less smart checks.
+
+> Thanks a lot for your reviews and advise. Do you confirm the packages,
+> if packaged as I described here, are freely redistributable according
+> to the trademark license?
+
+If the message doesn't get hidden in a flood of install logs.
+
+-- 
+Tuomo
+
+
+
+From thotypous at gmail.com  Fri Sep 12 21:11:41 2008
+From: thotypous at gmail.com (Paulo Matias)
+Date: Fri, 12 Sep 2008 16:11:41 -0300
+Subject: ion3 packaging advice
+In-Reply-To: <slrngcldtq.q2h.tuomov@jolt.modeemi.cs.tut.fi>
+References: <acb0c1690809121012s55a36758w277bc6bfc0bfea2@mail.gmail.com>
+	<slrngclbh0.knm.tuomov@jolt.modeemi.cs.tut.fi>
+	<acb0c1690809121134m12eba9c6n2cb10884df214f44@mail.gmail.com>
+	<slrngcldtq.q2h.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <acb0c1690809121211q71a7fdf4o4ca5f93dcd7b3385@mail.gmail.com>
+
+On Fri, Sep 12, 2008 at 3:40 PM, Tuomo Valkonen <tuomov at iki.fi> wrote:
+>
+> I was more thinking of being shown but hidden amidst a flood of
+> install messages, if you install multiple packages (such as
+> upgrading all of them).
+
+If the package is being installed together with a lot of the packages
+that already display install messages, then all the messages would be
+displayed, one at a time, to the user like the following:
+
+(1/3) upgrading abc
+[#######################] 100%
+(abc install messages go here)
+(2/3) upgrading ion-3
+[#######################] 100%
+(ion-3 install messages go here)
+(3/3) upgrading xyz
+[#######################] 100%
+(xyz install messages go here)
+bash-3.2#
+
+So would it be OK according to the trademark license the way this is
+implemented now?
+
+Otherwise, what if I put
+
+ for i in `seq 3`; do echo -ne '\a'; sleep 1; done
+
+just after the message being displayed? Will it be OK according to the
+trademark license?
+
+
+And, otherwise, what if I put
+
+ echo "Press ENTER to continue"; read
+
+would it be OK according to the trademark license?
+
+
+Thanks and best regards,
+
+Paulo Matias
+
+
+From tuomov at iki.fi  Fri Sep 12 21:24:30 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 12 Sep 2008 19:24:30 +0000 (UTC)
+Subject: ion3 packaging advice
+References: <acb0c1690809121012s55a36758w277bc6bfc0bfea2@mail.gmail.com>
+	<slrngclbh0.knm.tuomov@jolt.modeemi.cs.tut.fi>
+	<acb0c1690809121134m12eba9c6n2cb10884df214f44@mail.gmail.com>
+	<slrngcldtq.q2h.tuomov@jolt.modeemi.cs.tut.fi>
+	<acb0c1690809121211q71a7fdf4o4ca5f93dcd7b3385@mail.gmail.com>
+Message-ID: <slrngclgfe.tur.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-12, Paulo Matias <thotypous at gmail.com> wrote:
+> If the package is being installed together with a lot of the packages
+> that already display install messages, then all the messages would be
+> displayed, one at a time, to the user like the following:
+>
+> (1/3) upgrading abc
+> [#######################] 100%
+> (abc install messages go here)
+> (2/3) upgrading ion-3
+> [#######################] 100%
+> (ion-3 install messages go here)
+> (3/3) upgrading xyz
+> [#######################] 100%
+> (xyz install messages go here)
+> bash-3.2#
+
+In this case there's a problem with the user noticing the message, if
+there's more than a screenfull of packages installed.
+
+> Otherwise, what if I put
+>
+>  for i in `seq 3`; do echo -ne '\a'; sleep 1; done
+
+... and this is unlikely to help in that case, as the user is likely
+to just go for a coffee.
+
+> And, otherwise, what if I put
+>
+>  echo "Press ENTER to continue"; read
+
+This (or at least having to write 'yes' or so) will be ok by the
+license, as the message is certainly prominent. (But as a user I 
+would be annoyed by the message stopping the installation process. 
+The best solution would be to display all the messages after 
+installation, install packages with messages that require confirmation
+last, or do some kind of parallel install. But if the package system
+is too primitive for that, stopping the installation by a query is
+pretty much the only option.)
+
+-- 
+Tuomo
+
+
+
+From ebik at drak.ucw.cz  Fri Sep 12 21:09:20 2008
+From: ebik at drak.ucw.cz (=?iso-8859-2?Q?Tom=E1=B9_Ebenlendr?=)
+Date: Fri, 12 Sep 2008 21:09:20 +0200 (CEST)
+Subject: ion3 packaging advice
+In-Reply-To: <slrngcldtq.q2h.tuomov@jolt.modeemi.cs.tut.fi>
+References: <acb0c1690809121012s55a36758w277bc6bfc0bfea2@mail.gmail.com>
+	<slrngclbh0.knm.tuomov@jolt.modeemi.cs.tut.fi>
+	<acb0c1690809121134m12eba9c6n2cb10884df214f44@mail.gmail.com>
+	<slrngcldtq.q2h.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <56179.88.146.1.38.1221246560.squirrel@drak.ucw.cz>
+
+Consider also showing a xmessage at first ion start. Consider school labs,
+where administrator installs such pakage, but students are using it (and
+bugreporting). Both administrator (when installing) and user (at first
+run) should be notified.
+
+Dne 12 Z??? 2008, 20:40, Tuomo Valkonen napsal(a):
+> On 2008-09-12, Paulo Matias <thotypous at gmail.com> wrote:
+>
+>> "--noscriptlet   If an install scriptlet exists, do not execute it.
+>> Do not use this unless you know what you are doing."
+>>
+>
+> Ok, seems like something few would do without knowing what they're
+> doing.
+>
+>> These install messages are considered to be very important in
+>> archlinux, and will never be hidden from the user by the package manager.
+>>
+>
+> I was more thinking of being shown but hidden amidst a flood of
+> install messages, if you install multiple packages (such as upgrading all
+> of them).
+>
+>> Problems could arrise if the user is currently not connected to the
+>> Internet when installing the package, too.
+>>
+>
+> Then one could of course fall back to less smart checks.
+>
+>
+>> Thanks a lot for your reviews and advise. Do you confirm the packages,
+>> if packaged as I described here, are freely redistributable according to
+>> the trademark license?
+>
+> If the message doesn't get hidden in a flood of install logs.
+>
+>
+> --
+> Tuomo
+>
+>
+>
+
+
+-- 
+.                           Tomas Ebenlendr
+.                           http://drak.ucw.cz/~ebik
+
+
+
+From thotypous at gmail.com  Fri Sep 12 21:34:51 2008
+From: thotypous at gmail.com (Paulo Matias)
+Date: Fri, 12 Sep 2008 16:34:51 -0300
+Subject: ion3 packaging advice
+In-Reply-To: <slrngclgfe.tur.tuomov@jolt.modeemi.cs.tut.fi>
+References: <acb0c1690809121012s55a36758w277bc6bfc0bfea2@mail.gmail.com>
+	<slrngclbh0.knm.tuomov@jolt.modeemi.cs.tut.fi>
+	<acb0c1690809121134m12eba9c6n2cb10884df214f44@mail.gmail.com>
+	<slrngcldtq.q2h.tuomov@jolt.modeemi.cs.tut.fi>
+	<acb0c1690809121211q71a7fdf4o4ca5f93dcd7b3385@mail.gmail.com>
+	<slrngclgfe.tur.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <acb0c1690809121234x5b38489aveb4ea30def488a3d@mail.gmail.com>
+
+On Fri, Sep 12, 2008 at 4:24 PM, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2008-09-12, Paulo Matias <thotypous at gmail.com> wrote:
+[snip]
+>> And, otherwise, what if I put
+>>
+>>  echo "Press ENTER to continue"; read
+>
+> This (or at least having to write 'yes' or so) will be ok by the
+> license, as the message is certainly prominent. (But as a user I
+> would be annoyed by the message stopping the installation process.
+[snip]
+
+OK, thanks a lot for your advice! I will implement things this way by now.
+
+I will contact you by the list if I get any new idea.
+
+
+Thanks and best regards,
+
+Paulo Matias
+
+
+From tuomov at iki.fi  Fri Sep 12 21:46:33 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 12 Sep 2008 19:46:33 +0000 (UTC)
+Subject: ion3 packaging advice
+References: <acb0c1690809121012s55a36758w277bc6bfc0bfea2@mail.gmail.com>
+	<slrngclbh0.knm.tuomov@jolt.modeemi.cs.tut.fi>
+	<acb0c1690809121134m12eba9c6n2cb10884df214f44@mail.gmail.com>
+	<slrngcldtq.q2h.tuomov@jolt.modeemi.cs.tut.fi>
+	<56179.88.146.1.38.1221246560.squirrel@drak.ucw.cz>
+Message-ID: <slrngclhop.vgj.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-12, Tom?? Ebenlendr <ebik at drak.ucw.cz> wrote:
+> Consider also showing a xmessage at first ion start. Consider school labs,
+> where administrator installs such pakage, but students are using it (and
+> bugreporting). Both administrator (when installing) and user (at first
+> run) should be notified.
+
+I don't find it that big a problem: never had people using Ion
+installed by admins in a school or so ask for help for old
+versions, and I suppose people are more aware that in a school
+lab, the admin is first to blame for obsolete software. After
+all, _they_ haven't personally installed the program _recently_,
+and may be inclined to find out whether the admin's fucked up.
+Or maybe just people who know better to bug the author, don't
+use ion installed by school lab admins.
+
+But if they've just personally installed it from a distro site
+-- which is unfortunately too much easier than packages that
+authors can provide, giving the distros a de facto central
+control over software installs -- they seem to expect to be
+using an official source and get something that the author 
+also supports. This needs to change, and the author again
+become the primary source for the software.
+
+-- 
+Tuomo
+
+
+
+From timandahaf+dev at gmail.com  Sat Sep 20 04:22:25 2008
+From: timandahaf+dev at gmail.com (Timandahaf)
+Date: Fri, 19 Sep 2008 22:22:25 -0400 (EDT)
+Subject: inc/dec workspace
+Message-ID: <Pine.LNX.4.64.0809192215140.15517@india.ece.cmu.edu>
+
+I'd like to be able to "move" (rearrange) workspaces. To do so, I hadded
+the following code to cfg_ioncore.lua:
+
+defbindings("WScreen", {
+-- Stuff
+     bdoc("Move current workspace left/right."),
+     kpress(META.."Shift+comma",  "WScreen.dec_index(_, _sub)", "_sub:non-nil"),
+     kpress(META.."Shift+period", "WScreen.inc_index(_, _sub)", "_sub:non-nil"),
+-- Stuff
+})
+
+This does what I want, except for the fact that it doesn't update the
+statusbar. (I use statusbar_workspace.lua and have
+"template=%workspace_pager" set). The statusbar does get updated
+correctly whenever I next do anything that would normally update it.
+
+How would I get the statusbar to update after rearranging my workspace?
+
+Thanks much!
+
+
+From tuomov at iki.fi  Sat Sep 20 13:21:00 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 20 Sep 2008 11:21:00 +0000 (UTC)
+Subject: inc/dec workspace
+References: <Pine.LNX.4.64.0809192215140.15517@india.ece.cmu.edu>
+Message-ID: <slrngd9n4s.v9a.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-20, Timandahaf <timandahaf+dev at gmail.com> wrote:
+> This does what I want, except for the fact that it doesn't update the
+> statusbar. (I use statusbar_workspace.lua and have
+> "template=%workspace_pager" set). The statusbar does get updated
+> correctly whenever I next do anything that would normally update it.
+>
+> How would I get the statusbar to update after rearranging my workspace?
+
+The hook usage of statusbar_workspace.lua is quite bad. It only listens
+to region_notify_hook, which is used to notify of all sorts of changes
+(non-structural, aside from setting the manager) to a region, and has
+a parameter describing this change. statusbar_workspace.lua ignores the
+parameter, thus doing lots of useless work when nothing has changed
+that it should be interested in. It only incidentally works, I guess,
+because mapping state is notified by this hook. What it should really
+do is: a) listen to screen_managed_changed_hook (RTFM for details) for
+structural changes, and b) listen to region_notify_hook with detail
+"name" for workspace name changes.
+
+-- 
+Tuomo
+
+
+
+From timandahaf+dev at gmail.com  Sat Sep 20 18:31:58 2008
+From: timandahaf+dev at gmail.com (Timandahaf)
+Date: Sat, 20 Sep 2008 12:31:58 -0400 (EDT)
+Subject: inc/dec workspace
+In-Reply-To: <slrngd9n4s.v9a.tuomov@jolt.modeemi.cs.tut.fi>
+References: <Pine.LNX.4.64.0809192215140.15517@india.ece.cmu.edu>
+	<slrngd9n4s.v9a.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <Pine.LNX.4.64.0809201229310.2217@india.ece.cmu.edu>
+
+On Sat, 20 Sep 2008, Tuomo Valkonen wrote:
+> What it should really
+> do is: a) listen to screen_managed_changed_hook (RTFM for details) for
+> structural changes, and b) listen to region_notify_hook with detail
+> "name" for workspace name changes.
+
+Thanks, Tuomo. I will look into this soon, and hopefully, fix it.
+
+
+From timandahaf+dev at gmail.com  Sun Sep 21 06:08:32 2008
+From: timandahaf+dev at gmail.com (Timandahaf)
+Date: Sun, 21 Sep 2008 00:08:32 -0400 (EDT)
+Subject: inc/dec workspace
+In-Reply-To: <slrngd9n4s.v9a.tuomov@jolt.modeemi.cs.tut.fi>
+References: <Pine.LNX.4.64.0809192215140.15517@india.ece.cmu.edu>
+	<slrngd9n4s.v9a.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <Pine.LNX.4.64.0809210004480.16413@india.ece.cmu.edu>
+
+On Sat, 20 Sep 2008, Tuomo Valkonen wrote:
+> What it should really
+> do is: a) listen to screen_managed_changed_hook (RTFM for details) for
+> structural changes, and b) listen to region_notify_hook with detail
+> "name" for workspace name changes.
+
+I did both of these as you said, and everything works great! I'll submit
+a fix to you via darcs for the scripts page soon.
+
+Meanwhile, here're the changes if anyone is interested.
+
+------------------------------------------------------------------------------
+--- statusbar_workspace.lua     Fri May 11 01:58:41 2007
++++ .ion3/statusbar_workspace.lua       Sat Sep 20 23:45:37 2008
+@@ -107,4 +107,13 @@
+      end)
+  end
+
+-ioncore.get_hook("region_notify_hook"):add(update_workspace)
++local function update_workspace_wrap(reg, how)
++    if how ~= "name" then
++        return
++    end
++
++    update_workspace()
++end
++
++ioncore.get_hook("region_notify_hook"):add(update_workspace_wrap)
++ioncore.get_hook("screen_managed_changed_hook"):add(update_workspace)
+------------------------------------------------------------------------------
+
+Thanks a bunch again, Tuomo!
+
+
+From timandahaf+dev at gmail.com  Sun Sep 21 06:19:21 2008
+From: timandahaf+dev at gmail.com (Timandahaf)
+Date: Sun, 21 Sep 2008 00:19:21 -0400 (EDT)
+Subject: mod_xinerama
+Message-ID: <Pine.LNX.4.64.0809210009120.16413@india.ece.cmu.edu>
+
+(With advance apologies to Tuomo :)).
+
+Thomas Themel: your mod_xinerama module works great, with one exception.
+Version mod_xinerama-20070719 has this one extra line:
+
+------------------------------------------------------------------------------
+--- mod_xinerama.c      Mon Apr  9 16:32:12 2007
++++ ../ion-3-20080825/mod_xinerama-3/mod_xinerama.c     Sun Sep 21 00:03:22 2008
+@@ -63,0 +64,6 @@
++       /* Only keep track of mod_xinerama screens in ioncore_g.screens
++        * so that ioncore.goto_next_screen and goto_prev_screen wrap
++        * properly.
++        */
++       ioncore_g.screens = NULL;
+------------------------------------------------------------------------------
+
+over version mod_xinerama-20070409.
+
+I'm running ion-3-20080825, and that particular line causes problems.
+With that line enabled, ion crashes on restarts. Without that line,
+everything works great.
+
+I haven't poked around to see why this happens, but if you could shed
+some light on the issue and why that line appeared in the latest version
+(and if it also crashes for you while restarting), that would be great.
+
+Thanks!
+
+
+From tuomov at iki.fi  Sun Sep 21 14:58:51 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 21 Sep 2008 12:58:51 +0000 (UTC)
+Subject: inc/dec workspace
+References: <Pine.LNX.4.64.0809192215140.15517@india.ece.cmu.edu>
+	<slrngd9n4s.v9a.tuomov@jolt.modeemi.cs.tut.fi>
+	<Pine.LNX.4.64.0809210004480.16413@india.ece.cmu.edu>
+Message-ID: <slrngdch8a.hbp.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-21, Timandahaf <timandahaf+dev at gmail.com> wrote:
+> -ioncore.get_hook("region_notify_hook"):add(update_workspace)
+> +local function update_workspace_wrap(reg, how)
+> +    if how ~= "name" then
+> +        return
+> +    end
+
+It would be advisable to check that 'reg' is actually a "workspace",
+i.e. managed by a WScreen, to further optimise the calls to update.
+(Actually, the iteration using mx_nth in the update is also very 
+inefficient. What mx_nth does is scan a list from the beginning to
+find the n:th entry. mx_i does iteration over the list.)
+
+-- 
+Tuomo
+
+
+
+From andre.hollstein at googlemail.com  Sun Sep 21 16:01:30 2008
+From: andre.hollstein at googlemail.com (andre hollstein)
+Date: Sun, 21 Sep 2008 15:01:30 +0100
+Subject: fullscreen flash videos with firefox
+Message-ID: <e108f450809210701y7bf7e016n1433a8d018dfaac2@mail.gmail.com>
+
+Hello all
+I'm using Ion3 on my ubuntu box integrated in gnome where I followed the
+instructions given here:  http://wiki.ubuntuusers.de/Ion3
+One problem i couldn't solve myself is still out there. I can not play flash
+videos in firefox in fullscreen - when i press the fs button the video goes
+fullscreen for one moment and then returns to the original state. What can I
+do? Can this misbehaviour be solved with winprob options?
+Thanx for any help on this.
+Cheers Andre
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080921/fa2193e4/attachment.html>
+
+From nickmurdoch at gmail.com  Sun Sep 21 16:43:56 2008
+From: nickmurdoch at gmail.com (Nick Murdoch)
+Date: Sun, 21 Sep 2008 15:43:56 +0100
+Subject: fullscreen flash videos with firefox
+In-Reply-To: <e108f450809210701y7bf7e016n1433a8d018dfaac2@mail.gmail.com>
+References: <e108f450809210701y7bf7e016n1433a8d018dfaac2@mail.gmail.com>
+Message-ID: <op.uht5viwbq54ctd@localhost>
+
+On Sun, 21 Sep 2008 15:01:30 +0100, andre hollstein  
+<andre.hollstein at googlemail.com> wrote:
+
+> Hello all
+> I'm using Ion3 on my ubuntu box integrated in gnome where I followed the
+> instructions given here:  http://wiki.ubuntuusers.de/Ion3
+> One problem i couldn't solve myself is still out there. I can not play  
+> flash
+> videos in firefox in fullscreen - when i press the fs button the video  
+> goes
+> fullscreen for one moment and then returns to the original state. What  
+> can I
+> do? Can this misbehaviour be solved with winprob options?
+> Thanx for any help on this.
+> Cheers Andre
+
+
+I get the same problem, on the odd occasion I have something as horrible  
+as Flash installed. This behaviour happens in Opera too.
+
+
+From ebik at drak.ucw.cz  Sun Sep 21 17:12:02 2008
+From: ebik at drak.ucw.cz (=?iso-8859-2?Q?Tom=E1=B9_Ebenlendr?=)
+Date: Sun, 21 Sep 2008 17:12:02 +0200 (CEST)
+Subject: fullscreen flash videos with firefox
+In-Reply-To: <e108f450809210701y7bf7e016n1433a8d018dfaac2@mail.gmail.com>
+References: <e108f450809210701y7bf7e016n1433a8d018dfaac2@mail.gmail.com>
+Message-ID: <43993.88.146.1.38.1222009922.squirrel@drak.ucw.cz>
+
+Following kludge works for me with youtube & Iceweasel(Firefox) 3.
+I didn't tested other software/web pages.
+I don't know, why the window should be 'transient', but it was the only
+option that made it work for me.
+
+defwinprop{
+    name = "Firefox",
+    class = "Firefox-bin",
+    instance = "firefox-bin",
+    transient_mode = "current",
+    jumpto = true,
+}
+
+I'm lucky, that Iceweasel identifies itself as: class="Iceweasel", thus this
+klugde is not activated by other Iceweasel windows. Maybe other firefox
+plugins may trigger this.
+
+Dne 21 Z??? 2008, 16:01, andre hollstein napsal(a):
+> Hello all
+> I'm using Ion3 on my ubuntu box integrated in gnome where I followed the
+> instructions given here:  http://wiki.ubuntuusers.de/Ion3 One problem i
+> couldn't solve myself is still out there. I can not play flash videos in
+> firefox in fullscreen - when i press the fs button the video goes
+> fullscreen for one moment and then returns to the original state. What
+> can I do? Can this misbehaviour be solved with winprob options? Thanx for
+> any help on this. Cheers Andre
+>
+>
+
+
+-- 
+.                           Tomas Ebenlendr
+.                           http://drak.ucw.cz/~ebik
+
+
+
+From tuomov at iki.fi  Sun Sep 21 17:34:52 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 21 Sep 2008 15:34:52 +0000 (UTC)
+Subject: fullscreen flash videos with firefox
+References: <e108f450809210701y7bf7e016n1433a8d018dfaac2@mail.gmail.com>
+	<op.uht5viwbq54ctd@localhost>
+Message-ID: <slrngdcqcs.bs.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-21, Nick Murdoch <nickmurdoch at gmail.com> wrote:
+> I get the same problem, on the odd occasion I have something as horrible  
+> as Flash installed. This behaviour happens in Opera too.
+
+For the record, I have experienced no such[*] problems with 
+Flash 9 in Opera (9.52). It's annoying that it won't stay
+in FS, though, if you go away from the FS workspace.
+
+[*] There are a zillion other problems with flash. 
+Keyboard input has never worked for me in flash/*nix.
+Text is often missing, etc. And flash is just generally
+crap.
+
+-- 
+Tuomo
+
+
+
+From jfharrigan at fedex.com  Sun Sep 21 18:20:17 2008
+From: jfharrigan at fedex.com (John Harrigan)
+Date: Sun, 21 Sep 2008 10:20:17 -0600
+Subject: empty workspace and kpress bindings
+Message-ID: <20080921162017.GA3950@ATAC>
+
+I have a problem where my button bindings sometimes aren't detected
+on an empty workspace.  It doesn't always happen but can be consistently
+reproduced with the following steps.
+
+My .xinitrc:
+   #!/bin/sh
+   conky &
+   ion3
+
+My cfg_binding.lua:
+   defbindings("WScreen", {
+      bdoc("Switch to next/previous object within current screen."),
+      kpress("Super_L", "WScreen.switch_prev(_)"),
+      kpress("Super_R", "WScreen.switch_next(_)"),
+
+      bdoc("Display the main menu."),
+      kpress("Menu", "mod_menu.bigmenu(_, _sub, 'mainmenu')"),
+   })
+
+1)  start X without a .ion3 directory
+2)  use F9 to create an empty workspace named Root
+3)  exit X
+4)  add cfg_binding.lua to .ion3 directory
+5)  add the following line to global cfg_ion.lua:
+
+   dopath("cfg_binding")
+
+6)  start X again
+7)  use mouse to focus right split (i.e. empty split, not conky split)
+8)  Use Menu key to bring up menu and 'Run' xterm
+9)  exit xterm
+10) use Super_L to switch to Root (i.e. empty workspace)
+
+At this point Super_L and Menu won't do anything when pressed.
+If I use the mouse to bring up a menu the key bindings will
+start working again.  Also, if I switch focus to the conky
+split before using Super_L to go to the the empty workspace
+the keys will function as expected.
+
+I'm using ion-3-20080825 and lua-5.1.4.  Conky is configured
+to draw to it's own window, not to the root window.
+
+
+From dcl441-bugs at yahoo.com  Sun Sep 21 19:23:12 2008
+From: dcl441-bugs at yahoo.com (Daniel Clemente)
+Date: Sun, 21 Sep 2008 19:23:12 +0200
+Subject: Move frames to and from scratchpad
+Message-ID: <87myi1l8fz.fsf@yahoo.com>
+
+
+  At any moment, a frame is either in the scratchpad area (Mod1+Space) or not. I would like to have a single key which commutes between the two states. It would do this action:
+
+- If the scratchpad is open, then move the current frame (inside the scratchpad) to the window below the scratchpad. Don't close the scratchpad
+- If the scratchpad is not open, then move the current frame to the scratchpad. Don't open the scratchpad
+
+
+  In both cases, that key would make a frame quickly ?disappear?. A single key works for both actions
+  A use case is: When moving TO scratchpad, you're asking the frame to go away because you have to work with more important frames. At the scratchpad you find always the unimportant frames. Pressing that same key again you can place them back in the main area.
+
+
+  I haven't succeeded in coding it (actually I found ion3 very complex to grasp and extend). How can this function be programmed?
+
+
+  Thanks,
+
+Daniel
+
+
+
+From tuomov at iki.fi  Sun Sep 21 20:45:57 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 21 Sep 2008 21:45:57 +0300
+Subject: empty workspace and kpress bindings
+In-Reply-To: <20080921162017.GA3950@ATAC>
+References: <20080921162017.GA3950@ATAC>
+Message-ID: <20080921184557.GA19082@jolt.modeemi.cs.tut.fi>
+
+
+On 2008-09-21 10:20 -0600, John Harrigan wrote:
+> At this point Super_L and Menu won't do anything when pressed.
+
+For me (irrespective of running other programs), the switch key
+switches to the next workspace, but if it is an empty group, i.e.
+a "floating workspace" with no windows, it stops there. This seems
+to be related to another focus annoyance that's been bothering me
+(sometimes opening a new window in an empty group does not give
+it the focus), but not enough to actually having yet got around
+to looking into.
+
+The attached patch may fix the issue. (It is also available from
+the darcs repos).
+
+-- 
+Tuomo
+-------------- next part --------------
+Sun Sep 21 21:40:19 EEST 2008  Tuomo Valkonen <tuomov at iki.fi>
+  * WMPlex focus hack for the case of only an empty group to display.
+diff -rN -u old-ion-3/ioncore/mplex.c new-ion-3/ioncore/mplex.c
+--- old-ion-3/ioncore/mplex.c	2008-09-21 21:42:17.669319031 +0300
++++ new-ion-3/ioncore/mplex.c	2008-09-21 21:42:17.889409632 +0300
+@@ -667,6 +667,12 @@
+     
+     st=mplex_find_to_focus(mplex, node, NULL, hidelist);
+     
++    /* If 'node' points to a group, it isn't actually on the stacking list. 
++     * Give it the focus, if there's nothing "proper" that could be focussed.
++     */
++    if(st==NULL && grp!=NULL && REGION_IS_MAPPED(grp))
++        st=node;
++    
+     if(st==node && within!=NULL)
+         *within=TRUE;
+         
+
+
+From tuomov at iki.fi  Sun Sep 21 21:01:28 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 21 Sep 2008 22:01:28 +0300
+Subject: Move frames to and from scratchpad
+In-Reply-To: <87myi1l8fz.fsf@yahoo.com>
+References: <87myi1l8fz.fsf@yahoo.com>
+Message-ID: <20080921190128.GB19082@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-21 19:23 +0200, Daniel Clemente wrote:
+> - If the scratchpad is open, then move the current frame (inside the
+> scratchpad) to the window below the scratchpad. Don't close the scratchpad
+
+This is a bit tricky, if "below" is to be taken geometrically. I'm not 
+sure if it is 100% doable on the Lua side. The problem is that Ion does 
+not expose the stacking orders to the Lua scripts. Otherwise, one would
+just have to recursively scan from the root, checking the geometries of 
+objects.. and it will work in a typical tiled arrangement, but not in 
+a messy floating arrangement.
+
+Perhaps easier would be to use the screen's mx_current object, which
+is typically the current group, and then recurse WRegion.current until
+it produces a frame and use that as the target (or the last frame seen
+until the recursion returns no result). The result should typically be
+the frame that was last active on the current workspace.
+
+> - If the scratchpad is not open, then move the current frame to the
+> scratchpad. Don't open the scratchpad
+
+This should be rather easy. Just use ioncore.lookup_region to find one
+named "*scratchpad*", and use WMPlex.attach on it. If there are multiple
+scratchpads (such as when there are multiple screens), one may have to 
+choose between them, numbered in the typical fashion (*scratchpad*, 
+*scratchpad*<1>, ... etc., but with guaranteed correspondence to screen
+numbers). In that case ioncore.region_i may be better. One can also cache them 
+in variables the script to not have to look them up all the time. 
+(obj_exists is then useful to check that the scratchpad is still there).
+An alternative to the global scanning functions in ioncore. is to
+use WScreen.mx_i, which is also what the modules does (essentially, 
+but in C).
+
+
+-- 
+Tuomo
+
+
+From sunwayforever at gmail.com  Mon Sep 22 06:53:09 2008
+From: sunwayforever at gmail.com (sunway)
+Date: Mon, 22 Sep 2008 12:53:09 +0800
+Subject: How to set the size of mod_sp window?
+Message-ID: <op.uhu86sh35vemta@localhost>
+
+I think the screen size of mod_sp  window  too small for me, how to  
+enlarge it?
+
+-- 
+
+
+From tuomov at iki.fi  Mon Sep 22 09:27:16 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 22 Sep 2008 07:27:16 +0000 (UTC)
+Subject: How to set the size of mod_sp window?
+References: <op.uhu86sh35vemta@localhost>
+Message-ID: <slrngdei6k.v6o.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-22, sunway <sunwayforever at gmail.com> wrote:
+> I think the screen size of mod_sp  window  too small for me, how to  
+> enlarge it?
+
+The same way any other windows/frames. Mod1+R, or Mod1+Button3.
+
+-- 
+Tuomo
+
+
+
+From sunwayforever at gmail.com  Mon Sep 22 09:38:41 2008
+From: sunwayforever at gmail.com (sunway)
+Date: Mon, 22 Sep 2008 15:38:41 +0800
+Subject: How to set the size of mod_sp window?
+In-Reply-To: <slrngdei6k.v6o.tuomov@jolt.modeemi.cs.tut.fi>
+References: <op.uhu86sh35vemta@localhost>
+	<slrngdei6k.v6o.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <op.uhvguoxe5vemta@sunway-lab.bupt.edu.cn>
+
+? Mon, 22 Sep 2008 15:27:16 +0800?Tuomo Valkonen <tuomov at iki.fi> wrote:
+
+> On 2008-09-22, sunway <sunwayforever at gmail.com> wrote:
+>> I think the screen size of mod_sp  window  too small for me, how to
+>> enlarge it?
+>
+> The same way any other windows/frames. Mod1+R, or Mod1+Button3.
+>
+
+But after I restart xserver, it turns to it's original size again...
+
+
+
+-- 
+sunway
+
+
+From ion at themel.com  Mon Sep 22 12:02:33 2008
+From: ion at themel.com (Thomas Themel)
+Date: Mon, 22 Sep 2008 12:02:33 +0200
+Subject: mod_xinerama
+In-Reply-To: <Pine.LNX.4.64.0809210009120.16413@india.ece.cmu.edu>
+References: <Pine.LNX.4.64.0809210009120.16413@india.ece.cmu.edu>
+Message-ID: <20080922100233.GH18136@themel.com>
+
+Hi,
+Timandahaf (timandahaf+dev at gmail.com) wrote on 2008-09-21:
+> I haven't poked around to see why this happens, but if you could shed
+> some light on the issue and why that line appeared in the latest version
+> (and if it also crashes for you while restarting), that would be great.
+
+That line was a rather short-sighted fix to the problem indicated by the
+comment - goto_next_scr and goto_prev_scr didn't properly wrap around
+with the way mod_xinerama is implemented (i.e. goto_next_scr on the last
+screen didn't go to the first screen and the other way around).
+
+The problem is that the root window has its own WScreen object, which
+contains the Xinerama screens as children, and whenever we hit that
+screen in goto_*_scr, it simply stays where it is.
+
+I though I could just fix it by removing the extra screen for the root
+window from the ioncore_g.screens list, but this then causes the crash
+on restart, since the destructor for a WScreen object assumes that the
+object is in the list.
+
+How would one do this properly? From my analysis of ioncore_goto_*_scr,
+it doesn't seem possible to exempt a screen from the iteration list.
+
+They also _seem_ to be intended to do wrapping, but I don't see how this
+would ever have worked (but I don't have the old Xinerama code around to
+really check). 
+
+The next thing I though of was writing lua wrappers to goto_*_screen
+which would just skip the default screen, but it appears that there is
+no easy way to distinguish the root window screen from the Xinerama
+screens in lua. About the only thing I can think of is that it's the
+only screen that can't be found ioncore.find_screen_id(), but that is
+starting to feel like too much of a crutch.
+
+ciao,
+-- 
+[*Thomas  Themel*] Tim has been implying that I am a pinko, gold nut, and
+[extended contact] randroid, which sort of hints that Ayn Rand is too pink
+[info provided in] for him.
+[*message header*]          - James A. Donald about Tim May on cypherpunks
+
+
+From nickmurdoch at gmail.com  Mon Sep 22 12:15:12 2008
+From: nickmurdoch at gmail.com (Nick Murdoch)
+Date: Mon, 22 Sep 2008 11:15:12 +0100
+Subject: mod_xinerama
+In-Reply-To: <20080922100233.GH18136@themel.com>
+References: <Pine.LNX.4.64.0809210009120.16413@india.ece.cmu.edu>
+	<20080922100233.GH18136@themel.com>
+Message-ID: <op.uhvn3mgqq54ctd@localhost>
+
+On Mon, 22 Sep 2008 11:02:33 +0100, Thomas Themel <ion at themel.com> wrote:
+<snip>
+
+
+On the topic of mod_xinerama, does anybody know where I can get a copy of  
+it? I thought it'd dropped off the Internet last time I looked.
+
+Not that I need it at the moment, I have a lovely big widescreen monitor  
+at home, and my graphics card at work seems a little too broken to do  
+multihead right now.
+
+
+Nick
+
+
+From ion at themel.com  Mon Sep 22 12:24:23 2008
+From: ion at themel.com (Thomas Themel)
+Date: Mon, 22 Sep 2008 12:24:23 +0200
+Subject: mod_xinerama
+In-Reply-To: <op.uhvn3mgqq54ctd@localhost>
+References: <Pine.LNX.4.64.0809210009120.16413@india.ece.cmu.edu>
+	<20080922100233.GH18136@themel.com> <op.uhvn3mgqq54ctd@localhost>
+Message-ID: <20080922102423.GI18136@themel.com>
+
+Hi,
+Nick Murdoch (nickmurdoch at gmail.com) wrote on 2008-09-22:
+> On the topic of mod_xinerama, does anybody know where I can get a copy of  
+> it? I thought it'd dropped off the Internet last time I looked.
+
+http://wannabehacker.com/src/ has a binary version and a links to the
+darcs repo.
+
+ciao,
+-- 
+[*Thomas  Themel*] When the aliens come, the life-form they'll contact first will
+[extended contact] be corporations, the only life-form that eats information and
+[info provided in] shits money.
+[*message header*]                 - William Gibson
+
+
+From nickmurdoch at gmail.com  Mon Sep 22 12:28:50 2008
+From: nickmurdoch at gmail.com (Nick Murdoch)
+Date: Mon, 22 Sep 2008 11:28:50 +0100
+Subject: mod_xinerama
+In-Reply-To: <20080922102423.GI18136@themel.com>
+References: <Pine.LNX.4.64.0809210009120.16413@india.ece.cmu.edu>
+	<20080922100233.GH18136@themel.com> <op.uhvn3mgqq54ctd@localhost>
+	<20080922102423.GI18136@themel.com>
+Message-ID: <op.uhvoqcttq54ctd@localhost>
+
+On Mon, 22 Sep 2008 11:24:23 +0100, Thomas Themel <ion at themel.com> wrote:
+
+> Hi,
+> Nick Murdoch (nickmurdoch at gmail.com) wrote on 2008-09-22:
+>> On the topic of mod_xinerama, does anybody know where I can get a copy  
+>> of
+>> it? I thought it'd dropped off the Internet last time I looked.
+>
+> http://wannabehacker.com/src/ has a binary version and a links to the
+> darcs repo.
+
+Thanks!
+
+
+From jfharrigan at fedex.com  Mon Sep 22 15:58:45 2008
+From: jfharrigan at fedex.com (John Harrigan)
+Date: Mon, 22 Sep 2008 07:58:45 -0600
+Subject: empty workspace and kpress bindings
+In-Reply-To: <20080921184557.GA19082@jolt.modeemi.cs.tut.fi>
+References: <20080921162017.GA3950@ATAC>
+	<20080921184557.GA19082@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080922135845.GA4444@laptop.rmtc.fedex.com>
+
+* Tuomo Valkonen <tuomov at iki.fi>:
+> The attached patch may fix the issue. (It is also available from
+> the darcs repos).
+
+Thanks for the patch, it solved my problem.  I've been using it for
+a few hours now and haven't noticed any adverse effects.
+
+
+From tuomov at iki.fi  Mon Sep 22 19:40:37 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 22 Sep 2008 17:40:37 +0000 (UTC)
+Subject: Shit-or-rama [Was: mod_xinerama]
+References: <Pine.LNX.4.64.0809210009120.16413@india.ece.cmu.edu>
+	<20080922100233.GH18136@themel.com> <op.uhvn3mgqq54ctd@localhost>
+	<20080922102423.GI18136@themel.com> <op.uhvoqcttq54ctd@localhost>
+Message-ID: <slrngdfm4l.l4c.tuomov@jolt.modeemi.cs.tut.fi>
+
+Some reminders why I will have nothing to do with shit-o-rama:
+
+The downfall of X:
+
+        http://iki.fi/tuomov/b/archives/2008/07/13/T18_03_06/
+
+IRC log from today:
+
+19:45 <xxx> arf..
+19:45 <xxx> is there a way to force ion to make all windows visible?
+19:45 <xxx> it keeps eating my KDE transients
+19:45 <xxx> as in, they show up for the split second, then vanish
+19:46 <xxx> leaving me with a frozen app
+19:46 <xxx> which is especially awesome when it is the krita save-dialog that 
+            i'd *really* like to see so i can save my last 30 minutes of work
+
+...
+
+20:18 <xxx> no, it's on a floating workspace
+
+...
+
+20:20 <tuomov> umm...
+20:20 <tuomov> you don't use the shit-o-rama module, do you?
+20:20 <xxx> yes OFCOURSE i'm using shit-o-rama BECAUSE there is no alternative 
+            when you use two screens.
+20:21 <tuomov> good bye
+20:21 <tuomov> it absolutely 100% fucking certainly won't work
+20:21 <tuomov> because krita will then have a messed up idea of geometries
+20:21 <tuomov> xinerama is fucked
+20:21 <tuomov> it does not provide a multihead model
+20:22 <tuomov> so one has to provide one with virtual root windows, i.e. extra 
+               windows between the actual frames and the root window
+20:22 <tuomov> and apps don't understand that
+20:22 <tuomov> and calculate their geometries in a fucked up manner
+20:22 <xxx> i think i'll start trying to get used to wmii today. ion served me 
+            okay the last 2 years but those annoyances stack up. it's just 
+            flakey, stuff stops working randomly or works only
+            intermittently 
+            in first place. 
+20:22 <tuomov> raz: it's a fucking xinerama problem, not ion
+20:23 <tuomov> I don't have fucking anything to do with shit-o-rama
+20:23 <xxx> tuomov, it's ions job to fucking work around it
+20:23 <tuomov> why are you complaining here, when you're using shit-o-rama?
+20:23 <xxx> tuomov, also it *worked before* but some recent kde update broke it
+20:23 <tuomov> it's not my fucking code, you idiot fuckwit
+20:23 <xxx> tuomov, it's your fucking wm
+20:23 <tuomov> I don't want to have anything to do with shit-o-rama
+20:23 <tuomov> it's not my fucking mod_shitorama
+20:23 <tuomov> I don't want to have anything to do with that shit
+20:23 <tuomov> it won't work
+20:24 <tuomov> guess why I don't want to have anything to do with it? because 
+               it won't work
+20:24 <tuomov> it can't work
+20:24 <tuomov> it's fucke dup
+20:24 <tuomov> use ion without mod_shitorama, and things might work
+20:24 <tuomov> you don't need it, if your screens merge well, and you're 
+               content with the same workspaces spanning over both screens
+20:25 <tuomov> it's only needed to emulate proper separate screens, but it 
+               won't work
+20:25 <xxx> i'm not content because my right screen is SMALLER.
+20:25 <tuomov> then make them properly separate, don't use shit-o-rama
+20:25 <xxx> and i somewhat like to see the bottom part of my windows.
+20:25 <tuomov> use plain old x multihead
+20:25 <xxx> then i can't move windows between workspaces.
+20:25 <xxx> so i could just as well use two separate computers. not quite my 
+            use-case.
+20:25 <tuomov> that's what you have to choose between
+20:26 <tuomov> or better yet: donate the second screen to some poor kid in 
+               africa
+...
+
+20:27 <tuomov> maybe someone can write a shitorama setup that doesn't use 
+               virtual roots
+20:27 <tuomov> by rewriting the configs
+20:27 <tuomov> but I don't want to have anything to do with that
+20:27 <tuomov> and it will also be fucked up, because then float workspaces on 
+               the screens won't be properly separate
+20:27 <tuomov> it won't emulate separate screens
+20:28 <tuomov> shit-o-rama is just _shit_
+20:28 <tuomov> it can't work, it won't work. it's as simple as that.
+20:28 <tuomov> traditional X multihead offers the correct separate-screen model 
+               for displays that don't merge well
+20:28 <tuomov> but the dicheads and fuckwits running things, are obsoleting it
+20:28 <tuomov> and not updating it to reflect new requirements
+20:29 <tuomov> (such as reparents between screens)
+
+-- 
+Tuomo
+
+
+
+From shardz4217 at gmail.com  Mon Sep 22 21:25:36 2008
+From: shardz4217 at gmail.com (Samuel Baldwin)
+Date: Mon, 22 Sep 2008 15:25:36 -0400
+Subject: Shit-or-rama [Was: mod_xinerama]
+In-Reply-To: <slrngdfm4l.l4c.tuomov@jolt.modeemi.cs.tut.fi>
+References: <Pine.LNX.4.64.0809210009120.16413@india.ece.cmu.edu>
+	<20080922100233.GH18136@themel.com> <op.uhvn3mgqq54ctd@localhost>
+	<20080922102423.GI18136@themel.com> <op.uhvoqcttq54ctd@localhost>
+	<slrngdfm4l.l4c.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <975fd1710809221225s6d15253nbe8d44eee554a35d@mail.gmail.com>
+
+> 20:25 <tuomov> use plain old x multihead
+> 20:25 <xxx> then i can't move windows between workspaces.
+
+What? It worked wonderfully for me for ages until I moved and cut
+down. Now synergy provides that illusion very nicely...
+
+Even the xinerama devs know it's shit, thus the coming of XRandR.
+-- 
+Samuel 'Shardz' Baldwin
+Shardz's Igloo: staticfree.info/~samuel/
+Registered GNU/Linux User #410639
+
+
+From tuomov at iki.fi  Mon Sep 22 21:31:44 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 22 Sep 2008 19:31:44 +0000 (UTC)
+Subject: Shit-or-rama [Was: mod_xinerama]
+References: <Pine.LNX.4.64.0809210009120.16413@india.ece.cmu.edu>
+	<20080922100233.GH18136@themel.com> <op.uhvn3mgqq54ctd@localhost>
+	<20080922102423.GI18136@themel.com> <op.uhvoqcttq54ctd@localhost>
+	<slrngdfm4l.l4c.tuomov@jolt.modeemi.cs.tut.fi>
+	<975fd1710809221225s6d15253nbe8d44eee554a35d@mail.gmail.com>
+Message-ID: <slrngdfsl0.4af.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-22, Samuel Baldwin <shardz4217 at gmail.com> wrote:
+>> 20:25 <tuomov> use plain old x multihead
+>> 20:25 <xxx> then i can't move windows between workspaces.
+>
+> What? It worked wonderfully for me for ages until I moved and cut
+> down. Now synergy provides that illusion very nicely...
+
+X artificially forbids window reparents between root windows.
+It might've made sense back in the day, when one might've been
+runing a big high-resolution B&W display and a smaller colour
+display, but these days it doesn't; in practise most combinations
+will use a TrueColor visual with the exact same bit depths.
+It would make sense to remove that restrictions (see [1] for
+details), but the fuckwits and dickheads working on X are
+instead pushing the Xinerama-style braindamage that only offers
+multiple views to a single-head model, instead of a proper
+multi-head model.
+
+> Even the xinerama devs know it's shit, thus the coming of XRandR.
+
+Xrandr 1.2 is exactly the same shit is Xinerama, as explained in
+"The downfall of X" [1] already linked. Xrandr 1.1 worked with
+traditional X multihead, Xrandr 1.2 only works with Xinerama-style
+model-less view-only braindamage.
+
+ [1]: http://iki.fi/tuomov/b/archives/2008/07/13/T18_03_06/
+
+-- 
+Tuomo
+
+
+
+From shardz4217 at gmail.com  Mon Sep 22 21:40:51 2008
+From: shardz4217 at gmail.com (Samuel Baldwin)
+Date: Mon, 22 Sep 2008 15:40:51 -0400
+Subject: Shit-or-rama [Was: mod_xinerama]
+In-Reply-To: <975fd1710809221239l5cd5d04ekfa5fd4602aec6621@mail.gmail.com>
+References: <Pine.LNX.4.64.0809210009120.16413@india.ece.cmu.edu>
+	<20080922100233.GH18136@themel.com> <op.uhvn3mgqq54ctd@localhost>
+	<20080922102423.GI18136@themel.com> <op.uhvoqcttq54ctd@localhost>
+	<slrngdfm4l.l4c.tuomov@jolt.modeemi.cs.tut.fi>
+	<975fd1710809221225s6d15253nbe8d44eee554a35d@mail.gmail.com>
+	<slrngdfsl0.4af.tuomov@jolt.modeemi.cs.tut.fi>
+	<975fd1710809221239l5cd5d04ekfa5fd4602aec6621@mail.gmail.com>
+Message-ID: <975fd1710809221240s1e12dbax39bfddedbd7c28c2@mail.gmail.com>
+
+Forwarding to list. Sorry Tuomo.
+
+2008/9/22 Tuomo Valkonen <tuomov at iki.fi>:
+> Xrandr 1.2 is exactly the same shit is Xinerama, as explained in
+> "The downfall of X" [1] already linked. Xrandr 1.1 worked with
+> traditional X multihead, Xrandr 1.2 only works with Xinerama-style
+> model-less view-only braindamage.
+>
+>  [1]: http://iki.fi/tuomov/b/archives/2008/07/13/T18_03_06/
+
+Ew. My mistake, then. I hopefully assumed that when I read a while ago
+that it was designed to 'replace' it, I hoped it was an improvement.
+I've always managed to avoid such braindamage by using the Nvidia
+TwinView drivers. But of course you need an Nvidia card and the
+'nvidia' driver to do that, which on some OSen (OpenBSD springs to
+mind), you can't.
+
+I'm seriously surprised no one has written a replacement for X that
+doesn't consist of a large pile of shit from various standpoints.
+--
+Samuel 'Shardz' Baldwin
+Shardz's Igloo: staticfree.info/~samuel/
+Registered GNU/Linux User #410639
+
+
+From alexander.shishckin at gmail.com  Mon Sep 22 21:45:14 2008
+From: alexander.shishckin at gmail.com (Alexander Shishkin)
+Date: Mon, 22 Sep 2008 22:45:14 +0300
+Subject: Shit-or-rama [Was: mod_xinerama]
+In-Reply-To: <slrngdfm4l.l4c.tuomov@jolt.modeemi.cs.tut.fi>
+References: <Pine.LNX.4.64.0809210009120.16413@india.ece.cmu.edu>
+	<20080922100233.GH18136@themel.com> <op.uhvn3mgqq54ctd@localhost>
+	<20080922102423.GI18136@themel.com> <op.uhvoqcttq54ctd@localhost>
+	<slrngdfm4l.l4c.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <71a0d6ff0809221245i1b063738xdf390c12e5aad7f9@mail.gmail.com>
+
+On Mon, Sep 22, 2008 at 8:40 PM, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> 20:22 <xxx> i think i'll start trying to get used to wmii today. ion served me
+>            okay the last 2 years but those annoyances stack up. it's just
+>            flakey, stuff stops working randomly or works only
+>            intermittently
+>            in first place.
+wmii didn't support multihead any better than ion3, last time I
+checked and I believe it won't, unless they find a way of having a
+window mapped more than once. :)
+
+> 20:22 <tuomov> raz: it's a fucking xinerama problem, not ion
+You forgot replace 'raz' with 'xxx' here. :)
+
+-- 
+wit beyond measure is man's greatest treasure
+
+
+From tuomov at iki.fi  Mon Sep 22 21:47:08 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 22 Sep 2008 22:47:08 +0300
+Subject: Shit-or-rama [Was: mod_xinerama]
+In-Reply-To: <975fd1710809221239l5cd5d04ekfa5fd4602aec6621@mail.gmail.com>
+References: <Pine.LNX.4.64.0809210009120.16413@india.ece.cmu.edu>
+	<20080922100233.GH18136@themel.com> <op.uhvn3mgqq54ctd@localhost>
+	<20080922102423.GI18136@themel.com> <op.uhvoqcttq54ctd@localhost>
+	<slrngdfm4l.l4c.tuomov@jolt.modeemi.cs.tut.fi>
+	<975fd1710809221225s6d15253nbe8d44eee554a35d@mail.gmail.com>
+	<slrngdfsl0.4af.tuomov@jolt.modeemi.cs.tut.fi>
+	<975fd1710809221239l5cd5d04ekfa5fd4602aec6621@mail.gmail.com>
+Message-ID: <20080922194708.GA5920@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-22 15:39 -0400, Samuel Baldwin wrote:
+> Ew. My mistake, then. I hopefully assumed that when I read a while ago
+> that it was designed to 'replace' it, I hoped it was an improvement.
+> I've always managed to avoid such braindamage by using the Nvidia
+> TwinView drivers. But of course you need an Nvidia card and the
+> 'nvidia' driver to do that, which on some OSen (OpenBSD springs to
+> mind), you can't.
+
+AFAIK, "TwinView" refers to NVidia's implementation of Xinerama. 
+(Some  refer by Xinerama only to the Xorg implementation, which
+is also total shit, from what I've heard. I refer by Xinerama
+to the protocol and display arrangement, which is what TwinView also
+uses to communicate to apps.)
+
+However, it is possible with some options in nvidia's drivers to
+get proper separate screens using the good old X protocols. I'm
+not sure if TwinView refers to the setup anymore when this option
+is enabled. It didn't use to, as there was no simple option, but
+Device-section BusID hacks that made it display the card as two
+devices to X.
+
+-- 
+Tuomo
+
+
+From ebik at drak.ucw.cz  Tue Sep 23 00:50:50 2008
+From: ebik at drak.ucw.cz (=?iso-8859-2?Q?Tom=E1=B9_Ebenlendr?=)
+Date: Tue, 23 Sep 2008 00:50:50 +0200 (CEST)
+Subject: mod_xinerama
+In-Reply-To: <20080922100233.GH18136@themel.com>
+References: <Pine.LNX.4.64.0809210009120.16413@india.ece.cmu.edu>
+	<20080922100233.GH18136@themel.com>
+Message-ID: <54183.88.146.1.38.1222123850.squirrel@drak.ucw.cz>
+
+
+Dne 22 Z??? 2008, 12:02, Thomas Themel napsal(a):
+> ...
+>
+> I though I could just fix it by removing the extra screen for the root
+> window from the ioncore_g.screens list, but this then causes the crash on
+> restart, since the destructor for a WScreen object assumes that the object
+> is in the list.
+
+And moreover I sometimes need to have DOUBLEFULLSCREEN window. And
+sometimes full(single)screen. Thus I want the root window lua-accessible.
+(Then I can do :attach directly to RootWin to have DoubleFuckScreen window.)
+
+P.S: It served me very well on conference, where I want to put upper half
+of my pdf-presentation to beamer and lower half to my laptop screen. Then
+I had notes for myself on my screen and the presentation itself was on
+beamer.
+
+> How would one do this properly? From my analysis of ioncore_goto_*_scr,
+> it doesn't seem possible to exempt a screen from the iteration list.
+>
+> They also _seem_ to be intended to do wrapping, but I don't see how this
+> would ever have worked (but I don't have the old Xinerama code around to
+> really check).
+>
+> The next thing I though of was writing lua wrappers to goto_*_screen
+> which would just skip the default screen, but it appears that there is no
+> easy way to distinguish the root window screen from the Xinerama screens
+> in lua. About the only thing I can think of is that it's the only screen
+> that can't be found ioncore.find_screen_id(), but that is starting to feel
+> like too much of a crutch.
+
+What about testing its :parent() ? RootWindow has none, Screens have the
+rootwindow :-).
+
+
+I think that mod_xinerama should be rewritten to something like
+mod_xrandr_ng, to support screen reconfiguration in online manner.
+Together with some handy scripts to save layouts for each xrandr config
+separately. (Now I have to restart ion after screen reconfiguration,
+I use ioncore.set_paths() to get layout saved for actual setup.)
+
+-- 
+.                           Tomas Ebenlendr
+.                           http://drak.ucw.cz/~ebik
+
+
+
+From ebik at drak.ucw.cz  Tue Sep 23 00:53:19 2008
+From: ebik at drak.ucw.cz (=?iso-8859-2?Q?Tom=E1=B9_Ebenlendr?=)
+Date: Tue, 23 Sep 2008 00:53:19 +0200 (CEST)
+Subject: mod_xinerama
+Message-ID: <54186.88.146.1.38.1222123999.squirrel@drak.ucw.cz>
+
+> I think that mod_xinerama should be rewritten to something like
+> mod_xrandr_ng, to support screen reconfiguration in online manner.
+> Together with some handy scripts to save layouts for each xrandr config
+> separately. (Now I have to restart ion after screen reconfiguration,
+> I use ioncore.set_paths() to get layout saved for actual setup.)
+
+Just forgot to say, that I need also XRandr for setting and reading my
+backlight setting. It would be nice to export XRandr functions and hooks
+to lua.
+
+-- 
+.                           Tomas Ebenlendr
+.                           http://drak.ucw.cz/~ebik
+
+
+
+From timandahaf+dev at gmail.com  Tue Sep 23 08:00:09 2008
+From: timandahaf+dev at gmail.com (Timandahaf)
+Date: Tue, 23 Sep 2008 02:00:09 -0400 (EDT)
+Subject: mod_xinerama
+In-Reply-To: <20080922100233.GH18136@themel.com>
+References: <Pine.LNX.4.64.0809210009120.16413@india.ece.cmu.edu>
+	<20080922100233.GH18136@themel.com>
+Message-ID: <Pine.LNX.4.64.0809230154440.20988@india.ece.cmu.edu>
+
+On Mon, 22 Sep 2008, Thomas Themel wrote:
+> I though I could just fix it by removing the extra screen for the root
+> window from the ioncore_g.screens list, but this then causes the crash
+
+Thanks for the explanation! I'm not at all familiar enough with the ion
+source to comment, but when I have some time to poke around next, I'll
+look into it. For now, not being able to wrap around is a very small
+price to pay for me (and probably for others too), so I'll live with it.
+
+And thanks for creating and maintaining mod_xinerama - I couldn't live
+without it (as much as I fully agree with Tuomo on how the Xorg devs
+won't address this issue the way it should be addressed).
+
+
+
+From ion at themel.com  Tue Sep 23 09:22:18 2008
+From: ion at themel.com (Thomas Themel)
+Date: Tue, 23 Sep 2008 09:22:18 +0200
+Subject: mod_xinerama
+In-Reply-To: <54183.88.146.1.38.1222123850.squirrel@drak.ucw.cz>
+References: <Pine.LNX.4.64.0809210009120.16413@india.ece.cmu.edu>
+	<20080922100233.GH18136@themel.com>
+	<54183.88.146.1.38.1222123850.squirrel@drak.ucw.cz>
+Message-ID: <20080923072218.GR18136@themel.com>
+
+Hi,
+Tom?? Ebenlendr (ebik at drak.ucw.cz) wrote on 2008-09-23:
+> What about testing its :parent() ? RootWindow has none, Screens have the
+> rootwindow :-).
+
+Ah, yes, that's a bit nicer. There's a new version of mod_xinerama now
+(20080923) that's supposed to fix this, with Lua code for proper
+wrapping in the README.
+
+ciao,
+-- 
+[*Thomas  Themel*]
+[extended contact] To begin with, GNU will be a kernel [...]
+[info provided in]	- RMS announcing GNU 1983
+[*message header*]
+
+
+From tuomov at iki.fi  Tue Sep 23 09:33:04 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 23 Sep 2008 07:33:04 +0000 (UTC)
+Subject: mod_xinerama
+References: <Pine.LNX.4.64.0809210009120.16413@india.ece.cmu.edu>
+	<20080922100233.GH18136@themel.com>
+	<54183.88.146.1.38.1222123850.squirrel@drak.ucw.cz>
+Message-ID: <slrngdh6tg.96b.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-22, Tom?? Ebenlendr <ebik at drak.ucw.cz> wrote:
+>> The next thing I though of was writing lua wrappers to goto_*_screen
+>> which would just skip the default screen, but it appears that there is no
+>> easy way to distinguish the root window screen from the Xinerama screens
+>
+> What about testing its :parent() ? RootWindow has none, Screens have the
+> rootwindow :-).
+
+obj_is
+
+WRootWin
+
+-- 
+Tuomo
+
+
+
+From ion at themel.com  Tue Sep 23 09:41:33 2008
+From: ion at themel.com (Thomas Themel)
+Date: Tue, 23 Sep 2008 09:41:33 +0200
+Subject: mod_xinerama
+In-Reply-To: <slrngdh6tg.96b.tuomov@jolt.modeemi.cs.tut.fi>
+References: <Pine.LNX.4.64.0809210009120.16413@india.ece.cmu.edu>
+	<20080922100233.GH18136@themel.com>
+	<54183.88.146.1.38.1222123850.squirrel@drak.ucw.cz>
+	<slrngdh6tg.96b.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080923074133.GT18136@themel.com>
+
+Tuomo Valkonen (tuomov at iki.fi) wrote on 2008-09-23:
+> obj_is
+> WRootWin
+
+Ah, yes, thanks. I failed to jump the C code/object model barrier,
+again.
+
+ciao,
+-- 
+[*Thomas  Themel*] Forget about "society"; only actual, individual people
+[extended contact] live, think, suffer, enjoy, have rights, etc.
+[info provided in]
+[*message header*]      - Kevin S. van Horn on cypherpunks
+
+
+From tuomov at iki.fi  Tue Sep 23 16:34:10 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 23 Sep 2008 14:34:10 +0000 (UTC)
+Subject: Shit-or-rama [Was: mod_xinerama]
+References: <Pine.LNX.4.64.0809210009120.16413@india.ece.cmu.edu>
+	<20080922100233.GH18136@themel.com> <op.uhvn3mgqq54ctd@localhost>
+	<20080922102423.GI18136@themel.com> <op.uhvoqcttq54ctd@localhost>
+	<slrngdfm4l.l4c.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrngdhvj2.ibd.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-22, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> 20:27 <tuomov> maybe someone can write a shitorama setup that doesn't use 
+>                virtual roots
+> 20:27 <tuomov> by rewriting the configs
+> 20:27 <tuomov> but I don't want to have anything to do with that
+> 20:27 <tuomov> and it will also be fucked up, because then float workspaces on 
+>                the screens won't be properly separate
+> 20:27 <tuomov> it won't emulate separate screens
+> 20:28 <tuomov> shit-o-rama is just _shit_
+> 20:28 <tuomov> it can't work, it won't work. it's as simple as that.
+> 20:28 <tuomov> traditional X multihead offers the correct separate-screen model 
+>                for displays that don't merge well
+> 20:28 <tuomov> but the dicheads and fuckwits running things, are obsoleting it
+> 20:28 <tuomov> and not updating it to reflect new requirements
+> 20:29 <tuomov> (such as reparents between screens)
+
+Regarding this, it should be actually quite straightforward to
+manually create layouts that are suited to a static area configuration,
+provided one is content with workspaces spanning all the areas, and
+navigation between the areas possibly being non-geometrical.
+Just see cfg_layouts.lua, and modify the mktiling function to
+generate separate tilings for the areas, using the geom field, etc.
+
+A module could also dynamically resize/create those tilings, and 
+provide a variant WGroupWS that overrides the non-geometrical navigation 
+of groups. Independent switching of the tilings displayed in each
+area can also be achieved by scripts that just hide/show tilings
+from a selection (essentially implementing a non-window-backed
+WMPlex), but detecting on which area to change the displayed tiling
+gets kludgy, because there's no backing window to receive the event;
+intead one has to listen on the root, or on the frames. But if 
+there's no frame, you need to kludge with dummy windows for the
+focus... 
+
+Having a proper root window is simple and easy; Shit-o-rama makes
+things over-complicated. That said, the ideas of I have for Ion4
+might be more shit-o-rama -friendly.. if I just ever had time to
+work on it.
+
+-- 
+Tuomo
+
+
+
+From dcl441-bugs at yahoo.com  Wed Sep 24 22:27:06 2008
+From: dcl441-bugs at yahoo.com (Daniel Clemente)
+Date: Wed, 24 Sep 2008 22:27:06 +0200
+Subject: Move frames to and from scratchpad
+References: <87myi1l8fz.fsf@yahoo.com>
+	<20080921190128.GB19082@jolt.modeemi.cs.tut.fi>
+Message-ID: <878wthmgrp.fsf@yahoo.com>
+
+
+Hi,
+
+  I start with the easy one.
+
+>> - If the scratchpad is not open, then move the current frame to the scratchpad. Don't open the scratchpad
+> This should be rather easy. Just use ioncore.lookup_region to find one named "*scratchpad*", and use WMPlex.attach on it.
+
+  I tried:
+WMPlex.attach(ioncore.lookup_region("*scratchpad*"),_sub)
+
+  And it works very well. When I assigned it a key binding, at first it didn't work, but it was because I was using a WScreen binding instead of a WClientWin binding. I corrected that and this is the working code:
+
+defbindings("WClientWin", {
+kpress(META.."k", "WMPlex.attach(ioncore.lookup_region('*scratchpad*'),_)"),
+})
+
+
+> If there are multiple scratchpads (such as when there are multiple screens), one may have to choose between them, numbered in the typical fashion (*scratchpad*, *scratchpad*<1>, ... etc., but with guaranteed correspondence to screen numbers). In that case ioncore.region_i may be better. One can also cache them in variables the script to not have to look them up all the time.  (obj_exists is then useful to check that the scratchpad is still there).  An alternative to the global scanning functions in ioncore. is to use WScreen.mx_i, which is also what the modules does (essentially, but in C).
+
+  I'll leave the ?multiple scratchpads? part since I always have one and it seems harder to do.
+  I noticed that what you propose is similar to this code: http://modeemi.fi/~tuomov/repos/ion-scripts-3/scripts/cwin_sp.lua
+
+
+>> If the scratchpad is open, then move the current frame (inside the scratchpad) to the window below the scratchpad. Don't close the scratchpad
+> Perhaps easier would be to use the screen's mx_current object, which is typically the current group, and then recurse WRegion.current until it produces a frame and use that as the target (or the last frame seen until the recursion returns no result). The result should typically be the frame that was last active on the current workspace.
+
+  Yes, I meant that. Not geometrically (since below the scratchpad there may be more than 1 target) but just the last active window (in before the scratchpad was open.
+
+  This seems to work to move from scratchpad to a particular frame:
+WMPlex.attach(ioncore.lookup_region('WFrame<1>'),_sub)
+
+  However, I don't know how to get the current ?background? group while I'm on the scratchpad. I tried your proposal, WScreen.mx_current(_), but for me WScreen.mx_current(_).name(_) while I'm in scratchpad returns just ?*scratchpad*? and not the name of the frame below. I'm probably not understanding the theory.
+  Could you please provide some example code for this one?
+
+
+  Thanks,
+Daniel
+
+
+
+
+From tuomov at iki.fi  Wed Sep 24 22:35:05 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 24 Sep 2008 20:35:05 +0000 (UTC)
+Subject: Move frames to and from scratchpad
+References: <87myi1l8fz.fsf@yahoo.com>
+	<20080921190128.GB19082@jolt.modeemi.cs.tut.fi>
+	<878wthmgrp.fsf@yahoo.com>
+Message-ID: <slrngdl93p.734.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-24, Daniel Clemente <dcl441-bugs at yahoo.com> wrote:
+>   However, I don't know how to get the current ???background??? group
+>   while I'm on the scratchpad. I tried your proposal,
+>   WScreen.mx_current(_), but for me WScreen.mx_current(_).name(_) while
+>   I'm in scratchpad returns just ???*scratchpad*??? and not the name of
+>   the frame below. I'm probably not understanding the theory. Could you
+>   please provide some example code for this one?
+
+Your _ probably points wrong, i.e. your in the wrong bindings section. 
+_:screen_of() should always give the screen. (Note that it's shorter 
+to call _:mx_current() or _:screen_of():mx_current() than to type the 
+full function names.)
+
+-- 
+Tuomo
+
+
+
+From dcl441-bugs at yahoo.com  Thu Sep 25 01:01:38 2008
+From: dcl441-bugs at yahoo.com (Daniel Clemente)
+Date: Thu, 25 Sep 2008 01:01:38 +0200
+Subject: Move frames to and from scratchpad
+References: <87myi1l8fz.fsf@yahoo.com>
+	<20080921190128.GB19082@jolt.modeemi.cs.tut.fi>
+	<878wthmgrp.fsf@yahoo.com>
+	<slrngdl93p.734.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <874p45m9m5.fsf@yahoo.com>
+
+Tuomo Valkonen <tuomov at iki.fi> writes:
+
+> Your _ probably points wrong, i.e. your in the wrong bindings section. 
+> _:screen_of() should always give the screen. (Note that it's shorter 
+> to call _:mx_current() or _:screen_of():mx_current() than to type the 
+> full function names.)
+>
+
+  After trying several combinations, I found one that correctly brings a frame from scratchpad to the background frame:
+In Lua console:    _:screen_of():mx_current():current():current():attach(_sub)
+In a key binding: kpress(META.."Shift+k", "_:screen_of():mx_current():current():current():attach(_)"),
+
+  Note the difference between _sub and _. So yes, my _ was wrong.
+
+So the current working set of keybindings for my proposal is:
+
+defbindings("WClientWin", {
+ kpress(META.."k", "WMPlex.attach(ioncore.lookup_region('*scratchpad*'),_)"),
+ kpress(META.."Shift+k", "_:screen_of():mx_current():current():current():attach(_)"),
+})
+
+  Maybe this needs some tweaks, for instance: when I move to scratchpad and the open the scratchpad, I expect to find the moved frame selected; without having to move to the right of the active on.
+  Also I would like to use a single key instead of no: If the scratchpad is open, do one thing. If it is closed do another
+
+
+  Is this useful for other people? How would you improve it?
+
+
+  Thanks
+
+Daniel
+
+
+
+From ugggg at hotmail.com  Thu Sep 25 03:22:17 2008
+From: ugggg at hotmail.com (Canaan Hadley-Voth)
+Date: Wed, 24 Sep 2008 18:22:17 -0700
+Subject: Move frames to and from scratchpad
+In-Reply-To: <874p45m9m5.fsf@yahoo.com>
+References: <87myi1l8fz.fsf@yahoo.com>
+	<20080921190128.GB19082@jolt.modeemi.cs.tut.fi>
+	<878wthmgrp.fsf@yahoo.com>
+	<slrngdl93p.734.tuomov@jolt.modeemi.cs.tut.fi>
+	<874p45m9m5.fsf@yahoo.com>
+Message-ID: <BAY120-W373C278CFD8D1B1A8B715EBA440@phx.gbl>
+
+
+>   After trying several combinations, I found one that correctly brings a frame from scratchpad to the background frame:
+> In Lua console:    _:screen_of():mx_current():current():current():attach(_sub)
+> In a key binding: kpress(META.."Shift+k", "_:screen_of():mx_current():current():current():attach(_)"),
+> 
+
+There may or may not be a WGroupWS layer present between a WScreen and a WTiling, making this sort of maneuver even more difficult.  If you are over a floating workspace, or you created a tiling workspace with the following command, your way of attaching to it will fail:
+
+_:screen_of:attach_new{type="WTiling"}
+
+I have been using this function to do what you are trying to do.  (Though someone else might anticipate further cases where mine also fails, like a WClientWin attached (unframed) to a WGroupWS.)
+
+function send_to_or_from_sp(cwin, jumpto)
+    local sp=ioncore.lookup_region("*scratchpad*", "WFrame")
+    if cwin:parent()==sp then
+	local scr=cwin:screen_of()
+	local destws=scr:mx_current()
+	local destwstype=obj_typename(destws)
+	if destwstype=="WTiling" then
+	    destws:current():attach(cwin)
+	elseif destwstype=="WGroupWS" and obj_typename(destws:current())=="WTiling" then
+	    destws:current():current():attach(cwin)
+	elseif destwstype=="WGroupWS" then
+	    destws:attach_framed(cwin)
+	end
+	mod_sp.set_shown_on(scr, 'unset')
+    else
+	sp:attach(cwin)
+    end
+
+    if jumpto then
+	cwin:goto()
+    end
+end
+
+_________________________________________________________________
+See how Windows Mobile brings your life together?at home, work, or on the go.
+http://clk.atdmt.com/MRT/go/msnnkwxp1020093182mrt/direct/01/
+
+From tuomov at iki.fi  Thu Sep 25 08:57:23 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 25 Sep 2008 06:57:23 +0000 (UTC)
+Subject: Move frames to and from scratchpad
+References: <87myi1l8fz.fsf@yahoo.com>
+	<20080921190128.GB19082@jolt.modeemi.cs.tut.fi>
+	<878wthmgrp.fsf@yahoo.com>
+	<slrngdl93p.734.tuomov@jolt.modeemi.cs.tut.fi>
+	<874p45m9m5.fsf@yahoo.com>
+	<BAY120-W373C278CFD8D1B1A8B715EBA440@phx.gbl>
+Message-ID: <slrngdmdij.2e6.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-25, Canaan Hadley-Voth <ugggg at hotmail.com> wrote:
+>
+>>   After trying several combinations, I found one that correctly brings a frame from scratchpad to the background frame:
+>> In Lua console:    _:screen_of():mx_current():current():current():attach(_sub)
+>> In a key binding: kpress(META.."Shift+k", "_:screen_of():mx_current():current():current():attach(_)"),
+>> 
+>
+> I have been using this function to do what you are trying to do.  
+
+You both are failing to simply recursively apply WRegion.current,
+until something interesting is found. Something like:
+
+reg=cwin:screen_of()
+
+function scan(reg)
+    if not reg then
+        return nil
+    elseif obj_is(reg, "WFrame") then
+        return reg:attach(cwin)
+    elseif ... then
+        ...
+    else
+        return scan(reg:current())
+    end
+end
+
+scan(cwin:screen_of())
+
+Maybe it indeed makes sense to use WTiling attach if discovered,
+as it can better find something useful, if the current isn't actually
+a frame (unlikely).
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Thu Sep 25 09:20:59 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 25 Sep 2008 07:20:59 +0000 (UTC)
+Subject: Move frames to and from scratchpad
+References: <87myi1l8fz.fsf@yahoo.com>
+	<20080921190128.GB19082@jolt.modeemi.cs.tut.fi>
+	<878wthmgrp.fsf@yahoo.com>
+	<slrngdl93p.734.tuomov@jolt.modeemi.cs.tut.fi>
+	<874p45m9m5.fsf@yahoo.com>
+	<BAY120-W373C278CFD8D1B1A8B715EBA440@phx.gbl>
+	<slrngdmdij.2e6.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrngdmeur.542.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-25, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> scan(cwin:screen_of())
+
+Missing :mx_current()
+
+...
+
+On second thoughts, actually a check for WGroupWS and existence 
+of bottom() should do in most cases. If mx_current() is a group,
+and has a bottom() (often a WTiling) that supports attach, then we 
+probably want to attach there, although it may not be the current()
+region of the group. Otherwise one might just attach to the group
+directly. 
+
+Of course, if one has floating nested WS arrangements, this may not 
+be what one wants to do.
+
+-- 
+Tuomo
+
+
+
+From carlosjosepita at gmail.com  Thu Sep 25 16:01:50 2008
+From: carlosjosepita at gmail.com (Carlos Pita)
+Date: Thu, 25 Sep 2008 11:01:50 -0300
+Subject: Toggle float full screen and back
+Message-ID: <7798eaa0809250701qfbdbfednc7f63e393c5f0d69@mail.gmail.com>
+
+If I detach a window from a tiled frame, then toggle it to full screen
+mode, and finally toggle it again from full screen mode to normal
+size, the window is automatically reattached to its original frame. Is
+this a bug or an expected behavior?
+
+Regards
+-Carlos
+
+
+From ion at themel.com  Thu Sep 25 16:03:58 2008
+From: ion at themel.com (Thomas Themel)
+Date: Thu, 25 Sep 2008 16:03:58 +0200
+Subject: Toggle float full screen and back
+In-Reply-To: <7798eaa0809250701qfbdbfednc7f63e393c5f0d69@mail.gmail.com>
+References: <7798eaa0809250701qfbdbfednc7f63e393c5f0d69@mail.gmail.com>
+Message-ID: <20080925140358.GD18136@themel.com>
+
+Hi,
+Carlos Pita (carlosjosepita at gmail.com) wrote on 2008-09-25:
+> If I detach a window from a tiled frame, then toggle it to full screen
+> mode, and finally toggle it again from full screen mode to normal
+> size, the window is automatically reattached to its original frame. Is
+> this a bug or an expected behavior?
+
+... and is there a simple way to get all of these full-screen windows
+back into place at once?
+
+ciao,
+-- 
+[*Thomas  Themel*] 10. Do not feel envious of the happiness of those who live
+[extended contact]     in a fool's paradise, for only a fool will think that it
+[info provided in]     is happiness.
+[*message header*]                     - Bertrand Russell, A Liberal Decalogue
+
+
+From tuomov at iki.fi  Thu Sep 25 17:30:36 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 25 Sep 2008 15:30:36 +0000 (UTC)
+Subject: Toggle float full screen and back
+References: <7798eaa0809250701qfbdbfednc7f63e393c5f0d69@mail.gmail.com>
+Message-ID: <slrngdnbks.jt2.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-25, Carlos Pita <carlosjosepita at gmail.com> wrote:
+> If I detach a window from a tiled frame, then toggle it to full screen
+> mode, and finally toggle it again from full screen mode to normal
+> size, the window is automatically reattached to its original frame. Is
+> this a bug or an expected behavior?
+
+It's expected. FS and detach use the same 'placeholder' to return
+the window where it was. If there is already a placeholder, entering
+FS doesn't create a new one for the present location.
+
+I know, it can sometimes be a bit annoying, but so would the
+other behaviour be (creating a new one). Perhaps a stack of
+placeholders would be best, but it adds a level of complexity.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Thu Sep 25 17:40:29 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 25 Sep 2008 15:40:29 +0000 (UTC)
+Subject: Toggle float full screen and back
+References: <7798eaa0809250701qfbdbfednc7f63e393c5f0d69@mail.gmail.com>
+	<20080925140358.GD18136@themel.com>
+Message-ID: <slrngdnc7d.jt2.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-09-25, Thomas Themel <ion at themel.com> wrote:
+> ... and is there a simple way to get all of these full-screen windows
+> back into place at once?
+
+Pass the_screen:mx_i a function that collects WGroupCWs in a table.
+Then iterate a_group:set_fullscreen('false') over this table.
+(You can't set_fullscreen from the mx_i collector, because it's
+called in 'protected mode' that disallows calling any C-side
+functions that might change Ion's internal structures.)
+
+-- 
+Tuomo
+
+
+

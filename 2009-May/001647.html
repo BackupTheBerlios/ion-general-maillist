@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Patch collection
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-May/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Patch%20collection&In-Reply-To=%3C8e04b5820905261301r7bc23bdelff2b84217c2ae106%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001646.html">
+   <LINK REL="Next"  HREF="001648.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Patch collection</H1>
+    <B>Ciprian Dorin, Craciun</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Patch%20collection&In-Reply-To=%3C8e04b5820905261301r7bc23bdelff2b84217c2ae106%40mail.gmail.com%3E"
+       TITLE="Patch collection">ciprian.craciun at gmail.com
+       </A><BR>
+    <I>Tue May 26 22:01:37 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001646.html">Patch collection
+</A></li>
+        <LI>Next message: <A HREF="001648.html">Patch collection
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1647">[ date ]</a>
+              <a href="thread.html#1647">[ thread ]</a>
+              <a href="subject.html#1647">[ subject ]</a>
+              <a href="author.html#1647">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Tue, May 26, 2009 at 10:12 PM, Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt; wrote:
+&gt;<i> On 2009-05-26, Ciprian Dorin, Craciun &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">ciprian.craciun at gmail.com</A>&gt; wrote:
+</I>&gt;&gt;<i> &#160; &#160; But I wonder: you like darcs (or at least compared with others),
+</I>&gt;&gt;<i> and you have searched for other distributed VCS's but all of them
+</I>&gt;&gt;<i> &quot;suck&quot;, what is wrong about (for example) Hg or Git? I mean what are
+</I>&gt;&gt;<i> your thoughts about this topic.
+</I>&gt;&gt;<i> &#160; &#160; (Disclaimer: I've switched all my repositories from CVS to SVN and
+</I>&gt;&gt;<i> then to Git... and until now, I'm happy... Indeed the Windows support
+</I>&gt;&gt;<i> is a little bit brittle, but under Cygwin it should work...)
+</I>&gt;<i>
+</I>&gt;<i> Actually, it doesn't. The packaged version (cygwin 1.7) doesn't
+</I>&gt;<i> do anything when you run it. And I couldn't compile it myself.
+</I>&gt;<i> (The build failed at some point, although it did build the git
+</I>&gt;<i> binary, that failed similarly to the cygwin-packaged version.)
+</I>&gt;<i>
+</I>&gt;<i> What annoys the shit out of me in hg, is its manual configuration
+</I>&gt;<i> approach to everything. Darcs is interactive. It asks you
+</I>&gt;<i> for your name/email when you first use it in a repository
+</I>&gt;<i> (unless you have globally configured them); hg used to assume
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">username at hostname</A>, which is 99% of the time crap, so you ruined
+</I>&gt;<i> your repository, and have to fix it. This days it iirc refuses
+</I>&gt;<i> to run until you configure. But at least this is an action you
+</I>&gt;<i> have to do only once on each computer.
+</I>&gt;<i>
+</I>&gt;<i> Unfortunately, the same single brain cell approach persists in
+</I>&gt;<i> default push locations. Darcs is nice, and it by
+</I>&gt;<i> defaults remembers the previous push/pull location, defaulting
+</I>&gt;<i> subsequent pushes and pulls there. And it is interactive, so
+</I>&gt;<i> unless you pass -a that just pushes everything without questions
+</I>&gt;<i> asked, you'll get to see where and what it is trying to push.
+</I>&gt;<i> Also you can't completely ruin your repository with darcs,
+</I>&gt;<i> because you can just unpull patches. Now, with hg, it only
+</I>&gt;<i> remembers where you first cloned from, and always defaults
+</I>&gt;<i> there.. if you've cloned from anywhere. push/pull don't make
+</I>&gt;<i> it remember the location. Also, push just pushes the patches
+</I>&gt;<i> to the default location, no questions asked, and with hg you
+</I>&gt;<i> can ruin the repository this way: there's no way to get rid
+</I>&gt;<i> of the patches. If the target repository was wrong, you have
+</I>&gt;<i> to figure out what was pushed, and try to fork from an earlier
+</I>&gt;<i> point. They want you to do extra work and first do 'hg outgoing'
+</I>&gt;<i> to check what would be pushed where, and only after that 'hg push'.
+</I>&gt;<i> 'darcs push', by contrast, includes the 'outgoing' functionality
+</I>&gt;<i> in its default interactive mode, so you can safely type the command.
+</I>&gt;<i> Also, to push by default somewhere else than the initial default
+</I>&gt;<i> (none unless a cloned repository), you always have manually edit
+</I>&gt;<i> a configuration file in .hg. That sucks.
+</I>&gt;<i>
+</I>&gt;<i> Bazaar has rather similar idiotic push location behaviour, but
+</I>&gt;<i> at least there's a --remember switch to push. Git.. I haven't
+</I>&gt;<i> tried a recent version, as remarked above. But a few years ago
+</I>&gt;<i> [1], its email push support was a complete joke, equivalent to
+</I>&gt;<i> just sending a plain old diff and applying it, without any
+</I>&gt;<i> inter-repository tracking. Same, I think, with bazaar. hg at
+</I>&gt;<i> least seems to try to do its best within its traditional
+</I>&gt;<i> 'kludge based on three-way diff' approach to version control,
+</I>&gt;<i> that is to be contrasted with the more advanced theories behind
+</I>&gt;<i> darcs.
+</I>&gt;<i>
+</I>&gt;<i> &#160;[1] <A HREF="http://iki.fi/tuomov/b/archives/2006/10/29/T16_57_00/">http://iki.fi/tuomov/b/archives/2006/10/29/T16_57_00/</A>
+</I>&gt;<i>
+</I>&gt;<i> That is, indeed, another major problem with the VCS switch...
+</I>&gt;<i> it does not seem in general possible to convert _multiple_
+</I>&gt;<i> interoperable darcs repositories (e.g. ion-3, ion-3plus)
+</I>&gt;<i> into a three-way-diff-kludge vcs, and maintain inter-operability.
+</I>&gt;<i> In some limited cases (if the patches in ion-3 and ion-3plus
+</I>&gt;<i> were cleanly ordered) it might be possible, but would demand
+</I>&gt;<i> a lot of manual effort.
+</I>&gt;<i>
+</I>&gt;<i> ...
+</I>&gt;<i>
+</I>&gt;<i> What sucks about the Windows darcs? Well, it's no posix program,
+</I>&gt;<i> so a lot of things won't work from cygwin shell. ^C either won't
+</I>&gt;<i> work, or will just kill it without cleaning up locks. single-key
+</I>&gt;<i> queries won't work; you have to press enter. Generally line-editing
+</I>&gt;<i> keys are broken.
+</I>&gt;<i>
+</I>&gt;<i> Time zones are printed in a non-standard format that other programs
+</I>&gt;<i> (such as thost that convert to other VCSs) fail to parse: 'W. Europe
+</I>&gt;<i> Standard Time' instead of WEDT. Also, if you set the TZ environment
+</I>&gt;<i> variable in cygwin, darcs gets totally confused __although it
+</I>&gt;<i> shouldn't see the variable, as it's no cygwin program!__
+</I>&gt;<i>
+</I>&gt;<i> ssh won't work using cygwin-ssh and the keys stored in ssh-agent;
+</I>&gt;<i> you'd have to set up separate putty pagent setup for it... and a key
+</I>&gt;<i> setup is _required_, which is just shit.
+</I>&gt;<i>
+</I>&gt;<i> Also, at least this version of darcs I have, is just broken, 'reading
+</I>&gt;<i> pristine' *all the fucking time*, whatever you do. It's dog-slow.
+</I>&gt;<i> (Also seems to be compiled with a shitty compiler, and is generally
+</I>&gt;<i> slow.)
+</I>
+    Thank you for your opinion! It is insightful about the usability
+and impact on the user. (I've never thought about defaults and
+configuring at first usage by questions. I've always liked to edit
+configuration files.)
+
+    Some comments though: I don't know Hg to well myself, but at least
+Git does not suffer from these problems:
+    * you can track multiple branches (ion3, ion3-plus);
+    * it allows you to configure push target (even a default one);
+(using them like &quot;git push github&quot; or &quot;git push&quot;);
+    * it is smarter than the three-way diff solution; (it allows
+arbitrary number of merge parents);
+    * it is interoperable at least with SVN;
+    * indeed it has a problem with the configuration... You have to do
+it manually (by issuing a git command, or editing a file), but also it
+doesn't allow you to commit without setting up an email address (or at
+least this was the case some versions ago)...
+
+    I remember installing Git on a Windows: <A HREF="http://code.google.com/p/msysgit">http://code.google.com/p/msysgit</A>
+
+    Ciprian Craciun.
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001646.html">Patch collection
+</A></li>
+	<LI>Next message: <A HREF="001648.html">Patch collection
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1647">[ date ]</a>
+              <a href="thread.html#1647">[ thread ]</a>
+              <a href="subject.html#1647">[ subject ]</a>
+              <a href="author.html#1647">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

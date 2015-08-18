@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Toggle horizontal/vertical maximize behaviour
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Toggle%20horizontal/vertical%20maximize%20behaviour&In-Reply-To=%3Cslrngm4okr.87b.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001512.html">
+   <LINK REL="Next"  HREF="001514.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Toggle horizontal/vertical maximize behaviour</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Toggle%20horizontal/vertical%20maximize%20behaviour&In-Reply-To=%3Cslrngm4okr.87b.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Toggle horizontal/vertical maximize behaviour">tuomov at iki.fi
+       </A><BR>
+    <I>Mon Jan  5 20:42:19 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001512.html">Toggle horizontal/vertical maximize behaviour
+</A></li>
+        <LI>Next message: <A HREF="001514.html">Toggle horizontal/vertical maximize behaviour
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1513">[ date ]</a>
+              <a href="thread.html#1513">[ thread ]</a>
+              <a href="subject.html#1513">[ subject ]</a>
+              <a href="author.html#1513">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2009-01-02, Chris Burkhardt &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">chris at mretc.net</A>&gt; wrote:
+&gt;<i> 4) Again in the top frame do a 'Mod1-K S' to do a horizontal split.
+</I>&gt;<i> 5) In one of the top frames do a 'Mod1-K V' to collapse the bottom frame. Then
+</I>&gt;<i> 'Mod1-TAB' to the other top frame and 'Mod1-K V'... the bottom frame
+</I>&gt;<i> unexpectedly stays at 0!
+</I>
+Ah... well I'd classify that as an (unintentional) feature then. 
+Maximise is completely unaware of tiling/layout, it just works on
+a per-frame basis. It should be done somewhat differently (snapshotting
+entire layout instead of just saving the size of a single frame) for 
+what you want to work. It'st hus will not be changed in the stable 
+Ion3. For Ion3plus a good-quality patch would certainly be accepted;
+if I ever find the time, I may even do it myself.
+
+-- 
+&quot;[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months.&quot; -- Oscar Wilde
+&quot;The computer industry is the only industry that is more fashion-driven
+ than women's fashion.&quot; -- RMS
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001512.html">Toggle horizontal/vertical maximize behaviour
+</A></li>
+	<LI>Next message: <A HREF="001514.html">Toggle horizontal/vertical maximize behaviour
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1513">[ date ]</a>
+              <a href="thread.html#1513">[ thread ]</a>
+              <a href="subject.html#1513">[ subject ]</a>
+              <a href="author.html#1513">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Interfacing random C functions from Lua scripts
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Interfacing%20random%20C%20functions%20from%20Lua%20scripts&In-Reply-To=%3C20080120192305.GA6980%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001009.html">
+   <LINK REL="Next"  HREF="001015.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Interfacing random C functions from Lua scripts</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Interfacing%20random%20C%20functions%20from%20Lua%20scripts&In-Reply-To=%3C20080120192305.GA6980%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Interfacing random C functions from Lua scripts">tuomov at iki.fi
+       </A><BR>
+    <I>Sun Jan 20 20:23:05 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001009.html">Application toggled fullscreen should be in WFloatWS
+</A></li>
+        <LI>Next message: <A HREF="001015.html">Deactivate mouse in X [OT]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1014">[ date ]</a>
+              <a href="thread.html#1014">[ thread ]</a>
+              <a href="subject.html#1014">[ subject ]</a>
+              <a href="author.html#1014">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Every now and then, people ask for access to random C functions
+from Lua. Providing access to all of them through Ion is the 
+wrong approach that would make Ion itself bloated. But the set
+of Lua libraries isn't that big either (but be sure to check
+the LuaForge [1]).
+
+So the way to do it in that case, is to provide your own C
+bindings. Unfortunately, that's a bit cumbersome, if you have
+to write an extra Lua or Ion module in addition to your script.
+Fortunately, LuaTCC [2] provides support for inline C code in your
+Lua scripts. It is dependent on the Tiny C Compiler (TCC) [3].
+As have attached to this email, the example of the oft-requested
+'setenv'.
+
+  [1]: <A HREF="http://luaforge.net/">http://luaforge.net/</A>
+
+  [2]: <A HREF="http://luatcc.luaforge.net/">http://luatcc.luaforge.net/</A>
+
+  [3]: <A HREF="http://fabrice.bellard.free.fr/tcc/">http://fabrice.bellard.free.fr/tcc/</A>
+
+-- 
+Tuomo
+-------------- next part --------------
+require(&quot;tcc&quot;) -- <A HREF="http://luatcc.luaforge.net/">http://luatcc.luaforge.net/</A>
+
+local LUA_PATH='/usr/local'
+
+local ctx=tcc.new()
+
+ctx:add_include_path(LUA_PATH)
+ctx:add_library_path(LUA_PATH)
+
+ctx:compile[[
+    #include &lt;stdlib.h&gt;
+    #include &lt;string.h&gt;
+    #include &lt;errno.h&gt;
+    #include &lt;lua.h&gt;
+    #include &lt;lauxlib.h&gt;
+    int lua_setenv(lua_State *st)
+    {
+        const char *name=luaL_checkstring(st, 1);
+        const char *value=luaL_checkstring(st, 2);
+        if(setenv(name, value, 1)!=0){
+            lua_pushstring(st, strerror(errno));
+            lua_error(st);
+        }
+        return 0;
+    }
+]]
+
+ctx:relocate()
+
+os.setenv=ctx:get_symbol('lua_setenv')
+
+-- Test
+os.setenv(&quot;FOO&quot;, &quot;BAR&quot;)
+print(os.getenv(&quot;FOO&quot;))
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001009.html">Application toggled fullscreen should be in WFloatWS
+</A></li>
+	<LI>Next message: <A HREF="001015.html">Deactivate mouse in X [OT]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1014">[ date ]</a>
+              <a href="thread.html#1014">[ thread ]</a>
+              <a href="subject.html#1014">[ subject ]</a>
+              <a href="author.html#1014">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

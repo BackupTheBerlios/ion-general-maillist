@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Slightly-OT] On usability: managing usb devices &amp; network	profiles in a ion3 environment
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20%5BSlightly-OT%5D%20On%20usability%3A%20managing%20usb%20devices%20%26%20network%0A%09profiles%20in%20a%20ion3%20environment&In-Reply-To=%3Cslrngqpqg8.ljj.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001567.html">
+   <LINK REL="Next"  HREF="001568.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Slightly-OT] On usability: managing usb devices &amp; network	profiles in a ion3 environment</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20%5BSlightly-OT%5D%20On%20usability%3A%20managing%20usb%20devices%20%26%20network%0A%09profiles%20in%20a%20ion3%20environment&In-Reply-To=%3Cslrngqpqg8.ljj.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="[Slightly-OT] On usability: managing usb devices &amp; network	profiles in a ion3 environment">tuomov at iki.fi
+       </A><BR>
+    <I>Tue Mar  3 09:27:52 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001567.html">[Slightly-OT] On usability: managing usb devices &amp; network	profiles  in a ion3 environment
+</A></li>
+        <LI>Next message: <A HREF="001568.html">[Slightly-OT] On usability: managing usb devices &amp; network	profiles  in a ion3 environment
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1569">[ date ]</a>
+              <a href="thread.html#1569">[ thread ]</a>
+              <a href="subject.html#1569">[ subject ]</a>
+              <a href="author.html#1569">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2009-03-03, Jens Jahnke &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">jan0sch at gmx.net</A>&gt; wrote:
+&gt;<i> MF&gt; I am just curious to know what do ion3 users do to manage painlessly
+</I>&gt;<i> MF&gt; usb devices and network profiles.
+</I>
+SafelyRemove &lt;<A HREF="http://safelyremove.com/">http://safelyremove.com/</A>&gt; is quite nice.
+
+For Windows, that is.
+
+&gt;<i> Tuomov has written up something that brings it quite to the point:
+</I>&gt;<i> <A HREF="http://modeemi.cs.tut.fi/~tuomov/b/archives/2008/10/29/T20_34_21/">http://modeemi.cs.tut.fi/~tuomov/b/archives/2008/10/29/T20_34_21/</A>
+</I>
+An update: pmount is actually crap, because there's no way to
+specify mount options. So FAT and NTFS are permissions are broken,
+which most USB devices carry.
+
+I can provide my ls-removable script that lists removable devices
+and lets you mount/unmount with pmount by pressing a number, if
+someone is interested. I don't have it right now with me.
+
+However, at least in (X)ubuntu 8.10 they've managed to stop pmount
+from working, apparently due to changes in /sys layout. It can't 
+decide whether a device is removable. So much for that. The only
+way I know of mounting without suding in my current not-much-used
+Linux installation is to run Thunar. Sucks. Well, at least it uses
+the label instead of the *random* device node name under /media, unlike
+pmount. But /media sucks donkey balls. The Windows scheme of simple and
+short drive letters is _so_ _much_ _more_ convenient to use. 
+
+(Incidentally (X)ubuntu (8.10) must be one of the most broken operating
+systems on planet earth. But Lenny wasn't much better: still no hibernate
+out of the box, would need kernel compilation. No thanks. Not anymore. 
+It only works if you sacrifice a goat before the act in Xubuntu too, 
+though. If one wants reliability, one chooses Windows today. Wouldn't
+have guessed it ten years ago. 
+
+And when Xubuntu does actually wake up from suspend or hibernate, I 
+really don't like seeing the display contents flash before the screen
+lock activates... What a total POS: gnome-power-damager. Crapware, 
+where switching to AC lowers screen brightness! (8.04) Idiotic crap 
+without absolute battery backlight levels, but rather adjustment 
+percentages and rounding, that causes drift.)
+
+-- 
+Stop Gnomes and other pests! Purchase Windows today!
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001567.html">[Slightly-OT] On usability: managing usb devices &amp; network	profiles  in a ion3 environment
+</A></li>
+	<LI>Next message: <A HREF="001568.html">[Slightly-OT] On usability: managing usb devices &amp; network	profiles  in a ion3 environment
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1569">[ date ]</a>
+              <a href="thread.html#1569">[ thread ]</a>
+              <a href="subject.html#1569">[ subject ]</a>
+              <a href="author.html#1569">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

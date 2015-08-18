@@ -1,0 +1,3322 @@
+From tuomov at iki.fi  Tue Jul  3 13:15:19 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 3 Jul 2007 11:15:19 +0000 (UTC)
+Subject: Dialogs winprop
+References: <760ece280706181201h2bb32b31sf9b90a88292a18eb@mail.gmail.com>
+	<slrnf7doks.hed.tuomov@jolt.modeemi.cs.tut.fi>
+	<760ece280706220311w3d630f01l8686b3ff43dacad9@mail.gmail.com>
+	<87hcp0gjva.fsf@jbms.ath.cx>
+Message-ID: <slrnf8kbu7.h9c.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-06-22, Jeremy Maitin-Shepard <jbms at cmu.edu> wrote:
+> One hack may be to match the title of the window somehow.
+
+Except Gnomefox (like a lot of Gtk shite) probably won't set even
+the title before it maps the window.
+
+-- 
+Tuomo
+
+
+
+From jagoterr at gmail.com  Fri Jul  6 14:18:22 2007
+From: jagoterr at gmail.com (Vladimir Chizhov)
+Date: Fri, 6 Jul 2007 16:18:22 +0400
+Subject: problem with statusbar_external
+Message-ID: <92f2ef410707060518i603f2d58u5e1c12bd23459b8@mail.gmail.com>
+
+I use the latest snapshot (20070608) and statusbar_external script this way:
+In my cfg_ion.lua I have:
+-- ---
+statusbar_external = {
+...
+}
+dopath ("statusbar_external")
+dopath("mod_statusbar")
+-- ---
+and on startup ion says:
+
+Ion startup error log:
+>> Errors starting ion-statusd:
+   /usr/lib/ion3/bin/ion-statusd: Unable to find 'statusd_cpufreq' on
+search path.
+   /usr/lib/ion3/bin/ion-statusd: Unable to find 'statusd_acpibat' on
+search path.
+   /usr/lib/ion3/bin/ion-statusd: Unable to find 'statusd_cpupolicy'
+on search path.
+
+These are meters, defined in statusbar_external={}. And they work
+fine! But such message is being displayed on each startup. Should I
+try to fix statusbar_external.lua in any way or is it a mod_statusbar
+issue?
+
+
+From ap at acat.cc  Fri Jul  6 14:52:59 2007
+From: ap at acat.cc (Andreas Poisel)
+Date: Fri, 6 Jul 2007 14:52:59 +0200
+Subject: problem with statusbar_external
+In-Reply-To: <92f2ef410707060518i603f2d58u5e1c12bd23459b8@mail.gmail.com>
+References: <92f2ef410707060518i603f2d58u5e1c12bd23459b8@mail.gmail.com>
+Message-ID: <20070706125259.GD2873@trude>
+
+* Vladimir Chizhov <jagoterr at gmail.com> [070706 14:30]:
+
+> Should I try to fix statusbar_external.lua in any way or is it a
+> mod_statusbar issue?
+
+Quoting http://modeemi.fi/~tuomov/repos/ion-scripts-3/ :
+
+    If you are using ion-3ds-20060107 or later, using statusd_exec.lua
+    instead of this old version is suggested.
+
+-- 
+Bye, Andreas
+
+
+From tdussa at sdhs.de  Fri Jul  6 18:18:04 2007
+From: tdussa at sdhs.de (Tobias Dussa)
+Date: Fri, 6 Jul 2007 18:18:04 +0200
+Subject: RandR revisited
+Message-ID: <20070706161804.GC3917@candra.home.sdhs.de>
+
+Hi,
+
+I have just upgraded my trusty Slackware box to recently released
+12.0.  This brings about an upgrade to the X.org 7.1 X server.
+
+Unfortunately, the ion2 module mod_xrandr-2 has stopped working.  I
+have debugged the issue as much as I could, and I am afraid I am not
+proficient enough in X programming to carry on.
+
+Here's what seems to be going on:
+- XRandR registring and so on works.
+- Ion (and mod_xrandr) also get the X event notifications for randr
+  events.
+- However, the call
+     FIND_WINDOW_T(rev->root,WScreen) 
+  in mod_xrandr.c returns NULL, suggesting that Ion is unable to get a
+  hold of a WScreen object that is correlated with rev->root (rev
+  being the notification event), if I understand correctly.
+
+What is going wrong here all of a sudden?  Can anybody offer me some
+advice as to how to proceed from here?
+
+Thanks in advance,
+Toby.
+-- 
+Expect the worst, it's the least you can do.
+
+
+From tuomov at iki.fi  Fri Jul  6 19:20:58 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 6 Jul 2007 17:20:58 +0000 (UTC)
+Subject: RandR revisited
+References: <20070706161804.GC3917@candra.home.sdhs.de>
+Message-ID: <slrnf8sufq.727.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-06, Tobias Dussa <tdussa at sdhs.de> wrote:
+> Unfortunately, the ion2 module mod_xrandr-2 has stopped working.  
+
+How about upgrading to Ion3?
+
+-- 
+Tuomo
+
+
+
+From tdussa at sdhs.de  Sat Jul  7 10:03:23 2007
+From: tdussa at sdhs.de (Tobias Dussa)
+Date: Sat, 7 Jul 2007 10:03:23 +0200
+Subject: RandR revisited
+In-Reply-To: <20070706161804.GC3917@candra.home.sdhs.de>
+References: <20070706161804.GC3917@candra.home.sdhs.de>
+Message-ID: <20070707080323.GE3917@candra.home.sdhs.de>
+
+Tuomo,
+
+I'm sorry I'm ripping this thread apart, but for some reason, I have
+not yet received your reply.  I did, however, see it in the online
+archives, so I'll answer to it.
+
+Your question was why I didn't upgrade to ion3.  Mainly, the reason is
+that Ion3 is still just an RC, while Ion2 is labled "stable".  Thus, for
+my production machine, I preferred to stick to ion2.
+
+Now, I have tested ion3 on my upgraded machine, and the xrandr problem
+went away, admittedly.  However, I have to say that I do have a hard
+time migrating my config files from ion2 to ion3.  :-(
+
+Either way, I was under the impression that ion2 was still "the"
+officially supported stable version, so I assumed that you'd be
+interested to hear about the xrandr problem, and I had hoped that
+someone could help me fix it.
+
+Cheers,
+Toby.
+-- 
+I am Gates of Borg.  Resistance is futile.  You will be assimilated.
+
+From tuomov at iki.fi  Sat Jul  7 10:20:09 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 7 Jul 2007 08:20:09 +0000 (UTC)
+Subject: RandR revisited
+References: <20070706161804.GC3917@candra.home.sdhs.de>
+	<20070707080323.GE3917@candra.home.sdhs.de>
+Message-ID: <slrnf8uj5p.ndr.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-07, Tobias Dussa <tdussa at sdhs.de> wrote:
+> Either way, I was under the impression that ion2 was still "the"
+> officially supported stable version, so I assumed that you'd be
+> interested to hear about the xrandr problem, and I had hoped that
+> someone could help me fix it.
+
+Ion2 may still (for a few months) be grudgingly officially supported, 
+but mod_xrandr has never been properly supported. It's just something
+that is available, and I'm not going to start going to lengths to 
+debug problems with an old Ion2 version, now that Ion3 will be 
+released soon(tm). (Just one more RC, hopefully...)
+
+-- 
+Tuomo
+
+
+
+From Matthieu.Moy at imag.fr  Sat Jul  7 11:07:41 2007
+From: Matthieu.Moy at imag.fr (Matthieu Moy)
+Date: Sat, 07 Jul 2007 11:07:41 +0200
+Subject: RandR revisited
+In-Reply-To: <20070707080323.GE3917@candra.home.sdhs.de> (Tobias Dussa's
+	message of "Sat\, 7 Jul 2007 10\:03\:23 +0200")
+References: <20070706161804.GC3917@candra.home.sdhs.de>
+	<20070707080323.GE3917@candra.home.sdhs.de>
+Message-ID: <vpqlkdsa8f6.fsf@bauges.imag.fr>
+
+Tobias Dussa <tdussa at sdhs.de> writes:
+
+> Your question was why I didn't upgrade to ion3.  Mainly, the reason is
+> that Ion3 is still just an RC, while Ion2 is labled "stable".  Thus, for
+> my production machine, I preferred to stick to ion2.
+
+I (and lots of other people) have been using ion3 for years on my
+production machine without real troubles. So, stability is not really
+an argument indeed.
+
+-- 
+Matthieu
+
+
+From tuomov at iki.fi  Sun Jul  8 11:51:34 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 8 Jul 2007 09:51:34 +0000 (UTC)
+Subject: ion-3rc-20070708
+Message-ID: <slrnf91ct6.3vf.tuomov@jolt.modeemi.cs.tut.fi>
+
+
+This third "rc" release again simply fixes some minor problems in 
+the previous release.
+
+-- 
+Tuomo
+
+
+
+From tdussa at sdhs.de  Sat Jul  7 11:57:53 2007
+From: tdussa at sdhs.de (Tobias Dussa)
+Date: Sat, 7 Jul 2007 11:57:53 +0200
+Subject: RandR revisited
+In-Reply-To: <vpqlkdsa8f6.fsf@bauges.imag.fr>
+References: <20070706161804.GC3917@candra.home.sdhs.de>
+	<20070707080323.GE3917@candra.home.sdhs.de>
+	<vpqlkdsa8f6.fsf@bauges.imag.fr>
+Message-ID: <20070707095753.GG3917@candra.home.sdhs.de>
+
+Hi,
+
+On Sat, Jul 07, 2007 at 11:07:41AM +0200, Matthieu Moy wrote:
+> > Your question was why I didn't upgrade to ion3.  Mainly, the reason is
+> > that Ion3 is still just an RC, while Ion2 is labled "stable".  Thus, for
+> > my production machine, I preferred to stick to ion2.
+> I (and lots of other people) have been using ion3 for years on my
+> production machine without real troubles. So, stability is not really
+> an argument indeed.
+
+I have never said so.  Indeed, I have never really used ion3 at all.
+All I am saying is that, according to the web page, ion2 is the
+current stable release.  That's all.  It may very well be that ion3 is
+very stable already, but that is not the point.  It is not labeled the
+current "stable" (production) version, so I didn't use it, because
+apparently the developers themselves don't think that ion3 is good
+enough to be labeled "stable" yet (although that may not be far down
+the road).
+
+Cheers,
+Toby.
+-- 
+If "Microsoft Word" is the right tool to write longer texts, then why is it not
+called "Microsoft Sentence" or "Microsoft Paragraph"?
+
+
+From tdussa at sdhs.de  Sat Jul  7 12:01:15 2007
+From: tdussa at sdhs.de (Tobias Dussa)
+Date: Sat, 7 Jul 2007 12:01:15 +0200
+Subject: RandR revisited
+In-Reply-To: <slrnf8uj5p.ndr.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070706161804.GC3917@candra.home.sdhs.de>
+	<20070707080323.GE3917@candra.home.sdhs.de>
+	<slrnf8uj5p.ndr.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070707100115.GJ3917@candra.home.sdhs.de>
+
+Tuomo,
+
+On Sat, Jul 07, 2007 at 08:20:09AM +0000, Tuomo Valkonen wrote:
+> > Either way, I was under the impression that ion2 was still "the"
+> > officially supported stable version, so I assumed that you'd be
+> > interested to hear about the xrandr problem, and I had hoped that
+> > someone could help me fix it.
+> Ion2 may still (for a few months) be grudgingly officially supported, 
+> but mod_xrandr has never been properly supported.
+
+Okay, point taken.
+
+> It's just something
+> that is available, and I'm not going to start going to lengths to 
+> debug problems with an old Ion2 version,
+
+Good enough.  I was just asking if anyone had any hints on how to go
+ahead in troubleshooting the issue.  I was not trying to start a
+discussion of why or why not to upgrade to ion3.
+
+Cheers,
+Toby.
+-- 
+God is real---unless declared integer.
+
+
+From b42-ml at srck.net  Sun Jul  8 13:44:02 2007
+From: b42-ml at srck.net (Martin Milata)
+Date: Sun, 8 Jul 2007 13:44:02 +0200
+Subject: make -j3 fails
+Message-ID: <20070708114402.GA14538@nyx>
+
+Hi,
+while "make" works as expected, "make -j3" (or anything >1) fails.
+
+Is it a feature or bug?
+
+Thanks,
+ -MM
+
+
+From tuomov at iki.fi  Sun Jul  8 14:25:34 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 8 Jul 2007 12:25:34 +0000 (UTC)
+Subject: make -j3 fails
+References: <20070708114402.GA14538@nyx>
+Message-ID: <slrnf91ltu.hkd.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-08, Martin Milata <b42-ml at srck.net> wrote:
+> Is it a feature or bug?
+
+Yes, a make(1) bug.
+
+-- 
+Tuomo
+
+
+
+From tdussa at sdhs.de  Mon Jul  9 10:17:29 2007
+From: tdussa at sdhs.de (Tobias Dussa)
+Date: Mon, 9 Jul 2007 10:17:29 +0200
+Subject: RandR revisited
+In-Reply-To: <20070707100115.GJ3917@candra.home.sdhs.de>
+References: <20070706161804.GC3917@candra.home.sdhs.de>
+	<20070707080323.GE3917@candra.home.sdhs.de>
+	<slrnf8uj5p.ndr.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070707100115.GJ3917@candra.home.sdhs.de>
+Message-ID: <20070709081729.GC3917@candra.home.sdhs.de>
+
+Hi Tuomo,
+
+On Sat, Jul 07, 2007 at 12:01:15PM +0200, Tobias Dussa wrote:
+> Good enough.  I was just asking if anyone had any hints on how to go
+> ahead in troubleshooting the issue.  I was not trying to start a
+> discussion of why or why not to upgrade to ion3.
+
+Meanwhile, I have upgraded to ion3 because of your advise.  Now, the
+xrandr module works again; however, mod_dock does not work properly
+any more.  After a xrandr resize operation, the dock is gone.  Any
+thoughts on this?
+
+Cheers,
+Toby.
+-- 
+I am Gates of Borg.  Resistance is futile.  You will be assimilated.
+
+From andreas.bernauer at gmx.de  Mon Jul  9 11:07:00 2007
+From: andreas.bernauer at gmx.de (Andreas Bernauer)
+Date: Mon, 9 Jul 2007 11:07:00 +0200
+Subject: make -j3 fails
+In-Reply-To: <slrnf91ltu.hkd.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070708114402.GA14538@nyx>
+	<slrnf91ltu.hkd.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070709090700.GJ19633@informatik.uni-tuebingen.de>
+
+Tuomo Valkonen schrieb am So, 08. Jul 2007 um 12:25 (+0000):
+> On 2007-07-08, Martin Milata <b42-ml at srck.net> wrote:
+> > Is it a feature or bug?
+> 
+> Yes, a make(1) bug.
+
+Sounds interesting.  Do you have any pointers that explain the make
+bug or can you briefly explain it?  Googling for this issue turned up
+only pages (such as
+http://developers.sun.com/solaris/articles/parallel_make.html) telling
+me, if parallel make fails, the Makefile is wrong
+
+Andreas.
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070709/ee62e59d/attachment.pgp>
+
+From tuomov at iki.fi  Mon Jul  9 11:35:42 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 9 Jul 2007 09:35:42 +0000 (UTC)
+Subject: make -j3 fails
+References: <20070708114402.GA14538@nyx>
+	<slrnf91ltu.hkd.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070709090700.GJ19633@informatik.uni-tuebingen.de>
+Message-ID: <slrnf940be.45n.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-09, Andreas Bernauer <andreas.bernauer at gmx.de> wrote:
+> bug or can you briefly explain it?  Googling for this issue turned up
+> only pages (such as
+> http://developers.sun.com/solaris/articles/parallel_make.html) telling
+> me, if parallel make fails, the Makefile is wrong
+
+If parallel make fails, make is too stupid.
+
+(It works for me, BTW.)
+
+-- 
+Tuomo
+
+
+
+From Matthieu.Moy at imag.fr  Mon Jul  9 11:51:15 2007
+From: Matthieu.Moy at imag.fr (Matthieu Moy)
+Date: Mon, 09 Jul 2007 11:51:15 +0200
+Subject: make -j3 fails
+In-Reply-To: <slrnf940be.45n.tuomov@jolt.modeemi.cs.tut.fi> (Tuomo Valkonen's
+	message of "Mon\, 9 Jul 2007 09\:35\:42 +0000 \(UTC\)")
+References: <20070708114402.GA14538@nyx>
+	<slrnf91ltu.hkd.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070709090700.GJ19633@informatik.uni-tuebingen.de>
+	<slrnf940be.45n.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <vpqhcodkir0.fsf@bauges.imag.fr>
+
+Tuomo Valkonen <tuomov at iki.fi> writes:
+
+> On 2007-07-09, Andreas Bernauer <andreas.bernauer at gmx.de> wrote:
+>> bug or can you briefly explain it?  Googling for this issue turned up
+>> only pages (such as
+>> http://developers.sun.com/solaris/articles/parallel_make.html) telling
+>> me, if parallel make fails, the Makefile is wrong
+>
+> If parallel make fails, make is too stupid.
+
+Errr.
+
+Do you expect also any sequential program to work if you start using
+threads, and will you blame the pthread library if it doesn't do
+synchronization for you?
+
+make -j will work if you didn't rely on make being sequential, but
+what can make do with something like
+
+all: target1 target2
+
+target1:
+	some-action
+
+target2:
+	some-action that requires target1 to be built.
+
+
+?
+
+-- 
+Matthieu
+
+
+From tuomov at iki.fi  Mon Jul  9 13:18:29 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 9 Jul 2007 11:18:29 +0000 (UTC)
+Subject: make -j3 fails
+References: <20070708114402.GA14538@nyx>
+	<slrnf91ltu.hkd.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070709090700.GJ19633@informatik.uni-tuebingen.de>
+	<slrnf940be.45n.tuomov@jolt.modeemi.cs.tut.fi>
+	<vpqhcodkir0.fsf@bauges.imag.fr>
+Message-ID: <slrnf946c5.cem.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-09, Matthieu Moy <Matthieu.Moy at imag.fr> wrote:
+> Do you expect also any sequential program to work if you start using
+> threads, and will you blame the pthread library if it doesn't do
+> synchronization for you?
+
+Yes, if the program has been written in a suitable manner. I am not
+aware of any such hacks in the Ion makefiles, and `make -j3` works
+just fine (on a single CPU, of course). If someone has a real and
+not just imagined problem, they should point at where it is instead
+of just complaining. I'm not going to waste my breath finding and 
+fixing problems that are only relevant on the latest techno-gadgets.
+My AthlonXP still has many years of life left in it, assuming 
+built-in obsolescence doesn't kick in.
+
+-- 
+Tuomo
+
+
+
+From oksijun at nerim.net  Mon Jul  9 14:12:49 2007
+From: oksijun at nerim.net (Michael Gwin)
+Date: Mon, 9 Jul 2007 14:12:49 +0200
+Subject: RandR revisited
+In-Reply-To: <20070709081729.GC3917@candra.home.sdhs.de>
+References: <20070706161804.GC3917@candra.home.sdhs.de>
+	<20070707080323.GE3917@candra.home.sdhs.de>
+	<slrnf8uj5p.ndr.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070707100115.GJ3917@candra.home.sdhs.de>
+	<20070709081729.GC3917@candra.home.sdhs.de>
+Message-ID: <20070709141249.13ad5771@mg-laptop.escp.fr>
+
+On Mon, 9 Jul 2007 10:17:29 +0200
+Tobias Dussa <tdussa at sdhs.de> wrote:
+
+> Meanwhile, I have upgraded to ion3 because of your advise.  Now, the
+> xrandr module works again; however, mod_dock does not work properly
+> any more.  After a xrandr resize operation, the dock is gone.
+
+I'm seeing something similar, the dock either becomes an outline of
+itself, or gets positioned somewhere along the top of the screen, as if
+it hadn't been updated to take the larger resolution into account again
+(I normally have it in the top right hand corner).
+
+- Michael
+
+
+From tuomov at iki.fi  Mon Jul  9 17:37:02 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 9 Jul 2007 15:37:02 +0000 (UTC)
+Subject: RandR revisited
+References: <20070706161804.GC3917@candra.home.sdhs.de>
+	<20070707080323.GE3917@candra.home.sdhs.de>
+	<slrnf8uj5p.ndr.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070707100115.GJ3917@candra.home.sdhs.de>
+	<20070709081729.GC3917@candra.home.sdhs.de>
+Message-ID: <slrnf94lgt.4ol.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-09, Tobias Dussa <tdussa at sdhs.de> wrote:
+> Meanwhile, I have upgraded to ion3 because of your advise.  Now, the
+> xrandr module works again; however, mod_dock does not work properly
+> any more.  After a xrandr resize operation, the dock is gone.  Any
+> thoughts on this?
+
+That's because the dock module doesn't use the standard sizepolicy
+stuff, but does its own position management. I probably can't be
+arsed to change this, because it would be a major rewrite. I've
+actually thought of removing the module as redundant, and as
+something I don't particularly care to maintain, not originally
+being my code.
+
+-- 
+Tuomo
+
+
+
+From tdussa at sdhs.de  Mon Jul  9 19:47:00 2007
+From: tdussa at sdhs.de (Tobias Dussa)
+Date: Mon, 9 Jul 2007 19:47:00 +0200
+Subject: RandR revisited
+In-Reply-To: <slrnf94lgt.4ol.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070706161804.GC3917@candra.home.sdhs.de>
+	<20070707080323.GE3917@candra.home.sdhs.de>
+	<slrnf8uj5p.ndr.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070707100115.GJ3917@candra.home.sdhs.de>
+	<20070709081729.GC3917@candra.home.sdhs.de>
+	<slrnf94lgt.4ol.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070709174700.GF3917@candra.home.sdhs.de>
+
+Hi,
+
+On Mon, Jul 09, 2007 at 03:37:02PM +0000, Tuomo Valkonen wrote:
+> That's because the dock module doesn't use the standard sizepolicy
+> stuff, but does its own position management. I probably can't be
+> arsed to change this, because it would be a major rewrite. I've
+> actually thought of removing the module as redundant,
+
+Huh?  How do I get the same functionality out of other modules?  I'm
+not hooked on the dock module, but I really would like to have a dock
+that a) can be turned on and off and b) also appears on empty screens.
+
+If, say, the status bar can be coaxed to behave like that, I'd be more
+than happy to switch over.
+
+Cheers,
+Toby.
+-- 
+Why crawl through Windows when there are doors?
+
+
+From tuomov at iki.fi  Mon Jul  9 20:17:47 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 9 Jul 2007 21:17:47 +0300
+Subject: RandR revisited
+In-Reply-To: <20070709175711.GD20545@aran>
+References: <20070706161804.GC3917@candra.home.sdhs.de>
+	<20070707080323.GE3917@candra.home.sdhs.de>
+	<slrnf8uj5p.ndr.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070707100115.GJ3917@candra.home.sdhs.de>
+	<20070709081729.GC3917@candra.home.sdhs.de>
+	<slrnf94lgt.4ol.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070709175711.GD20545@aran>
+Message-ID: <20070709181747.GA19501@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-09 13:57 -0400, Etan Reisner wrote:
+> Would it be a major rewrite of anything other than mod_dock itself? 
+
+No, just mod_dock. 
+
+-- 
+Tuomo
+
+
+From psionic at csh.rit.edu  Mon Jul  9 21:57:15 2007
+From: psionic at csh.rit.edu (Jordan Sissel)
+Date: Mon, 09 Jul 2007 15:57:15 -0400
+Subject: make -j3 fails 
+In-Reply-To: <vpqhcodkir0.fsf@bauges.imag.fr> 
+References: <20070708114402.GA14538@nyx>
+	<slrnf91ltu.hkd.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070709090700.GJ19633@informatik.uni-tuebingen.de>
+	<slrnf940be.45n.tuomov@jolt.modeemi.cs.tut.fi>
+	<vpqhcodkir0.fsf@bauges.imag.fr>
+Message-ID: <20070709195715.54A995081C@scorn.csh.rit.edu>
+
+On 9 July 2007 at 11:51, Matthieu Moy <Matthieu.Moy at imag.fr> wrote:
+> Tuomo Valkonen <tuomov at iki.fi> writes:
+> 
+> > On 2007-07-09, Andreas Bernauer <andreas.bernauer at gmx.de> wrote:
+> >> bug or can you briefly explain it?  Googling for this issue turned up
+> >> only pages (such as
+> >> http://developers.sun.com/solaris/articles/parallel_make.html) telling
+> >> me, if parallel make fails, the Makefile is wrong
+> >
+> > If parallel make fails, make is too stupid.
+> 
+> Errr.
+> 
+> Do you expect also any sequential program to work if you start using
+> threads, and will you blame the pthread library if it doesn't do
+> synchronization for you?
+> 
+> make -j will work if you didn't rely on make being sequential, but
+> what can make do with something like
+> 
+> all: target1 target2
+> 
+> target1:
+> 	some-action
+> 
+> target2:
+> 	some-action that requires target1 to be built.
+> 
+
+all: target1 target2
+
+target1:
+	some-action
+
+target2: target1
+	some-action that requires target1 to be built.
+
+> ?
+> 
+> -- 
+> Matthieu
+> 
+
+
+From Matthieu.Moy at imag.fr  Mon Jul  9 22:39:47 2007
+From: Matthieu.Moy at imag.fr (Matthieu Moy)
+Date: Mon, 09 Jul 2007 22:39:47 +0200
+Subject: make -j3 fails
+In-Reply-To: <20070709195715.54A995081C@scorn.csh.rit.edu> (Jordan Sissel's
+	message of "Mon\, 09 Jul 2007 15\:57\:15 -0400")
+References: <20070708114402.GA14538@nyx>
+	<slrnf91ltu.hkd.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070709090700.GJ19633@informatik.uni-tuebingen.de>
+	<slrnf940be.45n.tuomov@jolt.modeemi.cs.tut.fi>
+	<vpqhcodkir0.fsf@bauges.imag.fr>
+	<20070709195715.54A995081C@scorn.csh.rit.edu>
+Message-ID: <vpqk5t971m4.fsf@bauges.imag.fr>
+
+Jordan Sissel <psionic at csh.rit.edu> writes:
+
+> all: target1 target2
+>
+> target1:
+> 	some-action
+>
+> target2: target1
+> 	some-action that requires target1 to be built.
+
+Err, sure, but the claim of Tuomo was that "make" had to be clever,
+not the Makefile ("If parallel make fails, make is too stupid."). Mine
+is that "make" can not guess where the synchronizations have to be,
+and if "make -j" fails, the first thing I'd do is to check the
+Makefile, not to claim it's a make bug.
+
+-- 
+Matthieu
+
+
+From pwrlftr220 at gmail.com  Tue Jul 10 03:18:13 2007
+From: pwrlftr220 at gmail.com (Kevin Beranek)
+Date: Mon, 9 Jul 2007 20:18:13 -0500
+Subject: gnome-panel as dock
+Message-ID: <6851ad7e0707091818n33fa1ebsd7e769c0eea1f78d@mail.gmail.com>
+
+Hello,
+
+I am trying to use gnome-panel as my dock in ion3 and it is mostly working,
+but I have one problem with it.  I attached a screenshot of what is
+happening.  Essentially there is a portion of the screen that is unusable
+situated directly above the panel.
+
+Here's what I have done so far.
+
+At the top of cfg_dock.lua:
+
+mod_dock.create{
+    mode="embedded",
+    screen=1,
+    pos="bl",
+    grow="right",
+    is_auto=true,
+    floating_hidden=false,
+    name="*dock*",
+}
+
+and at the bottom:
+
+defwinprop{
+    class = "Gnome-panel",
+    instance = "gnome-panel",
+    target = "*dock*",
+}
+
+I also tried adding a max_size to the defwinprop, but that didn't change
+anything.
+
+Is there anything I can do to fix this?
+
+
+Thanks,
+Kevin Beranek
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070709/adbfde0d/attachment.html>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: Screenshot.png
+Type: image/png
+Size: 24833 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070709/adbfde0d/attachment.png>
+
+From tuomov at iki.fi  Tue Jul 10 08:15:41 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 10 Jul 2007 06:15:41 +0000 (UTC)
+Subject: gnome-panel as dock
+References: <6851ad7e0707091818n33fa1ebsd7e769c0eea1f78d@mail.gmail.com>
+Message-ID: <slrnf9690d.k1i.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-10, Kevin Beranek <pwrlftr220 at gmail.com> wrote:
+> Is there anything I can do to fix this?
+
+Yes, forget Gnome. Gnome is an anti-Ion, and together they will 
+annihilate each other.
+
+-- 
+Tuomo
+
+
+
+From cptsalek at gmail.com  Tue Jul 10 10:49:28 2007
+From: cptsalek at gmail.com (Christian Walther)
+Date: Tue, 10 Jul 2007 10:49:28 +0200
+Subject: Some kind of "proxy-tool" for Apps running inside Xnest?
+Message-ID: <14989d6e0707100149j14535b4di403f76465bbf10cb@mail.gmail.com>
+
+Hi there,
+
+I'm a happy user of ion, at home as well as at work.
+Problem is: At work we're using the Citrix Client to be able to use
+some Windoze applications from within Solaris.
+Citrix is a hell of a X11 application. It resizes its windows, forces
+window placement, movement and so on. It doesn't work very well with
+many window managers, leading to placement errors, disappearing
+windows. Or crashes.
+With ion, the Citrix client is nearly unusable. Even if you create a
+new workspace with an "empty" layout it's a mess. I won't blame ion
+for this. There's no need for an application to handle window manager
+tasks...
+
+As a solution I created a fullscreen workspace and attached a Xnest to
+it. The Citrix client uses Xnest without any window manager. So far
+this runs pretty stable. I can recommend this way for every
+misbehaving application.
+The only thing that bothers me is that I don't get "window alarms"
+(events), and that I can't access the individual windows inside Xnest
+from ions controls.
+Is there a tool that could do this, or that could be used as a starting point?
+
+Regards
+Christian
+
+
+From andreas.bernauer at gmx.de  Tue Jul 10 13:25:20 2007
+From: andreas.bernauer at gmx.de (Andreas Bernauer)
+Date: Tue, 10 Jul 2007 13:25:20 +0200
+Subject: Some kind of "proxy-tool" for Apps running inside Xnest?
+In-Reply-To: <14989d6e0707100149j14535b4di403f76465bbf10cb@mail.gmail.com>
+References: <14989d6e0707100149j14535b4di403f76465bbf10cb@mail.gmail.com>
+Message-ID: <20070710112520.GV19633@informatik.uni-tuebingen.de>
+
+Hi Christian,
+
+Christian Walther schrieb am Di, 10. Jul 2007 um 10:49 (+0200):
+> With ion, the Citrix client is nearly unusable. Even if you create a
+> new workspace with an "empty" layout it's a mess. I won't blame ion
+> for this. There's no need for an application to handle window
+> manager tasks...
+
+This does not actually answer your question, but did you consider
+using rdesktop (http://www.rdesktop.org/)?  We were using the Citrix
+ICA Client, too, but we switched to rdesktop several months ago and I
+had no problems with it so far.
+
+Cheers,
+
+Andreas.
+
+PS: I was using the ICA client from Citrix under Linux with ion with
+no problem...
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070710/98cf4010/attachment.pgp>
+
+From talex5 at gmail.com  Tue Jul 10 22:05:35 2007
+From: talex5 at gmail.com (Thomas Leonard)
+Date: Tue, 10 Jul 2007 20:05:35 +0000 (UTC)
+Subject: Dock padding_pixels suggestion
+Message-ID: <f70oqf$mv8$1@sea.gmane.org>
+
+Hi,
+
+I'm trying to use Ion 3 with ROX[1], and fixing a few problems as I go
+(we're missing transient-for in places, etc... oops!).
+
+One minor issue I noticed is that the dock has a 1 pixel border by
+default. Normally, to run something in ROX's panel you just whack the
+pointer in the general direction of the screen edge and click, but with
+the border gap that doesn't work.
+
+Perhaps the style below could be added to the default theme to change that?
+
+de.defstyle("stdisp", {
+    padding_pixels = 0,
+})
+
+Thanks,
+
+BTW, I noticed this in the not-a-blog:
+
+ "The middlemen known as ?distributions? have effective control over the
+ software that people install. Authors can not hope to compete with the
+ juggernaut distributions' easily installable packages, the only practical
+ method for them to distribute their software being laboursome source
+ packages that users must hunt down from the Web. [...] They provide old
+ buggy versions and even out-dated development snapshots for years without
+ prominent version qualifiers, and expect the author to deal with the
+ users having problems with the bugs and incompatibilities in these
+ versions."
+
+I used to have exactly the same problems with ROX-Filer, but now I just
+provide a Zero Install[2] feed for it. On most modern Linux distributions
+(including Ubuntu and Fedora), any user can just do:
+
+$ 0alias rox http://rox.sourceforge.net/2005/interfaces/ROX-Filer
+
+Then they can run it with the command 'rox'. It gets the latest binary
+version from my site, checks the signature using my GPG key and installs
+it. It also checks for updates from time-to-time. Have you thought of
+providing Ion that way?
+
+
+[1] http://rox.sourceforge.net/desktop/rox_with_ion
+[2] http://0install.net  (and yes, I wrote it so I'm biased)
+
+
+-- 
+Dr Thomas Leonard		http://rox.sourceforge.net
+GPG: 9242 9807 C985 3C07 44A6  8B9A AE07 8280 59A5 3CC1
+
+
+
+From tuomov at iki.fi  Tue Jul 10 22:27:39 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 10 Jul 2007 20:27:39 +0000 (UTC)
+Subject: Dock padding_pixels suggestion 
+References: <f70oqf$mv8$1@sea.gmane.org>
+Message-ID: <slrnf97qtr.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-10, Thomas Leonard <talex5 at gmail.com> wrote:
+> One minor issue I noticed is that the dock has a 1 pixel border by
+> default. Normally, to run something in ROX's panel you just whack the
+> pointer in the general direction of the screen edge and click, but with
+> the border gap that doesn't work.
+>
+> Perhaps the style below could be added to the default theme to change that?
+
+The dock is for window maker dockapps, and as such needs a border in 
+many styles. I have actually considered removing the dock module from 
+the Ion distribution as I'm not really interested in maintaining it.
+(It could still be installed separately, if someone else bothered
+maintaining it... I consider it mostly redundant.)
+
+You know, you're really doing things all wrong by putting the panel
+thingy in the dock. You should just make the panel itself the stdisp.
+This can be done with WMPlex.set_stdisp. I'm not 100% if it works in 
+an initial window management hook: I've not actually tested if the
+hooks are usable at all... It would be nice if someone tried that 
+out with a real application. There could also be some issues with
+size hint usage, which could still be fixed. 
+
+> ZeroInstall
+
+I will post another reply.
+
+-- 
+Tuomo
+
+
+
+From talex5 at gmail.com  Tue Jul 10 23:02:49 2007
+From: talex5 at gmail.com (Thomas Leonard)
+Date: Tue, 10 Jul 2007 21:02:49 +0000 (UTC)
+Subject: Dock padding_pixels suggestion
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97qtr.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <f70s5p$vme$1@sea.gmane.org>
+
+On Tue, 10 Jul 2007 20:27:39 +0000, Tuomo Valkonen wrote:
+
+> On 2007-07-10, Thomas Leonard <talex5 at gmail.com> wrote:
+>> One minor issue I noticed is that the dock has a 1 pixel border by
+>> default. Normally, to run something in ROX's panel you just whack the
+>> pointer in the general direction of the screen edge and click, but with
+>> the border gap that doesn't work.
+[...]
+> You know, you're really doing things all wrong by putting the panel
+> thingy in the dock. You should just make the panel itself the stdisp.
+> This can be done with WMPlex.set_stdisp. I'm not 100% if it works in 
+> an initial window management hook: I've not actually tested if the
+> hooks are usable at all... It would be nice if someone tried that 
+> out with a real application. There could also be some issues with
+> size hint usage, which could still be fixed. 
+
+That sounds better. I'm not sure how to do it though (I'm still new to Ion!).
+
+Which hook should I connect to? I guess I need to get called when a new
+screen is created, and then pass '_' as the first argument to set_stdisp,
+right? I tried this, but _ is nil:
+
+ioncore.get_hook("ioncore_post_layout_setup_hook"):add(
+    function()
+	panel = WMPlex.set_stdisp(_, {pos = 'bl'})
+    	WRegion.set_name(panel, "panel")
+    end
+)
+
+defwinprop{
+    class = "ROX-Filer",
+    instance = "ROX-Panel",
+    target = "panel",
+}
+
+Thanks,
+
+
+-- 
+Dr Thomas Leonard		http://rox.sourceforge.net
+GPG: 9242 9807 C985 3C07 44A6  8B9A AE07 8280 59A5 3CC1
+
+
+
+From tuomov at iki.fi  Tue Jul 10 23:05:58 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 10 Jul 2007 21:05:58 +0000 (UTC)
+Subject: ZeroInstall & Package systems [Was: Re: Dock padding_pixels
+	suggestion]
+References: <f70oqf$mv8$1@sea.gmane.org>
+Message-ID: <slrnf97t5m.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-10, Thomas Leonard <talex5 at gmail.com> wrote:
+> I used to have exactly the same problems with ROX-Filer, but now I just
+> provide a Zero Install[2] feed for it. On most modern Linux distributions
+> (including Ubuntu and Fedora), any user can just do:
+>
+> $ 0alias rox http://rox.sourceforge.net/2005/interfaces/ROX-Filer
+>
+> Then they can run it with the command 'rox'. It gets the latest binary
+> version from my site, checks the signature using my GPG key and installs
+> it. It also checks for updates from time-to-time. Have you thought of
+> providing Ion that way?
+
+No, I was not even aware of zeroinstall, and from quick glance, can  
+spot a few real or potential problems:
+
+  * Package creation seems to be a choice between WIMPshit and XMLshit, 
+    judging from the packaging tutorial. No thanks.
+
+  * How about dependencies? That's where these decentralised 
+    packaging systems tend to fail compared to distros.
+   
+On the positive side, it seems to use URLs and local aliases
+(that apply to binaries too!), instead of relying on a fully 
+centralised naming scheme. It's not fully decentralised, though,
+because DNS is centralised.
+
+I've actually been thinking lately a bit about decentralised
+packaging systems, and have been meaning to write about it
+in the non-blog in more detail. In summary, the key 
+features/principles would, however be:
+
+  * Uses application directories (with relocatable binaries, so
+    can be installed anywhere). That's absolutely necessary for
+    decentralised packaging.
+
+  * The package would not be the unit of dependency, but various
+    capabilities, that packages (which are merely archive files 
+    found in any way whatsoever) can claim to provide -- and any
+    number of them. Some capabilities would correspond to individual
+    programs ("Ion3"), and some would be more abstract and could 
+    have multiple packages providing them ("libfoo API 1.2").
+    How each capability is supposed to be provided is up to the
+    capability author, and packages could be required to include
+    a file specifying how it provides the capability (the library
+    file name, executable name, anything)
+
+  * "Cryptographically unique" capability names. The name would 
+    e.g. be the public key signed with the private key of a keypair.
+    Perhaps this would be the author's key, followed by a path,
+    essentially creating a decentralised DNS (something I've also
+    written about). 
+
+  * Packages would use these cryptographic names (possibly locally
+    aliased in some file to something more manageable) to refer to 
+    their dependencies. They might also recommend a particular
+    package implementing the capability. When some installed package
+    already claims to provide a capability, but another package
+    recommends something else, the user would be asked about it.
+
+  * The same keypair can be used to prove that a package provides
+    a capability by signing the package with the private key of
+    the capability. Alternatively the capability author could
+    provide a signed test suite that can be used to verify that
+    a package provides the claimed capability.
+
+  * The package system would be integrated with the build system.
+    Presently there's a _lot_ of redudancy between distributions'
+    package descriptions and autocrap. But a decent build system
+    would include all the dependency information in an easily
+    accessible format [1].
+
+  * The package system itself does not specify how packages are
+    found, but as single-click-install is too complex, and
+    single-command-fetch-and-install is the way to go, presumably
+    install tools could use some kind of search engine (google
+    is the new DNS!) tailored for finding such package files
+    directly, and let the user choose among the results. When
+    the capability identifier is used to search, there should
+    often be only one result, and even more often only one
+    result that provably provides the capability, so the
+    interaction needs should be minimal when installing 
+    dependencies or upgrading known packages. 
+
+    When the cryptographic identifier is not known, some
+    method of scoring the (text/name search) results is needed. 
+    Perhaps good old PageRank suffices. Additionally some
+    instance that people trust could sign capability keys
+    to correspond to some customary name for the capability.
+
+Hmm... this was meant to be a summary... :) Well, there are
+still some blurry details.
+
+  [1]: http://iki.fi/tuomov/b/archives/2006/07/04/T21_20_46/
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue Jul 10 23:11:42 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 10 Jul 2007 21:11:42 +0000 (UTC)
+Subject: Dock padding_pixels suggestion
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97qtr.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<f70s5p$vme$1@sea.gmane.org>
+Message-ID: <slrnf97tge.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-10, Thomas Leonard <talex5 at gmail.com> wrote:
+> ioncore.get_hook("ioncore_post_layout_setup_hook"):
+
+That's the wrong hook. You probably want "clientwin_do_manage_alt",
+and the function you pass to it must accept parameters. You should
+check for some custom winprop field (or less preferrably but more
+directly for the rox panel class and instances) in the function,
+if it's a match, do the setup.
+
+-- 
+Tuomo
+
+
+
+From deryni at unreliablesource.net  Tue Jul 10 23:11:54 2007
+From: deryni at unreliablesource.net (Etan S. C. Reisner)
+Date: Tue, 10 Jul 2007 17:11:54 -0400
+Subject: Dock padding_pixels suggestion
+In-Reply-To: <slrnf97tge.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97qtr.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<f70s5p$vme$1@sea.gmane.org>
+	<slrnf97tge.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070710211154.GF20545@aran>
+
+On Tue, Jul 10, 2007 at 09:11:42PM +0000, Tuomo Valkonen wrote:
+> On 2007-07-10, Thomas Leonard <talex5 at gmail.com> wrote:
+> > ioncore.get_hook("ioncore_post_layout_setup_hook"):
+>
+> That's the wrong hook. You probably want "clientwin_do_manage_alt",
+> and the function you pass to it must accept parameters. You should
+> check for some custom winprop field (or less preferrably but more
+> directly for the rox panel class and instances) in the function,
+> if it's a match, do the setup.
+>
+> --
+> Tuomo
+
+WMPlex.set_stdisp wants an attach_new style table will that work with a
+clientwin or would he have to create an new frame and then stick the cwin
+into the frame? Or did I not follow the code far enough?
+
+	-Etan
+
+
+From tuomov at iki.fi  Tue Jul 10 23:22:43 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 10 Jul 2007 21:22:43 +0000 (UTC)
+Subject: Dock padding_pixels suggestion
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97qtr.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<f70s5p$vme$1@sea.gmane.org>
+	<slrnf97tge.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070710211154.GF20545@aran>
+Message-ID: <slrnf97u53.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-10, Etan S. C. Reisner <deryni at unreliablesource.net> wrote:
+> WMPlex.set_stdisp wants an attach_new style table will that work with a
+> clientwin or would he have to create an new frame and then stick the cwin
+> into the frame? Or did I not follow the code far enough?
+
+Ah. The table in this case is
+
+   { reg = the_clientwin_i_got_as_parameter_to_the_hook }
+
+plus the additional variables specific to set_stdisp.
+
+-- 
+Tuomo
+
+
+
+From deryni at unreliablesource.net  Tue Jul 10 23:23:12 2007
+From: deryni at unreliablesource.net (Etan S. C. Reisner)
+Date: Tue, 10 Jul 2007 17:23:12 -0400
+Subject: Dock padding_pixels suggestion
+In-Reply-To: <slrnf97u53.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97qtr.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<f70s5p$vme$1@sea.gmane.org>
+	<slrnf97tge.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070710211154.GF20545@aran>
+	<slrnf97u53.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070710212312.GG20545@aran>
+
+On Tue, Jul 10, 2007 at 09:22:43PM +0000, Tuomo Valkonen wrote:
+<snip>
+> Ah. The table in this case is
+>
+>    { reg = the_clientwin_i_got_as_parameter_to_the_hook }
+>
+> plus the additional variables specific to set_stdisp.
+>
+> --
+> Tuomo
+
+Ah, I see it now, I am only recently coming to try to understand the
+various region_attach_helper modes. Thanks.
+
+	-Etan
+
+
+From talex5 at gmail.com  Tue Jul 10 23:37:12 2007
+From: talex5 at gmail.com (Thomas Leonard)
+Date: Tue, 10 Jul 2007 21:37:12 +0000 (UTC)
+Subject: ZeroInstall & Package systems [Was: Re: Dock padding_pixels
+	suggestion]
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97t5m.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <f70u68$vme$2@sea.gmane.org>
+
+On Tue, 10 Jul 2007 21:05:58 +0000, Tuomo Valkonen wrote:
+> On 2007-07-10, Thomas Leonard <talex5 at gmail.com> wrote:
+[...]
+> No, I was not even aware of zeroinstall, and from quick glance, can  
+> spot a few real or potential problems:
+> 
+>   * Package creation seems to be a choice between WIMPshit and XMLshit, 
+>     judging from the packaging tutorial. No thanks.
+
+The third option is 0publish (non-GUI):
+
+ http://0install.net/0publish.html
+
+On the other hand, you've already written a download page in HTML, so how
+much worse can XML be?
+
+>   * How about dependencies? That's where these decentralised 
+>     packaging systems tend to fail compared to distros.
+
+ROX-Filer doesn't list any (it just assumes everyone has GTK), but if you
+want some examples that do, try:
+
+$ 0alias svn http://0install.net/2007/3rd-party/Subversion.xml
+
+That will also download up to 11 other libraries, although it might
+default to fewer if you're on a Debian-type system and you have some of
+them already, and a new enough version of 0alias. You can choose whether
+to use the distribution's packages or download the Zero Install ones, in
+that case.
+
+Another example of dependencies is if you compile ROX-Filer from source:
+
+$ 0alias 0compile http://0install.net/2006/interfaces/0compile.xml
+$ 0compile setup http://rox.sourceforge.net/2005/interfaces/ROX-Filer
+
+That will download old versions of the GTK header files to compile
+against, so that the resulting binary works everywhere, not just on new
+systems.
+
+> On the positive side, it seems to use URLs and local aliases
+> (that apply to binaries too!), instead of relying on a fully 
+> centralised naming scheme. It's not fully decentralised, though,
+> because DNS is centralised.
+
+True, although you can use IP addresses (same problem ultimately, though).
+
+> I've actually been thinking lately a bit about decentralised
+> packaging systems, and have been meaning to write about it
+> in the non-blog in more detail. In summary, the key 
+> features/principles would, however be:
+> 
+>   * Uses application directories (with relocatable binaries, so
+>     can be installed anywhere). That's absolutely necessary for
+>     decentralised packaging.
+
+Of course.
+
+[ Capabilities ]
+
+We don't really support those at the moment. Maybe when there are more
+packages...
+
+>   * The package system would be integrated with the build system.
+>     Presently there's a _lot_ of redudancy between distributions'
+>     package descriptions and autocrap. But a decent build system
+>     would include all the dependency information in an easily
+>     accessible format [1].
+
+Certainly. If you can download libraries on demand then you don't need to
+test to find out what you've got; you just ask for what you want.
+
+
+-- 
+Dr Thomas Leonard		http://rox.sourceforge.net
+GPG: 9242 9807 C985 3C07 44A6  8B9A AE07 8280 59A5 3CC1
+
+
+
+From tuomov at iki.fi  Tue Jul 10 23:47:45 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 10 Jul 2007 21:47:45 +0000 (UTC)
+Subject: ZeroInstall & Package systems [Was: Re: Dock padding_pixels
+	suggestion]
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97t5m.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<f70u68$vme$2@sea.gmane.org>
+Message-ID: <slrnf97vk1.oi5.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-10, Thomas Leonard <talex5 at gmail.com> wrote:
+> On the other hand, you've already written a download page in HTML, 
+
+Actually, [Markdown](http://daringfireball.net/projects/markdown/).
+
+> so how much worse can XML be?
+
+Much.
+
+> $ 0alias svn http://0install.net/2007/3rd-party/Subversion.xml
+>
+> That will also download up to 11 other libraries, 
+
+Umm.. the file lists no dependencies. How does the system really work,
+I meant?
+
+-- 
+Tuomo
+
+
+
+From lanek at novenine.com  Wed Jul 11 07:38:39 2007
+From: lanek at novenine.com (Roy Lanek)
+Date: Wed, 11 Jul 2007 12:38:39 +0700
+Subject: Dock padding_pixels suggestion
+In-Reply-To: <slrnf97qtr.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97qtr.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070711053839.GA21610@kayumanis>
+
+> The dock is for window maker dockapps
+
+> I have actually considered removing the dock module
+> as I'm not really interested in maintaining it.
+
+I am moving away from the window maker dockapps too. (Many
+reasons for that.) Actually I have migrated already, by,
+say, 70-80%. (The remaining percent will be handled soon.)
+
+Who knows xosd^1 ("X On Screen Display library")? I have
+started to use the library in conjunction with Perl
+(X::Osd - Perl extension to xosd) ... you could use C if
+you prefer though it would make less sense (unless you
+know C and absolutely not Perl).
+
+One can replace/emulate--in a much more *elegant* [and
+consistent] way--window maker dockapps with xosd and
+X::Osd.
+
+
+Cheers,
+
+
+/Roy Lanek
+
+
+     1. man xosd - is a library for displaying an
+on-screen display (like the one on many TVs) on your X
+display.
+
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   kacang lupa kulitnya--a nut forgets
+SSSSS . s l a c k w a r e  SSSSSS   its shell [illustrates who forgets
+SSSSS +------------ linux  SSSSSS   where he comes from]
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+
+
+From talex5 at gmail.com  Wed Jul 11 08:36:39 2007
+From: talex5 at gmail.com (Thomas Leonard)
+Date: Wed, 11 Jul 2007 06:36:39 +0000 (UTC)
+Subject: ZeroInstall & Package systems [Was: Re: Dock padding_pixels
+	suggestion]
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97t5m.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<f70u68$vme$2@sea.gmane.org>
+	<slrnf97vk1.oi5.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <f71tpn$33i$1@sea.gmane.org>
+
+On Tue, 10 Jul 2007 21:47:45 +0000, Tuomo Valkonen wrote:
+
+> On 2007-07-10, Thomas Leonard <talex5 at gmail.com> wrote:
+>> On the other hand, you've already written a download page in HTML, 
+> 
+> Actually, [Markdown](http://daringfireball.net/projects/markdown/).
+
+Same thing then... you're using a tool to create the HTML/XML for you.
+Generate it however you want. If the final format isn't XML or similar
+then normal browsers won't render it (which isn't a serious problem, but
+it looks nicer formatted).
+
+>> $ 0alias svn http://0install.net/2007/3rd-party/Subversion.xml
+>>
+>> That will also download up to 11 other libraries, 
+> 
+> Umm.. the file lists no dependencies. How does the system really work,
+> I meant?
+
+In that file (use View Source to see the XML if you're using a browser),
+there is this bit:
+
+ <requires interface="http://0install.net/2007/3rd-party/libsvn1.xml">
+   <environment insert="usr/lib" name="LD_LIBRARY_PATH"/>
+ </requires>
+
+That in turn depends on other things...
+
+In fact, the subversion packages mirror the structure of the Debian
+packages because that's where I copied the binaries from (someone was
+explaining to me how it was impossible to backport svn 1.4 to Debian/sarge
+because of all the dependencies...)
+
+
+-- 
+Dr Thomas Leonard		http://rox.sourceforge.net
+GPG: 9242 9807 C985 3C07 44A6  8B9A AE07 8280 59A5 3CC1
+
+
+
+From tuomov at iki.fi  Wed Jul 11 08:51:58 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 11 Jul 2007 06:51:58 +0000 (UTC)
+Subject: ZeroInstall & Package systems [Was: Re: Dock padding_pixels
+	suggestion]
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97t5m.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<f70u68$vme$2@sea.gmane.org>
+	<slrnf97vk1.oi5.tuomov@jolt.modeemi.cs.tut.fi>
+	<f71tpn$33i$1@sea.gmane.org>
+Message-ID: <slrnf98vge.ck7.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-11, Thomas Leonard <talex5 at gmail.com> wrote:
+> Same thing then... you're using a tool to create the HTML/XML for you.
+
+And which tool would let me edit a package description in a decent format?
+
+The problem with XML is that it's totally illegible, and there aren't decent
+tools for it... and if there were, it could just as well be binary and thus
+_much_ more efficient.
+
+> In that file (use View Source to see the XML if you're using a browser),
+> there is this bit:
+
+I didn't find it when I looked into the file... see how illegible XML is?
+
+> <requires interface="http://0install.net/2007/3rd-party/libsvn1.xml">
+>    <environment insert="usr/lib" name="LD_LIBRARY_PATH"/>
+> </requires>
+
+Well, at least it has a package (although not capability) based 
+dependency system unlike autopackage. (Actually, that definition
+does include a partial description of how the depended-upon library
+provides a wanted capability: with 'insert="usr/lib" name="LD_LIBRARY_PATH"'.
+It's just in the wrong place: it should be in the libsvn1 description,
+with Subversion depending only on the capability.)
+
+
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Wed Jul 11 09:00:07 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 11 Jul 2007 07:00:07 +0000 (UTC)
+Subject: Dock padding_pixels suggestion
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97qtr.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711053839.GA21610@kayumanis>
+Message-ID: <slrnf98vvn.ck7.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-11, Roy Lanek <lanek at novenine.com> wrote:
+>      1. man xosd - is a library for displaying an
+> on-screen display (like the one on many TVs) on your X
+> display.
+
+Hah! My telly has a led statusbar below the screen! (Plus a
+mono speaker, bulbaceous CRT, and heavy 80's chipboard casing.)
+
+Anyway, although I don't use dockapps myself (Ion's own statusbar
+is quite enough), the real reason why the dock is largely redundant
+is that the statusbar can (and does by default unless the dock is
+loaded) display the dockapps.
+
+-- 
+Tuomo
+
+
+
+From lanek at novenine.com  Wed Jul 11 09:25:32 2007
+From: lanek at novenine.com (Roy Lanek)
+Date: Wed, 11 Jul 2007 14:25:32 +0700
+Subject: Dock padding_pixels suggestion
+In-Reply-To: <slrnf98vvn.ck7.tuomov@jolt.modeemi.cs.tut.fi>
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97qtr.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711053839.GA21610@kayumanis>
+	<slrnf98vvn.ck7.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070711072532.GA22290@kayumanis>
+
+> Hah! My telly has a led statusbar below the screen!
+> (Plus a mono speaker, bulbaceous CRT, and heavy 80's
+> chipboard casing.)
+
+:)
+
+(So you don't know xosd ...) 
+
+> Anyway, although I don't use dockapps myself (Ion's own
+> statusbar is quite enough).
+
+Just try with a notebook--then you might become interested
+in monitoring a few things; and I am not sure ion's own
+statusbar is i) "quite enough," ii) the best place to put
+them on ...
+
+/Roy Lanek
+
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS       tak ada gading yang tak retak
+SSSSS . s l a c k w a r e  SSSSSS   there are no ivory that is not cracked
+SSSSS +------------ linux  SSSSSS     [nothing is perfect in this world]
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+
+
+From jrobson at cachelogic.com  Wed Jul 11 09:30:54 2007
+From: jrobson at cachelogic.com (John Robson)
+Date: Wed, 11 Jul 2007 08:30:54 +0100
+Subject: ZeroInstall & Package systems [Was: Re: Dock padding_pixels
+	suggestion]
+In-Reply-To: <slrnf98vge.ck7.tuomov@jolt.modeemi.cs.tut.fi>
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97t5m.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<f70u68$vme$2@sea.gmane.org>
+	<slrnf97vk1.oi5.tuomov@jolt.modeemi.cs.tut.fi>
+	<f71tpn$33i$1@sea.gmane.org>
+	<slrnf98vge.ck7.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <op.tvahtsem5yfyku@hercules.cachelogic.com>
+
+
+>> In that file (use View Source to see the XML if you're using a browser),
+>> there is this bit:
+>
+> I didn't find it when I looked into the file... see how illegible XML is?
+
+Did the search function elude you?
+
+Seriously - how hard is searching (case insensitive) for "requir"...
+
+>
+>> <requires interface="http://0install.net/2007/3rd-party/libsvn1.xml">
+>>    <environment insert="usr/lib" name="LD_LIBRARY_PATH"/>
+>> </requires>
+>
+
+
+
+From tuomov at iki.fi  Wed Jul 11 10:55:51 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 11 Jul 2007 08:55:51 +0000 (UTC)
+Subject: ZeroInstall & Package systems [Was: Re: Dock padding_pixels
+	suggestion]
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97t5m.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<f70u68$vme$2@sea.gmane.org>
+	<slrnf97vk1.oi5.tuomov@jolt.modeemi.cs.tut.fi>
+	<f71tpn$33i$1@sea.gmane.org>
+	<slrnf98vge.ck7.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.tvahtsem5yfyku@hercules.cachelogic.com>
+Message-ID: <slrnf996on.oao.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-11, John Robson <jrobson at cachelogic.com> wrote:
+> Seriously - how hard is searching (case insensitive) for "requir"...
+
+I searched for "depen", and didn't find anything. And glancing at XML
+for alternatives is totally useless. You need documentation both to
+read it and write it -- just like binary.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Wed Jul 11 11:03:06 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 11 Jul 2007 09:03:06 +0000 (UTC)
+Subject: Dock padding_pixels suggestion
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97qtr.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711053839.GA21610@kayumanis>
+	<slrnf98vvn.ck7.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711072532.GA22290@kayumanis>
+Message-ID: <slrnf9976a.oao.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-11, Roy Lanek <lanek at novenine.com> wrote:
+> Just try with a notebook--then you might become interested
+> in monitoring a few things; and I am not sure ion's own
+> statusbar is i) "quite enough," ii) the best place to put
+> them on ...
+
+The laptop I have is a 486/25MHz/8MB with battery live of zero 
+seconds. I use it as a serial terminal to fix hung X occasionally.
+(Recently it's been crashing more -- a lot -- though.) And the 
+newer laptops also aren't good enough to bother with either.
+Too Fucking Expensive, Fragile And Battery-Hungry or Too Fucking
+Bulky To Be Considered Even A Laptop, Let Alone A Mobile Computer
+(which few laptops are). The OLPC is probably the best laptop out 
+there, supposing the screen really works in low-power mode too...
+
+-- 
+Tuomo
+
+
+
+From lanek at novenine.com  Wed Jul 11 12:59:36 2007
+From: lanek at novenine.com (Roy Lanek)
+Date: Wed, 11 Jul 2007 17:59:36 +0700
+Subject: Dock padding_pixels suggestion
+In-Reply-To: <slrnf9976a.oao.tuomov@jolt.modeemi.cs.tut.fi>
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97qtr.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711053839.GA21610@kayumanis>
+	<slrnf98vvn.ck7.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711072532.GA22290@kayumanis>
+	<slrnf9976a.oao.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070711105936.GA22878@kayumanis>
+
+> The laptop I have is a 486/25MHz/8MB with battery live
+> of zero seconds. I use it as a serial terminal to fix
+> hung X occasionally. (Recently it's been crashing
+> more -- a lot -- though.) And the newer laptops also
+> aren't good enough to bother with either. Too Fucking
+> Expensive, Fragile And Battery-Hungry or Too Fucking
+> Bulky To Be Considered Even A Laptop, Let Alone A Mobile
+> Computer (which few laptops are). The OLPC is probably
+> the best laptop out there, supposing the screen really
+> works in low-power mode too...
+
+And people do talk of British humor ... (Finnish one is
+much better.)
+
+Okay, but this is for the lucky ones in Kokkola or
+Lappeenranta! (I never have been in Finland, and I am
+Swiss, by the way.)
+
+Here where I live (West Sumatra) the temperature on
+the day is around 30 C [and 25 on the night ... at sea
+level]. The air humidity goes up till 80% and beyond
+[evening/night or raining seasons], which makes 30, even
+25 C feel like 40 in Zurich, Lugano, or Helsinki,
+
+And if it's the *right* day, you may see 5-6-7 power
+outages [varying from 5 seconds to 1-2-3-... hours; 20
+hours has been the longest, single interval last month].
+
+Ditto for Jakarta, Medan or Pekanbaru (though not that
+many times a day). Even in industrial Shanghai/China,
+slightly aside from here, it should not be much, much
+better [power outages] in general.
+
+I own an S73 series BenQ JoyBook, which I like VERY, VERY
+much, I recommend you, and is KICK ASS for the buck [the
+display is GORGEOUS by the way ... BenQ oblige]. ("Too
+Fucking Expensive," are you thinking at Lenovo, Toshiba or
+Compaq? Agreed then.)
+
+I use encrypted swap, so I can't suspend the mP, I just
+step the mP down [ I could suspend it actually, but I
+am not interested in that--I would need a non volatile
+key--and there are more cons than pros eventually from my
+perspective].
+
+Nor I do spin down the hard disk--for reasons.
+
+You may thankfully understand that given people with
+a notebook are glad if they can monitor two-three
+ACPI-things, not just because it makes fun or is gaga.
+
+
+Cheers,
+
+
+/Roy
+
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   seperti pinang dibelah dua--like a halved
+SSSSS . s l a c k w a r e  SSSSSS   pinang [means: two things that are quite
+SSSSS +------------ linux  SSSSSS   different!, because you can never halve a
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   pinang tree with an axe neatly]
+
+
+From tuomov at iki.fi  Wed Jul 11 13:33:17 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 11 Jul 2007 11:33:17 +0000 (UTC)
+Subject: Dock padding_pixels suggestion
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97qtr.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711053839.GA21610@kayumanis>
+	<slrnf98vvn.ck7.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711072532.GA22290@kayumanis>
+	<slrnf9976a.oao.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711105936.GA22878@kayumanis>
+Message-ID: <slrnf99fvs.48m.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-11, Roy Lanek <lanek at novenine.com> wrote:
+> And people do talk of British humor ... (Finnish one is
+> much better.)
+
+Well, British broadcast _humour_ is better, because the Finnish
+equivalent is absolutely non-existent. That is, unless your 
+concept of humour is a the level of a three-year-old.
+
+> Okay, but this is for the lucky ones in Kokkola or
+> Lappeenranta! (I never have been in Finland, and I am
+> Swiss, by the way.)
+>
+> Here where I live (West Sumatra) the temperature on
+> the day is around 30 C [and 25 on the night ... at sea
+> level]. The air humidity goes up till 80% and beyond
+> [evening/night or raining seasons], which makes 30, even
+> 25 C feel like 40 in Zurich, Lugano, or Helsinki,
+
+When it's 40C in Helsinki (in shade), the hell has frozen
+over (and migrated on the equator).
+
+And yet the Finns seem obsessed with air conditioning these
+days... I'm freezing in this office! Stuff your AC where the
+sun _does_ shine!
+
+Really, there should be no need for AC at these latitudes,
+at least if they knew how to build decent buildings with
+decent natural ventilation... but no, even natural light
+is too difficult these days.
+
+Well, the use of AC is a self-reinforcing need...
+
+> I own an S73 series BenQ JoyBook, which I like VERY, VERY
+> much, I recommend you, and is KICK ASS for the buck [the
+> display is GORGEOUS by the way ... BenQ oblige]. ("Too
+> Fucking Expensive," are you thinking at Lenovo, Toshiba or
+> Compaq? Agreed then.)
+
+All the semi-tolerable laptops I've seen are upwards from 
+1500e, which is too much considering the kind of fragile
+consumer junk the devices are, and how much real use I
+would have for one. For under 1000e you can only get 17"
+GlareScreen -- now with a mirror, for the same price! --
+dragtops with battery life not much better than my 486.
+It's funny how in laptops the smaller the screen, the more
+expensive it is, whereas normally it would be the opposite
+(assuming the resolutions aren't hugely different).
+
+> I use encrypted swap, so I can't suspend the mP, 
+
+Linux software suspend support totally sucks... it
+should not be necessary to compile your own initrds
+for restore from encrypted swap. ... It should be
+necessary to compile your own initrds for faster
+boot process using the stock kernels. It should not
+be necessary to touch initrds at all, directly, for
+decent non-idiot box performance.
+
+> Nor I do spin down the hard disk--for reasons.
+
+I actually spin down two of the three disks of my
+tabletop computer (w/ noflushd), because they're
+used only infrequently and eat a lot of electricity.
+(athcool is nice too... no I _do not_ have fancy
+frequency scaling shit.)
+
+> You may thankfully understand that given people with
+> a notebook are glad if they can monitor two-three
+> ACPI-things, not just because it makes fun or is gaga.
+
+And the Ion statusbar isn't sufficient for that?
+Although, I suppose that for warnings an OSD might
+be nice... I'd actually like an OSD log kind of 
+replacement for xmessage... integrated with Ion's
+window activity/urgency  stuff.
+
+-- 
+Tuomo
+
+
+
+From deryni at unreliablesource.net  Wed Jul 11 15:04:38 2007
+From: deryni at unreliablesource.net (Etan S. C. Reisner)
+Date: Wed, 11 Jul 2007 09:04:38 -0400
+Subject: Dock padding_pixels suggestion
+In-Reply-To: <20070711053839.GA21610@kayumanis>
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97qtr.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711053839.GA21610@kayumanis>
+Message-ID: <20070711130438.GA32190@aran>
+
+There is actually a lua binding to xosd around and I wrote my own before
+finding the other one, I'm partial to mine (for the obvious reasons, but
+also for some non-obvious ones).
+
+My version is available from http://unreliablesource.net/luaxosd/. I
+actually also wrote some ion3 scripts to use the bindings (which is why I
+wrote them in the first place) that I have never gotten around to finally
+cleaning up and submitting. If people would find them useful I will work
+on that maybe tonight.
+
+	-Etan
+
+
+From lanek at novenine.com  Wed Jul 11 15:13:35 2007
+From: lanek at novenine.com (Roy Lanek)
+Date: Wed, 11 Jul 2007 20:13:35 +0700
+Subject: Dock padding_pixels suggestion
+In-Reply-To: <slrnf99fvs.48m.tuomov@jolt.modeemi.cs.tut.fi>
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97qtr.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711053839.GA21610@kayumanis>
+	<slrnf98vvn.ck7.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711072532.GA22290@kayumanis>
+	<slrnf9976a.oao.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711105936.GA22878@kayumanis>
+	<slrnf99fvs.48m.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070711131335.GA23105@kayumanis>
+
+> All the semi-tolerable laptops I've seen are upwards
+> from 1500e
+
+The S73 series BenQ JoyBook I have mentioned is priced
+around 1000.- USD in Indonesia, ergo, less than 1000.-
+euro. (And trust me: it's more than "semi-tolerable.")
+
+
+> for faster boot process
+
+I am on runit (daemontools alike--just better IMO) for
+70-80%. (100% runit/daemontools starts to become too
+*convoluted*; plus: I LOVE *BSD like init-scripts, their
+clarity and manageability.)
+
+
+> I actually spin down two of the three disks of my
+> tabletop computer (w/ noflushd), because they're used
+> only infrequently and eat a lot of electricity.
+
+It's a trade-off: non notebook hard disks are not built
+for frequent power off: the electricity then eaten for
+manufacturing new- /recycling old disks.
+
+
+> And the Ion statusbar isn't sufficient for that?
+
+the battery status is, e.g., something that looks:
+
+                         charged: 100%
+     |||||||||||||||||||||||||||||||||
+
+or 
+                      discharging: 72%
+     ||||||||||||||||||||||||||-------
+
+or
+                         charging: 20%
+     |||||||--------------------------
+
+(with "charged: 100%" etc. written in, say, 
+
+     -*-helvetica-bold-r-*-*-12-*-*-*-*-*-*-*
+
+and the scale written in green, or red, depending from
+the status.)
+
+Why do you think such a thing, and others similar,
+need to be put in the statusbar?
+
+People can--from the physiology--separate *cognitively*
+around five items.
+
+And from the physiology again: the retina is--given some
+generic grade of alertness--more reactive for things that
+move/shift/flip/change... on the borders/sides than in
+the center [guess why]. With xosd I can freely use four,
+reasonably two, sides of a screen. And don't have to
+bother on what happens beneath it.
+
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS         bagai telur diujung tanduk
+SSSSS . s l a c k w a r e  SSSSSS       as an egg on the tip of a horn
+SSSSS +------------ linux  SSSSSS  [very critical situation, as the egg will
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS           soon tip-over and fall]
+
+
+From tuomov at iki.fi  Wed Jul 11 15:34:04 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 11 Jul 2007 13:34:04 +0000 (UTC)
+Subject: Dock padding_pixels suggestion
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97qtr.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711053839.GA21610@kayumanis>
+	<slrnf98vvn.ck7.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711072532.GA22290@kayumanis>
+	<slrnf9976a.oao.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711105936.GA22878@kayumanis>
+	<slrnf99fvs.48m.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711131335.GA23105@kayumanis>
+Message-ID: <slrnf99n2c.ght.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-11, Roy Lanek <lanek at novenine.com> wrote:
+> The S73 series BenQ JoyBook I have mentioned is priced
+> around 1000.- USD in Indonesia, ergo, less than 1000.-
+> euro. (And trust me: it's more than "semi-tolerable.")
+
+And double that in .fi... if it were available. It's also still
+rather big with a 14.1" screen... The S61 (w/ 12.1") that I found
+by googling for the former is more to the size, although still 
+quite heavy (1.5kg). The UMPCs are more to my liking than normal
+laptops actually, but still not good enough (too crappy screen
+size to device size ratio). I'd like something that can be carried
+in a (rather big) pocket (pocket book sized), but not as small
+and useless as crappy PDAs or iDiotphones (haven't seen anything
+"smart" about them yet).
+
+> I am on runit (daemontools alike--just better IMO) for
+> 70-80%. 
+
+Doesn't help when the system tries to load every single
+kernel module that it can find -- and ends up placing
+the devices in random order. (But then again, Linux has
+become totally useless recently with all HDs always in
+random order, even without the module lottery.)
+
+> It's a trade-off: non notebook hard disks are not built
+> for frequent power off: the electricity then eaten for
+> manufacturing new- /recycling old disks.
+
+The disks spin up approximately once a day, which they would in
+any case if it was easier to actually shut down the computer 
+without shutting down the programs... which Linux doesn't make
+easy enough, unlike Windows. (And one could optimise the spin 
+downs a bit with an option to noflushd (or an awful hack that
+I'm too lazy to write) to have longer delays for spindown
+during the day than night.)
+
+> Why do you think such a thing, and others similar,
+> need to be put in the statusbar?
+
+It's a nice place. You could also use some (unicode) block character
+hacks for a rather compact bar display... or a systray icon. OSD 
+can be nice for warnings and such, but I wouldn't want the screen
+constantly littered with information.
+
+-- 
+Tuomo
+
+
+
+From lanek at novenine.com  Wed Jul 11 18:10:10 2007
+From: lanek at novenine.com (Roy Lanek)
+Date: Wed, 11 Jul 2007 23:10:10 +0700
+Subject: Dock padding_pixels suggestion
+In-Reply-To: <slrnf99n2c.ght.tuomov@jolt.modeemi.cs.tut.fi>
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97qtr.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711053839.GA21610@kayumanis>
+	<slrnf98vvn.ck7.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711072532.GA22290@kayumanis>
+	<slrnf9976a.oao.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711105936.GA22878@kayumanis>
+	<slrnf99fvs.48m.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711131335.GA23105@kayumanis>
+	<slrnf99n2c.ght.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070711161010.GA23443@kayumanis>
+
+> And double that in .fi... if it were available. It's
+> also still rather big with a 14.1" screen...
+
+Availability is another story, but don't be fooled by the
+14.1" screen mention ("16:10 1280x800 TFT LCD, 200nits,"
+it's *larger* than 14.1" might tell at 1st view ...
+BenQ, a spin off of Acer, is within #1-#3 in displays
+production, you may trust them on the topic).
+
+Put a glance at:
+
+
+"kaitech.hk - For HK gadget maniacs - BenQ Joybook S73G
+Full Review"
+
+[compared are the Sony's SZ, and the LG's TX Express too]
+
+
+http://www.kaitech.hk/component/option,com_smf/Itemid,71/topic,637.msg3189
+
+This is the precise, or nearly identical Joybook model I
+own; just that mine has been bought in Jakarta, not in
+Hong Kong.
+
+
+Summary [edited; and no, I have ZERO to do with BenQ]:
+
+PROS:
+
+* Dual Core. Up to 80% faster than the Pentium-M 1.73 GHz
+Sonoma
+
+* Very bright 200nits LCD. Beautiful                                        
+
+* Powerful ATi X1600 with 256MB. More powerful than my
+desktop's GeForce 6600GT AGP
+
+* 4 USB Ports: 1 on each left/right side. 2 at the back
+
+* Both D-Sub VGA and DVI-D ports available
+
+* Ultra quiet, even when the CPU/GPU are stressed to the
+limit
+
+* Internal 5-in-1 card reader now supports 2GB SD Cards.
+Previous models cannot
+
+* Inexpensive. PRICE PER PERFORMANCE AND FEATURES ARE OUT
+OF THIS WORLD. No competitors! [emphasis mine]
+
+[Roy:] * Bluetooth [up to 9 m range, good for using a
+mouse--the optical, Bluetooth Logitech V270 works like a
+beauty--and to print]
+
+CONS
+
+* Very hot when playing graphics intensive games.
+Definitely not a "laptop" [can't tell, I use a PS2 for
+playing games]
+
+* Very warm on the area where you rest your wrist when
+typing on the notebook ["very"?!]
+
+* Poor battery life: 2 hours for 3 games, 3 hours for DVD
+
+* No Infrared (its infrared port is for the remote control
+only. Nothing else) [don't care, but what about BT?]
+
+* slightly overweight for a 14" notebook [not sure: it's
+more thin and wide--which pleases me by the way--maybe
+it's that that gives the (false) impression of being
+"overweight"].
+
+
+> Doesn't help when [...]
+
+The JoyBook [which is intended for my wife and my
+first-born daughter] will go up in the morning, when my
+wife has placed it on the desk of her office; will go down
+on the evening, when my wife will bring it home; then it
+will go up again till the morning--with interruptions when
+the batteries are running to low. (Everything, minus swap
+and an ext2 nosuid,usrquota /tmp, is xfs nonetheless.) And
+so on.
+
+> It's a nice place.
+
+:)
+
+As it is the corner of the carpet (for wiping dirt under
+it) too.
+
+Seriously speaking: I have not tried yet, but given that
+a monitor real estate is always scarce, I am thinking to
+display some info on the right (vertically) too.
+
+I currently have, e.g.:
+
+    mp: 63 C
+    hd: 38 C
+
+horizontally. [I am using an iXoft Thermaltake notebook
+fanless cooler by the way]
+
+I am curious to try:
+
+    mp
+    63
+
+
+    hd
+    38
+
+vertically [I am continental European, and care little on F in
+general]
+
+
+> I wouldn't want the screen constantly littered with
+> information.
+
+Neither do I. If one doesn't play with patissier/boulanger
+decorations and effects; stays understatement, and thinks
+at Antoine de Saint-Exupery from time to time, there is
+little danger to litter a screen.
+
+
+Cheers,
+
+
+/Roy
+
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   malu bertanya, sesat di jalan
+SSSSS . s l a c k w a r e  SSSSSS   embarrassed to ask will result in
+SSSSS +------------ linux  SSSSSS   getting lost
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+
+
+From tuomov at iki.fi  Wed Jul 11 18:58:10 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 11 Jul 2007 16:58:10 +0000 (UTC)
+Subject: Dock padding_pixels suggestion
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97qtr.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711053839.GA21610@kayumanis>
+	<slrnf98vvn.ck7.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711072532.GA22290@kayumanis>
+	<slrnf9976a.oao.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711105936.GA22878@kayumanis>
+	<slrnf99fvs.48m.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711131335.GA23105@kayumanis>
+	<slrnf99n2c.ght.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711161010.GA23443@kayumanis>
+Message-ID: <slrnf9a312.3uv.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-11, Roy Lanek <lanek at novenine.com> wrote:
+>> Doesn't help when [...]
+>
+> ... will go up in the morning, when my
+> wife has placed it on the desk of her office; will go down
+> on the evening, ...
+
+Even once a day is too much and too long with the module 
+loading clusterfucks that distro's default kernels and
+initrds are (not to mention the random ordering of 
+devices without the infestation of udev).
+
+> (Everything, minus swap
+> and an ext2 nosuid,usrquota /tmp, is xfs nonetheless.) And
+> so on.
+
+XFS aka. eXtremely Futile System. It's the most brain-damaged file
+system I have ever met; the most pointless file system I know of. 
+Could someone please tell me, what's the _fucking point_ in a 
+journalling file system that requires UPS? Isn't journalling
+supposed to help to recover from crashes? XFS _deliberately_ loses 
+data on crash -- and not just a few minutes worth of it, as would 
+be case with a non-journalling file system, but _days_ (years --
+all open files?) worth of it. That's just fucking pointless.
+If all the files are full of zero-bytes, what the fuck does it
+matter if the metadata is intact?
+
+(Yes, I've lost a lot of data thanks to XFS. Never again will
+I be misled to trying out such utter and total _shit_, no matter
+how fast and shiny the ?ber-geeks claim it to be.)
+
+-- 
+Tuomo
+
+
+
+From talex5 at gmail.com  Wed Jul 11 19:11:04 2007
+From: talex5 at gmail.com (Thomas Leonard)
+Date: Wed, 11 Jul 2007 17:11:04 +0000 (UTC)
+Subject: ZeroInstall & Package systems [Was: Re: Dock padding_pixels
+	suggestion]
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97t5m.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<f70u68$vme$2@sea.gmane.org>
+	<slrnf97vk1.oi5.tuomov@jolt.modeemi.cs.tut.fi>
+	<f71tpn$33i$1@sea.gmane.org>
+	<slrnf98vge.ck7.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <f732v8$5op$1@sea.gmane.org>
+
+On Wed, 11 Jul 2007 06:51:58 +0000, Tuomo Valkonen wrote:
+
+> On 2007-07-11, Thomas Leonard <talex5 at gmail.com> wrote:
+>> Same thing then... you're using a tool to create the HTML/XML for you.
+> 
+> And which tool would let me edit a package description in a decent format?
+
+I'd suggest you use 0publish-gui to create the feed. GUI's aren't very
+scriptable, but you're only doing it once. Then add to it by calling the
+command-line tool (0publish) in your release script.
+
+If you want to convert XML to a more friendly format, there are other tools
+for that:
+
+http://slip.sourceforge.net/
+http://www.langdale.com.au/SOX/
+
+My text editor (Vim) understands XML somewhat anyway, so I haven't felt
+the need to use them.
+
+>> <requires interface="http://0install.net/2007/3rd-party/libsvn1.xml">
+>>    <environment insert="usr/lib" name="LD_LIBRARY_PATH"/>
+>> </requires>
+> 
+> Well, at least it has a package (although not capability) based
+> dependency system unlike autopackage. (Actually, that definition does
+> include a partial description of how the depended-upon library provides
+> a wanted capability: with 'insert="usr/lib" name="LD_LIBRARY_PATH"'.
+> It's just in the wrong place: it should be in the libsvn1 description,
+> with Subversion depending only on the capability.)
+
+It uses the 'dependency injection' model (AKA 'inversion of control').
+Instead of each component finding its dependencies (e.g. by searching
+/usr/lib), each component is told where to find its dependencies. So, this
+is an input to the 'svn' component, telling it which 'libsvn' to use.
+
+But, it's not clear from that example because I'm using the unmodified
+Debian subversion binaries and the only way to tell svn "Use this libsvn"
+is to stick it in LD_LIBRARY_PATH and let it find it by searching. Ideally,
+it would be:
+
+   <environment insert="usr/lib" name="LIB_SVN_DIR" mode="replace"/>
+
+And you'd link it (if ld supported this) with something like:
+
+  $ gcc ... -l"$LIB_SVN_DIR/libsvn.so"
+
+Or, in a really ideal world you wouldn't have to specify the binding
+method at all, because there would be a standard way to tell a component
+where its libraries are.
+
+
+-- 
+Dr Thomas Leonard		http://rox.sourceforge.net
+GPG: 9242 9807 C985 3C07 44A6  8B9A AE07 8280 59A5 3CC1
+
+
+
+From tuomov at iki.fi  Wed Jul 11 20:13:28 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 11 Jul 2007 18:13:28 +0000 (UTC)
+Subject: ZeroInstall & Package systems [Was: Re: Dock padding_pixels
+	suggestion]
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97t5m.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<f70u68$vme$2@sea.gmane.org>
+	<slrnf97vk1.oi5.tuomov@jolt.modeemi.cs.tut.fi>
+	<f71tpn$33i$1@sea.gmane.org>
+	<slrnf98vge.ck7.tuomov@jolt.modeemi.cs.tut.fi>
+	<f732v8$5op$1@sea.gmane.org>
+Message-ID: <slrnf9a7e8.7du.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-11, Thomas Leonard <talex5 at gmail.com> wrote:
+> If you want to convert XML to a more friendly format, there are other tools
+> for that:
+
+But that's once again more work for editing XML than a decent format,
+unless the text editor automatically does the conversion... but then
+we're back at this: the format could just as well be binary, and
+hence more efficient. XML is pointless.
+
+> It uses the 'dependency injection' model (AKA 'inversion of control').
+> Instead of each component finding its dependencies (e.g. by searching
+> /usr/lib), each component is told where to find its dependencies. So, this
+> is an input to the 'svn' component, telling it which 'libsvn' to use.
+
+I was more after the practical aspects of creating a package and
+defining dependencies for it, but good to hear that. (Present
+handling of library deps is mess down to gcc itself.)
+
+> Or, in a really ideal world you wouldn't have to specify the binding
+> method at all, because there would be a standard way to tell a component
+> where its libraries are.
+
+In my capability system, the package providing the depended-upon
+capability tells how it provides the capability, the information
+provided or mechanisms used having been specified by the capability
+author. So you'd have something like
+
+  [provided.capabilities.libfooAPI]
+  uuid = zxc09z87df890asas?dklfj-w3,j.4324asdf08972342340+89sdfadsf9872etc.
+  library-file = $PREFIX/lib/libbar.so
+
+in 'libbar' that provides what is locally known as "libfooAPI" and 
+globally referenced to with the given uuid that would include the
+public key for that capability and a signature by the private key.
+The program requiring the capability/library would have something like:
+
+  [required.capabilities.libfooAPI]
+  uuid = zxc09z87df890asas?dklfj-w3,j.4324asdf08972342340+89sdfadsf9872etc.
+  how = link-against $library-file
+
+Alternatively 'how' could be in libbar. Having it in the package requiring
+the capability adds an additional test that the capability is of the
+requested form, while having it in the package providing the required
+capability allows for alternative implementations. Or perhaps whichever
+is first encountered should be used, which allows for user overrides of
+autodetected settings, as in the autoconf replacement build system draft
+at [1].
+
+'link-against' should be a standard feature of the integrated build
+system as well as binary package distribution system, although additional
+actions should be definable, e.g. in the form
+
+  [actions.gcc-local.link-against]
+  ext-objects = $ext-objects $1
+
+  [actions.gcc-bindist.link-against]
+  # nothing
+
+  [actions.bindist.link-against]
+  LD_PRELOAD = $LD_PRELOAD:$1
+
+Or perhaps 'how = append LD_PRELOAD $1' etc. for a simpler language.
+Also 'how' in the original capability requirement could be defined
+separately for different targets. Lots of design decisions still
+to be made, and use cases to be researched.. not a one man job
+this, really. Few things are, and yet just a handful of people 
+with a tunnel vision seem to define the direction of the core
+FOSS projects that everyone has to suffer from...
+
+  [1]: http://iki.fi/tuomov/b/archives/2006/07/04/T21_20_46/
+
+-- 
+Tuomo
+
+
+
+From mailing_list at istitutocolli.org  Wed Jul 11 21:21:25 2007
+From: mailing_list at istitutocolli.org (Andrea Rossato)
+Date: Wed, 11 Jul 2007 21:21:25 +0200
+Subject: Dock padding_pixels suggestion
+In-Reply-To: <20070711072532.GA22290@kayumanis>
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97qtr.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711053839.GA21610@kayumanis>
+	<slrnf98vvn.ck7.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711072532.GA22290@kayumanis>
+Message-ID: <20070711192125.GQ32408@laptop.nowhere.net>
+
+On Wed, Jul 11, 2007 at 02:25:32PM +0700, Roy Lanek wrote:
+> SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS       tak ada gading yang tak retak
+> SSSSS . s l a c k w a r e  SSSSSS   there are no ivory that is not cracked
+> SSSSS +------------ linux  SSSSSS     [nothing is perfect in this world]
+> SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+> 
+
+i love this! really.
+
+the left side seems to contradict the right one. is that on purpose?
+
+cheers,
+andrea 
+
+
+From lanek at novenine.com  Wed Jul 11 22:04:28 2007
+From: lanek at novenine.com (Roy Lanek)
+Date: Thu, 12 Jul 2007 03:04:28 +0700
+Subject: Dock padding_pixels suggestion
+In-Reply-To: <slrnf9a312.3uv.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070711053839.GA21610@kayumanis>
+	<slrnf98vvn.ck7.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711072532.GA22290@kayumanis>
+	<slrnf9976a.oao.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711105936.GA22878@kayumanis>
+	<slrnf99fvs.48m.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711131335.GA23105@kayumanis>
+	<slrnf99n2c.ght.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711161010.GA23443@kayumanis>
+	<slrnf9a312.3uv.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070711200428.GA24207@kayumanis>
+
+> XFS aka. eXtremely Futile System
+
+So goes life: I never have had a problem with xfs--you
+have. The notebook is one and half months old. The desktop
+I have too is much older. And it uses xfs as well ... xfs
+since I have migrated from reiser4, another very, very
+good fs. (I have migrated because of Hans Reiser tragedy
+with his wife, you might know about what I am talking;
+reiser4 demanded a patch at every kernel release, and the
+patches did start to lag behind too much.)
+
+Figure, I have started with reiser3 even with 2.2.x, and
+have moved to reiser4 with the first 2.6.x. Brilliant,
+superb software!, I virtually never have had problems with
+both reiser3 and 4. (Ditto with xfs.)
+
+And believe me, I have unwillingly tested *in vivo*
+those fs well. The desktop runs 24/7 ... power outages
+permitting [I don't use any UPS longer]. That makes ...?!
+one-two power outages a day on the average; with days
+having more than ten power outages. (Sumatra belongs also
+to the regions in the world where lightnings hit the
+most.)
+
+Example: power outage; after two minutes, power is back;
+system starts to reboot; after 40 seconds [15 waiting
+in LILO] power dies again; after one minute power is
+back again; system begins rebooting; 50 seconds later,
+peng--next power outage; blackout for one hour; power is
+back; all goes well for the next six hours; peng, next
+power outage. Etc.
+
+Disagree: xfs, is even more reliable than reiser4 in my
+experience. (But I have loved reiser4 very much.)
+
+In a sense you remember me ... have you read The Three
+Spinners from the Brother Grimm's Fairy Tales? Voila',
+those three strange women, "the first of whom had a broad
+flat foot, the second such a great underlip that it hung
+down over her chin, and the third had a broad thumb." (And
+read the fairy tale to discover why if you don't know
+yet.)
+
+You are good. But if you are living ahead others really,
+or think so, then learn to accept that: you are walking in
+a not much crowded area by definition.
+
+Don't let complaining--just because living in a rarefied
+air is hard--become your *professional*, chronic
+deformation. There exist many, many other people who have
+even more right than you--though for other reasons--to
+complain. (But they don't or can't.)
+
+Bah, *selamat tidur* (here it's nearly 03h), and cheers,
+
+
+/Roy
+
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   tak bisa menari dikatakan lantai yang
+SSSSS . s l a c k w a r e  SSSSSS   berjungkit--cannot dance but blame the
+SSSSS +------------ linux  SSSSSS   floor as uneven [blaming the wrong reason]
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+
+
+From tuomov at iki.fi  Wed Jul 11 23:20:35 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 11 Jul 2007 21:20:35 +0000 (UTC)
+Subject: Dock padding_pixels suggestion
+References: <20070711053839.GA21610@kayumanis>
+	<slrnf98vvn.ck7.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711072532.GA22290@kayumanis>
+	<slrnf9976a.oao.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711105936.GA22878@kayumanis>
+	<slrnf99fvs.48m.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711131335.GA23105@kayumanis>
+	<slrnf99n2c.ght.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711161010.GA23443@kayumanis>
+	<slrnf9a312.3uv.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711200428.GA24207@kayumanis>
+Message-ID: <slrnf9aid3.sg3.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-11, Roy Lanek <lanek at novenine.com> wrote:
+> Disagree: xfs, is even more reliable than reiser4 in my
+> experience. (But I have loved reiser4 very much.)
+
+ROTFLMAO. 
+
+-- 
+Tuomo
+
+
+
+From ben at decadent.org.uk  Thu Jul 12 04:19:28 2007
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Thu, 12 Jul 2007 03:19:28 +0100
+Subject: Dock padding_pixels suggestion
+In-Reply-To: <slrnf9976a.oao.tuomov@jolt.modeemi.cs.tut.fi>
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97qtr.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711053839.GA21610@kayumanis>
+	<slrnf98vvn.ck7.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711072532.GA22290@kayumanis>
+	<slrnf9976a.oao.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <1184206768.3555.107.camel@deadeye.i.decadent.org.uk>
+
+On Wed, 2007-07-11 at 09:03 +0000, Tuomo Valkonen wrote:
+> On 2007-07-11, Roy Lanek <lanek at novenine.com> wrote:
+> > Just try with a notebook--then you might become interested
+> > in monitoring a few things; and I am not sure ion's own
+> > statusbar is i) "quite enough," ii) the best place to put
+> > them on ...
+> 
+> The laptop I have is a 486/25MHz/8MB with battery live of zero 
+> seconds. I use it as a serial terminal to fix hung X occasionally.
+> (Recently it's been crashing more -- a lot -- though.) And the 
+> newer laptops also aren't good enough to bother with either.
+> Too Fucking Expensive,
+
+There exists a second-hand market, where laptops are much cheaper.
+
+> Fragile And Battery-Hungry or Too Fucking
+> Bulky To Be Considered Even A Laptop, Let Alone A Mobile Computer
+> (which few laptops are). The OLPC is probably the best laptop out 
+> there, supposing the screen really works in low-power mode too...
+
+The screen is a thing of beauty, but I doubt you'd get on with the
+keyboard.
+
+Ben.
+
+-- 
+Ben Hutchings
+Absolutum obsoletum. (If it works, it's out of date.) - Stafford Beer
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070712/2026418a/attachment.pgp>
+
+From ben at decadent.org.uk  Thu Jul 12 04:04:09 2007
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Thu, 12 Jul 2007 03:04:09 +0100
+Subject: Some kind of "proxy-tool" for Apps running inside Xnest?
+In-Reply-To: <20070710112520.GV19633@informatik.uni-tuebingen.de>
+References: <14989d6e0707100149j14535b4di403f76465bbf10cb@mail.gmail.com>
+	<20070710112520.GV19633@informatik.uni-tuebingen.de>
+Message-ID: <1184205849.3555.97.camel@deadeye.i.decadent.org.uk>
+
+On Tue, 2007-07-10 at 13:25 +0200, Andreas Bernauer wrote:
+> Hi Christian,
+> 
+> Christian Walther schrieb am Di, 10. Jul 2007 um 10:49 (+0200):
+> > With ion, the Citrix client is nearly unusable. Even if you create a
+> > new workspace with an "empty" layout it's a mess. I won't blame ion
+> > for this. There's no need for an application to handle window
+> > manager tasks...
+
+If it needs to provide Win32 semantics to remote applications, perhaps
+there is.  (I don't know whether the Citrix client uses one local window
+for a whole Windows desktop session or for each remote window.)
+
+> This does not actually answer your question, but did you consider
+> using rdesktop (http://www.rdesktop.org/)?  We were using the Citrix
+> ICA Client, too, but we switched to rdesktop several months ago and I
+> had no problems with it so far.
+<snip>
+
+rdesktop also works well for me.  It doesn't want to be resized, but you
+can configure its "screen" size to exactly fit the frame.  However, it
+doesn't provide any activity indication for remote windows.
+
+Ben.
+
+-- 
+Ben Hutchings
+Absolutum obsoletum. (If it works, it's out of date.) - Stafford Beer
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070712/6ae1cb3e/attachment.pgp>
+
+From tuomov at iki.fi  Thu Jul 12 07:50:19 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 12 Jul 2007 05:50:19 +0000 (UTC)
+Subject: Dock padding_pixels suggestion
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97qtr.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711053839.GA21610@kayumanis>
+	<slrnf98vvn.ck7.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711072532.GA22290@kayumanis>
+	<slrnf9976a.oao.tuomov@jolt.modeemi.cs.tut.fi>
+	<1184206768.3555.107.camel@deadeye.i.decadent.org.uk>
+Message-ID: <slrnf9bg8r.8ua.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-12, Ben Hutchings <ben at decadent.org.uk> wrote:
+> There exists a second-hand market, where laptops are much cheaper.
+
+And much more broken too. And I really don't have much use for
+a bulky laptop.
+
+>> The OLPC is probably the best laptop out=20
+>> there, supposing the screen really works in low-power mode too...
+>
+> The screen is a thing of beauty, but I doubt you'd get on with the
+> keyboard.
+
+The only good laptop keyboard I have met, was on a 8086 "suitcase
+computer". For the kind of device I'm really after, I actually think
+that an integrated keyboard should be dropped. The device would 
+normally be used by its touch screen when mobile. It could, however, 
+be docked to a keyboard with full-sized keys with full range.
+
+(But not a full-sized keyboard. Modern keyboards are way too bulky,
+and getting bulkier with the multimedia shit. The numpad -- which 
+makes the right-handed mouse even more painful than it has to be -- 
+can be dropped straight off. The cursor keys etc. can also be 
+compacted as has been done on some keyboards.)
+
+...
+
+Having read some new information about the OLPC screen, it's worse
+than I expected. The monochrome mode is OK, but the colour mode is
+an awful blurred hack, because it doesn't have proper pixels: colour
+is essentially created by diffracting the backlight into a diagonal
+rainbow spectrum, and shutting it off with the monochrome pixels [1].
+I probably couldn't stand it (unless the resolution was much higher
+than even that in the OLPC). Still, at least it tries to use little
+power etc. I'm still waiting for the dual-mode e-paper/colour display...
+or the fast colour e-paper display.
+
+  [1]: http://en.wikipedia.org/wiki/OLPC
+
+-- 
+Tuomo
+
+
+
+From lanek at novenine.com  Thu Jul 12 08:27:27 2007
+From: lanek at novenine.com (Roy Lanek)
+Date: Thu, 12 Jul 2007 13:27:27 +0700
+Subject: Dock padding_pixels suggestion
+In-Reply-To: <slrnf9aid3.sg3.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070711072532.GA22290@kayumanis>
+	<slrnf9976a.oao.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711105936.GA22878@kayumanis>
+	<slrnf99fvs.48m.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711131335.GA23105@kayumanis>
+	<slrnf99n2c.ght.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711161010.GA23443@kayumanis>
+	<slrnf9a312.3uv.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070711200428.GA24207@kayumanis>
+	<slrnf9aid3.sg3.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070712062727.GA25147@kayumanis>
+
+> ROTFLMAO
+
+Good for you. Or, alternatively, he who laughs last laughs
+longest.
+
+I am using xfs since about ?! ...one year, say. (I should
+google, can't tell precisely.)
+
+The ambient conditions are those I have described.
+Rsnapshot and rsync work nightly, day after day.
+
+(Power outages are less frequent at night on the average,
+raining seasons and heavy raining permitting. And if in
+that one hour c.ca rsnapshot demands [plus a limited
+delay, I use uschedule] there is no power outage, every
+morning there is a new snapshot.)
+
+Once every while (order of the week) I pick something
+from the daily.x, weekly.x, or monthly.x series of the
+snapshots: this, that, and a third thing--not random
+exactly, but not always the same stuff nevertheless.
+
+Neither with the snapshots, nor with any other
+repositories or disks I have experienced a problem
+EVER--so far. (With reiser4 I had to do some recovery of
+the fs from time to time.)
+
+Pity for you if you have been xfs-stung, I don't. I will
+certainly not stop using xfs because of your ROTFLMAOing.
+
+There is a nice, and humorous short [20-30 lines]
+*therapeutic* story on the topic--"what is good for may be
+bad for you," and vice versa--by a Persian psychoanalyst.
+Can you read German?, the original is in German.
+
+
+Cheers,
+
+
+/Roy
+
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+SSSSS . s l a c k w a r e  SSSSSS   dimana ada kemauan, di situ ada jalan
+SSSSS +------------ linux  SSSSSS   where there is a will, there is a way
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+
+
+From dirkarlt at gmail.com  Thu Jul 12 20:43:25 2007
+From: dirkarlt at gmail.com (Dirk Arlt)
+Date: Thu, 12 Jul 2007 20:43:25 +0200
+Subject: ion-3rc-20070708
+In-Reply-To: <slrnf91ct6.3vf.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnf91ct6.3vf.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070712204325.7d379ea1.dirkarlt@gmail.com>
+
+* Tuomo Valkonen <tuomov at iki.fi> schrieb:
+
+> 
+> This third "rc" release again simply fixes some minor problems in 
+> the previous release.
+
+I've installed ion-3rc-20070708 on two machines running FreeBSD with
+modular Xorg. The "tabbar" shows questionmarks where i expected the
+name of the applicatin running. For the first app i get "???", for
+the second "???<1>" and so on.
+
+On another machine running ion-3rc-20070608 everything is just fine.
+
+
+From dirkarlt at gmail.com  Thu Jul 12 20:43:42 2007
+From: dirkarlt at gmail.com (Dirk Arlt)
+Date: Thu, 12 Jul 2007 20:43:42 +0200
+Subject: ion-3rc-20070708
+In-Reply-To: <slrnf91ct6.3vf.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnf91ct6.3vf.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070712204342.4f0ada54.dirkarlt@gmail.com>
+
+* Tuomo Valkonen <tuomov at iki.fi> schrieb:
+
+> 
+> This third "rc" release again simply fixes some minor problems in 
+> the previous release.
+
+I've installed ion-3rc-20070708 on two machines running FreeBSD with
+modular Xorg. The "tabbar" shows questionmarks where i expected the
+name of the applicatin running. For the first app i get "???", for
+the second "???<1>" and so on.
+
+On another machine running ion-3rc-20070608 everything is just fine.
+
+
+From tuomov at iki.fi  Thu Jul 12 20:59:25 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 12 Jul 2007 18:59:25 +0000 (UTC)
+Subject: ion-3rc-20070708
+References: <slrnf91ct6.3vf.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070712204325.7d379ea1.dirkarlt@gmail.com>
+Message-ID: <slrnf9cugd.i4l.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-12, Dirk Arlt <dirkarlt at gmail.com> wrote:
+> I've installed ion-3rc-20070708 on two machines running FreeBSD with
+> modular Xorg. The "tabbar" shows questionmarks where i expected the
+> name of the applicatin running. For the first app i get "???", for
+> the second "???<1>" and so on.
+
+There appears to be a small typo in recent changes... You can get
+around it by selecting a (working) locale/LC_CTYPE, which you should
+do in any case.
+
+-- 
+Tuomo
+
+
+
+From dirkarlt at gmail.com  Thu Jul 12 21:01:59 2007
+From: dirkarlt at gmail.com (Dirk Arlt)
+Date: Thu, 12 Jul 2007 21:01:59 +0200
+Subject: ion-3rc-20070708
+In-Reply-To: <slrnf91ct6.3vf.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnf91ct6.3vf.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070712210159.778dbf96.dirkarlt@gmail.com>
+
+* Tuomo Valkonen <tuomov at iki.fi> schrieb:
+
+> 
+> This third "rc" release again simply fixes some minor problems in 
+> the previous release.
+
+I've installed ion-3rc-20070708 on two machines running FreeBSD with
+modular Xorg. The "tabbar" shows questionmarks where i expected the
+name of the application running. For the first app i get "???", for
+the second "???<1>" and so on.
+
+On another machine running ion-3rc-20070608 everything is just fine.
+
+
+From tuomov at iki.fi  Fri Jul 13 13:20:14 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 13 Jul 2007 11:20:14 +0000 (UTC)
+Subject: Dock padding_pixels suggestion
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97qtr.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<f70s5p$vme$1@sea.gmane.org>
+	<slrnf97tge.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnf9enve.ait.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-10, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> That's the wrong hook. You probably want "clientwin_do_manage_alt",
+
+http://iki.fi/tuomov/repos/ion-scripts-3/scripts/panel.lua
+
+-- 
+Tuomo
+
+
+
+From dapolk at gmail.com  Fri Jul 13 17:03:36 2007
+From: dapolk at gmail.com (David Polk)
+Date: Fri, 13 Jul 2007 10:03:36 -0500
+Subject: error questions
+Message-ID: <98b51dec0707130803m29935172xdabffca8f258bbf5@mail.gmail.com>
+
+On startup I get this error message - "Unable to find 'debian-menu-i18n' on
+search path" - Ion seems to work fine, so how do I eliminate this error
+message?
+
+Also in ".xseesion-errors" I get this - "/usr/bin/ion3:Object destroyed
+while deferred actions are still pending." This error message is repeated 8
+times. Is this a problem?
+
+I've been using ion only a few days so there is much I don't understand yet
+:o)
+
+Thanks
+Dave
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070713/6922d077/attachment.html>
+
+From talex5 at gmail.com  Fri Jul 13 20:38:55 2007
+From: talex5 at gmail.com (Thomas Leonard)
+Date: Fri, 13 Jul 2007 18:38:55 +0000 (UTC)
+Subject: Dock padding_pixels suggestion
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97qtr.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<f70s5p$vme$1@sea.gmane.org>
+	<slrnf97tge.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrnf9enve.ait.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <f78grv$l0a$1@sea.gmane.org>
+
+On Fri, 13 Jul 2007 11:20:14 +0000, Tuomo Valkonen wrote:
+
+> On 2007-07-10, Tuomo Valkonen <tuomov at iki.fi> wrote:
+>> That's the wrong hook. You probably want "clientwin_do_manage_alt",
+> 
+> http://iki.fi/tuomov/repos/ion-scripts-3/scripts/panel.lua
+
+Ah, thanks! That works here for horizontal panels. What has to be changed
+for vertical ones (like dock's "grow" attribute)? Vertical panels seem to
+fill the whole screen...
+
+
+-- 
+Dr Thomas Leonard		http://rox.sourceforge.net
+GPG: 9242 9807 C985 3C07 44A6  8B9A AE07 8280 59A5 3CC1
+
+
+
+From tuomov at iki.fi  Fri Jul 13 22:06:24 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 13 Jul 2007 20:06:24 +0000 (UTC)
+Subject: Dock padding_pixels suggestion
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97qtr.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<f70s5p$vme$1@sea.gmane.org>
+	<slrnf97tge.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrnf9enve.ait.tuomov@jolt.modeemi.cs.tut.fi>
+	<f78grv$l0a$1@sea.gmane.org>
+Message-ID: <slrnf9fmq0.pj8.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-13, Thomas Leonard <talex5 at gmail.com> wrote:
+> Ah, thanks! That works here for horizontal panels. What has to be changed
+> for vertical ones (like dock's "grow" attribute)? Vertical panels seem to
+> fill the whole screen...
+
+Can't be done, actually. The dock can report its orientation with
+region_orientation, but there's no way to manually configure that
+information for client windows, for which it isn't otherwise available.
+
+-- 
+Tuomo
+
+
+
+From ben at decadent.org.uk  Sat Jul 14 12:50:57 2007
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Sat, 14 Jul 2007 11:50:57 +0100
+Subject: error questions
+In-Reply-To: <98b51dec0707130803m29935172xdabffca8f258bbf5@mail.gmail.com>
+References: <98b51dec0707130803m29935172xdabffca8f258bbf5@mail.gmail.com>
+Message-ID: <1184410257.5854.10.camel@deadeye.i.decadent.org.uk>
+
+On Fri, 2007-07-13 at 10:03 -0500, David Polk wrote:
+> On startup I get this error message - "Unable to find
+> 'debian-menu-i18n' on search path" - Ion seems to work fine, so how do
+> I eliminate this error message?
+<snip>
+
+I'm the maintainer of the Debian package and should be the first person
+you ask about it.  The debian-menu-i18n.lua file is generated
+automatically on installation of Ion3 or another package that provides a
+menu entry, and is loaded by cfg_ioncore.  It lives in /var/lib/ion3 but
+sym-linked from /usr/share/ion3 so that Ion3 can find it.  Please report
+the output of:
+
+$ dpkg -l ion3
+$ ls -l /usr/share/ion3/debian-menu-i18n.lua
+$ ls -l /var/lib/ion3/debian-menu-i18n.lua
+
+I can't answer your other question.
+
+Ben.
+
+-- 
+Ben Hutchings
+Nothing is ever a complete failure; it can always serve as a bad example.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070714/52896c5d/attachment.pgp>
+
+From talex5 at gmail.com  Sat Jul 14 19:51:34 2007
+From: talex5 at gmail.com (Thomas Leonard)
+Date: Sat, 14 Jul 2007 17:51:34 +0000 (UTC)
+Subject: Dock padding_pixels suggestion
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97qtr.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<f70s5p$vme$1@sea.gmane.org>
+	<slrnf97tge.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrnf9enve.ait.tuomov@jolt.modeemi.cs.tut.fi>
+	<f78grv$l0a$1@sea.gmane.org>
+	<slrnf9fmq0.pj8.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <f7b2f6$1hv$1@sea.gmane.org>
+
+On Fri, 13 Jul 2007 20:06:24 +0000, Tuomo Valkonen wrote:
+
+> On 2007-07-13, Thomas Leonard <talex5 at gmail.com> wrote:
+>> Ah, thanks! That works here for horizontal panels. What has to be changed
+>> for vertical ones (like dock's "grow" attribute)? Vertical panels seem to
+>> fill the whole screen...
+> 
+> Can't be done, actually. The dock can report its orientation with
+> region_orientation, but there's no way to manually configure that
+> information for client windows, for which it isn't otherwise available.
+
+Ah. I've noticed another odd thing with this system:
+
+When the pointer is over the panel, the focus is lost. So, when you
+launch a program it appears in a floating window instead of being tiled
+(unless you move the mouse back to the tiled area quickly before the
+window appears).
+
+With the dock, the panel never takes the focus and new windows are always
+tiled.
+
+
+-- 
+Dr Thomas Leonard		http://rox.sourceforge.net
+GPG: 9242 9807 C985 3C07 44A6  8B9A AE07 8280 59A5 3CC1
+
+
+
+From tuomov at iki.fi  Sat Jul 14 21:33:52 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 14 Jul 2007 19:33:52 +0000 (UTC)
+Subject: Dock padding_pixels suggestion
+References: <f70oqf$mv8$1@sea.gmane.org>
+	<slrnf97qtr.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<f70s5p$vme$1@sea.gmane.org>
+	<slrnf97tge.g9k.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrnf9enve.ait.tuomov@jolt.modeemi.cs.tut.fi>
+	<f78grv$l0a$1@sea.gmane.org>
+	<slrnf9fmq0.pj8.tuomov@jolt.modeemi.cs.tut.fi>
+	<f7b2f6$1hv$1@sea.gmane.org>
+Message-ID: <slrnf9i990.u25.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-14, Thomas Leonard <talex5 at gmail.com> wrote:
+> When the pointer is over the panel, the focus is lost. 
+
+No, the panel gets the focus, because it doesn't have SKIP_FOCUS flag
+set, unlike the dock. Hmm... maybe I could make the flag management
+more dynamic...
+
+-- 
+Tuomo
+
+
+
+From s.hum at rogers.com  Mon Jul 16 15:13:05 2007
+From: s.hum at rogers.com (Steven Hum)
+Date: Mon, 16 Jul 2007 09:13:05 -0400
+Subject: ion-3rc-20070708
+Message-ID: <B6ED839C-3FBD-4041-8178-D3E8165E67AF@rogers.com>
+
+> On 2007-07-12, Dirk Arlt <dirkarlt at gmail.com> wrote:
+> > I've installed ion-3rc-20070708 on two machines running FreeBSD with
+> > modular Xorg. The "tabbar" shows questionmarks where i expected the
+> > name of the applicatin running. For the first app i get "???", for
+> > the second "???<1>" and so on.
+>
+> There appears to be a small typo in recent changes... You can get
+> around it by selecting a (working) locale/LC_CTYPE, which you should
+> do in any case.
+>
+> --  
+> Tuomo
+
+This appears to have solved the tabbar label problem and introduced a  
+minor side effect on my installation of ion-3rc-20070708: the F12  
+?main menu? system tray input no longer accepts any keystrokes other  
+than the ?tab? key. Not a big deal but typing ?<F12> ex <tab>? (for  
+auto completion to exit ion3) no longer works (for me).
+
+Steven
+
+
+
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070716/1238d4b8/attachment.html>
+
+From tuomov at iki.fi  Mon Jul 16 18:01:47 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 16 Jul 2007 16:01:47 +0000 (UTC)
+Subject: ion-3rc-20070708
+References: <B6ED839C-3FBD-4041-8178-D3E8165E67AF@rogers.com>
+Message-ID: <slrnf9n5jb.fbk.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-16, Steven Hum <s.hum at rogers.com> wrote:
+>=94main menu=94 system tray input no longer accepts any keystrokes other =
+>=20
+> than the =93tab=94 key. 
+
+Probably a user error, or X lib locale support bug. In any case, 
+none of the zillion people -- or sock puppets -- that have complained
+about this, have been able to tell how to reproduce it.
+
+
+PS. Fix your MUA to not send tonnes of HTML/CSS shit.
+
+-- 
+Tuomo
+
+
+
+From bernhardpoess at gmail.com  Tue Jul 17 22:00:01 2007
+From: bernhardpoess at gmail.com (Bernhard Poess)
+Date: Tue, 17 Jul 2007 13:00:01 -0700
+Subject: ??? in window title bars
+Message-ID: <c7f6ed4d0707171300i79afff73t1d931011efa7927d@mail.gmail.com>
+
+Hi,
+
+I just installed the lattest ion-3rc 20070708 and I have a problem
+where all my windows have ??? in their titlebars instead of the
+correct window title. Any suggestions?
+
+-Bernhard
+
+
+From andreas.bernauer at gmx.de  Wed Jul 18 13:04:33 2007
+From: andreas.bernauer at gmx.de (Andreas Bernauer)
+Date: Wed, 18 Jul 2007 13:04:33 +0200
+Subject: ??? in window title bars
+In-Reply-To: <c7f6ed4d0707171300i79afff73t1d931011efa7927d@mail.gmail.com>
+References: <c7f6ed4d0707171300i79afff73t1d931011efa7927d@mail.gmail.com>
+Message-ID: <20070718110433.GF19633@informatik.uni-tuebingen.de>
+
+Bernhard Poess schrieb am Di, 17. Jul 2007 um 13:00 (-0700):
+> Hi,
+> 
+> I just installed the lattest ion-3rc 20070708 and I have a problem
+> where all my windows have ??? in their titlebars instead of the
+> correct window title. Any suggestions?
+
+Has already been reported on this list,
+
+see https://lists.berlios.de/pipermail/ion-general/2007-July/001415.html
+
+Andreas.
+
+-- 
+WSI, Sand 13, 72076 T?bingen
++49-7071-29-75940, bernauer at informatik.uni-tuebingen.de
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070718/aba64a73/attachment.pgp>
+
+From j.van_den_hoff at fzd.de  Wed Jul 18 14:53:31 2007
+From: j.van_den_hoff at fzd.de (Joerg van den Hoff)
+Date: Wed, 18 Jul 2007 14:53:31 +0200
+Subject: ion-3rc-20070708
+In-Reply-To: <slrnf9cugd.i4l.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnf91ct6.3vf.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070712204325.7d379ea1.dirkarlt@gmail.com>
+	<slrnf9cugd.i4l.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070718125331.GA25006@marco.fz-rossendorf.de>
+
+On Thu, Jul 12, 2007 at 06:59:25PM +0000, Tuomo Valkonen wrote:
+> On 2007-07-12, Dirk Arlt <dirkarlt at gmail.com> wrote:
+> > I've installed ion-3rc-20070708 on two machines running FreeBSD with
+> > modular Xorg. The "tabbar" shows questionmarks where i expected the
+> > name of the applicatin running. For the first app i get "???", for
+> > the second "???<1>" and so on.
+> 
+> There appears to be a small typo in recent changes... You can get
+> around it by selecting a (working) locale/LC_CTYPE, which you should
+> do in any case.
+> 
+
+I've stumbled into the same problem after upgrading, but the remark to 'select a working
+locale/LC_CTYPE' escapes me: my locale settings work alright otherwise.
+
+I now tried setting LC_ALL to `C' to see whether for some reason this helps,
+but to no avail. 
+
+any help would be appreciated (even if I admit using MacOS which I'm
+willing to let be described as crapware (seems right w.r.t. to the
+recent no-update-for-statusbar-entries problem) or whatever as long as
+someone can tell me how to get the f..ing labels right again).
+
+
+oh yes, and this: attaching tagged frames did stop working with the previous
+release and still is dysfunctional: MOD1+K+A is ignored although the frame is
+apparently tagged (check mark and all). attaching via MOD1+A still works.
+apart from the usual "MacOS shit" response: any idea (or even confirmation
+of the problem) around?
+
+joerg
+
+
+From kapheine at gmail.com  Thu Jul 19 21:20:14 2007
+From: kapheine at gmail.com (Zachary P. Landau)
+Date: Thu, 19 Jul 2007 15:20:14 -0400
+Subject: ion-3rc-20070708
+In-Reply-To: <20070718125331.GA25006@marco.fz-rossendorf.de>
+References: <slrnf91ct6.3vf.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070712204325.7d379ea1.dirkarlt@gmail.com>
+	<slrnf9cugd.i4l.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070718125331.GA25006@marco.fz-rossendorf.de>
+Message-ID: <a04f56da0707191220t1812790er64d132bec5d9d385@mail.gmail.com>
+
+> oh yes, and this: attaching tagged frames did stop working with the previous
+> release and still is dysfunctional: MOD1+K+A is ignored although the frame is
+> apparently tagged (check mark and all). attaching via MOD1+A still works.
+> apart from the usual "MacOS shit" response: any idea (or even confirmation
+> of the problem) around?
+
+Check any errors that may have showed up on stderr.  I had to change
+the function call for attach from WFrame.attach_tagged(_) to
+ioncore.tagged_attach(_).
+
+-- 
+Zachary P. Landau <kapheine at gmail.com>
+
+
+From klawitter at email.de  Fri Jul 20 00:48:08 2007
+From: klawitter at email.de (Renee Klawitter)
+Date: Fri, 20 Jul 2007 00:48:08 +0200
+Subject: how to get windows id of tagged "windows"
+Message-ID: <873azkggd3.fsf@Queequeg.Pequod>
+
+Hi!
+
+I've wanted to do this for quite some time: I want to sent some keys
+(like Page_Up/_Down) to unfocused windows and have found a program to
+do it: xvkbd (X virtual keyboard) can send any keysym to any of your
+windows. Naturally I'd like to integrate it with ion. My question is:
+how to get the XID of a tagged window - so you can tag a window you
+want to send your keys to ? 
+
+I've read some of the documentation but could not make much use out of
+it (i.e. I know it is the WRegion which is tagged - but how to get from
+there to the WClientWin ?).
+
+Thank you!
+
+
+-- 
+ 
+
+
+
+From tuomov at iki.fi  Fri Jul 20 16:04:53 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 20 Jul 2007 14:04:53 +0000 (UTC)
+Subject: ion-3rc-20070720
+Message-ID: <slrnfa1g85.ekr.tuomov@jolt.modeemi.cs.tut.fi>
+
+This fourth "rc" release fixes some minor bugs and omissions in
+the previous release.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Fri Jul 20 16:07:02 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 20 Jul 2007 14:07:02 +0000 (UTC)
+Subject: how to get windows id of tagged "windows"
+References: <873azkggd3.fsf@Queequeg.Pequod>
+Message-ID: <slrnfa1gc6.ekr.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-07-19, Renee Klawitter <klawitter at email.de> wrote:
+> I've read some of the documentation but could not make much use out of
+> it (i.e. I know it is the WRegion which is tagged - but how to get from
+> there to the WClientWin ?).
+
+"the"? rather "a"? By traversing the object tree, of course.
+
+But what you really want is another tagging binding for this purpose,
+that is bound on the client window and remembers it, instead of a
+container for it.
+
+-- 
+Tuomo
+
+
+
+From EvgenyKurbatov at yandex.ru  Tue Jul 31 18:23:07 2007
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Tue, 31 Jul 2007 20:23:07 +0400
+Subject: Not all bindings are defined in cfg_ioncore.lua
+Message-ID: <46AF61EB.7000906@yandex.ru>
+
+Hi,
+
+How to disable META.."S" binding (Split Vertically)?  I'd fix it but it
+does not defined in cfg_ioncore.lua so I don't know in which section I
+have to redefine it.
+
+Best witches,
+Evgeny
+
+
+From andreas.bernauer at gmx.de  Tue Jul 31 19:28:47 2007
+From: andreas.bernauer at gmx.de (Andreas Bernauer)
+Date: Tue, 31 Jul 2007 19:28:47 +0200
+Subject: Not all bindings are defined in cfg_ioncore.lua
+In-Reply-To: <46AF61EB.7000906@yandex.ru>
+References: <46AF61EB.7000906@yandex.ru>
+Message-ID: <20070731172847.GJ19633@informatik.uni-tuebingen.de>
+
+Evgeny Kurbatov schrieb am Di, 31. Jul 2007 um 20:23 (+0400):
+> How to disable META.."S" binding (Split Vertically)?  I'd fix it but it
+> does not defined in cfg_ioncore.lua so I don't know in which section I
+> have to redefine it.
+
+$ grep 'META.."S"' /usr/local/etc/ion3/cfg_*.lua
+/usr/local/etc/ion3/cfg_tiling.lua:    kpress(META.."S", "WTiling.split_at(_, _sub, 'bottom', true)"),
+
+Copy /usr/local/etc/ion3/cfg_tiling to your ~/.ion3 and modify it.
+
+Andreas. 
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070731/c101a345/attachment.pgp>
+
+From klawitter at email.de  Tue Jul 31 20:02:55 2007
+From: klawitter at email.de (Renee Klawitter)
+Date: Tue, 31 Jul 2007 20:02:55 +0200
+Subject: Not all bindings are defined in cfg_ioncore.lua
+References: <46AF61EB.7000906@yandex.ru>
+	<20070731172847.GJ19633@informatik.uni-tuebingen.de>
+Message-ID: <878x8wqwmo.fsf@Queequeg.Pequod>
+
+Andreas Bernauer <andreas.bernauer at gmx.de>
+writes:
+
+> Evgeny Kurbatov schrieb am Di, 31. Jul 2007 um 20:23 (+0400):
+>> How to disable META.."S" binding (Split Vertically)?  I'd fix it
+>> but it does not defined in cfg_ioncore.lua so I don't know in which
+>> section I have to redefine it.
+>
+> $ grep 'META.."S"' /usr/local/etc/ion3/cfg_*.lua
+> /usr/local/etc/ion3/cfg_tiling.lua: kpress(META.."S",
+> "WTiling.split_at(_, _sub, 'bottom', true)"),
+
+assuming ion has been installed with PREFIX=/usr/local/ 
+
+Renee.
+-- 
+ 
+
+
+
+From deryni at unreliablesource.net  Tue Jul 31 19:58:22 2007
+From: deryni at unreliablesource.net (Etan Reisner)
+Date: Tue, 31 Jul 2007 13:58:22 -0400
+Subject: Not all bindings are defined in cfg_ioncore.lua
+In-Reply-To: <46AF61EB.7000906@yandex.ru>
+References: <46AF61EB.7000906@yandex.ru>
+Message-ID: <20070731175822.GQ8631@aran>
+
+On Tue, Jul 31, 2007 at 08:23:07PM +0400, Evgeny Kurbatov wrote:
+> Hi,
+>
+> How to disable META.."S" binding (Split Vertically)?  I'd fix it but it
+> does not defined in cfg_ioncore.lua so I don't know in which section I
+> have to redefine it.
+
+cfg_tiling.lua as a 'grep \"S\" *.lua' in the source etc/ or system-wide
+location would have found for you. (So would a grep for split or the
+function name in question, in case future keys aren't "" bracketed.)
+
+> Best witches,
+> Evgeny
+
+	-Etan
+
+
+From deryni at unreliablesource.net  Tue Jul 31 19:58:35 2007
+From: deryni at unreliablesource.net (Etan Reisner)
+Date: Tue, 31 Jul 2007 13:58:35 -0400
+Subject: Not all bindings are defined in cfg_ioncore.lua
+In-Reply-To: <20070731172847.GJ19633@informatik.uni-tuebingen.de>
+References: <46AF61EB.7000906@yandex.ru>
+	<20070731172847.GJ19633@informatik.uni-tuebingen.de>
+Message-ID: <20070731175835.GR8631@aran>
+
+On Tue, Jul 31, 2007 at 07:28:47PM +0200, Andreas Bernauer wrote:
+> Evgeny Kurbatov schrieb am Di, 31. Jul 2007 um 20:23 (+0400):
+> > How to disable META.."S" binding (Split Vertically)?  I'd fix it but it
+> > does not defined in cfg_ioncore.lua so I don't know in which section I
+> > have to redefine it.
+>
+> $ grep 'META.."S"' /usr/local/etc/ion3/cfg_*.lua
+> /usr/local/etc/ion3/cfg_tiling.lua:    kpress(META.."S", "WTiling.split_at(_, _sub, 'bottom', true)"),
+>
+> Copy /usr/local/etc/ion3/cfg_tiling to your ~/.ion3 and modify it.
+
+No, do not copy random system files into ~/.ion3 only copy cfg_ion.lua,
+cfg_statusbar.lua, and cfg_dock.lua. Leave the rest in the system
+locations and override the bindings in cfg_ion.lua or in any other file
+you want as long as you dopath("") it from cfg_ion.lua.
+
+> Andreas.
+
+	-Etan
+
+

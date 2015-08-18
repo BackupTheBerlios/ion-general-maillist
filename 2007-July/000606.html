@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> ZeroInstall &amp; Package systems [Was: Re: Dock padding_pixels	suggestion]
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ZeroInstall%20%26%20Package%20systems%20%5BWas%3A%20Re%3A%20Dock%20padding_pixels%0A%09suggestion%5D&In-Reply-To=%3Cslrnf9a7e8.7du.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000605.html">
+   <LINK REL="Next"  HREF="000619.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>ZeroInstall &amp; Package systems [Was: Re: Dock padding_pixels	suggestion]</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ZeroInstall%20%26%20Package%20systems%20%5BWas%3A%20Re%3A%20Dock%20padding_pixels%0A%09suggestion%5D&In-Reply-To=%3Cslrnf9a7e8.7du.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="ZeroInstall &amp; Package systems [Was: Re: Dock padding_pixels	suggestion]">tuomov at iki.fi
+       </A><BR>
+    <I>Wed Jul 11 20:13:28 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000605.html">ZeroInstall &amp; Package systems [Was: Re: Dock padding_pixels	suggestion]
+</A></li>
+        <LI>Next message: <A HREF="000619.html">error questions
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#606">[ date ]</a>
+              <a href="thread.html#606">[ thread ]</a>
+              <a href="subject.html#606">[ subject ]</a>
+              <a href="author.html#606">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2007-07-11, Thomas Leonard &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">talex5 at gmail.com</A>&gt; wrote:
+&gt;<i> If you want to convert XML to a more friendly format, there are other tools
+</I>&gt;<i> for that:
+</I>
+But that's once again more work for editing XML than a decent format,
+unless the text editor automatically does the conversion... but then
+we're back at this: the format could just as well be binary, and
+hence more efficient. XML is pointless.
+
+&gt;<i> It uses the 'dependency injection' model (AKA 'inversion of control').
+</I>&gt;<i> Instead of each component finding its dependencies (e.g. by searching
+</I>&gt;<i> /usr/lib), each component is told where to find its dependencies. So, this
+</I>&gt;<i> is an input to the 'svn' component, telling it which 'libsvn' to use.
+</I>
+I was more after the practical aspects of creating a package and
+defining dependencies for it, but good to hear that. (Present
+handling of library deps is mess down to gcc itself.)
+
+&gt;<i> Or, in a really ideal world you wouldn't have to specify the binding
+</I>&gt;<i> method at all, because there would be a standard way to tell a component
+</I>&gt;<i> where its libraries are.
+</I>
+In my capability system, the package providing the depended-upon
+capability tells how it provides the capability, the information
+provided or mechanisms used having been specified by the capability
+author. So you'd have something like
+
+  [provided.capabilities.libfooAPI]
+  uuid = zxc09z87df890asas&#246;dklfj-w3,j.4324asdf08972342340+89sdfadsf9872etc.
+  library-file = $PREFIX/lib/libbar.so
+
+in 'libbar' that provides what is locally known as &quot;libfooAPI&quot; and 
+globally referenced to with the given uuid that would include the
+public key for that capability and a signature by the private key.
+The program requiring the capability/library would have something like:
+
+  [required.capabilities.libfooAPI]
+  uuid = zxc09z87df890asas&#246;dklfj-w3,j.4324asdf08972342340+89sdfadsf9872etc.
+  how = link-against $library-file
+
+Alternatively 'how' could be in libbar. Having it in the package requiring
+the capability adds an additional test that the capability is of the
+requested form, while having it in the package providing the required
+capability allows for alternative implementations. Or perhaps whichever
+is first encountered should be used, which allows for user overrides of
+autodetected settings, as in the autoconf replacement build system draft
+at [1].
+
+'link-against' should be a standard feature of the integrated build
+system as well as binary package distribution system, although additional
+actions should be definable, e.g. in the form
+
+  [actions.gcc-local.link-against]
+  ext-objects = $ext-objects $1
+
+  [actions.gcc-bindist.link-against]
+  # nothing
+
+  [actions.bindist.link-against]
+  LD_PRELOAD = $LD_PRELOAD:$1
+
+Or perhaps 'how = append LD_PRELOAD $1' etc. for a simpler language.
+Also 'how' in the original capability requirement could be defined
+separately for different targets. Lots of design decisions still
+to be made, and use cases to be researched.. not a one man job
+this, really. Few things are, and yet just a handful of people 
+with a tunnel vision seem to define the direction of the core
+FOSS projects that everyone has to suffer from...
+
+  [1]: <A HREF="http://iki.fi/tuomov/b/archives/2006/07/04/T21_20_46/">http://iki.fi/tuomov/b/archives/2006/07/04/T21_20_46/</A>
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000605.html">ZeroInstall &amp; Package systems [Was: Re: Dock padding_pixels	suggestion]
+</A></li>
+	<LI>Next message: <A HREF="000619.html">error questions
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#606">[ date ]</a>
+              <a href="thread.html#606">[ thread ]</a>
+              <a href="subject.html#606">[ subject ]</a>
+              <a href="author.html#606">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

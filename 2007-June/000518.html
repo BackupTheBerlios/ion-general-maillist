@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> ion on mac os x tiger
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion%20on%20mac%20os%20x%20tiger&In-Reply-To=%3Cb85d58c40706041200r7398739ck3662833542b1cf71%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000535.html">
+   <LINK REL="Next"  HREF="000519.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>ion on mac os x tiger</H1>
+    <B>Quentin Huys</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion%20on%20mac%20os%20x%20tiger&In-Reply-To=%3Cb85d58c40706041200r7398739ck3662833542b1cf71%40mail.gmail.com%3E"
+       TITLE="ion on mac os x tiger">quentinhuys at gmail.com
+       </A><BR>
+    <I>Mon Jun  4 21:00:04 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000535.html">status_bar with LANG
+</A></li>
+        <LI>Next message: <A HREF="000519.html">ion on mac os x tiger
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#518">[ date ]</a>
+              <a href="thread.html#518">[ thread ]</a>
+              <a href="subject.html#518">[ subject ]</a>
+              <a href="author.html#518">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi there
+
+I've so far run ion on ubuntu and come to love it -- so much I absolutely
+need it on my new workstation, which for random reasons had to be a mac.
+
+All compiles happily, but I then don't know how to get things started. I'd
+really appreciate any help a lot... Thanks. So:
+
+I first tried to log into console, run x11 (xinit) from there and then run
+ion on it, but it generates errors, and then leaves me with a blue screen
+that is utterly unresponsive to anything, incluing ctrl-alt-backspace etc.
+
+So I tried the following, while running the standard mac os x window
+manager:
+
+First start an x server on display 1 by doing
+
+      xinit -- :1
+
+And then run ion on that display:
+
+     ion -display :1
+
+But that won't work, and it comes up with all kinds of errors:
+
+q-computer:~% xinit -- :1 &amp;
+[1] 427
+
+q-computer:~%
+XFree86 Version 4.4.0 / X Window System
+(protocol Version 11, revision 0, vendor release 6600)
+[DRI] screen 0 installation complete
+Screen 0 added: 1920x1200 @ (0,0)
+Could not init font path element /usr/X11R6/lib/X11/fonts/CID/, removing
+from list!
+
+q-computer:~%
+q-computer:~% ion -display :1
+&gt;&gt;<i> Failed to load module de: dlopen(/usr/local/lib/ion/de.so, 9): Symbol not
+</I>found: _grbrush_get_slave
+     Referenced from: /usr/local/lib/ion/de.so
+     Expected in: flat namespace
+
+&gt;&gt;<i> Stack trace:
+</I>   0 [C]: in 'gr_select_engine'
+   1 /usr/local/etc/ion/draw.lua:6
+     [Skipping unnamed C functions.]
+&gt;&gt;<i> No drawing engines loaded, trying &quot;de&quot;.
+</I>&gt;&gt;<i> Failed to load module de: dlopen(/usr/local/lib/ion/de.so, 9): Symbol not
+</I>found: _grbrush_get_slave
+     Referenced from: /usr/local/lib/ion/de.so
+     Expected in: flat namespace
+
+&gt;&gt;<i> Failed to load module query: dlopen(/usr/local/lib/ion/query.so, 9):
+</I>Symbol not found: _region_inactivated
+     Referenced from: /usr/local/lib/ion/query.so
+     Expected in: flat namespace
+
+&gt;&gt;<i> Stack trace:
+</I>   0 [C]: in 'load_module'
+   1 /usr/local/etc/ion/ion.lua:55
+     [Skipping unnamed C functions.]
+&gt;&gt;<i> Failed to load module menu: dlopen(/usr/local/lib/ion/menu.so, 9): Symbol
+</I>not found: _region_inactivated
+     Referenced from: /usr/local/lib/ion/menu.so
+     Expected in: flat namespace
+
+&gt;&gt;<i> Stack trace:
+</I>   0 [C]: in 'load_module'
+   1 /usr/local/etc/ion/ion.lua:56
+     [Skipping unnamed C functions.]
+&gt;&gt;<i> Failed to load module ionws: dlopen(/usr/local/lib/ion/ionws.so, 9):
+</I>Symbol not found: _genframe_brushes_updated
+     Referenced from: /usr/local/lib/ion/ionws.so
+     Expected in: flat namespace
+
+&gt;&gt;<i> Stack trace:
+</I>   0 [C]: in 'load_module'
+   1 /usr/local/etc/ion/ion.lua:57
+     [Skipping unnamed C functions.]
+&gt;&gt;<i> Failed to load module floatws: dlopen(/usr/local/lib/ion/floatws.so, 9):
+</I>Symbol not found: _region_do_rescue_clientwins
+     Referenced from: /usr/local/lib/ion/floatws.so
+     Expected in: flat namespace
+
+&gt;&gt;<i> Stack trace:
+</I>   0 [C]: in 'load_module'
+   1 /usr/local/etc/ion/ion.lua:58
+     [Skipping unnamed C functions.]
+&gt;&gt;<i> Could not find a complete workspace class. Please load some modules.
+</I>&gt;&gt;<i> Unable to set up any rootwins.
+</I>&gt;&gt;<i> Refusing to start due to encountered errors.
+</I>q-computer:~%
+waiting for X server to shut down Quitting XDarwin...
+
+[1]  + done       xinit -- :1
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Thanks very much -- any help appreciated,
+Q
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20070604/a91990f3/attachment.html">https://lists.berlios.de/pipermail/ion-general/attachments/20070604/a91990f3/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000535.html">status_bar with LANG
+</A></li>
+	<LI>Next message: <A HREF="000519.html">ion on mac os x tiger
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#518">[ date ]</a>
+              <a href="thread.html#518">[ thread ]</a>
+              <a href="subject.html#518">[ subject ]</a>
+              <a href="author.html#518">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

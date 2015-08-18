@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> ion3 license
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion3%20license&In-Reply-To=%3Cb85d58c40712170937s46ea8a41ha4c0be16af1dbf74%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000920.html">
+   <LINK REL="Next"  HREF="000904.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>ion3 license</H1>
+    <B>Quentin Huys</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion3%20license&In-Reply-To=%3Cb85d58c40712170937s46ea8a41ha4c0be16af1dbf74%40mail.gmail.com%3E"
+       TITLE="ion3 license">quentinhuys at gmail.com
+       </A><BR>
+    <I>Mon Dec 17 18:37:21 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000920.html">ion3 license
+</A></li>
+        <LI>Next message: <A HREF="000904.html">ion3 license
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#902">[ date ]</a>
+              <a href="thread.html#902">[ thread ]</a>
+              <a href="subject.html#902">[ subject ]</a>
+              <a href="author.html#902">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Dear Tuomo, Dear Joerg
+
+Yes, may I just express exactly the same. Over the past few months I have
+installed ion3 without even the slightest of minimal hassles on quite a
+number of mac os x's using macports. Now, it's gone and I already am having
+trouble, having to go through dependencies etc.
+
+Ion is an extremely useful tool, and me and several in my lab now use it
+effectively. However, we don't want to have to spend a day or more every
+time we want to reinstall it on some new machine, hunting for dependencies
+etc. In particular, that'll make sure we *NEVER* update to a newer version
+if we have a working one... in fact, that's what happened to me before... I
+stuck with ion1 for ages just because I got all kinds of silly problems
+compiling it.
+
+Thus, from my view and people like me, ion not being available on
+repositories like macports will just make sure we stick with an even older
+version than what we would if we were to stick with the ones on the
+repositories... so seems very counterproductive...
+
+Best wishes,
+Quentin
+
+PS: and as we're here: This is what I get when trying to compile:
+
+ql:~/Desktop/ion-3rc-20071130% make
+set -e; for i in libtu libextl libmainloop mod_tiling mod_query mod_menu
+mod_dock mod_sp mod_sm mod_statusbar de ioncore ion pwm etc utils man po ;
+do make -C $i; done
+gcc -Os -W -Wimplicit -Wreturn-type -Wswitch -Wcomment -Wtrigraphs -Wformat
+-Wchar-subscripts -Wparentheses -pedantic -Wuninitialized
+-DCF_XFREE86_TEXTPROP_BUG_WORKAROUND -DHAVE_SNPRINTF      -c output.c -o
+output.o
+In file included from output.c:23:
+private.h:15:21: error: libintl.h: No such file or directory
+output.c: In function 'fallback_warn':
+output.c:116: warning: implicit declaration of function 'dgettext'
+output.c:116: warning: incompatible implicit declaration of built-in
+function 'dgettext'
+make[1]: *** [output.o] Error 1
+make: *** [subdirs] Error 2
+
+... Thank you for any help...
+
+On Dec 17, 2007 11:04 AM, Joerg van den Hoff &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">j.van_den_hoff at fzd.de</A>&gt; wrote:
+
+&gt;<i> tuomo,
+</I>&gt;<i>
+</I>&gt;<i> I today learned 2 things:
+</I>&gt;<i>
+</I>&gt;<i> a) ion3 has been removed from `macports' which is the MacOSX
+</I>&gt;<i> package management system. in terms of  installed  base,  if
+</I>&gt;<i> one  can  believe  available  statistics,  macos x is _much_
+</I>&gt;<i> larger than all  the  other  *ixes  and  *uxes  together  --
+</I>&gt;<i> actually  the  only  OS  besides  windows with a significant
+</I>&gt;<i> number of installations (sure, how many mac  users  actually
+</I>&gt;<i> install  x11-wms  -  or  other open source software for that
+</I>&gt;<i> matter - is a different question). it's in this respect  not
+</I>&gt;<i> a peripheral platform.
+</I>&gt;<i>
+</I>&gt;<i> b)  debian  seems to distribute now ion3 under some nonsense
+</I>&gt;<i> name (particelMan?)  in order to adhere to your  licence  (I
+</I>&gt;<i> was'nt aware of this naming aspect, actually).
+</I>&gt;<i>
+</I>&gt;<i> you sure, that that's what you want for `ion3'. some kind of
+</I>&gt;<i> name aliasing tricks for the only reason that  your  license
+</I>&gt;<i> calls  for  such  things?  which  does prevent exactly what?
+</I>&gt;<i> which does have exactly what benfits?
+</I>&gt;<i>
+</I>&gt;<i> I  think  it really would be a wise and nice thing to do and
+</I>&gt;<i> draw a line at demanding some unambigous info in the package
+</I>&gt;<i> that  it's none of your buiseness if an old version does not
+</I>&gt;<i> work  as  expected.  enforcing  &quot;under   cover&quot;   names   is
+</I>&gt;<i> ridiculous.
+</I>&gt;<i>
+</I>&gt;<i> otherwise  this  seems  a sure strategy to finish `ion3' off
+</I>&gt;<i> outside of a _very_ small group. I'm sure you would'nt  care
+</I>&gt;<i> but need you enforce such a thing?
+</I>&gt;<i>
+</I>&gt;<i> joerg
+</I>&gt;<i>
+</I>&gt;<i>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20071217/f06f236a/attachment.html">https://lists.berlios.de/pipermail/ion-general/attachments/20071217/f06f236a/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000920.html">ion3 license
+</A></li>
+	<LI>Next message: <A HREF="000904.html">ion3 license
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#902">[ date ]</a>
+              <a href="thread.html#902">[ thread ]</a>
+              <a href="subject.html#902">[ subject ]</a>
+              <a href="author.html#902">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

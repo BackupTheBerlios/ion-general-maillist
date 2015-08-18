@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Font rendering oddity in status bar
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Font%20rendering%20oddity%20in%20status%20bar&In-Reply-To=%3C1177540972.4347.18.camel%40deadeye.i.decadent.org.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000372.html">
+   <LINK REL="Next"  HREF="000375.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Font rendering oddity in status bar</H1>
+    <B>Ben Hutchings</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Font%20rendering%20oddity%20in%20status%20bar&In-Reply-To=%3C1177540972.4347.18.camel%40deadeye.i.decadent.org.uk%3E"
+       TITLE="Font rendering oddity in status bar">ben at decadent.org.uk
+       </A><BR>
+    <I>Thu Apr 26 00:42:52 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000372.html">Longpress patch (for N700 etc.)
+</A></li>
+        <LI>Next message: <A HREF="000375.html">Font rendering oddity in status bar
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#373">[ date ]</a>
+              <a href="thread.html#373">[ thread ]</a>
+              <a href="subject.html#373">[ subject ]</a>
+              <a href="author.html#373">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>A Debian user reported a cosmetic bug in Ion3 where the top pixel of a
+vertical bar character (U+2502) in the status bar could be left behind
+when the text changed.  This suggests some sort of error in finding the
+text extents (but at what level, I don't know).  The bug report is at
+<A HREF="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=417651">http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=417651</A> and includes a
+screenshot of this behaviour.  I identified the font for most characters
+as being fixed 6x13, but the vertical bar appears to be 14 pixels tall;
+perhaps it comes from another font in a fontset?  I have spent some time
+investigating this (explanations attached to the report) but have not
+been able to work out where the mismatch is.  In particular I have not
+been able to construct a fontset that includes fixed 6x13.
+
+Can anyone help me work out what's going on?
+
+Ben.
+
+-- 
+Ben Hutchings
+All extremists should be taken out and shot.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20070425/a5555559/attachment.pgp">https://lists.berlios.de/pipermail/ion-general/attachments/20070425/a5555559/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000372.html">Longpress patch (for N700 etc.)
+</A></li>
+	<LI>Next message: <A HREF="000375.html">Font rendering oddity in status bar
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#373">[ date ]</a>
+              <a href="thread.html#373">[ thread ]</a>
+              <a href="subject.html#373">[ subject ]</a>
+              <a href="author.html#373">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

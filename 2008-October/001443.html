@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Fwd: Re: ICCCM
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-October/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Fwd%3A%20Re%3A%20ICCCM&In-Reply-To=%3Cop.ujv14aabalb39k%40hardy-mac%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001442.html">
+   <LINK REL="Next"  HREF="001444.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Fwd: Re: ICCCM</H1>
+    <B>Robin</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Fwd%3A%20Re%3A%20ICCCM&In-Reply-To=%3Cop.ujv14aabalb39k%40hardy-mac%3E"
+       TITLE="Fwd: Re: ICCCM">me at robin.com.au
+       </A><BR>
+    <I>Fri Oct 31 13:25:20 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001442.html">Manipulate floating splits or the scratchpad on the fly
+</A></li>
+        <LI>Next message: <A HREF="001444.html">Moving tabbar to bottom of the screen
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1443">[ date ]</a>
+              <a href="thread.html#1443">[ thread ]</a>
+              <a href="subject.html#1443">[ subject ]</a>
+              <a href="author.html#1443">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Thank you for your thoughts and information. I intended this to be on the  
+mailing in the first place. Hope you don't mind Tuomo.
+
+------- Forwarded message -------
+From: &quot;Tuomo Valkonen&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt;
+To: Robin &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">me at robin.com.au</A>&gt;
+Cc:
+Subject: Re: ICCCM
+Date: Mon, 20 Oct 2008 15:01:17 +0700
+
+On 2008-10-19 02:39 +0700, Robin wrote:
+&gt;<i> On Tue, 14 Oct 2008 01:06:29 +0700, Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt; wrote:
+</I>&gt;<i>
+</I>&gt;<i> &gt;On 2008-10-13, John Harrigan &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">jfharrigan at fedex.com</A>&gt; wrote:
+</I>&gt;<i> &gt;&gt;Both Acrobat and OpenOffice open in the 'Aux' frame as desired,
+</I>&gt;<i> &gt;&gt;but starting OpenOffice moves focus to the 'Aux' frame.  Acrobat
+</I>&gt;<i> &gt;&gt;does not change the focus.  Changing switchto from true to false
+</I>&gt;<i> &gt;&gt;doesn't seem to change this behavior.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;It is possible that OO is crap [of course it is, and utter and total
+</I>&gt;<i> &gt;at that] and forces the focus, in violation of the ICCCM [1]. Focus
+</I>&gt;<i> &gt;change is not a request, but a command that the X server follows.
+</I>&gt;<i> &gt;ICCCM establishes protocols on when it may be used.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;  [1]: <A HREF="http://www.tronche.com/gui/x/icccm/sec-4.html#s-4.1.7">http://www.tronche.com/gui/x/icccm/sec-4.html#s-4.1.7</A>
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I>&gt;<i> Whenever I read that there are problems with certain apps (mostly
+</I>&gt;<i> gnome-based) not running properly on ion, your response is usually that
+</I>&gt;<i> the app is crap and does not follow the ICCCM spec.
+</I>&gt;<i>
+</I>&gt;<i> Not knowing what ICCCM means, I looked it up at
+</I>&gt;<i> <A HREF="http://en.wikipedia.org/wiki/Inter-Client_Communication_Conventions_Manual">http://en.wikipedia.org/wiki/Inter-Client_Communication_Conventions_Manual</A>
+</I>&gt;<i>
+</I>&gt;<i> One section says:
+</I>&gt;<i>
+</I>&gt;<i> &quot;The ICCCM is notorious for being ambiguous and difficult to correctly
+</I>&gt;<i> implement [1]. Furthermore, some parts are obsolete or no longer  
+</I>&gt;<i> practical
+</I>&gt;<i> to implement [2].
+</I>
+Says the WIMPshit desktop clique, who does not want to support
+alternatives to their gnome/kde shit, and instead...
+
+&gt;<i> Maybe &quot;does neither follow the ICCCM nor the EWMH&quot;?
+</I>
+... design shit like EWMH, that is very closely tied to WIMPshit
+desktop metaphor.
+
+In any case, the ICCCM is very clear here
+&lt;<A HREF="http://www.tronche.com/gui/x/icccm/sec-4.html#s-4.1.7">http://www.tronche.com/gui/x/icccm/sec-4.html#s-4.1.7</A>&gt;:
+
+&quot;&quot;&quot;
+There are four models of input handling:
+
+   * No Input - The client never expects keyboard input. An example would be
+     xload or another output-only client.
+&quot;&quot;&quot;
+
+The ones that normal applications should adhere to are:
+
+&quot;&quot;&quot;
+   * Passive Input - The client expects keyboard input but never explicitly
+sets
+     the input focus. An example would be a simple client with no  
+subwindows,
+     which will accept input in PointerRoot mode or when the window manager
+sets
+     the input focus to its top-level window (in click-to-type mode).
+
+   * Locally Active Input - The client expects keyboard input and explicitly
+sets
+     the input focus, but it only does so when one of its windows already
+has the
+     focus. An example would be a client with subwindows defining various
+data
+     entry fields that uses Next and Prev keys to move the input focus
+between
+     the fields. It does so when its top-level window has acquired the focus
+in
+     PointerRoot mode or when the window manager sets the input focus to its
+     top-level window (in click-to-type mode).
+&quot;&quot;&quot;
+
+There is also
+
+&quot;&quot;&quot;
+   * Globally Active Input - The client expects keyboard input and  
+explicitly
+     sets the input focus, even when it is in windows the client does not
+own. An
+     example would be a client with a scroll bar that wants to allow users  
+to
+     scroll the window without disturbing the input focus even if it is in
+some
+     other window. It wants to acquire the input focus when the user clicks
+in
+     the scrolled region but not when the user clicks in the scroll bar
+itself.
+     Thus, it wants to prevent the window manager from setting the input
+focus to
+     any of its windows.
+&quot;&quot;&quot;&quot;
+
+But
+
+&quot;&quot;&quot;
+Clients using the Globally Active model can only use a SetInputFocus
+request
+to acquire the input focus when they do not already have it on receipt of
+one of the following events:
+   * ButtonPress
+   * ButtonRelease
+   * Passive-grabbed KeyPress
+   * Passive-grabbed KeyRelease
+&quot;&quot;&quot;
+
+So you see, the cases when an application is allowed to set the focus
+are clear and very limited.
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001442.html">Manipulate floating splits or the scratchpad on the fly
+</A></li>
+	<LI>Next message: <A HREF="001444.html">Moving tabbar to bottom of the screen
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1443">[ date ]</a>
+              <a href="thread.html#1443">[ thread ]</a>
+              <a href="subject.html#1443">[ subject ]</a>
+              <a href="author.html#1443">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

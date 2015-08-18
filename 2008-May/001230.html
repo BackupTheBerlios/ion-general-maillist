@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Minor issue when using alternate xkb groups
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Minor%20issue%20when%20using%20alternate%20xkb%20groups&In-Reply-To=%3C20080528223208.GA25581%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001229.html">
+   <LINK REL="Next"  HREF="001231.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Minor issue when using alternate xkb groups</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Minor%20issue%20when%20using%20alternate%20xkb%20groups&In-Reply-To=%3C20080528223208.GA25581%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Minor issue when using alternate xkb groups">tuomov at iki.fi
+       </A><BR>
+    <I>Thu May 29 00:32:08 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001229.html">Minor issue when using alternate xkb groups
+</A></li>
+        <LI>Next message: <A HREF="001231.html">Minor issue when using alternate xkb groups
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1230">[ date ]</a>
+              <a href="thread.html#1230">[ thread ]</a>
+              <a href="subject.html#1230">[ subject ]</a>
+              <a href="author.html#1230">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-05-28 14:02 +0000, Tuomo Valkonen wrote:
+&gt;<i> The original complainer
+</I>&gt;<i> should therefore have no problems on the version of X I'm running
+</I>&gt;<i> (from Etch), because the server simply masks the groups, or at
+</I>&gt;<i> least the one tied to Mode_Switch, and for some reason Ion actually 
+</I>&gt;<i> masks the state with KNOWN_MODIFIERS_MASK in the binding search code
+</I>&gt;<i> although it does not ask as to grab things with other modifiers set.
+</I>
+Actually, making Ion print things instead of relying on xev 
+alone, it appears that the X server does not set the Mode_Switch 
+bit (0x2000) on key events for grabbed keys, although it does set 
+it in events for non-grabbed keys (that xev can catch). Thus the 
+stray KNOWN_MODIFIERS_MASK code actually does nothing, and the 
+X server completely hides Mode_Switch (and any modifiers bound to
+it) in events for grabbed keys -- but only for them. On my system, 
+that is. Smells like a rotting pile of kludges...
+
+-- 
+Tuomo
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001229.html">Minor issue when using alternate xkb groups
+</A></li>
+	<LI>Next message: <A HREF="001231.html">Minor issue when using alternate xkb groups
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1230">[ date ]</a>
+              <a href="thread.html#1230">[ thread ]</a>
+              <a href="subject.html#1230">[ subject ]</a>
+              <a href="author.html#1230">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

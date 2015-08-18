@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> running shell commands when the mouse hits a corner
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20running%20shell%20commands%20when%20the%20mouse%20hits%20a%20corner&In-Reply-To=%3C868x31nw92.fsf%40lifelogs.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000978.html">
+   <LINK REL="Next"  HREF="000982.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>running shell commands when the mouse hits a corner</H1>
+    <B>Ted Zlatanov</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20running%20shell%20commands%20when%20the%20mouse%20hits%20a%20corner&In-Reply-To=%3C868x31nw92.fsf%40lifelogs.com%3E"
+       TITLE="running shell commands when the mouse hits a corner">tzz at lifelogs.com
+       </A><BR>
+    <I>Mon Jan  7 22:47:37 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000978.html">running shell commands when the mouse hits a corner
+</A></li>
+        <LI>Next message: <A HREF="000982.html">running shell commands when the mouse hits a corner
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#980">[ date ]</a>
+              <a href="thread.html#980">[ thread ]</a>
+              <a href="subject.html#980">[ subject ]</a>
+              <a href="author.html#980">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Mon, 07 Jan 2008 16:12:19 -0500 Mark Eichin &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">eichin-ion at thok.org</A>&gt; wrote: 
+
+&gt;&gt;<i> Also, the X and Y dimensions are set to 1920x1200 in the script, but can
+</I>&gt;&gt;<i> be overridden with -x and -y respectively.  I don't know how to grab
+</I>&gt;&gt;<i> those automatically.
+</I>
+ME&gt; If you're into running commands instead of doing Xlib from perl
+ME&gt; directly, just run &quot;xwininfo -root&quot; and parse out the Width: and
+ME&gt; Height: fields.  (For multi-monitor setups, just run one on each
+ME&gt; screen, or maybe look at xdpyinfo and parse &quot;screen #&quot; and
+ME&gt; &quot;dimensions:&quot; instead.)
+
+I'd do Xlib directly to get the mouse position and the screen
+dimensions, but I just don't have the time to play with it.  I know
+Inline::C will do almost all the glue work, but the remaining 10% of
+work will take me a long time...  If you or someone else can tell me the
+Xlib calls to do those two things, I'll rewrite my script.  I did some
+googling but didn't hit useful information.
+
+There's a Perl X11::Protocol module but I'd rather not make the end user
+install a huge CPAN module just for a few lines of C.  Similarly, I'd
+rather not set up the X event loop if I can help it.  So the simpler the
+better...  Thanks for any ideas.
+
+Ted
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000978.html">running shell commands when the mouse hits a corner
+</A></li>
+	<LI>Next message: <A HREF="000982.html">running shell commands when the mouse hits a corner
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#980">[ date ]</a>
+              <a href="thread.html#980">[ thread ]</a>
+              <a href="subject.html#980">[ subject ]</a>
+              <a href="author.html#980">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

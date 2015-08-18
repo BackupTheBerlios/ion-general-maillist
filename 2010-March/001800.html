@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> disabling mouse focus
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2010-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20disabling%20mouse%20focus&In-Reply-To=%3Ce0165c2c1003221636oae18f63g127d5ce432373efb%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001799.html">
+   <LINK REL="Next"  HREF="001801.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>disabling mouse focus</H1>
+    <B>M. Rawash</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20disabling%20mouse%20focus&In-Reply-To=%3Ce0165c2c1003221636oae18f63g127d5ce432373efb%40mail.gmail.com%3E"
+       TITLE="disabling mouse focus">mrawash at gmail.com
+       </A><BR>
+    <I>Tue Mar 23 00:36:33 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001799.html">disabling mouse focus
+</A></li>
+        <LI>Next message: <A HREF="001801.html">Grab the keyboard
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1800">[ date ]</a>
+              <a href="thread.html#1800">[ thread ]</a>
+              <a href="subject.html#1800">[ subject ]</a>
+              <a href="author.html#1800">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 22/03/2010, Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt; wrote:
+&gt;<i> On 2010-03-19 14:33 +0200, M. Rawash wrote:
+</I>&gt;&gt;<i> hi, is there a simple way to disable 'mousefocus' on certain clients
+</I>&gt;&gt;<i> (a on-screen keyboard, for example)?
+</I>&gt;<i>
+</I>&gt;<i> There's the 'passive' winprop. There should be examples in the
+</I>&gt;<i> list archives, maybe even something in the scripts repository.
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> Tuomo
+</I>&gt;<i>
+</I>
+thanks, i thought there must be a more obvious way, but this is what i did:
+
+defwinprop{
+  class = &quot;Something&quot;,
+  float = true,
+  userpos = true,
+  switchto = false,
+  no_focus = true,
+}
+
+nmfcwins = {}
+
+function no_mfocus(cwin,t)
+  local winprop = ioncore.getwinprop(cwin)
+  if winprop and winprop.no_focus then
+    nmfcwins[cwin:xid()] = cwin:xid()
+    ioncore.set{mousefocus=&quot;disabled&quot;}
+  end
+end
+
+function ret_mfocus(cxid)
+  if nmfcwins[cxid]==cxid then
+    nmfcwins[cxid]=nil
+    if table.maxn(nmfcwins)==0 then
+      ioncore.set{mousefocus=&quot;sloppy&quot;}
+    end
+  end
+end
+
+ioncore.get_hook('clientwin_mapped_hook'):add(no_mfocus)
+ioncore.get_hook('clientwin_unmapped_hook'):add(ret_mfocus)
+
+this is only good for a few cases (i.e. a on-screen keyboard, that's
+activated from the systray), but it does the job for me; i'll
+investigate the passive property further, i noticed it before, but
+wasn't sure how to use it in this case.
+
+regards,
+M Rawash
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001799.html">disabling mouse focus
+</A></li>
+	<LI>Next message: <A HREF="001801.html">Grab the keyboard
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1800">[ date ]</a>
+              <a href="thread.html#1800">[ thread ]</a>
+              <a href="subject.html#1800">[ subject ]</a>
+              <a href="author.html#1800">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

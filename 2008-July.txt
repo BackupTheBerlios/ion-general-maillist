@@ -1,0 +1,2574 @@
+From tuomov at iki.fi  Tue Jul  1 22:15:23 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 1 Jul 2008 23:15:23 +0300
+Subject: Ion3 wishlist / a note about Ion4
+In-Reply-To: <slrng107pm.t8i.tuomov@jolt.modeemi.cs.tut.fi>
+References: <44352.88.146.1.38.1208962658.squirrel@drak.ucw.cz>
+	<slrng107pm.t8i.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080701201523.GA24146@jolt.modeemi.cs.tut.fi>
+
+On 2008-04-24 05:48 +0000, Tuomo Valkonen wrote:
+> There should actually also be a patch around somewhere, that adds
+> support for some variant of double-clicking or something (I don't
+> recall exactly what), that someone wrote for use on the N770 or so.
+> But he never submitted it with darcs, so I couldn't be arsed to
+> apply it, although would otherwise have included it.
+
+I accidentally came across the attached longpress patch by 
+Olog Romashing; maybe that's what I meant. In case someone 
+to do what needs to be done to make it apply to the present
+source tree, and submit it via darcs, go ahead.
+
+-- 
+Tuomo
+-------------- next part --------------
+diff -ruN ion-3.orig/build/mkman.lua ion-3.new/build/mkman.lua
+--- ion-3.orig/build/mkman.lua	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/build/mkman.lua	2005-09-23 12:33:42.000000000 +0300
+@@ -113,6 +113,10 @@
+         return mact("mpress", buttonspec, cmd, guard)
+     end
+ 
++    function p.mlongpress(buttonspec, cmd, guard)
++        return mact("mlongpress", buttonspec, cmd, guard)
++    end
++
+     function p.mdrag(buttonspec, cmd, guard)
+         return mact("mdrag", buttonspec, cmd, guard)
+     end
+@@ -186,6 +190,7 @@
+ local function combine_bindings(v)    
+     local nact={
+         ["mpress"]=TR("press"),
++	["mlongpress"]=TR("longpress"),
+         ["mclick"]=TR("click"),
+         ["mdrag"]=TR("drag"),
+         ["mdblclick"]=TR("double click"),
+diff -ruN ion-3.orig/config.h ion-3.new/config.h
+--- ion-3.orig/config.h	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/config.h	2005-09-23 12:33:42.000000000 +0300
+@@ -18,6 +18,7 @@
+ /*#define CF_FALLBACK_FONT_NAME "-*-helvetica-medium-r-normal-*-12-*-*-*-*-*-*-*"*/
+ #define CF_DRAG_TRESHOLD 2
+ #define CF_DBLCLICK_DELAY 250
++#define CF_LONGPRESS_DELAY 1000
+ 
+ #define CF_MAX_MOVERES_STR_SIZE 32
+ 
+diff -ruN ion-3.orig/etc/cfg_ion.lua ion-3.new/etc/cfg_ion.lua
+--- ion-3.orig/etc/cfg_ion.lua	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/etc/cfg_ion.lua	2005-09-23 12:33:42.000000000 +0300
+@@ -16,6 +16,8 @@
+     -- Maximum delay between clicks in milliseconds to be considered a
+     -- double click.
+     dblclick_delay=250,
++    
++    longpress_delay=1000,
+ 
+     -- For keyboard resize, time (in milliseconds) to wait after latest
+     -- key press before automatically leaving resize mode (and doing
+diff -ruN ion-3.orig/ioncore/binding.c ion-3.new/ioncore/binding.c
+--- ion-3.orig/ioncore/binding.c	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/ioncore/binding.c	2005-09-23 12:33:43.000000000 +0300
+@@ -363,6 +363,7 @@
+     }
+     
+     if(binding->act!=BINDING_BUTTONPRESS &&
++       binding->act!=BINDING_BUTTONLONGPRESS &&
+        binding->act!=BINDING_BUTTONCLICK &&
+        binding->act!=BINDING_BUTTONDBLCLICK &&
+        binding->act!=BINDING_BUTTONMOTION)
+@@ -394,6 +395,7 @@
+     }
+     
+     if(binding->act!=BINDING_BUTTONPRESS &&
++       binding->act!=BINDING_BUTTONLONGPRESS &&
+        binding->act!=BINDING_BUTTONCLICK &&
+        binding->act!=BINDING_BUTTONDBLCLICK &&
+        binding->act!=BINDING_BUTTONMOTION)
+diff -ruN ion-3.orig/ioncore/binding.h ion-3.new/ioncore/binding.h
+--- ion-3.orig/ioncore/binding.h	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/ioncore/binding.h	2005-09-23 12:33:43.000000000 +0300
+@@ -25,8 +25,9 @@
+ #define BINDING_BUTTONMOTION    2
+ #define BINDING_BUTTONCLICK     3
+ #define BINDING_BUTTONDBLCLICK  4
++#define BINDING_BUTTONLONGPRESS 5
+ 
+-#define BINDMAP_INIT        {0, NULL, NULL, NULL, NULL}
++#define BINDMAP_INIT        {0, NULL, NULL, NULL, NULL, NULL}
+ 
+ #define FOR_ALL_BINDINGS(B, NODE, MAP) \
+         rb_traverse(NODE, MAP) if(((B)=(WBinding*)rb_val(NODE))!=NULL)
+diff -ruN ion-3.orig/ioncore/conf-bindings.c ion-3.new/ioncore/conf-bindings.c
+--- ion-3.orig/ioncore/conf-bindings.c	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/ioncore/conf-bindings.c	2005-09-23 12:33:43.000000000 +0300
+@@ -239,6 +239,7 @@
+     {"mclick", BINDING_BUTTONCLICK},
+     {"mdblclick", BINDING_BUTTONDBLCLICK},
+     {"mdrag", BINDING_BUTTONMOTION},
++    {"mlongpress", BINDING_BUTTONLONGPRESS},
+     {NULL, 0}
+ };
+ 
+diff -ruN ion-3.orig/ioncore/conf.c ion-3.new/ioncore/conf.c
+--- ion-3.orig/ioncore/conf.c	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/ioncore/conf.c	2005-09-23 12:33:43.000000000 +0300
+@@ -47,6 +47,7 @@
+  *  \var{frame_add_last} & (boolean) Add new regions in frames last instead
+  *                        of after current region. \\
+  *  \var{dblclick_delay} & (integer) Delay between clicks of a double click.\\
++ *  \var{longpress_delay} & (integer) Delay between clicks of a double click.\\
+  *  \var{default_ws_type} & (string) Default workspace type for operations
+  *                         that create a workspace.\\
+  *  \var{kbresize_delay} & (integer) Delay in milliseconds for ending keyboard
+@@ -80,6 +81,8 @@
+     
+     if(extl_table_gets_i(tab, "dblclick_delay", &dd))
+         ioncore_g.dblclick_delay=maxof(0, dd);
++    if(extl_table_gets_i(tab, "longpress_delay", &dd))
++        ioncore_g.longpress_delay=maxof(0, dd);
+     if(extl_table_gets_s(tab, "default_ws_type", &wst)){
+         if(ioncore_default_ws_type!=NULL)
+             free(ioncore_default_ws_type);
+@@ -102,6 +105,7 @@
+     extl_table_sets_b(tab, "warp", ioncore_g.warp_enabled);
+     extl_table_sets_b(tab, "switchto", ioncore_g.switchto_new);
+     extl_table_sets_i(tab, "dblclick_delay", ioncore_g.dblclick_delay);
++    extl_table_sets_i(tab, "longpress_delay", ioncore_g.longpress_delay);
+     extl_table_sets_b(tab, "screen_notify", ioncore_g.screen_notify);
+     extl_table_sets_s(tab, "default_ws_type", ioncore_default_ws_type);
+     extl_table_sets_b(tab, "frame_add_last", ioncore_g.frame_add_last);
+diff -ruN ion-3.orig/ioncore/global.h ion-3.new/ioncore/global.h
+--- ion-3.orig/ioncore/global.h	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/ioncore/global.h	2005-09-23 12:33:43.000000000 +0300
+@@ -72,6 +72,7 @@
+     int previous_protect;
+     
+     Time dblclick_delay;
++    Time longpress_delay;
+     int opaque_resize;
+     bool warp_enabled;
+     bool switchto_new;
+diff -ruN ion-3.orig/ioncore/ioncore_bindings.lua ion-3.new/ioncore/ioncore_bindings.lua
+--- ion-3.orig/ioncore/ioncore_bindings.lua	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/ioncore/ioncore_bindings.lua	2005-09-23 12:33:43.000000000 +0300
+@@ -157,6 +157,14 @@
+ end
+ 
+ --DOC
++-- Similar to \fnref{mlongpress} but for just pressing the mouse button.
++-- Also see section \ref{sec:bindings}.
++function ioncore.mlongpress(buttonspec, cmd, guard)
++    return mact("mlongpress", buttonspec, cmd, guard)
++end
++
++
++--DOC
+ -- Creates a binding description table for the action of moving the mouse
+ -- (or other pointing device) while the button given by \var{buttonspec}
+ -- is held pressed and the modifiers given by \var{buttonspec} were pressed
+diff -ruN ion-3.orig/ioncore/ioncore.c ion-3.new/ioncore/ioncore.c
+--- ion-3.orig/ioncore/ioncore.c	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/ioncore/ioncore.c	2005-09-23 12:33:43.000000000 +0300
+@@ -312,6 +312,7 @@
+     ioncore_g.opmode=IONCORE_OPMODE_INIT;
+     ioncore_g.previous_protect=0;
+     ioncore_g.dblclick_delay=CF_DBLCLICK_DELAY;
++    ioncore_g.longpress_delay=CF_LONGPRESS_DELAY;
+     ioncore_g.opaque_resize=0;
+     ioncore_g.warp_enabled=TRUE;
+     ioncore_g.switchto_new=TRUE;
+diff -ruN ion-3.orig/ioncore/ioncore_ext.lua ion-3.new/ioncore/ioncore_ext.lua
+--- ion-3.orig/ioncore/ioncore_ext.lua	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/ioncore/ioncore_ext.lua	2005-09-23 12:33:43.000000000 +0300
+@@ -35,6 +35,7 @@
+        "kpress",
+        "kpress_wait",
+        "mpress",
++       "mlongpress",
+        "mclick",
+        "mdblclick",
+        "mdrag",
+diff -ruN ion-3.orig/ioncore/pointer.c ion-3.new/ioncore/pointer.c
+--- ion-3.orig/ioncore/pointer.c	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/ioncore/pointer.c	2005-09-23 12:33:43.000000000 +0300
+@@ -18,7 +18,7 @@
+ #include "regbind.h"
+ #include "grab.h"
+ #include "xwindow.h"
+-
++#include <libmainloop/signal.h>
+ 
+ /*{{{ Variables */
+ 
+@@ -30,6 +30,12 @@
+ static int p_clickcnt=0;
+ static Time p_time=0;
+ static int p_area=0;
++static WTimer *long_press_timer=NULL;
++static bool p_long_press = FALSE;
++static int long_press_delay = 1000;
++
++static XButtonEvent last_mbutton_event;
++
+ static enum{ST_NO, ST_INIT, ST_HELD} p_grabstate=ST_NO;
+ 
+ static WButtonHandler *p_motion_end_handler=NULL;
+@@ -46,7 +52,6 @@
+ 
+ /*}}}*/
+ 
+-
+ /*{{{ Handler setup */
+ 
+ 
+@@ -218,6 +223,49 @@
+     finish_pointer();
+ }
+ 
++static void tmr_end_long_press(WTimer *unused, void *a_ev)
++{
++    XButtonEvent *ev = &last_mbutton_event;
++    WBinding *pressbind=NULL;
++    WRegion *reg=NULL;
++    WRegion *subreg=NULL;
++    uint button, state;
++    bool dblclick;
++
++    state=ev->state;
++    button=ev->button;
++    ev->type = ButtonPress;
++    pressbind=region_lookup_binding(p_reg, BINDING_BUTTONLONGPRESS, p_state,
++                                             p_button, p_area);
++    call_button(pressbind, ev);
++    p_long_press = FALSE;
++    return;
++}
++
++static bool setup_long_press_timer(void *ev)
++{
++    if(long_press_timer==NULL){
++        long_press_timer=create_timer();
++        if(long_press_timer==NULL)
++            return FALSE;
++    }
++    p_long_press = TRUE;
++    timer_set(long_press_timer, ioncore_g.longpress_delay,
++              (WTimerHandler*)tmr_end_long_press, ev);
++    return TRUE;
++}
++
++
++static void reset_long_press_timer()
++{
++    if(long_press_timer!=NULL){	
++        timer_reset(long_press_timer);
++        destroy_obj((Obj*)long_press_timer);
++        long_press_timer=NULL;
++    }
++    p_long_press = FALSE;
++}
++
+ 
+ bool ioncore_do_handle_buttonpress(XButtonEvent *ev)
+ {
+@@ -270,6 +321,13 @@
+     if(subreg!=NULL)
+         watch_setup(&p_subregwatch, (Obj*)subreg, NULL);
+ 
++
++    if (!p_long_press)
++    {
++	last_mbutton_event = *ev;
++	setup_long_press_timer(NULL);
++    }
++
+     if(dblclick){
+         pressbind=region_lookup_binding(reg, BINDING_BUTTONDBLCLICK, state,
+                                              button, p_area);
+@@ -309,6 +367,7 @@
+     }
+     
+     ioncore_grab_remove(handle_key);
++    reset_long_press_timer();
+     finish_pointer();
+     
+     return TRUE;
+@@ -319,7 +378,12 @@
+ {
+     int dx, dy;
+     WBinding *binding=NULL;
+-    
++    if (p_long_press)
++    {
++	last_mbutton_event.x_root = ev->x_root;
++	last_mbutton_event.y_root = ev->y_root;
++	return;
++    }
+     if(p_reg==NULL)
+         return;
+     
+diff -ruN ion-3.orig/pwm/cfg_pwm.lua ion-3.new/pwm/cfg_pwm.lua
+--- ion-3.orig/pwm/cfg_pwm.lua	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/pwm/cfg_pwm.lua	2005-09-23 12:33:42.000000000 +0300
+@@ -19,6 +19,8 @@
+     -- double click.
+     dblclick_delay=250,
+ 
++    longpress_delay=1000,
++
+     -- For keyboard resize, time (in milliseconds) to wait after latest
+     -- key press before automatically leaving resize mode (and doing
+     -- the resize in case of non-opaque move).
+
+From jan0sch at gmx.net  Tue Jul  1 22:29:41 2008
+From: jan0sch at gmx.net (Jens Jahnke)
+Date: Tue, 1 Jul 2008 22:29:41 +0200
+Subject: ion-statusd eating up 100% cpu
+In-Reply-To: <slrng6ibkc.pu8.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20080610100708.33b9b60c.jan0sch@gmx.net>
+	<slrng4t3h2.hl0.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080610190008.da37a6c7.jan0sch@gmx.net>
+	<20080619214942.GA9799@jolt.modeemi.cs.tut.fi>
+	<20080623194007.48143008@gmail.com>
+	<20080630161743.ae16d1dd.jan0sch@gmx.net>
+	<slrng6ibkc.pu8.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080701222941.5029d8b2.jan0sch@gmx.net>
+
+On Mon, 30 Jun 2008 19:05:48 +0000 (UTC)
+Tuomo Valkonen <tuomov at iki.fi> wrote:
+
+TV> Can you confirm that the patch worked?
+
+The bug didn't occur until now. But that has to mean nothing as it appears
+only occasionally. :-|
+I guess if it happens within the next week we're safe. ;-)
+
+regards
+
+jens
+
+-- 
+01. Heuert 2008, 22:27
+Homepage : http://www.jan0sch.de
+
+For a light heart lives long.
+		-- Shakespeare, "Love's Labour's Lost"
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 697 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080701/a4dd8e4d/attachment.pgp>
+
+From stephane.mourey at gmail.com  Wed Jul  2 10:37:19 2008
+From: stephane.mourey at gmail.com (=?UTF-8?Q?St=C3=A9phane_Mourey?=)
+Date: Wed, 2 Jul 2008 10:37:19 +0200
+Subject: error starting ion3
+Message-ID: <949481560807020137g20529221j30c67cef5b64ee4c@mail.gmail.com>
+
+Hi all,
+
+I'm currently tring to run Ion3 on a freshly installed Gentoo Linux distro.
+The installation seems to have been successful, but, when I type "ion3" in
+an xterm, I get an error:
+"Unable to redirect root window event for screen 0.
+Refusing to start due to encountered errors."
+The fact is that I'm new to both Ion and Gentoo (and very enthusiastic for
+both), and that's not making things easy for me.
+
+I tried to learn something from the X log, but it remains unchanged. I tried
+to find out an Ion log, but did not succeed...
+
+Can anyone told me how to solve this issue? Thanks.
+
+Best regards,
+
+BrokenClock
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080702/b3b64711/attachment.html>
+
+From tuomov at iki.fi  Wed Jul  2 11:42:42 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 2 Jul 2008 09:42:42 +0000 (UTC)
+Subject: error starting ion3
+References: <949481560807020137g20529221j30c67cef5b64ee4c@mail.gmail.com>
+Message-ID: <slrng6mjci.3k1.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-07-02, St??phane Mourey <stephane.mourey at gmail.com> wrote:
+> I'm currently tring to run Ion3 on a freshly installed Gentoo Linux distro.
+> The installation seems to have been successful, but, when I type "ion3" in
+> an xterm, I get an error:
+> "Unable to redirect root window event for screen 0.
+> Refusing to start due to encountered errors."
+
+RTFREADME installation notes. You're likely running another WM
+already. You should set up your X startup files to launch Ion 
+instead of that. E.g. create .xsession containing
+
+    #!/bin/sh
+    ion3
+
+and startx should automatically use it on most systems.
+If you use a fucked up display manager, you may these days
+ need to somehow force it to use .xsession. Traditionally
+it was _exactly the display manager_ that .xsession was
+for, while startx/xinit didn't use it. But the desktop
+herd don't want things to work so simple.
+
+-- 
+Tuomo
+
+
+
+From stephane.mourey at gmail.com  Wed Jul  2 14:25:07 2008
+From: stephane.mourey at gmail.com (=?UTF-8?Q?St=C3=A9phane_Mourey?=)
+Date: Wed, 2 Jul 2008 14:25:07 +0200
+Subject: error starting ion3
+In-Reply-To: <slrng6mjci.3k1.tuomov@jolt.modeemi.cs.tut.fi>
+References: <949481560807020137g20529221j30c67cef5b64ee4c@mail.gmail.com>
+	<slrng6mjci.3k1.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <949481560807020525n31fef05et48df5e8af4e00e35@mail.gmail.com>
+
+Hi,
+
+You're right. I was running another wm (twm). So I just killed it, and ion3
+started as expected.
+I've read the README, but the fact is that I wasn't aware of running another
+wm, and I tried to run nearly like what I did during previous tests on
+Fedora (xinit, then ion3 in xterm). The difference was that I ran startx
+instead of xinit...
+Note that, since my previous mail, I've launch wmii, and its error message
+was far more explicit, and I succeeded to start it after killing twm. At the
+time, I did not realize that the problem should have been the same with ion.
+wmii did not suit me at all, so I so happy now back with ion.
+
+Best regards,
+
+BrokenClock
+
+2008/7/2 Tuomo Valkonen <tuomov at iki.fi>:
+
+> On 2008-07-02, St?phane Mourey <stephane.mourey at gmail.com> wrote:
+> > I'm currently tring to run Ion3 on a freshly installed Gentoo Linux
+> distro.
+> > The installation seems to have been successful, but, when I type "ion3"
+> in
+> > an xterm, I get an error:
+> > "Unable to redirect root window event for screen 0.
+> > Refusing to start due to encountered errors."
+>
+> RTFREADME installation notes. You're likely running another WM
+> already. You should set up your X startup files to launch Ion
+> instead of that. E.g. create .xsession containing
+>
+>    #!/bin/sh
+>    ion3
+>
+> and startx should automatically use it on most systems.
+> If you use a fucked up display manager, you may these days
+>  need to somehow force it to use .xsession. Traditionally
+> it was _exactly the display manager_ that .xsession was
+> for, while startx/xinit didn't use it. But the desktop
+> herd don't want things to work so simple.
+>
+> --
+> Tuomo
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080702/2ae37b0a/attachment.html>
+
+From stephane.mourey at gmail.com  Thu Jul  3 09:10:35 2008
+From: stephane.mourey at gmail.com (=?UTF-8?Q?St=C3=A9phane_Mourey?=)
+Date: Thu, 3 Jul 2008 09:10:35 +0200
+Subject: error starting ion3
+In-Reply-To: <949481560807020525n31fef05et48df5e8af4e00e35@mail.gmail.com>
+References: <949481560807020137g20529221j30c67cef5b64ee4c@mail.gmail.com>
+	<slrng6mjci.3k1.tuomov@jolt.modeemi.cs.tut.fi>
+	<949481560807020525n31fef05et48df5e8af4e00e35@mail.gmail.com>
+Message-ID: <949481560807030010vd95da57h66aae2bc931ea96a@mail.gmail.com>
+
+By the way, it seems that you have to use .xinitrc instead of .xsession with
+Gentoo...
+
+2008/7/2 St?phane Mourey <stephane.mourey at gmail.com>:
+
+> Hi,
+>
+> You're right. I was running another wm (twm). So I just killed it, and ion3
+> started as expected.
+> I've read the README, but the fact is that I wasn't aware of running
+> another wm, and I tried to run nearly like what I did during previous tests
+> on Fedora (xinit, then ion3 in xterm). The difference was that I ran startx
+> instead of xinit...
+> Note that, since my previous mail, I've launch wmii, and its error message
+> was far more explicit, and I succeeded to start it after killing twm. At the
+> time, I did not realize that the problem should have been the same with ion.
+> wmii did not suit me at all, so I so happy now back with ion.
+>
+> Best regards,
+>
+> BrokenClock
+>
+> 2008/7/2 Tuomo Valkonen <tuomov at iki.fi>:
+>
+> On 2008-07-02, St?phane Mourey <stephane.mourey at gmail.com> wrote:
+>> > I'm currently tring to run Ion3 on a freshly installed Gentoo Linux
+>> distro.
+>> > The installation seems to have been successful, but, when I type "ion3"
+>> in
+>> > an xterm, I get an error:
+>> > "Unable to redirect root window event for screen 0.
+>> > Refusing to start due to encountered errors."
+>>
+>> RTFREADME installation notes. You're likely running another WM
+>> already. You should set up your X startup files to launch Ion
+>> instead of that. E.g. create .xsession containing
+>>
+>>    #!/bin/sh
+>>    ion3
+>>
+>> and startx should automatically use it on most systems.
+>> If you use a fucked up display manager, you may these days
+>>  need to somehow force it to use .xsession. Traditionally
+>> it was _exactly the display manager_ that .xsession was
+>> for, while startx/xinit didn't use it. But the desktop
+>> herd don't want things to work so simple.
+>>
+>> --
+>> Tuomo
+>>
+>>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080703/4152f1ab/attachment.html>
+
+From tuomov at iki.fi  Thu Jul  3 09:24:08 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 3 Jul 2008 07:24:08 +0000 (UTC)
+Subject: error starting ion3
+References: <949481560807020137g20529221j30c67cef5b64ee4c@mail.gmail.com>
+	<slrng6mjci.3k1.tuomov@jolt.modeemi.cs.tut.fi>
+	<949481560807020525n31fef05et48df5e8af4e00e35@mail.gmail.com>
+	<949481560807030010vd95da57h66aae2bc931ea96a@mail.gmail.com>
+Message-ID: <slrng6ovko.v5u.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-07-03, St??phane Mourey <stephane.mourey at gmail.com> wrote:
+> ------=_Part_12558_9110987.1215069035862
+> Content-Type: text/plain; charset=UTF-8
+> Content-Transfer-Encoding: base64
+> Content-Disposition: inline
+>
+> QnkgdGhlIHdheSwgaXQgc2VlbXMgdGhhdCB5b3UgaGF2ZSB0byB1c2UgLnhpbml0cmMgaW5zdGVh
+> ZCBvZiAueHNlc3Npb24gd2l0aApHZW50b28uLi4KCjIwMDgvNy8yIFN0w6lwaGFuZSBNb3VyZXkg
+> PHN0ZXBoYW5lLm1vdXJleUBnbWFpbC5jb20+OgoKPiBIaSwKPgo+IFlvdSdyZSByaWdodC4gSSB3
+> YXMgcnVubmluZyBhbm90aGVyIHdtICh0d20pLiBTbyBJIGp1c3Qga2lsbGVkIGl0LCBhbmQgaW9u
+
+Your MUA doesn't play nice with Gmane. Please configure it otherwise,
+if you can.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Thu Jul  3 09:30:18 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 3 Jul 2008 07:30:18 +0000 (UTC)
+Subject: error starting ion3
+References: <949481560807020137g20529221j30c67cef5b64ee4c@mail.gmail.com>
+	<slrng6mjci.3k1.tuomov@jolt.modeemi.cs.tut.fi>
+	<949481560807020525n31fef05et48df5e8af4e00e35@mail.gmail.com>
+	<949481560807030010vd95da57h66aae2bc931ea96a@mail.gmail.com>
+	<slrng6ovko.v5u.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrng6p00a.vro.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-07-03, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> Your MUA doesn't play nice with Gmane. Please configure it otherwise,
+> if you can.
+
+Actually, it's not gmane, it's slrn (works through opera), so no point
+in complaining to them either. The request applies.
+
+-- 
+Tuomo
+
+
+
+From thierry.volpiatto at gmail.com  Thu Jul  3 13:30:26 2008
+From: thierry.volpiatto at gmail.com (Thierry Volpiatto)
+Date: Thu, 03 Jul 2008 13:30:26 +0200
+Subject: error starting ion3
+References: <949481560807020137g20529221j30c67cef5b64ee4c@mail.gmail.com>
+	<slrng6mjci.3k1.tuomov@jolt.modeemi.cs.tut.fi>
+	<949481560807020525n31fef05et48df5e8af4e00e35@mail.gmail.com>
+	<949481560807030010vd95da57h66aae2bc931ea96a@mail.gmail.com>
+	<slrng6ovko.v5u.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrng6p00a.vro.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <87iqvndx2l.fsf@thievol.homelinux.org>
+
+Hi all,
+i am using ion3 (from sources, not layman) on gentoo and it work
+perfectly .
+Disable all stuff related to window-manager in
+/etc/conf.d and rc.conf (if you don't use openrc)
+and use only a ~/.xinitrc.
+Here is mine:
+
+,----[ ~/.xinitrc ]
+| numlockx &
+| urxvtd -q -f -o &
+| feh --bg-scale $(cat ~/.lastwallpaper) &
+| conky &
+| xscreensaver &
+| wmmixer &
+| wmwifi &
+| exec ion3
+| #exec ion3plus
+`----
+
+-- 
+A + Thierry Volpiatto
+Location: Saint-Cyr-Sur-Mer - France
+
+
+
+From tuomov at iki.fi  Mon Jul  7 18:16:52 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 7 Jul 2008 19:16:52 +0300
+Subject: ion-3-20080707
+Message-ID: <20080707161652.GA9690@jolt.modeemi.cs.tut.fi>
+
+This is yet another maintenance release fixing a few issues.
+
+-- 
+Tuomo
+
+
+From aremo at ngi.it  Tue Jul  8 19:23:16 2008
+From: aremo at ngi.it (Andrea)
+Date: Tue, 8 Jul 2008 19:23:16 +0200
+Subject: Ion seems to ignore my ~/.ion3
+Message-ID: <g507q9$v8d$1@ger.gmane.org>
+
+Hi all,
+
+I'm having some trouble getting Ion (3-20080411 built from source) to
+read the config files in my ~/.ion3.
+
+For example, I had set an ALTMETA key in my ~/.ion3/cfg_ion.lua file,
+but this setting is not retained after an Ion restart. I've also tried
+specifying ~/.ion3 as a -searchdir, but no dice.
+
+Permissions are rwxr-xr-x on .ion3 and rw-r--r-- on cfg_ion.lua.
+
+Is there something I'm overlooking?
+
+Thanks in advance,
+Andrea
+
+
+PS: congrats and gratitude to the author of this awesome piece of
+software. I've been using Ion for 2 days and it makes everything else
+look like a toy!
+
+
+-- 
+~> uname -a
+Linux acerrimo.local 2.6.18-92.1.6.el5 #1 SMP Wed Jun 25 12:46:39 EDT
+2008 i686 athlon i386 GNU/Linux
+~> head -n1 /etc/issue
+Scientific Linux SL release 5.1 (Boron)
+
+
+
+From tuomov at iki.fi  Tue Jul  8 21:43:53 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 8 Jul 2008 19:43:53 +0000 (UTC)
+Subject: Ion seems to ignore my ~/.ion3
+References: <g507q9$v8d$1@ger.gmane.org>
+Message-ID: <slrng77grp.e32.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-07-08, Andrea <aremo at ngi.it> wrote:
+> For example, I had set an ALTMETA key in my ~/.ion3/cfg_ion.lua file,
+> but this setting is not retained after an Ion restart. I've also tried
+> specifying ~/.ion3 as a -searchdir, but no dice.
+
+Probably you've messed the modification. Or your $HOME setting is
+wrong. Or something like that. You need to provide details.
+
+-- 
+Tuomo
+
+
+
+From aremo at ngi.it  Wed Jul  9 00:21:59 2008
+From: aremo at ngi.it (Andrea)
+Date: Wed, 9 Jul 2008 00:21:59 +0200
+Subject: Ion seems to ignore my ~/.ion3
+References: <g507q9$v8d$1@ger.gmane.org>
+	<slrng77grp.e32.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <g50pad$13t$1@ger.gmane.org>
+
+On Tue, 8 Jul 2008 19:43:53 +0000 (UTC),
+Tuomo Valkonen <tuomov at iki.fi> wrote:
+
+> Probably you've messed the modification. Or your $HOME setting is
+> wrong. Or something like that. You need to provide details.
+
+
+OK, thanks. I've tried copying the original cfg_ion.lua file from
+/usr/local/etc again, and re-set the ALTMETA key (to "Mod4+"). But
+unfortunately it still doesn't work.
+
+An 'echo $HOME' put in my ~/.xinitrc (from where ion3 is started) shows
+the variable to be set correctly.
+
+Come to think of it, what's really strange is that it worked the first
+time I've configured it, but - after a reboot - it didn't stick.
+UPDATE: after further tests, I've discovered that it works
+intermittently. I did a 'startx' and it worked. Then I quit X,
+immediately 'startx' again and it didn't work. Then it worked again,
+then it didn't for a couple of times, etc.
+
+Please let me know if you want more details.
+
+Cheers,
+Andrea
+
+
+-- 
+~> uname -a
+Linux acerrimo.local 2.6.18-92.1.6.el5 #1 SMP Wed Jun 25 12:46:39 EDT
+2008 i686 athlon i386 GNU/Linux
+~> head -n1 /etc/issue
+Scientific Linux SL release 5.1 (Boron)
+
+
+
+From tuomov at iki.fi  Wed Jul  9 09:13:16 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 9 Jul 2008 07:13:16 +0000 (UTC)
+Subject: Ion seems to ignore my ~/.ion3
+References: <g507q9$v8d$1@ger.gmane.org>
+	<slrng77grp.e32.tuomov@jolt.modeemi.cs.tut.fi>
+	<g50pad$13t$1@ger.gmane.org>
+Message-ID: <slrng78p8c.gq4.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-07-08, Andrea <aremo at ngi.it> wrote:
+> Please let me know if you want more details.
+
+You still didn't provide e.g. cfg_ion.lua.
+
+Anyway, this sounds like a race condition with whatever sets
+up your X keymap: it's still mapping keys when Ion starts
+initialising itself, but isn't yet listening to X events.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Wed Jul  9 09:23:25 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 9 Jul 2008 07:23:25 +0000 (UTC)
+Subject: Ion seems to ignore my ~/.ion3
+References: <g507q9$v8d$1@ger.gmane.org>
+	<slrng77grp.e32.tuomov@jolt.modeemi.cs.tut.fi>
+	<g50pad$13t$1@ger.gmane.org>
+	<slrng78p8c.gq4.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrng78prd.ht3.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-07-09, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> Anyway, this sounds like a race condition with whatever sets
+> up your X keymap: it's still mapping keys when Ion starts
+> initialising itself, but isn't yet listening to X events.
+
+On closer inspection, this shouldn't happen.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Wed Jul  9 11:24:17 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 9 Jul 2008 12:24:17 +0300
+Subject: [Please ignore this mail]
+Message-ID: <20080709092417.GA30159@jolt.modeemi.cs.tut.fi>
+
+Abusing the list for archiving some encrypted data in public.
+Sorry for the spam.
+
+-- 
+Tuomo
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: data
+Type: application/octet-stream
+Size: 18841 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080709/9c8f9d0b/attachment.obj>
+
+From aremo at ngi.it  Wed Jul  9 12:17:52 2008
+From: aremo at ngi.it (Andrea)
+Date: Wed, 9 Jul 2008 12:17:52 +0200
+Subject: Ion seems to ignore my ~/.ion3
+References: <g507q9$v8d$1@ger.gmane.org>
+	<slrng77grp.e32.tuomov@jolt.modeemi.cs.tut.fi>
+	<g50pad$13t$1@ger.gmane.org>
+	<slrng78p8c.gq4.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrng78prd.ht3.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <g5238m$d4n$1@ger.gmane.org>
+
+On Wed, 9 Jul 2008 07:23:25 +0000 (UTC),
+Tuomo Valkonen <tuomov at iki.fi> wrote:
+
+> On 2008-07-09, Tuomo Valkonen <tuomov at iki.fi> wrote:
+>> Anyway, this sounds like a race condition with whatever sets
+>> up your X keymap: it's still mapping keys when Ion starts
+>> initialising itself, but isn't yet listening to X events.
+>
+> On closer inspection, this shouldn't happen.
+
+
+Yeah, I've tried putting a "sleep 5" before "ion3" in my .xinitrc, but
+that didn't fix things.
+
+I'm attaching my ~/.xinitrc and my ~/.ion3/cfg_ion.lua. From the latter,
+I'm removing lines matching /^ *--/ and /^$/ for brevity's sake, hope
+it's OK.
+
+Thanks,
+Andrea
+
+
+-----BEGIN ~/.xinitrc-----
+echo $HOME
+xrdb ~/.Xdefaults
+xmodmap ~/.Xmodmap
+xgamma -rgamma 0.64 -ggamma 0.69 -bgamma 0.66
+xset b 10 880 600 dpms 420 430 440 r rate 400 28
+unclutter &
+ion3
+
+------END ~/.xinitrc------
+
+
+-----BEGIN ~/.ion3/cfg_ion.lua-----
+ALTMETA="Mod4+"
+ioncore.set{
+    
+    
+    
+    
+}
+dopath("cfg_defaults")
+
+------END ~/.ion3/cfg_ion.lua------
+
+
+-- 
+~> uname -a
+Linux acerrimo.local 2.6.18-92.1.6.el5 #1 SMP Wed Jun 25 12:46:39 EDT
+2008 i686 athlon i386 GNU/Linux
+~> head -n1 /etc/issue
+Scientific Linux SL release 5.1 (Boron)
+
+
+
+From tuomov at iki.fi  Wed Jul  9 12:25:47 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 9 Jul 2008 10:25:47 +0000 (UTC)
+Subject: Ion seems to ignore my ~/.ion3
+References: <g507q9$v8d$1@ger.gmane.org>
+	<slrng77grp.e32.tuomov@jolt.modeemi.cs.tut.fi>
+	<g50pad$13t$1@ger.gmane.org>
+	<slrng78p8c.gq4.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrng78prd.ht3.tuomov@jolt.modeemi.cs.tut.fi>
+	<g5238m$d4n$1@ger.gmane.org>
+Message-ID: <slrng794hb.3fh.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-07-09, Andrea <aremo at ngi.it> wrote:
+> I'm attaching my ~/.xinitrc and my ~/.ion3/cfg_ion.lua. From the latter,
+> I'm removing lines matching /^ *--/ and /^$/ for brevity's sake, hope
+> it's OK.
+
+The files seem ok. Are you sure Mod4 is mapped correctly?
+What does xmodmap (without any other parameters) print each
+time? Check this:
+
+    http://iki.fi/tuomov/ion/faq/entries/Modifier_releases.html
+
+Also, the latest release contains some fixes that might help.
+
+-- 
+Tuomo
+
+
+
+From ap at acat.cc  Wed Jul  9 16:47:01 2008
+From: ap at acat.cc (Andreas Poisel)
+Date: Wed, 9 Jul 2008 16:47:01 +0200
+Subject: ion-statusd eating up 100% cpu
+In-Reply-To: <slrng6ibkc.pu8.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20080610100708.33b9b60c.jan0sch@gmx.net>
+	<slrng4t3h2.hl0.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080610190008.da37a6c7.jan0sch@gmx.net>
+	<20080619214942.GA9799@jolt.modeemi.cs.tut.fi>
+	<20080623194007.48143008@gmail.com>
+	<20080630161743.ae16d1dd.jan0sch@gmx.net>
+	<slrng6ibkc.pu8.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080709144701.GO17652@trude>
+
+* Tuomo Valkonen <tuomov at iki.fi> [080630 21:10]:
+
+> Can you confirm that the patch worked?
+> 
+> (I should make a new maintenance release one of these days..)
+
+Seems like version 3-20080707 solves the problem for me, thank you!
+
+-- 
+Bye, Andreas
+
+
+From ben at decadent.org.uk  Mon Jul 21 00:52:56 2008
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Sun, 20 Jul 2008 23:52:56 +0100
+Subject: Warnings for missing keys for non-critical key bindings
+Message-ID: <1216594376.30035.40.camel@deadeye.i.decadent.org.uk>
+
+Tuomo,
+
+I got a bug report about warnings for keysym translation failure for
+some of the standard bindings: http://bugs.debian.org/488673
+
+Some of the standard bindings refer to keys that aren't in all keymaps
+(e.g. Home in this case).  Thankfully they are redundant with other
+bindings.  So it seems like it would be OK to suppress the warnings for
+those bindings.
+
+I came up with a patch that makes that change, which I'd like to apply
+to the Debian package.  What do you think of this approach?
+Unfortunately it changes the signature of ioncore_parse_keybut() which
+means an ABI break - maybe you can think of a better way to pass in the
+new flag.
+
+Ben.
+
+--- ion3.orig/etc/cfg_menu.lua
++++ ion3/etc/cfg_menu.lua
+@@ -9,14 +9,14 @@
+ 
+ defbindings("WMenu", {
+     bdoc("Close the menu."),
+-    kpress("Escape", "WMenu.cancel(_)"),
++    kpress("Escape", "WMenu.cancel(_)", nil, true),
+     kpress("Control+G", "WMenu.cancel(_)"),
+     kpress("Control+C", "WMenu.cancel(_)"),
+     kpress("Left", "WMenu.cancel(_)"),
+     
+     bdoc("Activate current menu entry."),
+     kpress("Return",  "WMenu.finish(_)"),
+-    kpress("KP_Enter", "WMenu.finish(_)"),
++    kpress("KP_Enter", "WMenu.finish(_)", nil, true),
+     kpress("Control+M", "WMenu.finish(_)"),
+     kpress("Right", "WMenu.finish(_)"),
+     
+--- ion3.orig/etc/cfg_query.lua
++++ ion3/etc/cfg_query.lua
+@@ -17,8 +17,8 @@
+     bdoc("Go to end/beginning."),
+     kpress("Control+E", "WEdln.eol(_)"),
+     kpress("Control+A", "WEdln.bol(_)"),
+-    kpress("End", "WEdln.eol(_)"),
+-    kpress("Home", "WEdln.bol(_)"),
++    kpress("End", "WEdln.eol(_)", nil, true),
++    kpress("Home", "WEdln.bol(_)", nil, true),
+     
+     bdoc("Skip one word forward/backward."),
+     kpress("Control+X", "WEdln.skip_word(_)"),
+@@ -26,7 +26,7 @@
+ 
+     bdoc("Delete next character."),
+     kpress("Control+D", "WEdln.delete(_)"),
+-    kpress("Delete", "WEdln.delete(_)"),
++    kpress("Delete", "WEdln.delete(_)", nil, true),
+     
+     bdoc("Delete previous character."),
+     kpress("BackSpace", "WEdln.backspace(_)"),
+@@ -87,21 +87,21 @@
+     bdoc("Close the query and execute bound action."),
+     kpress("Control+M", "WEdln.finish(_)"),
+     kpress("Return", "WEdln.finish(_)"),
+-    kpress("KP_Enter", "WEdln.finish(_)"),
++    kpress("KP_Enter", "WEdln.finish(_)", nil, true),
+ })
+ 
+ 
+ defbindings("WInput", {
+     bdoc("Close the query/message box, not executing bound actions."),
+-    kpress("Escape", "WInput.cancel(_)"),
++    kpress("Escape", "WInput.cancel(_)", nil, true),
+     kpress("Control+G", "WInput.cancel(_)"),
+     kpress("Control+C", "WInput.cancel(_)"),
+     
+     bdoc("Scroll the message or completions up/down."),
+     kpress("Control+U", "WInput.scrollup(_)"),
+     kpress("Control+V", "WInput.scrolldown(_)"),
+-    kpress("Page_Up", "WInput.scrollup(_)"),
+-    kpress("Page_Down", "WInput.scrolldown(_)"),
++    kpress("Page_Up", "WInput.scrollup(_)", nil, true),
++    kpress("Page_Down", "WInput.scrolldown(_)", nil, true),
+ })
+ 
+ 
+--- ion3.orig/ioncore/conf-bindings.c
++++ ion3/ioncore/conf-bindings.c
+@@ -55,7 +55,7 @@
+ 
+ 
+ bool ioncore_parse_keybut(const char *str, uint *mod_ret, uint *ksb_ret,
+-                          bool button, bool init_any)
++                          bool button, bool init_any, bool quiet_absent)
+ {
+     char *str2, *p, *p2;
+     int keysym=NoSymbol, i;
+@@ -94,7 +94,8 @@
+                 break;
+             }
+             if(XKeysymToKeycode(ioncore_g.dpy, keysym)==0){
+-                warn_obj(str, TR("Could not convert keysym to keycode."));
++                if(!quiet_absent)
++                    warn_obj(str, TR("Could not convert keysym to keycode."));
+                 break;
+             }
+             *ksb_ret=keysym;
+@@ -256,6 +257,7 @@
+     ExtlFn func;
+     bool wr=FALSE;
+     int area=0;
++    bool extra;
+     
+     if(!extl_table_gets_s(tab, "action", &action_str)){
+         warn(TR("Binding type not set."));
+@@ -277,9 +279,12 @@
+         if(!extl_table_gets_s(tab, "kcb", &ksb_str))
+             goto fail;
+ 
++        if(!extl_table_gets_b(tab, "extra", &extra))
++            extra=FALSE;
++
+         if(!ioncore_parse_keybut(ksb_str, &mod, &ksb,
+                                  (action!=BINDING_KEYPRESS && action!=-1), 
+-                                 init_any)){
++                                 init_any, extra)){
+             goto fail;
+         }
+     }
+--- ion3.orig/ioncore/ioncore_bindings.lua
++++ ion3/ioncore/ioncore_bindings.lua
+@@ -125,9 +125,12 @@
+ -- Creates a binding description table for the action of pressing a key given 
+ -- by \var{keyspec} (with possible modifiers) to the function \var{cmd}.
+ -- The \var{guard} controls when the binding can be called.
++-- The \var{extra} flag signals whether the binding is a non-critical extra
++-- binding.  If this is true and a named key does not exist, the binding will
++-- be quietly ignored.
+ -- For more informationp see Section \ref{sec:bindings}.
+-function ioncore.kpress(keyspec, cmd, guard)
+-    return putcmd(cmd, guard, {action = "kpress", kcb = keyspec})
++function ioncore.kpress(keyspec, cmd, guard, extra)
++    return putcmd(cmd, guard, {action = "kpress", kcb = keyspec, extra = extra})
+ end
+ 
+ --DOC
+--- ion3.orig/ioncore/conf-bindings.h
++++ ion3/ioncore/conf-bindings.h
+@@ -19,6 +19,6 @@
+ 
+ extern bool ioncore_parse_keybut(const char *str, 
+                                  uint *mod_ret, uint *ksb_ret,
+-                                 bool button, bool init_any);
++                                 bool button, bool init_any, bool quiet_absent);
+ 
+ #endif /* ION_IONCORE_CONF_BINDINGS_H */
+--- ion3.orig/etc/cfg_ioncore.lua
++++ ion3/etc/cfg_ioncore.lua
+@@ -284,7 +284,7 @@
+ 
+ defbindings("WMoveresMode", {
+     bdoc("Cancel the resize mode."),
+-    kpress("AnyModifier+Escape","WMoveresMode.cancel(_)"),
++    kpress("AnyModifier+Escape","WMoveresMode.cancel(_)", nil, true),
+ 
+     bdoc("End the resize mode."),
+     kpress("AnyModifier+Return","WMoveresMode.finish(_)"),
+--- END ---
+
+-- 
+Ben Hutchings
+You can't have everything.  Where would you put it?
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080720/2fbca322/attachment.pgp>
+
+From ben at decadent.org.uk  Mon Jul 21 02:00:41 2008
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Mon, 21 Jul 2008 01:00:41 +0100
+Subject: Bug#490601: fails with many xio errors when started from xdm
+Message-ID: <1216598441.5858.18.camel@deadeye.i.decadent.org.uk>
+
+I got a report of a weird and unreproducible error in Ion3 startup:
+http://bugs.debian.org/490601
+
+BadMatch is not a documented error code for XGetWindowProperty which
+sends X_GetProperty requests.  However, the implementation in Xorg
+appears to return BadMatch if and only if it's passed a reference to a
+drawable that isn't a window:
+http://gitweb.freedesktop.org/?p=xorg/xserver.git;a=blob;hb=8822110d7d6b684f373fc883aeb7cab9734e9ddb;f=dix/dixutils.c#l197
+
+I don't understand how the server coordinates window changes with the
+WM.  Is it possible that a window can be completely deleted before the
+WM has handled it?  In that case there is presumably a race condition
+where a window could disppear and another drawable be created with the
+same id.
+
+This seems like a bug in Xorg, but we presumably need to work around it.
+The obvious patch is below.
+
+Ben.
+
+--- ion3.orig/ioncore/rootwin.c
++++ ion3/ioncore/rootwin.c
+@@ -58,10 +58,11 @@
+     static char msg[128], request[64], num[32];
+     
+     /* Just ignore bad window and similar errors; makes the rest of
+-     * the code simpler.
++     * the code simpler.  Due to a Xorg bug, window lookups may fail
++     * with BadMatch instead of BadWindow.
+      */
+     if((ev->error_code==BadWindow ||
+-        (ev->error_code==BadMatch && ev->request_code==X_SetInputFocus) ||
++        ev->error_code==BadMatch ||
+         (ev->error_code==BadDrawable && ev->request_code==X_GetGeometry)) &&
+        ignore_badwindow)
+         return 0;
+--- END ---
+
+-- 
+Ben Hutchings
+Once a job is fouled up, anything done to improve it makes it worse.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080721/60a50557/attachment.pgp>
+
+From tuomov at iki.fi  Wed Jul 23 18:52:50 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 23 Jul 2008 16:52:50 +0000 (UTC)
+Subject: Bug#490601: fails with many xio errors when started from xdm
+References: <1216598441.5858.18.camel@deadeye.i.decadent.org.uk>
+Message-ID: <slrng8eof2.ltp.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-07-21, Ben Hutchings <ben at decadent.org.uk> wrote:
+> I don't understand how the server coordinates window changes with the
+> WM.  
+
+They don't. The window might disappear any moment. 
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Wed Jul 23 19:01:52 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 23 Jul 2008 17:01:52 +0000 (UTC)
+Subject: Warnings for missing keys for non-critical key bindings
+References: <1216594376.30035.40.camel@deadeye.i.decadent.org.uk>
+Message-ID: <slrng8ep00.ltp.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-07-20, Ben Hutchings <ben at decadent.org.uk> wrote:
+> Some of the standard bindings refer to keys that aren't in all keymaps
+> (e.g. Home in this case).  Thankfully they are redundant with other
+> bindings.  So it seems like it would be OK to suppress the warnings for
+> those bindings.
+>
+> I came up with a patch that makes that change, which I'd like to apply
+> to the Debian package.  What do you think of this approach?
+
+Too hacky, and complicates the config files.
+
+Better to just have a switch to make all the warnings non-logged
+(ioncore_warn_nolog), or something. Or maybe it should be the default;
+it's not that critical that keysym to keycode conversion fails, while
+string to keysym conversion is a clear config error that should be
+more prominently notified of.
+
+-- 
+Tuomo
+
+
+
+From ben at decadent.org.uk  Thu Jul 24 00:07:47 2008
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Wed, 23 Jul 2008 23:07:47 +0100
+Subject: Bug#490601: fails with many xio errors when started from xdm
+In-Reply-To: <slrng8eof2.ltp.tuomov@jolt.modeemi.cs.tut.fi>
+References: <1216598441.5858.18.camel@deadeye.i.decadent.org.uk>
+	<slrng8eof2.ltp.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <1216850868.25903.26.camel@deadeye.i.decadent.org.uk>
+
+On Wed, 2008-07-23 at 16:52 +0000, Tuomo Valkonen wrote:
+> On 2008-07-21, Ben Hutchings <ben at decadent.org.uk> wrote:
+> > I don't understand how the server coordinates window changes with the
+> > WM.  
+> 
+> They don't. The window might disappear any moment. 
+
+That's what I suspected.  So is my patch to ignore BadMatch a reasonable
+workaround?
+
+Ben.
+
+-- 
+Ben Hutchings
+Usenet is essentially a HUGE group of people passing notes in class.
+                      - Rachel Kadel, `A Quick Guide to Newsgroup Etiquette'
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080723/b331ded3/attachment.pgp>
+
+From ben at decadent.org.uk  Thu Jul 24 00:30:45 2008
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Wed, 23 Jul 2008 23:30:45 +0100
+Subject: Warnings for missing keys for non-critical key bindings
+In-Reply-To: <slrng8ep00.ltp.tuomov@jolt.modeemi.cs.tut.fi>
+References: <1216594376.30035.40.camel@deadeye.i.decadent.org.uk>
+	<slrng8ep00.ltp.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <1216852246.25903.28.camel@deadeye.i.decadent.org.uk>
+
+On Wed, 2008-07-23 at 17:01 +0000, Tuomo Valkonen wrote:
+> On 2008-07-20, Ben Hutchings <ben at decadent.org.uk> wrote:
+> > Some of the standard bindings refer to keys that aren't in all keymaps
+> > (e.g. Home in this case).  Thankfully they are redundant with other
+> > bindings.  So it seems like it would be OK to suppress the warnings for
+> > those bindings.
+> >
+> > I came up with a patch that makes that change, which I'd like to apply
+> > to the Debian package.  What do you think of this approach?
+> 
+> Too hacky, and complicates the config files.
+> 
+> Better to just have a switch to make all the warnings non-logged
+> (ioncore_warn_nolog), or something. Or maybe it should be the default;
+> it's not that critical that keysym to keycode conversion fails, while
+> string to keysym conversion is a clear config error that should be
+> more prominently notified of.
+
+OK, then I'll remove the warning.
+
+Ben.
+
+-- 
+Ben Hutchings
+Usenet is essentially a HUGE group of people passing notes in class.
+                      - Rachel Kadel, `A Quick Guide to Newsgroup Etiquette'
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080723/b55fd8f3/attachment.pgp>
+
+From tuomov at iki.fi  Thu Jul 24 02:54:13 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 24 Jul 2008 00:54:13 +0000 (UTC)
+Subject: Warnings for missing keys for non-critical key bindings
+References: <1216594376.30035.40.camel@deadeye.i.decadent.org.uk>
+	<slrng8ep00.ltp.tuomov@jolt.modeemi.cs.tut.fi>
+	<1216852246.25903.28.camel@deadeye.i.decadent.org.uk>
+Message-ID: <slrng8fkll.4fh.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-07-23, Ben Hutchings <ben at decadent.org.uk> wrote:
+> OK, then I'll remove the warning.
+
+It shouldn't be removed; just not logged so that an xmessage won't
+be popped up: it still goes in stderr. There's a patch in the
+ion-3plus repository.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Thu Jul 24 02:53:07 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 24 Jul 2008 00:53:07 +0000 (UTC)
+Subject: Bug#490601: fails with many xio errors when started from xdm
+References: <1216598441.5858.18.camel@deadeye.i.decadent.org.uk>
+	<slrng8eof2.ltp.tuomov@jolt.modeemi.cs.tut.fi>
+	<1216850868.25903.26.camel@deadeye.i.decadent.org.uk>
+Message-ID: <slrng8fkjj.4fh.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-07-23, Ben Hutchings <ben at decadent.org.uk> wrote:
+> On Wed, 2008-07-23 at 16:52 +0000, Tuomo Valkonen wrote:
+>> On 2008-07-21, Ben Hutchings <ben at decadent.org.uk> wrote:
+>> > I don't understand how the server coordinates window changes with the
+>> > WM. =20
+>>=20
+>> They don't. The window might disappear any moment.=20
+>
+> That's what I suspected.  So is my patch to ignore BadMatch a reasonable
+> workaround?
+
+Yeah.
+
+-- 
+Tuomo
+
+
+
+From csanyipal at gmail.com  Thu Jul 24 20:44:44 2008
+From: csanyipal at gmail.com (Csanyi Pal)
+Date: Thu, 24 Jul 2008 20:44:44 +0200
+Subject: Ion2 - Can I destroy a workspace?
+Message-ID: <87tzefxgtf.fsf@debian-asztal.csanyi-pal.info>
+
+Hello!
+
+I have on Debian GNU/Linux Etch an Half system Ion2 installed.
+
+I created a Workspace that I would like to destroy now. How can I do
+this? In Ion2 manual there I can't find a solution for this.
+
+-- 
+Regards, Paul Csanyi
+http://www.freewebs.com/csanyi-pal/index.htm
+
+
+
+From oskar.nordquist at gmail.com  Thu Jul 24 22:24:18 2008
+From: oskar.nordquist at gmail.com (Oskar Nordquist)
+Date: Thu, 24 Jul 2008 22:24:18 +0200
+Subject: Ion2 - Can I destroy a workspace?
+In-Reply-To: <87tzefxgtf.fsf@debian-asztal.csanyi-pal.info>
+References: <87tzefxgtf.fsf@debian-asztal.csanyi-pal.info>
+Message-ID: <20080724202415.GB11351@crl082.bredbandsbolaget.se>
+
+On Thu, Jul 24, 2008 at 08:44:44PM +0200, Csanyi Pal wrote:
+> I created a Workspace that I would like to destroy now. How can I do
+> this? In Ion2 manual there I can't find a solution for this.
+
+I don't know about Ion2, but in Ion3 it is Mod1+K X to destroy a frame (keep
+hitting until all frames are destroyed, i.e. the workspace). If that does not
+work, try Mod1+C.
+
+
+From csanyipal at gmail.com  Thu Jul 24 22:37:05 2008
+From: csanyipal at gmail.com (Csanyi Pal)
+Date: Thu, 24 Jul 2008 22:37:05 +0200
+Subject: Ion2 - Can I destroy a workspace?
+References: <87tzefxgtf.fsf@debian-asztal.csanyi-pal.info>
+	<20080724202415.GB11351@crl082.bredbandsbolaget.se>
+Message-ID: <87ljzrxbm6.fsf@debian-asztal.csanyi-pal.info>
+
+Oskar Nordquist
+<oskar.nordquist at gmail.com> writes:
+
+> On Thu, Jul 24, 2008 at 08:44:44PM +0200, Csanyi Pal wrote:
+>> I created a Workspace that I would like to destroy now. How can I do
+>> this? In Ion2 manual there I can't find a solution for this.
+>
+> I don't know about Ion2, but in Ion3 it is Mod1+K X to destroy a frame (keep
+> hitting until all frames are destroyed, i.e. the workspace). If that does not
+> work, try Mod1+C.
+
+Mod1+C works. :) Thanks!
+
+-- 
+Regards, Paul Csanyi
+http://www.freewebs.com/csanyi-pal/index.htm
+
+
+
+From fgeek at hack.fi  Fri Jul 25 12:36:06 2008
+From: fgeek at hack.fi (Henri Salo)
+Date: Fri, 25 Jul 2008 13:36:06 +0300
+Subject: Ion2 - Can I destroy a workspace?
+In-Reply-To: <87ljzrxbm6.fsf@debian-asztal.csanyi-pal.info>
+References: <87tzefxgtf.fsf@debian-asztal.csanyi-pal.info>
+	<20080724202415.GB11351@crl082.bredbandsbolaget.se>
+	<87ljzrxbm6.fsf@debian-asztal.csanyi-pal.info>
+Message-ID: <20080725103606.GA4793@hack.fi>
+
+On Thu, Jul 24, 2008 at 10:37:05PM +0200, Csanyi Pal wrote:
+> Oskar Nordquist
+> <oskar.nordquist at gmail.com> writes:
+> 
+> > On Thu, Jul 24, 2008 at 08:44:44PM +0200, Csanyi Pal wrote:
+> >> I created a Workspace that I would like to destroy now. How can I do
+> >> this? In Ion2 manual there I can't find a solution for this.
+> >
+> > I don't know about Ion2, but in Ion3 it is Mod1+K X to destroy a frame (keep
+> > hitting until all frames are destroyed, i.e. the workspace). If that does not
+> > work, try Mod1+C.
+> 
+> Mod1+C works. :) Thanks!
+> 
+> -- 
+> Regards, Paul Csanyi
+> http://www.freewebs.com/csanyi-pal/index.htm
+
+You really should upgrade to latest ion3.
+
+- Henri Salo
+
+
+From csanyipal at gmail.com  Fri Jul 25 19:17:36 2008
+From: csanyipal at gmail.com (Csanyi Pal)
+Date: Fri, 25 Jul 2008 19:17:36 +0200
+Subject: Ion2 - Can I destroy a workspace?
+References: <87tzefxgtf.fsf@debian-asztal.csanyi-pal.info>
+	<20080724202415.GB11351@crl082.bredbandsbolaget.se>
+	<87ljzrxbm6.fsf@debian-asztal.csanyi-pal.info>
+	<20080725103606.GA4793@hack.fi>
+Message-ID: <87od4lc28f.fsf@debian-asztal.csanyi-pal.info>
+
+fgeek at hack.fi (Henri Salo) writes:
+
+> On Thu, Jul 24, 2008 at 10:37:05PM +0200, Csanyi Pal wrote:
+>> Oskar Nordquist
+>> <oskar.nordquist at gmail.com> writes:
+>> 
+>> > On Thu, Jul 24, 2008 at 08:44:44PM +0200, Csanyi Pal wrote:
+>> >> I created a Workspace that I would like to destroy now. How can I do
+>> >> this? In Ion2 manual there I can't find a solution for this.
+>> >
+>> > I don't know about Ion2, but in Ion3 it is Mod1+K X to destroy a
+>> > frame (keep 
+>> > hitting until all frames are destroyed, i.e. the workspace). If
+>> > that does not 
+>> > work, try Mod1+C.
+>> 
+>> Mod1+C works. :) Thanks!
+
+Willingly! :)
+
+I have downloaded ion-3-20080707.tar.gz (signature, ChangeLog, README,
+release notes) .
+
+On my system Debian GNU/Linux Etch en Half I think it is not required
+to edit system.mk.
+
+I run make but get error messages:
+
+set -e; for i in libtu libextl libmainloop mod_tiling mod_query
+mod_menu mod_dock mod_sp mod_sm mod_statusbar de ioncore ion pwm etc
+utils man po ; do make -C $i; done 
+
+make[1]: Entering directory
+`/debian-adatok-1/Ablakkezelok/Ion3/ion-3-20080707/ion-3-20080707/libtu' 
+
+make[1]: Nothing to be done for `all'.
+
+make[1]: Leaving directory
+`/debian-adatok-1/Ablakkezelok/Ion3/ion-3-20080707/ion-3-20080707/libtu' 
+
+make[1]: Entering directory
+`/debian-adatok-1/Ablakkezelok/Ion3/ion-3-20080707/ion-3-20080707/libextl' 
+
+gcc -Os -W -Wimplicit -Wreturn-type -Wswitch -Wcomment -Wtrigraphs
+-Wformat -Wchar-subscripts -Wparentheses -pedantic -Wuninitialized
+-DCF_XFREE86_TEXTPROP_BUG_WORKAROUND -I./.. -I/usr/local/include    -c
+luaextl.c -o luaextl.o 
+
+luaextl.c:21:17: error: lua.h: No such file or directory
+luaextl.c:22:20: error: lualib.h: No such file or directory
+luaextl.c:23:21: error: lauxlib.h: No such file or directory
+
+luaextl.c:40: error: expected ?=?, ?,?, ?;?, ?asm? or
+?__attribute__? before ?*? token 
+
+luaextl.c:42: error: expected ?)? before ?*? token
+luaextl.c:46: error: expected ?)? before ?*? token
+luaextl.c:60: error: expected ?)? before ?*? token
+luaextl.c:67: error: expected ?)? before ?*? token
+luaextl.c:74: error: expected ?)? before ?*? token
+luaextl.c:81: error: expected ?)? before ?*? token
+luaextl.c:88: error: expected ?)? before ?*? token
+luaextl.c:101: error: expected ?)? before ?*? token
+
+luaextl.c:105: error: expected specifier-qualifier-list before
+?ExtlCPCallFn? 
+
+luaextl.c:108: warning: struct has no members
+luaextl.c:111: error: expected ?)? before ?*? token
+luaextl.c:126: error: expected ?)? before ?*? token
+
+luaextl.c:158: error: ?LUA_NOREF? undeclared here (not in a
+function) 
+
+luaextl.c:161: error: expected ?)? before ?*? token
+...
+...
+etc.
+
+Any advices to solve this problem?
+
+-- 
+Regards, Paul Csanyi
+http://www.freewebs.com/csanyi-pal/index.htm
+
+
+
+From udvzsolt at gmail.com  Fri Jul 25 20:03:47 2008
+From: udvzsolt at gmail.com (Zsolt Udvari)
+Date: Fri, 25 Jul 2008 20:03:47 +0200
+Subject: Ion2 - Can I destroy a workspace?
+In-Reply-To: <87od4lc28f.fsf@debian-asztal.csanyi-pal.info>
+References: <87tzefxgtf.fsf@debian-asztal.csanyi-pal.info>
+	<20080724202415.GB11351@crl082.bredbandsbolaget.se>
+	<87ljzrxbm6.fsf@debian-asztal.csanyi-pal.info>
+	<20080725103606.GA4793@hack.fi>
+	<87od4lc28f.fsf@debian-asztal.csanyi-pal.info>
+Message-ID: <760ece280807251103h529dfabeyf20c13fb01bdd543@mail.gmail.com>
+
+> luaextl.c:21:17: error: lua.h: No such file or directory
+> luaextl.c:22:20: error: lualib.h: No such file or directory
+> luaextl.c:23:21: error: lauxlib.h: No such file or directory
+Maybe try to install lua-dev.
+
+
+From csanyipal at gmail.com  Fri Jul 25 20:36:18 2008
+From: csanyipal at gmail.com (Csanyi Pal)
+Date: Fri, 25 Jul 2008 20:36:18 +0200
+Subject: Installing Ion3 on Debian Etch
+References: <87tzefxgtf.fsf@debian-asztal.csanyi-pal.info>
+	<20080724202415.GB11351@crl082.bredbandsbolaget.se>
+	<87ljzrxbm6.fsf@debian-asztal.csanyi-pal.info>
+	<20080725103606.GA4793@hack.fi>
+	<87od4lc28f.fsf@debian-asztal.csanyi-pal.info>
+	<760ece280807251103h529dfabeyf20c13fb01bdd543@mail.gmail.com>
+Message-ID: <87abg5byl9.fsf_-_@debian-asztal.csanyi-pal.info>
+
+"Zsolt Udvari" <udvzsolt at gmail.com>
+writes:
+
+>> luaextl.c:21:17: error: lua.h: No such file or directory
+>> luaextl.c:22:20: error: lualib.h: No such file or directory
+>> luaextl.c:23:21: error: lauxlib.h: No such file or directory
+> Maybe try to install lua-dev.
+
+I haven't that package on Debian Etch.
+
+If I try to install lua with command:
+
+sudo aptitude install lua <Tab>
+
+then I get the following options:
+
+lua
+lua40
+lua40-doc
+lua50
+lua50-doc
+lua5.1
+lua5.1-doc
+lua5.1-policy
+lua5.1-policy-dev
+lua-mode
+luasocket
+luasocket-dev
+luasocket-doc
+
+You can see that that there one can't find lua-dev. :(
+
+I have installed now:
+lua5.1-policy-dev
+luasocket
+luasocket-dev
+
+When I run 'make clean' and then 'make' I still get error messages:
+
+
+gcc -Os -W -Wimplicit -Wreturn-type -Wswitch -Wcomment -Wtrigraphs
+-Wformat -Wchar-subscripts -Wparentheses -pedantic -Wuninitialized
+-DCF_XFREE86_TEXTPROP_BUG_WORKAROUND -I./.. -I/usr/local/include    -c
+luaextl.c -o luaextl.o 
+
+luaextl.c:21:17: error: lua.h: No such file or directory
+luaextl.c:22:20: error: lualib.h: No such file or directory
+luaextl.c:23:21: error: lauxlib.h: No such file or directory
+
+luaextl.c:40: error: expected ?=?, ?,?, ?;?, ?asm? or
+?__attribute__? before ?*? token 
+
+luaextl.c:42: error: expected ?)? before ?*? token
+luaextl.c:46: error: expected ?)? before ?*? token
+luaextl.c:60: error: expected ?)? before ?*? token
+luaextl.c:67: error: expected ?)? before ?*? token
+luaextl.c:74: error: expected ?)? before ?*? token
+luaextl.c:81: error: expected ?)? before ?*? token
+luaextl.c:88: error: expected ?)? before ?*? token
+luaextl.c:101: error: expected ?)? before ?*? token
+
+luaextl.c:105: error: expected specifier-qualifier-list before
+?ExtlCPCallFn? 
+
+luaextl.c:108: warning: struct has no members
+luaextl.c:111: error: expected ?)? before ?*? token
+luaextl.c:126: error: expected ?)? before ?*? token
+
+luaextl.c:158: error: ?LUA_NOREF? undeclared here (not in a
+function) 
+
+luaextl.c:161: error: expected ?)? before ?*? token
+luaextl.c:204: error: expected ?)? before ?*? token
+luaextl.c: In function ?extl_uncache?:
+
+luaextl.c:221: warning: implicit declaration of function ?extl_cpcall?
+luaextl.c:221: error: ?l_st? undeclared (first use in this function)
+luaextl.c:221: error: (Each undeclared identifier is reported only once
+luaextl.c:221: error: for each function it appears in.)
+
+luaextl.c:221: error: ?ExtlCPCallFn? undeclared (first use in this
+function) 
+
+luaextl.c:221: error: expected expression before ?)? token
+luaextl.c: At top level:
+luaextl.c:225: error: expected ?)? before ?*? token
+luaextl.c:285: error: expected ?)? before ?*? token
+
+...
+etc.
+
+
+-- 
+Regards, Paul Csanyi
+http://www.freewebs.com/csanyi-pal/index.htm
+
+
+
+From udvzsolt at gmail.com  Fri Jul 25 20:54:09 2008
+From: udvzsolt at gmail.com (Zsolt Udvari)
+Date: Fri, 25 Jul 2008 20:54:09 +0200
+Subject: Installing Ion3 on Debian Etch
+In-Reply-To: <87abg5byl9.fsf_-_@debian-asztal.csanyi-pal.info>
+References: <87tzefxgtf.fsf@debian-asztal.csanyi-pal.info>
+	<20080724202415.GB11351@crl082.bredbandsbolaget.se>
+	<87ljzrxbm6.fsf@debian-asztal.csanyi-pal.info>
+	<20080725103606.GA4793@hack.fi>
+	<87od4lc28f.fsf@debian-asztal.csanyi-pal.info>
+	<760ece280807251103h529dfabeyf20c13fb01bdd543@mail.gmail.com>
+	<87abg5byl9.fsf_-_@debian-asztal.csanyi-pal.info>
+Message-ID: <760ece280807251154m8764db6n7816183f69888997@mail.gmail.com>
+
+> I haven't that package on Debian Etch.
+Please use the search engine!
+http://packages.debian.org/search?searchon=contents&keywords=lua.h&mode=exactfilename&suite=stable&arch=any
+So the name of the package: liblua*-dev.
+
+
+From csanyipal at gmail.com  Fri Jul 25 22:12:51 2008
+From: csanyipal at gmail.com (Csanyi Pal)
+Date: Fri, 25 Jul 2008 22:12:51 +0200
+Subject: Installing Ion3 on Debian Etch
+References: <87tzefxgtf.fsf@debian-asztal.csanyi-pal.info>
+	<20080724202415.GB11351@crl082.bredbandsbolaget.se>
+	<87ljzrxbm6.fsf@debian-asztal.csanyi-pal.info>
+	<20080725103606.GA4793@hack.fi>
+	<87od4lc28f.fsf@debian-asztal.csanyi-pal.info>
+	<760ece280807251103h529dfabeyf20c13fb01bdd543@mail.gmail.com>
+	<87abg5byl9.fsf_-_@debian-asztal.csanyi-pal.info>
+	<760ece280807251154m8764db6n7816183f69888997@mail.gmail.com>
+Message-ID: <87sktxiuyk.fsf@debian-asztal.csanyi-pal.info>
+
+"Zsolt Udvari" <udvzsolt at gmail.com>
+writes:
+
+>> I haven't that package on Debian Etch.
+> Please use the search engine!
+> http://packages.debian.org/search?searchon=contents&keywords=
+> lua.h&mode=exactfilename&suite=stable&arch=any
+> So the name of the package: liblua*-dev.
+
+I have installed now liblua5.1-dev and installed successfully ion3 
+from source, but can't run it:
+
+$ ion3
+>> Could not connect to X display ''
+>> Refusing to start due to encountered errors.
+
+Before installed ion3 I uninstalled ion2.
+
+Why can't I run Ion3?
+
+-- 
+Regards, Paul Csanyi
+http://www.freewebs.com/csanyi-pal/index.htm
+
+
+
+From udvzsolt at gmail.com  Fri Jul 25 22:32:28 2008
+From: udvzsolt at gmail.com (Zsolt Udvari)
+Date: Fri, 25 Jul 2008 22:32:28 +0200
+Subject: Installing Ion3 on Debian Etch
+In-Reply-To: <87sktxiuyk.fsf@debian-asztal.csanyi-pal.info>
+References: <87tzefxgtf.fsf@debian-asztal.csanyi-pal.info>
+	<20080724202415.GB11351@crl082.bredbandsbolaget.se>
+	<87ljzrxbm6.fsf@debian-asztal.csanyi-pal.info>
+	<20080725103606.GA4793@hack.fi>
+	<87od4lc28f.fsf@debian-asztal.csanyi-pal.info>
+	<760ece280807251103h529dfabeyf20c13fb01bdd543@mail.gmail.com>
+	<87abg5byl9.fsf_-_@debian-asztal.csanyi-pal.info>
+	<760ece280807251154m8764db6n7816183f69888997@mail.gmail.com>
+	<87sktxiuyk.fsf@debian-asztal.csanyi-pal.info>
+Message-ID: <760ece280807251332n1abb499akff890bdc893b80f9@mail.gmail.com>
+
+> $ ion3
+>>> Could not connect to X display ''
+>>> Refusing to start due to encountered errors.
+>
+> Before installed ion3 I uninstalled ion2.
+>
+> Why can't I run Ion3?
+As you wrote: "Could not connect to X display"
+IMHO you should write the ion3 command into the ~/.xinitrc and run startx.
+
+
+From csanyipal at gmail.com  Fri Jul 25 22:48:12 2008
+From: csanyipal at gmail.com (Csanyi Pal)
+Date: Fri, 25 Jul 2008 22:48:12 +0200
+Subject: Installing Ion3 on Debian Etch
+References: <87tzefxgtf.fsf@debian-asztal.csanyi-pal.info>
+	<20080724202415.GB11351@crl082.bredbandsbolaget.se>
+	<87ljzrxbm6.fsf@debian-asztal.csanyi-pal.info>
+	<20080725103606.GA4793@hack.fi>
+	<87od4lc28f.fsf@debian-asztal.csanyi-pal.info>
+	<760ece280807251103h529dfabeyf20c13fb01bdd543@mail.gmail.com>
+	<87abg5byl9.fsf_-_@debian-asztal.csanyi-pal.info>
+	<760ece280807251154m8764db6n7816183f69888997@mail.gmail.com>
+	<87sktxiuyk.fsf@debian-asztal.csanyi-pal.info>
+	<760ece280807251332n1abb499akff890bdc893b80f9@mail.gmail.com>
+Message-ID: <87ljzpitbn.fsf@debian-asztal.csanyi-pal.info>
+
+"Zsolt Udvari" <udvzsolt at gmail.com>
+writes:
+
+>> $ ion3
+>>>> Could not connect to X display ''
+>>>> Refusing to start due to encountered errors.
+>>
+>> Before installed ion3 I uninstalled ion2.
+>>
+>> Why can't I run Ion3?
+> As you wrote: "Could not connect to X display"
+> IMHO you should write the ion3 command into the ~/.xinitrc and run startx.
+
+I have before installing Ion3 in .xinitrc the line:
+ion -i18n
+
+and with it I can to run startx.
+
+I edited that line to:
+ion3 -i18n
+
+and run startx but with no success.
+
+Now I edited again that line:
+
+ion3
+
+and now I can run startx and get Ion3! :)
+Thanks!
+
+-- 
+Regards, Paul Csanyi
+http://www.freewebs.com/csanyi-pal/index.htm
+
+
+
+From csanyipal at gmail.com  Sat Jul 26 17:20:19 2008
+From: csanyipal at gmail.com (Csanyi Pal)
+Date: Sat, 26 Jul 2008 17:20:19 +0200
+Subject: How to include Debian menu in to Ion3 installed from source?
+Message-ID: <87ej5glljg.fsf@debian-asztal.csanyi-pal.info>
+
+Hello!
+
+I have installed from source the last stable Ion3 release on Debian
+GNU/Linux Etch en Half.
+
+When I used Ion2 I have Debian menu but now I havn't.
+
+I tried to edit cfg_ioncore.lua to include Debian menu but this is not
+enough:
+
+---------------
+defmenu("mainmenu", {
+    menuentry("Run...",         "mod_query.query_exec(_)"),
+    menuentry("Terminal",       "ioncore.exec_on(_, XTERM or 'xterm')"),
+    menuentry("Lock screen",    "ioncore.exec_on(_, 'xlock')"),
+    menuentry("Help",           "mod_query.query_man(_)"),
+    menuentry("About Ion",      "mod_query.show_about_ion(_)"),
+    submenu("Styles",           "stylemenu"),
+    submenu("Session",          "sessionmenu"),
+    submenu("Debian", 		"Debian"),
+})
+---------------
+
+I open the old file ion-menus.lua from Ion2 to see this setup and find
+a line like the line abowe:
+
+submenu("Debian", "Debian"),
+
+and this lines: 
+
+-------------------------
+-- Auto-generated Debian menu definitions
+if os.execute("test -x /usr/bin/update-menus") == 0 then
+    if ioncore_is_i18n() then
+        include("debian-menu-i18n")
+    else
+        include("debian-menu")
+    end
+end
+-------------
+
+These lines can't to use in Ion3.
+
+Somehow I must to include debian-menu but how?
+
+-- 
+Regards, Paul Csanyi
+http://www.freewebs.com/csanyi-pal/index.htm
+
+
+
+From ebik at drak.ucw.cz  Sat Jul 26 23:55:40 2008
+From: ebik at drak.ucw.cz (=?iso-8859-2?Q?Tom=E1=B9_Ebenlendr?=)
+Date: Sat, 26 Jul 2008 23:55:40 +0200 (CEST)
+Subject: How to include Debian menu in to Ion3 installed from source?
+Message-ID: <1098.84.242.81.204.1217109340.squirrel@drak.ucw.cz>
+
+
+There is ion3 debian package for debian unstable:
+http://packages.debian.org/sid/ion3
+download it and get some files from it e.g. by midnight commander.
+
+You need at least following files:
+
+/etc/menu-methods/ion3
+/etc/menu-methods/ion3-i18n
+
+When you install these files (with 'x' permission), you have
+to run 'update-menus'. This generates following files:
+
+/var/lib/ion3/debian-menu.lua
+/var/lib/ion3/debian-menu-i18n.lua
+
+Now you can link these files from your ~/.ion3 directory and then
+include one of them in your cfg_ion.lua
+After this you should be able to include debian's menu by something like
+  submenu("Debian","Debian")
+in your main menu definition.
+
+Note that this all will work only if debian menu system did not change
+significantly since Etch. I did not tried this myself, as I use ion's
+menu only for closing or restarting ion.
+
+Dne 26 ?ervenec 2008, 17:20, Csanyi Pal napsal(a):
+> Hello!
+>
+>
+> I have installed from source the last stable Ion3 release on Debian
+> GNU/Linux Etch en Half.
+>
+>
+> When I used Ion2 I have Debian menu but now I havn't.
+>
+>
+> I tried to edit cfg_ioncore.lua to include Debian menu but this is not
+> enough:
+>
+>
+> ---------------
+> defmenu("mainmenu", { menuentry("Run...",
+> "mod_query.query_exec(_)"),
+> menuentry("Terminal",       "ioncore.exec_on(_, XTERM or 'xterm')"),
+> menuentry("Lock screen",    "ioncore.exec_on(_, 'xlock')"),
+> menuentry("Help",           "mod_query.query_man(_)"), menuentry("About
+> Ion",      "mod_query.show_about_ion(_)"),
+> submenu("Styles",           "stylemenu"), submenu("Session",
+> "sessionmenu"),
+> submenu("Debian", 		"Debian"), })
+> ---------------
+>
+>
+> I open the old file ion-menus.lua from Ion2 to see this setup and find
+> a line like the line abowe:
+>
+> submenu("Debian", "Debian"),
+>
+> and this lines:
+>
+> -------------------------
+> -- Auto-generated Debian menu definitions
+> if os.execute("test -x /usr/bin/update-menus") == 0 then if
+> ioncore_is_i18n() then include("debian-menu-i18n") else
+> include("debian-menu") end end -------------
+>
+>
+> These lines can't to use in Ion3.
+>
+>
+> Somehow I must to include debian-menu but how?
+>
+>
+> --
+> Regards, Paul Csanyi
+> http://www.freewebs.com/csanyi-pal/index.htm
+>
+>
+>
+
+
+-- 
+Tomas Ebenlendr
+                            http://drak.ucw.cz/~ebik
+
+
+-- 
+Tomas Ebenlendr
+                            http://drak.ucw.cz/~ebik
+
+
+
+From ben at decadent.org.uk  Sun Jul 27 14:32:55 2008
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Sun, 27 Jul 2008 13:32:55 +0100
+Subject: How to include Debian menu in to Ion3 installed from source?
+In-Reply-To: <1098.84.242.81.204.1217109340.squirrel@drak.ucw.cz>
+References: <1098.84.242.81.204.1217109340.squirrel@drak.ucw.cz>
+Message-ID: <1217161975.31293.4.camel@deadeye.i.decadent.org.uk>
+
+On Sat, 2008-07-26 at 23:55 +0200, Tom?? Ebenlendr wrote:
+> There is ion3 debian package for debian unstable:
+> http://packages.debian.org/sid/ion3
+> download it and get some files from it e.g. by midnight commander.
+
+Or:
+
+1. Get the source package from unstable
+2. In debian/control, change "x11-utils" to "xbase-clients"
+3. Run "dpkg-buildpackage -uc -us -rfakeroot" to rebuild it
+
+Ben. (Debian ion3 maintainer)
+
+-- 
+Ben Hutchings
+Everything should be made as simple as possible, but not simpler.
+                                                           - Albert Einstein
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080727/39542828/attachment.pgp>
+
+From csanyipal at gmail.com  Sun Jul 27 19:01:45 2008
+From: csanyipal at gmail.com (Csanyi Pal)
+Date: Sun, 27 Jul 2008 19:01:45 +0200
+Subject: How to include Debian menu in to Ion3 installed from source?
+References: <1098.84.242.81.204.1217109340.squirrel@drak.ucw.cz>
+	<1217161975.31293.4.camel@deadeye.i.decadent.org.uk>
+Message-ID: <87tzebqn0m.fsf@debian-asztal.csanyi-pal.info>
+
+Ben Hutchings <ben at decadent.org.uk> writes:
+
+> 1. Get the source package from unstable
+
+sudo apt-get source ion3
+
+> 2. In debian/control, change "x11-utils" to "xbase-clients"
+
+Depends: ${misc:Depends}, ${shlibs:Depends}, xterm \
+ | x-terminal-emulator, xbase-clients
+
+> 3. Run "dpkg-buildpackage -uc -us -rfakeroot" to rebuild it
+
+I get the following error message:
+
+Applying patch 201_build-config.diff
+patching file system.mk
+Hunk #4 FAILED at 62.
+1 out of 6 hunks FAILED -- rejects in file system.mk
+Patch 201_build-config.diff does not apply (enforce with -f)
+make: *** [debian/stamp-patched] Error 1
+
+Can I solve this problem with following command?
+
+dpkg-buildpackage -f -uc -us -rfakeroot
+
+-- 
+Regards, Paul Csanyi
+http://www.freewebs.com/csanyi-pal/index.htm
+
+
+
+From csanyipal at gmail.com  Sun Jul 27 19:25:18 2008
+From: csanyipal at gmail.com (Csanyi Pal)
+Date: Sun, 27 Jul 2008 19:25:18 +0200
+Subject: How to include Debian menu in to Ion3 installed from source?
+References: <1098.84.242.81.204.1217109340.squirrel@drak.ucw.cz>
+	<1217161975.31293.4.camel@deadeye.i.decadent.org.uk>
+	<87tzebqn0m.fsf@debian-asztal.csanyi-pal.info>
+Message-ID: <87od4jqlxd.fsf@debian-asztal.csanyi-pal.info>
+
+Csanyi Pal <csanyipal at gmail.com> writes:
+
+> Ben Hutchings <ben at decadent.org.uk> writes:
+>
+>> 1. Get the source package from unstable
+>
+> sudo apt-get source ion3
+>
+>> 2. In debian/control, change "x11-utils" to "xbase-clients"
+>
+> Depends: ${misc:Depends}, ${shlibs:Depends}, xterm \
+>  | x-terminal-emulator, xbase-clients
+>
+>> 3. Run "dpkg-buildpackage -uc -us -rfakeroot" to rebuild it
+>
+> I get the following error message:
+>
+> Applying patch 201_build-config.diff
+> patching file system.mk
+> Hunk #4 FAILED at 62.
+> 1 out of 6 hunks FAILED -- rejects in file system.mk
+> Patch 201_build-config.diff does not apply (enforce with -f)
+> make: *** [debian/stamp-patched] Error 1
+
+Sorry, I edited first the system.mk wrong. I commented out the lines:
+
+# If you have installed Lua 5.1 from the official tarball without
+  changing
+# paths, this should do it.
+#LUA_DIR=/usr/local
+#LUA_LIBS = -L$(LUA_DIR)/lib -llua
+#LUA_INCLUDES = -I$(LUA_DIR)/include
+#LUA=$(LUA_DIR)/bin/lua
+#LUAC=$(LUA_DIR)/bin/luac
+
+and after that run the command
+dpkg-buildpackage -uc -us -rfakeroot
+
+
+But now I commented it as it was when have it downloaded and run
+
+dpkg-buildpackage -uc -us -rfakeroot
+
+This time I get the build but with warning:
+  
+dpkg-deb: building package `ion3' in `../ion3_20080707-3_i386.deb'.
+ dpkg-genchanges
+dpkg-genchanges: warning: unknown information field `Homepage' in
+ input data in
+package's section of control info file
+dpkg-genchanges: not including original source code in upload
+dpkg-buildpackage: binary and diff upload (original source NOT
+ included) 
+
+I get the package ion3_20080707-3_i386.deb.
+
+-- 
+Regards, Paul Csanyi
+http://www.freewebs.com/csanyi-pal/index.htm
+
+
+
+From csanyipal at gmail.com  Sun Jul 27 20:04:26 2008
+From: csanyipal at gmail.com (Csanyi Pal)
+Date: Sun, 27 Jul 2008 20:04:26 +0200
+Subject: How to include Debian menu in to Ion3 installed from source?
+References: <1098.84.242.81.204.1217109340.squirrel@drak.ucw.cz>
+	<1217161975.31293.4.camel@deadeye.i.decadent.org.uk>
+	<87tzebqn0m.fsf@debian-asztal.csanyi-pal.info>
+	<87od4jqlxd.fsf@debian-asztal.csanyi-pal.info>
+Message-ID: <873alvyzit.fsf@debian-asztal.csanyi-pal.info>
+
+Csanyi Pal <csanyipal at gmail.com> writes:
+
+> Csanyi Pal <csanyipal at gmail.com> writes:
+>
+>> Ben Hutchings <ben at decadent.org.uk> writes:
+> I get the package ion3_20080707-3_i386.deb.
+
+I have installed now Ion3 on Debian Etch en Half.
+
+I run update-menus and get the English but not the Hungarian Debian
+menu. 
+
+How can I get the Hungarian Debian menu?
+
+-- 
+Regards, Paul Csanyi
+http://www.freewebs.com/csanyi-pal/index.htm
+
+
+
+From EvgenyKurbatov at yandex.ru  Mon Jul 28 07:19:04 2008
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Mon, 28 Jul 2008 09:19:04 +0400
+Subject: How to include Debian menu in to Ion3 installed from source?
+In-Reply-To: <873alvyzit.fsf@debian-asztal.csanyi-pal.info>
+References: <1098.84.242.81.204.1217109340.squirrel@drak.ucw.cz>
+	<1217161975.31293.4.camel@deadeye.i.decadent.org.uk>
+	<87tzebqn0m.fsf@debian-asztal.csanyi-pal.info>
+	<87od4jqlxd.fsf@debian-asztal.csanyi-pal.info>
+	<873alvyzit.fsf@debian-asztal.csanyi-pal.info>
+Message-ID: <20080728091904.cc46dd64.EvgenyKurbatov@yandex.ru>
+
+On Sun, 27 Jul 2008 20:04:26 +0200
+Csanyi Pal <csanyipal at gmail.com> wrote:
+
+> Csanyi Pal <csanyipal at gmail.com> writes:
+> 
+> > Csanyi Pal <csanyipal at gmail.com> writes:
+> >
+> >> Ben Hutchings <ben at decadent.org.uk> writes:
+> > I get the package ion3_20080707-3_i386.deb.
+> 
+> I have installed now Ion3 on Debian Etch en Half.
+> 
+> I run update-menus and get the English but not the Hungarian Debian
+> menu. 
+> 
+> How can I get the Hungarian Debian menu?
+
+Change the "outputencoding" macro's value in ion3-i18n to "LOCALE".
+I attach this script...
+You could just copy this script into /etc/menu-methods without a
+headache with Debian packaging system.
+
+Best witches
+Evgeny
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: ion3-i18n
+Type: application/octet-stream
+Size: 985 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080728/b0216740/attachment.obj>
+
+From csanyipal at gmail.com  Mon Jul 28 09:45:39 2008
+From: csanyipal at gmail.com (Csanyi Pal)
+Date: Mon, 28 Jul 2008 09:45:39 +0200
+Subject: How to include Debian menu in to Ion3 installed from source? -
+	SOLVED
+References: <1098.84.242.81.204.1217109340.squirrel@drak.ucw.cz>
+	<1217161975.31293.4.camel@deadeye.i.decadent.org.uk>
+	<87tzebqn0m.fsf@debian-asztal.csanyi-pal.info>
+	<87od4jqlxd.fsf@debian-asztal.csanyi-pal.info>
+	<873alvyzit.fsf@debian-asztal.csanyi-pal.info>
+	<20080728091904.cc46dd64.EvgenyKurbatov@yandex.ru>
+Message-ID: <8763qqfo4c.fsf_-_@debian-asztal.csanyi-pal.info>
+
+Evgeny Kurbatov
+<EvgenyKurbatov at yandex.ru> writes:
+
+> On Sun, 27 Jul 2008 20:04:26 +0200
+> Csanyi Pal <csanyipal at gmail.com> wrote:
+>
+>> Csanyi Pal <csanyipal at gmail.com> writes:
+
+>> >> Ben Hutchings <ben at decadent.org.uk> writes:
+>> > I get the package ion3_20080707-3_i386.deb.
+>> 
+>> I have installed now Ion3 on Debian Etch en Half.
+>> 
+>> I run update-menus and get the English but not the Hungarian Debian
+>> menu. 
+>> 
+>> How can I get the Hungarian Debian menu?
+>
+> Change the "outputencoding" macro's value in ion3-i18n to "LOCALE".
+> I attach this script...
+> You could just copy this script into /etc/menu-methods without a
+> headache with Debian packaging system.
+
+Thanks, but without doing anything, maybe Exit and after that startx
+again, suddenly I get the Hungarian Debian menu! :)
+
+Thank you all for help! :)
+
+-- 
+Regards, Paul Csanyi
+http://www.freewebs.com/csanyi-pal/index.htm
+
+
+
+From EvgenyKurbatov at yandex.ru  Mon Jul 28 10:14:56 2008
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Mon, 28 Jul 2008 12:14:56 +0400
+Subject: How to include Debian menu in to Ion3 installed from source? -
+	SOLVED
+In-Reply-To: <8763qqfo4c.fsf_-_@debian-asztal.csanyi-pal.info>
+References: <1098.84.242.81.204.1217109340.squirrel@drak.ucw.cz>
+	<1217161975.31293.4.camel@deadeye.i.decadent.org.uk>
+	<87tzebqn0m.fsf@debian-asztal.csanyi-pal.info>
+	<87od4jqlxd.fsf@debian-asztal.csanyi-pal.info>
+	<873alvyzit.fsf@debian-asztal.csanyi-pal.info>
+	<20080728091904.cc46dd64.EvgenyKurbatov@yandex.ru>
+	<8763qqfo4c.fsf_-_@debian-asztal.csanyi-pal.info>
+Message-ID: <20080728121456.a91b887b.EvgenyKurbatov@yandex.ru>
+
+On Mon, 28 Jul 2008 09:45:39 +0200
+Csanyi Pal <csanyipal at gmail.com> wrote:
+
+> Thanks, but without doing anything, maybe Exit and after that startx
+> again, suddenly I get the Hungarian Debian menu! :)
+
+Right, but note that to reflect changes in Debian menu tree to Ion menu
+tree, without restarting Ion3, you have to make the Lua command
+	dopath("debian-menu-i18n")
+(or whatever file stores your menu), which binded onto Mod1+F3 keys in
+standard layout.
+
+Best witches,
+E
+
+
+From ben at decadent.org.uk  Tue Jul 29 22:41:40 2008
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Tue, 29 Jul 2008 21:41:40 +0100
+Subject: Bug#492906: ion3 does not preserve the aspect for tiled windows
+In-Reply-To: <20080729184109.7367.74345.reportbug@semuta.parawag>
+References: <20080729184109.7367.74345.reportbug@semuta.parawag>
+Message-ID: <1217364100.6073.4.camel@deadeye.i.decadent.org.uk>
+
+On Tue, 2008-07-29 at 20:41 +0200, Berenyi Mihaly wrote: 
+> Package: ion3
+> Version: 20080707-3
+> Severity: normal
+> 
+> since the last update (or thereabouts, i cannot be sure, but certainly
+> since the last few days), tiled mplayer windows no longer have the
+> correct aspect ratio. this used to work (the usual black bands around
+> the "extra" space).
+> it still works with floated windows or fullscreen windows, but tiled
+> mplayers just fill the entire split they occupy.
+
+I think this was an intended effect of this upstream change:
+
+Fri May  2 20:14:56 BST 2008  Tuomo Valkonen <tuomov at iki.fi>
+  * WGroup needed "whatever" attach geometry option 
+  for proper WGroupCW/WClientWin initial size setup.
+
+Tuomo, does this seem correct to you?
+
+Ben.
+
+-- 
+Ben Hutchings
+If God had intended Man to program,
+we'd have been born with serial I/O ports.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080729/ee285432/attachment.pgp>
+
+From csanyipal at gmail.com  Wed Jul 30 09:58:52 2008
+From: csanyipal at gmail.com (Csanyi Pal)
+Date: Wed, 30 Jul 2008 09:58:52 +0200
+Subject: Workspaces name in statusbar
+Message-ID: <871w1bu7k3.fsf@debian-asztal.csanyi-pal.info>
+
+Hello!
+
+I wish to put the Workspaces Name in to the statusbar so so if one
+switch to workspace named e.g. 'Games' then in the statusbar would to
+be shown e.g. 'WS: Games'.
+
+I try to edit cfg_statusbar.lua and try to read 
+http://modeemi.fi/~tuomov/ion-doc-3/ionconf/node4.html#SECTION00460000000000000000
+
+but can't find solution for this.
+
+Is it possible to get Workspaces Name in the statusbar with Ion3?
+
+-- 
+Regards, Paul Csanyi
+http://www.freewebs.com/csanyi-pal/index.htm
+
+
+
+From jagoterr at gmail.com  Wed Jul 30 10:00:04 2008
+From: jagoterr at gmail.com (Vladimir Chizhov)
+Date: Wed, 30 Jul 2008 12:00:04 +0400
+Subject: Ion3 wishlist / a note about Ion4
+In-Reply-To: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+Message-ID: <92f2ef410807300100x784cc5b2h551918bd00af9bc7@mail.gmail.com>
+
+Hi folks.
+
+What are you thinking about replacing of the ion3 statusbar by some
+external toolbar, i.e. dzen (http://gotmor.googlepages.com/dzen)? It
+should significantly enhance the feature-set of the panel _without_
+much work by Tuomo. Just some simple integration layer and nth else.
+
+
+From aloga at ifca.unican.es  Wed Jul 30 10:04:45 2008
+From: aloga at ifca.unican.es (=?iso-8859-1?Q?=C1lvaro_L=F3pez_Garc=EDa?=)
+Date: Wed, 30 Jul 2008 10:04:45 +0200
+Subject: Workspaces name in statusbar
+In-Reply-To: <871w1bu7k3.fsf@debian-asztal.csanyi-pal.info>
+References: <871w1bu7k3.fsf@debian-asztal.csanyi-pal.info>
+Message-ID: <20080730080445.GD1519@legio>
+
+On mi? 30 jul 2008 (09:58), Csanyi Pal wrote:
+> Hello!
+>
+> (...)
+>
+> Is it possible to get Workspaces Name in the statusbar with Ion3?
+
+Yes it is: http://modeemi.fi/~tuomov/repos/ion-scripts-3/#statusbar
+
+Cheers, 
+
+-- 
+?lvaro L?pez Garc?a <aloga at ifca.unican.es>
+___________________________________________________________________
+                              |
+                              |  Instituto de F?sica de Cantabria
+ Tel: (+34) 942 201 404       |         Ed. Juan Jord?, Campus UC
+ Skype: lopez.alvaro          |          Avda. de los Castros s/n
+                              |           39005 Santander (SPAIN)
+______________________________|____________________________________
+
+"We have persistent objects, they're called files." -- Ken Thompson
+
+
+From csanyipal at gmail.com  Wed Jul 30 10:23:39 2008
+From: csanyipal at gmail.com (Csanyi Pal)
+Date: Wed, 30 Jul 2008 10:23:39 +0200
+Subject: Workspaces name in statusbar
+References: <871w1bu7k3.fsf@debian-asztal.csanyi-pal.info>
+	<20080730080445.GD1519@legio>
+Message-ID: <87tze7sruc.fsf@debian-asztal.csanyi-pal.info>
+
+?lvaro L?pez Garc?a <aloga at ifca.unican.es>
+writes:
+
+> On mi? 30 jul 2008 (09:58), Csanyi Pal wrote:
+>> Is it possible to get Workspaces Name in the statusbar with Ion3?
+>
+> Yes it is: http://modeemi.fi/~tuomov/repos/ion-scripts-3/#statusbar
+
+It works! Thanks! :) 
+
+-- 
+Regards, Paul Csanyi
+http://www.freewebs.com/csanyi-pal/index.htm
+
+
+
+From tuomov at iki.fi  Wed Jul 30 14:40:44 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 30 Jul 2008 12:40:44 +0000 (UTC)
+Subject: Bug#492906: ion3 does not preserve the aspect for tiled windows
+References: <20080729184109.7367.74345.reportbug@semuta.parawag>
+	<1217364100.6073.4.camel@deadeye.i.decadent.org.uk>
+Message-ID: <slrng90oac.1pr.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-07-29, Ben Hutchings <ben at decadent.org.uk> wrote:
+> I think this was an intended effect of this upstream change:
+                      un..
+
+> Fri May  2 20:14:56 BST 2008  Tuomo Valkonen <tuomov at iki.fi>
+>   * WGroup needed "whatever" attach geometry option=20
+>   for proper WGroupCW/WClientWin initial size setup.
+>
+> Tuomo, does this seem correct to you?
+
+There's a patch in the ion-3plus repository (darcs 2 needed!),
+that may fix it. 
+
+2008-07-30 12:33 UTC  Tuomo Valkonen <tuomov at iki.fi>
+  * Oops, szplcy could be unset on group attach.
+
+I have not extensively tested it; I'm just quickly visiting teh
+internets and watering the plants, and will go back beyond the
+reach of crappy technology for the rest of the week.
+
+-- 
+Tuomo
+
+
+
+From csanyipal at gmail.com  Wed Jul 30 19:59:22 2008
+From: csanyipal at gmail.com (Csanyi Pal)
+Date: Wed, 30 Jul 2008 19:59:22 +0200
+Subject: Moving windows to an empty Workspace from Tiled Workspace
+Message-ID: <873alrs16t.fsf@debian-asztal.csanyi-pal.info>
+
+Hello!
+
+I have downloaded send_to_ws.lua and edited cfg_ion.lua:
+dopath("send_to_ws")
+
+I want to send a client window from a tiled workspace to an empty (not
+tiled) workspace with help of send_to_ws. I try to use keybinding
+'Mod1+K L' to send a tagged window to the next workspace.
+
+The window doesn't moved to the next workspace. Why?
+
+I can't move client window that was tagged with Mod1+T in tiled
+workspace and then with Mod1+K A on an empty (not tiled) workspace
+too. 
+
+How can I move a window from tiled workspace to an empty workspace? 
+
+-- 
+Regards, Paul Csanyi
+http://www.freewebs.com/csanyi-pal/index.htm
+
+
+
+From csanyipal at gmail.com  Thu Jul 31 11:17:51 2008
+From: csanyipal at gmail.com (Csanyi Pal)
+Date: Thu, 31 Jul 2008 11:17:51 +0200
+Subject: [Csanyi Pal] Re: Moving windows to an empty Workspace from Tiled
+	Workspace
+Message-ID: <87k5f2xvi8.fsf@debian-asztal.csanyi-pal.info>
+
+
+Canaan Hadley-Voth <ugggg at hotmail.com> writes:
+
+>> I want to send a client window from a tiled workspace to an empty (not
+>> tiled) workspace with help of send_to_ws. I try to use keybinding
+>> 'Mod1+K L' to send a tagged window to the next workspace.
+>
+> First I wonder if you're hitting the right keys.  The script's
+> default binding has a bracketleft between the K and the L. 
+
+Yes, you are right. I'm hitting just Mod1+K L, but if I hitting
+bracketleft between K and the L, then I can't hitting L anymore
+because I'm coming out of the 'keybindings'. 
+
+Say I want to move xterm from tiled workspace to an empty WS, so I'm
+hitting Mod1+K bracketleft and here I'm again in the xterm window,
+with blinking cursor; now I'm hitting L and that L appeare in the
+xterm window as 'l'.
+
+But, if I'm hitting Mod1+K F F then xterm window are sended to a new,
+just created WGroupWS. 
+
+> If that doesn't solve the problem, tell me more about your layout.
+
+The layout of my keyboard is Hungarian: qwertz. To get bracketleft I
+must to hit Mod5+B.
+
+In cfg_ion.lua I changed META="Mod1+" to META="Mod3+".
+
+With Xmodmap I changed Control_R to Mod3. I swapped Alt_L and Control_L,
+Alt_Gr and Menu. Windows_L (Super_L) and Windows_R (Super_R) are Mod5.
+
+>> I can't move client window that was tagged with Mod1+T in tiled
+>> workspace and then with Mod1+K A on an empty (not tiled) workspace
+>> too.
+>
+> cfg_ioncore.lua defines Mod1+K A for frames but not for untiled
+> workspaces (WGroupWS), though it looks like the same function
+> ioncore.tagged_attach does work for WGroupWS.  "Attach tagged" is in
+> the context menu for WGroupWS, too, so try right clicking on the
+> empty workspace. 
+
+If I'm right clicking on the empty WS then I get the following menu:
+
+Run...
+Terminal
+Lock screen
+Help
+About Ion
+Styles ->
+Debian ->
+Session ->
+
+Strange thing happen. I try to open Firefox and get empty black frame
+without Firefox window, but if I Close this frame, I get the Firefox
+message about closing all tabs.
+
+I reinstall the ion3_20080707-3_i386.deb package, and now Firefox
+appeares as it should to appeares.
+
+-- 
+Regards, Paul Csanyi
+http://www.freewebs.com/csanyi-pal/index.htm
+
+
+From ugggg at hotmail.com  Thu Jul 31 17:44:17 2008
+From: ugggg at hotmail.com (Canaan Hadley-Voth)
+Date: Thu, 31 Jul 2008 08:44:17 -0700
+Subject: Moving windows to an empty Workspace from Tiled	Workspace
+In-Reply-To: <87k5f2xvi8.fsf@debian-asztal.csanyi-pal.info>
+References: <87k5f2xvi8.fsf@debian-asztal.csanyi-pal.info>
+Message-ID: <BAY120-W3005CE02B4625AFEFC17EEBA7C0@phx.gbl>
+
+
+>
+> If I'm right clicking on the empty WS then I get the following menu:
+>
+> Run...
+> Terminal
+> Lock screen
+> Help
+> About Ion
+> Styles ->
+> Debian ->
+> Session ->
+
+Ok, so right clicking is not a context menu for the WGroupWS by default.  I assumed it would be.  META+M will give you a query menu, hit Tab for several context menu options including "attach tagged".
+
+As for the script, have you tried changing the binding to something else?  For example, delete the whole line that says
+       submap("bracketleft", {
+and then delete the line that closes its parentheses later...
+   }),
+Then the binding will be what you tried before, META+K L.
+
+And be sure you downloaded send_to_ws.lua from the scripts archive after July 12 of this year.
+
+
+Canaan
+_________________________________________________________________
+Time for vacation? WIN what you need- enter now!
+http://www.gowindowslive.com/summergiveaway/?ocid=tag_jlyhm
+

@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> License change
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20License%20change&In-Reply-To=%3C20070427161531.GA7072%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000378.html">
+   <LINK REL="Next"  HREF="000380.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>License change</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20License%20change&In-Reply-To=%3C20070427161531.GA7072%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="License change">tuomov at iki.fi
+       </A><BR>
+    <I>Fri Apr 27 18:15:31 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000378.html">Dodgy function pointer casts
+</A></li>
+        <LI>Next message: <A HREF="000380.html">License change
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#379">[ date ]</a>
+              <a href="thread.html#379">[ thread ]</a>
+              <a href="subject.html#379">[ subject ]</a>
+              <a href="author.html#379">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Attached are the contents of the new LICENSE file. I'm fed up with
+assholes providing as the standard version, both old versions, as
+well as versions with unapproved patches [1]. The new license is
+actually free'er than LGPL, if you ask me. It merely acts to guard
+what is considered &quot;Ion&quot; or &quot;Ion3&quot;; to give credit where it is due,
+without any direct restrictions on code use. (And to give credit
+where it is due, I used the Zlib license [2] as basis for it.)
+
+  [1]: <A HREF="http://aur.archlinux.org/packages.php?do_Details=1&amp;ID=10622">http://aur.archlinux.org/packages.php?do_Details=1&amp;ID=10622</A>
+
+  [2]: <A HREF="http://www.gzip.org/zlib/zlib_license.html">http://www.gzip.org/zlib/zlib_license.html</A>
+
+-- 
+Tuomo
+-------------- next part --------------
+
+Parts of this software not explicitely indicated to be licensed 
+otherwise, are covered by the following license. Other parts are
+covered by the indicated license. In particular, mod_dock is 
+under the LGPL.
+
+---
+
+Copyright (c) Tuomo Valkonen 1999-2007.
+
+This software is provided 'as-is', without any express or implied
+warranty. In no event will the authors be held liable for any damages
+arising from the use of this software.
+
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it
+freely, subject to the following restrictions guarding the artistic
+integrity of the project:
+
+  1. The origin of this software must not be misrepresented; you must 
+     not claim that you wrote the original software. Any derived works
+     must acknowledge that they use code from this software.
+
+  2. Altered versions must be clearly and explicitly marked as such,
+     and must not be misrepresented as being the original software.
+     Significantly altered versions may not be distributed (neither
+     in source nor binary form), by a name that could be confused 
+     with a name of this software (&quot;ion&quot;, &quot;ion3&quot;, etc.), without 
+     additional very explicit component that indicates that the 
+     version is non-standard.
+
+  3. Redistributions of this software accessible plainly with a name
+     of this software (&quot;ion&quot;, &quot;ion3&quot;, etc.), must provide the latest
+     release with a reasonable delay from its release (normally 28 days).
+     Older releases may be distributed, if the full version, or some 
+     other explicit indicator, such as the word &quot;ancient&quot;, is part of 
+     the name that the package is accessed with, or if this identifier
+     is completely unrelated to a name of this software.
+
+  4. This notice may not be removed or altered from any source 
+     distribution.
+
+
+---
+
+# Question and answers
+
+## On significant changes:
+
+A feature patch to the source code would be considered a &quot;significant&quot;
+change. A patch that fixes minor bugs, would a priori be considered
+insignificant, especially if it is available from the author. Basic
+changes in compiler options and installation paths would obviously
+be insignificant. Changes to the configuration files, that merely 
+add to the standard version, without obstructing the standard setup, 
+would a priori be considered insignificant. Changes to the 
+configuration files that are incompatible with the standard setup, 
+would be considered significant. When in doubt, ask.
+
+
+## On distributions:
+
+If the software can be installed with `$pkgtool install ion3` (resp. 
+`$pkgtool install ion`), where `$pkgtool install` stands for the install
+feature of the distribution's package management tool, this should
+always install the latest standard release of Ion3 (resp. in the whole 
+Ion project). The action `$pkgtool install ion-3ds-20070318` may, 
+however, at any date install this particular marked release. Likewise
+`$pkgtool ion-with-tonnes-of-unsupported-pathces` may install any 
+altered version.
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000378.html">Dodgy function pointer casts
+</A></li>
+	<LI>Next message: <A HREF="000380.html">License change
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#379">[ date ]</a>
+              <a href="thread.html#379">[ thread ]</a>
+              <a href="subject.html#379">[ subject ]</a>
+              <a href="author.html#379">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

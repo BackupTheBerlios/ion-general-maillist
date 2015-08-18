@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Keybindings
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Keybindings&In-Reply-To=%3C20080129183450.0334d529.jan0sch%40gmx.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001025.html">
+   <LINK REL="Next"  HREF="001030.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Keybindings</H1>
+    <B>Jens Jahnke</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Keybindings&In-Reply-To=%3C20080129183450.0334d529.jan0sch%40gmx.net%3E"
+       TITLE="Keybindings">jan0sch at gmx.net
+       </A><BR>
+    <I>Tue Jan 29 18:34:50 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001025.html">Bug#462690: flashplugin-nonfree's new fullscreen mode doesn't	work with ion3
+</A></li>
+        <LI>Next message: <A HREF="001030.html">Keybindings
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1029">[ date ]</a>
+              <a href="thread.html#1029">[ thread ]</a>
+              <a href="subject.html#1029">[ subject ]</a>
+              <a href="author.html#1029">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi there,
+
+I tried to configure some keybindings and they don't seem to work.
+The corresponding file:
+<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">jens at nifelheim</A>:~# cat .ion3/cfg_keys.lua 
+-- some shortcuts
+defbindings(&quot;WScreen&quot;, {
+  kpress(XF86WWW, &quot;ioncore.exec_on(_, 'opera -nomail')&quot;),
+  kpress(XF86Search, &quot;ioncore.exec_on(_, 'xfe')&quot;),
+  kpress(XF86Mail, &quot;ioncore.exec_on(_, 'sylpheed')&quot;),
+  kpress(XF86Forward, &quot;WScreen.switch_next(_)&quot;),
+  kpress(XF86Back, &quot;WScreen.switch_prev(_)&quot;),
+})
+
+The file is/should be parsed via cfg_defaults.lua (dopath(&quot;cfg_keys&quot;)).
+If I fire up xev and press the corresponding keys I can see, that they are
+set correctly via .Xmodmap but ion simply ignores them.
+Is there some thing I'm missing?
+
+regards,
+
+Jens
+
+p.s.: ion3 rc 20080103
+
+-- 
+29. Hartung 2008, 18:29
+Homepage : <A HREF="http://www.jan0sch.de">http://www.jan0sch.de</A>
+
+An honest tale speeds best being plainly told.
+		-- William Shakespeare, &quot;Henry VI&quot;
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001025.html">Bug#462690: flashplugin-nonfree's new fullscreen mode doesn't	work with ion3
+</A></li>
+	<LI>Next message: <A HREF="001030.html">Keybindings
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1029">[ date ]</a>
+              <a href="thread.html#1029">[ thread ]</a>
+              <a href="subject.html#1029">[ subject ]</a>
+              <a href="author.html#1029">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

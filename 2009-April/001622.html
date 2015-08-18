@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Attach client to several workspaces
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-April/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Attach%20client%20to%20several%20workspaces&In-Reply-To=%3Cvpqr6048kg8.fsf%40bauges.imag.fr%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001621.html">
+   <LINK REL="Next"  HREF="001635.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Attach client to several workspaces</H1>
+    <B>Matthieu Moy</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Attach%20client%20to%20several%20workspaces&In-Reply-To=%3Cvpqr6048kg8.fsf%40bauges.imag.fr%3E"
+       TITLE="Attach client to several workspaces">Matthieu.Moy at imag.fr
+       </A><BR>
+    <I>Tue Apr  7 19:03:51 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001621.html">Attach client to several workspaces
+</A></li>
+        <LI>Next message: <A HREF="001635.html">Attach client to several workspaces
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1622">[ date ]</a>
+              <a href="thread.html#1622">[ thread ]</a>
+              <a href="subject.html#1622">[ subject ]</a>
+              <a href="author.html#1622">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Oskar Nordquist &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">oskar.nordquist at gmail.com</A>&gt; writes:
+
+&gt;<i> 2009/4/7 Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt;:
+</I>&gt;&gt;<i> On 2009-04-07, Oskar Nordquist &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">oskar.nordquist at gmail.com</A>&gt; wrote:
+</I>&gt;&gt;&gt;<i> Would it not be easier to just duplicate the client to refer to the same X
+</I>&gt;&gt;&gt;<i> window? I don't even know if that is possible, but if it is, that's how I'd
+</I>&gt;&gt;&gt;<i> prefer to do it.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Ummm... I don't know what you really mean. The client always refers to
+</I>&gt;&gt;<i> the same window it initially created. You can move it around in Ion's
+</I>&gt;&gt;<i> window management hierarchy (cf. Mod1+A, Mod1+T &amp; Mod1+K A, tab drag),
+</I>&gt;&gt;<i> also to follow you around. Obviously you can automate this by attaching
+</I>&gt;&gt;<i> a script to suitable hooks.
+</I>&gt;&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> I'm not sure how X works, but I'm guessing there is some kind of handle that
+</I>&gt;<i> an Ion client refers to to draw the window. Would it not be possible to
+</I>&gt;<i> use this same handle in a new Ion client, which would essentially render the
+</I>&gt;<i> same window?
+</I>
+You cannot have the same application actually running in different
+frames without application support. At least one problem is that
+different frames can have different sizes, and the application will
+draw its content based on the size.
+
+With application support, you can do such kind of things (like Emacs
+&quot;make new frame&quot; for example), but they will still be two distinct
+frames.
+
+What you can do (and what wmii, awesome and other do) is that the
+resize the window on-the-fly when the workspace changes. Then the
+application redraws the frame at the new place, with its new size.
+
+-- 
+Matthieu
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001621.html">Attach client to several workspaces
+</A></li>
+	<LI>Next message: <A HREF="001635.html">Attach client to several workspaces
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1622">[ date ]</a>
+              <a href="thread.html#1622">[ thread ]</a>
+              <a href="subject.html#1622">[ subject ]</a>
+              <a href="author.html#1622">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

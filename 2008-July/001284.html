@@ -1,0 +1,238 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Warnings for missing keys for non-critical key bindings
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Warnings%20for%20missing%20keys%20for%20non-critical%20key%20bindings&In-Reply-To=%3C1216594376.30035.40.camel%40deadeye.i.decadent.org.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001283.html">
+   <LINK REL="Next"  HREF="001287.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Warnings for missing keys for non-critical key bindings</H1>
+    <B>Ben Hutchings</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Warnings%20for%20missing%20keys%20for%20non-critical%20key%20bindings&In-Reply-To=%3C1216594376.30035.40.camel%40deadeye.i.decadent.org.uk%3E"
+       TITLE="Warnings for missing keys for non-critical key bindings">ben at decadent.org.uk
+       </A><BR>
+    <I>Mon Jul 21 00:52:56 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001283.html">ion-statusd eating up 100% cpu
+</A></li>
+        <LI>Next message: <A HREF="001287.html">Warnings for missing keys for non-critical key bindings
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1284">[ date ]</a>
+              <a href="thread.html#1284">[ thread ]</a>
+              <a href="subject.html#1284">[ subject ]</a>
+              <a href="author.html#1284">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Tuomo,
+
+I got a bug report about warnings for keysym translation failure for
+some of the standard bindings: <A HREF="http://bugs.debian.org/488673">http://bugs.debian.org/488673</A>
+
+Some of the standard bindings refer to keys that aren't in all keymaps
+(e.g. Home in this case).  Thankfully they are redundant with other
+bindings.  So it seems like it would be OK to suppress the warnings for
+those bindings.
+
+I came up with a patch that makes that change, which I'd like to apply
+to the Debian package.  What do you think of this approach?
+Unfortunately it changes the signature of ioncore_parse_keybut() which
+means an ABI break - maybe you can think of a better way to pass in the
+new flag.
+
+Ben.
+
+--- ion3.orig/etc/cfg_menu.lua
++++ ion3/etc/cfg_menu.lua
+@@ -9,14 +9,14 @@
+ 
+ defbindings(&quot;WMenu&quot;, {
+     bdoc(&quot;Close the menu.&quot;),
+-    kpress(&quot;Escape&quot;, &quot;WMenu.cancel(_)&quot;),
++    kpress(&quot;Escape&quot;, &quot;WMenu.cancel(_)&quot;, nil, true),
+     kpress(&quot;Control+G&quot;, &quot;WMenu.cancel(_)&quot;),
+     kpress(&quot;Control+C&quot;, &quot;WMenu.cancel(_)&quot;),
+     kpress(&quot;Left&quot;, &quot;WMenu.cancel(_)&quot;),
+     
+     bdoc(&quot;Activate current menu entry.&quot;),
+     kpress(&quot;Return&quot;,  &quot;WMenu.finish(_)&quot;),
+-    kpress(&quot;KP_Enter&quot;, &quot;WMenu.finish(_)&quot;),
++    kpress(&quot;KP_Enter&quot;, &quot;WMenu.finish(_)&quot;, nil, true),
+     kpress(&quot;Control+M&quot;, &quot;WMenu.finish(_)&quot;),
+     kpress(&quot;Right&quot;, &quot;WMenu.finish(_)&quot;),
+     
+--- ion3.orig/etc/cfg_query.lua
++++ ion3/etc/cfg_query.lua
+@@ -17,8 +17,8 @@
+     bdoc(&quot;Go to end/beginning.&quot;),
+     kpress(&quot;Control+E&quot;, &quot;WEdln.eol(_)&quot;),
+     kpress(&quot;Control+A&quot;, &quot;WEdln.bol(_)&quot;),
+-    kpress(&quot;End&quot;, &quot;WEdln.eol(_)&quot;),
+-    kpress(&quot;Home&quot;, &quot;WEdln.bol(_)&quot;),
++    kpress(&quot;End&quot;, &quot;WEdln.eol(_)&quot;, nil, true),
++    kpress(&quot;Home&quot;, &quot;WEdln.bol(_)&quot;, nil, true),
+     
+     bdoc(&quot;Skip one word forward/backward.&quot;),
+     kpress(&quot;Control+X&quot;, &quot;WEdln.skip_word(_)&quot;),
+@@ -26,7 +26,7 @@
+ 
+     bdoc(&quot;Delete next character.&quot;),
+     kpress(&quot;Control+D&quot;, &quot;WEdln.delete(_)&quot;),
+-    kpress(&quot;Delete&quot;, &quot;WEdln.delete(_)&quot;),
++    kpress(&quot;Delete&quot;, &quot;WEdln.delete(_)&quot;, nil, true),
+     
+     bdoc(&quot;Delete previous character.&quot;),
+     kpress(&quot;BackSpace&quot;, &quot;WEdln.backspace(_)&quot;),
+@@ -87,21 +87,21 @@
+     bdoc(&quot;Close the query and execute bound action.&quot;),
+     kpress(&quot;Control+M&quot;, &quot;WEdln.finish(_)&quot;),
+     kpress(&quot;Return&quot;, &quot;WEdln.finish(_)&quot;),
+-    kpress(&quot;KP_Enter&quot;, &quot;WEdln.finish(_)&quot;),
++    kpress(&quot;KP_Enter&quot;, &quot;WEdln.finish(_)&quot;, nil, true),
+ })
+ 
+ 
+ defbindings(&quot;WInput&quot;, {
+     bdoc(&quot;Close the query/message box, not executing bound actions.&quot;),
+-    kpress(&quot;Escape&quot;, &quot;WInput.cancel(_)&quot;),
++    kpress(&quot;Escape&quot;, &quot;WInput.cancel(_)&quot;, nil, true),
+     kpress(&quot;Control+G&quot;, &quot;WInput.cancel(_)&quot;),
+     kpress(&quot;Control+C&quot;, &quot;WInput.cancel(_)&quot;),
+     
+     bdoc(&quot;Scroll the message or completions up/down.&quot;),
+     kpress(&quot;Control+U&quot;, &quot;WInput.scrollup(_)&quot;),
+     kpress(&quot;Control+V&quot;, &quot;WInput.scrolldown(_)&quot;),
+-    kpress(&quot;Page_Up&quot;, &quot;WInput.scrollup(_)&quot;),
+-    kpress(&quot;Page_Down&quot;, &quot;WInput.scrolldown(_)&quot;),
++    kpress(&quot;Page_Up&quot;, &quot;WInput.scrollup(_)&quot;, nil, true),
++    kpress(&quot;Page_Down&quot;, &quot;WInput.scrolldown(_)&quot;, nil, true),
+ })
+ 
+ 
+--- ion3.orig/ioncore/conf-bindings.c
++++ ion3/ioncore/conf-bindings.c
+@@ -55,7 +55,7 @@
+ 
+ 
+ bool ioncore_parse_keybut(const char *str, uint *mod_ret, uint *ksb_ret,
+-                          bool button, bool init_any)
++                          bool button, bool init_any, bool quiet_absent)
+ {
+     char *str2, *p, *p2;
+     int keysym=NoSymbol, i;
+@@ -94,7 +94,8 @@
+                 break;
+             }
+             if(XKeysymToKeycode(ioncore_g.dpy, keysym)==0){
+-                warn_obj(str, TR(&quot;Could not convert keysym to keycode.&quot;));
++                if(!quiet_absent)
++                    warn_obj(str, TR(&quot;Could not convert keysym to keycode.&quot;));
+                 break;
+             }
+             *ksb_ret=keysym;
+@@ -256,6 +257,7 @@
+     ExtlFn func;
+     bool wr=FALSE;
+     int area=0;
++    bool extra;
+     
+     if(!extl_table_gets_s(tab, &quot;action&quot;, &amp;action_str)){
+         warn(TR(&quot;Binding type not set.&quot;));
+@@ -277,9 +279,12 @@
+         if(!extl_table_gets_s(tab, &quot;kcb&quot;, &amp;ksb_str))
+             goto fail;
+ 
++        if(!extl_table_gets_b(tab, &quot;extra&quot;, &amp;extra))
++            extra=FALSE;
++
+         if(!ioncore_parse_keybut(ksb_str, &amp;mod, &amp;ksb,
+                                  (action!=BINDING_KEYPRESS &amp;&amp; action!=-1), 
+-                                 init_any)){
++                                 init_any, extra)){
+             goto fail;
+         }
+     }
+--- ion3.orig/ioncore/ioncore_bindings.lua
++++ ion3/ioncore/ioncore_bindings.lua
+@@ -125,9 +125,12 @@
+ -- Creates a binding description table for the action of pressing a key given 
+ -- by \var{keyspec} (with possible modifiers) to the function \var{cmd}.
+ -- The \var{guard} controls when the binding can be called.
++-- The \var{extra} flag signals whether the binding is a non-critical extra
++-- binding.  If this is true and a named key does not exist, the binding will
++-- be quietly ignored.
+ -- For more informationp see Section \ref{sec:bindings}.
+-function ioncore.kpress(keyspec, cmd, guard)
+-    return putcmd(cmd, guard, {action = &quot;kpress&quot;, kcb = keyspec})
++function ioncore.kpress(keyspec, cmd, guard, extra)
++    return putcmd(cmd, guard, {action = &quot;kpress&quot;, kcb = keyspec, extra = extra})
+ end
+ 
+ --DOC
+--- ion3.orig/ioncore/conf-bindings.h
++++ ion3/ioncore/conf-bindings.h
+@@ -19,6 +19,6 @@
+ 
+ extern bool ioncore_parse_keybut(const char *str, 
+                                  uint *mod_ret, uint *ksb_ret,
+-                                 bool button, bool init_any);
++                                 bool button, bool init_any, bool quiet_absent);
+ 
+ #endif /* ION_IONCORE_CONF_BINDINGS_H */
+--- ion3.orig/etc/cfg_ioncore.lua
++++ ion3/etc/cfg_ioncore.lua
+@@ -284,7 +284,7 @@
+ 
+ defbindings(&quot;WMoveresMode&quot;, {
+     bdoc(&quot;Cancel the resize mode.&quot;),
+-    kpress(&quot;AnyModifier+Escape&quot;,&quot;WMoveresMode.cancel(_)&quot;),
++    kpress(&quot;AnyModifier+Escape&quot;,&quot;WMoveresMode.cancel(_)&quot;, nil, true),
+ 
+     bdoc(&quot;End the resize mode.&quot;),
+     kpress(&quot;AnyModifier+Return&quot;,&quot;WMoveresMode.finish(_)&quot;),
+--- END ---
+
+-- 
+Ben Hutchings
+You can't have everything.  Where would you put it?
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20080720/2fbca322/attachment.pgp">https://lists.berlios.de/pipermail/ion-general/attachments/20080720/2fbca322/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001283.html">ion-statusd eating up 100% cpu
+</A></li>
+	<LI>Next message: <A HREF="001287.html">Warnings for missing keys for non-critical key bindings
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1284">[ date ]</a>
+              <a href="thread.html#1284">[ thread ]</a>
+              <a href="subject.html#1284">[ subject ]</a>
+              <a href="author.html#1284">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

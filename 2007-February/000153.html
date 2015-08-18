@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Feature freeze imminent
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Feature%20freeze%20imminent&In-Reply-To=%3Cg69lkiksxpx.fsf%40dhcp-65-162.kendall.corp.akamai.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000151.html">
+   <LINK REL="Next"  HREF="000155.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Feature freeze imminent</H1>
+    <B>Ted Zlatanov</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Feature%20freeze%20imminent&In-Reply-To=%3Cg69lkiksxpx.fsf%40dhcp-65-162.kendall.corp.akamai.com%3E"
+       TITLE="Feature freeze imminent">tzz at lifelogs.com
+       </A><BR>
+    <I>Mon Feb 26 17:14:02 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000151.html">Feature freeze imminent
+</A></li>
+        <LI>Next message: <A HREF="000155.html">Feature freeze imminent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#153">[ date ]</a>
+              <a href="thread.html#153">[ thread ]</a>
+              <a href="subject.html#153">[ subject ]</a>
+              <a href="author.html#153">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Mon, 26 Feb 2007 15:38:57 +0000 (UTC) Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt; wrote: 
+
+TV&gt; My present plan is that each tag has a sparse bitmap associated 
+TV&gt; with it, with the bit for each object ID that has that tag set, set
+TV&gt; to one. Then you just 'and' these bitmaps when you search for the
+TV&gt; subset of files having the given tags set. This should be quite
+TV&gt; efficient given a suitable sparse structure for the bitmaps. 
+
+You probably want inversion lists for this.  They are very efficient
+for sparse membership, and extend to N members easily since they are
+just linked lists internally.
+
+TV&gt; There's, however, another structure needed for looking up a particular
+TV&gt; file with exactly given set of tags. One approach would be to use a 
+TV&gt; binary self-balancing tree (red-black, AVL), but I'm afraid that could
+TV&gt; be too inefficient on a file system, as multiple 'inodes' all around the
+TV&gt; disk would have to be accessed on each lookup. An alternative, possibly
+TV&gt; more efficient, approach would be to order the identifier sets by tag ID,
+TV&gt; and use a nested B-tree for looking up the files as if they were on a 
+TV&gt; normal hierachical file system. In fact, you could store the files on 
+TV&gt; a normal underlying file system in that hierarchy. I do not plan to do
+TV&gt; so, however, although I do intend to use (at least initially) a normal
+TV&gt; FS for storing the files, with an additional file for the indices.
+
+Have you considered SQLite or something similar?  Even if you don't
+use on a DB backend eventually, I think using it at first would make
+your life easier because the prototype will be easier to produce.
+
+I also think the tag ideas would apply nicely to Ion3 elements.  Right
+now, &quot;goto window,&quot; for example, has just the tab-completion interface
+by name.  It could use tags by window class, workspace type and
+number, etc.  Just a thought for Ion3plus.
+
+Ted
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000151.html">Feature freeze imminent
+</A></li>
+	<LI>Next message: <A HREF="000155.html">Feature freeze imminent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#153">[ date ]</a>
+              <a href="thread.html#153">[ thread ]</a>
+              <a href="subject.html#153">[ subject ]</a>
+              <a href="author.html#153">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

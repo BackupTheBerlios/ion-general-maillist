@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> how to put a background image
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-September/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20how%20to%20put%20a%20background%20image&In-Reply-To=%3C20090910022720.GA20647%40fenchurch%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001739.html">
+   <LINK REL="Next"  HREF="001741.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>how to put a background image</H1>
+    <B>Javier Rojas</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20how%20to%20put%20a%20background%20image&In-Reply-To=%3C20090910022720.GA20647%40fenchurch%3E"
+       TITLE="how to put a background image">jerojasro at devnull.li
+       </A><BR>
+    <I>Thu Sep 10 04:27:20 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001739.html">how to put a background image
+</A></li>
+        <LI>Next message: <A HREF="001741.html">how to put a background image
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1740">[ date ]</a>
+              <a href="thread.html#1740">[ thread ]</a>
+              <a href="subject.html#1740">[ subject ]</a>
+              <a href="author.html#1740">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Wed, Sep 09, 2009 at 11:03:17AM +0200, reza wrote:
+&gt;<i> to put a background image to my desktops. I have installed imagemagick
+</I>&gt;<i> and trried to put an image using the display command :
+</I>&gt;<i> 
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">azer at ramscan</A>:~$ display -window root images/Bionix\ Wallpaper\ -\ Robot\
+</I>&gt;<i> Sit.jpg
+</I>&gt;<i> 
+</I>&gt;<i> But it doesn't works. Any idea please ?
+</I>
+I think the &quot;issue&quot; (not really an issue, but a &quot;feature&quot;) is that ion
+draws a (flat) background for all the frames it uses, and because of
+that you can't see your wallpaper (the frame background is on top of
+it). Try creating an empty workspace after setting the wallpaper. If you
+can see your wallpaper, then all you must do now is to make the frames
+transparent, so your wallpaper can be seen in all the desktops. To do
+that
+
+  1. locate the &quot;look&quot; theme that ion is using
+  2. edit it, adding the following 
+
+		de.defstyle(&quot;frame&quot;, {
+			based_on=&quot;*&quot;,
+			transparent_background = true,
+		  }
+		)
+
+     put that text after the 'de.defstyle(&quot;*&quot;, {' section
+
+  3. restart ion.
+
+Hope this helps,
+
+-- 
+Javier Rojas
+
+GPG Key ID: 0x24E00D68
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20090909/bc781a16/attachment.pgp">https://lists.berlios.de/pipermail/ion-general/attachments/20090909/bc781a16/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001739.html">how to put a background image
+</A></li>
+	<LI>Next message: <A HREF="001741.html">how to put a background image
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1740">[ date ]</a>
+              <a href="thread.html#1740">[ thread ]</a>
+              <a href="subject.html#1740">[ subject ]</a>
+              <a href="author.html#1740">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

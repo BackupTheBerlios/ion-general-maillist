@@ -1,0 +1,337 @@
+From ebik at drak.ucw.cz  Sun Jan  2 22:37:04 2011
+From: ebik at drak.ucw.cz (ebik)
+Date: Sun, 2 Jan 2011 22:37:04 +0100
+Subject: Rezise window to fixed size.
+In-Reply-To: <946241.91105.qm@web130101.mail.mud.yahoo.com>
+References: <20101230202055.476b730e@Chewbacca.cub>
+	<946241.91105.qm@web130101.mail.mud.yahoo.com>
+Message-ID: <20110102223704.108113f8@Chewbacca.cub>
+
+On Fri, 31 Dec 2010 07:09:22 -0800 (PST)
+?ukasz <blurrpp at yahoo.com> wrote:
+
+> 
+> --- On Thu, 12/30/10, ebik <ebik at drak.ucw.cz> wrote:
+> 
+> > From: ebik <ebik at drak.ucw.cz>
+> > Subject: Re: Saving/restore session
+> > To: ion-general at lists.berlios.de
+> > Date: Thursday, December 30, 2010, 8:20 PM
+> > On Thu, 30 Dec 2010 07:55:43 -0800
+> > (PST)
+> > ?ukasz <blurrpp at yahoo.com>
+> > wrote:
+> > 
+> > > But i have another question. I'm using ion2/pwm2 and i
+> > want to resize
+> > > actual window to some fixed sizes (maximize_vert and
+> > > maximize_horiz_works only as they explicit say
+> > MAXIMALY ) i used
+> > > request_geom(WRegion,size_table) but i have probelm
+> > with gettin
+> > > current WRegion ( i read cerfully all manual and
+> > couldnt find
+> > > function like WRegion WRegion.current() which would
+> > gave me handle to
+> > > current region),s ohow to get it and maybe there is
+> > another way to
+> > > fixed resize .
+> > > 
+> > > Regards Lukas
+> > 
+> > You should use correct binding (i.e., binding for WFrame or
+> > something
+> > like that, I have no ion manual here), then the variable
+> > '_'
+> > should contain the object, which was the binding triggered
+> > for. See
+> > the part of manual that describes bindings.
+> 
+> Thanx, u are talking about ion3 not ion2 but any wy i just moved to
+> ion3 and i have the same problem. Trying to set key to rezise
+> windowes to fixed size, so ok i use WMoveresMode functions 
+> 
+> defbindings("WMoveresMode", {
+>    ...
+>    ...
+>    ...
+>    kpress(META.."R",     "WMoveresMode.rqgeom(_,{10,10,100,100})"),
+> })
+> 
+> Let say that META+"R" switches to 'resize' mode. So now pressing
+> META+"R" than "R" shold rezise window ... buy nothing happen, other
+> functions like WMoveresMode.resize(_,...)  works ok. So where is
+> mistake in this example.
+> 
+> Lukasz
+ 
+I think that it should read:
+WMoveresMode.rqgeom(_,{x=10,y=10,w=100,h=100})
+(Not sure about the syntax right now, but the table has named entries.)
+
+Second "R" should be pressed also with META in your example.
+
+The triggered error probably wrote something to ion's stderr. I keep
+ion's stdout and stderr explicitly to ~/.xsession-errors, so I can check
+ion's output in case of bad bindings, kludges or other errors, that
+occur in "safe environment" -- being triggered by some event.
+
+-- 
+                                 Tom?? 'eb?k' Ebenlendr
+                                 PF 2011.00528440512
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 230 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20110102/801dd48f/attachment.pgp>
+
+From blurrpp at yahoo.com  Mon Jan  3 02:41:28 2011
+From: blurrpp at yahoo.com (=?iso-8859-1?Q?=A3ukasz?=)
+Date: Sun, 2 Jan 2011 17:41:28 -0800 (PST)
+Subject: Rezise window to fixed size.
+Message-ID: <216647.2274.qm@web130110.mail.mud.yahoo.com>
+
+? 
+> I think that it should read:
+> WMoveresMode.rqgeom(_,{x=10,y=10,w=100,h=100})
+> (Not sure about the syntax right now, but the table has
+> named entries.)
+> 
+> Second "R" should be pressed also with META in your
+> example.
+> 
+> The triggered error probably wrote something to ion's
+> stderr. I keep
+> ion's stdout and stderr explicitly to ~/.xsession-errors,
+> so I can check
+> ion's output in case of bad bindings, kludges or other
+> errors, that
+> occur in "safe environment" -- being triggered by some
+> event.
+> 
+
+Thanks again, yep for sure should be META+R, but problem was in {x=10,y=10,w=100,h=100} now works fine.
+
+Regards Lukas
+
+
+
+
+From blurrpp at yahoo.com  Mon Jan  3 19:24:19 2011
+From: blurrpp at yahoo.com (=?iso-8859-1?Q?=A3ukasz?=)
+Date: Mon, 3 Jan 2011 10:24:19 -0800 (PST)
+Subject: 1)Moving tagged windows to current WS. 2) Rearange WS's
+Message-ID: <413950.27484.qm@web130106.mail.mud.yahoo.com>
+
+Hi ,
+its me again :). Let say that i tagged few windows on some workspaces, i moved to another one and i want all tagged windows moved here. Simple function which do it is 
+
+
+local function tagged_move(group)
+   local region=WMPlex.attach_new(group,{type="WGroupWS",name="name",...})
+   ioncore.tagged_attach(region)
+end
+
+it works ok when destination ws is empty, problems appears when its not. I think the nice way to do it woild be by using 'ioncore.tagged_first(true)' or 'ioncore.tagged_i()' but first one some how doesnt want to return tagged region. Im sure that there is some extremely simple solution for it so if somebody knows it  pls help.
+
+
+My second question is if it's possible to rearange WS and how to do it?. Till now i havent had enough time to think about it but it wold be nice possibility
+
+Best Regards
+Lukas
+
+
+      
+
+
+From ebik at drak.ucw.cz  Tue Jan  4 15:32:01 2011
+From: ebik at drak.ucw.cz (ebik)
+Date: Tue, 4 Jan 2011 15:32:01 +0100
+Subject: 1)Moving tagged windows to current WS. 2) Rearange WS's
+In-Reply-To: <413950.27484.qm@web130106.mail.mud.yahoo.com>
+References: <413950.27484.qm@web130106.mail.mud.yahoo.com>
+Message-ID: <20110104153201.24437184@u-pl5.ms.mff.cuni.cz>
+
+On Mon, 3 Jan 2011 10:24:19 -0800 (PST)
+?ukasz <blurrpp at yahoo.com> wrote:
+
+> Hi ,
+> its me again :). Let say that i tagged few windows on some
+> workspaces, i moved to another one and i want all tagged windows
+> moved here. Simple function which do it is 
+> 
+> 
+> local function tagged_move(group)
+>    local
+> region=WMPlex.attach_new(group,{type="WGroupWS",name="name",...})
+> ioncore.tagged_attach(region) end
+> 
+> it works ok when destination ws is empty, problems appears when its
+> not. I think the nice way to do it woild be by using
+> 'ioncore.tagged_first(true)' or 'ioncore.tagged_i()' but first one
+> some how doesnt want to return tagged region. Im sure that there is
+> some extremely simple solution for it so if somebody knows it  pls
+> help.
+
+Umm, what should be the result? I tag few windows and then attach them
+into one frame (as many "tabs") into selected frame just by
+ioncore.tagged_attach(that_frame). There is context menu entry for this
+in ion3plus (it should be in ion3 as well). I do not use floating
+windows, thus I cannot imagine what result you want.
+
+> My second question is if it's possible to rearange WS and how to do
+> it?. Till now i havent had enough time to think about it but it wold
+> be nice possibility
+
+What do you mean by rearanging?
+
+* If you want to switch order of tabs, then there is function
+   WMPlex.dec_index and WMPlex.inc_index
+
+* If yoy want to add and move some splits, just do it manually and save
+  it to your session.
+
+  If you want such workspace to be created "dynamically", then you can
+  isolate this workspace from your session
+  file (saved_layout.lua) and use ioncore.create_ws(scr, tmpl, layout)
+  and ioncore.deflayout(name, tab).
+
+  Note that I did not ever tried that. I just created one workspace
+  which satisfies all my needs. Namely I discared all splits (to have
+  one frame) on my laptop, then I attached new WTiling into this frame
+  and I split this WTiling. Thus my windows are nearly fullscreen
+  (if it is sibbling of the nested WTiling) or they occupy smaller
+  part, if they are descendants of the nested WTiling. I can switch
+  between them with my pen (I have tablet) or mouse. This is especially
+  good when the main work is browsing internet, as browsing is
+  traditionally mouse-oriented (some technologies from hell, such
+  as adobe flash requires use of mouse when browsing internet).
+
+> Best Regards
+> Lukas
+> 
+> 
+>       
+> 
+
+
+
+-- 
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 230 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20110104/b311c566/attachment.pgp>
+
+From blurrpp at yahoo.com  Tue Jan  4 21:57:49 2011
+From: blurrpp at yahoo.com (=?iso-8859-1?Q?=A3ukasz?=)
+Date: Tue, 4 Jan 2011 12:57:49 -0800 (PST)
+Subject: 1)Moving tagged windows to current WS. 2) Rearange WS's
+In-Reply-To: <20110104153201.24437184@u-pl5.ms.mff.cuni.cz>
+Message-ID: <924553.5870.qm@web130107.mail.mud.yahoo.com>
+
+> > Hi ,
+> > its me again :). Let say that i tagged few windows on
+> some
+> > workspaces, i moved to another one and i want all
+> tagged windows
+> > moved here. Simple function which do it is 
+> > 
+> > 
+> > local function tagged_move(group)
+> >? ? local
+> >
+> region=WMPlex.attach_new(group,{type="WGroupWS",name="name",...})
+> > ioncore.tagged_attach(region) end
+> > 
+> > it works ok when destination ws is empty, problems
+> appears when its
+> > not. I think the nice way to do it woild be by using
+> > 'ioncore.tagged_first(true)' or 'ioncore.tagged_i()'
+> but first one
+> > some how doesnt want to return tagged region. Im sure
+> that there is
+> > some extremely simple solution for it so if somebody
+> knows it? pls
+> > help.
+> 
+> Umm, what should be the result? I tag few windows and then
+> attach them
+> into one frame (as many "tabs") into selected frame just
+> by
+> ioncore.tagged_attach(that_frame). There is context menu
+> entry for this
+> in ion3plus (it should be in ion3 as well). I do not use
+> floating
+> windows, thus I cannot imagine what result you want.
+
+I didnt say that I'm talking about pwm3 not ion3, that I think confused You. In ion its not problem becouse u have always frame you can attach to tagged windows/regions by "META+K"+"A" ( or whatever you defined). In pwm3 you have to specific object where you want to attach it. I get what i wanted to in pwm  by
+
+local function tagged_move(obj)
+	local region=WMPlex.mx_current(obj)
+	ioncore.tagged_attach(region)
+end
+
+runed in WScreen section.
+
+
+
+> 
+> > My second question is if it's possible to rearange WS
+> and how to do
+> > it?. Till now i havent had enough time to think about
+> it but it wold
+> > be nice possibility
+> 
+> What do you mean by rearanging?
+> 
+> * If you want to switch order of tabs, then there is
+> function
+> ???WMPlex.dec_index and WMPlex.inc_index
+> 
+> * If yoy want to add and move some splits, just do it
+> manually and save
+> ? it to your session.
+> 
+> ? If you want such workspace to be created
+> "dynamically", then you can
+> ? isolate this workspace from your session
+> ? file (saved_layout.lua) and use
+> ioncore.create_ws(scr, tmpl, layout)
+> ? and ioncore.deflayout(name, tab).
+> 
+> ? Note that I did not ever tried that. I just created
+> one workspace
+> ? which satisfies all my needs. Namely I discared all
+> splits (to have
+> ? one frame) on my laptop, then I attached new WTiling
+> into this frame
+> ? and I split this WTiling. Thus my windows are nearly
+> fullscreen
+> ? (if it is sibbling of the nested WTiling) or they
+> occupy smaller
+> ? part, if they are descendants of the nested WTiling.
+> I can switch
+> ? between them with my pen (I have tablet) or mouse.
+> This is especially
+> ? good when the main work is browsing internet, as
+> browsing is
+> ? traditionally mouse-oriented (some technologies from
+> hell, such
+> ? as adobe flash requires use of mouse when browsing
+> internet).
+
+ thanks, WMPlex.dec_index WMPlex.inc_index works exactly i want to, but again in pwm i had to speific correct region and wmplex.
+
+Lukas
+
+
+
+      
+
+

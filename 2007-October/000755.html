@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Life, universe, and ION3
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-October/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Life%2C%20universe%2C%20and%20ION3&In-Reply-To=%3C20071010000657.GH11523%40aran%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000740.html">
+   <LINK REL="Next"  HREF="000741.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Life, universe, and ION3</H1>
+    <B>Etan Reisner</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Life%2C%20universe%2C%20and%20ION3&In-Reply-To=%3C20071010000657.GH11523%40aran%3E"
+       TITLE="Life, universe, and ION3">deryni at unreliablesource.net
+       </A><BR>
+    <I>Wed Oct 10 02:06:57 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000740.html">Life, universe, and ION3
+</A></li>
+        <LI>Next message: <A HREF="000741.html">Life, universe, and ION3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#755">[ date ]</a>
+              <a href="thread.html#755">[ thread ]</a>
+              <a href="subject.html#755">[ subject ]</a>
+              <a href="author.html#755">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Tue, Oct 09, 2007 at 12:38:54PM +0200, Sylvain Ab&#233;lard wrote:
+&lt;snip&gt;
+&gt;<i> &gt; GUI based configuration tool for the keybindings.
+</I>&gt;<i> &gt; Support for alternate keybindings.
+</I>&gt;<i>
+</I>&gt;<i> I don't think there are many users out there still using the default
+</I>&gt;<i> keybindings.
+</I>&gt;<i> This encourages people to look at cfg_bindings.lua and make their own,
+</I>&gt;<i> which is IMHO an excellent policy.
+</I>
+&lt;snip&gt;
+
+I use a mostly stock set of bindings. The bindings I did change were
+mostly to move them to MOD4, a couple to add bindings for some scripts I
+use/wrote, and a couple to make the edln bindings a little more
+emacs/readline friendly.
+
+Copying the default cfg_bindings.lua file into ~/.ion3 and then attempting
+to customize it is not a good idea, it creates upgrade problems (which I
+will grant you matters less and less as ion3 approaches stable) and
+requires more effort to deal with in general than the much easier option
+of just creating and overriding any bindings you actually want to change
+in cfg_ion.lua (or in any other file in ~/.ion3 that you then dopath()
+from cfg_ion.lua).
+
+As to the gui config tool idea, there was a mailing list thread a little
+while ago about creating a simplified binding format for ion3 and after
+which I worked on a script for just such a thing, you can find it in the
+scripts repository, that's not quite a config gui but it should be much
+easier for an 'average' person to deal with than the lua config files (or
+so was the theory of the people in the mailing list thread).
+
+	-Etan
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000740.html">Life, universe, and ION3
+</A></li>
+	<LI>Next message: <A HREF="000741.html">Life, universe, and ION3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#755">[ date ]</a>
+              <a href="thread.html#755">[ thread ]</a>
+              <a href="subject.html#755">[ subject ]</a>
+              <a href="author.html#755">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

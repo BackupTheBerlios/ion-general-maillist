@@ -1,0 +1,3303 @@
+From hiena at toons.hu  Tue Oct  9 15:07:26 2007
+From: hiena at toons.hu (,,,)
+Date: Tue, 9 Oct 2007 15:07:26 +0200
+Subject: Life, universe, and ION3
+Message-ID: <20071009130726.GA27220@toons.hu>
+
+Hi all!
+
+
+Some week ago i read about ION window-manager at the Hungarian Unix 
+Portal. Due, I'm an engineering monkey, and i really hates wasting my time playing with the windows locations, i 
+thought the tiling wm would be a good thing for me. So, i pulled down the ION2 from the Debian respository and give 
+it a shot. 
+My first thoughts: Simple, efficient and fast.
+After that, i dowloaded the ION3 source, and compiled it. Well, it's a 
+bit different from the Debian's ION2, but the development is clear. The Run menu file listing is damned fast 
+comapared to the GTK+ same function.
+I'm still testing it, but i can't find any bug, yet.
+Also i have some ideas and thoughts, which i compiled to kind of 
+whistlist. Most is not a basic wm feature, but it would be nice in a tabbed, tiling wm. Maybe some of these already 
+developed, but spending 13 hours with the soldering iron, and 3 hours moving bricks every day, leaves me a small 
+time to reading the documentations.
+
+Requested features:
+
+Policy settings for the new window creation. When i run some multyple 
+window application (mplayer, gimp), it would be nice if i could set where must the spawned window must to be 
+placed. Currently it's follows the mouse pointer. My idea is to be set a policy for every application (tabs) for 
+the method of the new window placement.
+Three or four rules (same tile, some tile, any tile, float) would be 
+suffice.
+
+Auto size adjust for the fixed size applications at start. If i run some 
+application like gkrellm, xmms, it would be nice, if the tile size automatically set, when it's start.
+
+Switching the application to full screen mode, and back to the previous 
+tile settings. Some applications like the IDEs, database managers, CADs 
+requires full screen and split screen mode in the working process (for 
+example: routing the PCB with the layout editor and checking the 
+schematic at the same time. Usually it's a constant switching between 
+the "splited" [picking and placing a part] and fullscreen mode [routing 
+the part's net]) 
+
+Mouse aided tile resize.
+
+
+User experiences:
+These are some ideas for applications, which increasing the user base of 
+the ION. I know, these are not necessary for a successfull wm, but 
+usually these tools, which is mostly affect the user feels.
+
+GUI based configuration tool for the keybindings.
+
+Support for alternate keybindings. The basic ION keybindings is disaster 
+using with Midnight Commander or Gentoo file managers. Both of these 
+heavily depends on the funtion keys. Also the most CADs heavily depends 
+on the function keys.
+
+Icon based, floating style application launcher.
+
+Happy hacking!
+Mark Balogh
+HUNGARY
+
+
+
+From sylvain.abelard at gmail.com  Tue Oct  9 12:38:54 2007
+From: sylvain.abelard at gmail.com (=?ISO-8859-1?Q?Sylvain_Ab=E9lard?=)
+Date: Tue, 9 Oct 2007 12:38:54 +0200
+Subject: Life, universe, and ION3
+In-Reply-To: <20071009130726.GA27220@toons.hu>
+References: <20071009130726.GA27220@toons.hu>
+Message-ID: <9c6605e40710090338h5070cdebh95561ad333c985f1@mail.gmail.com>
+
+> Requested features:
+Tuomo said he wouldn't develop new features and focuses on the last
+stable ion version.
+
+> Policy settings for the new window creation.
+This is done using winprops in cfg_kludges.lua.
+I think the main distribution includes some kludges samples.
+
+> Auto size adjust for the fixed size applications at start.
+
+Tuomo thinks this is brain damaged. If he were even to develop that,
+what should happen when many apps will try to set their own fixed size
+? One cannot decide.
+Then, what will happen to your desktop when even a single fixed size
+app will come and mess everything up ?
+
+My policy about fixed size apps is preparing the layout for them then
+using winprops to make them stick into their allowed space.
+
+> Switching the application to full screen mode, and back
+This already exists, grep fullscreen in your cfg_bindings.lua.
+
+> Mouse aided tile resize.
+This already exists.
+
+> GUI based configuration tool for the keybindings.
+> Support for alternate keybindings.
+
+I don't think there are many users out there still using the default
+keybindings.
+This encourages people to look at cfg_bindings.lua and make their own,
+which is IMHO an excellent policy.
+
+> Icon based, floating style application launcher.
+
+There might be some apps doing that but that doesn't sound like ion's
+business to me.
+
+Sorry if my advice seems outdated, I've been Windows-imprisoned for a long time.
+
+-- 
+Sylvain Abelard,
+Railer Rubyist. Epita MTI 2008.
+
+
+From tuomov at iki.fi  Tue Oct  9 13:20:37 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 9 Oct 2007 11:20:37 +0000 (UTC)
+Subject: Life, universe, and ION3
+References: <20071009130726.GA27220@toons.hu>
+Message-ID: <slrnfgmp05.sc5.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-09, ,,, <hiena at toons.hu> wrote:
+> Also i have some ideas and thoughts, which i compiled to kind of
+> whistlist. Most is not a basic wm feature, but it would be nice in a
+> tabbed, tiling wm. Maybe some of these already developed, but spending 13
+> hours with the soldering iron, and 3 hours moving bricks every day, leaves
+> me a small time to reading the documentations.
+
+As mentioned in another post, I'm unlikely to be writing any new stuff 
+for Ion in the next handful of years, if ever. It's time for something
+else, and GNU/Linux (and consequently *BSD as well to a slightly lesser
+extent) is turning into such a clusterfuck idiot box, that I doubt 
+there's anything semi-usable to run Ion on after I'm ready to start
+working on Ion4... aside from maybe Windows. Nevertheless, I'm likely
+to put up an 'Ion3plus' repository after the stable Ion3 is released,
+where users can contribute code moderated/edited by me, the malevolent
+dictator -- or rather, editor. (A project with an editor that does his
+job is like a journal with a good editor, whereas a truly bazaarian 
+software project is like writings on the toilet wall -- or the typical
+wiki.)
+
+> Policy settings for the new window creation. When i run some multyple
+> window application (mplayer, gimp), it would be nice if i could set where
+> must the spawned window must to be placed. Currently it's follows the
+> mouse pointer. My idea is to be set a policy for every application (tabs)
+> for the method of the new window placement. Three or four rules (same
+> tile, some tile, any tile, float) would be suffice.
+
+This is something of a FAQ. You can set somewhat rigid policies by the
+winprops mechanism, as indicated in another post. I'd like the default
+to be to place the windows in the frame they were created from, but
+this requires application support. It should be doable by writing a
+support module for the (typically ultra-complicated) FDO startup spec,
+which I couldn't be arsed to do, but few applications that matter
+actually support it. So in lack of that, placing windows in the
+current window is the policy of least surprise.
+
+> Auto size adjust for the fixed size applications at start. If i run some
+> application like gkrellm, xmms, it would be nice, if the tile size
+> automatically set, when it's start.
+
+Maybe you can write a script to do so. I don't like it. Ion-friendly
+applications should behave as if they were full-screen (single-document)
+programs, adjusting to the size of their virtual screen -- the Ion frame.
+For some smaller monitor sort of applications I did once think of writing
+a support for so-called trays (nothing to do with the tiny system tray icons),
+but couldn't be arsed.
+
+> Switching the application to full screen mode, and back to the previous 
+> tile settings. 
+
+Umm... Mod1+Enter is a toggle, or what do you mean?
+
+> Mouse aided tile resize.
+
+You can resize with the rat.
+
+> GUI based configuration tool for the keybindings.
+
+But not WIMP-GUI, please. Rather, curses. 
+
+> Support for alternate keybindings. 
+
+It's configurable.
+
+> Icon based, floating style application launcher.
+
+Yuck. Well, for a touch screen kiosk sort of thing, a sort of sidebar
+application launcher could be nice... 
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue Oct  9 13:25:15 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 9 Oct 2007 11:25:15 +0000 (UTC)
+Subject: Life, universe, and ION3
+References: <20071009130726.GA27220@toons.hu>
+	<9c6605e40710090338h5070cdebh95561ad333c985f1@mail.gmail.com>
+Message-ID: <slrnfgmp8r.sc5.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-09, Sylvain Ab?lard <sylvain.abelard at gmail.com> wrote:
+> Sorry if my advice seems outdated, I've been Windows-imprisoned for a long time.
+
+At least there's _still_ that choice to the OSDL-sponsored hegemony.
+(I'm beginning to think OSDL and its member companies are more harmful
+to software choice than Microsoft, by sponsoring projects that turn
+Linux, and *nix userland in general, into an idiot box clusterfuck.)
+
+-- 
+Tuomo
+
+
+
+From sylvain.abelard at gmail.com  Tue Oct  9 14:06:00 2007
+From: sylvain.abelard at gmail.com (=?ISO-8859-1?Q?Sylvain_Ab=E9lard?=)
+Date: Tue, 9 Oct 2007 14:06:00 +0200
+Subject: Life, universe, and ION3
+In-Reply-To: <slrnfgmp8r.sc5.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071009130726.GA27220@toons.hu>
+	<9c6605e40710090338h5070cdebh95561ad333c985f1@mail.gmail.com>
+	<slrnfgmp8r.sc5.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <9c6605e40710090506r2e120527yf9bc45966f394359@mail.gmail.com>
+
+On 10/9/07, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2007-10-09, Sylvain Ab?lard <sylvain.abelard at gmail.com> wrote:
+> > Sorry if my advice seems outdated, I've been Windows-imprisoned for a long time.
+
+> At least there's _still_ that choice to the OSDL-sponsored hegemony.
+> (I'm beginning to think OSDL and its member companies are more harmful
+> to software choice than Microsoft, by sponsoring projects that turn
+> Linux, and *nix userland in general, into an idiot box clusterfuck.)
+
+Provided you bear with monoculture and software locks, why not.
+DotNet begins to show many cool stuff for developers,
+but still the intended user is expected to be another brainless WIMP-tard.
+
+-- 
+Sylvain Abelard,
+Railer Rubyist. Epita MTI 2008.
+
+
+From tuomov at iki.fi  Tue Oct  9 14:36:09 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 9 Oct 2007 12:36:09 +0000 (UTC)
+Subject: Life, universe, and ION3
+References: <20071009130726.GA27220@toons.hu>
+	<9c6605e40710090338h5070cdebh95561ad333c985f1@mail.gmail.com>
+	<slrnfgmp8r.sc5.tuomov@jolt.modeemi.cs.tut.fi>
+	<9c6605e40710090506r2e120527yf9bc45966f394359@mail.gmail.com>
+Message-ID: <slrnfgmtdp.t5i.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-09, Sylvain Ab?lard <sylvain.abelard at gmail.com> wrote:
+> Provided you bear with monoculture and software locks, why not.
+
+Sounds like where FOSS is heading.
+
+> DotNet begins to show many cool stuff for developers,
+> but still the intended user is expected to be another brainless WIMP-tard.
+
+DotNet is YAMMHBE (Yet Another Megalomaniac Modernist Bureaucracy and 
+Hierarchy of Everything). 
+
+-- 
+Tuomo
+
+
+
+From sylvain.abelard at gmail.com  Tue Oct  9 14:43:57 2007
+From: sylvain.abelard at gmail.com (=?ISO-8859-1?Q?Sylvain_Ab=E9lard?=)
+Date: Tue, 9 Oct 2007 14:43:57 +0200
+Subject: Life, universe, and ION3
+In-Reply-To: <slrnfgmtdp.t5i.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071009130726.GA27220@toons.hu>
+	<9c6605e40710090338h5070cdebh95561ad333c985f1@mail.gmail.com>
+	<slrnfgmp8r.sc5.tuomov@jolt.modeemi.cs.tut.fi>
+	<9c6605e40710090506r2e120527yf9bc45966f394359@mail.gmail.com>
+	<slrnfgmtdp.t5i.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <9c6605e40710090543u4e861078n39aff18be22b16ab@mail.gmail.com>
+
+On 10/9/07, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2007-10-09, Sylvain Ab?lard <sylvain.abelard at gmail.com> wrote:
+> > Provided you bear with monoculture and software locks, why not.
+> Sounds like where FOSS is heading.
+
+You don't find heroic Tuomo Valkonen's making your Windows usable. Yet.
+
+> DotNet is YAMMHBE
+
+But F# and the recent DLR (Dynamic Language Runtime) looks really sexy !
+
+-- 
+Sylvain Abelard,
+Railer Rubyist. Epita MTI 2008.
+
+
+From tuomov at iki.fi  Tue Oct  9 14:48:58 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 9 Oct 2007 12:48:58 +0000 (UTC)
+Subject: Life, universe, and ION3
+References: <20071009130726.GA27220@toons.hu>
+	<9c6605e40710090338h5070cdebh95561ad333c985f1@mail.gmail.com>
+	<slrnfgmp8r.sc5.tuomov@jolt.modeemi.cs.tut.fi>
+	<9c6605e40710090506r2e120527yf9bc45966f394359@mail.gmail.com>
+	<slrnfgmtdp.t5i.tuomov@jolt.modeemi.cs.tut.fi>
+	<9c6605e40710090543u4e861078n39aff18be22b16ab@mail.gmail.com>
+Message-ID: <slrnfgmu5q.3tr.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-09, Sylvain Ab?lard <sylvain.abelard at gmail.com> wrote:
+> But F# and the recent DLR (Dynamic Language Runtime) looks really sexy !
+
+Many languages themselves aren't that bad (Nemerle is another interesting 
+DotNet language), but the libraries and library frameworks around them, 
+designed by inferior minds, tend to suffer from megalomaniac hierarchies
+(Haskell is another example) as well as OO fetish these days.
+
+-- 
+Tuomo
+
+
+
+From lanek at novenine.com  Tue Oct  9 17:16:18 2007
+From: lanek at novenine.com (Roy Lanek)
+Date: Tue, 9 Oct 2007 22:16:18 +0700
+Subject: Life, universe, and ION3
+In-Reply-To: <slrnfgmp05.sc5.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071009130726.GA27220@toons.hu>
+	<slrnfgmp05.sc5.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20071009151618.GA2686@sirih>
+
+
+> > Icon based, floating style application launcher.
+
+> Yuck. Well, for a touch screen kiosk sort of thing, a sort of
+> sidebar application launcher could be nice...
+
+Is it a sardonic, or a "WC graffiti"-style (to borrow from your
+post) :) like answer? If yes, then you can stop reading, false
+alarm.
+
+Icon stuffed sidebars/menus can be seen with Fluxbox, the window
+manager. (Fluxbox which now has even ... *rounded menu corners*.)
+Is that what you mean?
+
+The point: Fluxbox illustrates well how a passable
+[retrospectively observing] window manager originally, Blackbox,
+has been transformed into a pig:
+
+500K for Blackbox [stripped], versus 1,2-1.3M [stripped] or
+more for Fluxbox, I don't remember ... I don't use Fluxbox,
+have merely tried it for a couple of day. (And never mind the
+UNAVOIDABLE errors [discover how many of these a guy such Wietse
+Venema admits he is still making when he programs with maximal
+care]--a percent of them involving security of course--per, say,
+every thousand lines of code that constitute a program ... don't
+forget that things do NOT worsen linearly, by surplus.)
+
+Fluxbox adds zero, or little, SIGNIFICANT features compared
+to Blackbox: *post factum* window tabbing can be functionally
+included/simulated more intelligently via mrxvt, an rxvt based
+terminal emulator. (mrxvt, 184K [stripped], adds the only good
+thing Fluxbox has and Blackbox doesn't: tabbing.)
+
+Said that, window managers such Ion or wmii are the ones
+to go eventually--and the sooner the better.
+
+Icons, a dozen or two ones [airports, restaurants, etc.]
+excepted, truly belong to the *creme* of the crap--sugar
+candies--that has delayed developing in depth and re-discovering
+a much more intelligent way to interact with programs in general
+by keeping people attracted to it. No icons please.
+
+Cheers,
+
+/Roy Lanek
+
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  jadilah orang pandai bagai padi yang merunduk
+SSSSS . s l a c k w a r e  SSSSSS  be a smart man, like drooping paddy--which droops
+SSSSS +------------ linux  SSSSSS  more as it matures since its kernel is getting
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  heavier [means: smart man is usually humble]
+
+
+From tuomov at iki.fi  Tue Oct  9 17:33:29 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 9 Oct 2007 18:33:29 +0300
+Subject: Life, universe, and ION3
+In-Reply-To: <20071009134714.GP10098@samason.me.uk>
+References: <20071009130726.GA27220@toons.hu>
+	<9c6605e40710090338h5070cdebh95561ad333c985f1@mail.gmail.com>
+	<slrnfgmp8r.sc5.tuomov@jolt.modeemi.cs.tut.fi>
+	<9c6605e40710090506r2e120527yf9bc45966f394359@mail.gmail.com>
+	<slrnfgmtdp.t5i.tuomov@jolt.modeemi.cs.tut.fi>
+	<9c6605e40710090543u4e861078n39aff18be22b16ab@mail.gmail.com>
+	<slrnfgmu5q.3tr.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071009134714.GP10098@samason.me.uk>
+Message-ID: <20071009153329.GA28831@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-09 14:47 +0100, Sam Mason wrote:
+> I hope the "inferior minds" comment below was intended as a joke --
+
+Not really. Not everyone is up to the task of designing a programming
+language, and certainly not a beautiful and useful one (certainly not
+the C++ designers!), whereas it is comparatively easy to write a
+crappy library up to a specification of what it must provide access 
+to. Designing a beautiful library -- now that takes effort again.
+
+> On Tue, Oct 09, 2007 at 12:48:58PM +0000, Tuomo Valkonen wrote:
+> What makes these libraries/frameworks
+> "inferior", rather than just different and/or unsuitable for solving the
+> problems you're (currently) interested in?
+
+I'm not saying unsuitable, I'm saying they suck aesthetically.
+
+Good programming is art, science, and engineering. In present
+practise the engineering -- i.e. ugly kludges to get things
+working now, fast -- aspect is dominant almost to the exclusion
+of the two others.
+
+> Has Haskell gone out of favour with you, or is it just GHC/Hugs'
+> byzantine libraries.
+
+As I already said, the language itself (well, Haskell'98 anyway 
+-- the extensions are rather crummy) is rather nice, but the 
+libraries suffer from YAMMBHE.
+
+> If you know of a better way, than a hierachy, of organising large
+> amounts of (generally interdependant) code then I'd be interested to
+> hear it.
+
+C doesn't need organisation... Now, namespaces would be nice, but
+I don't think they should form a global rigid hierarchy that will
+run without central bureaucratic control into conflicts just like 
+a global (non-cryptographic) flat namespace. I think libraries 
+should be imported locally in a given namespace. You know, like
+Haskell already lets you import libraries from the Huge Hierarchy
+locally in modules with a different name
+
+    import qualified Some.Deeply.Nested.Crummy.Shit as S
+
+with Some.Deeply.Nested.Crummy.Shit actually provided by
+'-package foobar' on the command line, when it isn't part
+of the standard MegaCollection. So why not have various
+small libraries living in the operating system's namespace
+(the file system) and import them locally with some name,
+using the file name directly (instead of the compiler system,
+like GHC, having a crummy wheel-reinventing database for its
+own packages)
+
+    -package S=/pkg/libfoobar-1/lib/libfoobar.so
+
+(Then further combine this with the cryptographic namespace
+of a package capability system [1].)
+
+  [1]: http://iki.fi/tuomov/b/archives/2007/07/16/T22_41_22/
+
+-- 
+Tuomo
+
+
+From tuomov at iki.fi  Tue Oct  9 17:43:50 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 9 Oct 2007 15:43:50 +0000 (UTC)
+Subject: Life, universe, and ION3
+References: <20071009130726.GA27220@toons.hu>
+	<slrnfgmp05.sc5.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071009151618.GA2686@sirih>
+Message-ID: <slrnfgn8dm.3g2.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-09, Roy Lanek <lanek at novenine.com> wrote:
+> Is it a sardonic, or a "WC graffiti"-style (to borrow from your
+> post) :) like answer? If yes, then you can stop reading, false
+> alarm.
+
+No, it's semi-serious. But I guess this kind of stuff doesn't
+really belong in the WM itself. And, indeed, now with the some
+improvements I made to the status display stuff, you could run
+some panel application to do. But you'd probably want some WM
+interaction protocols to actually switch to a running program
+and so on.
+
+There actually was some interesting attempt to create a very
+kiosky WM, but it's been abandoned, and I can't remember its
+name.
+
+> Icons, a dozen or two ones [airports, restaurants, etc.]
+> excepted, truly belong to the *creme* of the crap--sugar
+> candies--that has delayed developing in depth and re-discovering
+> a much more intelligent way to interact with programs in general
+> by keeping people attracted to it. No icons please.
+
+Icons aren't that bad for some applications and touch screens.
+Just like the acme/p9 mouse-heavy interface is just utter and 
+total crap on vertical-screen-and-horizontal-controls tabletop
+computers, it might actually work quite nicely on touch screen
+tablets. The mouse is to a touch screen what a pantograph is
+to a pencil!
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue Oct  9 19:10:46 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 9 Oct 2007 20:10:46 +0300
+Subject: Life, universe, and ION3
+In-Reply-To: <op.tzxvxsi4d84skq@fiore.malebolge>
+References: <20071009130726.GA27220@toons.hu>
+	<slrnfgmp05.sc5.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071009151618.GA2686@sirih>
+	<slrnfgn8dm.3g2.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.tzxvxsi4d84skq@fiore.malebolge>
+Message-ID: <20071009171046.GA8127@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-09 18:54 +0200, csant wrote:
+> Twindy?
+
+Yep. <http://www.niallmoody.com/twindy/>.
+
+-- 
+Tuomo
+
+
+From csant at csant.info  Tue Oct  9 18:54:54 2007
+From: csant at csant.info (csant)
+Date: Tue, 09 Oct 2007 18:54:54 +0200
+Subject: Life, universe, and ION3
+In-Reply-To: <slrnfgn8dm.3g2.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071009130726.GA27220@toons.hu>
+	<slrnfgmp05.sc5.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071009151618.GA2686@sirih>
+	<slrnfgn8dm.3g2.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <op.tzxvxsi4d84skq@fiore.malebolge>
+
+> There actually was some interesting attempt to create a very
+> kiosky WM, but it's been abandoned, and I can't remember its
+> name.
+
+Twindy?
+
+
+From ben at decadent.org.uk  Tue Oct  9 21:33:57 2007
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Tue, 09 Oct 2007 20:33:57 +0100
+Subject: Life, universe, and ION3
+In-Reply-To: <20071009130726.GA27220@toons.hu>
+References: <20071009130726.GA27220@toons.hu>
+Message-ID: <1191958437.3742.32.camel@deadeye.i.decadent.org.uk>
+
+On Tue, 2007-10-09 at 15:07 +0200, ,,, wrote:
+> Hi all!
+> 
+> 
+> Some week ago i read about ION window-manager at the Hungarian Unix 
+> Portal. Due, I'm an engineering monkey, and i really hates wasting my time playing with the windows locations, i 
+> thought the tiling wm would be a good thing for me. So, i pulled down the ION2 from the Debian respository and give 
+> it a shot. 
+> My first thoughts: Simple, efficient and fast.
+> After that, i dowloaded the ION3 source, and compiled it.
+<snip>
+
+There is also a Debian package of Ion3 (which I maintain) but due to
+Tuomo's trademark policy it is in the non-free section so you will have
+to add that to your APT sources to see it.
+
+Ben.
+
+-- 
+Ben Hutchings
+I haven't lost my mind; it's backed up on tape somewhere.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20071009/a0949fec/attachment.pgp>
+
+From lanek at novenine.com  Wed Oct 10 00:47:39 2007
+From: lanek at novenine.com (Roy Lanek)
+Date: Wed, 10 Oct 2007 05:47:39 +0700
+Subject: Life, universe, and ION3
+In-Reply-To: <20071009171046.GA8127@jolt.modeemi.cs.tut.fi>
+References: <20071009130726.GA27220@toons.hu>
+	<slrnfgmp05.sc5.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071009151618.GA2686@sirih>
+	<slrnfgn8dm.3g2.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.tzxvxsi4d84skq@fiore.malebolge>
+	<20071009171046.GA8127@jolt.modeemi.cs.tut.fi>
+Message-ID: <20071009224739.GA14568@sirih>
+
+
+> Yep. <http://www.niallmoody.com/twindy/>.
+
+And at: http://www.niallmoody.com/twindy/screenshots.htm there
+are screenshots to be seen.
+
+Twindy may, or may not ... I ignore, be good. On the other hand,
+the screenshots show without pity icons whose substance grade and
+themes range from authentic *Art Brut*^1 to kindergarten.
+
+Let's see: hammers, screwdrivers, spanners as they would come
+directly from Brio or Meccano of the children; magnifying lens,
+scissors, envelopes and folders from the kids' Little Postal
+Store; houses, pencils and colorful arrows--to the left, the
+right, up, down, cycle--from the game of the goose or the books
+of the Brothers Grimm; and so on.
+
+Incidentally, and to get an idea of the *gravity* the situation:
+compare with ... Egypt and Greece, say, of the past. (Who has
+visited Pompeii, the ruins, near Naples once, at the limit?
+Notice that Pompeii has even been a kind of Club Meditarranee of
+the past, NOT a *cradle* of civilization for sure!)
+
+Were they not--ironically--more *artistically advanced* [read:
+provided with a more vivid imagination] still than ... hem,
+*we* anno 2007? (Hello *Teddy* [Adorno], who once called our
+*modern history* [cultural] *progressing* rather a regression
+into pre-agrarian times.)
+
+Guess what?! icons are a bit limited--or then are completely
+arbitrary--as a medium and language to be used in defining and
+describing tasks to be accomplished through a *fantasy*- [sigh]
+less automaton and computer. They are wrong metaphors--actually a
+kind of aphasia, or incapability to speak and explain--as much as
+*cute* and *charming* [sigh] they may appear.
+
+Cheers,
+
+/Roy
+
+
+PS
+
+Icons--not convinced yet? Put a look at a last Fluxbox *theme*.
+Who knows, you may discover Cinderella, or Hansel and Gretel
+*fashioned* icons stuffed in menus [with rounded corners!] in
+a Postmodern, or ... what else?, Hyperrealist atmosphere and
+*ambiente*. Or also: Mattel [Barbie, the doll] on Giger^2 ...
+chacun a son gout, isn't it?
+
+
+     1. Art Brut. [T]he idea of "Art Brut" appeared around 1945.
+Its conception is generally attributed to the French painter Jean
+Dubuffet who meant by the term "works executed by those immune to
+artistic culture in which imitation has no role; in which their
+creators take all (subjects, materials, transposition, rhythm,
+style etc.) from their own individuality and not from the base
+of classical art or stylish trends". One can understand from
+this definition that practitioners of "Art Brut" are mentally or
+socially marginal: prisoners, patients of psychiatric hospitals
+or other institutions, originals, solitary beings, condemned, all
+individuals who have a social status removed from the constraints
+of cultural conditioning.
+
+     2. Hans Ruedi Giger. [G]iger got his start with small
+ink drawings before progressing to oil paintings. For most
+of his career, Giger has worked predominantly in airbrush,
+creating monochromatic canvasses depicting surreal, nightmarish
+dream-scapes.
+
+     [H]is most distinctive stylistic innovation is that of
+a representation of human bodies and machines in a cold,
+interconnected relationship, described as "biomechanical". His
+paintings often display fetishistic sexual imagery and are
+considered disturbing by some.
+
+     Giger is also the guy known by most people because of
+Alien's, the movie, designs for sure. 
+
+ 
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  habis manis sepah dibuang--after the sweet
+SSSSS . s l a c k w a r e  SSSSSS  part is finished and becomes tasteless,
+SSSSS +------------ linux  SSSSSS  the cane is thrown away [when we only call
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  our friends if we need help]
+
+
+From tuomov at iki.fi  Wed Oct 10 01:34:54 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 9 Oct 2007 23:34:54 +0000 (UTC)
+Subject: Life, universe, and ION3
+References: <20071009130726.GA27220@toons.hu>
+	<slrnfgmp05.sc5.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071009151618.GA2686@sirih>
+	<slrnfgn8dm.3g2.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.tzxvxsi4d84skq@fiore.malebolge>
+	<20071009171046.GA8127@jolt.modeemi.cs.tut.fi>
+	<20071009224739.GA14568@sirih>
+Message-ID: <slrnfgo40u.8vb.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-09, Roy Lanek <lanek at novenine.com> wrote:
+> Incidentally, and to get an idea of the *gravity* the situation:
+> compare with ... Egypt and Greece, say, of the past. 
+>
+> Were they not--ironically--more *artistically advanced* [read:
+> provided with a more vivid imagination] still than ... hem,
+> *we* anno 2007? (Hello *Teddy* [Adorno], who once called our
+> *modern history* [cultural] *progressing* rather a regression
+> into pre-agrarian times.)
+
+Umm... even cave-men must have had more vidid art and architecture
+than that of the more general chronic form of arrogance known as 
+modernism. As for more post-modern stuff, it takes taste, which 
+few have. Banalities are easy.
+
+> Guess what?! icons are a bit limited--or then are completely
+> arbitrary--as a medium and language to be used in defining and
+> describing tasks to be accomplished through a *fantasy*- [sigh]
+> less automaton and computer. They are wrong metaphors--actually a
+> kind of aphasia, or incapability to speak and explain--as much as
+> *cute* and *charming* [sigh] they may appear.
+
+Icons are very limited in their expressive power, and therefore
+they only work when there are just a few of them, that can be
+easily distinguished. But the typical WIMPshit application has
+tens of tiny ones lined up in a toolbar.
+
+-- 
+Tuomo
+
+
+
+From deryni at unreliablesource.net  Wed Oct 10 02:06:57 2007
+From: deryni at unreliablesource.net (Etan Reisner)
+Date: Tue, 9 Oct 2007 20:06:57 -0400
+Subject: Life, universe, and ION3
+In-Reply-To: <9c6605e40710090338h5070cdebh95561ad333c985f1@mail.gmail.com>
+References: <20071009130726.GA27220@toons.hu>
+	<9c6605e40710090338h5070cdebh95561ad333c985f1@mail.gmail.com>
+Message-ID: <20071010000657.GH11523@aran>
+
+On Tue, Oct 09, 2007 at 12:38:54PM +0200, Sylvain Ab?lard wrote:
+<snip>
+> > GUI based configuration tool for the keybindings.
+> > Support for alternate keybindings.
+>
+> I don't think there are many users out there still using the default
+> keybindings.
+> This encourages people to look at cfg_bindings.lua and make their own,
+> which is IMHO an excellent policy.
+
+<snip>
+
+I use a mostly stock set of bindings. The bindings I did change were
+mostly to move them to MOD4, a couple to add bindings for some scripts I
+use/wrote, and a couple to make the edln bindings a little more
+emacs/readline friendly.
+
+Copying the default cfg_bindings.lua file into ~/.ion3 and then attempting
+to customize it is not a good idea, it creates upgrade problems (which I
+will grant you matters less and less as ion3 approaches stable) and
+requires more effort to deal with in general than the much easier option
+of just creating and overriding any bindings you actually want to change
+in cfg_ion.lua (or in any other file in ~/.ion3 that you then dopath()
+from cfg_ion.lua).
+
+As to the gui config tool idea, there was a mailing list thread a little
+while ago about creating a simplified binding format for ion3 and after
+which I worked on a script for just such a thing, you can find it in the
+scripts repository, that's not quite a config gui but it should be much
+easier for an 'average' person to deal with than the lua config files (or
+so was the theory of the people in the mailing list thread).
+
+	-Etan
+
+
+From deryni at unreliablesource.net  Wed Oct 10 02:09:59 2007
+From: deryni at unreliablesource.net (Etan Reisner)
+Date: Tue, 9 Oct 2007 20:09:59 -0400
+Subject: Life, universe, and ION3
+In-Reply-To: <20071009130726.GA27220@toons.hu>
+References: <20071009130726.GA27220@toons.hu>
+Message-ID: <20071010000959.GI11523@aran>
+
+On Tue, Oct 09, 2007 at 03:07:26PM +0200, ,,, wrote:
+<snip>
+> Icon based, floating style application launcher.
+
+What do you mean here exactly? Just a launcher that uses icons? There are
+any number of applications that give you a bar of icons that can be
+customized to launch applications of your choice, in general I've found
+them less than helpful, annoying to keep configured with the applications
+I'm really using, and not significantly faster than a Run: dialog (mod1-F3
+in the default bindings).
+
+Is there a specific type of launcher you are thinking about? Random
+floating icons? A toolbar full of icons? Something else? Is there
+something specific you want to launch with that? Would a popup or query
+menu of the specific applications work the same for you?
+
+<snip>
+
+	-Etan
+
+
+From tuomov at iki.fi  Wed Oct 10 12:42:28 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 10 Oct 2007 10:42:28 +0000 (UTC)
+Subject: Life, universe, and ION3
+References: <20071009130726.GA27220@toons.hu> <20071010000959.GI11523@aran>
+Message-ID: <slrnfgpb4k.8u7.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-10, Etan Reisner <deryni at unreliablesource.net> wrote:
+> Is there a specific type of launcher you are thinking about? Random
+> floating icons? A toolbar full of icons? Something else? Is there
+> something specific you want to launch with that? Would a popup or query
+> menu of the specific applications work the same for you?
+
+One possibility for a "floating" launcher could be to run some kind of file 
+manager in the scratchpad. The annoying part is that you'd have to be quick 
+to close the scratchpad for the program to not end up there, or write some
+scripts to kludge around this.
+
+Another possibility would be to run a suitable dockapp (there probably
+exist suitable ones; see dockapps.org), either in the floating dock, or
+simply in the statusbar, not floating. If the latter suffices, you might
+also want to check a thread from some months back started regarding the
+RoX panel.
+
+-- 
+Tuomo
+
+
+
+From lanek at novenine.com  Sat Oct 13 05:50:04 2007
+From: lanek at novenine.com (Roy Lanek)
+Date: Sat, 13 Oct 2007 10:50:04 +0700
+Subject: Life, universe, and ION3
+In-Reply-To: <20071010000959.GI11523@aran>
+References: <20071009130726.GA27220@toons.hu> <20071010000959.GI11523@aran>
+Message-ID: <20071013035004.GA9581@sirih>
+
+
+> I'm really using, and not significantly faster than a Run:
+> dialog (mod1-F3 in the default bindings).
+
+Nice would be somethings like *tools* ... as in Oberon^1.
+
+Reference is: The Oberon System^2
+
+     [C]ommands are entered into a text *viewer* and then
+     executed with the mouse. It is therefore quite natural to
+     prepare a set of frequently used commands in a text which is
+     stored on disk. Such a text is called a *tool*. [Commands
+     may be embedded anywhere in a text.]
+
+     [W]hen displayed, a tool is quite similar to a menu. A set
+     of commands is listed and the user simply executes them
+     with the mouse. However, if the commands request parameter
+     input, there is no need for complex (modal) input or dialog
+     boxes. We deal with an editable text and the parameter can
+     be easily entered, thus recovering the flexibility of the
+     'remember and type' environment.
+
+     [T]he [Oberon] screen is tiled in non-overlapping windows
+     termed *viewers*. Viewers are stacked in two piles called
+     *tracks*. Each viewer displays a document being processed by
+     the users. Documents may be texts, graphics or pictures.
+
+     [W]hile the display shown appears familiar there is a
+     fundamental difference of deep significance: *the modality
+     of texts has been abolished*. What looks like menus in the
+     title bars of the viewers is text too, no different from the
+     editable text of the main viewer area.
+
+     [I]f a command produces output to the screen, a new text
+     viewer is opened with the command's output text. Again,
+     this text may be edited, stored or printed. Oberon commands
+     produce *non-volatile* output.
+
+     [A] user, looking at the screen of a typical computer
+     terminal or personal computer, sees, most of the time, lines
+     of text. He or she has mastered the concept of the cursor, a
+     point where text can be entered or deleted.
+
+     [H]owever, the user will quickly learn that text is not
+     text. It is *volatile* text in the sense that it cannot
+     be saved, printed or edited. Text can only be entered in
+     the bottom line in which case it is a command. This user
+     has discovered that text is *modal*: it is either a system
+     message or editable text or a command.
+
+     [L]ater generations of software introduced menus: commands
+     are displayed in lists, ready for execution by pointing.
+     However, menus are distinct from editable texts. If a menu
+     command requests parameters, a so-called dialog box is
+     opened. A new mode is entered. The user must complete the
+     box before he or she is allowed to continue.
+
+     [T]he Oberon user interface departs radically from the
+     standard models. The concepts of the command line and of
+     menus are absent. Instead, there is simply one kind of text
+     which behaves as an intelligent person not yet spoiled
+     by so-called 'computer-literacy' would expect: it can be
+     changed, edited, printed and stored. "Text is a text,
+     nothing more, nothing less."
+
+
+Okay, and how does a typical Oberon display look?
+
+                     Tracks [two piles]
+     +----------------------------------------+--------------+
+     |                                        |              |
+     |                                        |              |
+     +----------------------------------------+              |
+     |                                        |              |
+     |                                        +--------------+
+     |                                        |              |
+     |                                        |              |
+     |                                        |              |
+     |                                        +--------------+
+     +----------------------------------------+              |
+     |                                        |              |
+     +----------------------------------------+              |
+     |                                        |              |
+     |                                        |              |
+     |     |                                  |   |          |
+     +----- ----------------------------------+--- ----------+
+           |                                      |
+           |                                      |
+          viewer[i]                              tool[j]
+
+
+
+     1. Niklaus Wirth et al., many titles: Programming in Oberon,
+Project Oberon, etc.
+
+     2. Martin Reiser, The Oberon System: User Guide and
+Programmer's Manual (New York, New York: ACM Press 1991; ISBN
+0-201-54422-9)
+
+
+/Roy
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  habis manis sepah dibuang--after the sweet
+SSSSS . s l a c k w a r e  SSSSSS  part is finished and becomes tasteless,
+SSSSS +------------ linux  SSSSSS  the cane is thrown away [when we only call
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  our friends if we need help]
+
+
+From tuomov at iki.fi  Sat Oct 13 21:10:58 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 13 Oct 2007 19:10:58 +0000 (UTC)
+Subject: Oberon/Acme/etc. mouse heavy interfaces [Was: Re: Life, universe,
+	and ION3]
+References: <20071009130726.GA27220@toons.hu> <20071010000959.GI11523@aran>
+	<20071013035004.GA9581@sirih>
+Message-ID: <slrnfh2621.s7r.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-13, Roy Lanek <lanek at novenine.com> wrote:
+> Nice would be somethings like *tools* ... as in Oberon^1.
+>
+> Reference is: The Oberon System^2
+>
+>      [C]ommands are entered into a text *viewer* and then
+>      executed with the mouse. It is therefore quite natural to
+			 ^^^^^
+>      prepare a set of frequently used commands in a text which is
+>      stored on disk. Such a text is called a *tool*. [Commands
+>      may be embedded anywhere in a text.]
+
+This is the Acme/P9 interface that I referred to in another post, 
+and it's just utter and total crap on a typical horizontal-controls-
+and-vertical-screen computer, but might be usable on a touch screen
+tablet. The "marketing" for this kind of interfaces is from the 
+pre-tab-completion era! From the pre-historical era! (Pun intended.)
+I've hit a command query key, typed a couple of letters of the 
+command and hit <tab> faster than moving the hand to the mouse! 
+Not to even speak of pixel-hunting text with the pantograph that
+the mouse is.
+
+-- 
+Tuomo
+
+
+
+From lanek at novenine.com  Sat Oct 13 23:28:44 2007
+From: lanek at novenine.com (Roy Lanek)
+Date: Sun, 14 Oct 2007 04:28:44 +0700
+Subject: Oberon/Acme/etc. mouse heavy interfaces [Was: Re: Life,
+	universe, and ION3]
+In-Reply-To: <slrnfh2621.s7r.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071009130726.GA27220@toons.hu> <20071010000959.GI11523@aran>
+	<20071013035004.GA9581@sirih>
+	<slrnfh2621.s7r.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20071013212844.GA4037@sirih>
+
+
+> This is the Acme/P9 interface [...] and it's just
+> utter and total crap on a typical horizontal-controls-
+> and-vertical-screen computer,
+
+"utter and total crap," hmm. Bah, I will let it to you.
+
+A VERY knowledgeable guy (you certainly knows who he is) has
+(among other things) designed a VERY nice programming language:
+Eiffel. Unfortunately, he would--and does, indeed--call "utter
+and total crap" everything is not Eiffel.
+
+What to say? "Teddy" [Adorno] tells that every and each
+masterpiece is the *mortal* enemy of the other one. Who knows.
+Alternatively, an university assistant, a fellow among the very
+few really good programmers [a mathematician by education, of
+course] I have met, has remarked once at a cafeteria with the
+*scherzoso ma non troppo* tone which distinguishes cafeterias'
+conversations: --Uuuh, Bertrand is of the kind of geniuses which
+should get a ... mouse :) plugged somewhere: click-click, "help,
+I have this specific problem/don't understand that, please
+explain"; and when he finishes, and begins speaking of other
+things: "another time, thank you Bertrand," click-click--.
+
+> I've hit a command query key, typed a couple of letters of     
+> the command and hit <tab> faster than moving the hand to the   
+> mouse!                                                         
+
+:)
+
+Maybe, but do you know The Hare and the Hedgehog tale by the
+Brothers Grimm? (Beware.)
+
+Besides: no one is saying that you couldn't longer type tabs, why
+make it an aut aut?
+
+> Not to even speak of pixel-hunting text with the pantograph that
+> the mouse is.
+
+:)
+
+Look in a dictionary: agoraphobia. What do you have against
+mice?
+
+Cheers,
+
+ 
+/Roy
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  bermain air basah, bermain api hangus
+SSSSS . s l a c k w a r e  SSSSSS  playing with water, wet; playing with fire,
+SSSSS +------------ linux  SSSSSS  burned [every action has its consequences]
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+
+
+From tuomov at iki.fi  Sun Oct 14 00:05:45 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 13 Oct 2007 22:05:45 +0000 (UTC)
+Subject: Oberon/Acme/etc. mouse heavy interfaces [Was: Re: Life, universe,
+	and ION3]
+References: <20071009130726.GA27220@toons.hu> <20071010000959.GI11523@aran>
+	<20071013035004.GA9581@sirih>
+	<slrnfh2621.s7r.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013212844.GA4037@sirih>
+Message-ID: <slrnfh2g9p.t2u.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-13, Roy Lanek <lanek at novenine.com> wrote:
+> What to say? "Teddy" [Adorno] tells that every and each
+> masterpiece is the *mortal* enemy of the other one. 
+
+You mean there are more than one?
+
+> Besides: no one is saying that you couldn't longer type tabs, why
+> make it an aut aut?
+
+That's the way it's been in these implementations: you _have_ to use
+the rodent and heavily. As such, having a buffer to store commands
+(one per line) into doesn't sound that bad, but the actual interface
+to use those commands (on the typical computer with controls separate
+from display) -- it should be a command query that searches for matching
+lines or so. But these people want you to paint the text with the rat,
+which is a very cumbersome task.
+
+> Look in a dictionary: agoraphobia. What do you have against
+> mice?
+
+What's agoraphobia got to do with mice? 
+
+Computer mice simply are terrible devices not suited at all to
+the vast majority of the tasks people want you to use them for.
+
+-- 
+Tuomo
+
+
+
+From lanek at novenine.com  Sun Oct 14 01:07:42 2007
+From: lanek at novenine.com (Roy Lanek)
+Date: Sun, 14 Oct 2007 06:07:42 +0700
+Subject: Oberon/Acme/etc. mouse heavy interfaces [Was: Re: Life,
+	universe, and ION3]
+In-Reply-To: <slrnfh2g9p.t2u.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071009130726.GA27220@toons.hu> <20071010000959.GI11523@aran>
+	<20071013035004.GA9581@sirih>
+	<slrnfh2621.s7r.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013212844.GA4037@sirih>
+	<slrnfh2g9p.t2u.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20071013230742.GA8004@sirih>
+
+> You mean there are more than one?
+
+By author even. On *la tentation de saint Antoine* [not his most
+*known* work], Flaubert should have said: --"C'est l'oeuvre de
+toute ma vie."-- (You can trust him.)
+
+Paint. Not necessarily. I use Elvis, an 80/20 of Vim at 1/2-1/3
+of the size. I don't see why I couldn't edit/manipulate a *tool*
+the way I do with Elvis.
+
+> What's agoraphobia got to do with mice?
+
+Well, "pantographs" recall--for me at least--enough of, if not a
+lot of ... *space*: were you not suggesting the roomy shifting of
+a parallelogram?
+
+> Computer mice simply are terrible devices not suited at all to
+> the vast majority of the tasks people want you to use them for.
+
+Disagree. (The number #1 accessory I buy with a notebook is
+a mouse, to let us understand. Alphabet Morse tipping on the
+touchpad--and which becomes hot [cpu: 59 C, sda: 40 C, don't know
+how much for the ATI Radeon] by the way--attracts me less.)
+
+Cheers,
+
+
+/Roy
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   bagai air di daun talas--as if water on a
+SSSSS . s l a c k w a r e  SSSSSS   leaf of talas [two things that never get
+SSSSS +------------ linux  SSSSSS   along ... talas has a thin waxy layer and
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   therefore is waterproof]
+
+
+From eichin-ion at thok.org  Sun Oct 14 02:17:42 2007
+From: eichin-ion at thok.org (Mark Eichin)
+Date: Sat, 13 Oct 2007 20:17:42 -0400
+Subject: Oberon/Acme/etc. mouse heavy interfaces
+In-Reply-To: <20071013230742.GA8004@sirih> (Roy Lanek's message of "Sun, 14
+	Oct 2007 06:07:42 +0700")
+References: <20071009130726.GA27220@toons.hu> <20071010000959.GI11523@aran>
+	<20071013035004.GA9581@sirih>
+	<slrnfh2621.s7r.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013212844.GA4037@sirih>
+	<slrnfh2g9p.t2u.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013230742.GA8004@sirih>
+Message-ID: <87ejfyeehl.fsf@curl-up-paw-under-nose.thok.org>
+
+
+> > Computer mice simply are terrible devices not suited at all to
+> > the vast majority of the tasks people want you to use them for.
+> 
+> Disagree. (The number #1 accessory I buy with a notebook is
+> a mouse, to let us understand. Alphabet Morse tipping on the
+
+You can disagree, but there is a lot of research that quantifies
+problems with mice and how they're used.  I recommend "The Humane
+Interface" as reference material; key points include
+
+  * context switching between keyboard and mouse is worse than using
+    either alone
+
+  * Fitt's Law (and all of the other things we *know* about humans
+    using visual interfaces) and how so many interfaces ignore it
+
+  * the only really solid occupation use study of repetitive stress
+    injuries found that it was *mouse and keyboard* use, not keyboard
+    use alone, that was a good predictor of medical problems...
+
+
+
+From tuomov at iki.fi  Sun Oct 14 09:50:33 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 14 Oct 2007 07:50:33 +0000 (UTC)
+Subject: Oberon/Acme/etc. mouse heavy interfaces [Was: Re: Life, universe,
+	and ION3]
+References: <20071009130726.GA27220@toons.hu> <20071010000959.GI11523@aran>
+	<20071013035004.GA9581@sirih>
+	<slrnfh2621.s7r.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013212844.GA4037@sirih>
+	<slrnfh2g9p.t2u.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013230742.GA8004@sirih>
+Message-ID: <slrnfh3ii9.p9f.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-13, Roy Lanek <lanek at novenine.com> wrote:
+> Well, "pantographs" recall--for me at least--enough of, if not a
+> lot of ... *space*: were you not suggesting the roomy shifting of
+> a parallelogram?
+
+It's a mechanical device for changing the size of a drawing or so 
+by moving one pointer on a source image and another with a pencil 
+on a target paper. Obviously, especially if the linkages are
+a bit worn down, it's rather cumbersome to point to a specific point 
+in the target by moving just the source pointer. But this is the 
+operation of the mouse.
+
+http://en.wikipedia.org/wiki/Image:Pantograph.jpg
+
+-- 
+Tuomo
+
+
+
+From lanek at novenine.com  Sun Oct 14 12:21:07 2007
+From: lanek at novenine.com (Roy Lanek)
+Date: Sun, 14 Oct 2007 17:21:07 +0700
+Subject: Oberon/Acme/etc. mouse heavy interfaces
+In-Reply-To: <87ejfyeehl.fsf@curl-up-paw-under-nose.thok.org>
+References: <20071009130726.GA27220@toons.hu> <20071010000959.GI11523@aran>
+	<20071013035004.GA9581@sirih>
+	<slrnfh2621.s7r.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013212844.GA4037@sirih>
+	<slrnfh2g9p.t2u.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013230742.GA8004@sirih>
+	<87ejfyeehl.fsf@curl-up-paw-under-nose.thok.org>
+Message-ID: <20071014102107.GA26372@sirih>
+
+
+> but there is a lot of research that quantifies problems with
+> mice and how they're used. I recommend [...]
+
+Not sure, I suspect you have lost *focus* a bit. I have
+mentioned: TOOLS. (Re-read the thread, perhaps.)
+
+    > context switching between keyboard and mouse is worse than
+    > using either alone
+
+Thank you very much. But let us not start measuring the
+microvolts over a noise in the order of the volts.
+
+Example: better to go from, say, Helsinki to Zurich via the
+railway--don't take an airplane!
+
+I can't tell for Finland. (Incidentally, Finns seem to be,
+willingly or not, I ignore, those *fools* who are *testing* the
+snake-oil/baloney thing with the *bio*- [sigh] fuel: *thank you*
+from the countries such Indonesia, who will then take the bait,
+pay your bill eventually [see below also], and keep stuck in more
+shit for the next decades.)
+
+But for Switzerland I know. Kloten [Zurich's main airport] is
+30 km from the center of the city, while the *Hauptbahnhof*,
+the main station of the railway, is situated--surprise--in the
+center directly.
+
+If you are going to Zurich from Finland, and take the train, you
+will spare you a *context switch* [Kloten-Zurich] at the least.
+(Maybe even two, depending from Helsinki.)
+
+QED, and end of example.
+
+     > Fitt's Law (and all of the other things we *know* about
+     > humans using visual interfaces) and how so many interfaces
+     > ignore it
+
+I am *lucky* (like most people too, well): I am right-handed!
+
+Would I have been left-handed instead, I would not--I mean, not
+with this notebook I am using right now and like VERY MUCH--be
+able to keep the mouse 10-15 cm on the right of the keyboard.
+
+Hence, I can touch with the right little finger the mouse from
+the keyboard most of the time, with not much a greater effort
+than when I reach with the left little finger the escape-taste
+on the top-left of the keyboard. (I don't have hands a' la
+basketball player, just in case.)
+
+As a left-handed I would [I am imagining] need as minimum to keep
+the mouse at a diagonal [> 10-15 cm ... Pythagoras simplified:
+a**2 + b**2 = c**2] from the keyboard: on the left of the
+notebook there is [not at all a bad idea] the fan's exhaust--hot
+air is blown out.
+
+And as left-handed, I would also not be able to plug a notebook
+LEDs' lamp in the USB port [the notebook thankfully has a total
+of four USB ports] on the left ... notebook lamp which, beyond
+increasing contrast [blueish light] on the keyboard, also
+warranties that I can't pull/shift inadvertently. a, say, book
+immediately in the front of the exhaust, obstructing it.
+
+Then; I have *invested* a bit, I have bought a Logitech mouse [I
+am Swiss, but have no relations with with Logitech]. Logitech is
+not the cheapest in general. On the other hand, Logitech knows
+well how to design GOOD mice. (With time, I am even planing
+to take more fun with the mice: a battery status indicator to
+display on the screen [I have seen a project for a Logitech mouse
+already]; and a wheel who responds ... for now I can live without
+these, and have other priorities.)
+
+But I am digressing. Back to the point.
+
+Sorry, and with all respect speaking: to which users of an
+*interface* are you thinking: to hemi- or paraplegic ones?
+
+I use a vi-like editor EVERYWHERE I can. And don't hesitate to
+grasp the mouse EVERY TIME it makes sense--which it happens
+often enough. The mouse sustains/complements well vi, I have not
+noticed *problems*.
+
+Have you ever seen "Teddy's" [Adorno's], or, even better,
+Karl Marx's pictures of handwritten notes and originals? (I
+have hold on my hands a [mechanical] typing-machine written
+page by Max Frisch, typed *en vitesse* [read: average] speed:
+it had two-three ball-pen made amendments only.) Guess, you
+would hardly seek for *millions* of corrections and retouches
+[context-switches] in these documents.
+
+And how do you edit: hiccup-, or saccadic style?
+
+I am too extreme? Not sure. Dijkstra^1 tells: --"Besides
+mathematical inclination, an exceptionally good mastery of
+one's native tongue is the most vital asset of a competent
+programmer."-- And he is quite likely right. (Actually, there are
+two pleonasms, I believe, in Dijkstra's sentence, but never mind;
+moreover, and just in case, my own *native tongue* is Italian.)
+
+Moral: don't worry too much on *context-switching*.
+
+    > the only really solid occupation use study of repetitive
+    > stress injuries found that it was *mouse and keyboard*
+    > use, not keyboard use alone, that was a good predictor of
+    > medical problems...
+
+Oh please. I live in Indonesia. Spare me the joke of the *stress
+injuries* because of the use of the *mouse and the keyboard*.
+(Indonesia and ditto for: China, Thailand, India ... have we
+reached half of the world population already?) It's like you
+were talking of *manicure* in an ICU [intensive care unit] of an
+hospital.
+
+What about the hemorrhoids' injuries for those who sit too much,
+are mice bad? 8-)
+
+
+Cheers,
+
+/Roy
+
+
+     1. Edsger W. Dijkstra, Selected Writings on Computing: A
+Personal Perspective (Springer, etc.)
+
+     Notice that Dijkstra also says: --"About the use of
+language: it is impossible to sharpen a pencil with a blunt axe.
+It's equally vain to try do it with ten blunt axes instead."--
+
+[R.L.: if you can't write/organize yourself logically, it's not
+by zeroing context-switches that you will improve the situation.]
+
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   tak ada rotan, akar pun jadi
+SSSSS . s l a c k w a r e  SSSSSS   no rattans, roots will do [if you are
+SSSSS +------------ linux  SSSSSS   desperate, you must not be choosy]
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+
+
+From lanek at novenine.com  Sun Oct 14 12:46:21 2007
+From: lanek at novenine.com (Roy Lanek)
+Date: Sun, 14 Oct 2007 17:46:21 +0700
+Subject: Oberon/Acme/etc. mouse heavy interfaces [Was: Re: Life,
+	universe, and ION3]
+In-Reply-To: <slrnfh3ii9.p9f.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071009130726.GA27220@toons.hu> <20071010000959.GI11523@aran>
+	<20071013035004.GA9581@sirih>
+	<slrnfh2621.s7r.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013212844.GA4037@sirih>
+	<slrnfh2g9p.t2u.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013230742.GA8004@sirih>
+	<slrnfh3ii9.p9f.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20071014104621.GA31132@sirih>
+
+
+> It's a mechanical device for changing the size of a drawing or
+> so by moving one pointer on a source image and another with a
+> pencil on a target paper. Obviously, especially if the linkages
+> are a bit worn down, it's rather cumbersome to point to a
+> specific point in the target by moving just the source pointer.
+> But this is the operation of the mouse.
+
+Webster: [F pantographe, fr pant- + -graphe -graph] (1723)
+
+     1: an instrument for copying (as a map) on a predetermined
+     scale consisting of four light rigid bars jointed in a
+     parallelogram form; also: any of various extensible devices
+     of similar construction (as for use as brackets or gates)
+
+     2: an electrical trolley carried by a collapsible and
+     adjustable frame.
+
+Moreover. I am using an optical [laser] mouse. Cordless
+{Bluetooth] by surplus. With VERY little *mechanics* in it
+[e.g., the lid to access the 2x AA batteries]. :)
+
+Cheers,
+
+/Roy
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   dimana tak da lang, aku lah lang, kata
+SSSSS . s l a c k w a r e  SSSSSS   belalang--where there are no eagles, I am
+SSSSS +------------ linux  SSSSSS   the one, said the grasshopper [where's no
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   top dogs, underdogs will be seen as one]
+
+
+From tuomov at iki.fi  Sun Oct 14 13:27:02 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 14 Oct 2007 11:27:02 +0000 (UTC)
+Subject: Oberon/Acme/etc. mouse heavy interfaces
+References: <20071009130726.GA27220@toons.hu> <20071010000959.GI11523@aran>
+	<20071013035004.GA9581@sirih>
+	<slrnfh2621.s7r.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013212844.GA4037@sirih>
+	<slrnfh2g9p.t2u.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013230742.GA8004@sirih>
+	<87ejfyeehl.fsf@curl-up-paw-under-nose.thok.org>
+	<20071014102107.GA26372@sirih>
+Message-ID: <slrnfh3v86.v81.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-14, Roy Lanek <lanek at novenine.com> wrote:
+> Example: better to go from, say, Helsinki to Zurich via the
+> railway--don't take an airplane!
+
+Except Finland is essentially an island in Europe (if it can
+even be considered to be part of Europe; in many senses it's
+dislocated on the wrong continent). To get by train alone to
+central Europe, you'd have to go through somewhere in Russia,
+and that's quite cumbersome, probably requiring visas etc.
+(And the tracks suck, but incidentally they're now going to
+improve the Helsinki-St. Petersburg tracks and byu new faster
+trains for it, while at the same time the railroads within
+Finland keep rotting, and the same expensive Pendolinos travel
+at snail's speed on them. Most of the tracks also have only
+a single rail-pair with occasional waiting tracks, so their
+capacity is at saturation and can't handle more cargo. And 
+yet roads are constantly improved on the excuse of safer 
+trucking. Typical Finnish extremely Helsinki-centric petrol
+fascist politics.)
+
+The best way to get from Finland to central Europe that doesn't
+require using an airplane, is probably an overnight ferry from
+Helsinki or Turku to Stockholm, and train from there through 
+Denmark to Germany, etc. Ferry to Tallinn would be faster, but
+the Baltics don't have decent railroads. Alternatively you take
+ferry from Helsinki to Rostock or so, which takes about one and
+a half days or so. 
+
+> I can't tell for Finland. (Incidentally, Finns seem to be,
+> willingly or not, I ignore, those *fools* who are *testing* the
+> snake-oil/baloney thing with the *bio*- [sigh] fuel: *thank you*
+> from the countries such Indonesia, who will then take the bait,
+> pay your bill eventually [see below also], and keep stuck in more
+> shit for the next decades.)
+
+Yep, the official religion of this country is transition from
+petrol fascism to agro-petrol fascism.
+
+> I am *lucky* (like most people too, well): I am right-handed!
+>
+> Would I have been left-handed instead, I would not--I mean, not
+> with this notebook I am using right now and like VERY MUCH--be
+> able to keep the mouse 10-15 cm on the right of the keyboard.
+
+I am right-handed, but I use the rat with my left hand. Why?
+Just look at the typical clusterfuck keyboard design. The 
+distance to the mouse on the left is much shorter from the
+typing position. It's still a chore to reach for the mouse,
+however. And despite how crappy the mouse it, nipples, touchpads
+and other more easily reached alternatives are far worse than
+it otherwise. The touchpad in particular must be forbidden 
+technology under some human rights conventions.
+
+> I use a vi-like editor EVERYWHERE I can. And don't hesitate to
+> grasp the mouse EVERY TIME it makes sense--which it happens
+> often enough. The mouse sustains/complements well vi, I have not
+> noticed *problems*.
+
+The mouse can complement the keyboard, that is _rarely_ the 
+case when you are typing or otherwise almost constantly using 
+the keyboard with both hands. The mouse best complements the 
+keyboards when you can keep one hand on the keyboard and other
+on the mouse. This works out quite nicely in e.g. Blender's
+interface, and first-person-shooter games.
+
+> I am too extreme? Not sure. Dijkstra^1 tells: --"Besides
+> mathematical inclination, an exceptionally good mastery of
+> one's native tongue is the most vital asset of a competent
+> programmer."-- And he is quite likely right. 
+
+This claim is probably related to the Sapir-Whorf hypothesis,
+and it probably is not important that the language one is 
+proficient in is even one's native language, just some 
+language. Most people, however, are most proficient in their
+native language.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sun Oct 14 13:30:21 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 14 Oct 2007 11:30:21 +0000 (UTC)
+Subject: Oberon/Acme/etc. mouse heavy interfaces [Was: Re: Life, universe,
+	and ION3]
+References: <20071009130726.GA27220@toons.hu> <20071010000959.GI11523@aran>
+	<20071013035004.GA9581@sirih>
+	<slrnfh2621.s7r.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013212844.GA4037@sirih>
+	<slrnfh2g9p.t2u.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013230742.GA8004@sirih>
+	<slrnfh3ii9.p9f.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071014104621.GA31132@sirih>
+Message-ID: <slrnfh3ved.v81.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-14, Roy Lanek <lanek at novenine.com> wrote:
+> Moreover. I am using an optical [laser] mouse. Cordless
+> {Bluetooth] by surplus. With VERY little *mechanics* in it
+> [e.g., the lid to access the 2x AA batteries]. :)
+
+I prefer mechanical mice over the optical crap that starts
+bouncing the cursor one pixel up and down just by itself
+without any device movement. And cordless--no thanks. The
+so-called cordless devices actually have _more_ cords than
+non-cordless ones, thanks to the gazillion AC adapters etc.
+You need to switch batteries and so on, and batteries make
+mice heavy. I also don't trust their proprietary encryptions.
+(I guess bluetooth has something better, but the other concerns
+remain.)
+
+-- 
+Tuomo
+
+
+
+From sylvain.abelard at gmail.com  Sun Oct 14 14:43:20 2007
+From: sylvain.abelard at gmail.com (=?ISO-8859-1?Q?Sylvain_Ab=E9lard?=)
+Date: Sun, 14 Oct 2007 14:43:20 +0200
+Subject: Oberon/Acme/etc. mouse heavy interfaces
+In-Reply-To: <slrnfh3v86.v81.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071009130726.GA27220@toons.hu> <20071010000959.GI11523@aran>
+	<20071013035004.GA9581@sirih>
+	<slrnfh2621.s7r.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013212844.GA4037@sirih>
+	<slrnfh2g9p.t2u.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013230742.GA8004@sirih>
+	<87ejfyeehl.fsf@curl-up-paw-under-nose.thok.org>
+	<20071014102107.GA26372@sirih>
+	<slrnfh3v86.v81.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <9c6605e40710140543m15543ad6v4992b928132d7d54@mail.gmail.com>
+
+> The touchpad in particular must be forbidden
+> technology under some human rights conventions.
+
+Why such hatred ?
+I know that's not a conventional point of view but I'm a great fan of
+touchpads and I regard buying mice for laptops as an heresy.
+
+For not-so-precise work you can use one of your thumbs without moving
+your hands out of the keyboard and for the rest you have control at
+the tip of your finger without the use of a heavy mouse.
+
+-- 
+Sylvain Abelard,
+Railer Rubyist. Epita MTI 2008.
+
+
+From tuomov at iki.fi  Sun Oct 14 14:55:00 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 14 Oct 2007 12:55:00 +0000 (UTC)
+Subject: Oberon/Acme/etc. mouse heavy interfaces
+References: <20071009130726.GA27220@toons.hu> <20071010000959.GI11523@aran>
+	<20071013035004.GA9581@sirih>
+	<slrnfh2621.s7r.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013212844.GA4037@sirih>
+	<slrnfh2g9p.t2u.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013230742.GA8004@sirih>
+	<87ejfyeehl.fsf@curl-up-paw-under-nose.thok.org>
+	<20071014102107.GA26372@sirih>
+	<slrnfh3v86.v81.tuomov@jolt.modeemi.cs.tut.fi>
+	<9c6605e40710140543m15543ad6v4992b928132d7d54@mail.gmail.com>
+Message-ID: <slrnfh44d4.am5.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-14, Sylvain Ab?lard <sylvain.abelard at gmail.com> wrote:
+>> The touchpad in particular must be forbidden
+>> technology under some human rights conventions.
+>
+> Why such hatred ?
+> I know that's not a conventional point of view but I'm a great fan of
+> touchpads and I regard buying mice for laptops as an heresy.
+
+You can't even speak of precision pointing -- which most pointing-device
+dependent tasks involve -- in the same sentence with the touchpad. And
+to make it even semi-tolerable, the surface must be disabled as a button,
+as its far too sensitive, and has no response unlike a real button. But 
+even after that you feel for long afterwards that you've rubbed your 
+fingers against the plastic surface of the touchpad, trying to hit a 
+single pixel with a device having the precision of a shotgun. Same 
+itchy feeling applies to the nipple too, but in a lesser extend, and 
+at least it's quite precise.
+
+-- 
+Tuomo
+
+
+
+From lanek at novenine.com  Sun Oct 14 17:46:10 2007
+From: lanek at novenine.com (Roy Lanek)
+Date: Sun, 14 Oct 2007 22:46:10 +0700
+Subject: Oberon/Acme/etc. mouse heavy interfaces
+In-Reply-To: <9c6605e40710140543m15543ad6v4992b928132d7d54@mail.gmail.com>
+References: <20071010000959.GI11523@aran> <20071013035004.GA9581@sirih>
+	<slrnfh2621.s7r.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013212844.GA4037@sirih>
+	<slrnfh2g9p.t2u.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013230742.GA8004@sirih>
+	<87ejfyeehl.fsf@curl-up-paw-under-nose.thok.org>
+	<20071014102107.GA26372@sirih>
+	<slrnfh3v86.v81.tuomov@jolt.modeemi.cs.tut.fi>
+	<9c6605e40710140543m15543ad6v4992b928132d7d54@mail.gmail.com>
+Message-ID: <20071014154610.GA4284@sirih>
+
+
+> For not-so-precise work you can use one of your thumbs without
+> moving your hands out of the keyboard and for the rest you have
+> control at the tip of your finger without the use of a heavy
+> mouse.
+
+Why does the weight of a mouse make you anxious? I use a decent
+mouse pad: nylon-tissue over caoutchouc/neoprene; it doesn't
+slide below, while on the top, the mouse glides like an ice
+hockey *puck* [disk] over ice. (And dirt doesn't get attached
+under the mouse.)
+
+The mouse pad is generously sized, maybe 30 x 35 cm, and is 5-7
+mm thick--which arranges me very well: I am using a Thermaltake
+fan-less notebook cooler pad, thick approximately the same. With
+the mouse pad adjacent to the Thermaltake cooler pad, I happily
+can open the DVD driver again without the need to push something
+below the tray [for offsetting the + 5-7 mm of the notebook
+cooler pad] when inserting or removing a disk [for not letting
+the tray bend].
+
+I have *normal* sized hands, or, if not, then even slightly
+tinier hands than average. And don't like small/lightweight mice
+[which I have tried already and know].
+
+Well, I guess that it's problematic at the least to
+*ergonomically* design minuscule mice ... how much *playroom*
+for ergonomic shaping does it remain with mini-mice? I like to
+rest with the palm of the hand over the mouse--try that with
+mini-mice--even if it's only for a couple of seconds; I don't
+look at the mouse when I size and use it, hence feel comfortable
+with /benefit from the slightly increased inertia.
+
+/Roy
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  jadilah kumbang, hidup sekali di taman bunga,
+SSSSS . s l a c k w a r e  SSSSSS  jangan jadi lalat, hidup sekali di bukit sampah
+SSSSS +------------ linux  SSSSSS  be a bee, lived once in a flowery garden,
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  not a fly, lived once in heaps of garbage
+
+
+From deryni at unreliablesource.net  Mon Oct 15 21:16:53 2007
+From: deryni at unreliablesource.net (Etan Reisner)
+Date: Mon, 15 Oct 2007 15:16:53 -0400
+Subject: Life, universe, and ION3
+In-Reply-To: <slrnfgpb4k.8u7.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071009130726.GA27220@toons.hu> <20071010000959.GI11523@aran>
+	<slrnfgpb4k.8u7.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20071015191653.GN11523@aran>
+
+On Wed, Oct 10, 2007 at 10:42:28AM +0000, Tuomo Valkonen wrote:
+> On 2007-10-10, Etan Reisner <deryni at unreliablesource.net> wrote:
+> > Is there a specific type of launcher you are thinking about? Random
+> > floating icons? A toolbar full of icons? Something else? Is there
+> > something specific you want to launch with that? Would a popup or query
+> > menu of the specific applications work the same for you?
+>
+> One possibility for a "floating" launcher could be to run some kind of file
+> manager in the scratchpad. The annoying part is that you'd have to be quick
+> to close the scratchpad for the program to not end up there, or write some
+> scripts to kludge around this.
+
+When the scratchpad is open is there a way to get the 'active' frame of
+the underlying workspace? If so then writing a script to cause windows not
+to open in the scratchpad could easily be written, though getting it to
+only not allow that for windows launched from the file manager requires
+the fdo startup spec stuff. (A module for which I have started looking
+into, for whatever that's worth.)
+
+<snip>
+> --
+> Tuomo
+
+	-Etan
+
+
+From tuomov at iki.fi  Mon Oct 15 23:18:28 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 16 Oct 2007 00:18:28 +0300
+Subject: Life, universe, and ION3
+In-Reply-To: <20071015191653.GN11523@aran>
+References: <20071009130726.GA27220@toons.hu> <20071010000959.GI11523@aran>
+	<slrnfgpb4k.8u7.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071015191653.GN11523@aran>
+Message-ID: <20071015211828.GA5646@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-15 15:16 -0400, Etan Reisner wrote:
+> When the scratchpad is open is there a way to get the 'active' frame of
+> the underlying workspace? 
+
+Yes, but you'd have to duplicate a lot of code in a Lua script. A C
+module would have access to region_prepare_manage etc.
+
+-- 
+Tuomo
+
+
+From lanek at novenine.com  Tue Oct 16 00:22:21 2007
+From: lanek at novenine.com (Roy Lanek)
+Date: Tue, 16 Oct 2007 05:22:21 +0700
+Subject: Oberon/Acme/etc. mouse heavy interfaces [Was: Re: Life,
+	universe, and ION3]
+In-Reply-To: <slrnfh3ii9.p9f.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071009130726.GA27220@toons.hu> <20071010000959.GI11523@aran>
+	<20071013035004.GA9581@sirih>
+	<slrnfh2621.s7r.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013212844.GA4037@sirih>
+	<slrnfh2g9p.t2u.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013230742.GA8004@sirih>
+	<slrnfh3ii9.p9f.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20071015222221.GA12457@sirih>
+
+On "pantographs," continued:
+
+I am using a Logitech V270 cordless optical mouse for bluetooth.
+It weights 323 g [2x AA batteries inclusive!, thank you very
+much]. A [manufacturer's description--but agreed:] 1000-dpi
+optical sensor offers incredibly smooth, precise tracking for
+maximum productivity while traveling [R.L.: and beyond].
+
+The *look* is understatement for its class. Seen from the side,
+the V270 has the profile of a cat who is making a hump. And
+the nearly flat, tall, left and right sides of the V270 may
+disappoint you at first ... in case you were expecting something
+*cooler* for your eyes.
+
+In fact, the ergonomics of the Logitech V270 is VERY well
+designed.
+
+In another post I have said I believe to have regular sized
+hands. Okay, continuing: if I shape my hand like a cup, and lay
+it over a desk in pronation [palm under] position, the V270 fills
+PERFECTLY the hollow--provided I let the index- and the medium
+fingers a bit uplifted ... perhaps like the fangs, or the first
+pair of legs, of a funnel-web spider [atrax robustus].
+
+The thumb on one side, and the annular plus the little finger
+on the other one, can now SUPERBLY make grip on the--oh
+wonder--flat, or nearly so, walls of the V270. While the index
+and the annular rest, arranged in a comfortable V-position, over
+two generously sized levers/*buttons*, with the wheel in the
+middle, and thankfully not interfering ... in case one doesn't,
+or can't use the wheel.
+
+Wrist and forearm lay agreeably, if not entirely relaxed, on the
+desk, virtually immobile: to let the V270 slide the mm or cm I
+need [ca 1 cm to move the cursor from left to right, maybe 8 mm
+from top to bottom], I merely flex, or extend, the thumb and the
+little finger in general.
+
+Voila', this ... arachnids-like arrangement of the hand--without
+the cord there is also little to make the device recall a *mouse*
+longer--is perhaps obeying to the .. *gradient* of the optimal
+use of the V270. Which I would dare to say is a reasonably
+representative contemporary *mouse*.
+
+Kudos to Logitech.
+
+I am using the V270 since a few months, and it is the best
+*mouse* I have used ever. (I am not saying that there can't be
+better mice around.)
+
+Wirth prefers mice with three buttons. I like ones with two ...
+in fact, I regard as not too challenging, from the perspective of
+the *motoric* [physiology], to push two buttons contemporaneously
+to emulate the third button. On the other hand, I ignore whether
+an *instructions statistic*, RISC's like, has been done for the
+need/use of buttons in mice: I very seldom need to emulate the
+use of the third button. Moreover, I am a *fan* of the Spanish
+architect Campo Baeza--a fellow from the *essentialist* movement
+[those of the slogan "more with less," in a humorous, more
+*positive*/*active* rephrasing/pun of the "less is more" of the
+*minimalist*].
+
+About the weight: 323 g of the V270. You would not be able
+to make a difference, it's still to little compared with the
+total: weight of a loaded notebook bag with or without mouse,
+even not with a V270 ... you would not manage to discover if
+there is one inside the bag without looking; I guess not even
+be able to discriminate *differentially*: one bag in one hand,
+another one in the second. 
+
+About the touchpad: I think that it makes sense--for *special
+situations* [let's recall that a notebook is more or less
+mobile]: mouse doesn't work for any reason, no space to use it,
+etc. And as longer it doesn't add significantly to the cost of
+the notebook.
+
+Example: Helsinki, January, snow, night. Tuomo has just lowered
+the [electric powered] window glass on his side in the car, when
+he discovers that, suddenly, he can't longer lift the window
+glass--for any any reasons: ice, electric motor problem, etc. A
+simple winder would now be VERY welcomed.
+
+Ditto for Roy in [fantasy selection:] Palembang. Just replace snow
+with rain [when it rains heavily in Sumatra, it comes down in one
+hour as much water than in two-three rainy months in Zurich].
+
+
+Cheers,
+
+/Roy
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   buruk muka cermin dibelah
+SSSSS . s l a c k w a r e  SSSSSS   ugly face, the mirror is split [blaming
+SSSSS +------------ linux  SSSSSS   the wrong cause or creating a scapegoat]
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+
+
+From tuomov at iki.fi  Tue Oct 16 12:54:43 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 16 Oct 2007 10:54:43 +0000 (UTC)
+Subject: Oberon/Acme/etc. mouse heavy interfaces [Was: Re: Life, universe,
+	and ION3]
+References: <20071009130726.GA27220@toons.hu> <20071010000959.GI11523@aran>
+	<20071013035004.GA9581@sirih>
+	<slrnfh2621.s7r.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013212844.GA4037@sirih>
+	<slrnfh2g9p.t2u.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013230742.GA8004@sirih>
+	<slrnfh3ii9.p9f.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071015222221.GA12457@sirih>
+Message-ID: <slrnfh963j.htb.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-15, Roy Lanek <lanek at novenine.com> wrote:
+> I am using the V270 since a few months, and it is the best
+> *mouse* I have used ever. (I am not saying that there can't be
+> better mice around.)
+>
+> Wirth prefers mice with three buttons. I like ones with two ...
+
+I go with the good old 3-button Pilot. Unfortunately, the left
+button of my remaining one is dying, which is another reason
+why I'm using it left-handed... The scroll wheel is quite 
+cumbersome as a third button, often used for pasting. I 
+wonder if there are ones with a proper third button and a
+scrollwheel... They'd just have to move (in e.g. the present
+Pilot) the scroll wheel a bit towards the centre and add a
+third button in front of it.
+
+> About the weight: 323 g of the V270. You would not be able
+> to make a difference, it's still to little compared with the
+> total: weight of a loaded notebook bag with or without mouse,
+
+The high weight makes it heavier to move around, and adds 
+requirements for the surface you use it on.
+
+> About the touchpad: I think that it makes sense--for *special
+> situations* [let's recall that a notebook is more or less
+> mobile]: mouse doesn't work for any reason, no space to use it,
+> etc. 
+
+The nipple is preferrable; the touchpad mostly in the way unless
+you disable it -- from my limited experience with laptops.
+
+> Example: Helsinki, January, snow, night. Tuomo has just lowered
+> the [electric powered] window glass on his side in the car, when
+> he discovers that, suddenly, he can't longer lift the window
+> glass--for any any reasons: ice, electric motor problem, etc. A
+> simple winder would now be VERY welcomed.
+
+Your example is flawed: Tuomo neither lives in Helsinki nor has or
+drives an infernal machine. Tuomo uses highly reliable technology
+known as the Oat Engine combined with such a marvel of simple and
+reliable engineering known as the bicycle. And against the wind
+and snow he goeth.
+
+-- 
+Tuomo
+
+
+
+From lanek at novenine.com  Tue Oct 16 13:08:57 2007
+From: lanek at novenine.com (Roy Lanek)
+Date: Tue, 16 Oct 2007 18:08:57 +0700
+Subject: Oberon/Acme/etc. mouse heavy interfaces [Was: Re: Life,
+	universe, and ION3]
+In-Reply-To: <20071015222221.GA12457@sirih>
+References: <20071009130726.GA27220@toons.hu> <20071010000959.GI11523@aran>
+	<20071013035004.GA9581@sirih>
+	<slrnfh2621.s7r.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013212844.GA4037@sirih>
+	<slrnfh2g9p.t2u.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013230742.GA8004@sirih>
+	<slrnfh3ii9.p9f.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071015222221.GA12457@sirih>
+Message-ID: <20071016110857.GA28959@sirih>
+
+> *instructions statistic*, RISC's like, has been done
+
+Apropos; I am using maildir's and maildrop, and need to do the
+same with maildrop: some statistics for discovering from whose
+mail-lists I receive mails a day the most, so to be able to
+better arrange my entries in maildropfilter's maildir (most used
+regex first; plus: here, there. or in another place I may spend
+some time in trying to optimize).
+
+Does Ion have a facility to start tracing which commands are
+executed most frequently ... does it make sense if not? (If you
+use your own notebooks/desktops most of the time, or exclusively,
+you could perhaps remap more conveniently--depending from the
+keyboard's layout--commands.)
+
+
+/Roy
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+SSSSS . s l a c k w a r e  SSSSSS   dimana ada kemauan, di situ ada jalan
+SSSSS +------------ linux  SSSSSS   where there is a will, there is a way
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+
+
+From tuomov at iki.fi  Tue Oct 16 13:25:27 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 16 Oct 2007 11:25:27 +0000 (UTC)
+Subject: Oberon/Acme/etc. mouse heavy interfaces [Was: Re: Life, universe,
+	and ION3]
+References: <20071009130726.GA27220@toons.hu> <20071010000959.GI11523@aran>
+	<20071013035004.GA9581@sirih>
+	<slrnfh2621.s7r.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013212844.GA4037@sirih>
+	<slrnfh2g9p.t2u.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071013230742.GA8004@sirih>
+	<slrnfh3ii9.p9f.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071015222221.GA12457@sirih> <20071016110857.GA28959@sirih>
+Message-ID: <slrnfh97t7.cu.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-16, Roy Lanek <lanek at novenine.com> wrote:
+> Does Ion have a facility to start tracing which commands are
+> executed most frequently ... does it make sense if not? (If you
+> use your own notebooks/desktops most of the time, or exclusively,
+> you could perhaps remap more conveniently--depending from the
+> keyboard's layout--commands.)
+
+It should not be difficult to write a script that wraps 'defbindings'
+to add statistic wrappers around the bindings themselves.
+
+-- 
+Tuomo
+
+
+
+From joni.kurtz at gmx.de  Tue Oct 16 22:07:02 2007
+From: joni.kurtz at gmx.de (Jonathan Kurtz)
+Date: Tue, 16 Oct 2007 22:07:02 +0200
+Subject: Dock padding_pixels suggestion
+In-Reply-To: <f70oqf$mv8$1@sea.gmane.org>
+References: <f70oqf$mv8$1@sea.gmane.org>
+Message-ID: <ff35kd$3ok$1@ger.gmane.org>
+
+Hi,
+
+I tried some hours compiling some panels.
+-Ksmoothpanel won't run, crashes.
+-pypanel won't find a desktop.name (returning null)
+
+working is:
+-kicker
+-rox
+but: only gnome systray apps, will show up in these panels,
+using the mod_dock. Kde apps, will still show up in mod_dock part,
+therefore you get these strange padding effects.
+
+using the discussed panel.lua code won't work with kde systray apps
+either, they just open up a window with it's icon.
+
+so I'm using a minimalistic kicker at the bottem of screen besides ion
+statusbar to let gnome apps register in that. But won't get ion by
+defwinprop to register that damn kicker on load as free floating, I've
+always to move the kicker window on to the statusbar, so it free floats
+instead of fullscreen, any hints?
+
+
+happy hacking,
+jonathan
+
+
+
+
+From tobias.han at gmx.de  Sat Oct 20 18:34:38 2007
+From: tobias.han at gmx.de (Tobias Hansen)
+Date: Sat, 20 Oct 2007 18:34:38 +0200
+Subject: mod-ionflux dead?
+Message-ID: <1192898078.12797.16.camel@tobi-laptop>
+
+Hello,
+
+since ion3-mod-ionflux has been removed from debian unstable and ubuntu
+gutsy, i wonder if it is still possible to use ionflux with a recent
+release of ion3. is the last release of mod-ionflux 20061022? is it
+still supported at all? or is there an alternative?
+i wrote a german article on ion3 for the german ubuntu wiki, which will
+again be available on http://wiki.ubuntuusers.de/Ion3 soon. at the
+moment the servers are overstrained due to the new ubuntu-release. in
+order to describe it properly in the article, i have another question:
+is there a more elegant way to save your layout than to write-protect
+~/.ion3/default-session--0/saved_layout.lua?
+
+regards, and keep up the good work,
+tobias
+
+
+
+From tuomov at iki.fi  Sat Oct 20 20:22:26 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 20 Oct 2007 18:22:26 +0000 (UTC)
+Subject: mod-ionflux dead?
+References: <1192898078.12797.16.camel@tobi-laptop>
+Message-ID: <slrnfhkhr2.nd3.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-20, Tobias Hansen <tobias.han at gmx.de> wrote:
+> since ion3-mod-ionflux has been removed from debian unstable and ubuntu
+> gutsy, i wonder if it is still possible to use ionflux with a recent
+> release of ion3. is the last release of mod-ionflux 20061022? is it
+> still supported at all? or is there an alternative?
+
+There has never ever been any release of mod_ionflux. It (as well
+as mod_xrandr), is available from a darcs repository [1] as it 
+always has been. I do not know if it works still: it has also
+never been "supported", just something that is available.
+
+  [1]: http://modeemi.fi/~tuomov/repos/mod_ionflux-3/
+       (No, the directory listing is not available; use 'darcs get'.)
+
+-- 
+Tuomo
+
+
+
+From udvzsolt at gmail.com  Sun Oct 21 16:43:29 2007
+From: udvzsolt at gmail.com (Zsolt Udvari)
+Date: Sun, 21 Oct 2007 16:43:29 +0200
+Subject: Switch between workspaces by name
+Message-ID: <760ece280710210743m6692c208lcc81bf518fb9880c@mail.gmail.com>
+
+Hello!
+
+How can I switch workspace by name? I've searched in the mailing list
+and I found this:
+
+http://article.gmane.org/gmane.comp.window-managers.ion.general/1327/
+
+In this there are a few patch and there is a function "bool
+switch_workspace_name(const char *str)". The mail and the patch is
+very-very old (from year 2001).
+
+So, in Ion3 how can I do it?
+
+Thanks.
+ Zsolt
+
+
+From tuomov at iki.fi  Sun Oct 21 17:43:27 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 21 Oct 2007 15:43:27 +0000 (UTC)
+Subject: Switch between workspaces by name
+References: <760ece280710210743m6692c208lcc81bf518fb9880c@mail.gmail.com>
+Message-ID: <slrnfhmssv.sqe.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-21, Zsolt Udvari <udvzsolt at gmail.com> wrote:
+> In this there are a few patch and there is a function "bool
+> switch_workspace_name(const char *str)". The mail and the patch is
+> very-very old (from year 2001).
+
+That's for Ion1, and the patch doesn't implement that, as you
+can see by reading from the description. Ion has always (as far
+as I can recall) had named workspace switch bound to F9. Just
+type of the name of an existing workspace (with tab-completion
+in the middle of the name too), and hit enter. If you type
+the name of a non-existent workspace, then you will be asked
+to create it, otherwise Ion will switch to the workspace.
+
+If you want to do the same in a script, use ioncore.lookup_region
+(possibly filtering by "WGroupWS") followed by WRegion.goto on 
+the result (res:goto()).
+
+-- 
+Tuomo
+
+
+
+From janj+ion at wenf.org  Sun Oct 21 17:39:02 2007
+From: janj+ion at wenf.org (Jan Johansson)
+Date: Sun, 21 Oct 2007 17:39:02 +0200
+Subject: Switch between workspaces by name
+In-Reply-To: <760ece280710210743m6692c208lcc81bf518fb9880c@mail.gmail.com>
+References: <760ece280710210743m6692c208lcc81bf518fb9880c@mail.gmail.com>
+Message-ID: <20071021153902.GA3241@tuvok.wenf.org>
+
+Zsolt Udvari <udvzsolt at gmail.com> wrote:
+> How can I switch workspace by name? I've searched in the
+> mailing list and I found this:
+
+With my three workspaces named "Fullscreen", "Hidden" and "Split"
+this is how I do it.
+
+defbindings("WScreen",
+    {
+        submap(PREFIX,
+            {
+		kpress("F", "ioncore.lookup_region('Fullscreen'):goto()"),
+		kpress("H", "ioncore.lookup_region('Hidden'):goto()"),
+		kpress("S", "ioncore.lookup_region('Split'):goto()"),
+            }
+        ),
+    }
+)
+
+
+
+From udvzsolt at gmail.com  Sun Oct 21 18:49:20 2007
+From: udvzsolt at gmail.com (Zsolt Udvari)
+Date: Sun, 21 Oct 2007 18:49:20 +0200
+Subject: Switch between workspaces by name
+In-Reply-To: <20071021153902.GA3241@tuvok.wenf.org>
+References: <760ece280710210743m6692c208lcc81bf518fb9880c@mail.gmail.com>
+	<20071021153902.GA3241@tuvok.wenf.org>
+Message-ID: <760ece280710210949t6afd2b6fuf9fbf926470777ac@mail.gmail.com>
+
+>                 kpress("F", "ioncore.lookup_region('Fullscreen'):goto()"),
+
+> If you want to do the same in a script, use ioncore.lookup_region
+> (possibly filtering by "WGroupWS") followed by WRegion.goto on
+> the result (res:goto()).
+
+Ah, thank you! I've searched in WScreen's functions! Thanks Jan and Tuomo!
+
+Zsolt
+
+
+From intrigeri at boum.org  Mon Oct 22 11:49:59 2007
+From: intrigeri at boum.org (intrigeri)
+Date: Mon, 22 Oct 2007 11:49:59 +0200
+Subject: ion3 RC packages for Debian etch, and now lenny
+Message-ID: <858x5vo4vs.fsf@boum.org>
+
+Hello,
+
+for a few months[1], I?ve been maintaining backports of Debian sid?s
+ion3 RC packages for Debian etch.
+
+I updated my build environment a bit, so that I am now in a position
+to provide such packages built for Debian lenny (testing) as well :
+
+             http://intrigeri.boum.org/debian/
+
+I update them reasonably quickly when Debian unstable packages are
+themselves updated. They are built for i386, and the source packages
+are of course available.
+
+As strongly stated on my Debian packages page, these packages are
+usually somehow outdated in regard to upstream (pre-)releases : they
+are thus not supported upstream, so *please do not report any bug
+about these packages to the Ion author*. Really. My Debian packages
+page also explains the current RC-nature of ion3.
+
+[1] http://lists.berlios.de/pipermail/ion-general/2007-June/001316.html
+
+Ciao,
+-- 
+  intrigeri <intrigeri at boum.org>
+  | gnupg key @ http://intrigeri.boum.org/intrigeri.asc
+  | Did you exchange a walk on part in the war
+  | for a lead role in the cage?
+
+
+From dani.marti.ortega at gmail.com  Mon Oct 22 18:29:28 2007
+From: dani.marti.ortega at gmail.com (Dani)
+Date: Mon, 22 Oct 2007 18:29:28 +0200
+Subject: Focus after unsplit
+Message-ID: <985587d00710220929v6c1abae7hf05222acab44fbb8@mail.gmail.com>
+
+Hi all,
+
+I want to unsplit (destroy the current frame) and not lose focus
+(i.e., to stay in the same window I was before calling the command).
+In other words, is there a way to keep the focus in the window from
+which I call WTiling.unsplit_at?
+
+Thanks a lot.
+
+
+From dani.marti.ortega at gmail.com  Mon Oct 22 19:44:08 2007
+From: dani.marti.ortega at gmail.com (Dani)
+Date: Mon, 22 Oct 2007 19:44:08 +0200
+Subject: Text-based dock
+Message-ID: <985587d00710221044x75be2b52i46f4c7f79cdb3f30@mail.gmail.com>
+
+Hi all,
+
+I am looking for a simple system monitor to put in the dock. Up to
+now, the most convincing application (for me) has been 'conky';
+unfortunately, it is too big to fit in a small dock. I don't want
+anything fancy; in fact, I would be very happy with a text-based
+thing, a sort of ion menu but showing a few lines with some system
+variables instead of lists of windows. Does anyone have a hint of how
+to do such an apparently simple job?
+
+Thanks a lot. Long life to ion.
+
+
+From tuomov at iki.fi  Mon Oct 22 20:44:14 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 22 Oct 2007 18:44:14 +0000 (UTC)
+Subject: Focus after unsplit
+References: <985587d00710220929v6c1abae7hf05222acab44fbb8@mail.gmail.com>
+Message-ID: <slrnfhprru.9pd.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-22, Dani <dani.marti.ortega at gmail.com> wrote:
+> In other words, is there a way to keep the focus in the window from
+> which I call WTiling.unsplit_at?
+
+Seems to me that it works just like that.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Mon Oct 22 20:44:41 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 22 Oct 2007 18:44:41 +0000 (UTC)
+Subject: Text-based dock
+References: <985587d00710221044x75be2b52i46f4c7f79cdb3f30@mail.gmail.com>
+Message-ID: <slrnfhprsp.9pd.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-22, Dani <dani.marti.ortega at gmail.com> wrote:
+> I would be very happy with a text-based
+> thing, a sort of ion menu but showing a few lines with some system
+> variables instead of lists of windows. Does anyone have a hint of how
+> to do such an apparently simple job?
+
+mod_statusbar + ion-statusd scripts?
+
+-- 
+Tuomo
+
+
+
+From Matthieu.Moy at imag.fr  Mon Oct 22 20:53:45 2007
+From: Matthieu.Moy at imag.fr (Matthieu Moy)
+Date: Mon, 22 Oct 2007 20:53:45 +0200
+Subject: Focus after unsplit
+In-Reply-To: <slrnfhprru.9pd.tuomov@jolt.modeemi.cs.tut.fi> (Tuomo Valkonen's
+	message of "Mon\, 22 Oct 2007 18\:44\:14 +0000 \(UTC\)")
+References: <985587d00710220929v6c1abae7hf05222acab44fbb8@mail.gmail.com>
+	<slrnfhprru.9pd.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <vpqwstf3rra.fsf@bauges.imag.fr>
+
+Tuomo Valkonen <tuomov at iki.fi> writes:
+
+> On 2007-10-22, Dani <dani.marti.ortega at gmail.com> wrote:
+>> In other words, is there a way to keep the focus in the window from
+>> which I call WTiling.unsplit_at?
+>
+> Seems to me that it works just like that.
+
+It doesn't for me. split keeps the focus, but unsplit_at gives the
+focus to the other window.
+
+-- 
+Matthieu
+
+
+From tuomov at iki.fi  Mon Oct 22 21:11:20 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 22 Oct 2007 19:11:20 +0000 (UTC)
+Subject: Focus after unsplit
+References: <985587d00710220929v6c1abae7hf05222acab44fbb8@mail.gmail.com>
+	<slrnfhprru.9pd.tuomov@jolt.modeemi.cs.tut.fi>
+	<vpqwstf3rra.fsf@bauges.imag.fr>
+Message-ID: <slrnfhpteo.lbt.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-22, Matthieu Moy <Matthieu.Moy at imag.fr> wrote:
+> It doesn't for me. split keeps the focus, but unsplit_at gives the
+> focus to the other window.
+
+The other frmae and the frame unsplitted at are fused, destroying
+the parameter frame. So from the user POV the focus stays put --
+both when the focus is in the parameter frame, and when it is
+somewhere else entirely.
+
+-- 
+Tuomo
+
+
+
+From prothall at gmail.com  Tue Oct 23 00:03:43 2007
+From: prothall at gmail.com (Paul O'Leary McCann)
+Date: Mon, 22 Oct 2007 18:03:43 -0400
+Subject: Text-based dock
+In-Reply-To: <985587d00710221044x75be2b52i46f4c7f79cdb3f30@mail.gmail.com>
+References: <985587d00710221044x75be2b52i46f4c7f79cdb3f30@mail.gmail.com>
+Message-ID: <op.t0mcwhe8pl9hl7@apparatus.dampfkraft.com>
+
+I believe you want dzen.
+
+http://gotmor.googlepages.com/dzen
+
+-POLM
+
+
+On Mon, 22 Oct 2007 13:44:08 -0400, Dani <dani.marti.ortega at gmail.com>  
+wrote:
+
+> Hi all,
+>
+> I am looking for a simple system monitor to put in the dock. Up to
+> now, the most convincing application (for me) has been 'conky';
+> unfortunately, it is too big to fit in a small dock. I don't want
+> anything fancy; in fact, I would be very happy with a text-based
+> thing, a sort of ion menu but showing a few lines with some system
+> variables instead of lists of windows. Does anyone have a hint of how
+> to do such an apparently simple job?
+>
+> Thanks a lot. Long life to ion.
+
+
+
+-- 
+Remember always the last words of Pancho Villa:
+"Don't let it end like this. Tell them I said something."
+
+2 3   S K I D D O O
+
+
+From udvzsolt at gmail.com  Tue Oct 23 19:19:59 2007
+From: udvzsolt at gmail.com (Zsolt Udvari)
+Date: Tue, 23 Oct 2007 19:19:59 +0200
+Subject: Application's title renaming
+Message-ID: <760ece280710231019l5b0aa5e2tb321dfa2ef193645@mail.gmail.com>
+
+Hello!
+
+I've downloaded and I'm using a program: wmdrawer. Homepage:
+http://people.easter-eggs.org/~valos/wmdrawer/
+Ok, I know that is a very old program.
+So, this program run at startx in three instances: some application,
+mpd control and volume control. They are in separate frames. But the
+titles are long so it doesn't look fine (see attachment).
+Can I rename the titles (e.g. to mpd and volume and apps)?
+
+Thanks!
+ Zsolt
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: wmdrawer.png
+Type: image/png
+Size: 45424 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20071023/81ca5aed/attachment.png>
+
+From deryni at unreliablesource.net  Tue Oct 23 19:22:29 2007
+From: deryni at unreliablesource.net (Etan Reisner)
+Date: Tue, 23 Oct 2007 13:22:29 -0400
+Subject: Application's title renaming
+In-Reply-To: <760ece280710231019l5b0aa5e2tb321dfa2ef193645@mail.gmail.com>
+References: <760ece280710231019l5b0aa5e2tb321dfa2ef193645@mail.gmail.com>
+Message-ID: <20071023172229.GE7867@aran>
+
+You can disable the titlebars in those frames entirely if you want to
+(rather then just renaming them, which you can also do). To rename them
+look into the title shortening rules, to remove the titlebars entirely you
+need to switch the frame to the frame-tiled-alt setting (but I can't
+recall how to do that offhand, and I'm not in front of ion at the moment,
+so hopefully someone will chime in with the right thing.)
+
+	-Etan
+
+
+From udvzsolt at gmail.com  Tue Oct 23 19:53:52 2007
+From: udvzsolt at gmail.com (Zsolt Udvari)
+Date: Tue, 23 Oct 2007 19:53:52 +0200
+Subject: Application's title renaming
+In-Reply-To: <20071023172229.GE7867@aran>
+References: <760ece280710231019l5b0aa5e2tb321dfa2ef193645@mail.gmail.com>
+	<20071023172229.GE7867@aran>
+Message-ID: <760ece280710231053x6140cdc2uf73585340734e145@mail.gmail.com>
+
+> To rename them
+> look into the title shortening rules
+This is bad solution because the wmdrawers doesn't load and place its
+frame in same order (once the first is mpd, other time the first is
+volume, ...). And to its titlebar added a <#> value so the titlebars
+are not constants!
+The wmdrawer has "can rename instance name"-feature (so I can place it
+different frames automatically). Makes it easier the problem?
+
+
+From deryni at unreliablesource.net  Tue Oct 23 19:54:57 2007
+From: deryni at unreliablesource.net (Etan Reisner)
+Date: Tue, 23 Oct 2007 13:54:57 -0400
+Subject: Application's title renaming
+In-Reply-To: <760ece280710231053x6140cdc2uf73585340734e145@mail.gmail.com>
+References: <760ece280710231019l5b0aa5e2tb321dfa2ef193645@mail.gmail.com>
+	<20071023172229.GE7867@aran>
+	<760ece280710231053x6140cdc2uf73585340734e145@mail.gmail.com>
+Message-ID: <20071023175457.GF7867@aran>
+
+On Tue, Oct 23, 2007 at 07:53:52PM +0200, Zsolt Udvari wrote:
+> > To rename them
+> > look into the title shortening rules
+> This is bad solution because the wmdrawers doesn't load and place its
+> frame in same order (once the first is mpd, other time the first is
+> volume, ...). And to its titlebar added a <#> value so the titlebars
+> are not constants!
+> The wmdrawer has "can rename instance name"-feature (so I can place it
+> different frames automatically). Makes it easier the problem?
+
+You can use winprops to match each drawer specifically so that they always
+go to the same frame if you want to.
+
+Do the wmdrawers not put a unique value into the title? Can you make them
+do that? If you can make them set a unique name (even "wmdrawer - type")
+then you can use the title shortening rules. But if need the names to tell
+them apart might I suggest having them use different main icons instead?
+
+Also, the shortening rules work just fine with titles that aren't constant
+as long as their is a constant bit you want to remove, that's exactly what
+they were designed for.
+
+	-Etan
+
+
+From dani.marti.ortega at gmail.com  Tue Oct 23 20:51:52 2007
+From: dani.marti.ortega at gmail.com (Dani)
+Date: Tue, 23 Oct 2007 20:51:52 +0200
+Subject: Focus after unsplit
+In-Reply-To: <slrnfhpteo.lbt.tuomov@jolt.modeemi.cs.tut.fi>
+References: <985587d00710220929v6c1abae7hf05222acab44fbb8@mail.gmail.com>
+	<slrnfhprru.9pd.tuomov@jolt.modeemi.cs.tut.fi>
+	<vpqwstf3rra.fsf@bauges.imag.fr>
+	<slrnfhpteo.lbt.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <985587d00710231151y731799eftaf34e570bc8a3af8@mail.gmail.com>
+
+I am sorry, Tuomo, but I don't understand what you mean.
+As I (and Matthieu) see it, I am losing focus when I call unsplit_at:
+the focus is given to the other window, and I don't want that. I
+really don't know if I am missing the precise meaning of 'keeping
+focus' or if I have some problem in my configuration file [which
+contains the following line
+        kpress(META.."W", "WTiling.unsplit_at(_, _sub)"),
+]
+
+Thanks for your attention.
+
+
+From deryni at unreliablesource.net  Wed Oct 24 01:56:57 2007
+From: deryni at unreliablesource.net (Etan Reisner)
+Date: Tue, 23 Oct 2007 19:56:57 -0400
+Subject: Application's title renaming
+In-Reply-To: <20071023172229.GE7867@aran>
+References: <760ece280710231019l5b0aa5e2tb321dfa2ef193645@mail.gmail.com>
+	<20071023172229.GE7867@aran>
+Message-ID: <20071023235657.GG7867@aran>
+
+On Tue, Oct 23, 2007 at 01:22:29PM -0400, Etan Reisner wrote:
+<snip>
+> need to switch the frame to the frame-tiled-alt setting (but I can't
+> recall how to do that offhand, and I'm not in front of ion at the moment,
+> so hopefully someone will chime in with the right thing.)
+<snip>
+
+Now that I'm home the way to turn the tab bars off entirely is to run
+_:set_mode("tiled-alt") from the mod1-F3 lua query in the frame you want
+to do it in. If that frame is too small you can run "myframe = _" in that
+frame and then "myframe:set_mode('tiled-alt')" in a larger frame. And then
+repeat for your other frames. And you can run "myframe = nil" when you are
+all done for good measure.
+
+	-Etan
+
+
+From tuomov at iki.fi  Wed Oct 24 09:01:58 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 24 Oct 2007 07:01:58 +0000 (UTC)
+Subject: Application's title renaming
+References: <760ece280710231019l5b0aa5e2tb321dfa2ef193645@mail.gmail.com>
+	<20071023172229.GE7867@aran> <20071023235657.GG7867@aran>
+Message-ID: <slrnfhtrf6.ovr.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-23, Etan Reisner <deryni at unreliablesource.net> wrote:
+> If that frame is too small you can run "myframe = _" in that
+> frame and then "myframe:set_mode('tiled-alt')" in a larger frame. And then
+> repeat for your other frames. And you can run "myframe = nil" when you are
+> all done for good measure.
+
+Ion these days auto-detaches queries (, menus, and transients) in
+small frames. You can also manually de/reattach with Mod1+K D.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Wed Oct 24 09:03:24 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 24 Oct 2007 07:03:24 +0000 (UTC)
+Subject: Focus after unsplit
+References: <985587d00710220929v6c1abae7hf05222acab44fbb8@mail.gmail.com>
+	<slrnfhprru.9pd.tuomov@jolt.modeemi.cs.tut.fi>
+	<vpqwstf3rra.fsf@bauges.imag.fr>
+	<slrnfhpteo.lbt.tuomov@jolt.modeemi.cs.tut.fi>
+	<985587d00710231151y731799eftaf34e570bc8a3af8@mail.gmail.com>
+Message-ID: <slrnfhtrhs.ovr.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-23, Dani <dani.marti.ortega at gmail.com> wrote:
+> I am sorry, Tuomo, but I don't understand what you mean.
+
+You're talking in a confused manner of an entirely different thing than
+I am it seems. Yes, the windows from the destroyed frame are just placed
+rather randomly in the "rescue" frame, as unsplit seems to use that code
+these days. I guess there should be some hack to try to keep the order
+too...
+
+-- 
+Tuomo
+
+
+
+From jrobson at cachelogic.com  Wed Oct 24 08:47:43 2007
+From: jrobson at cachelogic.com (John Robson)
+Date: Wed, 24 Oct 2007 07:47:43 +0100
+Subject: Focus after unsplit
+In-Reply-To: <slrnfhpteo.lbt.tuomov@jolt.modeemi.cs.tut.fi>
+References: <985587d00710220929v6c1abae7hf05222acab44fbb8@mail.gmail.com>
+	<slrnfhprru.9pd.tuomov@jolt.modeemi.cs.tut.fi>
+	<vpqwstf3rra.fsf@bauges.imag.fr>
+	<slrnfhpteo.lbt.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <op.t0ovttbk5yfyku@telephus.cachelogic.com>
+
+On Mon, 22 Oct 2007 20:11:20 +0100, Tuomo Valkonen <tuomov at iki.fi> wrote:
+
+> On 2007-10-22, Matthieu Moy <Matthieu.Moy at imag.fr> wrote:
+>> It doesn't for me. split keeps the focus, but unsplit_at gives the
+>> focus to the other window.
+>
+> The other frmae and the frame unsplitted at are fused, destroying
+> the parameter frame. So from the user POV the focus stays put --
+> both when the focus is in the parameter frame, and when it is
+> somewhere else entirely.
+>
+
+My experience is that when splitting a frame the focus remains with the  
+application (whichever frame that ends up in).
+When merging (unsplitting) frames the application that had focus never  
+retains it. The topmost application in the "other" frame is always the one  
+to gain focus.
+
+Never been a problem for me - I just make sure I'm on the wrong frame when  
+I merge...
+
+
+
+-- 
+John Robson
+
+
+From deryni at unreliablesource.net  Wed Oct 24 13:34:23 2007
+From: deryni at unreliablesource.net (Etan Reisner)
+Date: Wed, 24 Oct 2007 07:34:23 -0400
+Subject: Application's title renaming
+In-Reply-To: <slrnfhtrf6.ovr.tuomov@jolt.modeemi.cs.tut.fi>
+References: <760ece280710231019l5b0aa5e2tb321dfa2ef193645@mail.gmail.com>
+	<20071023172229.GE7867@aran> <20071023235657.GG7867@aran>
+	<slrnfhtrf6.ovr.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20071024113423.GI7867@aran>
+
+On Wed, Oct 24, 2007 at 07:01:58AM +0000, Tuomo Valkonen wrote:
+<snip>
+> Ion these days auto-detaches queries (, menus, and transients) in
+> small frames. You can also manually de/reattach with Mod1+K D.
+>
+> --
+> Tuomo
+
+Right, I tend to forget about that because I don't have any tiny frames. Sorry.
+
+	-Etan
+
+
+From dani.marti.ortega at gmail.com  Wed Oct 24 18:21:54 2007
+From: dani.marti.ortega at gmail.com (Dani)
+Date: Wed, 24 Oct 2007 18:21:54 +0200
+Subject: Text-based dock
+In-Reply-To: <slrnfhprsp.9pd.tuomov@jolt.modeemi.cs.tut.fi>
+References: <985587d00710221044x75be2b52i46f4c7f79cdb3f30@mail.gmail.com>
+	<slrnfhprsp.9pd.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <985587d00710240921x7618255fn22a6763aa516fd7e@mail.gmail.com>
+
+> mod_statusbar + ion-statusd scripts?
+
+Well, that's precisely what I already have. Since I want to hide this
+monitor information when I don't need it, I want to be able to toggle
+it. I think that the dock is in this respect a more natural choice
+than the statusbar. Besides, it allows for a larger display area.
+
+Don't try to convince me that the statusbar is actually quite small
+(it is, but that's not the point :).
+
+Dani
+
+
+From tuomov at iki.fi  Wed Oct 24 19:38:49 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 24 Oct 2007 17:38:49 +0000 (UTC)
+Subject: Text-based dock
+References: <985587d00710221044x75be2b52i46f4c7f79cdb3f30@mail.gmail.com>
+	<slrnfhprsp.9pd.tuomov@jolt.modeemi.cs.tut.fi>
+	<985587d00710240921x7618255fn22a6763aa516fd7e@mail.gmail.com>
+Message-ID: <slrnfhv0p9.4v5.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-24, Dani <dani.marti.ortega at gmail.com> wrote:
+> Don't try to convince me that the statusbar is actually quite small
+> (it is, but that's not the point :).
+
+It's possible to toggle it by writing a script to destroy&recreate.
+It is also possible to attach the statusbar to the screen as 
+a floating window, so it can be hidden.
+
+mod_dock is in many ways just an inferior version of mod_statusbar.
+The few advantages it has, are that it can order the dockapps
+vertically, and it has ready code for toggling etc. But mostly
+it's actually redundant.
+
+-- 
+Tuomo
+
+
+
+From prankish at gmail.com  Thu Oct 25 20:37:20 2007
+From: prankish at gmail.com (Dmitry)
+Date: Fri, 26 Oct 2007 01:37:20 +0700
+Subject: Two statusbars / Multi-line statusbar ?
+Message-ID: <e66209d30710251137k30949f60q2644d967f75521d2@mail.gmail.com>
+
+Hello!
+Is there any way to make the second statusbar (perhaps one statusbar
+at the bottom, and one at the top)?
+Or, if I can't make the second statusbar, may be it is possible to
+make multi-line statusbar (i think, two lines would be enough)?
+
+
+From tuomov at iki.fi  Thu Oct 25 20:52:27 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 25 Oct 2007 18:52:27 +0000 (UTC)
+Subject: Two statusbars / Multi-line statusbar ?
+References: <e66209d30710251137k30949f60q2644d967f75521d2@mail.gmail.com>
+Message-ID: <slrnfi1pfb.j4a.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-25, Dmitry <prankish at gmail.com> wrote:
+> Or, if I can't make the second statusbar, may be it is possible to
+> make multi-line statusbar (i think, two lines would be enough)?
+
+I've suggested it to people a zillion times to write multi-line
+support into the statusbar. It shouldn't be that difficult, but
+I can't be arsed, because the single-line version works for me,
+and I have more interesting things to do than waste my time 
+writing software for the doomed platform that FOSS/*nix is. With
+multi-line support non-destructive toggling could easily also 
+be provided by having zero lines. But nothing has happened yet. 
+
+Various other improvements could be made to the statusbar, such
+as supporting meters as regions for mouse actions. I've also 
+suggested improving the statusd to be a cleaner general-purpose
+tool. But I guess nothing will happen wrt. that either. (Ideally
+something like DBus could be used -- but not DBus itself because
+it's UTF-8 monoculturist [1].)
+
+(Not that anything typically happens wrt. any suggestions,
+especially not those related to modular code. People rather
+complain about not supporting something or not working like 
+they want, and then rather than writing a module, fork or 
+write a 95% clone from scratch. And in the end you have 100
+highly flawed and unfinished programs that do essentially 
+the same thing but with different flaws, instead of a handful
+of good programs that do a different thing.)
+
+Ok, today's rant quota is full...
+
+  [1]: http://iki.fi/tuomov/b/archives/2006/08/26/T20_16_06/
+
+-- 
+Tuomo
+
+
+
+From j.van_den_hoff at fzd.de  Fri Oct 26 16:52:59 2007
+From: j.van_den_hoff at fzd.de (Joerg van den Hoff)
+Date: Fri, 26 Oct 2007 16:52:59 +0200
+Subject: cycling through frames in tiled layouts (and elsewhere?)
+Message-ID: <20071026145259.GB25202@marco.fz-rossendorf.de>
+
+hi,
+
+the question has been raised a few times before seemingly(?)
+without a clear solution to it:
+
+is there a lua-function to cycle through  all  frames  (i.e.
+it's  currently  visible  client  window)  of a single tiled
+workspace, say a 2 x 2 layout?   I  don't   mean   selection
+from   some  context menu, but rather something like the be-
+haviour of "Mod1+j" in `dwm'.
+
+ioncore.goto_next(..., 'next', ...) is no good for  this  it
+seems.
+
+sure, one can _navigate_ with Mod1+Tab, N, P etc. but that's
+not the same thing.
+
+so is there a straightforward/easy way to do it?
+
+joerg
+
+
+
+From tuomov at iki.fi  Fri Oct 26 17:46:30 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 26 Oct 2007 15:46:30 +0000 (UTC)
+Subject: cycling through frames in tiled layouts (and elsewhere?)
+References: <20071026145259.GB25202@marco.fz-rossendorf.de>
+Message-ID: <slrnfi42um.tug.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-26, Joerg van den Hoff <j.van_den_hoff at fzd.de> wrote:
+> ioncore.goto_next(..., 'next', ...) is no good for  this  it
+> seems.
+
+Works for me, with the frame as the parameter. I don't get why people
+want primitive linear cycling, though. Geometric navigation is far 
+better as it makes more use of your spatial memory. (Although, the 
+situation seems to degrade in 3D -- or 2.5D anyway [1] -- and yet 
+the "oooh! shiny!" herd proclaims how 3D interfaces are the future
+and will improve usability. My hand-wavy explanation is that our 
+visual input is actually 2-dimensional, with any 3D perception the
+result of the stereoscopic effect.)
+
+  [1]: http://www.osnews.com/story.php/18829/Common-Usability-Terms-pt.-I-Spatial-Memory
+
+-- 
+Tuomo
+
+
+
+From j.van_den_hoff at fzd.de  Fri Oct 26 22:49:23 2007
+From: j.van_den_hoff at fzd.de (Joerg van den Hoff)
+Date: Fri, 26 Oct 2007 22:49:23 +0200
+Subject: alignment of 2x2 tilings
+Message-ID: <20071026204923.GF12786@kati.fz-rossendorf.de>
+
+a further minor point :
+
+creating a 2x2 workspace by first splitting into two rows and then each
+row into two columns nicely aligns the title bars in the lower row,
+reducing a bit the size in the lower left window (to account for the
+status bar).
+
+splitting first into two columns, than each column into two rows does
+not achieve this alignment. I was once told that this is as it should
+be, but should it?
+
+I would think the final 2x2 layout should always look the same (and
+have aligned title bars). would this really require some "dirty"
+fiddling?
+
+joerg
+
+
+
+From tuomov at iki.fi  Fri Oct 26 23:19:07 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 26 Oct 2007 21:19:07 +0000 (UTC)
+Subject: alignment of 2x2 tilings
+References: <20071026204923.GF12786@kati.fz-rossendorf.de>
+Message-ID: <slrnfi4meb.mqc.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-26, Joerg van den Hoff <j.van_den_hoff at fzd.de> wrote:
+> I would think the final 2x2 layout should always look the same (and
+> have aligned title bars). would this really require some "dirty"
+> fiddling?
+
+Yes. When you first split horizontally, the left frame (in the stock
+setup) is smaller than the right one because of the statusbar. Now
+when you split both of them vertically into two equal parts, they
+can't align. Seeking for another tab to align at would be an ugly
+heuristic -- that would likely give you a different result depending
+on which frame you split first -- and I don't like heuristics. 
+Aligning the splits at some grid coarser than the statusbar might
+work more nicely, but what's the point anyway? You can't operate
+the frames as if you'd split the other way around in the first
+place. I know of no good way around this limitation/feature of 
+the Ion and perhaps any tiling model. You could of course write
+some dirty heuristics to alter the layout on some resize operations,
+but heuristics suck, and so does requiring the user to indicate 
+whether they intend to resize a whole column or just one frame 
+altering the layout to suit this. If such input is required, you
+could just as well call a transpose or such command.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sat Oct 27 13:08:51 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 27 Oct 2007 11:08:51 +0000 (UTC)
+Subject: alignment of 2x2 tilings
+References: <20071026204923.GF12786@kati.fz-rossendorf.de>
+	<slrnfi4meb.mqc.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnfi6723.2sd.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-26, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2007-10-26, Joerg van den Hoff <j.van_den_hoff at fzd.de> wrote:
+>> I would think the final 2x2 layout should always look the same (and
+>> have aligned title bars). would this really require some "dirty"
+>> fiddling?
+>
+> Yes. When you first split horizontally, the left frame (in the stock
+> setup) is smaller than the right one because of the statusbar. Now
+> when you split both of them vertically into two equal parts, they
+> can't align. Seeking for another tab to align at would be an ugly
+> heuristic
+
+There's also the issue of size hints of the windows in the frames.
+Presently (iirc) the size of the new frame is adjusted to the size
+hints of the window put there. If you wanted to align tabs, you'd
+in have to disable that adjustment, and possibly lose one row in 
+a terminal. 
+
+It's not an interesting problem to solve. I rather stick to 
+fundamental ideas and problems, not pixel-pushing kludges.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sat Oct 27 14:53:22 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 27 Oct 2007 12:53:22 +0000 (UTC)
+Subject: Focus after unsplit
+References: <985587d00710220929v6c1abae7hf05222acab44fbb8@mail.gmail.com>
+	<slrnfhprru.9pd.tuomov@jolt.modeemi.cs.tut.fi>
+	<vpqwstf3rra.fsf@bauges.imag.fr>
+	<slrnfhpteo.lbt.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t0ovttbk5yfyku@telephus.cachelogic.com>
+Message-ID: <slrnfi6d62.89j.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-24, John Robson <jrobson at cachelogic.com> wrote:
+> Never been a problem for me - I just make sure I'm on the wrong frame when  
+> I merge...
+
+This should be fixed in the next RC, which I'll hopefully release soon.
+(*sigh* Why do people always disappear when reporting supposed bugs?
+Because the problem was between the chair and the screen?)
+
+-- 
+Tuomo
+
+
+
+From alex.barinov at gmail.com  Sun Oct 28 06:52:46 2007
+From: alex.barinov at gmail.com (Alte)
+Date: Sun, 28 Oct 2007 08:52:46 +0300
+Subject: Fixed size splits
+Message-ID: <940ef3c00710272252i77feab0uacb5966f7782cf7b@mail.gmail.com>
+
+Hi,
+
+I have recently upgraded from ion-3ds-20060519 to ion-3rc-20070927.
+The changes in ion3 internals are massive, and I am in the process of
+updating my config files.  The question I am fighting with at the
+moment is:
+
+When running GIMP, I create a split for it using the following code:
+
+local ws = top_frame:attach_new({type = "WTiling", dir = "horizontal"})
+ws:split_top("right")
+fl = ws:split_tree():tl():reg()
+fr = ws:split_tree():br():reg()
+fl:set_name("GIMP-left")
+fr:set_name("GIMP-right")
+fl:rqgeom({w = 270})
+
+Later GIMP windows are attached to the split using winprops.  This
+worked flawlessly in ion-3ds-20060519, with left side of the split
+staying 270px wide all the time, and right side occupying all the
+rest.  However, in ion-3rc-20070927 things changed.  When I run GIMP,
+the following things happen:
+
+0. Split is created, its left side is exactly 270px wide.
+1. GIMP splash screen pops up and goes to the right side of the split,
+left side remains at 270px.
+2. GIMP splash screen disappears and GIMP toolbox appears, going to
+the left side of the split.  The left side gets resized to 450px.
+3. I choose File -> New in GIMP menu. A small (much smaller than the
+right side of the split) window with new image properties appears and
+goes to the right side of the split. Left side gets resized to 220px.
+
+The question is: how can I prevent the split from permanently resizing
+itself and make it behave ion-3ds-20060519 way?  I tried putting
+rqgeom requests in clientwin_do_manage_alt, but the split keeps
+changing.
+
+It is not a question about GIMP, I use a lot of other applications in
+similar splits, so this auto-resizing heuristics is a big problem for
+me.
+
+Thanks,
+
+Sasha
+
+
+From alex.barinov at gmail.com  Sun Oct 28 06:59:44 2007
+From: alex.barinov at gmail.com (Alte)
+Date: Sun, 28 Oct 2007 08:59:44 +0300
+Subject: Closing window with transient bug
+Message-ID: <940ef3c00710272259l1380b767r44eeebb9761ad414@mail.gmail.com>
+
+Hi,
+
+Here is a small bug report (or a feature, depending on your pov):
+
+1. Open gedit.
+2. Open Find dialog. A transient window will pop up.
+3. Without closing the Find dialog close gedit with File -> Quit.
+
+Now you should have an empty WGroupCW left on the screen.
+
+Regards,
+
+Sasha
+
+
+From tuomov at iki.fi  Sun Oct 28 08:41:44 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 28 Oct 2007 07:41:44 +0000 (UTC)
+Subject: Fixed size splits
+References: <940ef3c00710272252i77feab0uacb5966f7782cf7b@mail.gmail.com>
+Message-ID: <slrnfi8f9o.2qo.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-28, Alte <alex.barinov at gmail.com> wrote:
+> The question is: how can I prevent the split from permanently resizing
+> itself and make it behave ion-3ds-20060519 way?  I tried putting
+> rqgeom requests in clientwin_do_manage_alt, but the split keeps
+> changing.
+
+Wake up! You're having a bad dream.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sun Oct 28 08:44:56 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 28 Oct 2007 07:44:56 +0000 (UTC)
+Subject: Closing window with transient bug
+References: <940ef3c00710272259l1380b767r44eeebb9761ad414@mail.gmail.com>
+Message-ID: <slrnfi8ffo.2qo.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-28, Alte <alex.barinov at gmail.com> wrote:
+> Now you should have an empty WGroupCW left on the screen.
+
+Works for me.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sun Oct 28 09:00:36 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 28 Oct 2007 08:00:36 +0000 (UTC)
+Subject: Fixed size splits
+References: <940ef3c00710272252i77feab0uacb5966f7782cf7b@mail.gmail.com>
+	<slrnfi8f9o.2qo.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnfi8gd4.8lm.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-28, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2007-10-28, Alte <alex.barinov at gmail.com> wrote:
+>> The question is: how can I prevent the split from permanently resizing
+>> itself and make it behave ion-3ds-20060519 way?  I tried putting
+>> rqgeom requests in clientwin_do_manage_alt, but the split keeps
+>> changing.
+>
+> Wake up! You're having a bad dream.
+
+It _might_ happen if you're against better advice using old layout
+savefiles. Any backwards compatibility hacks were removed ages ago,
+and you will have to start from scratch.
+
+-- 
+Tuomo
+
+
+
+From alex.barinov at gmail.com  Sun Oct 28 10:29:00 2007
+From: alex.barinov at gmail.com (Alte)
+Date: Sun, 28 Oct 2007 12:29:00 +0300
+Subject: Fixed size splits
+In-Reply-To: <slrnfi8f9o.2qo.tuomov@jolt.modeemi.cs.tut.fi>
+References: <940ef3c00710272252i77feab0uacb5966f7782cf7b@mail.gmail.com>
+	<slrnfi8f9o.2qo.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <940ef3c00710280229t233980bp485dc802c318152a@mail.gmail.com>
+
+On 10/28/07, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> > The question is: how can I prevent the split from permanently resizing
+> > itself and make it behave ion-3ds-20060519 way?  I tried putting
+> > rqgeom requests in clientwin_do_manage_alt, but the split keeps
+> > changing.
+> Wake up! You're having a bad dream.
+
+Its not a dream, seriously!  But it looks like I found a reason.  In
+my code I, in fact, used:
+
+   fl:attach(cwin, {switchto = t.switchto})
+
+to attach a window to a frame. After changing it to
+
+   cw = fl:attach_new({type = "WGroupCW", switchto = t.switchto})
+   cw:attach(cwin, {switchto = t.switchto, bottom = true})
+
+my bad dream is gone!
+
+Thanks a lot for your thought-provoking idea about layouts (which were
+brand new anyway), the solution came after looking at my saved layout.
+
+Thanks,
+
+Sasha
+
+
+From tuomov at iki.fi  Sun Oct 28 10:58:22 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 28 Oct 2007 09:58:22 +0000 (UTC)
+Subject: Fixed size splits
+References: <940ef3c00710272252i77feab0uacb5966f7782cf7b@mail.gmail.com>
+	<slrnfi8f9o.2qo.tuomov@jolt.modeemi.cs.tut.fi>
+	<940ef3c00710280229t233980bp485dc802c318152a@mail.gmail.com>
+Message-ID: <slrnfi8n9u.5jc.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-28 12:24 +0300, Alte wrote:
+>     cw = fl:attach_new({type = "WGroupCW", switchto = t.switchto})
+>     cw:attach(cwin, {switchto = t.switchto, bottom = true})
+
+Umm... this shouldn't have any effect. Only when you've put a window
+in a wrong kind of frame that allows applications to resize it -- as
+is the case for floating frames -- could what you describe, happen.
+An old layout savefile can cause such type bits to be set.
+
+Also, above you can do:
+
+    fl:attach_new({
+        type = "WGroupCW",
+        switchto=true,
+        managed = { { reg=cwin, bottom = true }, },
+    })
+
+or something like that, to get away with a single call.
+
+-- 
+Tuomo
+
+
+
+From EvgenyKurbatov at yandex.ru  Sun Oct 28 14:47:07 2007
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Sun, 28 Oct 2007 16:47:07 +0300
+Subject: cycling through frames in tiled layouts (and elsewhere?)
+In-Reply-To: <slrnfi42um.tug.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071026145259.GB25202@marco.fz-rossendorf.de>
+	<slrnfi42um.tug.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <472492DB.10505@yandex.ru>
+
+Hi, Tuomo
+
+> On 2007-10-26, Joerg van den Hoff <j.van_den_hoff at fzd.de> wrote:
+>> ioncore.goto_next(..., 'next', ...) is no good for  this  it
+>> seems.
+> 
+> Works for me, with the frame as the parameter. I don't get why people
+> want primitive linear cycling, though. Geometric navigation is far 
+> better as it makes more use of your spatial memory.
+
+This is unpredictible (and therefore annoying) sometimes.  How can I
+navigate through horizontally splited tiling, where the left half
+splitted vertically also?  The result of ioncore.goto_next(_chld,
+'direction') depends on pre-previous active frame.
+
+Best witches,
+Evgeny
+
+
+From tuomov at iki.fi  Sun Oct 28 15:52:53 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 28 Oct 2007 14:52:53 +0000 (UTC)
+Subject: cycling through frames in tiled layouts (and elsewhere?)
+References: <20071026145259.GB25202@marco.fz-rossendorf.de>
+	<slrnfi42um.tug.tuomov@jolt.modeemi.cs.tut.fi>
+	<472492DB.10505@yandex.ru>
+Message-ID: <slrnfi98i5.un3.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-28, Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+> This is unpredictible (and therefore annoying) sometimes.  How can I
+> navigate through horizontally splited tiling, where the left half
+> splitted vertically also?  The result of ioncore.goto_next(_chld,
+> 'direction') depends on pre-previous active frame.
+
+Linear cycling is unpredictable even more so.
+
+-- 
+Tuomo
+
+
+
+From janj+ion at wenf.org  Mon Oct 29 07:50:43 2007
+From: janj+ion at wenf.org (Jan Johansson)
+Date: Mon, 29 Oct 2007 07:50:43 +0100
+Subject: Closing window with transient bug
+In-Reply-To: <slrnfi8ffo.2qo.tuomov@jolt.modeemi.cs.tut.fi>
+References: <940ef3c00710272259l1380b767r44eeebb9761ad414@mail.gmail.com>
+	<slrnfi8ffo.2qo.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20071029065043.GA4514@tuvok.wenf.org>
+
+Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2007-10-28, Alte <alex.barinov at gmail.com> wrote:
+> > Now you should have an empty WGroupCW left on the screen.
+> 
+> Works for me.
+
+I have seen this problem with unison. If unison shows a fatal
+error such as connection lost with server (a transient) the
+WGroupCW window is left behind. I have also seen it with another
+application but can't remember which right now.
+
+
+
+From j.van_den_hoff at fzd.de  Mon Oct 29 12:23:11 2007
+From: j.van_den_hoff at fzd.de (Joerg van den Hoff)
+Date: Mon, 29 Oct 2007 12:23:11 +0100
+Subject: cycling through frames in tiled layouts (and elsewhere?)
+In-Reply-To: <slrnfi98i5.un3.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071026145259.GB25202@marco.fz-rossendorf.de>
+	<slrnfi42um.tug.tuomov@jolt.modeemi.cs.tut.fi>
+	<472492DB.10505@yandex.ru>
+	<slrnfi98i5.un3.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20071029112311.GB11094@marco.fz-rossendorf.de>
+
+On Sun, Oct 28, 2007 at 02:52:53PM +0000, Tuomo Valkonen wrote:
+> On 2007-10-28, Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+> > This is unpredictible (and therefore annoying) sometimes.  How can I
+> > navigate through horizontally splited tiling, where the left half
+> > splitted vertically also?  The result of ioncore.goto_next(_chld,
+> > 'direction') depends on pre-previous active frame.
+
+yes, that was essentially what triggered my initial question.
+> 
+> Linear cycling is unpredictable even more so.
+
+not quite. you cycle through all the frames in a fixed order,
+so that - at least for a moderate number of frames in the tiling
+it's quite easy to memorize the cycling order.
+
+in contrast, the default navigation via Mod1-Tab, -K-N, -K-P, suffers
+indeed from the 'memory effect' w.r.t. to where Mod1-Tab is jumping next.
+
+thankfully tuomo told me (despite his negative rating of cycling)
+off-list how to define frame-cycling:
+
+--add this definition to cfg_ioncore.lua:
+defbindings("WFrame", {
+    kpress(META.."J", "ioncore.goto_next(_, 'next')"),
+})
+--------------
+
+I've decided to like this approach to augment the usual navigation
+facilities, especially in small tilings such as 2 x 2.
+
+joerg
+
+> 
+> -- 
+> Tuomo
+> 
+
+
+From EvgenyKurbatov at yandex.ru  Mon Oct 29 14:27:02 2007
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Mon, 29 Oct 2007 16:27:02 +0300
+Subject: cycling through frames in tiled layouts (and elsewhere?)
+In-Reply-To: <20071029112311.GB11094@marco.fz-rossendorf.de>
+References: <20071026145259.GB25202@marco.fz-rossendorf.de>
+	<slrnfi42um.tug.tuomov@jolt.modeemi.cs.tut.fi>
+	<472492DB.10505@yandex.ru>
+	<slrnfi98i5.un3.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071029112311.GB11094@marco.fz-rossendorf.de>
+Message-ID: <4725DFA6.2080400@yandex.ru>
+
+Hi, Joerg!
+
+> thankfully tuomo told me (despite his negative rating of cycling)
+> off-list how to define frame-cycling:
+> 
+> --add this definition to cfg_ioncore.lua:
+> defbindings("WFrame", {
+>     kpress(META.."J", "ioncore.goto_next(_, 'next')"),
+> })
+> --------------
+
+Yes, it works fine, thanks!
+
+Best witches,
+Evgeny
+
+
+From olleg.samoylov at gmail.com  Tue Oct 30 05:39:31 2007
+From: olleg.samoylov at gmail.com (Olleg Samoylov)
+Date: Tue, 30 Oct 2007 07:39:31 +0300
+Subject: statusd_nut
+Message-ID: <4726B583.6070507@gmail.com>
+
+Hi,
+Here is my contribution. This plugin check ups with the aid of
+http://www.networkupstools.org and show status of ups in statusbar.
+-- 
+Olleg Samoylov
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: statusd_nut.lua
+Type: text/x-lua
+Size: 1199 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20071030/e82ca7af/attachment.bin>
+
+From lobzang at free.fr  Wed Oct 31 13:36:36 2007
+From: lobzang at free.fr (lobzang at free.fr)
+Date: Wed, 31 Oct 2007 13:36:36 +0100
+Subject: Riot
+Message-ID: <1193834196.472876d4cf935@imp.free.fr>
+
+Hi,
+
+Is there any chance Riot have any update ?
+
+I find it really cool and use it, and would be glad if some few functionality
+could be added...( as I can see there are some in the TODO.riot)
+
+
+Lobzang
+
+
+From tuomov at iki.fi  Wed Oct 31 13:58:21 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 31 Oct 2007 12:58:21 +0000 (UTC)
+Subject: Riot
+References: <1193834196.472876d4cf935@imp.free.fr>
+Message-ID: <slrnfiguvd.ce8.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-10-31, lobzang at free.fr <lobzang at free.fr> wrote:
+> Is there any chance Riot have any update ?
+
+Snowball's chance in hell. Seriously, though, I'm _very_ slowly
+working on some major changes -- the pace recently seems to have
+been about two hours a month -- so it might take a few years for
+there to be anything to publish, if ever. In all likelyhood, the
+release will be license-free [1] (i.e. The Piratic License applies)
+and for Windows, after I've spent a few more years writing a highly
+sophisticated terminal emulator for it. Right now, other things
+have precedence over coding, however.
+
+  [1]: http://thedjbway.org/license_free.html
+
+-- 
+Tuomo
+
+
+

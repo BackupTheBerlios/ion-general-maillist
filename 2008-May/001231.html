@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Minor issue when using alternate xkb groups
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Minor%20issue%20when%20using%20alternate%20xkb%20groups&In-Reply-To=%3C1212030579.8794.4.camel%40deadeye.i.decadent.org.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001230.html">
+   <LINK REL="Next"  HREF="001232.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Minor issue when using alternate xkb groups</H1>
+    <B>Ben Hutchings</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Minor%20issue%20when%20using%20alternate%20xkb%20groups&In-Reply-To=%3C1212030579.8794.4.camel%40deadeye.i.decadent.org.uk%3E"
+       TITLE="Minor issue when using alternate xkb groups">ben at decadent.org.uk
+       </A><BR>
+    <I>Thu May 29 05:09:39 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001230.html">Minor issue when using alternate xkb groups
+</A></li>
+        <LI>Next message: <A HREF="001232.html">Minor issue when using alternate xkb groups
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1231">[ date ]</a>
+              <a href="thread.html#1231">[ thread ]</a>
+              <a href="subject.html#1231">[ subject ]</a>
+              <a href="author.html#1231">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Thu, 2008-05-29 at 01:32 +0300, Tuomo Valkonen wrote:
+&gt;<i> On 2008-05-28 14:02 +0000, Tuomo Valkonen wrote:
+</I>&gt;<i> &gt; The original complainer
+</I>&gt;<i> &gt; should therefore have no problems on the version of X I'm running
+</I>&gt;<i> &gt; (from Etch), because the server simply masks the groups, or at
+</I>&gt;<i> &gt; least the one tied to Mode_Switch, and for some reason Ion actually 
+</I>&gt;<i> &gt; masks the state with KNOWN_MODIFIERS_MASK in the binding search code
+</I>&gt;<i> &gt; although it does not ask as to grab things with other modifiers set.
+</I>&gt;<i> 
+</I>&gt;<i> Actually, making Ion print things instead of relying on xev 
+</I>&gt;<i> alone, it appears that the X server does not set the Mode_Switch 
+</I>&gt;<i> bit (0x2000) on key events for grabbed keys, although it does set 
+</I>&gt;<i> it in events for non-grabbed keys (that xev can catch). Thus the 
+</I>&gt;<i> stray KNOWN_MODIFIERS_MASK code actually does nothing, and the 
+</I>&gt;<i> X server completely hides Mode_Switch (and any modifiers bound to
+</I>&gt;<i> it) in events for grabbed keys -- but only for them. On my system, 
+</I>&gt;<i> that is. Smells like a rotting pile of kludges...
+</I>
+Yeah, grabbed keys are kluged so you don't see group modifiers.  This is
+all spelled out in &lt;<A HREF="http://www.xfree86.org/current/XKBproto.pdf">http://www.xfree86.org/current/XKBproto.pdf</A>&gt; section
+12.3.  I still haven't worked out how to ignore group locking when
+looking at non-grab events.
+
+Ben.
+
+-- 
+Ben Hutchings
+Everything should be made as simple as possible, but not simpler.
+                                                           - Albert Einstein
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20080529/c52088b4/attachment.pgp">https://lists.berlios.de/pipermail/ion-general/attachments/20080529/c52088b4/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001230.html">Minor issue when using alternate xkb groups
+</A></li>
+	<LI>Next message: <A HREF="001232.html">Minor issue when using alternate xkb groups
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1231">[ date ]</a>
+              <a href="thread.html#1231">[ thread ]</a>
+              <a href="subject.html#1231">[ subject ]</a>
+              <a href="author.html#1231">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

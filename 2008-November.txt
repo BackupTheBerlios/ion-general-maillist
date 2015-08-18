@@ -1,0 +1,2148 @@
+From tuomov at iki.fi  Sat Nov  1 10:14:21 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 1 Nov 2008 11:14:21 +0200
+Subject: Moving tabbar to bottom of the screen
+In-Reply-To: <51012.88.146.1.38.1225530201.squirrel@drak.ucw.cz>
+References: <2e53f4ef0810310721g5e4dfc6kf6af8e3a9d348362@mail.gmail.com>
+	<slrnggmc5v.8e5.tuomov@jolt.modeemi.cs.tut.fi>
+	<51012.88.146.1.38.1225530201.squirrel@drak.ucw.cz>
+Message-ID: <20081101091421.GA8153@jolt.modeemi.cs.tut.fi>
+
+On 2008-11-01 10:03 +0100, Tom?? Ebenlendr wrote:
+> Hmm, vertical tabs on left or right will be more cool but also more
+> difficult, I suppose that rotating text (just by 90 degrees) is not
+> supported by drawing engine now.
+
+No, it isn't supported.
+
+And really, to go that level of flexibility, the drawing engine API
+should be abstracted more, and a lot more stuff moved to the DE. 
+
+(Your mail didn't go on the list, but I suppose you don't mind
+me Cc:ing there.)
+
+-- 
+Tuomo
+
+
+From ebik at drak.ucw.cz  Sat Nov  1 10:04:28 2008
+From: ebik at drak.ucw.cz (=?iso-8859-2?Q?Tom=E1=B9_Ebenlendr?=)
+Date: Sat, 1 Nov 2008 10:04:28 +0100 (CET)
+Subject: Moving tabbar to bottom of the screen
+Message-ID: <51019.88.146.1.38.1225530268.squirrel@drak.ucw.cz>
+
+
+
+Dne 31 ??jen 2008, 17:22, Tuomo Valkonen napsal(a):
+> On 2008-10-31, Eider Oliveira <eider.oliveira at gmail.com> wrote:
+>
+>> Is there a way for me to place the tab below the frame, instead of on
+>> top of it?
+>
+> Other than writing a patch, no.
+>
+>
+> It shouldn't be too difficult. There's already the 'bar' parameter
+> of frame styles, that supports the modes "inside", "outside", and "shaped".
+> Just add "-below" variants, and wherever FRAME_BAR_*
+> is referred to, add extra cases for the below geometry.
+>
+> --
+> "[Fashion] is usually a form of ugliness so intolerable that we have
+> to alter it every six months." -- Oscar Wilde "The computer industry is the
+> only industry that is more fashion-driven than women's fashion." -- RMS
+
+Hmm, vertical tabs on left or right will be more cool but also more
+difficult, I suppose that rotating text (just by 90 degrees) is not
+supported by drawing engine now.
+
+-- 
+.                           Tomas Ebenlendr
+.                           http://drak.ucw.cz/~ebik
+
+
+-- 
+.                           Tomas Ebenlendr
+.                           http://drak.ucw.cz/~ebik
+
+
+
+From dcl441-bugs at yahoo.com  Thu Nov  6 11:13:42 2008
+From: dcl441-bugs at yahoo.com (Daniel Clemente)
+Date: Thu, 06 Nov 2008 11:13:42 +0100
+Subject: Disable automatic saving of workspace (frame layout)
+Message-ID: <87bpwtduw9.fsf@yahoo.com>
+
+
+Hi.
+
+  Here: http://www.modeemi.fi/~tuomov/ion/faq/entries/Saving_layout.html
+  it says:
+------
+How do I save workspace and frame layout?
+
+Ion does it automatically for you when you exit it cleanly.
+------
+
+  Can ion be configured not to do this? I would like to read my layout always from saved_layout.lua but not save it automatically on exit. I will save it manually when I want.
+
+
+  Thanks
+
+Daniel
+
+
+
+From sylvain.abelard at gmail.com  Thu Nov  6 11:17:56 2008
+From: sylvain.abelard at gmail.com (=?UTF-8?Q?Sylvain_Ab=C3=A9lard?=)
+Date: Thu, 6 Nov 2008 11:17:56 +0100
+Subject: Disable automatic saving of workspace (frame layout)
+In-Reply-To: <87bpwtduw9.fsf@yahoo.com>
+References: <87bpwtduw9.fsf@yahoo.com>
+Message-ID: <9c6605e40811060217o67629216gbef50c6b230c8341@mail.gmail.com>
+
+> How do I save workspace and frame layout?
+> Ion does it automatically for you when you exit it cleanly.
+>  Can ion be configured not to do this?
+
+A long time ago, my hack was to remove the write rights to the
+saved-layout file.
+If there isn't a better way now, I hope it helps
+
+-- 
+Sylvain Ab?lard
+"J'ai d?cid? d'?tre heureux, c'est meilleur pour la sant?." -Voltaire
+
+From tuomov at iki.fi  Thu Nov  6 12:26:38 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 6 Nov 2008 11:26:38 +0000 (UTC)
+Subject: Disable automatic saving of workspace (frame layout)
+References: <87bpwtduw9.fsf@yahoo.com>
+	<9c6605e40811060217o67629216gbef50c6b230c8341@mail.gmail.com>
+Message-ID: <slrngh5l3e.68i.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-11-06, Sylvain Ab??lard <sylvain.abelard at gmail.com> wrote:
+>> How do I save workspace and frame layout?
+>> Ion does it automatically for you when you exit it cleanly.
+>>  Can ion be configured not to do this?
+>
+> A long time ago, my hack was to remove the write rights to the
+> saved-layout file.
+> If there isn't a better way now, I hope it helps
+
+Exit with ioncore.resign() instead of ioncore.shutdown()
+
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+
+From dcl441-bugs at yahoo.com  Thu Nov  6 20:15:02 2008
+From: dcl441-bugs at yahoo.com (Daniel Clemente)
+Date: Thu, 06 Nov 2008 20:15:02 +0100
+Subject: Disable automatic saving of workspace (frame layout)
+References: <87bpwtduw9.fsf@yahoo.com>
+	<9c6605e40811060217o67629216gbef50c6b230c8341@mail.gmail.com>
+	<slrngh5l3e.68i.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <87zlkcd5u1.fsf@yahoo.com>
+
+Tuomo Valkonen <tuomov at iki.fi> writes:
+
+> Exit with ioncore.resign() instead of ioncore.shutdown()
+
+  The session is saved not only on exit but also on restart:
+
+/*EXTL_DOC
+ * Restart, saving session first.
+ */
+EXTL_EXPORT
+void ioncore_restart()
+{
+    set_other(NULL);
+
+    if(smhook!=NULL){
+        smhook(IONCORE_SM_RESTART);
+    }else{
+        ioncore_do_snapshot();
+        ioncore_do_restart();
+    }
+}
+
+
+   The restart will save the session unless the source code is modified. Or maybe it can be overriden in Lua?
+
+
+Daniel
+
+
+
+From tuomov at iki.fi  Thu Nov  6 21:28:26 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 6 Nov 2008 20:28:26 +0000 (UTC)
+Subject: Disable automatic saving of workspace (frame layout)
+References: <87bpwtduw9.fsf@yahoo.com>
+	<9c6605e40811060217o67629216gbef50c6b230c8341@mail.gmail.com>
+	<slrngh5l3e.68i.tuomov@jolt.modeemi.cs.tut.fi>
+	<87zlkcd5u1.fsf@yahoo.com>
+Message-ID: <slrngh6kra.pc1.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-11-06, Daniel Clemente <dcl441-bugs at yahoo.com> wrote:
+>    The restart will save the session unless the source code is modified.
+>    Or maybe it can be overriden in Lua?
+
+No. And it doesn't make much sense to override; saving is needed
+for sane restart behaviour that will place the windows where they
+were. (Of course, one might use some X root window property too
+in this case.) The primary reason for the existence of resign() is 
+also being able to quit the WM under a session manager (that supports
+remote exit) without shutting down and saving the entire session. 
+If one wants a static setup, it's perhaps best to just clean up
+files in .xsession.
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+
+From tuomov at iki.fi  Fri Nov  7 00:28:08 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 6 Nov 2008 23:28:08 +0000 (UTC)
+Subject: Disable automatic saving of workspace (frame layout)
+References: <87bpwtduw9.fsf@yahoo.com>
+	<9c6605e40811060217o67629216gbef50c6b230c8341@mail.gmail.com>
+	<slrngh5l3e.68i.tuomov@jolt.modeemi.cs.tut.fi>
+	<87zlkcd5u1.fsf@yahoo.com>
+	<slrngh6kra.pc1.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrngh6vc8.9ek.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-11-06, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> If one wants a static setup, it's perhaps best to just clean up
+> files in .xsession.
+
+Perhaps this needs a clarification: you can put a saved_layout.lua
+in ~/.ion3/.  If one doesn't exist in the session directory
+(which one can explicitly specify with -session), this one is 
+loaded. If you remove the one in the session directory in 
+.xsession, restarts should work fine, as the state gets saved
+over restarts.
+
+(It's also possible to do some search path mangling in
+Lua and from the command line, and maybe even set X properties
+to detect restarts. But it's more kludgy. And the session
+directory is always the first directory looked into, despite
+other search path orders, which excludes certain options.)
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+
+From lanek at novenine.com  Mon Nov 10 08:53:46 2008
+From: lanek at novenine.com (Roy Lanek)
+Date: Mon, 10 Nov 2008 14:53:46 +0700
+Subject: Ion rewriting
+Message-ID: <20081110075346.GA24300@sirih>
+
+What--and I am serious--about rewriting Ion in ... Haskell?
+
+(Haskell ... just in case: I have entertained myself in Miranda and Hope a
+bit already, but those are not *free*; plus, while not looking like cpan.org,
+hackage.haskell.org is not ... nothing; seems also to me that the Haskell
+community is growing in size -- hooray.)
+
+Why so?!, because Ion is written--shudder--in the US-dollar of the programming
+languages anno 2008 still; hence, Tuomo (but not only he) has, to ... I am
+paraphrasing Torvalds, play at the "masturbating monke^H^H^H^H^Hreindeer"
+every time he needs to change something in the code that goes beyond
+cosmetics, and be it as as an experiment only, quite likely. ( C's
+*expressivity* oblige.)
+
+I skip mentioning other advantages in general, moreover I am sure Tuomo
+perfectly knows that Compiled Haskell is as fast than C, and that there is a
+Haskell Lua interpreter. (Haskell -> Riot ... which I never have tried by the
+way.)
+
+Yes, there is at least another window manager which is written in Haskell,
+XMonad (which seems also interesting), so what?! Does taking good or better
+decisions/options mean that others have to stick within the crap?
+
+Ion's development is managed in a way that the *popularity* of a language
+doesn't matter too much, as long the source can be easily compiled.
+
+Lua may be fun, but Haskell (and other modern functional languages) are no
+match ... on standard environments at the least. And as a neophyte I would
+be much more interested in learning Haskell than Lua anyway. (To let us
+understand further: XMonad should use configuration files written in Haskell.)
+
+dwm and all its clone and derivatives look like nano (the editor), or pico of
+the window managers pretty much to me, where ion could be vi; I never (but I
+am going to change that) have tried xmonad. Who knows, it might be nice to
+write a vim, or better, an elvis of the window managers ...
+
+Haskell alone would not bring us much far by itself. But Tuomo should
+have got some nice insight and original ideas in the topic--usable window
+managers--meanwhile ... does he?
+
+>:-)
+
+
+/Roy
+-- 
+                                  _______________________________________
+````````````````````````````````````````````````````````````````````````f``
+````````_`_``qgp```````````````pp```````````````````````````````````````f``
+``````_WWWW````W``_p___`````___]P`_gp`q__````q__`qg`___``pgg`__``____```f``
+```````hppW````W``^hWWWh_`_gWWW]hgWW^`qW^`````^W_`qgWWWp```qgWWkgW^^h```f``
+``````___`W_```W```W```dk`q^``^]P``dh`W```qP```~k`qk```W```q^``qP`__q^`````
+`````~WWW`]|```W```h```_k`q````][```q`W_``qb````W`q_```q```q````h`tWW^`````
+``g```h_`_g___gW```W___gk`dp_``````_W`^WpgWPR__gP`dh___W```q````]Wpp```````
+``k````WmW^^WW^Wmm^`^WW^Wp`WWm````mWk`mWW^qPRWW^````WWWqW``q````W__g|``````
+``k```````````````````````````````````````qh```````````````qpp``W^W^```````
+``k````````````````````````````````````````````````````````````````````````
+``hmmmmmmmmmm slackware linux mmmmmmmmmm~``````````````````````````````````
+
+
+From tuomov at iki.fi  Mon Nov 10 10:43:42 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 10 Nov 2008 09:43:42 +0000 (UTC)
+Subject: Ion rewriting
+References: <20081110075346.GA24300@sirih>
+Message-ID: <slrnghg0ie.ues.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-11-10, Roy Lanek <lanek at novenine.com> wrote:
+> What--and I am serious--about rewriting Ion in ... Haskell?
+
+Rewrites in The Language of the Day are lame (see also the .signature),
+for people with a lot of time in their hands and no original ideas.
+
+> Why so?!, because Ion is written--shudder--in the US-dollar of the programming
+> languages anno 2008 still; hence, Tuomo (but not only he) has, to ... I am
+> paraphrasing Torvalds, play at the "masturbating monke^H^H^H^H^Hreindeer"
+> every time he needs to change something in the code that goes beyond
+> cosmetics, and be it as as an experiment only, quite likely. ( C's
+> *expressivity* oblige.)
+
+C works quite well, especially combined with Lua for the tasks that
+are not nicely done in C. Working on Ion's code, I don't often run
+into the limitations of C, because I have my frameworks written ages
+ago. What would make sense is gradually moving some of auxiliary C 
+code to the Lua side.
+
+I really don't like writing the kind of stuff a window manager is in
+Haskell. It's too painful. The language just isn't meant for that kind
+of stuff. Dynamic data structures (e.g. objects) are _pain_; perhaps
+the best way to get around this is _heavy_ threading, every object being
+its own thread... it's an academic exercise that I have no time for, 
+and of little practical benefit over a tried C implementation that 
+works today.
+
+> I skip mentioning other advantages in general, moreover I am sure Tuomo
+> perfectly knows that Compiled Haskell is as fast than C
+
+Bullshit. It's very very laboursome to make fast Haskell code, and
+especially such that doesn't eat gigabytes of memory for breakfast.
+
+Lie, statistic, benchmark.
+
+Liar, politician, software advocate..
+
+> Lua may be fun, but Haskell (and other modern functional languages) are no
+> match ... on standard environments at the least. 
+
+Haskell is fun for academic exercises. Real-world programs are pain. 
+Plus the Haskell build environments are shit. GHC is infinite
+pain to install anything under. All these language fundies (which
+includes the majority of FP people) are always reinventing the OS
+for their language only, instead of using the operating system's
+tools (such as the file system).
+
+> dwm and all its clone and derivatives look like nano (the editor), or pico of
+> the window managers pretty much to me, where ion could be vi; 
+
+Ion is joe <http://joe-editor.sf.net/>.
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+
+From lanek at novenine.com  Mon Nov 10 14:12:03 2008
+From: lanek at novenine.com (Roy Lanek)
+Date: Mon, 10 Nov 2008 20:12:03 +0700
+Subject: Ion rewriting
+In-Reply-To: <slrnghg0ie.ues.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20081110075346.GA24300@sirih>
+	<slrnghg0ie.ues.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20081110131203.GA29432@sirih>
+
+
+> Rewrites in The Language of the Day are lame (see also the .signature), for
+> people with a lot of time in their hands and no original ideas.
+
+Haskell language-of-the-day ... why?, because xmonad is using it? (Nor was
+I thinking at an 1-1 rewrite, it would not work well in general even among
+languages of the same class.)
+
+> C works quite well, especially combined with Lua for the tasks that
+> are not nicely done in C.
+
+True: Eiffel, Ada, Modula-3, ..., even Haskell generate intermediary C code.
+(Works well apparently ... minus the setjmp and family thing.)
+
+> into the limitations of C, because I have my frameworks written ages ago.
+
+Oh dear, hello Moses- (the illiterate who brought back the astonishing
+writings) alike, or Muhammad- (ditto [illiterate]) alike. And who did write
+your "frameworks" "ages ago"?
+
+> The language just isn't meant for that kind of stuff.
+
+Can't tell now. On the other hand:
+
+    Haskell Hacking: a journal of Haskell programming
+    2007-05-17
+    Roll Your Own Window Manager: Tracking Focus with a Zipper
+    http://cgi.cse.unsw.edu.au/~dons/blog/2007/05/17
+
+> Dynamic data structures (e.g. objects) are _pain_ ...
+
+You do have a good, comfortable life, there in Finland, eh? :) Anyway, I don't
+remember such a "_pain_." (I am thinking back at a semester exercise in Hope
+of a bank-simulation: no _pain_.)
+
+> Bullshit. It's very very laboursome to make fast Haskell code, and
+> especially such that doesn't eat gigabytes of memory for breakfast.
+
+Hmmm ...
+
+I am sure you have seen those classic examples from the physiology ... one
+looks at image, and sees something. Then one looks again, and ... oh surprise,
+another, different thing can be discovered. Alternatively, you may have seen
+those examples which would implement the, e.g., Fibonacci function in a
+terribly inefficient way using recursion too naively ... and those solutions
+to thankfully *fix* that too.
+
+I have, e.g., *met* reference counting in the *real world* for the first time
+once we had to implement it for reusing allocated memory (Pascal on VAX)
+because we were larding objects on the left and on the right (paging) in a
+very inefficient way. (I have later discovered a similar situation described
+in Programmin Pearls, by the way.)
+
+/Roy
+-- 
+:::::::::::::::::::::::::::::::::::;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;::
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::9::
+::::::::::;::@@@:::::::::::::::@P:::::::::::::::::::::::::::::::::::::::9::
+:::::::@@@@::::@::L;:;;:::::;;;7F:;LL:;;;::::;LL:;L::;:::LLL:;;::;L;::::9::
+:::::::@@L@::::@::7@@FH@:::@FH@>@@@@7:9F7::::77@;:H at MH@;:77@@FHF at F77@:::@::
+:::::::::7@::::@:::@:::7E:H4::7>F::7@:@:::9L::::@:@F:::@:::@L:::F:;;@::::::
+::::::@@F:@L:::@:::@::::@:@::::>F:::@:@:::9L::::@:A::::@:::@::::@:777::::::
+::B:::@:::@:;:@@:::@L;;@@:AL:::::::;@:7@@@@L@:;@F:7@;:;@:::@::::7@@L:::::::
+::E:::7@@@57HM7@@@L:7HF7 at M:@@@::::@@E:@@@77L at HN7:::7HMF@@::@::::@;;@L::::::
+::E:::::::::::::::::::::::::::::::::::::::9@:::::::::::::::@@L::@7F7:::::::
+::E::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::AMMMMMMMMMM Slackware Linux MMMMMMMMMM:::::::::::::::::::::::::::::::::::
+
+
+From eider.oliveira at gmail.com  Mon Nov 10 14:18:50 2008
+From: eider.oliveira at gmail.com (Eider Oliveira)
+Date: Mon, 10 Nov 2008 11:18:50 -0200
+Subject: Ion rewriting
+In-Reply-To: <20081110131203.GA29432@sirih>
+References: <20081110075346.GA24300@sirih>
+	<slrnghg0ie.ues.tuomov@jolt.modeemi.cs.tut.fi>
+	<20081110131203.GA29432@sirih>
+Message-ID: <2e53f4ef0811100518w48a0f977hbd1238a6b526557e@mail.gmail.com>
+
+What prevents you to write a new window manager in whatever language you
+want? Why do it need to be in anyway related to ion?
+
+On Mon, Nov 10, 2008 at 11:12 AM, Roy Lanek <lanek at novenine.com> wrote:
+
+>
+> > Rewrites in The Language of the Day are lame (see also the .signature),
+> for
+> > people with a lot of time in their hands and no original ideas.
+>
+> Haskell language-of-the-day ... why?, because xmonad is using it? (Nor was
+> I thinking at an 1-1 rewrite, it would not work well in general even among
+> languages of the same class.)
+>
+> > C works quite well, especially combined with Lua for the tasks that
+> > are not nicely done in C.
+>
+> True: Eiffel, Ada, Modula-3, ..., even Haskell generate intermediary C
+> code.
+> (Works well apparently ... minus the setjmp and family thing.)
+>
+> > into the limitations of C, because I have my frameworks written ages ago.
+>
+> Oh dear, hello Moses- (the illiterate who brought back the astonishing
+> writings) alike, or Muhammad- (ditto [illiterate]) alike. And who did write
+> your "frameworks" "ages ago"?
+>
+> > The language just isn't meant for that kind of stuff.
+>
+> Can't tell now. On the other hand:
+>
+>    Haskell Hacking: a journal of Haskell programming
+>    2007-05-17
+>    Roll Your Own Window Manager: Tracking Focus with a Zipper
+>    http://cgi.cse.unsw.edu.au/~dons/blog/2007/05/17
+>
+> > Dynamic data structures (e.g. objects) are _pain_ ...
+>
+> You do have a good, comfortable life, there in Finland, eh? :) Anyway, I
+> don't
+> remember such a "_pain_." (I am thinking back at a semester exercise in
+> Hope
+> of a bank-simulation: no _pain_.)
+>
+> > Bullshit. It's very very laboursome to make fast Haskell code, and
+> > especially such that doesn't eat gigabytes of memory for breakfast.
+>
+> Hmmm ...
+>
+> I am sure you have seen those classic examples from the physiology ... one
+> looks at image, and sees something. Then one looks again, and ... oh
+> surprise,
+> another, different thing can be discovered. Alternatively, you may have
+> seen
+> those examples which would implement the, e.g., Fibonacci function in a
+> terribly inefficient way using recursion too naively ... and those
+> solutions
+> to thankfully *fix* that too.
+>
+> I have, e.g., *met* reference counting in the *real world* for the first
+> time
+> once we had to implement it for reusing allocated memory (Pascal on VAX)
+> because we were larding objects on the left and on the right (paging) in a
+> very inefficient way. (I have later discovered a similar situation
+> described
+> in Programmin Pearls, by the way.)
+>
+> /Roy
+> --
+> :::::::::::::::::::::::::::::::::::;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;::
+> ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::9::
+> ::::::::::;::@@@:::::::::::::::@P:::::::::::::::::::::::::::::::::::::::9::
+> :::::::@@@@::::@::L;:;;:::::;;;7F:;LL:;;;::::;LL:;L::;:::LLL:;;::;L;::::9::
+> :::::::@@L@::::@::7@@FH@:::@FH@>@@@@7:9F7::::77@;:H at MH@;:77@@FHF at F77
+> @:::@::
+> :::::::::7@::::@:::@:::7E:H4::7>F::7@:@:::9L::::@:@F:::@:::@L:::F:;;@
+> ::::::
+> ::::::@@F:@L:::@:::@::::@:@::::>F:::@:@:::9L::::@:A::::@
+> :::@::::@:777::::::
+> ::B:::@:::@:;:@@:::@L;;@@:AL:::::::;@:7@@@@L@:;@F:7@;:;@:::@::::7@
+> @L:::::::
+> ::E:::7@@@57HM7@@@L:7HF7 at M:@@@::::@@E:@@@77L at HN7:::7HMF@
+> @::@::::@;;@L::::::
+> ::E:::::::::::::::::::::::::::::::::::::::9@:::::::::::::::@@L::@7F7
+> :::::::
+> ::E::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+> ::AMMMMMMMMMM Slackware Linux MMMMMMMMMM:::::::::::::::::::::::::::::::::::
+>
+
+
+
+-- 
+Eider Oliveira
+
+Site: http://eider.eti.br
+Blog: http://eider.eti.br/Home/Blog/Blog.html
+
+I shall commit my thoughts to paper, but that is a poor medium for the
+communication of feeling. Robert Walton (Dr. Frankstein)
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20081110/6d7daac5/attachment.html>
+
+From tuomov at iki.fi  Mon Nov 10 14:51:39 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 10 Nov 2008 13:51:39 +0000 (UTC)
+Subject: Ion rewriting
+References: <20081110075346.GA24300@sirih>
+	<slrnghg0ie.ues.tuomov@jolt.modeemi.cs.tut.fi>
+	<20081110131203.GA29432@sirih>
+Message-ID: <slrnghgf3b.mh4.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-11-10, Roy Lanek <lanek at novenine.com> wrote:
+> Haskell language-of-the-day ... why?, 
+
+Umm... increasing popularity?
+
+> Oh dear, hello Moses- (the illiterate who brought back the astonishing
+> writings) alike, or Muhammad- (ditto [illiterate]) alike. And who did write
+> your "frameworks" "ages ago"?
+
+I have written object crap etc. for C. I can use them 
+comfortably enough.
+
+>> The language just isn't meant for that kind of stuff.
+>
+> Can't tell now. On the other hand:
+>
+>     Roll Your Own Window Manager: Tracking Focus with a Zipper
+
+They have a adaptive data structure for O(1) access to currently
+focussed window! How incredible! How about all the other state updates
+triggered by client software? A window manager depends on a lot of 
+state, and pure FP makes it difficult/laboursome to maintain it. 
+
+Pointers are comfortable.
+
+> You do have a good, comfortable life, there in Finland, eh? :) 
+
+Finland is a shithole.
+
+>> Bullshit. It's very very laboursome to make fast Haskell code, and
+>> especially such that doesn't eat gigabytes of memory for breakfast.
+>
+> I have, e.g., *met* reference counting in the *real world* for the first time
+
+It's not ref. counting/GC/shit I'm talking about. I'm talking about all
+the boxing and shit. The basic data structures incredibly inefficient,
+so you have to use other more hacky ones for efficiency, and they are
+again more difficult to use generically, may demand messing in the IO
+monad, etc. (The uniqueness typing of Clean seems more comfortable..)
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+
+From lanek at novenine.com  Mon Nov 10 16:16:05 2008
+From: lanek at novenine.com (Roy Lanek)
+Date: Mon, 10 Nov 2008 22:16:05 +0700
+Subject: Ion rewriting
+In-Reply-To: <2e53f4ef0811100518w48a0f977hbd1238a6b526557e@mail.gmail.com>
+References: <20081110075346.GA24300@sirih>
+	<slrnghg0ie.ues.tuomov@jolt.modeemi.cs.tut.fi>
+	<20081110131203.GA29432@sirih>
+	<2e53f4ef0811100518w48a0f977hbd1238a6b526557e@mail.gmail.com>
+Message-ID: <20081110151605.GA22955@sirih>
+
+
+> What prevents you to write a new window manager in whatever language you
+> want?
+
+Nothing.
+
+> Why do it need to be in anyway related to ion?
+
+Tuomo's experience and deep insight on the topic, window managers.
+
+/Roy
+-- 
+````````````````````````````````````````````````````````````````````````[``
+````````_`_``aRb```````````````R[```````````````````````````````````````[``
+``````_WWWW````W``_____`````___]P`___`___````___`__`___``___`__``____```[``
+```````Rb_W````W``^WWWWb_`_dWWW]bdWW^`dW^`````^W_`RWWWW_```WWWWPdW^^R```[``
+``````___`W_```W```W```db`d^``^]P``dR`W```dP````R`dP```W```R^``\P`__d^`````
+``````WWW`]P```W```R```_W`R````][```d`W_``db````W`d_```d```R````b`dWW^`````
+``]```R_`_d___dW```W___db`d__``````_W`^WRRWPR__dP`dR___W```R````]WR_```````
+``]````WWW^^WW^WWW^`^WW^WP`WWR````WWb`RWW^dPRWW^````WWWdW``R````W__dP``````
+``]```````````````````````````````````````dR```````````````RRP``W^W^```````
+``]````````````````````````````````````````````````````````````````````````
+``Raaaaaaaaaa slackware linux aaaaaaaaaa``````````````````````````````````
+
+
+From lanek at novenine.com  Mon Nov 10 16:17:53 2008
+From: lanek at novenine.com (Roy Lanek)
+Date: Mon, 10 Nov 2008 22:17:53 +0700
+Subject: Ion rewriting
+Message-ID: <20081110151753.GB22955@sirih>
+
+
+> Umm... increasing popularity?
+
+Then, and letting aside how *popularity* is measured or felt, Lua would make
+the much better bet.
+
+    http://lua-users.org/lists/lua-l/2006-08/msg00512.html
+
+    Subject: Re: Lua vs. Haskell (was Re: Bridging Lua to native C/C++ code
+             automatically)
+    From: Don Hopkins <dhopkins at ...>
+    Date: Tue, 29 Aug 2006 10:39:52 -0700
+
+    Haskel (like Lisp) is well designed (on a strong mathematical foundation)
+    to be compiled into efficient machine code, as opposed to a well designed
+    interpreted language like Lua, or badly designed interpreted language like
+    JavaScript.
+
+    But Haskel is about as far away from a "consumer programming language"
+    as you can get -- it's quite weird by most people's standards, and has
+    been known to cause people's heads explode. In the ideal world, more
+    people would have less explosive heads, but unfortunately Haskel is just
+    too powerful and esoteric for most people to handle. (Unfortunately, so
+    many people use shitty languages like PHP, so their programs explode
+    instead of their heads.) In the hands of a great programmer (like James
+    Clark), it's astounding what can be done in a few lines of Haskel, and
+    it's interesting to compare the amount of Java code it takes the same
+    programmer to implement the same algorithm.
+
+    ...
+
+> It's not ref. counting/GC/shit I'm talking about. I'm talking about all
+> the boxing and shit.
+
+Thank you. I wanted to tell that the original, *shitty* 'NEW' and 'DISPOSE',
+had to be simulated via a set of primitives, that dynamic memory had to
+become orderly preallocated, etc. in the *real world* 24/7 program ... as an
+illustration of a particular case of problem solving. (After that, everything
+worked like a charm, mostly, or enough well.)
+
+
+/Roy
+-- 
+:::::::::::::::::::::::::::::::::::;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;::
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::9::
+::::::::::;::@@@:::::::::::::::@P:::::::::::::::::::::::::::::::::::::::9::
+:::::::@@@@::::@::L;:;;:::::;;;7F:;LL:;;;::::;LL:;L::;:::LLL:;;::;L;::::9::
+:::::::@@L@::::@::7@@FH@:::@FH@>@@@@7:9F7::::77@;:H at MH@;:77@@FHF at F77@:::@::
+:::::::::7@::::@:::@:::7E:H4::7>F::7@:@:::9L::::@:@F:::@:::@L:::F:;;@::::::
+::::::@@F:@L:::@:::@::::@:@::::>F:::@:@:::9L::::@:A::::@:::@::::@:777::::::
+::B:::@:::@:;:@@:::@L;;@@:AL:::::::;@:7@@@@L@:;@F:7@;:;@:::@::::7@@L:::::::
+::E:::7@@@57HM7@@@L:7HF7 at M:@@@::::@@E:@@@77L at HN7:::7HMF@@::@::::@;;@L::::::
+::E:::::::::::::::::::::::::::::::::::::::9@:::::::::::::::@@L::@7F7:::::::
+::E::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::AMMMMMMMMMM Slackware Linux MMMMMMMMMM:::::::::::::::::::::::::::::::::::
+
+
+From tuomov at iki.fi  Mon Nov 10 17:01:57 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 10 Nov 2008 16:01:57 +0000 (UTC)
+Subject: Ion rewriting
+References: <20081110151753.GB22955@sirih>
+Message-ID: <slrnghgmnl.2ra.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-11-10, Roy Lanek <lanek at novenine.com> wrote:
+>     instead of their heads.) In the hands of a great programmer (like James
+>     Clark), it's astounding what can be done in a few lines of Haskel, and
+>     it's interesting to compare the amount of Java code it takes the same
+>     programmer to implement the same algorithm.
+
+Yep, you can do incredible things in 10 lines. But to think how to write
+those few lines takes ten times as long as the writing the corresponding
+1000 lines of C. That approach doesn't scale to big projects, where you have
+some other objective than an academic exercise in the language in question.
+And Haskell just sucks for the moderately object-oriented approach that is
+"obvious" for certain things. You have to build workarounds upon
+workarounds, because the obvious approach can't be sanely done.[*] And it gets
+very tiresome, if you have to try to come up with a non-obvious model for
+everything in a big project. The massive threading approach that I proposed
+might be workable and "functional" (as well as actually "message passing"
+OO), perhaps even scalable, but it also would need better language support
+to be convenient to use.
+
+I am actually very very slowly working on something in Haskell, dunno if
+I'll ever finish, and in all the time I've spent fighting with the language,
+I'd already have finished the project in C. Actually many things that would
+be a single line in C are tens of lines of Haskell... But the entire project
+is really an academic exercise.
+
+
+[*] That said, a lot of time should be spent on designing the 
+API of important core libraries etc. that everyone gets to suffer
+from, to avoid the crummy "obvious" approach, and maybe come up 
+with something nicer.
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+
+From sky at viridian-project.de  Mon Nov 10 18:10:48 2008
+From: sky at viridian-project.de (Leslie P. Polzer)
+Date: Mon, 10 Nov 2008 18:10:48 +0100 (CET)
+Subject: Ion rewriting
+In-Reply-To: <slrnghgmnl.2ra.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20081110151753.GB22955@sirih>
+	<slrnghgmnl.2ra.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <61393.88.73.213.174.1226337048.squirrel@mail.stardawn.org>
+
+
+> Yep, you can do incredible things in 10 lines. But to think how to write
+> those few lines takes ten times as long as the writing the corresponding
+> 1000 lines of C.
+
+> That approach doesn't scale to big projects
+
+> Haskell just sucks for the moderately object-oriented approach that is
+> "obvious" for certain things.
+
+> You have to build workarounds upon workarounds, because the obvious
+> approach can't be sanely done.[*]
+
+[...and so on...]
+
+Ever tried Common Lisp?
+
+  Leslie
+
+
+
+From tuomov at iki.fi  Mon Nov 10 18:46:25 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 10 Nov 2008 17:46:25 +0000 (UTC)
+Subject: Ion rewriting
+References: <20081110151753.GB22955@sirih>
+	<slrnghgmnl.2ra.tuomov@jolt.modeemi.cs.tut.fi>
+	<61393.88.73.213.174.1226337048.squirrel@mail.stardawn.org>
+Message-ID: <slrnghgsrh.5m0.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-11-10, Leslie P. Polzer <sky at viridian-project.de> wrote:
+> Ever tried Common Lisp?
+
+I'm not a fan of Lisp syntax.
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+
+From sky at viridian-project.de  Mon Nov 10 19:27:15 2008
+From: sky at viridian-project.de (Leslie P. Polzer)
+Date: Mon, 10 Nov 2008 19:27:15 +0100 (CET)
+Subject: Ion rewriting
+In-Reply-To: <slrnghgsrh.5m0.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20081110151753.GB22955@sirih>
+	<slrnghgmnl.2ra.tuomov@jolt.modeemi.cs.tut.fi>
+	<61393.88.73.213.174.1226337048.squirrel@mail.stardawn.org>
+	<slrnghgsrh.5m0.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <63474.88.73.213.174.1226341635.squirrel@mail.stardawn.org>
+
+
+> On 2008-11-10, Leslie P. Polzer <sky at viridian-project.de> wrote:
+>> Ever tried Common Lisp?
+>
+> I'm not a fan of Lisp syntax.
+
+That's too bad, you're really missing out on something
+-- not least *because* of the syntax. :)
+
+  Leslie
+
+
+
+From cptsalek at gmail.com  Mon Nov 10 19:56:22 2008
+From: cptsalek at gmail.com (Christian Walther)
+Date: Mon, 10 Nov 2008 19:56:22 +0100
+Subject: Ion rewriting
+In-Reply-To: <63474.88.73.213.174.1226341635.squirrel@mail.stardawn.org>
+References: <20081110151753.GB22955@sirih>
+	<slrnghgmnl.2ra.tuomov@jolt.modeemi.cs.tut.fi>
+	<61393.88.73.213.174.1226337048.squirrel@mail.stardawn.org>
+	<slrnghgsrh.5m0.tuomov@jolt.modeemi.cs.tut.fi>
+	<63474.88.73.213.174.1226341635.squirrel@mail.stardawn.org>
+Message-ID: <14989d6e0811101056g702ab4bm40ac5ecbb28718a8@mail.gmail.com>
+
+Hi,
+
+2008/11/10 Leslie P. Polzer <sky at viridian-project.de>:
+- Show quoted text -
+>
+>> On 2008-11-10, Leslie P. Polzer <sky at viridian-project.de> wrote:
+>>> Ever tried Common Lisp?
+>>
+>> I'm not a fan of Lisp syntax.
+>
+> That's too bad, you're really missing out on something
+> -- not least *because* of the syntax. :)
+>
+personally I take a rather pragmatic aproach: If you can do what you
+want to do in your programming language of choice, use it. Just
+because a programming language contains great features doesn't mean
+that the resulting code will be good. A programmer has to exploit the
+possibilities a programming language offers. If he fails to do so, he
+will probably write bad code.
+I'll never forget one of my teachers telling me that I used java to
+store my functions. I'm still not sure that I understand what he
+meant. ;-)
+But if one knows how to use a programming language one is already
+familiar in, it can be assumed (to some degree) that the code is of
+some quality and conforms to some standards of this specific
+programming language.
+That's why I feel that every programmer should use the programming
+language of his or her choice. Of course this doesn't work with bigger
+projects.
+In this case I think nearly all programming languages would be fine,
+as they are many window managers written in many diffderent
+programming languages.
+That's why I think that this discussion is kind of... pointless.
+
+Christian
+
+
+From tuomov at iki.fi  Mon Nov 10 21:13:47 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 10 Nov 2008 20:13:47 +0000 (UTC)
+Subject: Ion rewriting
+References: <20081110151753.GB22955@sirih>
+	<slrnghgmnl.2ra.tuomov@jolt.modeemi.cs.tut.fi>
+	<61393.88.73.213.174.1226337048.squirrel@mail.stardawn.org>
+	<slrnghgsrh.5m0.tuomov@jolt.modeemi.cs.tut.fi>
+	<63474.88.73.213.174.1226341635.squirrel@mail.stardawn.org>
+	<14989d6e0811101056g702ab4bm40ac5ecbb28718a8@mail.gmail.com>
+Message-ID: <slrnghh5fr.gl4.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-11-10, Christian Walther <cptsalek at gmail.com> wrote:
+> I'll never forget one of my teachers telling me that I used java to
+> store my functions. I'm still not sure that I understand what he
+> meant. ;-)
+
+One example of Pure Uglyness in programming languages are the
+OO first class function hacks. i.e. writing some kind of
+Function1<Int,Int> template class, overloading the call 
+operator, etc. 
+
+> That's why I think that this discussion is kind of... pointless.
+
+Of course it is, as are rewrites just because the language 
+used isn't in fashion anymore.
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+
+From tuomov at iki.fi  Tue Nov 11 09:53:01 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 11 Nov 2008 08:53:01 +0000 (UTC)
+Subject: Ion rewriting
+References: <20081110151753.GB22955@sirih>
+	<slrnghgmnl.2ra.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnghihvd.ue7.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-11-10, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> And Haskell just sucks for the moderately object-oriented approach that is
+> "obvious" for certain things. 
+
+OTOH, Haskell and Parsec [1] are simply wonderful for writing parsers.
+In fact, I use Haskell in the build process of Ion for parsing translatable
+strings from Lua source with lua-xgettext [2]. With Parsec, the parser [3]
+can be pretty much written in a DSL monad as the language is specified,
+without crummy parser generators.
+
+  [1]: http://www.cs.uu.nl/~daan/parsec.html
+
+  [2]: darcs get http://modeemi.fi/~tuomov/repos/lua-xgettext/
+
+  [3]: http://modeemi.fi/~tuomov/repos/lua-xgettext/Kuu/Parser.hs
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+
+From psnowber at nd.edu  Thu Nov 13 07:25:33 2008
+From: psnowber at nd.edu (Philip Snowberger)
+Date: Wed, 12 Nov 2008 22:25:33 -0800
+Subject: Ion rewriting
+In-Reply-To: <slrnghihvd.ue7.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20081110151753.GB22955@sirih>
+	<slrnghgmnl.2ra.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrnghihvd.ue7.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <f813e820811122225s86b2bdbuf9352a98b22dfaf7@mail.gmail.com>
+
+On Tue, Nov 11, 2008 at 12:53 AM, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2008-11-10, Tuomo Valkonen <tuomov at iki.fi> wrote:
+>> And Haskell just sucks for the moderately object-oriented approach that is
+>> "obvious" for certain things.
+>
+> OTOH, Haskell and Parsec [1] are simply wonderful for writing parsers.
+
+Do you find that's the case because of pattern-matching function
+definition syntax ?
+
+I wrote a lambda-calculus to SECD machine [1] compiler (not parser)
+and an SECD machine emulator [2] in (completely singly-threaded)
+Erlang, and found it easy for this very reason.
+
+[1] http://en.wikipedia.org/wiki/SECD_machine
+[2] ok, so I didn't get the RAP instruction to work because I didn't
+think of a good workaround for the lack of a lisp "rplaca"-like
+function before the semester ran out.  I had some good ideas for how
+to do it after the semester ended, though.
+
+
+From tuomov at iki.fi  Thu Nov 13 08:37:35 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 13 Nov 2008 07:37:35 +0000 (UTC)
+Subject: Ion rewriting
+References: <20081110151753.GB22955@sirih>
+	<slrnghgmnl.2ra.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrnghihvd.ue7.tuomov@jolt.modeemi.cs.tut.fi>
+	<f813e820811122225s86b2bdbuf9352a98b22dfaf7@mail.gmail.com>
+Message-ID: <slrnghnm9v.gcs.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-11-13, Philip Snowberger <psnowber at nd.edu> wrote:
+> On Tue, Nov 11, 2008 at 12:53 AM, Tuomo Valkonen <tuomov at iki.fi> wrote:
+>> On 2008-11-10, Tuomo Valkonen <tuomov at iki.fi> wrote:
+>>> And Haskell just sucks for the moderately object-oriented approach that is
+>>> "obvious" for certain things.
+>>
+>> OTOH, Haskell and Parsec [1] are simply wonderful for writing parsers.
+>
+> Do you find that's the case because of pattern-matching function
+> definition syntax ?
+
+In case of Parsec, I think it's more about how monads can be used 
+to create domain specific languages (DSLs), and the monad syntax.
+
+Of course, one can write primitive parsers with the language's pattern
+matcher too, but Parsec is even more convenient than for anything
+except the most trivial parsers.
+
+That said, pattern matching and algebraic data types / tagged unions
+are a very nice thing. If there are two features I'd most like C
+to have without significantly altering its nature, it would be
+tagged unions and subtyping (i.e. the most basic component of
+inheritance).
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+
+From lanek at novenine.com  Thu Nov 13 09:26:25 2008
+From: lanek at novenine.com (Roy Lanek)
+Date: Thu, 13 Nov 2008 15:26:25 +0700
+Subject: Ion rewriting
+In-Reply-To: <slrnghgmnl.2ra.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20081110151753.GB22955@sirih>
+	<slrnghgmnl.2ra.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20081113082625.GA1669@sirih>
+
+> Yep, you can do incredible things in 10 lines. But to think how to write
+> those few lines takes ten times as long as the writing the corresponding
+> 1000 lines of C.
+
+Well, c'est la vie :)
+
+And see--kidding ... you certainly are not a *belalang*--the signature ;)
+
+To go back to the eccentric scuba-diving (see previous emails) off-topic: we
+Swiss from Lugano were, with the Bolognesi from Italy, among the (no kidding)
+"strongest [sic] in Europe" ... except when there were the Russians (former
+Soviet Union) around. In that case it was a "_pain_" truly. Those Russians
+were Martians, also a galaxy apart technologically speaking: not much dineros
+in the wallet, but the most advanced [read: best designed] flippers (to be
+copied every time); the first to use sonars for navigation (buoy searching),
+etc. A bit like with ice hockey, which maybe (Finland) you know better than
+scuba diving.
+
+Alternatively; my (retired) analysis professor, the most gifted and
+g-e-n-i-a-l professor I have seen ever, a Polya's personal friend, and the
+brother of a know Swiss philosopher, has told us--students--once that after
+graduating (mathematics) he has tried to continue studying mathematics (his
+domain of interest was differential equations applied to membranes, or
+something like that) in France, at the time perhaps #1 in Europe for best
+schools. He had to return to Switzerland though because the tempo and the
+progress demanded was mad, crazy in his words, and could not keep the pace.
+
+> That approach doesn't scale to big projects
+
+Well, I have not proposed to rewrite Linux or PostgreSQL in Haskell yet ...
+
+
+/Roy
+--
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   dimana tak da lang, aku lah lang, kata
+SSSSS . s l a c k w a r e  SSSSSS   belalang--where there are no eagles, I am
+SSSSS +------------ linux  SSSSSS   the one, said the grasshopper [where's no
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   top dogs, underdogs will be seen as one]
+
+                                   ______________________________________
+                                                                        #
+          _  q@@               @p                                       #
+       @#@@    @  _p___     ___]F _gp q__    q__ qg __   pgg __  ___    #
+       #pp#    @  ^@###@   ###@]@@@@* q#*    "*#_'#@###p ""#@##F#W"7@   #
+      __ "@    @   @   dk #"  "]F  7@ @   qL    @ #F   @   #"  qF __#
+      @## ]|   @   @    @ #    ][   # @   qL    @ #    #   #    @ #WW
+  g   @  _ at ___g@   #___@@ #L    "  _# 7@@g at L@__#" 7 at ___@   #    #@pp
+  #   7#@#*"##*@@@  *##^@M @@@    @@E @@@"qL###"   7##W#@  #    @__ at +
+  #                                       q@               #@p  #"#*
+  #
+  #mmmmmmmmmm slackware linux mmmmmmmmmm
+
+
+From tuomov at iki.fi  Thu Nov 13 12:52:36 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 13 Nov 2008 11:52:36 +0000 (UTC)
+Subject: Ion rewriting
+References: <20081110151753.GB22955@sirih>
+	<slrnghgmnl.2ra.tuomov@jolt.modeemi.cs.tut.fi>
+	<20081113082625.GA1669@sirih>
+Message-ID: <slrngho584.i2m.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-11-13, Roy Lanek <lanek at novenine.com> wrote:
+> etc. A bit like with ice hockey, which maybe (Finland) you know better than
+> scuba diving.
+
+I don't.
+
+>> That approach doesn't scale to big projects
+>
+> Well, I have not proposed to rewrite Linux or PostgreSQL in Haskell yet ...
+
+Even Ion is far too much work to rewrite, with little practical 
+benefit. Rewrites of working code just to conform to fads are 
+pure insanity. I rather concentrate my academic wanking on the 
+far more interesting mathematics... 
+
+Indeed, one of the biggest obstacles I have in producing new
+code is that I'd need to be able to take a lot of time to
+properly concentrate on it. But I don't have that time and
+energy, and it's always a lot of effort to start working for
+a few spare hours on something you only ever look at for 
+a few hours every couple of weeks. Maintaining an existing 
+codebase that you've previously had more time and energy
+to concentrate on, so it's burned into your neural patterns,
+is far easier. One should be able to get into The Zone for
+an extended period to properly get going with a new project,
+but with projects bigger than a single-file hack, it's difficult
+to find the time and energy. Indeed, I found The Zone to write 
+Riot in, immediately after having lost the shitjob I had back 
+then. (One of the best days of my life.)
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+
+From lanek at novenine.com  Thu Nov 13 14:58:11 2008
+From: lanek at novenine.com (Roy Lanek)
+Date: Thu, 13 Nov 2008 20:58:11 +0700
+Subject: Ion rewriting
+In-Reply-To: <slrngho584.i2m.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20081110151753.GB22955@sirih>
+	<slrnghgmnl.2ra.tuomov@jolt.modeemi.cs.tut.fi>
+	<20081113082625.GA1669@sirih>
+	<slrngho584.i2m.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20081113135811.GA8179@sirih>
+
+
+> One should be able to get into The Zone for an extended period to properly
+> get going with a new project
+
+Which The Zone?! ... the only one I *know* is those of a marvelous, fabulous
+movie, Andrei Tarkovsky's Stalker (I would now, that I am recalling it, put
+Stalker in the best three movies I have seen ever). There is also the book,
+Stalker.
+
+Funny, you have an alter ego in Switzerland (and vice versa): a gifted
+mathematician (I have been told professor Henrici, a renown mathematician and
+absolutely not an easy man by reputation, has asked him, in vain, to become
+his assistant), a genial programmer for sure ... the best one I have met and
+have worked with a couple of years.
+
+You are talking, reasoning, and are productive (very productive), exactly
+the same way (and vice versa).
+
+In fact, these off-topics are recalling me discussions--intellectually very
+productive *collateral thinking*--at the cafeteria.
+
+:)
+
+/Roy
+-- 
+                                  _______________________________________
+````````````````````````````````````````````````````````````````````````f``
+````````_`_``qgp```````````````pp```````````````````````````````````````f``
+``````_WWWW````W``_p___`````___]P`_gp`q__````q__`qg`___``pgg`__``____```f``
+```````hppW````W``^hWWWh_`_gWWW]hgWW^`qW^`````^W_`qgWWWp```qgWWkgW^^h```f``
+``````___`W_```W```W```dk`q^``^]P``dh`W```qP```~k`qk```W```q^``qP`__q^`````
+`````~WWW`]|```W```h```_k`q````][```q`W_``qb````W`q_```q```q````h`tWW^`````
+``g```h_`_g___gW```W___gk`dp_``````_W`^WpgWPR__gP`dh___W```q````]Wpp```````
+``k````WmW^^WW^Wmm^`^WW^Wp`WWm````mWk`mWW^qPRWW^````WWWqW``q````W__g|``````
+``k```````````````````````````````````````qh```````````````qpp``W^W^```````
+``k````````````````````````````````````````````````````````````````````````
+``hmmmmmmmmmm slackware linux mmmmmmmmmm~``````````````````````````````````
+
+
+From tuomov at iki.fi  Thu Nov 13 15:16:15 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 13 Nov 2008 14:16:15 +0000 (UTC)
+Subject: Ion rewriting
+References: <20081110151753.GB22955@sirih>
+	<slrnghgmnl.2ra.tuomov@jolt.modeemi.cs.tut.fi>
+	<20081113082625.GA1669@sirih>
+	<slrngho584.i2m.tuomov@jolt.modeemi.cs.tut.fi>
+	<20081113135811.GA8179@sirih>
+Message-ID: <slrnghodlf.agr.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-11-13, Roy Lanek <lanek at novenine.com> wrote:
+> Which The Zone?! ... 
+
+The Zone, the flow, super-concentration/immersion on/in a problem.
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+
+From lanek at novenine.com  Thu Nov 13 16:08:05 2008
+From: lanek at novenine.com (Roy Lanek)
+Date: Thu, 13 Nov 2008 22:08:05 +0700
+Subject: Ion rewriting
+In-Reply-To: <slrnghodlf.agr.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20081110151753.GB22955@sirih>
+	<slrnghgmnl.2ra.tuomov@jolt.modeemi.cs.tut.fi>
+	<20081113082625.GA1669@sirih>
+	<slrngho584.i2m.tuomov@jolt.modeemi.cs.tut.fi>
+	<20081113135811.GA8179@sirih>
+	<slrnghodlf.agr.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20081113150805.GA652@sirih>
+
+
+> The Zone, the flow, super-concentration/immersion on/in a problem.
+
+    Stalker (Russian: Stalker) is a 1979 science fiction film directed by
+    Andrei Tarkovsky, and loosely based on the novel Roadside Picnic by Boris
+    and Arkady Strugatsky. It depicts the journey of three men as they travel
+    through a post-apocalyptic wilderness called The Zone to find a room that
+    has the potential to fulfil a person's innermost desires. The film stars
+    Alexander Kaidanovsky in the title role of the 'Stalker', who guides
+    the other two men: the Writer, played by Anatoli Solonitsyn, and the
+    Professor, played by Nikolai Grinko. Alisa Freindlich plays the Stalker's
+    wife.
+
+    ...
+
+    http://en.wikipedia.org/wiki/Stalker_(film)
+
+If you never have seen Stalker the movie, try to find it somewhere. The
+film is for once better than the book--which I have read in French though I
+am not much a fan of science-fiction books, hence I am not a reference--in
+fact it's a must have seen movie. (In comparison, I never have managed
+to finish watching The Matrix awaken: Zzzz ... say while traveling on a
+speed-boat--because no, I don't suffer of sleeping disorders really.)
+
+If Ion is Joe, then Stalker is Hendrix and The Matrix is Madonna ... or
+Jackson (pick the one you *prefer*).
+
+/Roy
+-- 
+                                   ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+                                                                        #
+          ,  (##               #;                                       #
+       ####    #  ,, ,,     ,,,7) ,&& ,,,    ,,, ,&  ,   &&& ,,  ,,,    #
+       ##&#    #  *#####   ####(####* ##*    "*#,'#####, ""####4#*"7#   #
+         "#    #   #   74 #"  "(5  7# #   #+    # #"   #   #"   # ,,#
+      ### #!   #   #    # #    ()   # #   #5    # #    #   #    # ###
+  &   #   #   ##   #;,,## #&    "  ,# 7#%&#+# ,#" 7%, ,#   #    ##&&
+  #   7###*"##*###  *##*## ###    ##4 ###"#+###"   7#####  #    #,,#+
+  #                                       ##               #%;  #"#*
+  #
+  #%%%%%%%%%% Slackware Linux %%%%%%%%%%
+
+
+From jan0sch at gmx.net  Thu Nov 13 19:06:36 2008
+From: jan0sch at gmx.net (Jens Jahnke)
+Date: Thu, 13 Nov 2008 19:06:36 +0100
+Subject: Ion rewriting [OFF-TOPIC Stalker]
+In-Reply-To: <20081113150805.GA652@sirih>
+References: <20081110151753.GB22955@sirih>
+	<slrnghgmnl.2ra.tuomov@jolt.modeemi.cs.tut.fi>
+	<20081113082625.GA1669@sirih>
+	<slrngho584.i2m.tuomov@jolt.modeemi.cs.tut.fi>
+	<20081113135811.GA8179@sirih>
+	<slrnghodlf.agr.tuomov@jolt.modeemi.cs.tut.fi>
+	<20081113150805.GA652@sirih>
+Message-ID: <20081113190636.543ce879.jan0sch@gmx.net>
+
+On Thu, 13 Nov 2008 22:08:05 +0700
+Roy Lanek <lanek at novenine.com> wrote:
+
+RL> If you never have seen Stalker the movie, try to find it somewhere.
+
+I second that, this movie is amazing. :-)
+
+regards,
+
+jens
+
+-- 
+13. Nebelung 2008, 19:05
+Homepage : http://www.jan0sch.de
+
+Beware of a tall black man with one blond shoe.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 697 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20081113/a06ebfc8/attachment.pgp>
+
+From juri_mian at yahoo.com  Thu Nov 13 20:05:03 2008
+From: juri_mian at yahoo.com (Juri Mianovich)
+Date: Thu, 13 Nov 2008 11:05:03 -0800 (PST)
+Subject: quickly cloning an existing statusbar script (date)?
+Message-ID: <750567.41042.qm@web45610.mail.sp1.yahoo.com>
+
+I'm trying to do something very simple:
+
+[ Thu 2008-11-13 12:56 (US) || Thu 2008-11-13 19:56 (UK) ]
+
+I'm just trying to display two timezones at the same time in the statusbar.  Since 'date' is already included in the statusbar by default, I am trying to do this without writing a new script.
+
+
+I have tried two things:
+
+
+First, I:
+
+cp /usr/local/lib/ion3/lc/statusd_date.lc /usr/local/lib/ion3/lc/statusd_ukdate.lc
+
+and then uncommented, and changed the /usr/local/etc/ion3/cfg_statusbar.lua template line to:
+
+template="[ %date || %ukdate || load: %05load_1min || mail: %02mail_new/%02mail_total ] %filler%systray",
+
+But the statusbar just has a "??" in it for "%ukdate", even though that script exists.
+
+ALSO, I am not sure how I would edit statusd_ukdate.lc to have a +7 hours in its 'date' command, since the .lc file is not text, but just binary data.
+
+So that attempt did not work well - was I close ?  Is there any way to just copy and quickly edit the _existing_ date script and stick it into my systemwide template ?
+
+
+
+My second attempt was to just change the default date_format line in cfg_statusbar.lua to output multiple dates:
+
+date_format='%a %Y-%m-%d %H:%M (US) || %a %Y-%m-%d %H:%M (UK)
+
+This ^^^ DOES work, but I do not see how to modify the:
+
+%a %Y-%m-%d %H:%M
+
+to add a +7 offset to %H ...
+
+
+---
+
+which of these two strategies should I continue to pursue ?  Again, I don't want to write new scripts since the date script is _already_ written and I just want to reuse it ...
+
+Thanks.
+
+
+      
+
+
+
+From juri_mian at yahoo.com  Thu Nov 13 20:07:33 2008
+From: juri_mian at yahoo.com (Juri Mianovich)
+Date: Thu, 13 Nov 2008 11:07:33 -0800 (PST)
+Subject: two quick misc. questions - labeling workspace and changing title bar
+	height...
+Message-ID: <870670.19648.qm@web45607.mail.sp1.yahoo.com>
+
+Hello,
+
+When I create a workspace, it is named:
+
+<empty frame>
+
+And when I start a program in it (an xterm, firefox) the name changes to that.  But what if I want to permanently rename that workspace to:
+
+"my favorite xterms"  (or whatever) and have that name/title stick ?
+
+
+
+Second, I'd like to change the height of the title bar slightly and have that new height apply to all future title bars.  How can I do that ?
+
+
+Many thanks!
+
+
+      
+
+
+
+From tuomov at iki.fi  Thu Nov 13 20:37:25 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 13 Nov 2008 19:37:25 +0000 (UTC)
+Subject: quickly cloning an existing statusbar script (date)?
+References: <750567.41042.qm@web45610.mail.sp1.yahoo.com>
+Message-ID: <slrnghp0fl.lj7.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-11-13, Juri Mianovich <juri_mian at yahoo.com> wrote:
+> But the statusbar just has a "??" in it for "%ukdate", even though that
+> script exists.
+
+The monitor must of course be modified to use the correct meter names...
+
+> ALSO, I am not sure how I would edit statusd_ukdate.lc to have a +7 hours
+> in its 'date' command, since the .lc file is not text, but just binary
+> data.
+
+... for which you need to modify the original .lua file.
+
+> My second attempt was to just change the default date_format line in
+> cfg_statusbar.lua to output multiple dates:
+>
+> date_format='%a %Y-%m-%d %H:%M (US) || %a %Y-%m-%d %H:%M (UK)
+>
+> This ^^^ DOES work, but I do not see how to modify the:
+>
+> %a %Y-%m-%d %H:%M
+>
+> to add a +7 offset to %H ...
+
+There's no simple way. The date monitor supports multiple
+simultaneous date formats (rtf config file), so one could
+add a zone option for them, and modify the values in the
+date table.
+
+But I'm not sure this will have the correct effect. You see, 
+we have this excellent demonstration of the idiocy of mankind, 
+called daylight saving time. And the times it changes, are 
+different for different locales.
+
+So, I'm not actually sure you can get good multi-zone dates
+from libc without Awful Hacks, as it does not support specifying
+the zone from your code, just through the environment or other 
+configuration files. Better multi-zone dates would probably 
+involve a programming effort with some library better suited 
+to that. Or calling an external program that does it, which 
+is a bit too resource-intensive for a time display monitor. 
+
+However, libc does support UTC/GMT in addition to the local
+tie zone, and Lua should display that if you start the format
+string with '!'.
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+
+From tuomov at iki.fi  Thu Nov 13 20:39:44 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 13 Nov 2008 19:39:44 +0000 (UTC)
+Subject: two quick misc. questions - labeling workspace and changing title
+	bar height...
+References: <870670.19648.qm@web45607.mail.sp1.yahoo.com>
+Message-ID: <slrnghp0k0.lj7.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-11-13, Juri Mianovich <juri_mian at yahoo.com> wrote:
+> Hello,
+>
+> When I create a workspace, it is named:
+>
+><empty frame>
+
+That's not the workspace name; it's just indicator of an empty frame.
+
+> "my favorite xterms"  (or whatever) and have that name/title stick ?
+
+Mod1+M workspace/rename
+
+> Second, I'd like to change the height of the title bar slightly and have
+> that new height apply to all future title bars.  How can I do that ?
+
+Change the style file.
+
+PS. Turn on line in your mail program. Max. ~76 characters/line.
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+
+From juri_mian at yahoo.com  Thu Nov 13 22:01:45 2008
+From: juri_mian at yahoo.com (Juri Mianovich)
+Date: Thu, 13 Nov 2008 13:01:45 -0800 (PST)
+Subject: quickly cloning an existing statusbar script (date)?
+In-Reply-To: <slrnghp0fl.lj7.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <612762.8995.qm@web45607.mail.sp1.yahoo.com>
+
+
+Hello,
+
+
+--- On Thu, 11/13/08, Tuomo Valkonen <tuomov at iki.fi> wrote:
+
+> > But the statusbar just has a "??" in it for
+> "%ukdate", even though that
+> > script exists.
+> 
+> The monitor must of course be modified to use the correct
+> meter names...
+> 
+> > ALSO, I am not sure how I would edit statusd_ukdate.lc
+> to have a +7 hours
+> > in its 'date' command, since the .lc file is
+> not text, but just binary
+> > data.
+> 
+> ... for which you need to modify the original .lua file.
+
+
+Thanks for your response.  I think I will pursue it this way,
+which is to create a %ukdate.
+
+So, in addition to adding a second item to the default
+template, like this:
+
+template="[  %date  %ukdate  ] %filler%systray",
+
+and adding this block of code to cfg_statusbar.lua:
+
+ukdate={
+ukdate_format='  %a %Y-%m-%d %H:%M  UK'
+}
+
+I also need to:
+
+- edit the monitor
+- find the original lua file for statusd_date.lc, edit it
+  for a +7 (hard hack for DST, sorry) and recompile it to
+  a lc file
+
+If that is correct, would you tell me what/where "the monitor"
+is ?
+
+I am going to change this line:
+
+statusd.inform('date', os.date(settings.date_format, tm))
+
+to this:
+
+statusd.inform('date -v +7H', os.date(settings.date_format, tm))
+
+does that seem reasonable ?
+
+Thanks again.
+
+
+      
+
+
+
+From tuomov at iki.fi  Thu Nov 13 22:23:33 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 13 Nov 2008 21:23:33 +0000 (UTC)
+Subject: quickly cloning an existing statusbar script (date)?
+References: <slrnghp0fl.lj7.tuomov@jolt.modeemi.cs.tut.fi>
+	<612762.8995.qm@web45607.mail.sp1.yahoo.com>
+Message-ID: <slrnghp6ml.85c.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-11-13, Juri Mianovich <juri_mian at yahoo.com> wrote:
+>
+> Hello,
+>
+>
+> --- On Thu, 11/13/08, Tuomo Valkonen <tuomov at iki.fi> wrote:
+>
+>> > But the statusbar just has a "??" in it for
+>> "%ukdate", even though that
+>> > script exists.
+>> 
+>> The monitor must of course be modified to use the correct
+>> meter names...
+>> 
+>> > ALSO, I am not sure how I would edit statusd_ukdate.lc
+>> to have a +7 hours
+>> > in its 'date' command, since the .lc file is
+>> not text, but just binary
+>> > data.
+>> 
+>> ... for which you need to modify the original .lua file.
+>
+>
+> Thanks for your response.  I think I will pursue it this way,
+> which is to create a %ukdate.
+>
+> So, in addition to adding a second item to the default
+> template, like this:
+>
+> template="[  %date  %ukdate  ] %filler%systray",
+>
+> and adding this block of code to cfg_statusbar.lua:
+>
+> ukdate={
+> ukdate_format='  %a %Y-%m-%d %H:%M  UK'
+> }
+>
+> I also need to:
+>
+> - edit the monitor
+> - find the original lua file for statusd_date.lc, edit it
+>   for a +7 (hard hack for DST, sorry) and recompile it to
+>   a lc file
+>
+> If that is correct, would you tell me what/where "the monitor"
+> is ?
+>
+> I am going to change this line:
+>
+> statusd.inform('date', os.date(settings.date_format, tm))
+>
+> to this:
+>
+> statusd.inform('date -v +7H', os.date(settings.date_format, tm))
+>
+> does that seem reasonable ?
+>
+> Thanks again.
+>
+>
+>       
+>
+>
+
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+
+From tuomov at iki.fi  Thu Nov 13 22:24:39 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 13 Nov 2008 21:24:39 +0000 (UTC)
+Subject: quickly cloning an existing statusbar script (date)?
+References: <slrnghp0fl.lj7.tuomov@jolt.modeemi.cs.tut.fi>
+	<612762.8995.qm@web45607.mail.sp1.yahoo.com>
+Message-ID: <slrnghp6on.85c.tuomov@jolt.modeemi.cs.tut.fi>
+
+(Bah, stupid slrn messed up something.)
+
+On 2008-11-13, Juri Mianovich <juri_mian at yahoo.com> wrote:
+> does that seem reasonable ?
+
+It doesn't make any sense.
+You should probably RTFM the basics on writing statusd monitors.
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+
+From tuomov at iki.fi  Fri Nov 14 08:16:11 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 14 Nov 2008 07:16:11 +0000 (UTC)
+Subject: quickly cloning an existing statusbar script (date)?
+References: <slrnghp0fl.lj7.tuomov@jolt.modeemi.cs.tut.fi>
+	<612762.8995.qm@web45607.mail.sp1.yahoo.com>
+Message-ID: <slrnghq9dr.rhf.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-11-13, Juri Mianovich <juri_mian at yahoo.com> wrote:
+> If that is correct, would you tell me what/where "the monitor"
+> is ?
+
+Where ever you found the following line:
+
+> statusd.inform('date', os.date(settings.date_format, tm))
+>
+> to this:
+>
+> statusd.inform('date -v +7H', os.date(settings.date_format, tm))
+>
+> does that seem reasonable ?
+
+The monitor name must be parseable, and should be based on the
+file name. RTFM:
+
+http://modeemi.fi/~tuomov/ion-doc-3/ionconf/node6.html#SECTION00640000000000000000
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+
+From urwithsughosh at gmail.com  Fri Nov 14 20:43:31 2008
+From: urwithsughosh at gmail.com (sughosh ganu)
+Date: Sat, 15 Nov 2008 01:13:31 +0530
+Subject: Can't type queries
+In-Reply-To: <c428b8f0811141137p7f83009bmc1be44e14b725602@mail.gmail.com>
+References: <c428b8f0811141137p7f83009bmc1be44e14b725602@mail.gmail.com>
+Message-ID: <c428b8f0811141143y58369711s6d1bf5908dc58141@mail.gmail.com>
+
+Hello,
+   I have installed the latest stable version of ion3 (ion-3-20081002
+tarball) on my dell xps notebook. I am able to use all the key
+bindings, but am not able to type into queries. So pressing F3 prompts
+for a command, but typing does not produce any string. Same is the
+case with other keys like F4 and F5.
+
+ I did a grep on the mail archives and found that a similar issue was
+reported last year. Tuomov had replied saying that there could have
+been a problem translating the keystrokes to strings. Has there been a
+fix found for this issue. A peculiar fact is that the issue listed in
+the mail archive was also reported on a notebook (thinkpad). I have
+installed ion on PC's and have never come across this issue. Do i need
+to tweak some X settings to get this working.
+
+--
+sughosh
+
+
+From juri_mian at yahoo.com  Fri Nov 14 21:22:36 2008
+From: juri_mian at yahoo.com (Juri Mianovich)
+Date: Fri, 14 Nov 2008 12:22:36 -0800 (PST)
+Subject: two quick misc. questions - labeling workspace and changing title
+	bar height...
+In-Reply-To: <slrnghp0k0.lj7.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <91047.81808.qm@web45614.mail.sp1.yahoo.com>
+
+
+
+
+--- On Thu, 11/13/08, Tuomo Valkonen <tuomov at iki.fi> wrote:
+
+> >
+> > When I create a workspace, it is named:
+> >
+> ><empty frame>
+> 
+> That's not the workspace name; it's just indicator
+> of an empty frame.
+> 
+> > "my favorite xterms"  (or whatever) and have
+> that name/title stick ?
+> 
+> Mod1+M workspace/rename
+
+
+I did this, and the workspace still has:
+
+xterm<5>
+
+in the title.  Or in the case of my web browser,
+the title of the current web page is in the
+window title.
+
+How do I permanently change the label that I see
+in the purple bar at the top of the current
+workspace ?
+
+Thanks.
+
+
+      
+
+
+
+From tuomov at iki.fi  Sat Nov 15 09:59:53 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 15 Nov 2008 08:59:53 +0000 (UTC)
+Subject: two quick misc. questions - labeling workspace and changing title
+	bar height...
+References: <slrnghp0k0.lj7.tuomov@jolt.modeemi.cs.tut.fi>
+	<91047.81808.qm@web45614.mail.sp1.yahoo.com>
+Message-ID: <slrnght3s9.nrn.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-11-14, Juri Mianovich <juri_mian at yahoo.com> wrote:
+> I did this, and the workspace still has:
+>
+> xterm<5>
+>
+> in the title.  
+
+It's not workspace title. It's the window title.
+Workspace titles aren't shown.
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+
+From tuomov at iki.fi  Sat Nov 15 10:04:00 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 15 Nov 2008 09:04:00 +0000 (UTC)
+Subject: Can't type queries
+References: <c428b8f0811141137p7f83009bmc1be44e14b725602@mail.gmail.com>
+	<c428b8f0811141143y58369711s6d1bf5908dc58141@mail.gmail.com>
+Message-ID: <slrnght440.nrn.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-11-14, sughosh ganu <urwithsughosh at gmail.com> wrote:
+> So pressing F3 prompts
+> for a command, but typing does not produce any string. Same is the
+> case with other keys like F4 and F5.
+
+IIRC it's a locale setup fuckup. You have to have the encoding
+specified as part of LC_CTYPE for X, e.g. LC_CTYPE=fi_FI.ISO-8859-1,
+and you have to have the locale compiled for libc. (Debian:
+config /etc/locale.gen, generate: locale-gen.)
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+
+From tuomov at iki.fi  Sat Nov 15 10:34:14 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 15 Nov 2008 09:34:14 +0000 (UTC)
+Subject: Can't type queries
+References: <c428b8f0811141137p7f83009bmc1be44e14b725602@mail.gmail.com>
+	<c428b8f0811141143y58369711s6d1bf5908dc58141@mail.gmail.com>
+	<slrnght440.nrn.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnght5sl.rqr.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-11-15, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2008-11-14, sughosh ganu <urwithsughosh at gmail.com> wrote:
+>> So pressing F3 prompts
+>> for a command, but typing does not produce any string. Same is the
+>> case with other keys like F4 and F5.
+>
+> IIRC it's a locale setup fuckup. You have to have the encoding
+> specified as part of LC_CTYPE for X, e.g. LC_CTYPE=fi_FI.ISO-8859-1,
+> and you have to have the locale compiled for libc. (Debian:
+> config /etc/locale.gen, generate: locale-gen.)
+
+Another thing you might look for is, if the startup errors
+(non-logged; you'll have to dig into the console or 
+.xsession-errors of you run a DM and it supports it) 
+has complaints about "input methods" or "input contexts",
+in the case that you're running in a strange locale
+(as your name might imply). Ion only has very basic support
+for X input managers, so pre-edit windows etc. might not work.
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+
+From urwithsughosh at gmail.com  Sun Nov 16 08:16:23 2008
+From: urwithsughosh at gmail.com (sughosh ganu)
+Date: Sun, 16 Nov 2008 12:46:23 +0530
+Subject: Can't type queries
+In-Reply-To: <slrnght440.nrn.tuomov@jolt.modeemi.cs.tut.fi>
+References: <c428b8f0811141137p7f83009bmc1be44e14b725602@mail.gmail.com>
+	<c428b8f0811141143y58369711s6d1bf5908dc58141@mail.gmail.com>
+	<slrnght440.nrn.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <c428b8f0811152316u3bf82417h80cae3b2acf9e6c9@mail.gmail.com>
+
+Hello,
+
+On Sat, Nov 15, 2008 at 2:34 PM, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2008-11-14, sughosh ganu <urwithsughosh at gmail.com> wrote:
+>> So pressing F3 prompts
+>> for a command, but typing does not produce any string. Same is the
+>> case with other keys like F4 and F5.
+>
+> IIRC it's a locale setup fuckup. You have to have the encoding
+> specified as part of LC_CTYPE for X, e.g. LC_CTYPE=fi_FI.ISO-8859-1,
+> and you have to have the locale compiled for libc. (Debian:
+> config /etc/locale.gen, generate: locale-gen.)
+
+ The problem was that ion did not recognize the locale on my system
+(en_IN). Changing it to en_US.UTF-8 solved the problem. Thanks for the
+help.
+
+--
+sughosh
+
+
+From tuomov at iki.fi  Sun Nov 16 09:49:49 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 16 Nov 2008 08:49:49 +0000 (UTC)
+Subject: Can't type queries
+References: <c428b8f0811141137p7f83009bmc1be44e14b725602@mail.gmail.com>
+	<c428b8f0811141143y58369711s6d1bf5908dc58141@mail.gmail.com>
+	<slrnght440.nrn.tuomov@jolt.modeemi.cs.tut.fi>
+	<c428b8f0811152316u3bf82417h80cae3b2acf9e6c9@mail.gmail.com>
+Message-ID: <slrnghvnld.moi.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-11-16, sughosh ganu <urwithsughosh at gmail.com> wrote:
+>  The problem was that ion did not recognize the locale on my system
+> (en_IN). Changing it to en_US.UTF-8 solved the problem. Thanks for the
+> help.
+
+It's not Ion. It's Xlib. en_IN.UTF-8 should work, if it's been
+compiled.
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+
+From tuomov at iki.fi  Sun Nov 16 12:23:09 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 16 Nov 2008 11:23:09 +0000 (UTC)
+Subject: Can't type queries
+References: <c428b8f0811141137p7f83009bmc1be44e14b725602@mail.gmail.com>
+	<c428b8f0811141143y58369711s6d1bf5908dc58141@mail.gmail.com>
+	<slrnght440.nrn.tuomov@jolt.modeemi.cs.tut.fi>
+	<c428b8f0811152316u3bf82417h80cae3b2acf9e6c9@mail.gmail.com>
+	<slrnghvnld.moi.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrngi00kt.ie8.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-11-16, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2008-11-16, sughosh ganu <urwithsughosh at gmail.com> wrote:
+>>  The problem was that ion did not recognize the locale on my system
+>> (en_IN). Changing it to en_US.UTF-8 solved the problem. Thanks for the
+>> help.
+>
+> It's not Ion. It's Xlib. en_IN.UTF-8 should work, if it's been
+> compiled.
+
+I'm not exactly sure why Xlib handles LC_CTYPEs without the encoding
+part specified in a fucked up manner, but it does have a locale.alias
+database of its own, /usr/share/X11/locale/locale.alias, which does
+e.g. list
+
+en_IN:                                          en_IN.ISO8859-1
+
+If Xlib uses this database instead of the information from libc,
+nl_langinfo(CODESET), and libc has been compiled with a different
+character set for en_IN, it could be why it's fscked up.
+
+The modern (read: shit) toolkits afaik pretty much reinvent all
+this, being utf-8 monoculturistic [ which also results in nobody
+bothering to fix Xlib, the generic multibyte routines of which
+handle utf-8 locales very badly ], and xterm also uses the Xutf8
+routines instead of Xmb routines when in an utf-8 locale.
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+
+From marc.hartstein at alum.vassar.edu  Wed Nov 19 04:18:02 2008
+From: marc.hartstein at alum.vassar.edu (Marc Hartstein)
+Date: Tue, 18 Nov 2008 22:18:02 -0500
+Subject: statusd_mpd-socket.lua
+Message-ID: <1227063811-sup-2931@cabinet>
+
+A drop-in replacement for statusd_mpd.lua which uses sockets instead of
+popen to communicate with mpd.  Suggest renaming to replace the other
+script.
+
+Requires LuaSocket 
+(http://www.tecgraf.puc-rio.br/~diego/professional/luasocket/home.html)
+
+I've been having difficulty with the existing statusd_mpd.  In
+particular, the existing script frequently but fairly randomly causes
+the statusbar to fail to load, necessitating multiple restarts of ion3
+before it behaves properly.
+
+This replacement sets a short timer at startup and exits quickly, which
+seems to help with the problem I was experiencing: if it's slow to open
+a connection to mpd, it will not bring down the entire statusbar.
+
+It also follows Tuomo's suggestion of using sockets rather than running
+a program with popen every half-second.  This should be less overhead
+for the system.  It does tie up one of your mpd connections permanently,
+however, so you may need to make sure max_connections is high enough to
+support it.  If you're running out of connections, though, it's more
+likely that you have a whole bunch of redundant ion-statusd processes
+hanging out doing nothing.
+
+I've also added %artist_or_album, which I use so tracks from Broadway
+shows are displayed reasonably in my collection.  There might be a
+better way to do this, but I haven't come up with anything I like.
+
+Comments welcome, particularly if there are any situations in which it
+can get hung up holding an open socket of which I'm unaware.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: statusd_mpd-socket.lua
+Type: application/octet-stream
+Size: 5872 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20081118/095fb5cf/attachment.obj>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20081118/095fb5cf/attachment.pgp>
+
+From tuomov at iki.fi  Wed Nov 19 08:44:38 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 19 Nov 2008 07:44:38 +0000 (UTC)
+Subject: statusd_mpd-socket.lua
+References: <1227063811-sup-2931@cabinet>
+Message-ID: <slrngi7gv6.9g0.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-11-19, Marc Hartstein <marc.hartstein at alum.vassar.edu> wrote:
+> A drop-in replacement for statusd_mpd.lua which uses sockets instead of
+> popen to communicate with mpd.  Suggest renaming to replace the other
+> script.
+
+I suggest sending it to the scripts repository for easy availability.
+
+Also, on a cursory glance, it appeared to be a timer hack. If it's
+at all possible to get the file descriptor from Lua, I suggest
+adding it to those selected on for event-based processing. This
+will require a little bit of C code to add the desciptor, since 
+popen_bgread is currently the only interface and unlikely to work
+correctly on sockets. While to ion3plus, certainly new interfaces
+could be added to support selecting on arbitrary fds from the Lua
+side (and the primary reason the support isn't there, is that fds
+are not well available from Lua), this can be done with e.g. the
+TCC/alien/c/invoke hacks disgussed e.g. at
+
+  http://www.mail-archive.com/ion-general at lists.berlios.de/msg02559.html
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+In 2008, Linux has bloated into a gas-guzzler, and cycle paths have 
+been replaced with polluted motorways.
+
+
+
+From marc.hartstein at alum.vassar.edu  Wed Nov 19 17:01:18 2008
+From: marc.hartstein at alum.vassar.edu (Marc Hartstein)
+Date: Wed, 19 Nov 2008 11:01:18 -0500
+Subject: statusd_mpd-socket.lua
+In-Reply-To: <slrngi7gv6.9g0.tuomov@jolt.modeemi.cs.tut.fi>
+References: <1227063811-sup-2931@cabinet>
+	<slrngi7gv6.9g0.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <1227109440-sup-4343@cabinet>
+
+Excerpts from Tuomo Valkonen's message of Wed Nov 19 02:44:38 -0500 2008:
+> I suggest sending it to the scripts repository for easy availability.
+
+Will do, thanks.
+
+> Also, on a cursory glance, it appeared to be a timer hack. If it's
+
+Yeah, the getting out of the way so statusbar can finish setting itself
+up before attempting to open a connection is a timer hack. After that,
+well, mpd doesn't push, so we have to pull. Although an event handler
+could be useful there too to let us get out of the way of other monitors
+if for some strange reason mpd is slow to respond (across a network?)
+
+I'll look into the event stuff in ion3 the next time I get a bit of time
+I want to spend on this.  Maybe I should switch over to ion3-plus?
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20081119/95a6f776/attachment.pgp>
+
+From tuomov at iki.fi  Wed Nov 19 20:17:53 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 19 Nov 2008 19:17:53 +0000 (UTC)
+Subject: statusd_mpd-socket.lua
+References: <1227063811-sup-2931@cabinet>
+	<slrngi7gv6.9g0.tuomov@jolt.modeemi.cs.tut.fi>
+	<1227109440-sup-4343@cabinet>
+Message-ID: <slrngi8pj1.iu2.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-11-19, Marc Hartstein <marc.hartstein at alum.vassar.edu> wrote:
+> Will do, thanks.
+
+It's there now.
+
+>> Also, on a cursory glance, it appeared to be a timer hack. If it's
+>
+> Yeah, the getting out of the way so statusbar can finish setting itself
+> up before attempting to open a connection is a timer hack. After that,
+> well, mpd doesn't push, so we have to pull. 
+
+Ah, then the timer hack isn't that bad, although it would be nice 
+to not block on waiting. One of the reasons for the existence of 
+ion-statusd is, however, that scripts can be written without all 
+the care that goes into avoiding blocking. (It would not be nice
+to block the entire WM!)
+
+> I'll look into the event stuff in ion3 the next time I get a bit of time
+> I want to spend on this.  Maybe I should switch over to ion3-plus?
+
+There are a few minor new features in ion3plus compared to ion3,
+but the primary reason for using it is if one wants to work on it.
+Ion3 being stable and not getting new features, just fixes.
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and local vendors and
+artisans have had to yield to "all under one roof" big box hypermarkets.
+
+
+
+
+From oskar.nordquist at gmail.com  Sun Nov 30 00:18:57 2008
+From: oskar.nordquist at gmail.com (Oskar Nordquist)
+Date: Sun, 30 Nov 2008 00:18:57 +0100
+Subject: Tab width in 'shaped' bar style
+Message-ID: <20081129231856.GA1374@tyrfing.bredbandsbolaget.se>
+
+Hi,
+
+I'm using the style 'shaped' for all my frames (floating and
+non-floating), i.e.:
+
+de.defstyle("*", {
+	bar = "shaped",
+}),
+
+However, the tab width depends on the maximum tab width in their
+containing frame. Is there any way for the individual tabs to only
+stretch as far as their own title width?
+
+Kind regards,
+
+-- 
+Oskar N
+
+
+From tuomov at iki.fi  Sun Nov 30 23:46:13 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 30 Nov 2008 22:46:13 +0000 (UTC)
+Subject: Tab width in 'shaped' bar style
+References: <20081129231856.GA1374@tyrfing.bredbandsbolaget.se>
+Message-ID: <slrngj65tl.lfn.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-11-29, Oskar Nordquist <oskar.nordquist at gmail.com> wrote:
+> However, the tab width depends on the maximum tab width in their
+> containing frame. Is there any way for the individual tabs to only
+> stretch as far as their own title width?
+
+Other than touching the code for a custom hack? No. Tabs have uniform
+widths. For a good reason. (I find varying widths confusing.)
+
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and the cycle paths 
+have been replaced with polluted motorways.
+
+
+

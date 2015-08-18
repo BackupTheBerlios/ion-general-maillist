@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Mouse Click Context Menu Instead of Mouse Down
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-June/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Mouse%20Click%20Context%20Menu%20Instead%20of%20Mouse%20Down&In-Reply-To=%3C7886DFAC-7E0B-477C-8C0C-EA050716F854%40robin.com.au%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001245.html">
+   <LINK REL="Next"  HREF="001247.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Mouse Click Context Menu Instead of Mouse Down</H1>
+    <B>robin</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Mouse%20Click%20Context%20Menu%20Instead%20of%20Mouse%20Down&In-Reply-To=%3C7886DFAC-7E0B-477C-8C0C-EA050716F854%40robin.com.au%3E"
+       TITLE="Mouse Click Context Menu Instead of Mouse Down">me at robin.com.au
+       </A><BR>
+    <I>Sun Jun  1 21:39:16 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001245.html">Mouse Click Context Menu Instead of Mouse Down
+</A></li>
+        <LI>Next message: <A HREF="001247.html">Mouse Click Context Menu Instead of Mouse Down
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1246">[ date ]</a>
+              <a href="thread.html#1246">[ thread ]</a>
+              <a href="subject.html#1246">[ subject ]</a>
+              <a href="author.html#1246">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Apologies Tuomo, I've sent the same reply directly to you as well.
+I guess there's no form of nesting in this mailing list.
+
+If no one wants to read my long email, go straight to the gist of it  
+below.
+
+On Jun 1, 2008, at 8:42 PM, Tuomo Valkonen wrote:
+&gt;<i> I hate the mainstream menus that only show up after you release
+</I>&gt;<i> the button, and where you have to press somewhere outside the menu
+</I>&gt;<i> to close it. Totally unintuitive. (I also hate the arbitrary  
+</I>&gt;<i> mainstream
+</I>&gt;<i> menu placement, as witnessed by the Window Maker (NeXTStep?) style
+</I>&gt;<i> fixed placement and scrolling in Ion.)
+</I>&gt;<i>
+</I>&gt;<i> -- 
+</I>&gt;<i> Tuomo
+</I>&gt;<i>
+</I>
+Tuomo hates it. I guess I failed.
+Bear with me while I attempt one last time.
+
+Actually I think I explained poorly in some areas, sorry.
+I was suggesting, after you click on the tab, the menu STAYS up. Click  
+on option of choice, then menu disappear OR clicking elsewhere  
+(because you changed your mind you don't wanna click anything from the  
+menu), then menu disappear also. But you guys already got that right?  
+Anyway...
+
+I'm only suggesting an 'optional' feature where I can just stick one  
+line into cfg_ioncore.lua :
+
+mclick(&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">Button3 at tab</A>&quot;, &quot;mod_menu.pmenu(_, _sub, 'ctxmenu')&quot;),
+
+It already looks to me like it's already possible and easy to do, but  
+I wouldn't know really.
+
+It would be a big plus for trackpad users like me, and it would not  
+negatively affect other pointing devices, and it is only an optional  
+feature. Everything can stay the same on default.
+
+Think of it this way, ion3 encourages use of the keyboard. The  
+trackpad is closer to the keyboard than the mouse.  It is much more  
+convenient and closer to reach for the trackpad from the keyboard (as  
+you can just use your thumbs while your fingers stay on the keyboard  
+area) than reaching for the mouse. The usability of the trackpad  
+should be higher priority than the mouse.
+
+I try to see it your way and the way I understand it is, it takes 2  
+mouse events, to execute the option from the menu.
+1. Press and hold (menu popup, choose option)
+
+(May be 'hold' can be counted as a 2nd event? or more? because the  
+event is ongoing)
+
+2. Release             (option chosen, menu disappear)
+
+Whereas my way, it takes 4 mouse events.
+1. Press
+2. Release (menu popup)
+3. Press      (choose option or press elsewhere)
+4. Release (option chosen or release elsewhere, menu disappear)
+
+If it's measured by mouse events, then yes the default way is 2 times  
+more efficient if you ignore to define how many events 'hold' is  
+counted as.
+
+If you look at the effort the finger as to put in, my way is lazier  
+(therefore better i say).
+Because your way makes the finger hold down the button, it requires  
+continuous effort for a period of time.
+
+Especially so for trackpad users, cos in addition to using one finger  
+to navigate, I have to use my thumb to  press down the physical  
+trackpad right button and have my thumb stay there, while my finger  
+chooses an option from the menu.
+
+Or I can double tap hold, and have my finger stick to the touchpad as  
+I choose the option, but my height of the touchpad isn't that large,  
+so it would suck if I am in the middle of dragging my finger down the  
+touchpad and reached the end, and have not reached down to the option  
+that I wanted from the menu. I let go, and the menu is gone. Wasted  
+seconds.
+
+Now I've spent too much time talking about mouse/trackpad usage and it  
+seems like im diluting the main focus of ion3 which is to be keyboard  
+oriented. For me, the keyboard functionality is pretty near perfect  
+and I can't think of anything to improve on it. The only ONE  
+improvement I can think of is on the trackpad/mouse side (more the  
+trackpad side) with the menus.
+
+Anyway right,
+
+---------------------THE GIST OF IT IS:-------------------
+I just wanna do this:
+mclick(&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">Button3 at tab</A>&quot;, &quot;mod_menu.pmenu(_, _sub, 'ctxmenu')&quot;),
+
+As an optional thing.
+If possible.
+
+Thank you for taking the time to read,
+I don't think I got anymore to add,
+Robin
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001245.html">Mouse Click Context Menu Instead of Mouse Down
+</A></li>
+	<LI>Next message: <A HREF="001247.html">Mouse Click Context Menu Instead of Mouse Down
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1246">[ date ]</a>
+              <a href="thread.html#1246">[ thread ]</a>
+              <a href="subject.html#1246">[ subject ]</a>
+              <a href="author.html#1246">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

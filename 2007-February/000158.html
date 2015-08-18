@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Feature freeze imminent
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Feature%20freeze%20imminent&In-Reply-To=%3C20070226192346.GE13216%40samason.me.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000157.html">
+   <LINK REL="Next"  HREF="000162.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Feature freeze imminent</H1>
+    <B>Sam Mason</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Feature%20freeze%20imminent&In-Reply-To=%3C20070226192346.GE13216%40samason.me.uk%3E"
+       TITLE="Feature freeze imminent">mason at f2s.com
+       </A><BR>
+    <I>Mon Feb 26 20:23:46 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000157.html">Feature freeze imminent
+</A></li>
+        <LI>Next message: <A HREF="000162.html">Feature freeze imminent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#158">[ date ]</a>
+              <a href="thread.html#158">[ thread ]</a>
+              <a href="subject.html#158">[ subject ]</a>
+              <a href="author.html#158">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Mon, Feb 26, 2007 at 05:29:52PM +0000, Tuomo Valkonen wrote:
+&gt;<i> On 2007-02-26, Sam Mason &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">mason at f2s.com</A>&gt; wrote:
+</I>&gt;<i> &gt; Sounds similar to &quot;bitmap indexes&quot; as used by databases.  For read-only
+</I>&gt;<i> &gt; access they are great but AFAIK every implementation I've every heard of
+</I>&gt;<i> &gt; kills concurrent modification.  It may all work out here, but just to
+</I>&gt;<i> &gt; warn you!
+</I>&gt;<i> 
+</I>&gt;<i> Well, I don't really need concurrent modifications. File creation
+</I>&gt;<i> or deletion can be considered atomic.
+</I>
+File lookups would have to stop while tags were being modified though.
+But yes, it's much less of an issue for file systems than for databases.
+
+&gt;<i> &gt; By pruning I'm guessing you mean getting single references out to each
+</I>&gt;<i> &gt; file, if so I think I must be missing something.  I don't see why any
+</I>&gt;<i> &gt; algorithm would ever return more than one reference to the same file and
+</I>&gt;<i> &gt; hence you would ever need to do any pruning.
+</I>&gt;<i> 
+</I>&gt;<i> By pruning I mean producing suitable output for 'ls' or so. I search
+</I>&gt;<i> on SetFS by a set of tags simply returns a list of files/objects, whose
+</I>&gt;<i> sets of tags contains all of those tags (plus other possible filtering).
+</I>&gt;<i> But you don't want to display all of the results: you want to, if you
+</I>&gt;<i> will, 'cluster' them, so as to produce a hierarchy of results. That's
+</I>&gt;<i> what I call pruning: displaying a minimal set of tags that can be used
+</I>&gt;<i> to access all the results.
+</I>
+Yes that makes sense now, thanks!
+
+&gt;<i> Suppose the search for 'foo' returns the following files
+</I>&gt;<i> 
+</I>&gt;<i>         foo/bar
+</I>&gt;<i> 	foo/baz/quk
+</I>&gt;<i> 	foo/baz/zum
+</I>&gt;<i> 
+</I>&gt;<i> (Note, there is no file 'foo/baz' in this example!) We don't want 'ls' 
+</I>&gt;<i> to display all of these results, but instead want to prune for the 
+</I>&gt;<i> following output:
+</I>&gt;<i> 
+</I>&gt;<i> 	$ ls foo
+</I>&gt;<i> 	bar
+</I>&gt;<i> 	baz
+</I>
+Why not [bar,baz,quk,zum]? all of these tags appear in files once you've
+filtered out the ones that don't have foo in.  But yes, I see why
+pruning could be problematic.  I'll have to think about it more!
+
+&gt;<i> &gt; Your alternative sounds a lot like what I was trying to say in my last
+</I>&gt;<i> &gt; email.
+</I>&gt;<i> 
+</I>&gt;<i> Maybe, but this is strictly at the implementation level: applications 
+</I>&gt;<i> are unuaware of any ordering of tags.
+</I>
+Yes.
+
+&gt;<i> &gt; Postgres has reasonable support for BLOBs, providing an interface very
+</I>&gt;<i> &gt; similar to Unix's open/read/write/close.
+</I>&gt;<i> 
+</I>&gt;<i> I hate programs that want to run bloated server software on my computer.
+</I>&gt;<i> SQLite or Berkeley DB I could deal with, but I don't think a normal DB
+</I>&gt;<i> is of much help.
+</I>
+If you're still exploring the problem they can be very good at providing
+a flexible data store.  When you more beyond the prototyping phase then
+I'd think about something a bit more specific.
+
+
+  Sam
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000157.html">Feature freeze imminent
+</A></li>
+	<LI>Next message: <A HREF="000162.html">Feature freeze imminent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#158">[ date ]</a>
+              <a href="thread.html#158">[ thread ]</a>
+              <a href="subject.html#158">[ subject ]</a>
+              <a href="author.html#158">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

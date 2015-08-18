@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Compilation problem: &quot;Using 'dlopen' in statically linked	applications (...)&quot;
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Compilation%20problem%3A%20%22Using%20%27dlopen%27%20in%20statically%20linked%0A%09applications%20%28...%29%22&In-Reply-To=%3C87lkjiq4t4.fsf%40estera.homeip.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000086.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Compilation problem: &quot;Using 'dlopen' in statically linked	applications (...)&quot;</H1>
+    <B>Rafal Jedruszek</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Compilation%20problem%3A%20%22Using%20%27dlopen%27%20in%20statically%20linked%0A%09applications%20%28...%29%22&In-Reply-To=%3C87lkjiq4t4.fsf%40estera.homeip.net%3E"
+       TITLE="Compilation problem: &quot;Using 'dlopen' in statically linked	applications (...)&quot;">necui-iongen at nic-nac-project.net
+       </A><BR>
+    <I>Wed Jan 31 22:12:07 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000086.html">Lua integration suggestions
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#89">[ date ]</a>
+              <a href="thread.html#89">[ thread ]</a>
+              <a href="subject.html#89">[ subject ]</a>
+              <a href="author.html#89">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Rafal Jedruszek
+&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">necui-iongen at nic-nac-project.net</A>&gt;
+writes:
+
+&gt;<i> Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt; writes:
+</I>&gt;<i>
+</I>&gt;&gt;<i> On 2006-10-29, Rafal Jedruszek &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">necui-iongen at nic-nac-project.net</A>&gt; wrote:
+</I>&gt;&gt;&gt;<i> I've recently updated ion3 and now the dock is able to get focus
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Maybe fixed. Can't be bothered to test...
+</I>&gt;<i>
+</I>&gt;<i> Thanks.  I will probably have to wait for new version in my
+</I>&gt;<i> distribution's repository because I can't compile ion-3 by hand.
+</I>&gt;<i>
+</I>&gt;<i> This is the problem:
+</I>&gt;<i> | gcc  ion-statusd.o exec.o extlrx.o exports.o  -g -Os  -L../../libmainloop -lmainloop -L../../libextl -lextl -L../../libtu -ltu -L/usr//lib -llua -ldl -lm -o ion-statusd
+</I>&gt;<i> | /usr//lib/liblua.so: warning: Using 'dlopen' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+</I>&gt;<i> | /usr//lib/libdl.a(dlopen.o): In function `dlopen':
+</I>&gt;<i> | (.text+0x1b): undefined reference to `__dlopen'
+</I>&gt;<i> | /usr//lib/libdl.a(dlclose.o): In function `dlclose':
+</I>&gt;<i> | (.text+0x5): undefined reference to `__dlclose'
+</I>&gt;<i> | /usr//lib/libdl.a(dlsym.o): In function `dlsym':
+</I>&gt;<i> | (.text+0x1b): undefined reference to `__dlsym'
+</I>&gt;<i> | /usr//lib/libdl.a(dlerror.o): In function `dlerror':
+</I>&gt;<i> | (.text+0x5): undefined reference to `__dlerror'
+</I>&gt;<i> | collect2: ld returned 1 exit status
+</I>&gt;<i>
+</I>&gt;<i> I have libdl.so and libdl.a in /usr/lib.
+</I>&gt;<i>
+</I>&gt;<i> Google says nothing so I don't know how to repair this problem.
+</I>
+If someone is interested, I know what was wrong.  I have /usr as
+a symlink to another location and /usr/lib cannot be symlinked in
+any way.  I had similar problems with compiling something else
+and using `mount --bind' instead of a symlink resolved it.
+
+I found about this on gentoo bugzilla:
+<A HREF="http://bugs.gentoo.org/show_bug.cgi?id=112413">http://bugs.gentoo.org/show_bug.cgi?id=112413</A>
+
+
+-- 
+do you remember
+a sky of blue
+sun shining
+down on you
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000086.html">Lua integration suggestions
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#89">[ date ]</a>
+              <a href="thread.html#89">[ thread ]</a>
+              <a href="subject.html#89">[ subject ]</a>
+              <a href="author.html#89">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

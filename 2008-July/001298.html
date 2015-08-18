@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Installing Ion3 on Debian Etch
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Installing%20Ion3%20on%20Debian%20Etch&In-Reply-To=%3C87abg5byl9.fsf_-_%40debian-asztal.csanyi-pal.info%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001297.html">
+   <LINK REL="Next"  HREF="001299.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Installing Ion3 on Debian Etch</H1>
+    <B>Csanyi Pal</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Installing%20Ion3%20on%20Debian%20Etch&In-Reply-To=%3C87abg5byl9.fsf_-_%40debian-asztal.csanyi-pal.info%3E"
+       TITLE="Installing Ion3 on Debian Etch">csanyipal at gmail.com
+       </A><BR>
+    <I>Fri Jul 25 20:36:18 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001297.html">Ion2 - Can I destroy a workspace?
+</A></li>
+        <LI>Next message: <A HREF="001299.html">Installing Ion3 on Debian Etch
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1298">[ date ]</a>
+              <a href="thread.html#1298">[ thread ]</a>
+              <a href="subject.html#1298">[ subject ]</a>
+              <a href="author.html#1298">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&quot;Zsolt Udvari&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">udvzsolt at gmail.com</A>&gt;
+writes:
+
+&gt;&gt;<i> luaextl.c:21:17: error: lua.h: No such file or directory
+</I>&gt;&gt;<i> luaextl.c:22:20: error: lualib.h: No such file or directory
+</I>&gt;&gt;<i> luaextl.c:23:21: error: lauxlib.h: No such file or directory
+</I>&gt;<i> Maybe try to install lua-dev.
+</I>
+I haven't that package on Debian Etch.
+
+If I try to install lua with command:
+
+sudo aptitude install lua &lt;Tab&gt;
+
+then I get the following options:
+
+lua
+lua40
+lua40-doc
+lua50
+lua50-doc
+lua5.1
+lua5.1-doc
+lua5.1-policy
+lua5.1-policy-dev
+lua-mode
+luasocket
+luasocket-dev
+luasocket-doc
+
+You can see that that there one can't find lua-dev. :(
+
+I have installed now:
+lua5.1-policy-dev
+luasocket
+luasocket-dev
+
+When I run 'make clean' and then 'make' I still get error messages:
+
+
+gcc -Os -W -Wimplicit -Wreturn-type -Wswitch -Wcomment -Wtrigraphs
+-Wformat -Wchar-subscripts -Wparentheses -pedantic -Wuninitialized
+-DCF_XFREE86_TEXTPROP_BUG_WORKAROUND -I./.. -I/usr/local/include    -c
+luaextl.c -o luaextl.o 
+
+luaextl.c:21:17: error: lua.h: No such file or directory
+luaextl.c:22:20: error: lualib.h: No such file or directory
+luaextl.c:23:21: error: lauxlib.h: No such file or directory
+
+luaextl.c:40: error: expected &#8216;=&#8217;, &#8216;,&#8217;, &#8216;;&#8217;, &#8216;asm&#8217; or
+&#8216;__attribute__&#8217; before &#8216;*&#8217; token 
+
+luaextl.c:42: error: expected &#8216;)&#8217; before &#8216;*&#8217; token
+luaextl.c:46: error: expected &#8216;)&#8217; before &#8216;*&#8217; token
+luaextl.c:60: error: expected &#8216;)&#8217; before &#8216;*&#8217; token
+luaextl.c:67: error: expected &#8216;)&#8217; before &#8216;*&#8217; token
+luaextl.c:74: error: expected &#8216;)&#8217; before &#8216;*&#8217; token
+luaextl.c:81: error: expected &#8216;)&#8217; before &#8216;*&#8217; token
+luaextl.c:88: error: expected &#8216;)&#8217; before &#8216;*&#8217; token
+luaextl.c:101: error: expected &#8216;)&#8217; before &#8216;*&#8217; token
+
+luaextl.c:105: error: expected specifier-qualifier-list before
+&#8216;ExtlCPCallFn&#8217; 
+
+luaextl.c:108: warning: struct has no members
+luaextl.c:111: error: expected &#8216;)&#8217; before &#8216;*&#8217; token
+luaextl.c:126: error: expected &#8216;)&#8217; before &#8216;*&#8217; token
+
+luaextl.c:158: error: &#8216;LUA_NOREF&#8217; undeclared here (not in a
+function) 
+
+luaextl.c:161: error: expected &#8216;)&#8217; before &#8216;*&#8217; token
+luaextl.c:204: error: expected &#8216;)&#8217; before &#8216;*&#8217; token
+luaextl.c: In function &#8216;extl_uncache&#8217;:
+
+luaextl.c:221: warning: implicit declaration of function &#8216;extl_cpcall&#8217;
+luaextl.c:221: error: &#8216;l_st&#8217; undeclared (first use in this function)
+luaextl.c:221: error: (Each undeclared identifier is reported only once
+luaextl.c:221: error: for each function it appears in.)
+
+luaextl.c:221: error: &#8216;ExtlCPCallFn&#8217; undeclared (first use in this
+function) 
+
+luaextl.c:221: error: expected expression before &#8216;)&#8217; token
+luaextl.c: At top level:
+luaextl.c:225: error: expected &#8216;)&#8217; before &#8216;*&#8217; token
+luaextl.c:285: error: expected &#8216;)&#8217; before &#8216;*&#8217; token
+
+...
+etc.
+
+
+-- 
+Regards, Paul Csanyi
+<A HREF="http://www.freewebs.com/csanyi-pal/index.htm">http://www.freewebs.com/csanyi-pal/index.htm</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001297.html">Ion2 - Can I destroy a workspace?
+</A></li>
+	<LI>Next message: <A HREF="001299.html">Installing Ion3 on Debian Etch
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1298">[ date ]</a>
+              <a href="thread.html#1298">[ thread ]</a>
+              <a href="subject.html#1298">[ subject ]</a>
+              <a href="author.html#1298">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

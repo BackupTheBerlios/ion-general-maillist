@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> transient windows are being weird?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20transient%20windows%20are%20being%20weird%3F&In-Reply-To=%3C20070401121435.31es7icvksk0kwk8%40webmail0.stack.nl%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000326.html">
+   <LINK REL="Next"  HREF="000337.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>transient windows are being weird?</H1>
+    <B>Jurjen Middendorp</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20transient%20windows%20are%20being%20weird%3F&In-Reply-To=%3C20070401121435.31es7icvksk0kwk8%40webmail0.stack.nl%3E"
+       TITLE="transient windows are being weird?">jurjenm at stack.nl
+       </A><BR>
+    <I>Sun Apr  1 12:14:35 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000326.html">Tutorial vs. help screen
+</A></li>
+        <LI>Next message: <A HREF="000337.html">transient windows are being weird?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#327">[ date ]</a>
+              <a href="thread.html#327">[ thread ]</a>
+              <a href="subject.html#327">[ subject ]</a>
+              <a href="author.html#327">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello, i just installed a newer version of the ion window manager  
+(20070203), but
+every time a window that's a subwindow for some application comes up  
+(those are
+called transient windows right?) nothing happens, however when i try  
+to close that
+window, it turns into a black thing and ion hangs and i have to restart X.
+
+I am not sure what is causing this problem but i can &quot;solve&quot; it by  
+just making a
+lot of winprops which set float=true for said windows.  However it is  
+quite abit
+of work to set all those kludges and not all programs give an explicit  
+instance-name
+for all dialogs, so i am kinda stumped :(
+
+If anyone knows of this problem or knows how to fix it or knows how to  
+debug it
+i'd like to hear it!
+
+- jurjen
+
+ps. i made ion dump core after it hang by doing sleep 10 &amp;&amp; kill -12  
+&quot;ion3&quot; and
+then making it hang, i have the core laying around somewhere but i'm not
+sure how to get more info out of it then this:
+
+(gdb) bt
+(gdb) #0  0xbfbfff90 in ?? ()
+(gdb) #1  0x00000001 in ?? ()
+(gdb) #2  0x00000000 in ?? ()
+(gdb) #3  0xbfbfe060 in ?? ()
+(gdb) #4  0x00000002 in ?? ()
+(gdb) #5  0x08078988 in fatal_signal_handler ()
+(gdb) #6  0x2827aebd in _swrite () from /lib/libc.so.6
+(gdb) #7  0x282799b7 in __sflush () from /lib/libc.so.6
+(gdb) #8  0x28279a25 in __fflush () from /lib/libc.so.6
+(gdb) #9  0x2826f52c in __vfprintf () from /lib/libc.so.6
+(gdb) #10 0x28272404 in vfprintf () from /lib/libc.so.6
+(gdb) #11 0x282606da in fprintf () from /lib/libc.so.6
+(gdb) #12 0x0807db87 in put_prog_name ()
+(gdb) #13 0x0807dbff in default_warn_handler ()
+(gdb) #14 0x0807dc76 in do_dispatch_message ()
+(gdb) #15 0x0807e1c0 in warn_v ()
+(gdb) #16 0x0807e232 in warn ()
+(gdb) #17 0x08081431 in do_watches ()
+(gdb) #18 0x0808146a in destroy_obj ()
+(gdb) #19 0x0806877b in frame_destroy_empty ()
+(gdb) #20 0x08078216 in mainloop_execute_deferred_on_list ()
+(gdb) #21 0x08078260 in mainloop_execute_deferred ()
+(gdb) #22 0x0805a3dd in ioncore_mainloop ()
+(gdb) #23 0x0805863f in main ()
+
+It seems like ion gets stuck somewhere after trying to print &quot;object destroyed
+while actions pending&quot; (something like that) because i am not seeing  
+those messages
+anymore (ion used to give me those quite a bit when i used 20061223)  
+and that is
+kind of what is happening.  But i am not sure why or how to get more  
+info from gdb :S
+please help! :)
+
+ps2. I'm not sure if it's an ion, because i also installed a newer version of
+freebsd (6.2), but other window managers seem to have no problems?
+
+ps3. Is there a way to see if one window is a child window of another
+window without using winprops?
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000326.html">Tutorial vs. help screen
+</A></li>
+	<LI>Next message: <A HREF="000337.html">transient windows are being weird?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#327">[ date ]</a>
+              <a href="thread.html#327">[ thread ]</a>
+              <a href="subject.html#327">[ subject ]</a>
+              <a href="author.html#327">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

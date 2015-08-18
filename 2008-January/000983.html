@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> clientwin_property_change_hook, enumerate.lua
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20clientwin_property_change_hook%2C%20enumerate.lua&In-Reply-To=%3C24cf3e3e0801080256u6560ed9au78647950bb63d2be%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000982.html">
+   <LINK REL="Next"  HREF="000984.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>clientwin_property_change_hook, enumerate.lua</H1>
+    <B>Felix Schmidt</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20clientwin_property_change_hook%2C%20enumerate.lua&In-Reply-To=%3C24cf3e3e0801080256u6560ed9au78647950bb63d2be%40mail.gmail.com%3E"
+       TITLE="clientwin_property_change_hook, enumerate.lua">fesc2000 at gmail.com
+       </A><BR>
+    <I>Tue Jan  8 11:56:03 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000982.html">running shell commands when the mouse hits a corner
+</A></li>
+        <LI>Next message: <A HREF="000984.html">clientwin_property_change_hook, enumerate.lua
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#983">[ date ]</a>
+              <a href="thread.html#983">[ thread ]</a>
+              <a href="subject.html#983">[ subject ]</a>
+              <a href="author.html#983">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+i'm trying to implement some application specific window handling. What i
+want to do is to get notified when a window's title changes and raise it. I
+used to do this by hacking the C-code and catching a change to the WM_NAME
+property, but i thought using a hook would be more elegent.
+
+It turns out that my hook never gets called back. I copied the code from the
+enumerate.lua script, and this also does not work as expected (if a window
+title changes, the numbering is not updated).
+
+Other hooks work fine with the same code, so i wonder if there is anything
+else i need to do to get notified about property changes.
+
+Version is 20080103.
+
+Thanks,
+
+Felix.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20080108/c5414967/attachment.html">https://lists.berlios.de/pipermail/ion-general/attachments/20080108/c5414967/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000982.html">running shell commands when the mouse hits a corner
+</A></li>
+	<LI>Next message: <A HREF="000984.html">clientwin_property_change_hook, enumerate.lua
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#983">[ date ]</a>
+              <a href="thread.html#983">[ thread ]</a>
+              <a href="subject.html#983">[ subject ]</a>
+              <a href="author.html#983">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

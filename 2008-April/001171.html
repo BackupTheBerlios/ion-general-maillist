@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Ion3 wishlist / a note about Ion4
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-April/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion3%20wishlist%20/%20a%20note%20about%20Ion4&In-Reply-To=%3Cslrng107pm.t8i.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001169.html">
+   <LINK REL="Next"  HREF="001175.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Ion3 wishlist / a note about Ion4</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion3%20wishlist%20/%20a%20note%20about%20Ion4&In-Reply-To=%3Cslrng107pm.t8i.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Ion3 wishlist / a note about Ion4">tuomov at iki.fi
+       </A><BR>
+    <I>Thu Apr 24 07:48:38 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001169.html">Ion3 wishlist / a note about Ion4
+</A></li>
+        <LI>Next message: <A HREF="001175.html">Regular behavior ?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1171">[ date ]</a>
+              <a href="thread.html#1171">[ thread ]</a>
+              <a href="subject.html#1171">[ subject ]</a>
+              <a href="author.html#1171">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-04-23, Tom&#225;&#185; Ebenlendr &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">ebik at drak.ucw.cz</A>&gt; wrote:
+&gt;<i> I'd like to use mouse chording [1], when defining my mouse bindings. As I
+</I>&gt;<i> cannot (and also I don't want to) prevent mouse, I use mouse with as much
+</I>&gt;<i> additional buttons as possible to avoid mouse-keyboard switching. I'd like
+</I>&gt;<i> to use the additional buttons as mouse-modifiers.
+</I>
+Sounds ok, and should be relatively trivial to implement, for X does
+pass ButtonXMask in the modifier state mask. 
+
+&gt;<i> But it will suffice to create msubmap 
+</I>
+Submaps are not for modifies. All you should need is 
+
+        mpress(&quot;Button1Mask+Button2&quot;, ...) 
+
+or so, after adding support for buttons as modifiers. However, if
+you want to support button press sequences (without necessarily
+holding down the earlier buttons), then you don't really need
+the support for the buttons as modifiers (which you said isn't there
+fore buttons &gt; 5... WTF? More than 5 buttons? I have just three;
+no wheel). Even in that case, the existing submap might suffice
+and support more general combos (mouse press in a keyboard submap,
+etc.), although would demand a bit more work.
+
+...
+
+There should actually also be a patch around somewhere, that adds
+support for some variant of double-clicking or something (I don't
+recall exactly what), that someone wrote for use on the N770 or so.
+But he never submitted it with darcs, so I couldn't be arsed to
+apply it, although would otherwise have included it.
+
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001169.html">Ion3 wishlist / a note about Ion4
+</A></li>
+	<LI>Next message: <A HREF="001175.html">Regular behavior ?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1171">[ date ]</a>
+              <a href="thread.html#1171">[ thread ]</a>
+              <a href="subject.html#1171">[ subject ]</a>
+              <a href="author.html#1171">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

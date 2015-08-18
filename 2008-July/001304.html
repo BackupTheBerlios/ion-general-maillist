@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> How to include Debian menu in to Ion3 installed from source?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20How%20to%20include%20Debian%20menu%20in%20to%20Ion3%20installed%20from%20source%3F&In-Reply-To=%3C1098.84.242.81.204.1217109340.squirrel%40drak.ucw.cz%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001303.html">
+   <LINK REL="Next"  HREF="001305.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>How to include Debian menu in to Ion3 installed from source?</H1>
+    <B>Tom&#225;&#353; Ebenlendr</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20How%20to%20include%20Debian%20menu%20in%20to%20Ion3%20installed%20from%20source%3F&In-Reply-To=%3C1098.84.242.81.204.1217109340.squirrel%40drak.ucw.cz%3E"
+       TITLE="How to include Debian menu in to Ion3 installed from source?">ebik at drak.ucw.cz
+       </A><BR>
+    <I>Sat Jul 26 23:55:40 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001303.html">How to include Debian menu in to Ion3 installed from source?
+</A></li>
+        <LI>Next message: <A HREF="001305.html">How to include Debian menu in to Ion3 installed from source?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1304">[ date ]</a>
+              <a href="thread.html#1304">[ thread ]</a>
+              <a href="subject.html#1304">[ subject ]</a>
+              <a href="author.html#1304">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+There is ion3 debian package for debian unstable:
+<A HREF="http://packages.debian.org/sid/ion3">http://packages.debian.org/sid/ion3</A>
+download it and get some files from it e.g. by midnight commander.
+
+You need at least following files:
+
+/etc/menu-methods/ion3
+/etc/menu-methods/ion3-i18n
+
+When you install these files (with 'x' permission), you have
+to run 'update-menus'. This generates following files:
+
+/var/lib/ion3/debian-menu.lua
+/var/lib/ion3/debian-menu-i18n.lua
+
+Now you can link these files from your ~/.ion3 directory and then
+include one of them in your cfg_ion.lua
+After this you should be able to include debian's menu by something like
+  submenu(&quot;Debian&quot;,&quot;Debian&quot;)
+in your main menu definition.
+
+Note that this all will work only if debian menu system did not change
+significantly since Etch. I did not tried this myself, as I use ion's
+menu only for closing or restarting ion.
+
+Dne 26 &#268;ervenec 2008, 17:20, Csanyi Pal napsal(a):
+&gt;<i> Hello!
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> I have installed from source the last stable Ion3 release on Debian
+</I>&gt;<i> GNU/Linux Etch en Half.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> When I used Ion2 I have Debian menu but now I havn't.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> I tried to edit cfg_ioncore.lua to include Debian menu but this is not
+</I>&gt;<i> enough:
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> ---------------
+</I>&gt;<i> defmenu(&quot;mainmenu&quot;, { menuentry(&quot;Run...&quot;,
+</I>&gt;<i> &quot;mod_query.query_exec(_)&quot;),
+</I>&gt;<i> menuentry(&quot;Terminal&quot;,       &quot;ioncore.exec_on(_, XTERM or 'xterm')&quot;),
+</I>&gt;<i> menuentry(&quot;Lock screen&quot;,    &quot;ioncore.exec_on(_, 'xlock')&quot;),
+</I>&gt;<i> menuentry(&quot;Help&quot;,           &quot;mod_query.query_man(_)&quot;), menuentry(&quot;About
+</I>&gt;<i> Ion&quot;,      &quot;mod_query.show_about_ion(_)&quot;),
+</I>&gt;<i> submenu(&quot;Styles&quot;,           &quot;stylemenu&quot;), submenu(&quot;Session&quot;,
+</I>&gt;<i> &quot;sessionmenu&quot;),
+</I>&gt;<i> submenu(&quot;Debian&quot;, 		&quot;Debian&quot;), })
+</I>&gt;<i> ---------------
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> I open the old file ion-menus.lua from Ion2 to see this setup and find
+</I>&gt;<i> a line like the line abowe:
+</I>&gt;<i>
+</I>&gt;<i> submenu(&quot;Debian&quot;, &quot;Debian&quot;),
+</I>&gt;<i>
+</I>&gt;<i> and this lines:
+</I>&gt;<i>
+</I>&gt;<i> -------------------------
+</I>&gt;<i> -- Auto-generated Debian menu definitions
+</I>&gt;<i> if os.execute(&quot;test -x /usr/bin/update-menus&quot;) == 0 then if
+</I>&gt;<i> ioncore_is_i18n() then include(&quot;debian-menu-i18n&quot;) else
+</I>&gt;<i> include(&quot;debian-menu&quot;) end end -------------
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> These lines can't to use in Ion3.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Somehow I must to include debian-menu but how?
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> Regards, Paul Csanyi
+</I>&gt;<i> <A HREF="http://www.freewebs.com/csanyi-pal/index.htm">http://www.freewebs.com/csanyi-pal/index.htm</A>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+
+-- 
+Tomas Ebenlendr
+                            <A HREF="http://drak.ucw.cz/~ebik">http://drak.ucw.cz/~ebik</A>
+
+
+-- 
+Tomas Ebenlendr
+                            <A HREF="http://drak.ucw.cz/~ebik">http://drak.ucw.cz/~ebik</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001303.html">How to include Debian menu in to Ion3 installed from source?
+</A></li>
+	<LI>Next message: <A HREF="001305.html">How to include Debian menu in to Ion3 installed from source?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1304">[ date ]</a>
+              <a href="thread.html#1304">[ thread ]</a>
+              <a href="subject.html#1304">[ subject ]</a>
+              <a href="author.html#1304">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

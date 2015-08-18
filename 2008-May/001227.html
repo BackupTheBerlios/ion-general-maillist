@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Minor issue when using alternate xkb groups
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Minor%20issue%20when%20using%20alternate%20xkb%20groups&In-Reply-To=%3C20080528112329.GA16263%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001223.html">
+   <LINK REL="Next"  HREF="001228.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Minor issue when using alternate xkb groups</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Minor%20issue%20when%20using%20alternate%20xkb%20groups&In-Reply-To=%3C20080528112329.GA16263%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Minor issue when using alternate xkb groups">tuomov at iki.fi
+       </A><BR>
+    <I>Wed May 28 13:23:29 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001223.html">Minor issue when using alternate xkb groups
+</A></li>
+        <LI>Next message: <A HREF="001228.html">Minor issue when using alternate xkb groups
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1227">[ date ]</a>
+              <a href="thread.html#1227">[ thread ]</a>
+              <a href="subject.html#1227">[ subject ]</a>
+              <a href="author.html#1227">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-05-27 09:45 +0000, Tuomo Valkonen wrote:
+&gt;<i> On further inspection, standard Mode_Switch also seems to 
+</I>&gt;<i> set the state mask 0x2000, but it is typically non-locking,
+</I>&gt;<i> so there's no problem. We certainly should not ignore 
+</I>&gt;<i> a non-locking Mode_Switch bit (typically AltGr in non-braindead
+</I>&gt;<i> xmodmap user-customisable keymaps). Perhaps the only solution
+</I>&gt;<i> is configurability of locking mods. (Or does Xkb offer that
+</I>&gt;<i> info? In any case I CBA.)
+</I>
+Another strange thing is that ISO_Level3_Shit does not set
+a special &quot;group&quot; bit. Rather, to even remotely emulate appearing 
+to work^1, it seems to depend on being mapped to _some_ modifier.
+I suppose Xlib then uses Dirty Hacks to check whether modifiers
+are mapped to that key specifically.
+
+---
+
+^1 My keymap depends heavily on remapping of AltGr, traditionally mapped
+as Mode_Switch, configurable in the third and fourth fields of xmodmap
+keycode lines. Xkb keymaps killed that user configurability, by switching
+to ISO_Level3_Shit not accessible with xmodmap at that time -- and not
+as conveniently as Mode_Switch even now, plus ISO_Level3_Shit+j and 
+a few other keys also don't work at all. (No, it's not keyboard hardware
+crappiness; the same keycombo as Mode_Switch+j works.) I therefore use 
+a full custom .Xmodmap stored from pre-Xkb X. (Xkb isn't user-configurable;
+its keymaps are essential program source code, as are fontconfig's XML 
+crap and udev's properietary shit. They're not configuration files, 
+they're source code meant for developers only.)
+
+As for my keymap, as it might be of some interest:
+
+The mostly useless caps lock has of course become a control key.
+Tilde and caret have swapped the shift modifier from standard 
+.fi layout. The _very_ conveniently placed altgr (=Mode_Switch) 
+right of left shift has &lt;&gt;| (plain, shift, altgr) on it in the 
+standard layout, whereas the standard altgr is right of spacebar,
+which makes for very cumbersome combos for braces etc. found in 
+the number row of the altgr map. That row of my altgr map along 
+with the euro sign and the two accents on the right are standard
+(in the X map; some of the keys are not printed on the layouts),
+the rest are my additions. (The key left of right shift is n-dash,
+quite undistinguishable from a short dash in a fixed-width font.)
+
+plain 
+
+&#167;          1 2 3 4 5 6 7 8 9 0 + &#180;   bsp
+tab         q w e r t y u i o p &#229; ~  ent
+ctrl        a s d f g h j k l &#246; &#228; '   er
+lshift altgr z x c v b n m , . -  rshift
+
+shift
+
+&#189;          ! &quot; # &#164; % &amp; / ( ) = ? `   bsp
+tab         Q W E R T Y U I O P &#197; ^  ent
+ctrl        A S D F G H J K L &#214; &#196; *   er
+lshift altgr Z X C V B N M ; : _  rshift
+
+altgr (= Mode_Switch)
+
+&#182;          &#161; @ &#163; $ &#189; &#165; { [ ] } \ &#184;   bsp
+tab             &#8364;         [ ]     &#168;  ent
+ctrl          &lt; | &gt;   { } ( ) \   &#180;   er
+lshift altgr       &#8216; &#8217; &#8220; &#8221;   &#8230; &#8211;  rshift
+
+
+-- 
+Tuomo
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001223.html">Minor issue when using alternate xkb groups
+</A></li>
+	<LI>Next message: <A HREF="001228.html">Minor issue when using alternate xkb groups
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1227">[ date ]</a>
+              <a href="thread.html#1227">[ thread ]</a>
+              <a href="subject.html#1227">[ subject ]</a>
+              <a href="author.html#1227">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

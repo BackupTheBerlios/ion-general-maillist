@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> inc/dec workspace
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20inc/dec%20workspace&In-Reply-To=%3CPine.LNX.4.64.0809210004480.16413%40india.ece.cmu.edu%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001380.html">
+   <LINK REL="Next"  HREF="001383.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>inc/dec workspace</H1>
+    <B>Timandahaf</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20inc/dec%20workspace&In-Reply-To=%3CPine.LNX.4.64.0809210004480.16413%40india.ece.cmu.edu%3E"
+       TITLE="inc/dec workspace">timandahaf+dev at gmail.com
+       </A><BR>
+    <I>Sun Sep 21 06:08:32 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001380.html">inc/dec workspace
+</A></li>
+        <LI>Next message: <A HREF="001383.html">inc/dec workspace
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1381">[ date ]</a>
+              <a href="thread.html#1381">[ thread ]</a>
+              <a href="subject.html#1381">[ subject ]</a>
+              <a href="author.html#1381">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Sat, 20 Sep 2008, Tuomo Valkonen wrote:
+&gt;<i> What it should really
+</I>&gt;<i> do is: a) listen to screen_managed_changed_hook (RTFM for details) for
+</I>&gt;<i> structural changes, and b) listen to region_notify_hook with detail
+</I>&gt;<i> &quot;name&quot; for workspace name changes.
+</I>
+I did both of these as you said, and everything works great! I'll submit
+a fix to you via darcs for the scripts page soon.
+
+Meanwhile, here're the changes if anyone is interested.
+
+------------------------------------------------------------------------------
+--- statusbar_workspace.lua     Fri May 11 01:58:41 2007
++++ .ion3/statusbar_workspace.lua       Sat Sep 20 23:45:37 2008
+@@ -107,4 +107,13 @@
+      end)
+  end
+
+-ioncore.get_hook(&quot;region_notify_hook&quot;):add(update_workspace)
++local function update_workspace_wrap(reg, how)
++    if how ~= &quot;name&quot; then
++        return
++    end
++
++    update_workspace()
++end
++
++ioncore.get_hook(&quot;region_notify_hook&quot;):add(update_workspace_wrap)
++ioncore.get_hook(&quot;screen_managed_changed_hook&quot;):add(update_workspace)
+------------------------------------------------------------------------------
+
+Thanks a bunch again, Tuomo!
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001380.html">inc/dec workspace
+</A></li>
+	<LI>Next message: <A HREF="001383.html">inc/dec workspace
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1381">[ date ]</a>
+              <a href="thread.html#1381">[ thread ]</a>
+              <a href="subject.html#1381">[ subject ]</a>
+              <a href="author.html#1381">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Life, universe, and ION3
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-October/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Life%2C%20universe%2C%20and%20ION3&In-Reply-To=%3Cslrnfgmp05.sc5.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000755.html">
+   <LINK REL="Next"  HREF="000747.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Life, universe, and ION3</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Life%2C%20universe%2C%20and%20ION3&In-Reply-To=%3Cslrnfgmp05.sc5.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Life, universe, and ION3">tuomov at iki.fi
+       </A><BR>
+    <I>Tue Oct  9 13:20:37 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000755.html">Life, universe, and ION3
+</A></li>
+        <LI>Next message: <A HREF="000747.html">Life, universe, and ION3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#741">[ date ]</a>
+              <a href="thread.html#741">[ thread ]</a>
+              <a href="subject.html#741">[ subject ]</a>
+              <a href="author.html#741">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2007-10-09, ,,, &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">hiena at toons.hu</A>&gt; wrote:
+&gt;<i> Also i have some ideas and thoughts, which i compiled to kind of
+</I>&gt;<i> whistlist. Most is not a basic wm feature, but it would be nice in a
+</I>&gt;<i> tabbed, tiling wm. Maybe some of these already developed, but spending 13
+</I>&gt;<i> hours with the soldering iron, and 3 hours moving bricks every day, leaves
+</I>&gt;<i> me a small time to reading the documentations.
+</I>
+As mentioned in another post, I'm unlikely to be writing any new stuff 
+for Ion in the next handful of years, if ever. It's time for something
+else, and GNU/Linux (and consequently *BSD as well to a slightly lesser
+extent) is turning into such a clusterfuck idiot box, that I doubt 
+there's anything semi-usable to run Ion on after I'm ready to start
+working on Ion4... aside from maybe Windows. Nevertheless, I'm likely
+to put up an 'Ion3plus' repository after the stable Ion3 is released,
+where users can contribute code moderated/edited by me, the malevolent
+dictator -- or rather, editor. (A project with an editor that does his
+job is like a journal with a good editor, whereas a truly bazaarian 
+software project is like writings on the toilet wall -- or the typical
+wiki.)
+
+&gt;<i> Policy settings for the new window creation. When i run some multyple
+</I>&gt;<i> window application (mplayer, gimp), it would be nice if i could set where
+</I>&gt;<i> must the spawned window must to be placed. Currently it's follows the
+</I>&gt;<i> mouse pointer. My idea is to be set a policy for every application (tabs)
+</I>&gt;<i> for the method of the new window placement. Three or four rules (same
+</I>&gt;<i> tile, some tile, any tile, float) would be suffice.
+</I>
+This is something of a FAQ. You can set somewhat rigid policies by the
+winprops mechanism, as indicated in another post. I'd like the default
+to be to place the windows in the frame they were created from, but
+this requires application support. It should be doable by writing a
+support module for the (typically ultra-complicated) FDO startup spec,
+which I couldn't be arsed to do, but few applications that matter
+actually support it. So in lack of that, placing windows in the
+current window is the policy of least surprise.
+
+&gt;<i> Auto size adjust for the fixed size applications at start. If i run some
+</I>&gt;<i> application like gkrellm, xmms, it would be nice, if the tile size
+</I>&gt;<i> automatically set, when it's start.
+</I>
+Maybe you can write a script to do so. I don't like it. Ion-friendly
+applications should behave as if they were full-screen (single-document)
+programs, adjusting to the size of their virtual screen -- the Ion frame.
+For some smaller monitor sort of applications I did once think of writing
+a support for so-called trays (nothing to do with the tiny system tray icons),
+but couldn't be arsed.
+
+&gt;<i> Switching the application to full screen mode, and back to the previous 
+</I>&gt;<i> tile settings. 
+</I>
+Umm... Mod1+Enter is a toggle, or what do you mean?
+
+&gt;<i> Mouse aided tile resize.
+</I>
+You can resize with the rat.
+
+&gt;<i> GUI based configuration tool for the keybindings.
+</I>
+But not WIMP-GUI, please. Rather, curses. 
+
+&gt;<i> Support for alternate keybindings. 
+</I>
+It's configurable.
+
+&gt;<i> Icon based, floating style application launcher.
+</I>
+Yuck. Well, for a touch screen kiosk sort of thing, a sort of sidebar
+application launcher could be nice... 
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000755.html">Life, universe, and ION3
+</A></li>
+	<LI>Next message: <A HREF="000747.html">Life, universe, and ION3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#741">[ date ]</a>
+              <a href="thread.html#741">[ thread ]</a>
+              <a href="subject.html#741">[ subject ]</a>
+              <a href="author.html#741">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

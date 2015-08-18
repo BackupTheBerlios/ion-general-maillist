@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Are title-bars/tabs necessary?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Are%20title-bars/tabs%20necessary%3F&In-Reply-To=%3C20070215213946.GA20871%40kati.fz-rossendorf.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000113.html">
+   <LINK REL="Next"  HREF="000115.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Are title-bars/tabs necessary?</H1>
+    <B>joerg van den hoff</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Are%20title-bars/tabs%20necessary%3F&In-Reply-To=%3C20070215213946.GA20871%40kati.fz-rossendorf.de%3E"
+       TITLE="Are title-bars/tabs necessary?">j.van_den_hoff at fzd.de
+       </A><BR>
+    <I>Thu Feb 15 22:39:46 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000113.html">Are title-bars/tabs necessary?
+</A></li>
+        <LI>Next message: <A HREF="000115.html">Are title-bars/tabs necessary?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#114">[ date ]</a>
+              <a href="thread.html#114">[ thread ]</a>
+              <a href="subject.html#114">[ subject ]</a>
+              <a href="author.html#114">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Thu, Feb 15, 2007 at 01:45:18PM -0500, Jeremy Maitin-Shepard wrote:
+&gt;<i> csant &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">csant at csant.info</A>&gt; writes:
+</I>&gt;<i> 
+</I>&gt;<i> &gt;&gt; only window-manager-related space I can afford are the tabs (although
+</I>&gt;<i> &gt;&gt; I start wondering if they are really necessary too :).
+</I>&gt;<i> 
+</I>&gt;<i> &gt; I have been wondering about that too - and even tried it for a while. But  
+</I>&gt;<i> &gt; I am afraid I at some point lost track... The main problem usually is that  
+</I>&gt;<i> &gt; *terminals* (which are the majority of client windows on my system) don't  
+</I>&gt;<i> &gt; really tell you in the the window title what you were busy with on them...  
+</I>&gt;<i> &gt; although probably this is a problem that could be solved.
+</I>&gt;<i> 
+</I>&gt;<i> It certainly can be.  Shells like zsh can be programmed to keep the
+</I>&gt;<i> title bar updated with useful information like <A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">user at hostname</A>, the
+</I>&gt;<i> current working directory, the current running command line, or the
+</I>&gt;<i> previous command that was run if no command is currently running.  In
+</I>&gt;<i> many cases this allows the title bar to indicate rather well the
+</I>&gt;<i> contents of the window.
+</I>&gt;<i> 
+</I>&gt;<i> -- 
+</I>&gt;<i> Jeremy Maitin-Shepard
+</I>
+
+well, in case someone is not aware of it: for xterm and the like
+(and every 'sufficiently standard' terminal emulator (say, `rxvt')
+there is at least always the possibility to use some escape
+sequences to directly write into the title bar and use 
+this facility within some aliases to get meaningful headings.
+so, one does not need specific shells to do this.
+
+e.g., I use tcsh and have set the following in `.cshrc`
+(would be rather similar with bash and `.profile')
+
+alias label   'echo -n &quot;]2;\!*&quot;'
+alias cd      'cd \!*;label &quot;$hostbasename&quot;:$PWD'
+
+don't know, how the above comes across via mail but in
+the  first line the `echo` command uses
+&lt;ESC&gt;]2 (escape right bracket followed by `2;')
+and than inserts some text (placeholder \!*)
+given on the command line, e.g. 
+
+label &quot;my_title&quot;
+
+and than ends with &lt;CTRL&gt;G
+
+I don't remember, but it is somewhere in the xterm-docs or on the net
+what escape sequences excactly are understood by xterm.
+
+in effect, this allows to set the title bar text with
+the `label' alias. more importantly, the `cd' alias sets the
+title bar automatically to the current machine and directory 
+after each `cd' command. 
+the latter serves me fine 99% of the time (for the rest
+the `label' command is OK. of course one can construct one's
+own favorite information which should be dumped into the
+title bar with appropriate modification of the above.
+
+maybe this is of use for someone.
+
+joerg
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000113.html">Are title-bars/tabs necessary?
+</A></li>
+	<LI>Next message: <A HREF="000115.html">Are title-bars/tabs necessary?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#114">[ date ]</a>
+              <a href="thread.html#114">[ thread ]</a>
+              <a href="subject.html#114">[ subject ]</a>
+              <a href="author.html#114">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> sending keystroke to unfocused window
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20sending%20keystroke%20to%20unfocused%20window&In-Reply-To=%3C20070410203514.b745cfe7.denisg%40suckless.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000355.html">
+   <LINK REL="Next"  HREF="000357.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>sending keystroke to unfocused window</H1>
+    <B>Denis Grelich</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20sending%20keystroke%20to%20unfocused%20window&In-Reply-To=%3C20070410203514.b745cfe7.denisg%40suckless.org%3E"
+       TITLE="sending keystroke to unfocused window">denisg at suckless.org
+       </A><BR>
+    <I>Tue Apr 10 20:35:14 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000355.html">sending keystroke to unfocused window
+</A></li>
+        <LI>Next message: <A HREF="000357.html">Nest-WS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#356">[ date ]</a>
+              <a href="thread.html#356">[ thread ]</a>
+              <a href="subject.html#356">[ subject ]</a>
+              <a href="author.html#356">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Tue, 10 Apr 2007 14:59:01 +0000 (UTC)
+Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt; wrote:
+
+&gt;<i> On 2007-04-10, Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt; wrote:
+</I>&gt;<i> &gt; On 2007-04-10, Stefan Reich&#246;r &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">stefan at xsteve.at</A>&gt; wrote:
+</I>&gt;<i> &gt;&gt; You can use xautomation to send keystrokes.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Ah, such a program exists. Now I can just point everyone asking to
+</I>&gt;<i> &gt; include all sorts of fancy key forwarding to stuff in Ion, to it.
+</I>&gt;<i> 
+</I>&gt;<i> Actually... xautomation doesn't work. You can't send keys to a
+</I>&gt;<i> particular windows with it. It uses XTest, so X will normally
+</I>&gt;<i> forward grabbed keys to the grabbing application.
+</I>
+For what I know, sending artificial events is not satisfactorily doable
+under X11. There's XSendEvent, which sends events that are flagged
+artificial. They are not equivalent to true events, since some apps
+(most notoriously XTerm) refuse to accept them for some dubious
+&quot;security concerns.&quot; On the other hand, there's XTest which is not
+ubiquitous and which has limitations such as the one mentioned above.
+
+I don't know of any other means of achieving something similar. Tools
+like xautomation thus can only be ugly, crooked and way too short
+kludges.
+
+Denis
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000355.html">sending keystroke to unfocused window
+</A></li>
+	<LI>Next message: <A HREF="000357.html">Nest-WS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#356">[ date ]</a>
+              <a href="thread.html#356">[ thread ]</a>
+              <a href="subject.html#356">[ subject ]</a>
+              <a href="author.html#356">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

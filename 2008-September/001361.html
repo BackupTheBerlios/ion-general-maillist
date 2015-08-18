@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> winprop.target and nested workspace
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20winprop.target%20and%20nested%20workspace&In-Reply-To=%3C20080909234537.GA6035%40carlos%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001357.html">
+   <LINK REL="Next"  HREF="001362.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>winprop.target and nested workspace</H1>
+    <B>Carlos Pita</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20winprop.target%20and%20nested%20workspace&In-Reply-To=%3C20080909234537.GA6035%40carlos%3E"
+       TITLE="winprop.target and nested workspace">carlosjosepita at gmail.com
+       </A><BR>
+    <I>Wed Sep 10 01:45:37 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001357.html">winprop.target and nested workspace
+</A></li>
+        <LI>Next message: <A HREF="001362.html">winprop.target and nested workspace
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1361">[ date ]</a>
+              <a href="thread.html#1361">[ thread ]</a>
+              <a href="subject.html#1361">[ subject ]</a>
+              <a href="author.html#1361">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&gt;<i> &gt; groupws1 --- frame1 --- groupcw1 --- window1
+</I>&gt;<i> &gt;                     |__ groupws2 --- frame2 --- groupcw2 --- window2
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Let me be more precise. The resulting parent is frame2 in both cases,
+</I>&gt;<i> &gt; and the resulting manager is the tilling for frame2 in both cases. It's
+</I>&gt;<i> 
+</I>&gt;<i> window, but the set target object. In your case, the implementation
+</I>&gt;<i> frame_prepare_manage is called on frame1, which is a wrapper for
+</I>&gt;<i> mplex_prepare_manage, that forwards the request to the implmentation
+</I>&gt;<i> group_prepare_manage on groupws2, if that is the current selected
+</I>&gt;<i> region, etc.
+</I>
+I see. Two solutions come to my mind (besides from modifying the
+sources which I still not dare to do).
+
+One is tweaking the saved session in order to change the current
+selected region, if this makes any sense at all (if the active region
+isn't stored there, where is it then? Maybe nowhere?). Inspecting the
+saved session the only field I suppose that could be related is
+switchto. But anyway this fix would be too fragile, ready to be broken
+again after saving the session.
+
+The second possibility is to implement a custom clientwin_do_manage_alt
+hook and do all the work myself, at least for the windows that must
+reside at nested workspaces.
+
+What do you think Tuomo? Any suggestion from the ion savvy?
+
+Regards
+-Carlos
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001357.html">winprop.target and nested workspace
+</A></li>
+	<LI>Next message: <A HREF="001362.html">winprop.target and nested workspace
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1361">[ date ]</a>
+              <a href="thread.html#1361">[ thread ]</a>
+              <a href="subject.html#1361">[ subject ]</a>
+              <a href="author.html#1361">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

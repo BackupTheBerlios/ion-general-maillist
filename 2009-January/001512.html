@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Toggle horizontal/vertical maximize behaviour
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Toggle%20horizontal/vertical%20maximize%20behaviour&In-Reply-To=%3Cgjk75h%24d80%241%40ger.gmane.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="001513.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Toggle horizontal/vertical maximize behaviour</H1>
+    <B>Chris Burkhardt</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Toggle%20horizontal/vertical%20maximize%20behaviour&In-Reply-To=%3Cgjk75h%24d80%241%40ger.gmane.org%3E"
+       TITLE="Toggle horizontal/vertical maximize behaviour">chris at mretc.net
+       </A><BR>
+    <I>Fri Jan  2 06:02:37 CET 2009</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="001513.html">Toggle horizontal/vertical maximize behaviour
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1512">[ date ]</a>
+              <a href="thread.html#1512">[ thread ]</a>
+              <a href="subject.html#1512">[ subject ]</a>
+              <a href="author.html#1512">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Tuomo Valkonen wrote:
+&gt;<i> On 2008-12-15 17:09 +0000, Tuomo Valkonen wrote:
+</I>&gt;&gt;&gt;<i> resize commands. (E.g. I see only tab heading, but if I switch to that
+</I>&gt;&gt;&gt;<i> heading and try to do ALT+K-V or even ALT+R-N, there's no reaction.) The
+</I>&gt;&gt;&gt;<i> only way to unshrink it is to resize main frame.
+</I>&gt;&gt;<i> I may look into this more closely next year; now I have
+</I>&gt;&gt;<i> other things to concentrate on.
+</I>&gt;<i> 
+</I>&gt;<i> Ok, attached is a patch that might help with the issue, also
+</I>&gt;<i> available from the darcs repository. Please let me know if it
+</I>&gt;<i> helps, so I can finally make the new maintenance release that's
+</I>&gt;<i> been pending (getting through with PhD defence busyness).
+</I>
+Hi Tuomo, thanks for the patch. Unfortunately I still experience problems with
+frames getting stuck at 0 width or height after doing a 'Mod1-K V' or 'Mod1-K H'
+in a neighboring frame. Fortunately I can reproduce it reliably:
+
+1) Start with a 'full' tiled workspace containing a single frame.
+2) Mod1-S to do a vertical split
+3) In the top frame repeated 'Mod1-K V' toggle the bottom frame from 0 height
+and then back to half the screen height, as expected.
+4) Again in the top frame do a 'Mod1-K S' to do a horizontal split.
+5) In one of the top frames do a 'Mod1-K V' to collapse the bottom frame. Then
+'Mod1-TAB' to the other top frame and 'Mod1-K V'... the bottom frame
+unexpectedly stays at 0!
+
+(The same thing happens using 'Mod1-K H' in horizontal-split frames.) The key to
+reproducing the problem is to switch between maximized frames while the
+minimized frame is at 0 height/width, it then becomes impossible to resize the
+minimized frame from the keyboard.
+
+Let me know if you need a better description (or if I'm experiencing some
+user-error/misconception).
+
+- Chris Burkhardt
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="001513.html">Toggle horizontal/vertical maximize behaviour
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1512">[ date ]</a>
+              <a href="thread.html#1512">[ thread ]</a>
+              <a href="subject.html#1512">[ subject ]</a>
+              <a href="author.html#1512">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

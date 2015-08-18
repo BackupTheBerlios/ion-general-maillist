@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Scripting problem
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-June/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Scripting%20problem&In-Reply-To=%3Ch06ltm%249qq%241%40ger.gmane.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001663.html">
+   <LINK REL="Next"  HREF="001666.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Scripting problem</H1>
+    <B>Seb Haezebrouck</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Scripting%20problem&In-Reply-To=%3Ch06ltm%249qq%241%40ger.gmane.org%3E"
+       TITLE="Scripting problem">seb at borriglion.fr
+       </A><BR>
+    <I>Wed Jun  3 22:20:00 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001663.html">Scripting problem
+</A></li>
+        <LI>Next message: <A HREF="001666.html">Scripting problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1665">[ date ]</a>
+              <a href="thread.html#1665">[ thread ]</a>
+              <a href="subject.html#1665">[ subject ]</a>
+              <a href="author.html#1665">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&gt;<i> You should listen to frame_managed_changed_hook. No need to make
+</I>&gt;<i> new bindings, just check when a frame becomes empty in that hook.
+</I>&gt;<i> min_tabs.lua from the scripts repository might provide some useful
+</I>&gt;<i> bits.
+</I>
+Thanks - I did just this, but face yet another issue, this time with the 
+below code:
+
+local function close_empty_frame(ftable)
+    if ftable.mode ~= 'remove' then return end
+    local wmp = ftable.reg
+    -- Should probably test that wmp is not nil here - or is it guaranteed 
+to contain sth meaningful ?
+    if WMPlex.mx_count(wmp) == 0 then
+        ioncore.defer(WRegion.rqclose(wmp))
+    end
+end
+
+local hk=ioncore.get_hook(&quot;frame_managed_changed_hook&quot;)
+hk:add(close_empty_frame)
+
+Now the code does not hang anymore, but I get &quot;ion3: Attempt to call an 
+unsafe function &quot;rqclose&quot; in restricted mode.&quot; each time I close the last 
+client in a frame.
+
+I thought ioncore.defer would do the trick and defer the execution of the 
+rqclose until I am back in the main loop (so probably out of &quot;restricted&quot; 
+mode), but it looks like it does not... What am I still missing ?
+
+Seb 
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001663.html">Scripting problem
+</A></li>
+	<LI>Next message: <A HREF="001666.html">Scripting problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1665">[ date ]</a>
+              <a href="thread.html#1665">[ thread ]</a>
+              <a href="subject.html#1665">[ subject ]</a>
+              <a href="author.html#1665">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

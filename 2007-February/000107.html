@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Possible? Toggle statusbar
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Possible%3F%20Toggle%20statusbar&In-Reply-To=%3CBAY13-F221F4D7E3AB3E9AD3DA900BA910%40phx.gbl%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000106.html">
+   <LINK REL="Next"  HREF="000109.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Possible? Toggle statusbar</H1>
+    <B>Canaan Hadley-Voth</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Possible%3F%20Toggle%20statusbar&In-Reply-To=%3CBAY13-F221F4D7E3AB3E9AD3DA900BA910%40phx.gbl%3E"
+       TITLE="Possible? Toggle statusbar">ugggg at hotmail.com
+       </A><BR>
+    <I>Mon Feb 12 22:25:59 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000106.html">Possible? Toggle statusbar
+</A></li>
+        <LI>Next message: <A HREF="000109.html">Possible? Toggle statusbar
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#107">[ date ]</a>
+              <a href="thread.html#107">[ thread ]</a>
+              <a href="subject.html#107">[ subject ]</a>
+              <a href="author.html#107">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&gt;<i>is it possible to toggle the statusbar on and off?
+</I>
+You can create and destroy the statusbar, which might be good enough.  This 
+is one of the tips I had put into the wiki when that was around.  It worked 
+for text statusbars, but icons would get dumped into some other frame.
+
+function toggle_statusbar()
+    local sbar=ioncore.region_list'WStatusBar'[1]
+    if sbar then
+	sbar:rqclose()
+    elseif mod_statusbar then
+	dopath'cfg_statusbar'
+    else
+	dopath'mod_statusbar'
+    end
+end
+
+_________________________________________________________________
+Search for grocery stores. Find gratitude. Turn a simple search into 
+something more. 
+<A HREF="http://click4thecause.live.com/search/charity/default.aspx?source=hmemtagline_gratitude&amp;FORM=WLMTAG">http://click4thecause.live.com/search/charity/default.aspx?source=hmemtagline_gratitude&amp;FORM=WLMTAG</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000106.html">Possible? Toggle statusbar
+</A></li>
+	<LI>Next message: <A HREF="000109.html">Possible? Toggle statusbar
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#107">[ date ]</a>
+              <a href="thread.html#107">[ thread ]</a>
+              <a href="subject.html#107">[ subject ]</a>
+              <a href="author.html#107">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

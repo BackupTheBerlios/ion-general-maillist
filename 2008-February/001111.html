@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> attach_new problems
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20attach_new%20problems&In-Reply-To=%3Cslrnfrvjhn.ccp.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001109.html">
+   <LINK REL="Next"  HREF="001112.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>attach_new problems</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20attach_new%20problems&In-Reply-To=%3Cslrnfrvjhn.ccp.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="attach_new problems">tuomov at iki.fi
+       </A><BR>
+    <I>Sat Feb 23 08:41:43 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001109.html">attach_new problems
+</A></li>
+        <LI>Next message: <A HREF="001112.html">attach_new problems
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1111">[ date ]</a>
+              <a href="thread.html#1111">[ thread ]</a>
+              <a href="subject.html#1111">[ subject ]</a>
+              <a href="author.html#1111">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-02-23, Alte &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">alex.barinov at gmail.com</A>&gt; wrote:
+&gt;<i>         local wg = tf:attach_new({type = &quot;WGroupCW&quot;, switchto = t.switchto})
+</I>&gt;<i>         local opt = {type = &quot;WTiling&quot;, name = c, dir = &quot;horizontal&quot;,
+</I>...
+&gt;<i>         local ws = wg:attach_new(opt)
+</I>
+You can not create empty WGroupCWs. (Consider loading a saved layout
+without the old client windows (CQW) to be found. These types of 
+groups have been tuned for groups as client window containers.) 
+What you probably want is WGroupWS (groups tuned for workspace 
+usage). Also, you're doing things the clumsy way by repeated
+attach_new. You can simply include the second layout in the
+first attach_new: managed = { opt }.
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001109.html">attach_new problems
+</A></li>
+	<LI>Next message: <A HREF="001112.html">attach_new problems
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1111">[ date ]</a>
+              <a href="thread.html#1111">[ thread ]</a>
+              <a href="subject.html#1111">[ subject ]</a>
+              <a href="author.html#1111">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

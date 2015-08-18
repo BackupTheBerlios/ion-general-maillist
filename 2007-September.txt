@@ -1,0 +1,1712 @@
+From tuomov at iki.fi  Sun Sep  2 15:51:41 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 2 Sep 2007 13:51:41 +0000 (UTC)
+Subject: ion-3rc-20070902
+Message-ID: <slrnfdlfvd.hm7.tuomov@jolt.modeemi.cs.tut.fi>
+
+This release features a few minor fixes. If no major problems are
+discovered, this is likely to be the last "rc" release before the
+first and hopefully final "stable" release.
+
+
+-- 
+Tuomo
+
+
+
+From alexander.shishckin at gmail.com  Sun Sep  2 16:06:07 2007
+From: alexander.shishckin at gmail.com (Alexander Shishkin)
+Date: Sun, 2 Sep 2007 18:06:07 +0400
+Subject: ion-3rc-20070902
+In-Reply-To: <slrnfdlfvd.hm7.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnfdlfvd.hm7.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <71a0d6ff0709020706o7839581dn5ac1078a374779d8@mail.gmail.com>
+
+On 9/2/07, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> This release features a few minor fixes. If no major problems are
+> discovered, this is likely to be the last "rc" release before the
+> first and hopefully final "stable" release.
+Sorry, haven't been following recently (vacation and stuff), but does
+anybody (Ben?) still keep packaging ion3 for debian? The last version
+that I see is 20070720-2.
+
+Tuomo, do you still hide your darcs repo, btw?
+
+-- 
+I like long walks, especially when they are taken by people who annoy me.
+
+
+From nickmurdoch at gmail.com  Sun Sep  2 16:12:07 2007
+From: nickmurdoch at gmail.com (Nick Murdoch)
+Date: Sun, 02 Sep 2007 15:12:07 +0100
+Subject: ion-3rc-20070902
+In-Reply-To: <71a0d6ff0709020706o7839581dn5ac1078a374779d8@mail.gmail.com>
+References: <slrnfdlfvd.hm7.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0709020706o7839581dn5ac1078a374779d8@mail.gmail.com>
+Message-ID: <46DAC4B7.5070000@gmail.com>
+
+Alexander Shishkin wrote:
+> On 9/2/07, Tuomo Valkonen <tuomov at iki.fi> wrote:
+>> This release features a few minor fixes. If no major problems are
+>> discovered, this is likely to be the last "rc" release before the
+>> first and hopefully final "stable" release.
+> Sorry, haven't been following recently (vacation and stuff), but does
+> anybody (Ben?) still keep packaging ion3 for debian? The last version
+> that I see is 20070720-2.
+
+It's a little behind at the moment, but yes, he does seem to be. It'll
+be nice when ion3 is stable for Debian. mod-xinerama-for-ion3 seems to
+be missing from apt all of a sudden, however. (I know this has nothing
+to do with Tuomo, though)
+
+
+From alexander.shishckin at gmail.com  Sun Sep  2 16:28:38 2007
+From: alexander.shishckin at gmail.com (Alexander Shishkin)
+Date: Sun, 2 Sep 2007 18:28:38 +0400
+Subject: ion-3rc-20070902
+In-Reply-To: <46DAC4B7.5070000@gmail.com>
+References: <slrnfdlfvd.hm7.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0709020706o7839581dn5ac1078a374779d8@mail.gmail.com>
+	<46DAC4B7.5070000@gmail.com>
+Message-ID: <71a0d6ff0709020728y3ac811a2v7086bb92280c925a@mail.gmail.com>
+
+On 9/2/07, Nick Murdoch <nickmurdoch at gmail.com> wrote:
+> Alexander Shishkin wrote:
+> > On 9/2/07, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> >> This release features a few minor fixes. If no major problems are
+> >> discovered, this is likely to be the last "rc" release before the
+> >> first and hopefully final "stable" release.
+> > Sorry, haven't been following recently (vacation and stuff), but does
+> > anybody (Ben?) still keep packaging ion3 for debian? The last version
+> > that I see is 20070720-2.
+>
+> It's a little behind at the moment, but yes, he does seem to be. It'll
+> be nice when ion3 is stable for Debian. mod-xinerama-for-ion3 seems to
+> be missing from apt all of a sudden, however. (I know this has nothing
+> to do with Tuomo, though)
+Yes, mod-xinerama is part of my concern indeed.
+
+-- 
+I like long walks, especially when they are taken by people who annoy me.
+
+
+From ap at acat.cc  Sun Sep  2 16:40:55 2007
+From: ap at acat.cc (Andreas Poisel)
+Date: Sun, 2 Sep 2007 16:40:55 +0200
+Subject: ion-3rc-20070902
+In-Reply-To: <slrnfdlfvd.hm7.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnfdlfvd.hm7.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070902144055.GD11857@trude>
+
+* Tuomo Valkonen <tuomov at iki.fi> [070902 16:20]:
+> This release features a few minor fixes. If no major problems are
+> discovered, this is likely to be the last "rc" release before the
+> first and hopefully final "stable" release.
+
+Thank you!
+
+One small issue (introduced with 3rc-20070720) regarding floating dock:
+After configuring positions "mr" or "ml" the dock appears on "mc"
+(center of the screen).  Other positions work as normal.
+
+-- 
+Bye, Andreas
+
+
+From tuomov at iki.fi  Sun Sep  2 17:34:38 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 2 Sep 2007 18:34:38 +0300
+Subject: ion-3rc-20070902
+In-Reply-To: <20070902144055.GD11857@trude>
+References: <slrnfdlfvd.hm7.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070902144055.GD11857@trude>
+Message-ID: <20070902153438.GA27360@jolt.modeemi.cs.tut.fi>
+
+On 2007-09-02 16:40 +0200, Andreas Poisel wrote:
+> One small issue (introduced with 3rc-20070720) regarding floating dock:
+> After configuring positions "mr" or "ml" the dock appears on "mc"
+> (center of the screen).  Other positions work as normal.
+
+Seems to be a copy-paste unimplementation.. Does the hopefully* 
+attached patch help? I'm too lazy to test it.
+
+
+(* The sucky thing about MUAs that launch your favourite editor in
+the terminal is that you can't attach files before or during editing,
+only after.. and you're so keen on and used to just hitting the send
+key at that point. It would be possible to properly embed the editor 
+by writing a custom terminal emulator..)
+
+-- 
+Tuomo
+-------------- next part --------------
+diff -rN old-ion-3-work1.1/mod_dock/dock.c new-ion-3-work1.1/mod_dock/dock.c
+986c986,990
+<        : SIZEPOLICY_GRAVITY_CENTER);
+---
+>        : (hp!=DOCK_HPOS_CENTER
+>           ? (hp==DOCK_HPOS_RIGHT
+>              ? SIZEPOLICY_GRAVITY_EAST
+>              : SIZEPOLICY_GRAVITY_WEST)
+>           : SIZEPOLICY_GRAVITY_CENTER));
+
+
+From ap at acat.cc  Sun Sep  2 22:54:18 2007
+From: ap at acat.cc (Andreas Poisel)
+Date: Sun, 2 Sep 2007 22:54:18 +0200
+Subject: ion-3rc-20070902
+In-Reply-To: <20070902153438.GA27360@jolt.modeemi.cs.tut.fi>
+References: <slrnfdlfvd.hm7.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070902144055.GD11857@trude>
+	<20070902153438.GA27360@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070902205418.GE11857@trude>
+
+* Tuomo Valkonen <tuomov at iki.fi> [070902 17:40]:
+> Seems to be a copy-paste unimplementation.. Does the hopefully* 
+> attached patch help? I'm too lazy to test it.
+
+Works perfectly, thank you.
+
+> (* The sucky thing about MUAs that launch your favourite editor in
+> the terminal is that you can't attach files before or during editing,
+> only after.. and you're so keen on and used to just hitting the send
+> key at that point. It would be possible to properly embed the editor 
+> by writing a custom terminal emulator..)
+
+Yeah, I know that pitfall very, very well.  I've been trying to get
+used to re-check headers (and think of attachments) after closing the
+editor for years - with moderate success...
+
+-- 
+Bye, Andreas
+
+
+From ben at decadent.org.uk  Mon Sep  3 01:59:32 2007
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Mon, 03 Sep 2007 00:59:32 +0100
+Subject: ion-3rc-20070902
+In-Reply-To: <71a0d6ff0709020728y3ac811a2v7086bb92280c925a@mail.gmail.com>
+References: <slrnfdlfvd.hm7.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0709020706o7839581dn5ac1078a374779d8@mail.gmail.com>
+	<46DAC4B7.5070000@gmail.com>
+	<71a0d6ff0709020728y3ac811a2v7086bb92280c925a@mail.gmail.com>
+Message-ID: <1188777572.26443.30.camel@deadeye.i.decadent.org.uk>
+
+On Sun, 2007-09-02 at 18:28 +0400, Alexander Shishkin wrote:
+> On 9/2/07, Nick Murdoch <nickmurdoch at gmail.com> wrote:
+> > Alexander Shishkin wrote:
+> > > On 9/2/07, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> > >> This release features a few minor fixes. If no major problems are
+> > >> discovered, this is likely to be the last "rc" release before the
+> > >> first and hopefully final "stable" release.
+> > > Sorry, haven't been following recently (vacation and stuff), but does
+> > > anybody (Ben?) still keep packaging ion3 for debian? The last version
+> > > that I see is 20070720-2.
+> >
+> > It's a little behind at the moment, but yes, he does seem to be. It'll
+> > be nice when ion3 is stable for Debian. mod-xinerama-for-ion3 seems to
+> > be missing from apt all of a sudden, however. (I know this has nothing
+> > to do with Tuomo, though)
+> Yes, mod-xinerama is part of my concern indeed.
+
+It's unmaintained in Debian.  I've been trying to convince Holger Levsen
+to pick it up.
+
+Ben.
+
+-- 
+Ben Hutchings
+For every action, there is an equal and opposite criticism. - Harrison
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070903/aa456e9a/attachment.pgp>
+
+From psionic at csh.rit.edu  Mon Sep  3 17:45:36 2007
+From: psionic at csh.rit.edu (Jordan Sissel)
+Date: Mon, 03 Sep 2007 11:45:36 -0400
+Subject: Feature request
+Message-ID: <20070903154536.626D650928@scorn.csh.rit.edu>
+
+
+Howdy,
+
+Dragging windows around calls XGrabServer. Can we not do that? It
+doesn't seem as simple as simply not calling it, because when we don't,
+dragging the window (well, the frame that represents the moving window)
+doesn't fire the repaint event (Expose?) on windows that are moved over
+during the dragging.
+
+Yes? No? Should I work on a patch?
+
+-Jordan
+
+
+From tuomov at iki.fi  Mon Sep  3 18:22:26 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 3 Sep 2007 16:22:26 +0000 (UTC)
+Subject: Feature request
+References: <20070903154536.626D650928@scorn.csh.rit.edu>
+Message-ID: <slrnfdod62.4sf.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-09-03, Jordan Sissel <psionic at csh.rit.edu> wrote:
+> Yes? No? Should I work on a patch?
+
+RTFM opaque_resize. Grabbing the server is only necessary for the 
+antique XOR-hack.
+
+-- 
+Tuomo
+
+
+
+From psionic at csh.rit.edu  Mon Sep  3 21:11:11 2007
+From: psionic at csh.rit.edu (Jordan Sissel)
+Date: Mon, 03 Sep 2007 15:11:11 -0400
+Subject: Feature request 
+In-Reply-To: <slrnfdod62.4sf.tuomov@jolt.modeemi.cs.tut.fi> 
+References: <20070903154536.626D650928@scorn.csh.rit.edu>
+	<slrnfdod62.4sf.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070903191112.02E7F25@fury.csh.rit.edu>
+
+On 3 September 2007 at 16:22, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2007-09-03, Jordan Sissel <psionic at csh.rit.edu> wrote:
+> > Yes? No? Should I work on a patch?
+> 
+> RTFM opaque_resize. Grabbing the server is only necessary for the 
+> antique XOR-hack.
+> 
+
+Ahh, my bad. Thanks for the pointer. :)
+
+-Jordan
+
+
+From davison at stats.ox.ac.uk  Tue Sep  4 14:40:23 2007
+From: davison at stats.ox.ac.uk (Dan Davison)
+Date: Tue, 4 Sep 2007 13:40:23 +0100
+Subject: ion3 on startup
+Message-ID: <20070904124023.GC21436@stats.ox.ac.uk>
+
+Seeing as this is my first post: I've used ion constantly from the week I switched to linux 5 years ago -- so first of all thanks very much Tuomo.
+
+However, I never switched to ion3 until this weekend. I have spent a bit of time with TFM in the last few days, but do need to spend some more so my terminology (screens/frames/windows/tabs etc) in the following is probably going to be confused. Sorry for that.
+
+When I start ion, I would like to have a single frame (?), filling the whole screen, with several tabs along the top. I have the following in my .xsession (the point wasn't to reveal my bash clumsiness...)
+
+nterminals=4
+i=1
+while [ $i -le $nterminals ]
+do
+  xterm -title $i +sb -fn $XTERM_FONT_DAN -fg $XTERM_FOREGROUND_DAN -bg $XTERM_BACKGROUND_DAN &
+  i=$(($i+1))
+done
+exec ion3
+
+Previously, with ion(1), this had the desired result. However, the result with ion3 is that my screen is split vertically into two frames, one of which contains the desired 4 tabs, and the other is named <empty frame>. Could someone tell me how and where I specify that I want just one frame? Incidentally when I do Mod1+K X to kill the unwanted frame, the next time I start ion3 it is back, whereas I thought I understood from the FAQ that it would remember my configuration of frames.
+
+(Also, is the above an appropriate/sensible means of starting ion3 from .xsession?)
+
+
+Thanks a lot,
+
+Dan
+
+
+From tuomov at iki.fi  Tue Sep  4 15:12:55 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 4 Sep 2007 13:12:55 +0000 (UTC)
+Subject: ion3 on startup
+References: <20070904124023.GC21436@stats.ox.ac.uk>
+Message-ID: <slrnfdqmen.n3d.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-09-04, Dan Davison <davison at stats.ox.ac.uk> wrote:
+> When I start ion, I would like to have a single frame (?), filling the
+> whole screen, with several tabs along the top. I have the following in my
+> .xsession (the point wasn't to reveal my bash clumsiness...)
+
+ioncore.deflayout("default", nil), or modify cfg_layouts.lua to your 
+tastes. The layout stuff doesn't seem to be well-documented..
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue Sep  4 15:21:37 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 4 Sep 2007 13:21:37 +0000 (UTC)
+Subject: ion3 on startup
+References: <20070904124023.GC21436@stats.ox.ac.uk>
+Message-ID: <slrnfdqmv1.o47.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-09-04, Dan Davison <davison at stats.ox.ac.uk> wrote:
+> When I start ion, I would like to have a single frame (?), 
+
+Oops, forget the first tip in the first reply (slow gmane or berlios today; 
+it hasn't appeared yet). It creates an "empty" workspace, i.e. one without
+a tiling at all. The line you want is
+
+    ioncore.deflayout("default", ioncore.getlayout("full"))
+
+-- 
+Tuomo
+
+
+
+From Albert.Shih at obspm.fr  Mon Sep 10 16:22:26 2007
+From: Albert.Shih at obspm.fr (Albert Shih)
+Date: Mon, 10 Sep 2007 16:22:26 +0200
+Subject: Full screen
+Message-ID: <20070910142226.GB43171@pcjas.obspm.fr>
+
+Hi All
+
+Long time ago I've use  
+
+	mod1+return
+
+to toggle a windows to full-screen mode.
+
+Now (I can say before when) this thing don't work anymore.
+
+Maybe it's my config, maybe it's my installation, maybe it's just the
+shortcut have change, maybe etc... But if someone can tell me how I can do this again ?
+
+Thanks for your help.
+
+Regards.
+
+
+--
+Albert SHIH
+Observatoire de Paris Meudon
+SIO batiment 15
+Heure local/Local time:
+Lun 10 sep 2007 16:20:18 CEST
+
+
+From lobzang at free.fr  Mon Sep 10 18:17:27 2007
+From: lobzang at free.fr (lobzang at free.fr)
+Date: Mon, 10 Sep 2007 18:17:27 +0200
+Subject: Full screen
+In-Reply-To: <20070910142226.GB43171@pcjas.obspm.fr>
+References: <20070910142226.GB43171@pcjas.obspm.fr>
+Message-ID: <1189441047.46e56e176dfa0@imp.free.fr>
+
+That's in the cfg_ioncore.lua :
+
+kpress_wait(META.."Return", "WGroup.set_fullscreen(_, 'toggle')")
+
+
+lobzang.
+
+Quoting Albert Shih <Albert.Shih at obspm.fr>:
+
+> Hi All
+>
+> Long time ago I've use
+>
+> 	mod1+return
+>
+> to toggle a windows to full-screen mode.
+>
+> Now (I can say before when) this thing don't work anymore.
+>
+> Maybe it's my config, maybe it's my installation, maybe it's just the
+> shortcut have change, maybe etc... But if someone can tell me how I can do
+> this again ?
+>
+> Thanks for your help.
+>
+> Regards.
+>
+>
+> --
+> Albert SHIH
+> Observatoire de Paris Meudon
+> SIO batiment 15
+> Heure local/Local time:
+> Lun 10 sep 2007 16:20:18 CEST
+>
+
+
+___________________
+lobzang.free.fr
+
+
+From psionic at csh.rit.edu  Mon Sep 10 19:19:09 2007
+From: psionic at csh.rit.edu (Jordan Sissel)
+Date: Mon, 10 Sep 2007 13:19:09 -0400
+Subject: Full screen 
+In-Reply-To: <20070910142226.GB43171@pcjas.obspm.fr> 
+References: <20070910142226.GB43171@pcjas.obspm.fr>
+Message-ID: <20070910171909.6C8A850821@scorn.csh.rit.edu>
+
+On 10 September 2007 at 16:22, Albert Shih <Albert.Shih at obspm.fr> wrote:
+> Hi All
+> 
+> Long time ago I've use  
+> 
+> 	mod1+return
+> 
+> to toggle a windows to full-screen mode.
+> 
+> Now (I can say before when) this thing don't work anymore.
+> 
+> Maybe it's my config, maybe it's my installation, maybe it's just the
+> shortcut have change, maybe etc... But if someone can tell me how I can do this again ?
+
+Any time I've run into this, it is because I installed a new version of
+ion3 but my ~/.ion3/ had configs for the older version. The solution
+(for me) has always been to copy in the new configs that come with ion3
+and reapply any changes I'd made previously.
+
+-Jordan
+
+
+From deryni at unreliablesource.net  Mon Sep 10 22:34:02 2007
+From: deryni at unreliablesource.net (Etan Reisner)
+Date: Mon, 10 Sep 2007 16:34:02 -0400
+Subject: Full screen
+In-Reply-To: <20070910171909.6C8A850821@scorn.csh.rit.edu>
+References: <20070910142226.GB43171@pcjas.obspm.fr>
+	<20070910171909.6C8A850821@scorn.csh.rit.edu>
+Message-ID: <20070910203355.GI8631@aran>
+
+On Mon, Sep 10, 2007 at 01:19:09PM -0400, Jordan Sissel wrote:
+<snip>
+> Any time I've run into this, it is because I installed a new version of
+> ion3 but my ~/.ion3/ had configs for the older version. The solution
+> (for me) has always been to copy in the new configs that come with ion3
+> and reapply any changes I'd made previously.
+
+As I've said on this list and in #ion any number of times, I *strongly*
+recommend *not* copying the system configuration files into ~/.ion3 for
+reasons exactly like this. There are only three ion config files you
+should copy or need to copy and they are cfg_ion.lua, cfg_dock.lua, and
+cfg_statusbar.lua and you obviously only need those latter two if you
+actually use the dock/statusbar. For all other configuration you can use
+cfg_ion.lua or other files of your own naming that you dopath() in
+cfg_ion.lua.
+
+> -Jordan
+
+	-Etan
+
+
+From tuomov at iki.fi  Tue Sep 11 09:40:52 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 11 Sep 2007 07:40:52 +0000 (UTC)
+Subject: Full screen
+References: <20070910142226.GB43171@pcjas.obspm.fr>
+	<20070910171909.6C8A850821@scorn.csh.rit.edu>
+	<20070910203355.GI8631@aran>
+Message-ID: <slrnfechk4.51j.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-09-10, Etan Reisner <deryni at unreliablesource.net> wrote:
+> As I've said on this list and in #ion any number of times, I *strongly*
+> recommend *not* copying the system configuration files into ~/.ion3 for
+> reasons exactly like this. There are only three ion config files you
+> should copy or need to copy and they are cfg_ion.lua, cfg_dock.lua, and
+> cfg_statusbar.lua and you obviously only need those latter two if you
+> actually use the dock/statusbar. For all other configuration you can use
+> cfg_ion.lua or other files of your own naming that you dopath() in
+> cfg_ion.lua.
+
+The above message is hard to over-emphasise.
+
+-- 
+Tuomo
+
+
+
+From Albert.Shih at obspm.fr  Tue Sep 11 10:10:45 2007
+From: Albert.Shih at obspm.fr (Albert Shih)
+Date: Tue, 11 Sep 2007 10:10:45 +0200
+Subject: Full screen
+In-Reply-To: <20070910203355.GI8631@aran>
+References: <20070910142226.GB43171@pcjas.obspm.fr>
+	<20070910171909.6C8A850821@scorn.csh.rit.edu>
+	<20070910203355.GI8631@aran>
+Message-ID: <20070911081045.GA51775@pcjas.obspm.fr>
+
+ Le 10/09/2007 ? 16:34:02-0400, Etan Reisner a ?crit
+> On Mon, Sep 10, 2007 at 01:19:09PM -0400, Jordan Sissel wrote:
+> <snip>
+> > Any time I've run into this, it is because I installed a new version of
+> > ion3 but my ~/.ion3/ had configs for the older version. The solution
+> > (for me) has always been to copy in the new configs that come with ion3
+> > and reapply any changes I'd made previously.
+> 
+> As I've said on this list and in #ion any number of times, I *strongly*
+> recommend *not* copying the system configuration files into ~/.ion3 for
+> reasons exactly like this. There are only three ion config files you
+> should copy or need to copy and they are cfg_ion.lua, cfg_dock.lua, and
+> cfg_statusbar.lua and you obviously only need those latter two if you
+> actually use the dock/statusbar. For all other configuration you can use
+> cfg_ion.lua or other files of your own naming that you dopath() in
+> cfg_ion.lua.
+
+OK. But well during long time I use ... a old config file because it's very
+complicate for a not power user to follow the change in the config file.
+
+Now I try from the cfg_ioncore.lua to make a new file for my own config.
+And it's not work. Anyone can help me 
+
+Thanks.
+
+Regards.
+
+
+
+Here is the file
+
+*******************************
+* I wan to use Crtl + Up/ Crtl+ down to switch screen
+* and I want switch F1 and F9 to using F1 to go/or create a workspace.
+*******************************
+
+SECOND_META="Control+"
+defbindings("WScreen", {
+    bdoc("Switch to next/previous object within current screen."),
+    kpress(SECOND_META.."Up", "WScreen.switch_prev(_)"),
+    kpress(SECOND_META.."Down", "WScreen.switch_next(_)"),
+
+    bdoc("Create a new workspace of chosen default type."),
+    kpress(META.."F1", "ioncore.create_ws(_)"),
+})
+
+*********************************
+
+*********************************
+* easy to understand what I'm want to do.
+*********************************
+
+-- Frames for transient windows ignore this bindmap
+
+defbindings("WMPlex.toplevel", {
+
+    bdoc("Run a small font terminal emulator."),
+    kpress(META.."F2", "ioncore.exec_on(_, 'xterm -fn -adobe-courier-medium-r-normal--12-120-75-75-m-70-iso8859-15')"),
+    bdoc("Run a terminal emulator."),
+    kpress(ALTMETA.."F4", "ioncore.exec_on(_, 'Eterm -v -8 -F -adobe-courier-medium-r-normal--20-140-100-100-m-110-iso8859-15 --select-line --scrollbar-floating --name Shell')"),
+
+    bdoc("Run a small font terminal emulator."),
+    kpress(META.."F4", "ioncore.exec_on(_, 'Eterm -v -8 -F -adobe-courier-medium-r-normal--12-120-75-75-m-70-iso8859-15 --select-line --scrollbar-floating --name Shell')"),
+
+    bdoc("Query for file to edit."),
+    kpress(ALTMETA.."F5", 
+		"WRegion.rqclose_propagate(_, _sub)"),
+
+    bdoc("Query for workspace to go to or create a new one."),
+    kpress("F1", "mod_query.query_workspace(_)"),
+})
+
+*****************************************************
+* and crtl+left/right to go frame
+*****************************************************
+    
+defbindings("WFrame.toplevel", {
+        bdoc("Switch to next/previous object within the frame."),
+        kpress(SECOND_META.."Right", "WFrame.switch_next(_)"),
+        kpress(SECOND_META.."Left", "WFrame.switch_prev(_)"),
+})
+--
+Albert SHIH
+Observatoire de Paris Meudon
+SIO batiment 15
+Heure local/Local time:
+Mar 11 sep 2007 10:06:05 CEST
+
+
+From Albert.Shih at obspm.fr  Tue Sep 11 11:14:05 2007
+From: Albert.Shih at obspm.fr (Albert Shih)
+Date: Tue, 11 Sep 2007 11:14:05 +0200
+Subject: kpdf
+Message-ID: <20070911091405.GH51948@pcjas.obspm.fr>
+
+Hi all
+
+I'm using kpdf to show my pdf file (of course I'm using ion3)
+
+Sometime I need to use the "presentation mode" of kpdf, well it's not work
+very well with ion3.
+
+The purpose of this mode is to have a full screen, and it's work with fvwm2
+(and many other windows-manager), but with ion3 I've got half screen and I
+can make the full-screen.
+
+I'm using 
+
+	ion-3rc-20070902    The development version of the Ion window manager
+
+on 
+	FreeBSD 6.2
+
+and like this mailing-list say I just purge my .ion3, and I don't have put
+any file in there, so It's default config for all thing.
+
+Maybe the problem is not in ion but in kpdf, but if someone have already
+this problem...
+
+Regards.
+
+
+
+
+--
+Albert SHIH
+Observatoire de Paris Meudon
+SIO batiment 15
+Heure local/Local time:
+Mar 11 sep 2007 11:08:29 CEST
+
+
+From tuomov at iki.fi  Tue Sep 11 12:31:25 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 11 Sep 2007 10:31:25 +0000 (UTC)
+Subject: kpdf
+References: <20070911091405.GH51948@pcjas.obspm.fr>
+Message-ID: <slrnfecrjt.m7b.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-09-11, Albert Shih <Albert.Shih at obspm.fr> wrote:
+> Sometime I need to use the "presentation mode" of kpdf, well it's not work
+> very well with ion3.
+
+That piece of crapware (version below) seems to create a new window
+for the FS mode instead of asking the window manager to FS the present
+one, and the most brain-dead of all: marks the window as transient of
+the main window. So Ion handles it as a transient.
+
+$ kpdf --version
+Qt: 3.3.4
+KDE: 3.5.3-0.2.fc4 Red Hat
+KPDF: 0.5.3
+
+-- 
+Tuomo
+
+
+
+From Albert.Shih at obspm.fr  Tue Sep 11 20:31:35 2007
+From: Albert.Shih at obspm.fr (Albert Shih)
+Date: Tue, 11 Sep 2007 20:31:35 +0200
+Subject: kpdf
+In-Reply-To: <slrnfecrjt.m7b.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070911091405.GH51948@pcjas.obspm.fr>
+	<slrnfecrjt.m7b.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070911183135.GA59004@pcjas.obspm.fr>
+
+ Le 11/09/2007 ? 10:31:25+0000, Tuomo Valkonen a ?crit
+> On 2007-09-11, Albert Shih <Albert.Shih at obspm.fr> wrote:
+> > Sometime I need to use the "presentation mode" of kpdf, well it's not work
+> > very well with ion3.
+> 
+> That piece of crapware (version below) seems to create a new window
+> for the FS mode instead of asking the window manager to FS the present
+> one, and the most brain-dead of all: marks the window as transient of
+> the main window. So Ion handles it as a transient.
+> 
+> $ kpdf --version
+> Qt: 3.3.4
+> KDE: 3.5.3-0.2.fc4 Red Hat
+> KPDF: 0.5.3
+> 
+
+Hummm..thanks for your answer....but....please don't shoot me, ..how can I
+define this ? 
+
+How can I tell ion the kpdf windows is a transient windows ? 
+
+Regards.
+
+
+--
+Albert SHIH
+Observatoire de Paris Meudon
+SIO batiment 15
+Heure local/Local time:
+Mar 11 sep 2007 20:30:34 CEST
+
+
+From ben at decadent.org.uk  Tue Sep 11 22:06:03 2007
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Tue, 11 Sep 2007 21:06:03 +0100
+Subject: kpdf
+In-Reply-To: <20070911183135.GA59004@pcjas.obspm.fr>
+References: <20070911091405.GH51948@pcjas.obspm.fr>
+	<slrnfecrjt.m7b.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070911183135.GA59004@pcjas.obspm.fr>
+Message-ID: <1189541163.26443.49.camel@deadeye.i.decadent.org.uk>
+
+On Tue, 2007-09-11 at 20:31 +0200, Albert Shih wrote:
+>  Le 11/09/2007 ? 10:31:25+0000, Tuomo Valkonen a ?crit
+> > On 2007-09-11, Albert Shih <Albert.Shih at obspm.fr> wrote:
+> > > Sometime I need to use the "presentation mode" of kpdf, well it's not work
+> > > very well with ion3.
+> > 
+> > That piece of crapware (version below) seems to create a new window
+> > for the FS mode instead of asking the window manager to FS the present
+> > one, and the most brain-dead of all: marks the window as transient of
+> > the main window. So Ion handles it as a transient.
+> > 
+> > $ kpdf --version
+> > Qt: 3.3.4
+> > KDE: 3.5.3-0.2.fc4 Red Hat
+> > KPDF: 0.5.3
+> > 
+> 
+> Hummm..thanks for your answer....but....please don't shoot me, ..how can I
+> define this ? 
+> 
+> How can I tell ion the kpdf windows is a transient windows ? 
+
+It *is* a transient window, but it shouldn't be.  You can override that
+by adding this to cfg_ion.lua:
+
+defwinprop {
+   class = "Kpdf",
+   role = "presentationWidget",
+   transient_mode = "off"
+}
+
+Ben.
+
+-- 
+Ben Hutchings
+Nothing is ever a complete failure; it can always serve as a bad example.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070911/f5a6eb26/attachment.pgp>
+
+From m at rcell.net  Wed Sep 12 00:52:12 2007
+From: m at rcell.net (Nenad Romic - Marcell)
+Date: Wed, 12 Sep 2007 00:52:12 +0200
+Subject: ion in separated thread so it can be run from lua interpreter
+Message-ID: <342c3e740709111552n41a67358wdfe48158b7c81c36@mail.gmail.com>
+
+together with friends i work on very simple window manager which is
+run from ipython as separeted thread so in real time we control window
+manager object hierarchy... whatever configured in live session is
+easily saved into text file (python pickle) for later use.. for us it
+is great way of customizing window manager ;)
+
+i wonder is it possible to get that for ion also.. so that you can run
+ion session from ion interpreter (ie. ion_main.run()) and then object
+hierarchy is exposed to lua interpreter and you can manipulate in live
+session with ion objects...
+
+hope i explained that well.. just an idea ;)
+
+
+From deryni at unreliablesource.net  Wed Sep 12 01:07:44 2007
+From: deryni at unreliablesource.net (Etan Reisner)
+Date: Tue, 11 Sep 2007 19:07:44 -0400
+Subject: ion in separated thread so it can be run from lua interpreter
+In-Reply-To: <342c3e740709111552n41a67358wdfe48158b7c81c36@mail.gmail.com>
+References: <342c3e740709111552n41a67358wdfe48158b7c81c36@mail.gmail.com>
+Message-ID: <20070911230744.GJ8631@aran>
+
+I am assuming you know about the mod1-F3 Lua query and that you can assign
+variables there and refer to them later? Are you are asking for something
+more REPL-like then?
+
+	-Etan
+
+
+From m at rcell.net  Wed Sep 12 01:35:53 2007
+From: m at rcell.net (Nenad Romic - Marcell)
+Date: Wed, 12 Sep 2007 01:35:53 +0200
+Subject: ion in separated thread so it can be run from lua interpreter
+In-Reply-To: <20070911230744.GJ8631@aran>
+References: <342c3e740709111552n41a67358wdfe48158b7c81c36@mail.gmail.com>
+	<20070911230744.GJ8631@aran>
+Message-ID: <342c3e740709111635x13dfc34fm6cb6e5dbaed47805@mail.gmail.com>
+
+On 9/12/07, Etan Reisner <deryni at unreliablesource.net> wrote:
+> I am assuming you know about the mod1-F3 Lua query and that you can assign
+> variables there and refer to them later? Are you are asking for something
+> more REPL-like then?
+
+exactly.
+
+
+From tuomov at iki.fi  Wed Sep 12 07:15:02 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 12 Sep 2007 05:15:02 +0000 (UTC)
+Subject: ion in separated thread so it can be run from lua interpreter
+References: <342c3e740709111552n41a67358wdfe48158b7c81c36@mail.gmail.com>
+Message-ID: <slrnfeetem.rfu.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-09-11, Nenad Romic - Marcell <m at rcell.net> wrote:
+> together with friends i work on very simple window manager which is
+> run from ipython as separeted thread so in real time we control window
+> manager object hierarchy... 
+
+No threads (eeek), but communicating processes: mod_ionflux remote 
+control.
+
+-- 
+Tuomo
+
+
+
+From Albert.Shih at obspm.fr  Wed Sep 12 13:29:01 2007
+From: Albert.Shih at obspm.fr (Albert Shih)
+Date: Wed, 12 Sep 2007 13:29:01 +0200
+Subject: kpdf
+In-Reply-To: <1189541163.26443.49.camel@deadeye.i.decadent.org.uk>
+References: <20070911091405.GH51948@pcjas.obspm.fr>
+	<slrnfecrjt.m7b.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070911183135.GA59004@pcjas.obspm.fr>
+	<1189541163.26443.49.camel@deadeye.i.decadent.org.uk>
+Message-ID: <20070912112901.GF64892@pcjas.obspm.fr>
+
+ Le 11/09/2007 ? 21:06:03+0100, Ben Hutchings a ?crit
+> On Tue, 2007-09-11 at 20:31 +0200, Albert Shih wrote:
+> >  Le 11/09/2007 ? 10:31:25+0000, Tuomo Valkonen a ?crit
+> > > On 2007-09-11, Albert Shih <Albert.Shih at obspm.fr> wrote:
+> > > > Sometime I need to use the "presentation mode" of kpdf, well it's not work
+> > > > very well with ion3.
+> > > 
+> > > That piece of crapware (version below) seems to create a new window
+> > > for the FS mode instead of asking the window manager to FS the present
+> > > one, and the most brain-dead of all: marks the window as transient of
+> > > the main window. So Ion handles it as a transient.
+> > > 
+> > > $ kpdf --version
+> > > Qt: 3.3.4
+> > > KDE: 3.5.3-0.2.fc4 Red Hat
+> > > KPDF: 0.5.3
+> > > 
+> > 
+> > Hummm..thanks for your answer....but....please don't shoot me, ..how can I
+> > define this ? 
+> > 
+> > How can I tell ion the kpdf windows is a transient windows ? 
+> 
+> It *is* a transient window, but it shouldn't be.  You can override that
+> by adding this to cfg_ion.lua:
+> 
+> defwinprop {
+>    class = "Kpdf",
+>    role = "presentationWidget",
+>    transient_mode = "off"
+> }
+> 
+
+Thanks. It's work no for me.
+
+Regards.
+
+
+
+
+--
+Albert SHIH
+Observatoire de Paris Meudon
+SIO batiment 15
+Heure local/Local time:
+Mer 12 sep 2007 13:28:44 CEST
+
+
+From tuomov at iki.fi  Wed Sep 12 18:47:45 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 12 Sep 2007 16:47:45 +0000 (UTC)
+Subject: kpdf
+References: <20070911091405.GH51948@pcjas.obspm.fr>
+	<slrnfecrjt.m7b.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070911183135.GA59004@pcjas.obspm.fr>
+	<1189541163.26443.49.camel@deadeye.i.decadent.org.uk>
+	<20070912112901.GF64892@pcjas.obspm.fr>
+Message-ID: <slrnfeg61h.rol.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-09-12, Albert Shih <Albert.Shih at obspm.fr> wrote:
+> Thanks. It's work no for me.
+
+I wouldn't be surprised if it didn't set the identification info
+before the window is mapped. Or that it doesn't use the usual
+full-screening mechanisms.
+
+-- 
+Tuomo
+
+
+
+From groleo at gmail.com  Thu Sep 13 08:13:55 2007
+From: groleo at gmail.com (Groleo Marius)
+Date: Thu, 13 Sep 2007 02:13:55 -0400
+Subject: minor drawing bug in ion-3rc-20070902
+Message-ID: <a54d2e230709122313t5f6b13e1h269195a1f67bb05f@mail.gmail.com>
+
+1.Symptom:
+the WGroupsWS frame+tab is drawn over by it's contents.
+
+2.Steps to reproduce:
+_:attach_new({type="WGroupWS"})
+launch your terminal emulator inside the WgroupWS.
+move the terminal it toward the upper bound of the WgroupWS.
+
+3.Setup
+ion-3rc-20070902
+
+groleo at cucu:~/.gnome2$ cat session
+[Default]
+0,id=default1
+0,RestartStyleHint=0
+0,Priority=10
+0,Program=/usr/local/bin/ion3
+0,CloneCommand=/usr/local/bin/ion3
+0,RestartCommand=/usr/local/bin/ion3 -session
+/home/groleo/.ion3/gnome-session-Default -smclientid default1
+1,id=1151b5634c000118968896300000051450000
+1,Program=1000
+1,CloneCommand=xmms
+1,RestartCommand=xmms --sm-client-id 1151b5634c000118968896300000051450000
+2,RestartCommand=/usr/bin/rxvt
+num_clients=3
+
+
+screenshot attached .
+-- 
+Regards, Groleo!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: ion3sh.jpg
+Type: image/jpeg
+Size: 23870 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070913/084ed2cc/attachment.jpg>
+
+From tuomov at iki.fi  Thu Sep 13 08:52:50 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 13 Sep 2007 06:52:50 +0000 (UTC)
+Subject: minor drawing bug in ion-3rc-20070902
+References: <a54d2e230709122313t5f6b13e1h269195a1f67bb05f@mail.gmail.com>
+Message-ID: <slrnfehni2.8fo.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-09-13, Groleo Marius <groleo at gmail.com> wrote:
+> 1.Symptom:
+> the WGroupsWS frame+tab is drawn over by it's contents.
+
+It's not drawn over. The window contained in the frame is 
+simply positioned over the tab. To prevent this would require
+further nesting windows that would confuse programs even 
+more than they're confused now, or disallowing moving windows
+partly off the screen. I've decided against both ages ago.
+
+-- 
+Tuomo
+
+
+
+From asherwilliam36 at gmail.com  Sun Sep 16 22:32:58 2007
+From: asherwilliam36 at gmail.com (William Asher)
+Date: Sun, 16 Sep 2007 14:32:58 -0600
+Subject: bugs(?) in full screen toggle and WS creation
+Message-ID: <a883a2d40709161332g548317fu76cb8184f9308ce8@mail.gmail.com>
+
+Running ion-3rc-20070902.
+
+1) If I put a client window into full screen mode, then restart Ion, the
+client window will not toggle back to the original location.
+
+2) If I run mod_query.query_workspace(_) and create a new workspace without
+naming it, no default name seems to be given: if I then run
+mod_query.query_workspace(_) again and use the tab-completion with the query
+on which WS to move to, the newly created WS is not listed. Also, the
+workspacelist menu stops working. If I restart Ion, then the newly created
+WS is given the default name WGroupWS<n>, and everything works as expected.
+
+
+William
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070916/707dab33/attachment.html>
+
+From asherwilliam36 at gmail.com  Sun Sep 16 23:25:03 2007
+From: asherwilliam36 at gmail.com (William Asher)
+Date: Sun, 16 Sep 2007 15:25:03 -0600
+Subject: context menu in WGroupWS
+Message-ID: <a883a2d40709161425h3b833688vbebe2ff33b3e298@mail.gmail.com>
+
+I would like to pull up a context menu in the WGroupWS context.  I'm
+thinking something like
+
+defbindings("WGroupWS", {kpress(META.."W", "mod_menu.menu(??,_sub,
+'ctxmenu')"),})
+
+but I don't know what ?? should be. Is there a way to identify the current
+WS on the screen?
+
+
+William
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070916/ca5230a3/attachment.html>
+
+From asherwilliam36 at gmail.com  Sun Sep 16 23:37:47 2007
+From: asherwilliam36 at gmail.com (William Asher)
+Date: Sun, 16 Sep 2007 15:37:47 -0600
+Subject: Configuration files
+Message-ID: <a883a2d40709161437n6435223bp472328dac37220e7@mail.gmail.com>
+
+1) Would it be better to have modules refrain from loading their own
+configuration files and force this on the user instead? Users could then
+define their own configuration file layout without having to deal with the
+files cfg_modname.lua, if they desired.
+
+
+William
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070916/38872d64/attachment.html>
+
+From tuomov at iki.fi  Sun Sep 16 23:41:57 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 16 Sep 2007 21:41:57 +0000 (UTC)
+Subject: bugs(?) in full screen toggle and WS creation
+References: <a883a2d40709161332g548317fu76cb8184f9308ce8@mail.gmail.com>
+Message-ID: <slrnfer8p5.8e8.tuomov@jolt.modeemi.cs.tut.fi>
+
+> 1) If I put a client window into full screen mode, then restart Ion, the
+> client window will not toggle back to the original location.
+
+Feature. "Placeholders" are not saved: writing the code to load cyclical
+structures is a major PITA that I rather live without.
+
+> 2) If I run mod_query.query_workspace(_) and create a new workspace without
+> naming it, no default name seems to be given: 
+
+Feature. Although I guess it would be better behaviour to give a default
+name rather than no name when the user-given name is empty.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sun Sep 16 23:47:36 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 16 Sep 2007 21:47:36 +0000 (UTC)
+Subject: context menu in WGroupWS
+References: <a883a2d40709161425h3b833688vbebe2ff33b3e298@mail.gmail.com>
+Message-ID: <slrnfer93o.8e8.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-09-16, William Asher <asherwilliam36 at gmail.com> wrote:
+> but I don't know what ?? should be. 
+
+RTFM.
+
+> Is there a way to identify the current WS on the screen?
+
+Sort of, maybe. But Ion tries hard to not deal with such
+annoying states. It's better to use only _sub and _chld to
+refer to whatever were thought to be current when the 
+binding was triggered. If you need to know deeper than
+those parameters refer to, you might want to reconsider
+the location of your binding.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sun Sep 16 23:49:01 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 16 Sep 2007 21:49:01 +0000 (UTC)
+Subject: Configuration files
+References: <a883a2d40709161437n6435223bp472328dac37220e7@mail.gmail.com>
+Message-ID: <slrnfer96d.8e8.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-09-16, William Asher <asherwilliam36 at gmail.com> wrote:
+> 1) Would it be better to have modules refrain from loading their own
+> configuration files and force this on the user instead? Users could then
+> define their own configuration file layout 
+
+Users can create empty dummy files, if they are obsessed with
+monolithic systems rather than modular ones.
+
+-- 
+Tuomo
+
+
+
+From davison at stats.ox.ac.uk  Mon Sep 17 11:27:08 2007
+From: davison at stats.ox.ac.uk (Dan Davison)
+Date: Mon, 17 Sep 2007 10:27:08 +0100
+Subject: META definition works intermittently
+Message-ID: <20070917092708.GA1698@stats.ox.ac.uk>
+
+In my ion3 directory, I have my own version of cfg_ion.lua, in which I set META to be Mod4 ('Windows' key on my laptop) with
+META="Mod4+"
+Subsequently there are several dopath()s, the last of which is do_path("cfg_dan") which contains my personal customisations.
+
+My problem is that the definition of META to be Mod4 does not always take effect, although I know that my version of cfg_ion.lua has been read, as my key-bindings in cfg_dan.lua (those that don't involve META) are working, implying that the dopath("cfg_dan") in cfg_ion.lua has been seen.
+
+I've held off asking this for a couple of weeks as it seemed silly and I thought it might 'go away', but it hasn't. I've experimented with killing and restarting X, and spawning a second X session from the first one with startx -- :1 &, but have discerned no pattern so far. In particular, the lack of META binding can occur on subsequent restarts of X, even if it had been bound correctly on previous X sessions since the last reboot. One consistent observation (I think) is that I have not noticed META ever being correctly bound in my first X session after booting the computer.
+
+What is causing this apparently non-deterministic behaviour?
+
+Thanks a lot,
+
+Dan
+
+ion 3rc-20070720
+
+
+From tuomov at iki.fi  Mon Sep 17 11:44:04 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 17 Sep 2007 09:44:04 +0000 (UTC)
+Subject: META definition works intermittently
+References: <20070917092708.GA1698@stats.ox.ac.uk>
+Message-ID: <slrnfesj34.b25.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-09-17, Dan Davison <davison at stats.ox.ac.uk> wrote:
+> What is causing this apparently non-deterministic behaviour?
+
+RTF.xsession-errors? Maybe something else is grabbing the bindings.
+
+-- 
+Tuomo
+
+
+
+From davison at stats.ox.ac.uk  Mon Sep 17 12:04:41 2007
+From: davison at stats.ox.ac.uk (Dan Davison)
+Date: Mon, 17 Sep 2007 11:04:41 +0100
+Subject: META definition works intermittently
+In-Reply-To: <slrnfesj34.b25.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070917092708.GA1698@stats.ox.ac.uk>
+	<slrnfesj34.b25.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070917100441.GA2101@stats.ox.ac.uk>
+
+On Mon, Sep 17, 2007 at 09:44:04AM +0000, Tuomo Valkonen wrote:
+> On 2007-09-17, Dan Davison <davison at stats.ox.ac.uk> wrote:
+> > What is causing this apparently non-deterministic behaviour?
+> 
+> RTF.xsession-errors? Maybe something else is grabbing the bindings.
+
+The only entry in .xsession-errors is
+
+ion3: No encoding given in LC_CTYPE.
+
+and this occurs both when the META binding is successful and when it isn't.
+
+Dan
+
+> 
+> -- 
+> Tuomo
+
+
+From tuomov at iki.fi  Mon Sep 17 12:09:17 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 17 Sep 2007 10:09:17 +0000 (UTC)
+Subject: META definition works intermittently
+References: <20070917092708.GA1698@stats.ox.ac.uk>
+	<slrnfesj34.b25.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070917100441.GA2101@stats.ox.ac.uk>
+Message-ID: <slrnfeskid.d9i.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-09-17, Dan Davison <davison at stats.ox.ac.uk> wrote:
+>> RTF.xsession-errors? Maybe something else is grabbing the bindings.
+>
+> The only entry in .xsession-errors is
+
+Maybe some xmodmap (or xcrapkb) race condition in X startup files?
+What does restarting Ion alone do?
+
+-- 
+Tuomo
+
+
+
+From kapheine at gmail.com  Wed Sep 19 23:22:10 2007
+From: kapheine at gmail.com (Zachary P. Landau)
+Date: Wed, 19 Sep 2007 17:22:10 -0400
+Subject: Not all bindings are defined in cfg_ioncore.lua
+In-Reply-To: <20070815131340.GU8631@aran>
+References: <20070802154235.GT8631@aran> <20070802202859.GU8631@aran>
+	<m2myx9wt6t.fsf@lifelogs.com> <20070802205708.GV8631@aran>
+	<m2d4y5wrru.fsf@lifelogs.com> <20070803015024.GW8631@aran>
+	<m2r6mksg0n.fsf@lifelogs.com> <20070806215515.GH8631@aran>
+	<m2zm13l4ee.fsf@lifelogs.com> <20070815131340.GU8631@aran>
+Message-ID: <a04f56da0709191422v1c44ffbaya05d4ca0dc59d980@mail.gmail.com>
+
+> I'm going to clean it up a tad and maybe try writing a simple graphical
+> binding tool later. I'll publish the script once I clean it up.
+
+I don't know if you're interested, but a couple years ago I started
+working on a GUI frontend for editing keybindings.  I never finished
+it, and I'm not even sure how usable I left it, but you can find the
+current state of the repository here:
+http://divineinvasion.net/darcsweb/darcsweb.cgi?r=ionconf;a=summary
+
+I'd expected to do an ncurses frontend as well, but I lost interest at
+some point.
+
+-- 
+Zachary P. Landau <kapheine at gmail.com>
+
+
+From nickmurdoch at gmail.com  Wed Sep 19 23:33:31 2007
+From: nickmurdoch at gmail.com (Nick Murdoch)
+Date: Wed, 19 Sep 2007 22:33:31 +0100
+Subject: Not all bindings are defined in cfg_ioncore.lua
+In-Reply-To: <a04f56da0709191422v1c44ffbaya05d4ca0dc59d980@mail.gmail.com>
+References: <20070802154235.GT8631@aran>
+	<20070802202859.GU8631@aran>	<m2myx9wt6t.fsf@lifelogs.com>
+	<20070802205708.GV8631@aran>	<m2d4y5wrru.fsf@lifelogs.com>
+	<20070803015024.GW8631@aran>	<m2r6mksg0n.fsf@lifelogs.com>
+	<20070806215515.GH8631@aran>	<m2zm13l4ee.fsf@lifelogs.com>
+	<20070815131340.GU8631@aran>
+	<a04f56da0709191422v1c44ffbaya05d4ca0dc59d980@mail.gmail.com>
+Message-ID: <46F195AB.9040900@gmail.com>
+
+Zachary P. Landau wrote:
+>> I'm going to clean it up a tad and maybe try writing a simple graphical
+>> binding tool later. I'll publish the script once I clean it up.
+> 
+> I don't know if you're interested, but a couple years ago I started
+> working on a GUI frontend for editing keybindings.  I never finished
+> it, and I'm not even sure how usable I left it, but you can find the
+> current state of the repository here:
+> http://divineinvasion.net/darcsweb/darcsweb.cgi?r=ionconf;a=summary
+> 
+> I'd expected to do an ncurses frontend as well, but I lost interest at
+> some point.
+
+A /GTK+/ frontend for Ion config? That's pretty amusing.
+
+
+
+From tuomov at iki.fi  Thu Sep 20 08:34:47 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 20 Sep 2007 06:34:47 +0000 (UTC)
+Subject: Not all bindings are defined in cfg_ioncore.lua
+References: <20070802154235.GT8631@aran> <20070802202859.GU8631@aran>
+	<m2myx9wt6t.fsf@lifelogs.com> <20070802205708.GV8631@aran>
+	<m2d4y5wrru.fsf@lifelogs.com> <20070803015024.GW8631@aran>
+	<m2r6mksg0n.fsf@lifelogs.com> <20070806215515.GH8631@aran>
+	<m2zm13l4ee.fsf@lifelogs.com> <20070815131340.GU8631@aran>
+	<a04f56da0709191422v1c44ffbaya05d4ca0dc59d980@mail.gmail.com>
+	<46F195AB.9040900@gmail.com>
+Message-ID: <slrn4ff4547.bqlb.tuomov@fanta.modeemi.cs.tut.fi>
+
+On 2007-09-19, Nick Murdoch <nickmurdoch at gmail.com> wrote:
+> A /GTK+/ frontend for Ion config? That's pretty amusing.
+
+It's too bad there doesn't seem to be a nice curses UI lib.. and I mean 
+a very high-level lib, not a low-level widget lib, *yuck*. It shouldn't
+require that much effort, though, to write something that took a description
+of a configuration system, and generated a good old DOS-style setup.com
+interface... Perhaps one could take code from dialog(1) for the low-level
+part.
+
+-- 
+Tuomo
+
+
+
+From kapheine at gmail.com  Thu Sep 20 15:33:01 2007
+From: kapheine at gmail.com (Zachary P. Landau)
+Date: Thu, 20 Sep 2007 09:33:01 -0400
+Subject: Not all bindings are defined in cfg_ioncore.lua
+In-Reply-To: <46F195AB.9040900@gmail.com>
+References: <20070802154235.GT8631@aran> <20070802205708.GV8631@aran>
+	<m2d4y5wrru.fsf@lifelogs.com> <20070803015024.GW8631@aran>
+	<m2r6mksg0n.fsf@lifelogs.com> <20070806215515.GH8631@aran>
+	<m2zm13l4ee.fsf@lifelogs.com> <20070815131340.GU8631@aran>
+	<a04f56da0709191422v1c44ffbaya05d4ca0dc59d980@mail.gmail.com>
+	<46F195AB.9040900@gmail.com>
+Message-ID: <a04f56da0709200633g480d26f3icc2a6109061d3d0c@mail.gmail.com>
+
+> A /GTK+/ frontend for Ion config? That's pretty amusing.
+
+Hah, yeah, the irony wasn't lost on me.  But I wanted to spend more
+time on the idea than the interface, so I started with GTK.  As Tuomo
+points out, there aren't any nice high level curses UIs out there.  At
+least none that I know of.
+
+I wanted to eventually make a mutt-like ncurses interface once I got
+the backend stuff working.  It seems to be the popular ncurses
+interface with the kids these days.
+
+-- 
+Zachary P. Landau <kapheine at gmail.com>
+
+
+From eichin-ion at thok.org  Sat Sep 22 05:28:14 2007
+From: eichin-ion at thok.org (Mark Eichin)
+Date: Fri, 21 Sep 2007 23:28:14 -0400
+Subject: Not all bindings are defined in cfg_ioncore.lua
+In-Reply-To: <a04f56da0709200633g480d26f3icc2a6109061d3d0c@mail.gmail.com>
+	(Zachary P. Landau's message of "Thu, 20 Sep 2007 09:33:01 -0400")
+References: <20070802154235.GT8631@aran> <20070802205708.GV8631@aran>
+	<m2d4y5wrru.fsf@lifelogs.com> <20070803015024.GW8631@aran>
+	<m2r6mksg0n.fsf@lifelogs.com> <20070806215515.GH8631@aran>
+	<m2zm13l4ee.fsf@lifelogs.com> <20070815131340.GU8631@aran>
+	<a04f56da0709191422v1c44ffbaya05d4ca0dc59d980@mail.gmail.com>
+	<46F195AB.9040900@gmail.com>
+	<a04f56da0709200633g480d26f3icc2a6109061d3d0c@mail.gmail.com>
+Message-ID: <87bqbvml9t.fsf@curl-up-paw-under-nose.thok.org>
+
+urwid, perhaps?  (It's for python, not C, but it's a string-language
+configurator you're talking about...)
+
+"Zachary P. Landau" <kapheine at gmail.com> writes:
+
+>> A /GTK+/ frontend for Ion config? That's pretty amusing.
+>
+> Hah, yeah, the irony wasn't lost on me.  But I wanted to spend more
+> time on the idea than the interface, so I started with GTK.  As Tuomo
+> points out, there aren't any nice high level curses UIs out there.  At
+> least none that I know of.
+>
+> I wanted to eventually make a mutt-like ncurses interface once I got
+> the backend stuff working.  It seems to be the popular ncurses
+> interface with the kids these days.
+>
+> -- 
+> Zachary P. Landau <kapheine at gmail.com>
+
+
+From tuomov at iki.fi  Sat Sep 22 08:33:34 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 22 Sep 2007 06:33:34 +0000 (UTC)
+Subject: Not all bindings are defined in cfg_ioncore.lua
+References: <20070802154235.GT8631@aran> <20070802205708.GV8631@aran>
+	<m2d4y5wrru.fsf@lifelogs.com> <20070803015024.GW8631@aran>
+	<m2r6mksg0n.fsf@lifelogs.com> <20070806215515.GH8631@aran>
+	<m2zm13l4ee.fsf@lifelogs.com> <20070815131340.GU8631@aran>
+	<a04f56da0709191422v1c44ffbaya05d4ca0dc59d980@mail.gmail.com>
+	<46F195AB.9040900@gmail.com>
+	<a04f56da0709200633g480d26f3icc2a6109061d3d0c@mail.gmail.com>
+	<87bqbvml9t.fsf@curl-up-paw-under-nose.thok.org>
+Message-ID: <slrnff9dpu.489.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-09-22, Mark Eichin <eichin-ion at thok.org> wrote:
+> urwid, perhaps?  (It's for python, not C, but it's a string-language
+> configurator you're talking about...)
+
+Looks like a widget library to me. Widgets are so low-level. I can't
+believe people like getting their hands working with such poor an
+abstraction. 
+
+What I'm after is something that doesn't talk about widgets at all, but
+takes a description of the configuration, and generates an UI from it. 
+A bit like Vis [1], but far more limited.  It would just take a description
+of the structure of the program's configuration (a bit like a DTD, but in 
+a far more readable format and along with documentation, etc.), and create
+an UI for modifying a configuration file matching that description. It
+wouldn't have to be as smart as Vis about generating the UI, as it could
+just use the hierarchy present in the description to generate e.g. good
+old DOS setup.com-style interface.
+
+Actually, come to think of it, the kernel does have something like this,
+but mostly working on simple booleans (and the petatonne monolith having
+outgrown this, or any, configuration system). Tthe console version of the
+UI (menuconfig) also seems to be using termios directly, instead of 
+curses, or even a higher-level library on top of curses. *sigh*. (Oh,
+well, typical of the FOSS herd -- originality forbidden -- to waste 
+time writing clone software for childish reasons, instead of doing 
+something entirely new.)
+
+
+  [1]: http://iki.fi/tuomov/vis/
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sat Sep 22 08:46:09 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 22 Sep 2007 06:46:09 +0000 (UTC)
+Subject: Not all bindings are defined in cfg_ioncore.lua
+References: <20070802154235.GT8631@aran> <20070802205708.GV8631@aran>
+	<m2d4y5wrru.fsf@lifelogs.com> <20070803015024.GW8631@aran>
+	<m2r6mksg0n.fsf@lifelogs.com> <20070806215515.GH8631@aran>
+	<m2zm13l4ee.fsf@lifelogs.com> <20070815131340.GU8631@aran>
+	<a04f56da0709191422v1c44ffbaya05d4ca0dc59d980@mail.gmail.com>
+	<46F195AB.9040900@gmail.com>
+	<a04f56da0709200633g480d26f3icc2a6109061d3d0c@mail.gmail.com>
+	<87bqbvml9t.fsf@curl-up-paw-under-nose.thok.org>
+	<slrnff9dpu.489.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnff9ehh.bs5.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-09-22, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> Tthe console version of the
+> UI (menuconfig) also seems to be using termios directly, instead of 
+> curses, or even a higher-level library on top of curses. *sigh*. 
+
+Actually, I didn't look into the right place. The dialog-generating
+thing _does_ use curses, and is actually just a copy of a primitive
+version of dialog(1), but is executed by the actual config program 
+for every menu separately. Ugly.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sun Sep 23 18:54:48 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 23 Sep 2007 19:54:48 +0300
+Subject: Bug#409612: xlibs-data: Modifier mappings broken
+In-Reply-To: <20070923010059.GA17825@diwi.org>
+References: <20070204121059.22856.63565.reportbug@noi>
+	<20070923010059.GA17825@diwi.org>
+Message-ID: <20070923165448.GA14587@jolt.modeemi.cs.tut.fi>
+
+(Quoting full post, because Cc:ing to the Ion list.)
+
+On 2007-09-23 03:01 +0200, Mohammed Adn?ne Trojette wrote:
+> tag 409612 moreinfo
+> thanks
+> 
+> On Sun, Feb 04, 2007, tuomov wrote:
+> > The modifier mappings in stock keyboard layouts are broken.
+> > For details, I'll just attach the Ion FAQ entry below from
+> > <http://iki.fi/tuomov/ion/faq/entries/Modifier_releases.html>.
+> > (I have not myself experienced that problem, though -- I don't
+> > use Xkb crud at all, because customisation of Xkb based layouts
+> > is too laboursome, difficult, undocumented etc. -- but users have 
+> > experienced it on various systems, and this seems the easiest 
+> > channel to report the problem.)
+> > 
+> > 
+> > ---
+> > 
+> > _Ion doesn't notice that a modifier has been released
+> > (in actions that use like `kpress_wait`, such as META+C, 
+> > or in ?grabmenus?)._
+> > 
+> > This is most likely to be an X bug/keyboard misconfiguration,
+> > when you have changed the ?META? key of Ion to Mod4, or 
+> > something else that supposed has one of the Win-keys bound to
+> > it. For some reason, some Xorg comes with some totally broken
+> > stock keyboard layouts that define multiple keycodes for the 
+> > `Super_L` and such ?keysyms?, one of them spurious. However, 
+> > various part of X or Xlib can not handle that, and report the
+> > wrong keycode when queried.<sup>1</sup>
+> > 
+> > To check if this is the case, first run `xmodmap` to check
+> > what key is bound to the Mod4 (or perhaps Mod3 depending
+> > on the configuration) modifier. You may see a line like
+> > this:
+> > 
+> >     mod4        Super_L (0x7f),  Hyper_L (0x80)
+> > 
+> > The number 0x7f=127 is the keycode, and this is highly likely 
+> > the wrong keycode. Check with `xmodmap -pke|grep Super_L`
+> > to see what keycodes have `Super_L` bound to them. If you
+> > see something like this, your keymap is misconfigured:
+> > 
+> >     keycode 115 = Super_L
+> >     keycode 127 = NoSymbol Super_L
+> > 
+> > The keycode 115 is the keycode for the real left Win key,
+> > and 127 is spurious. However, the modifier subsystem only
+> > seems to see the latter. Putting the following commands
+> > in `~/.Xmodmap` and runnning `xmodmap ~/.Xmodmap` should
+> > fix the issue. You may also want/need to repeat for the 
+> > other Win keys (`Hyper_L` and 0x80=127 in our example case).
+> > 
+> >     remove mod4 = Super_L
+> >     keycode 127 = NoSymbol
+> >     add mod4 = Super_L
+> > 
+> > (The `remove` command is needed for some reason to not confuse X.)
+> > Unless your system configuration is totally weird (and I wouldn't 
+> > put it past systems built to run Gnome), next time you start X, 
+> > `~/.Xmodmap` should be loaded automatically. On a working modifier
+> > configuration running `xmodmap` should display a line like below
+> > (0x73 following `Super_L` being the important part).
+> > 
+> >     mod4        Super_L (0x73)
+> > 
+> > ---
+> 
+> Hello,
+> 
+> does this bug apply to Debian's Xorg? Is it still a problem with the
+> recent Xorg versions in Debian?
+> 
+> What is the output of the following command?
+> % xprop -root | grep XKB
+> 
+> (I don't use ion myself.)
+> 
+> -- 
+> Mohammed Adn?ne Trojette
+
+Does recent mean something later than etch? In that case I can't
+help now, and unlikely in the future either (because the present 
+2.6.14 kernel and etch setup is likely to be my last Linux setup 
+ever unless something marvellous happens, which seems unlikely). 
+In any case, the output from that command is
+
+    _XKB_RULES_NAMES(STRING) = "xfree86", "logicdp", "fi", "nodeadkeys",
+    "ctrl:nocaps"
+
+But, as mentioned above, I don't actually use Xkb crud at all myself
+(thanks to the use of ISO_Level3_Shift instead of Mode_Switch, only
+the latter of which can be customised easily with xmodmap, Xkb 
+configuration itself being cryptic and ultra-complex like almost
+anything recent in *nix).
+
+Maybe some people on the Ion list can be of more help; I just reported
+this bug because nobody else seemed to be arsed to.
+
+-- 
+Tuomo
+
+
+From tuomov at iki.fi  Mon Sep 24 16:37:28 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 24 Sep 2007 17:37:28 +0300
+Subject: Bug#409612: xlibs-data: Modifier mappings broken
+In-Reply-To: <20070923174636.GB23980@diwi.org>
+References: <20070204121059.22856.63565.reportbug@noi>
+	<20070923010059.GA17825@diwi.org>
+	<20070923165448.GA14587@jolt.modeemi.cs.tut.fi>
+	<20070923174636.GB23980@diwi.org>
+Message-ID: <20070924143728.GA31423@jolt.modeemi.cs.tut.fi>
+
+On 2007-09-23 19:46 +0200, Mohammed Adn?ne Trojette wrote:
+> I forwarded your bug upstream. And upstream is asking to try commenting
+> the lines
+> 
+>     key <SUPR> {        [ NoSymbol, Super_L     ]       };
+>     modifier_map Mod4   { <SUPR> };
+> 
+> in symbols/pc
+> 
+> (please see http://bugs.freedesktop.org/show_bug.cgi?id=12526)
+
+There appears to be absolutely no effect. Xmodmap still reports
+the same broken configuration. Not that I have a symbols/pc file
+either, but symbols/pc/pc.
+
+(No, I can't be arsed to register on the webshit known as bugzilla
+to reply there. Projects that only provide webshit contact for reporting
+bugs, apparently do not want to know of them. That is why I originally 
+reported this with Debian's reportbug.)
+
+-- 
+Tuomo
+
+
+From tuomov at iki.fi  Mon Sep 24 17:07:54 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 24 Sep 2007 15:07:54 +0000 (UTC)
+Subject: Bug#409612: xlibs-data: Modifier mappings broken
+References: <20070204121059.22856.63565.reportbug@noi>
+	<20070923010059.GA17825@diwi.org>
+	<20070923165448.GA14587@jolt.modeemi.cs.tut.fi>
+	<20070923174636.GB23980@diwi.org>
+	<20070924143728.GA31423@jolt.modeemi.cs.tut.fi>
+	<20070924144949.GE11523@aran>
+Message-ID: <slrnfffkma.8f6.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-09-24, Etan Reisner <pidgin at unreliablesource.net> wrote:
+> Tuomo already stated that he doesn't use xkb, so changing the xkb config
+> files isn't going to really solve anything for him. I can say that on my
+> home machine I do get the doubled Super_L keysym but can't at the moment
+> test commenting those lines out, but I will when I get home this evening.
+
+I do still get that broken configuration with spurious Super_Ls
+and Hyper_Ls, if I run setxkbmap, although I do not actually use
+the practically uncustomisable [*] Xkb keymaps (instead loading 
+a full customised Xmodmap keymap stored from pre-Xkb X).
+
+
+[*] Following the recent trend in FOSS: customisable in theory,
+but not in practise thanks to ever-increasing complexity (resulting
+from the pursuit of the Idiot Box Linux).
+
+-- 
+Tuomo
+
+
+
+From hiroyuki.sakai at gmx.at  Tue Sep 25 15:01:11 2007
+From: hiroyuki.sakai at gmx.at (Hiroyuki Sakai)
+Date: Tue, 25 Sep 2007 15:01:11 +0200
+Subject: statusd_amarok2 proposal
+Message-ID: <46F90697.1000206@gmx.at>
+
+Hi!
+
+I modified the original statusd_amarok.lua code to check whether the 
+dcopserver is running. Because the original script failed to startup 
+when it wasn't.
+
+It got kinda primitive (just runs ps -e ... etc.). And I just modified 
+the amarok_do_get_status() function.
+This is my first humble attempt to write in Lua, so please merciful... :D
+
+Any suggestions for improvements are appreciated.
+
+http://stud3.tuwien.ac.at/~e0525136/statusd_amarok.lua
+
+Best regards,
+Hiroyuki Sakai
+
+
+
+From hiroyuki.sakai at gmx.at  Tue Sep 25 16:18:31 2007
+From: hiroyuki.sakai at gmx.at (Hiroyuki Sakai)
+Date: Tue, 25 Sep 2007 16:18:31 +0200
+Subject: statusd_amarok2 proposal
+In-Reply-To: <46F90697.1000206@gmx.at>
+References: <46F90697.1000206@gmx.at>
+Message-ID: <46F918B7.4050407@gmx.at>
+
+I've just noticed that the script hangs after some time (no updates) :/ 
+and I can't find out what's wrong.
+
+Hiroyuki Sakai wrote:
+> Hi!
+>
+> I modified the original statusd_amarok.lua code to check whether the 
+> dcopserver is running. Because the original script failed to startup 
+> when it wasn't.
+>
+> It got kinda primitive (just runs ps -e ... etc.). And I just modified 
+> the amarok_do_get_status() function.
+> This is my first humble attempt to write in Lua, so please merciful... :D
+>
+> Any suggestions for improvements are appreciated.
+>
+> http://stud3.tuwien.ac.at/~e0525136/statusd_amarok.lua
+>
+> Best regards,
+> Hiroyuki Sakai
+>
+
+
+
+From tuomov at iki.fi  Thu Sep 27 18:35:02 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 27 Sep 2007 16:35:02 +0000 (UTC)
+Subject: ion-3rc-20070927
+Message-ID: <slrnffnmtm.h35.tuomov@jolt.modeemi.cs.tut.fi>
+
+Another attempt at last "rc" release.
+
+-- 
+Tuomo
+
+
+

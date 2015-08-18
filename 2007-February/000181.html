@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> SetFS
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20SetFS&In-Reply-To=%3Cslrneu9a3f.pug.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000180.html">
+   <LINK REL="Next"  HREF="000182.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>SetFS</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20SetFS&In-Reply-To=%3Cslrneu9a3f.pug.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="SetFS">tuomov at iki.fi
+       </A><BR>
+    <I>Tue Feb 27 22:53:51 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000180.html">SetFS
+</A></li>
+        <LI>Next message: <A HREF="000182.html">SetFS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#181">[ date ]</a>
+              <a href="thread.html#181">[ thread ]</a>
+              <a href="subject.html#181">[ subject ]</a>
+              <a href="author.html#181">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2007-02-27, Sam Mason &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">mason at f2s.com</A>&gt; wrote:
+&gt;<i> I'm wondering if the name should be specific attribute seperate from the
+</I>&gt;<i> tags.  This would shrink the set of tag down a lot and I think that may
+</I>&gt;<i> be all that's needed.
+</I>
+You shouldn't need this conceptual split for the optimisation: just
+consider every tag with global frequency of just one, a &quot;filename&quot;
+in the pruning code, and ignore them initially, only adding them
+to the result, for the objects that the other tags didn't cover.
+This, of course, depends on knowing the frequency one tags, and
+in a basic implementation loading that information from the disk, 
+which adds some overhead. You could, however, have a special ID 
+range reserved for the frequency one tags. It would complicate
+things a bit, though, as you have to change the tag IDs, as the
+frequencies change (but only for one object, so it's not expensive).
+
+&gt;<i> I'd also be tempted to split the tags into two groups &quot;identifier&quot;
+</I>&gt;<i> tags and &quot;informational&quot; tags.  The unique name check would be done on
+</I>&gt;<i> (identifier tags,name) and the informational tags would exist to make
+</I>&gt;<i> searching easier.
+</I>
+Identifier tags would essentially be another filter :). You would
+also want to mark them in a special manner in the name, so they
+can be ignored for single file operations, for storing the
+location of a file, and so on.
+
+One related thing that I've thought about (a little but not enough)
+is typed tags or meta-tags. So e.g. the tag 'ion' could have the 
+meta-tag 'project'. The path component #project would then filter
+out everything that doesn't have a 'project' meta-tagged tag. 
+Furthermore creating an object with tags ion.project/foo/bar, would 
+fail if 'ion' isn't meta-tagged 'project', and if the ion tag doesn't
+exist, meta-tag it a project. 
+
+Alternatively, the meta-tags could only apply to tags within objects,
+and could be used to further filter the results, so that only things 
+with the 'project' meta-tag applied to the 'ion' tag would show up. 
+However, the meta-tag would still not contribute to the name, and you
+could not have both 'ion.bar/foo' and 'ion.baz/foo', as both would 
+still have the name 'ion/foo'.
+
+Or something like that. Like I said, it's a fancy idea that I 
+haven't thought enough about, and I'm not sure I want that 
+complexity... It's starting to sound like metacrap :).
+
+&gt;<i> I'm still not sold on the pruning idea.  It could be because I've not
+</I>&gt;<i> done anything like it before and therefore I'm just worried about it
+</I>&gt;<i> because I don't know much about it.  I've rationalised this as thinking
+</I>&gt;<i> there will be problems with scaling, but to be honest I don't know.
+</I>
+It is an expensive operation, but as I've mentioned, various 
+not-so-expensive approximations can be devised, that might still
+provide more useful results than a simple listing of all tags seen.
+It's something to be researched and tried out. The particular 
+pruning method seems unlikely to be something integral to the 
+design of the FS, although some optimisations might be stored
+(in just another file within the FS, if it even were a full FS).
+
+&gt;<i> I don't like plugin for things like this, they force you to expose
+</I>&gt;<i> too many implementation details, make things brittle and resistent to
+</I>&gt;<i> change.
+</I>
+Not necessarily. Just consider the plugins storing another table
+within a DB for their index.
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000180.html">SetFS
+</A></li>
+	<LI>Next message: <A HREF="000182.html">SetFS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#181">[ date ]</a>
+              <a href="thread.html#181">[ thread ]</a>
+              <a href="subject.html#181">[ subject ]</a>
+              <a href="author.html#181">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

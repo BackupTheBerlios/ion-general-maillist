@@ -1,0 +1,494 @@
+From blurrpp at yahoo.com  Wed Dec 22 05:05:26 2010
+From: blurrpp at yahoo.com (=?iso-8859-1?Q?=A3ukasz?=)
+Date: Tue, 21 Dec 2010 20:05:26 -0800 (PST)
+Subject: Saving/restore session
+Message-ID: <392571.3064.qm@web130103.mail.mud.yahoo.com>
+
+Hi, I want o task if its possible to restore previous ion session ( tob explicit, i created some workspaces, puted in nice order programs etc. and suddenly i have to restart computer, so i have to reorganize workspaces again). I havent found appropriate module or ion function to do this.
+
+Regards Lukas
+
+
+      
+
+
+From olof at ethup.se  Wed Dec 22 05:29:57 2010
+From: olof at ethup.se (Olof Johansson)
+Date: Wed, 22 Dec 2010 04:29:57 +0000
+Subject: Saving/restore session
+In-Reply-To: <392571.3064.qm@web130103.mail.mud.yahoo.com>
+References: <392571.3064.qm@web130103.mail.mud.yahoo.com>
+Message-ID: <20101222042957.GJ3067@brutus.ethup.se>
+
+On 2010-12-21 20:05 -0800, ?ukasz wrote:
+> Hi, I want o task if its possible to restore previous ion session ( tob 
+> explicit, i created some workspaces, puted in nice order programs etc. 
+> and suddenly i have to restart computer, so i have to reorganize 
+> workspaces again). I havent found appropriate module or ion function to 
+> do this.
+
+The workspaces shouldn't be a problem, just do a "clean exit" or
+save the session manually (ioncore.snapshot()). 
+
+Having applications start in the "right" frame is another problem
+though. I understand that it can be solved with kludges etc, but 
+I haven't bothered so I can't help you unfortunately. Other people 
+on the list probably knows.
+
+-- 
+- Olof Johansson
+-  www:          http://www.stdlib.se/
+-  {mail,xmpp}:  olof at ethup.se
+-  irc:          zibri on Freenode/OFTC/...
+--
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20101222/f74b5913/attachment.pgp>
+
+From blurrpp at yahoo.com  Wed Dec 22 06:09:22 2010
+From: blurrpp at yahoo.com (=?iso-8859-1?Q?=A3ukasz?=)
+Date: Tue, 21 Dec 2010 21:09:22 -0800 (PST)
+Subject: Saving/restore session
+In-Reply-To: <20101222042957.GJ3067@brutus.ethup.se>
+Message-ID: <644187.13794.qm@web130102.mail.mud.yahoo.com>
+
+
+--- On Wed, 12/22/10, Olof Johansson <olof at ethup.se> wrote:
+
+> From: Olof Johansson <olof at ethup.se>
+> Subject: Re: Saving/restore session
+> To: ion-general at lists.berlios.de
+> Date: Wednesday, December 22, 2010, 5:29 AM
+> On 2010-12-21 20:05 -0800, ?ukasz
+> wrote:
+> > Hi, I want o task if its possible to restore previous
+> ion session ( tob 
+> > explicit, i created some workspaces, puted in nice
+> order programs etc. 
+> > and suddenly i have to restart computer, so i have to
+> reorganize 
+> > workspaces again). I havent found appropriate module
+> or ion function to 
+> > do this.
+> 
+> The workspaces shouldn't be a problem, just do a "clean
+> exit" or
+> save the session manually (ioncore.snapshot()). 
+> 
+> Having applications start in the "right" frame is another
+> problem
+> though. I understand that it can be solved with kludges
+> etc, but 
+> I haven't bothered so I can't help you unfortunately. Other
+> people 
+> on the list probably knows.
+> 
+Thanks, unfortunately i havent mentioned that im using ion2 not ion3 so no ioncore.snapshot ... i think its time to move to ion3
+
+
+      
+
+
+From olof at ethup.se  Wed Dec 22 06:30:01 2010
+From: olof at ethup.se (Olof Johansson)
+Date: Wed, 22 Dec 2010 05:30:01 +0000
+Subject: Saving/restore session
+In-Reply-To: <644187.13794.qm@web130102.mail.mud.yahoo.com>
+References: <20101222042957.GJ3067@brutus.ethup.se>
+	<644187.13794.qm@web130102.mail.mud.yahoo.com>
+Message-ID: <20101222053001.GK3067@brutus.ethup.se>
+
+On 2010-12-21 21:09 -0800, ?ukasz wrote:
+> Thanks, unfortunately i havent mentioned that im using ion2 not ion3 
+> so no ioncore.snapshot ... i think its time to move to ion3
+
+Ah, I made a hasty assumption. Sorry :-)
+
+-- 
+- Olof Johansson
+-  www:          http://www.stdlib.se/
+-  {mail,xmpp}:  olof at ethup.se
+-  irc:          zibri on Freenode/OFTC/...
+--
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20101222/971810bc/attachment.pgp>
+
+From sylvain.abelard at gmail.com  Wed Dec 22 08:58:09 2010
+From: sylvain.abelard at gmail.com (=?UTF-8?Q?Sylvain_Ab=C3=A9lard?=)
+Date: Wed, 22 Dec 2010 08:58:09 +0100
+Subject: Saving/restore session
+In-Reply-To: <644187.13794.qm@web130102.mail.mud.yahoo.com>
+References: <20101222042957.GJ3067@brutus.ethup.se>
+	<644187.13794.qm@web130102.mail.mud.yahoo.com>
+Message-ID: <AANLkTimzXZVJtT2gzp3bnQHi0n5ipK=Q1aWgzmPwy4f_@mail.gmail.com>
+
+Hi,
+
+> Thanks, unfortunately i havent mentioned that im using ion2
+> not ion3 so no ioncore.snapshot ... i think its time to move to ion3
+
+Both versions save workspaces' layouts to lua files, when doing clean exits.
+IIRC both provide with a menu option to save / load workspaces in that file.
+
+~/.ion2/default-session/workspaces.lua
+~/.ion3/default-session--0/saved_layout.lua
+
+What I did was saving the layouts I like then removing write
+authorizations on that file with chmod so it wouldn't get overriden on
+exit.
+
+
+Happy tiling,
+
+-- 
+Sylvain Ab?lard
+"J?ai d?cid? d??tre heureux, c?est meilleur pour la sant?." -Voltaire
+
+
+From blurrpp at yahoo.com  Wed Dec 22 09:52:30 2010
+From: blurrpp at yahoo.com (=?iso-8859-1?Q?=A3ukasz?=)
+Date: Wed, 22 Dec 2010 00:52:30 -0800 (PST)
+Subject: Saving/restore session
+In-Reply-To: <AANLkTimzXZVJtT2gzp3bnQHi0n5ipK=Q1aWgzmPwy4f_@mail.gmail.com>
+Message-ID: <153753.31173.qm@web130101.mail.mud.yahoo.com>
+
+
+> Both versions save workspaces' layouts to lua files, when
+> doing clean exits.
+> IIRC both provide with a menu option to save / load
+> workspaces in that file.
+> 
+> ~/.ion2/default-session/workspaces.lua
+> ~/.ion3/default-session--0/saved_layout.lua
+> 
+> What I did was saving the layouts I like then removing
+> write
+> authorizations on that file with chmod so it wouldn't get
+> overriden on
+> exit.
+> 
+> 
+ You right, but there is no information about programs opened in thise windows, as an example my latest workspaces.lua
+
+initialise_screen_id(0, {
+    type = "WScreen",
+    name = "WScreen",
+    subs = {
+        {
+            type = "WFloatWS",
+            name = "main",
+            managed = {
+                {
+                    type = "WFloatFrame",
+                    name = "WFloatFrame",
+                    flags = 24,
+                    saved_y = 0, saved_h = 337,
+                    saved_x = 0, saved_w = 488,
+                    subs = {
+                        {
+                            type = "WClientWin",
+                            windowid = 12582927,
+                            checkcode = 1,
+                            switchto = true,
+                        },
+                        {
+                            type = "WClientWin",
+                            windowid = 27262991,
+                            checkcode = 2,
+                        },
+                    },
+                    geom = { x = 0, y = 0, w = 1022, h = 766},
+                },
+                {
+                    type = "WFloatFrame",
+                    name = "WFloatFrame<4>",
+                    flags = 24,
+                    saved_y = 0, saved_h = 337,
+                    saved_x = 1023, saved_w = 488,
+                    subs = {
+                        {
+                            type = "WClientWin",
+                            windowid = 25165839,
+                            checkcode = 3,
+                            switchto = true,
+                        },
+                    },
+                    geom = { x = 1023, y = 0, w = 1022, h = 766},
+                },
+            },
+        },
+        {
+            type = "WFloatWS",
+            name = "WFloatWS",
+            managed = {
+                {
+                    type = "WFloatFrame",
+                    name = "WFloatFrame<1>",
+                    flags = 16,
+                    saved_x = 2, saved_w = 1022,
+                    subs = {
+                        {
+                            type = "WClientWin",
+                            windowid = 14680115,
+                            checkcode = 4,
+                            switchto = true,
+                        },
+                    },
+                    geom = { x = 3, y = 0, w = 1023, h = 768},
+                },
+                {
+                    type = "WFloatFrame",
+                    name = "WFloatFrame<2>",
+                    flags = 24,
+                    saved_y = 0, saved_h = 337,
+                    saved_x = 1025, saved_w = 488,
+                    subs = {
+                        {
+                            type = "WClientWin",
+                            windowid = 16777231,
+                            checkcode = 5,
+                            switchto = true,
+                        },
+                    },
+                    geom = { x = 1025, y = 0, w = 1016, h = 766},
+                },
+            },
+            switchto = true,
+        },
+        {
+            type = "WFloatWS",
+            name = "WFloatWS<1>",
+            managed = {
+            },
+        },
+        {
+            type = "WFloatWS",
+            name = "WFloatWS<2>",
+            managed = {
+            },
+        },
+    },
+})
+
+Lukas
+
+
+
+      
+
+
+From deryni at unreliablesource.net  Thu Dec 23 03:34:43 2010
+From: deryni at unreliablesource.net (Etan Reisner)
+Date: Wed, 22 Dec 2010 21:34:43 -0500
+Subject: Saving/restore session
+In-Reply-To: <153753.31173.qm@web130101.mail.mud.yahoo.com>
+References: <AANLkTimzXZVJtT2gzp3bnQHi0n5ipK=Q1aWgzmPwy4f_@mail.gmail.com>
+	<153753.31173.qm@web130101.mail.mud.yahoo.com>
+Message-ID: <20101223023443.GN1878@aran>
+
+Right, application information isn't saved.
+
+You need a session manager (and SM aware applications) to have
+applications automatically saved and restored.
+
+Getting applications to start in the correct frames when they do start up
+(manually or automatically) requires winprops/kludges be set up (as was
+previously mentioned).
+
+    -Etan
+
+
+From sylvain.abelard at gmail.com  Sun Dec 26 12:48:11 2010
+From: sylvain.abelard at gmail.com (=?UTF-8?Q?Sylvain_Ab=C3=A9lard?=)
+Date: Sun, 26 Dec 2010 12:48:11 +0100
+Subject: Saving/restore session
+In-Reply-To: <153753.31173.qm@web130101.mail.mud.yahoo.com>
+References: <AANLkTimzXZVJtT2gzp3bnQHi0n5ipK=Q1aWgzmPwy4f_@mail.gmail.com>
+	<153753.31173.qm@web130101.mail.mud.yahoo.com>
+Message-ID: <AANLkTimXB56GhTetRS9AHh7TXM78H7-xuuU9kpu3NXXp@mail.gmail.com>
+
+>> ~/.ion2/default-session/workspaces.lua
+>> ~/.ion3/default-session--0/saved_layout.lua
+
+> ?You right, but there is no information about programs opened in thise windows
+
+As Etan said you have to use a SM or other personal tricks to only
+launch / restore the apps you need.
+Once your layout frames have names, and you know your favorite apps'
+names and classes via xprop, you can setup kludges.
+
+You can find examples for kludges.lua files on the Net:
+ http://aperiodic.net/phil/configs/ion2/kludges.lua
+ http://daelstorm.thegraveyard.org/ion2/ion2.html
+
+Some apps may or may not have X names and classes, or they may be duplicate.
+The typical example is emacs : if you want to open several windows in
+different places,
+you have to set command-line args to set them. The kludges then work as a charm.
+
+
+-- 
+Sylvain Ab?lard
+"J?ai d?cid? d??tre heureux, c?est meilleur pour la sant?." -Voltaire
+
+
+From blurrpp at yahoo.com  Thu Dec 30 16:55:43 2010
+From: blurrpp at yahoo.com (=?iso-8859-1?Q?=A3ukasz?=)
+Date: Thu, 30 Dec 2010 07:55:43 -0800 (PST)
+Subject: Saving/restore session
+In-Reply-To: <AANLkTimXB56GhTetRS9AHh7TXM78H7-xuuU9kpu3NXXp@mail.gmail.com>
+Message-ID: <258101.13624.qm@web130109.mail.mud.yahoo.com>
+
+
+--- On Sun, 12/26/10, Sylvain Ab?lard <sylvain.abelard at gmail.com> wrote:
+
+> From: Sylvain Ab?lard <sylvain.abelard at gmail.com>
+> Subject: Re: Saving/restore session
+> To: ion-general at lists.berlios.de
+> Date: Sunday, December 26, 2010, 12:48 PM
+> >>
+> ~/.ion2/default-session/workspaces.lua
+> >> ~/.ion3/default-session--0/saved_layout.lua
+> 
+> > ?You right, but there is no information about
+> programs opened in thise windows
+> 
+> As Etan said you have to use a SM or other personal tricks
+> to only
+> launch / restore the apps you need.
+> Once your layout frames have names, and you know your
+> favorite apps'
+> names and classes via xprop, you can setup kludges.
+> 
+> You can find examples for kludges.lua files on the Net:
+>  http://aperiodic.net/phil/configs/ion2/kludges.lua
+>  http://daelstorm.thegraveyard.org/ion2/ion2.html
+> 
+> Some apps may or may not have X names and classes, or they
+> may be duplicate.
+> The typical example is emacs : if you want to open several
+> windows in
+> different places,
+> you have to set command-line args to set them. The kludges
+> then work as a charm.
+
+ Thanks, i have tryied to do it in many ways and i have some nice lua/shell script so should be ok.
+
+But i have another question. I'm using ion2/pwm2 and i want to resize actual window to some fixed sizes (maximize_vert and maximize_horiz_works only as they explicit say MAXIMALY ) i used request_geom(WRegion,size_table) but i have probelm with gettin current WRegion ( i read cerfully all manual and couldnt find function like WRegion WRegion.current() which would gave me handle to current region),s ohow to get it and maybe there is another way to fixed resize .
+
+Regards Lukas
+
+
+      
+
+
+From ebik at drak.ucw.cz  Thu Dec 30 20:20:55 2010
+From: ebik at drak.ucw.cz (ebik)
+Date: Thu, 30 Dec 2010 20:20:55 +0100
+Subject: Saving/restore session
+In-Reply-To: <258101.13624.qm@web130109.mail.mud.yahoo.com>
+References: <AANLkTimXB56GhTetRS9AHh7TXM78H7-xuuU9kpu3NXXp@mail.gmail.com>
+	<258101.13624.qm@web130109.mail.mud.yahoo.com>
+Message-ID: <20101230202055.476b730e@Chewbacca.cub>
+
+On Thu, 30 Dec 2010 07:55:43 -0800 (PST)
+?ukasz <blurrpp at yahoo.com> wrote:
+
+> But i have another question. I'm using ion2/pwm2 and i want to resize
+> actual window to some fixed sizes (maximize_vert and
+> maximize_horiz_works only as they explicit say MAXIMALY ) i used
+> request_geom(WRegion,size_table) but i have probelm with gettin
+> current WRegion ( i read cerfully all manual and couldnt find
+> function like WRegion WRegion.current() which would gave me handle to
+> current region),s ohow to get it and maybe there is another way to
+> fixed resize .
+> 
+> Regards Lukas
+
+You should use correct binding (i.e., binding for WFrame or something
+like that, I have no ion manual here), then the variable '_'
+should contain the object, which was the binding triggered for. See
+the part of manual that describes bindings.
+
+-- 
+                                 Tom?? 'eb?k' Ebenlendr
+                                 PF 2010.99683631405
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 230 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20101230/8fdac084/attachment.pgp>
+
+From blurrpp at yahoo.com  Fri Dec 31 16:09:22 2010
+From: blurrpp at yahoo.com (=?iso-8859-1?Q?=A3ukasz?=)
+Date: Fri, 31 Dec 2010 07:09:22 -0800 (PST)
+Subject: Rezise window to fixed size.
+In-Reply-To: <20101230202055.476b730e@Chewbacca.cub>
+Message-ID: <946241.91105.qm@web130101.mail.mud.yahoo.com>
+
+
+--- On Thu, 12/30/10, ebik <ebik at drak.ucw.cz> wrote:
+
+> From: ebik <ebik at drak.ucw.cz>
+> Subject: Re: Saving/restore session
+> To: ion-general at lists.berlios.de
+> Date: Thursday, December 30, 2010, 8:20 PM
+> On Thu, 30 Dec 2010 07:55:43 -0800
+> (PST)
+> ?ukasz <blurrpp at yahoo.com>
+> wrote:
+> 
+> > But i have another question. I'm using ion2/pwm2 and i
+> want to resize
+> > actual window to some fixed sizes (maximize_vert and
+> > maximize_horiz_works only as they explicit say
+> MAXIMALY ) i used
+> > request_geom(WRegion,size_table) but i have probelm
+> with gettin
+> > current WRegion ( i read cerfully all manual and
+> couldnt find
+> > function like WRegion WRegion.current() which would
+> gave me handle to
+> > current region),s ohow to get it and maybe there is
+> another way to
+> > fixed resize .
+> > 
+> > Regards Lukas
+> 
+> You should use correct binding (i.e., binding for WFrame or
+> something
+> like that, I have no ion manual here), then the variable
+> '_'
+> should contain the object, which was the binding triggered
+> for. See
+> the part of manual that describes bindings.
+
+Thanx, u are talking about ion3 not ion2 but any wy i just moved to ion3 and i have the same problem. Trying to set key to rezise windowes to fixed size, so ok i use WMoveresMode functions 
+
+defbindings("WMoveresMode", {
+   ...
+   ...
+   ...
+   kpress(META.."R",     "WMoveresMode.rqgeom(_,{10,10,100,100})"),
+})
+
+Let say that META+"R" switches to 'resize' mode. So now pressing META+"R" than "R" shold rezise window ... buy nothing happen, other functions like WMoveresMode.resize(_,...)  works ok. So where is mistake in this example.
+
+Lukasz
+
+
+      
+
+

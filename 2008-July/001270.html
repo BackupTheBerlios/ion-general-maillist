@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> error starting ion3
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20error%20starting%20ion3&In-Reply-To=%3C949481560807030010vd95da57h66aae2bc931ea96a%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001269.html">
+   <LINK REL="Next"  HREF="001271.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>error starting ion3</H1>
+    <B>St&#233;phane Mourey</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20error%20starting%20ion3&In-Reply-To=%3C949481560807030010vd95da57h66aae2bc931ea96a%40mail.gmail.com%3E"
+       TITLE="error starting ion3">stephane.mourey at gmail.com
+       </A><BR>
+    <I>Thu Jul  3 09:10:35 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001269.html">error starting ion3
+</A></li>
+        <LI>Next message: <A HREF="001271.html">error starting ion3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1270">[ date ]</a>
+              <a href="thread.html#1270">[ thread ]</a>
+              <a href="subject.html#1270">[ subject ]</a>
+              <a href="author.html#1270">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>By the way, it seems that you have to use .xinitrc instead of .xsession with
+Gentoo...
+
+2008/7/2 St&#233;phane Mourey &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">stephane.mourey at gmail.com</A>&gt;:
+
+&gt;<i> Hi,
+</I>&gt;<i>
+</I>&gt;<i> You're right. I was running another wm (twm). So I just killed it, and ion3
+</I>&gt;<i> started as expected.
+</I>&gt;<i> I've read the README, but the fact is that I wasn't aware of running
+</I>&gt;<i> another wm, and I tried to run nearly like what I did during previous tests
+</I>&gt;<i> on Fedora (xinit, then ion3 in xterm). The difference was that I ran startx
+</I>&gt;<i> instead of xinit...
+</I>&gt;<i> Note that, since my previous mail, I've launch wmii, and its error message
+</I>&gt;<i> was far more explicit, and I succeeded to start it after killing twm. At the
+</I>&gt;<i> time, I did not realize that the problem should have been the same with ion.
+</I>&gt;<i> wmii did not suit me at all, so I so happy now back with ion.
+</I>&gt;<i>
+</I>&gt;<i> Best regards,
+</I>&gt;<i>
+</I>&gt;<i> BrokenClock
+</I>&gt;<i>
+</I>&gt;<i> 2008/7/2 Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt;:
+</I>&gt;<i>
+</I>&gt;<i> On 2008-07-02, St&#233;phane Mourey &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">stephane.mourey at gmail.com</A>&gt; wrote:
+</I>&gt;&gt;<i> &gt; I'm currently tring to run Ion3 on a freshly installed Gentoo Linux
+</I>&gt;&gt;<i> distro.
+</I>&gt;&gt;<i> &gt; The installation seems to have been successful, but, when I type &quot;ion3&quot;
+</I>&gt;&gt;<i> in
+</I>&gt;&gt;<i> &gt; an xterm, I get an error:
+</I>&gt;&gt;<i> &gt; &quot;Unable to redirect root window event for screen 0.
+</I>&gt;&gt;<i> &gt; Refusing to start due to encountered errors.&quot;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> RTFREADME installation notes. You're likely running another WM
+</I>&gt;&gt;<i> already. You should set up your X startup files to launch Ion
+</I>&gt;&gt;<i> instead of that. E.g. create .xsession containing
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>    #!/bin/sh
+</I>&gt;&gt;<i>    ion3
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> and startx should automatically use it on most systems.
+</I>&gt;&gt;<i> If you use a fucked up display manager, you may these days
+</I>&gt;&gt;<i>  need to somehow force it to use .xsession. Traditionally
+</I>&gt;&gt;<i> it was _exactly the display manager_ that .xsession was
+</I>&gt;&gt;<i> for, while startx/xinit didn't use it. But the desktop
+</I>&gt;&gt;<i> herd don't want things to work so simple.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> --
+</I>&gt;&gt;<i> Tuomo
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;<i>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20080703/4152f1ab/attachment.html">https://lists.berlios.de/pipermail/ion-general/attachments/20080703/4152f1ab/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001269.html">error starting ion3
+</A></li>
+	<LI>Next message: <A HREF="001271.html">error starting ion3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1270">[ date ]</a>
+              <a href="thread.html#1270">[ thread ]</a>
+              <a href="subject.html#1270">[ subject ]</a>
+              <a href="author.html#1270">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

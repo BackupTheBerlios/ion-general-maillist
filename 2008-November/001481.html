@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> quickly cloning an existing statusbar script (date)?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-November/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20quickly%20cloning%20an%20existing%20statusbar%20script%20%28date%29%3F&In-Reply-To=%3Cslrnghp6ml.85c.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001480.html">
+   <LINK REL="Next"  HREF="001482.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>quickly cloning an existing statusbar script (date)?</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20quickly%20cloning%20an%20existing%20statusbar%20script%20%28date%29%3F&In-Reply-To=%3Cslrnghp6ml.85c.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="quickly cloning an existing statusbar script (date)?">tuomov at iki.fi
+       </A><BR>
+    <I>Thu Nov 13 22:23:33 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001480.html">quickly cloning an existing statusbar script (date)?
+</A></li>
+        <LI>Next message: <A HREF="001482.html">quickly cloning an existing statusbar script (date)?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1481">[ date ]</a>
+              <a href="thread.html#1481">[ thread ]</a>
+              <a href="subject.html#1481">[ subject ]</a>
+              <a href="author.html#1481">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-11-13, Juri Mianovich &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">juri_mian at yahoo.com</A>&gt; wrote:
+&gt;<i>
+</I>&gt;<i> Hello,
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> --- On Thu, 11/13/08, Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt; wrote:
+</I>&gt;<i>
+</I>&gt;&gt;<i> &gt; But the statusbar just has a &quot;??&quot; in it for
+</I>&gt;&gt;<i> &quot;%ukdate&quot;, even though that
+</I>&gt;&gt;<i> &gt; script exists.
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> The monitor must of course be modified to use the correct
+</I>&gt;&gt;<i> meter names...
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> &gt; ALSO, I am not sure how I would edit statusd_ukdate.lc
+</I>&gt;&gt;<i> to have a +7 hours
+</I>&gt;&gt;<i> &gt; in its 'date' command, since the .lc file is
+</I>&gt;&gt;<i> not text, but just binary
+</I>&gt;&gt;<i> &gt; data.
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> ... for which you need to modify the original .lua file.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> Thanks for your response.  I think I will pursue it this way,
+</I>&gt;<i> which is to create a %ukdate.
+</I>&gt;<i>
+</I>&gt;<i> So, in addition to adding a second item to the default
+</I>&gt;<i> template, like this:
+</I>&gt;<i>
+</I>&gt;<i> template=&quot;[  %date  %ukdate  ] %filler%systray&quot;,
+</I>&gt;<i>
+</I>&gt;<i> and adding this block of code to cfg_statusbar.lua:
+</I>&gt;<i>
+</I>&gt;<i> ukdate={
+</I>&gt;<i> ukdate_format='  %a %Y-%m-%d %H:%M  UK'
+</I>&gt;<i> }
+</I>&gt;<i>
+</I>&gt;<i> I also need to:
+</I>&gt;<i>
+</I>&gt;<i> - edit the monitor
+</I>&gt;<i> - find the original lua file for statusd_date.lc, edit it
+</I>&gt;<i>   for a +7 (hard hack for DST, sorry) and recompile it to
+</I>&gt;<i>   a lc file
+</I>&gt;<i>
+</I>&gt;<i> If that is correct, would you tell me what/where &quot;the monitor&quot;
+</I>&gt;<i> is ?
+</I>&gt;<i>
+</I>&gt;<i> I am going to change this line:
+</I>&gt;<i>
+</I>&gt;<i> statusd.inform('date', os.date(settings.date_format, tm))
+</I>&gt;<i>
+</I>&gt;<i> to this:
+</I>&gt;<i>
+</I>&gt;<i> statusd.inform('date -v +7H', os.date(settings.date_format, tm))
+</I>&gt;<i>
+</I>&gt;<i> does that seem reasonable ?
+</I>&gt;<i>
+</I>&gt;<i> Thanks again.
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>       
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001480.html">quickly cloning an existing statusbar script (date)?
+</A></li>
+	<LI>Next message: <A HREF="001482.html">quickly cloning an existing statusbar script (date)?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1481">[ date ]</a>
+              <a href="thread.html#1481">[ thread ]</a>
+              <a href="subject.html#1481">[ subject ]</a>
+              <a href="author.html#1481">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

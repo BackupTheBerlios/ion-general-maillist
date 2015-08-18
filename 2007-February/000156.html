@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Feature freeze imminent
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Feature%20freeze%20imminent&In-Reply-To=%3C20070226171217.GD13216%40samason.me.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000155.html">
+   <LINK REL="Next"  HREF="000157.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Feature freeze imminent</H1>
+    <B>Sam Mason</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Feature%20freeze%20imminent&In-Reply-To=%3C20070226171217.GD13216%40samason.me.uk%3E"
+       TITLE="Feature freeze imminent">mason at f2s.com
+       </A><BR>
+    <I>Mon Feb 26 18:12:17 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000155.html">Feature freeze imminent
+</A></li>
+        <LI>Next message: <A HREF="000157.html">Feature freeze imminent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#156">[ date ]</a>
+              <a href="thread.html#156">[ thread ]</a>
+              <a href="subject.html#156">[ subject ]</a>
+              <a href="author.html#156">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Mon, Feb 26, 2007 at 03:38:57PM +0000, Tuomo Valkonen wrote:
+&gt;<i> On 2007-02-26, Sam Mason &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">mason at f2s.com</A>&gt; wrote:
+</I>&gt;<i> &gt; One way to neatly sidestep this problem would be to remove the ordering
+</I>&gt;<i> &gt; and just require the set of tags associated with each file to be unique.
+</I>&gt;<i> &gt; As far as I can tell, the implementation wouldn't be too complicated,
+</I>&gt;<i> 
+</I>&gt;<i> That's what I intend. At the file system level, there's no ordering
+</I>&gt;<i> as such: files are addressed by sets of tags, and this set is enforced
+</I>&gt;<i> to be unique for each file. The programs (or a FUSE plugin, for getdir) 
+</I>&gt;<i> can then do some ordering for nicer listings. 
+</I>
+OK, I've just re-read your original note on the subject and I was
+originally confused about what you meant---everything seems more
+coherent now.
+
+&gt;<i> As for the implementation, yes it shouldn't be too complicated. 
+</I>&gt;<i> My present plan is that each tag has a sparse bitmap associated 
+</I>&gt;<i> with it, with the bit for each object ID that has that tag set, set
+</I>&gt;<i> to one. Then you just 'and' these bitmaps when you search for the
+</I>&gt;<i> subset of files having the given tags set. This should be quite
+</I>&gt;<i> efficient given a suitable sparse structure for the bitmaps. 
+</I>
+Sounds similar to &quot;bitmap indexes&quot; as used by databases.  For read-only
+access they are great but AFAIK every implementation I've every heard of
+kills concurrent modification.  It may all work out here, but just to
+warn you!
+
+&gt;<i> However, pruning the results (there can be a lot of them), may
+</I>&gt;<i> demand a bit more effort. But it should not be a problem in a Riot
+</I>&gt;<i> scale application. Note that these tag-based bitmaps could be 'and'ed
+</I>&gt;<i> with further filters, such as a date one, that do not, however, 
+</I>&gt;<i> constitute a part of the file name, unlike the tags. 
+</I>
+By pruning I'm guessing you mean getting single references out to each
+file, if so I think I must be missing something.  I don't see why any
+algorithm would ever return more than one reference to the same file and
+hence you would ever need to do any pruning.
+
+I agree with keeping the dates separate from tags, and with your rants
+on meta-data.  One of my issues is that metadata belong in the file so
+it doesn't disappear when you copy the file to a filesystem or over a
+protocol that doesn't honour all the latest shiny new features.  I also
+think we've all had to deal with recording the same information twice
+and them getting out of sync.
+
+&gt;<i> There's, however, another structure needed for looking up a particular
+</I>&gt;<i> file with exactly given set of tags. One approach would be to use a 
+</I>&gt;<i> binary self-balancing tree (red-black, AVL), but I'm afraid that could
+</I>&gt;<i> be too inefficient on a file system, as multiple 'inodes' all around the
+</I>&gt;<i> disk would have to be accessed on each lookup.  An alternative, possibly
+</I>&gt;<i> more efficient, approach would be to order the identifier sets by tag ID,
+</I>&gt;<i> and use a nested B-tree for looking up the files as if they were on a 
+</I>&gt;<i> normal hierachical file system. In fact, you could store the files on 
+</I>&gt;<i> a normal underlying file system in that hierarchy. 
+</I>
+Your alternative sounds a lot like what I was trying to say in my last
+email.
+
+&gt;<i> I do not plan to do
+</I>&gt;<i> so, however, although I do intend to use (at least initially) a normal
+</I>&gt;<i> FS for storing the files, with an additional file for the indices.
+</I>
+Sounds like a very reasonable way to start.
+
+&gt;<i> I have not looked in detail into how LFS (Logic File System) does this,
+</I>&gt;<i> and maybe I could in fact use it, but the last I checked, it was gone,
+</I>&gt;<i> and the first time I checked, I couldn't build it.
+</I>
+I started to write an IMAP server that supported a similar method
+of tagging messages.  I used a traditional database (Postgres) to
+store everything in but didn't get very far as the IMAP spec is so
+impressively byzantine and every email client seems to use it's own
+subset.
+
+Postgres has reasonable support for BLOBs, providing an interface very
+similar to Unix's open/read/write/close.
+
+
+  Sam
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000155.html">Feature freeze imminent
+</A></li>
+	<LI>Next message: <A HREF="000157.html">Feature freeze imminent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#156">[ date ]</a>
+              <a href="thread.html#156">[ thread ]</a>
+              <a href="subject.html#156">[ subject ]</a>
+              <a href="author.html#156">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

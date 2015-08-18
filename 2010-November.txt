@@ -1,0 +1,251 @@
+From fantasai.lists at inkedblade.net  Sat Nov 13 08:24:58 2010
+From: fantasai.lists at inkedblade.net (fantasai)
+Date: Fri, 12 Nov 2010 23:24:58 -0800
+Subject: Status?
+Message-ID: <iblega$u3n$1@dough.gmane.org>
+
+So, I just set up a fresh, clean install of my OS and I'm now
+looking to install missing critical software. Which brings me
+to Ion3, and you all.
+
+The most up-to-date information I could find was on Wikipedia,
+which points me at:
+   tuomov's archives: http://tuomov.iki.fi/software
+   the Notion fork:   http://notion.sourceforge.net/
+   the Anion fork:    http://code.google.com/p/anion3/
+
+What should I be installing? And why are there two forks?
+
+~fantasai
+
+
+
+
+From ion at themel.com  Sat Nov 13 09:47:57 2010
+From: ion at themel.com (Thomas Themel)
+Date: Sat, 13 Nov 2010 09:47:57 +0100
+Subject: Status?
+In-Reply-To: <iblega$u3n$1@dough.gmane.org>
+References: <iblega$u3n$1@dough.gmane.org>
+Message-ID: <1289637915-sup-2166@eristoteles.iwoars.net>
+
+Hi,
+Excerpts from fantasai's message of Sat Nov 13 08:24:58 +0100 2010:
+>    tuomov's archives: http://tuomov.iki.fi/software
+>    the Notion fork:   http://notion.sourceforge.net/
+>    the Anion fork:    http://code.google.com/p/anion3/
+> 
+> What should I be installing? And why are there two forks?
+
+Looking at notion's repo, it has exactly one commit, the initial checkin, so
+it's just a copy of ion (without the history). It was useful back when tuomov
+had withdrawn all the archives and there was no way to get the source, but now
+I think we'd be better off it it went away and stopped confusing people.
+
+Haven't tried anion, I'm still running off a local copy of ion-3plus's darcs
+repo from back when tuomov was still hosting it.
+
+ciao,
+-- 
+[*Thomas  Themel*]   "In society, we need to pay...
+[extended contact]    If something's expensive to develop, and
+[info provided in|    somebody's not going to get paid, it won't
+[*message header*]    get developed." - Bill Gates, 1980
+
+
+From ml at sergej.pp.ru  Sat Nov 13 10:25:31 2010
+From: ml at sergej.pp.ru (Sergej Pupykin)
+Date: Sat, 13 Nov 2010 12:25:31 +0300
+Subject: Status?
+In-Reply-To: <1289637915-sup-2166@eristoteles.iwoars.net>
+References: <iblega$u3n$1@dough.gmane.org>
+	<1289637915-sup-2166@eristoteles.iwoars.net>
+Message-ID: <87iq01efsk.wl%sergej.pupykin@dsr-company.com>
+
+> >    tuomov's archives: http://tuomov.iki.fi/software
+> >    the Notion fork:   http://notion.sourceforge.net/
+> >    the Anion fork:    http://code.google.com/p/anion3/
+> > 
+> > What should I be installing? And why are there two forks?
+
+Anion project is ion3+ copy with Xft patch, which can be switched on
+or off while compiling.
+
+Also this project contains ion3 archives and riot fixed for latest
+ghc.
+
+
+From ml at sergej.pp.ru  Sat Nov 13 10:28:39 2010
+From: ml at sergej.pp.ru (Sergej Pupykin)
+Date: Sat, 13 Nov 2010 12:28:39 +0300
+Subject: Status?
+In-Reply-To: <87iq01efsk.wl%sergej.pupykin@dsr-company.com>
+References: <iblega$u3n$1@dough.gmane.org>
+	<1289637915-sup-2166@eristoteles.iwoars.net>
+	<87iq01efsk.wl%sergej.pupykin@dsr-company.com>
+Message-ID: <87hbflefnc.wl%sergej.pupykin@dsr-company.com>
+
+At Sat, 13 Nov 2010 12:25:31 +0300,
+Sergej Pupykin <ml at sergej.pp.ru> wrote:
+> Anion project is ion3+ copy with Xft patch, which can be switched on
+> or off while compiling.
+
+Also it contains additional modules (xkb, xinerama, xrandr)
+
+
+From ion at themel.com  Sat Nov 13 11:55:15 2010
+From: ion at themel.com (Thomas Themel)
+Date: Sat, 13 Nov 2010 11:55:15 +0100
+Subject: Status?
+In-Reply-To: <20101113104410.GJ9348@bzzt.net>
+References: <iblega$u3n$1@dough.gmane.org>
+	<1289637915-sup-2166@eristoteles.iwoars.net>
+	<20101113104410.GJ9348@bzzt.net>
+Message-ID: <1289645443-sup-2607@eristoteles.iwoars.net>
+
+Hi,
+Excerpts from Arnout Engelen's message of Sat Nov 13 11:44:11 +0100 2010:
+> > Looking at notion's repo, it has exactly one commit, the initial checkin, so
+> > it's just a copy of ion (without the history). 
+> 
+> Uh, what repository are you looking at?
+> 
+> The notion repo is can be found at sourceforge git, 
+> http://notion.git.sourceforge.net/git/gitweb.cgi?p=notion/notion;a=summary
+> 
+> It has the full ion history, some patches, and I actually checked in a bugfix
+> just 2 days ago.
+
+Erm, sorry for badmouthing the project then - I based my comments on 
+
+http://code.google.com/p/notion/
+
+which is quite dead, I had no idea there's a fairly active SourceForge project
+of the same name.
+
+ciao,
+-- 
+[*Thomas  Themel*] Marco Budde <Budde at tu-harburg.de> wrote:
+[extended contact] > Wieso ist C++ nicht C++?
+[info provided in] C++ != C++ duerfte zumindest undefiniert sein...
+[*message header*]  - Andr? P?nitz zeigt uns Schwachstellen in ISO-C++
+
+
+From ion at bzzt.net  Sat Nov 13 11:44:11 2010
+From: ion at bzzt.net (Arnout Engelen)
+Date: Sat, 13 Nov 2010 11:44:11 +0100
+Subject: Status?
+In-Reply-To: <1289637915-sup-2166@eristoteles.iwoars.net>
+References: <iblega$u3n$1@dough.gmane.org>
+	<1289637915-sup-2166@eristoteles.iwoars.net>
+Message-ID: <20101113104410.GJ9348@bzzt.net>
+
+On Sat, Nov 13, 2010 at 09:47:57AM +0100, Thomas Themel wrote:
+> Excerpts from fantasai's message of Sat Nov 13 08:24:58 +0100 2010:
+> >    tuomov's archives: http://tuomov.iki.fi/software
+> >    the Notion fork:   http://notion.sourceforge.net/
+> >    the Anion fork:    http://code.google.com/p/anion3/
+> > 
+> > What should I be installing? And why are there two forks?
+
+I was wondering about the same thing a while ago. While at that point notion
+had little code, anion had been stalled for a good while also and notion 
+seemed much more active in terms of community interest and discussion.
+
+Aside from the mailinglist, there is a #notion IRC channel - not very active,
+but not completely dead either.
+
+> Looking at notion's repo, it has exactly one commit, the initial checkin, so
+> it's just a copy of ion (without the history). 
+
+Uh, what repository are you looking at?
+
+The notion repo is can be found at sourceforge git, 
+http://notion.git.sourceforge.net/git/gitweb.cgi?p=notion/notion;a=summary
+
+It has the full ion history, some patches, and I actually checked in a bugfix
+just 2 days ago.
+
+
+Kind regards,
+
+Arnout
+
+
+From ion at bzzt.net  Sat Nov 13 12:07:27 2010
+From: ion at bzzt.net (Arnout Engelen)
+Date: Sat, 13 Nov 2010 12:07:27 +0100
+Subject: Status?
+In-Reply-To: <1289645443-sup-2607@eristoteles.iwoars.net>
+References: <iblega$u3n$1@dough.gmane.org>
+	<1289637915-sup-2166@eristoteles.iwoars.net>
+	<20101113104410.GJ9348@bzzt.net>
+	<1289645443-sup-2607@eristoteles.iwoars.net>
+Message-ID: <20101113110727.GK9348@bzzt.net>
+
+On Sat, Nov 13, 2010 at 11:55:15AM +0100, Thomas Themel wrote:
+> Excerpts from Arnout Engelen's message of Sat Nov 13 11:44:11 +0100 2010:
+> > > Looking at notion's repo, it has exactly one commit, the initial checkin
+> > > so it's just a copy of ion (without the history). 
+> > 
+> > Uh, what repository are you looking at?
+> > 
+> > The notion repo is can be found at sourceforge git, 
+> > http://notion.git.sourceforge.net/git/gitweb.cgi?p=notion/notion;a=summary
+> > 
+> > It has the full ion history, some patches, and I actually checked in a 
+> > bugfix just 2 days ago.
+> 
+> Erm, sorry for badmouthing the project then - I based my comments on 
+> 
+> http://code.google.com/p/notion/
+> 
+> which is quite dead, I had no idea there's a fairly active SourceForge project
+> of the same name.
+
+No problem - I'll try and see if i can get hold of the google code project 
+owner. 
+
+(I never saw this project before - I'm not even sure it's the same 'notion', as
+I don't see any code or information in that project at all...)
+
+
+Kind regards,
+
+Arnout
+
+
+From fantasai.lists at inkedblade.net  Sat Nov 13 19:18:16 2010
+From: fantasai.lists at inkedblade.net (fantasai)
+Date: Sat, 13 Nov 2010 10:18:16 -0800
+Subject: Status?
+In-Reply-To: <87hbflefnc.wl%sergej.pupykin@dsr-company.com>
+References: <iblega$u3n$1@dough.gmane.org>	<1289637915-sup-2166@eristoteles.iwoars.net>	<87iq01efsk.wl%sergej.pupykin@dsr-company.com>
+	<87hbflefnc.wl%sergej.pupykin@dsr-company.com>
+Message-ID: <ibmkp9$irr$1@dough.gmane.org>
+
+On 11/13/2010 01:28 AM, Sergej Pupykin wrote:
+> At Sat, 13 Nov 2010 12:25:31 +0300,
+> Sergej Pupykin<ml at sergej.pp.ru>  wrote:
+>> Anion project is ion3+ copy with Xft patch, which can be switched on
+>> or off while compiling.
+>
+> Also it contains additional modules (xkb, xinerama, xrandr)
+
+Would it be possible to merge with Notion, or are there strong
+philosophical or architectural differences here?
+
+I'm concerned that forking the code in two different directions
+will lead to
+   a) confusion for everyone
+   b) bugfixes of one not going into the other
+
+I would prefer if Notion and Anion provided different make
+configurations to provide their different feature sets (if
+that's wanted), rather than forking the base, which would
+benefit from having both developers maintain it together.
+
+~fantasai
+
+
+

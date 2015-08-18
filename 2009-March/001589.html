@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Proportional tab sizes (ugly patch).
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Proportional%20tab%20sizes%20%28ugly%20patch%29.&In-Reply-To=%3C20090315125649.7137a39d%40u-pl17.ms.mff.cuni.cz%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001588.html">
+   <LINK REL="Next"  HREF="001590.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Proportional tab sizes (ugly patch).</H1>
+    <B>ebik</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Proportional%20tab%20sizes%20%28ugly%20patch%29.&In-Reply-To=%3C20090315125649.7137a39d%40u-pl17.ms.mff.cuni.cz%3E"
+       TITLE="Proportional tab sizes (ugly patch).">ebik at drak.ucw.cz
+       </A><BR>
+    <I>Sun Mar 15 12:56:49 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001588.html">[SEMI-OT] Applications in a typical ion3 desktop environment
+</A></li>
+        <LI>Next message: <A HREF="001590.html">Ikiwiki replacement etc.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1589">[ date ]</a>
+              <a href="thread.html#1589">[ thread ]</a>
+              <a href="subject.html#1589">[ subject ]</a>
+              <a href="author.html#1589">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Here I send patch for proportional tab sizes.
+
+The patch itself is not acceptable because of two (interdependent)
+issues:
+  1.) I haven't time to examine source code to optimize for speed, and
+      correct flow. (See using of 'complete' flag of
+      grbrush_draw_textboxes, etc.)
+  2.) It is the 'first shot' programming, i.e. it just works, but the
+      code itself is rather ugly (e.g., I haven't put the new function
+      in header file.)
+
+But I haven't time for cleaning the code for next month or two, so I
+send the patch as is.
+
+--------------------------------------------------------------------
+
+The algorithm now works in following way (I omit some border
+widths here in the description as well as rounding errors.):
+
+ * There are two constants:
+   - float_tab_min_w (former tab_min_w, default 100)
+       ... that is soft minimum width
+   - propor_tab_min_w (new, default 30, I did not write code for
+       redefinig) ... that is hard minimum width
+ Let &quot;n&quot; be number of tabs.
+
+ * If n*propor_tab_min_w is greater than space allocated to tabs
+   ( ~ width of the frame in tiled workspace ), then tabs get sizes
+   proportionaly like it was before this patch.
+
+   |&lt;---&gt;| ... propor_tab_min_w
+   _____________________________________________
+   |T|A|B|S|_|T|H|A|T|_|A|R|E|_|T|O|O|_|M|A|N|Y|
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ * Else each tab gets at least propor_tab_min_w (even if it contains
+   shorter label).
+
+ * Now we set max_width to propor_tab_min_w, and we keep incrementing
+   max_width until all tabs have their width or we use all the space
+   reserved for tabs. In the latter case we stop and assign the widths
+   to the tabs.
+
+   |&lt;---&gt;| ... propor_tab_min_w
+   |&lt;--------------&gt;| ... float_tab_min_w
+   _____________________________________________
+   | tab |  x  |a long ta...|another l...| xx  |
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ * At this point all tabs have sizes of their labels (but at least
+   propor_tab_min_w), but we may have some space left, now
+   flow_tab_min_w comes to play. We set min_width to propor_tab_min_w
+   and again we increment it until float_tab_min_w or all the space
+   reserved for tabs is used. In the latter case we again stop and
+   assign the widths.
+
+   |&lt;--------------&gt;| ... float_tab_min_w
+   _____________________________________________
+   |here is a long tab|    tab    |     x      |
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+ * Now, each tab has at least float_tab_min_w width. If the frame is
+   floating, then the tab sizes are used. If not, then remaining space
+   is distributed among tabs, where we want padded space to be same
+   for all tabs (but we don't shorten tabs that have float_tab_min_w
+   width)
+
+   |&lt;--------------&gt;| ... float_tab_min_w
+   tiled:
+   _____________________________________________
+   |      tab       |    here is a long tab    |
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   float:
+   _______________________________________
+   |      tab       | here is a long tab |
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+-- 
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: ion-3plus.proportional.patch
+Type: text/x-patch
+Size: 10796 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20090315/8fabba2d/attachment.bin">https://lists.berlios.de/pipermail/ion-general/attachments/20090315/8fabba2d/attachment.bin</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001588.html">[SEMI-OT] Applications in a typical ion3 desktop environment
+</A></li>
+	<LI>Next message: <A HREF="001590.html">Ikiwiki replacement etc.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1589">[ date ]</a>
+              <a href="thread.html#1589">[ thread ]</a>
+              <a href="subject.html#1589">[ subject ]</a>
+              <a href="author.html#1589">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

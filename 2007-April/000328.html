@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> emulating xinerama?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20emulating%20xinerama%3F&In-Reply-To=%3C20070401122821.GA11295%40mbox.bz%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000337.html">
+   <LINK REL="Next"  HREF="000329.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>emulating xinerama?</H1>
+    <B>moe</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20emulating%20xinerama%3F&In-Reply-To=%3C20070401122821.GA11295%40mbox.bz%3E"
+       TITLE="emulating xinerama?">filter-ion at mbox.bz
+       </A><BR>
+    <I>Sun Apr  1 14:28:21 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000337.html">transient windows are being weird?
+</A></li>
+        <LI>Next message: <A HREF="000329.html">emulating xinerama?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#328">[ date ]</a>
+              <a href="thread.html#328">[ thread ]</a>
+              <a href="subject.html#328">[ subject ]</a>
+              <a href="author.html#328">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>hi list and tuomov,
+
+i'm one of those wierdos who use ion3 in a xinerama
+setup and enjoy it quite a lot (hard-on and all).
+
+consequently i'm a bit disappointed that the support has
+been dropped in the latest version. especially since that
+new version seems to fix some other annoying glitches wrt
+floating transients.
+
+but playing with the new ion i was surprised to learn
+that it still works &quot;almost&quot; right for me, even without
+knowing about xinerema.
+
+maybe we can get away with a bit of cheating here?
+
+i found only two things that ion really needs to do
+differently in a multihead setup:
+
+- on each new workspace create n frames (n=2 in a dualhead setup),
+  fix them to the screen-borders and make sure they cannot be
+  resized or closed
+
+- never position floats across a screen border
+
+so, how about giving ion a notion of &quot;virtual screens&quot;
+through a setting in the config file and working with that?
+i imagine the above should be much less code to write than
+going for real xinerama support. can someone with
+insight comment on that?
+
+compared to the old xinerama-version we'd lose the ability
+to have independent workspaces on each screen but imho
+that would be a lesser pain than the current issues
+with detach.lua in older ion versions.
+and maybe, just maybe, even that could be hacked up later on?
+
+what do the others think?
+
+
+moe
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000337.html">transient windows are being weird?
+</A></li>
+	<LI>Next message: <A HREF="000329.html">emulating xinerama?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#328">[ date ]</a>
+              <a href="thread.html#328">[ thread ]</a>
+              <a href="subject.html#328">[ subject ]</a>
+              <a href="author.html#328">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

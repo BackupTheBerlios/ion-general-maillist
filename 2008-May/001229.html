@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Minor issue when using alternate xkb groups
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Minor%20issue%20when%20using%20alternate%20xkb%20groups&In-Reply-To=%3Cslrng3qpf2.s79.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001228.html">
+   <LINK REL="Next"  HREF="001230.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Minor issue when using alternate xkb groups</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Minor%20issue%20when%20using%20alternate%20xkb%20groups&In-Reply-To=%3Cslrng3qpf2.s79.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Minor issue when using alternate xkb groups">tuomov at iki.fi
+       </A><BR>
+    <I>Wed May 28 16:02:10 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001228.html">Minor issue when using alternate xkb groups
+</A></li>
+        <LI>Next message: <A HREF="001230.html">Minor issue when using alternate xkb groups
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1229">[ date ]</a>
+              <a href="thread.html#1229">[ thread ]</a>
+              <a href="subject.html#1229">[ subject ]</a>
+              <a href="author.html#1229">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-05-28, Tom&#225;&#185; Ebenlendr &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">ebik at drak.ucw.cz</A>&gt; wrote:
+&gt;<i> Yes, xkb was very shitty last years, now sucks bit less:
+</I>&gt;<i> Option &quot;XkbLayout&quot; &quot;us+cz:2+inet6720+group(switch)+group(shifts_toggle)&quot;
+</I>&gt;<i>
+</I>&gt;<i> So I have us keyboard as group 1, czech keyboard as group 2,
+</I>&gt;<i> inet6720 defines additional keys on my usb keyboard, group(switch) changes
+</I>&gt;<i> AltGr to group modifier, and group(shifts_toggle) makes press of both
+</I>&gt;<i> shifts to be inerpreted as group-lock. Also I use xkbvleds swallowed by
+</I>&gt;<i> statusbar (as tray application) to indicate status of group-lock and
+</I>&gt;<i> all three standard locks. - my notebook doesn't have keyboard leds and also
+</I>&gt;<i> it is more comfortable to have the leds in front of my head instead of
+</I>&gt;<i> &quot;below fingers&quot;.
+</I>
+So you can both lock groups, and switch to them while a modifier is
+pressed, within the same keymap. Clearly it is not possible handle 
+this right through XGrabKey, i.e. not grabbing combos when a group-switch
+modifier is held (unless the modifier is bound to one of the standard
+modifiers as well), but grabbing during lock group states. Xkb groups
+are fucked up. Indication of different keymaps should be completely 
+separate from modifier states. (That is, a modifier may be mapped 
+to switch to a given group while pressed, but there is a separate 
+bit indicating the modifier being pressed.)
+
+Actually, there even seems to be variation in how X handles
+grab masks and Mode_Switch: at home Ion receives combos with
+Mod1Mask|Mode_Switch set, if it has grabbed on Mod1Mask, but
+IIRC on the box at work it doesn't... Another interesting thing
+is that even if I map Mode_Switch to the Mod3 modifier or
+so, X still does not set this bit in the state, only the 0x2000 
+bit! So there's no way to separate the modifier and group switching
+bits, and Ion still receives the key, although it has grabbed only
+the states with Mod1 or one of the lock modifiers set (Lock or
+Mod2=Num_Lock... num lock should really be another group, BTW,
+not tied to a modifier bit, as it is not a key that is typically 
+held down. Lock should also not be interpreted in grabs as a modifier
+bit, but rather a group bit, so it wouldn't be necessary to make
+redundant grabs on Lock-combos too.) The original complainer
+should therefore have no problems on the version of X I'm running
+(from Etch), because the server simply masks the groups, or at
+least the one tied to Mode_Switch, and for some reason Ion actually 
+masks the state with KNOWN_MODIFIERS_MASK in the binding search code
+although it does not ask as to grab things with other modifiers set.
+
+It's all fucked up.
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001228.html">Minor issue when using alternate xkb groups
+</A></li>
+	<LI>Next message: <A HREF="001230.html">Minor issue when using alternate xkb groups
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1229">[ date ]</a>
+              <a href="thread.html#1229">[ thread ]</a>
+              <a href="subject.html#1229">[ subject ]</a>
+              <a href="author.html#1229">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

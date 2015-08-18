@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> window titlebar
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-August/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20window%20titlebar&In-Reply-To=%3Cslrnh7m1oa.a1m.tuomov%40beer.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001692.html">
+   <LINK REL="Next"  HREF="001694.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>window titlebar</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20window%20titlebar&In-Reply-To=%3Cslrnh7m1oa.a1m.tuomov%40beer.modeemi.cs.tut.fi%3E"
+       TITLE="window titlebar">tuomov at iki.fi
+       </A><BR>
+    <I>Thu Aug  6 18:38:34 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001692.html">window titlebar
+</A></li>
+        <LI>Next message: <A HREF="001694.html">window titlebar
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1693">[ date ]</a>
+              <a href="thread.html#1693">[ thread ]</a>
+              <a href="subject.html#1693">[ subject ]</a>
+              <a href="author.html#1693">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2009-08-06, Maximilian W. Zeller &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">mawize at gmail.com</A>&gt; wrote:
+&gt;<i> i dont't quite get how to give absolute x/y position?!
+</I>&gt;<i>
+</I>&gt;<i> i am looking for something like
+</I>&gt;<i> position = { x = 100, y = 100 }
+</I>
+There isn't one in Ion3. I did add a winprop to ion3plus,
+but all the documentation is the changelog entry.
+(See also WGroup.attach docs.)
+
+Fri Oct 24 20:25:20 FLE Daylight Time 2008  Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt;
+  * * Added attach_params winprop and auto_placement option.
+    The first, attach_params, is a table containing the same parameters that can
+    be passed to WGroup.attach. It is applied when a new frame would normally be
+    created for the window, as attach parameters of the frame. The parameters are
+    thus not applied when attaching a new window to an existing (tiled) frame, or
+    for attaching the window within the newly created frame.
+
+    The second, auto_placement, is a boolean option in the attach parameters,
+    and can be used to control whether application-supplied position is used,
+    or whether Ion should itself calculate a position for the window.
+
+-- 
+Stop Gnomes and other pests! Purchase Windows today!
+  <A HREF="http://iki.fi/tuomov/b/archives/2009/07/21/T17_26_09/">http://iki.fi/tuomov/b/archives/2009/07/21/T17_26_09/</A>
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001692.html">window titlebar
+</A></li>
+	<LI>Next message: <A HREF="001694.html">window titlebar
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1693">[ date ]</a>
+              <a href="thread.html#1693">[ thread ]</a>
+              <a href="subject.html#1693">[ subject ]</a>
+              <a href="author.html#1693">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

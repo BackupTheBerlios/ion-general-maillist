@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Youtube fullscreen not working
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-November/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Youtube%20fullscreen%20not%20working&In-Reply-To=%3C20091127085742.GA5223%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001772.html">
+   <LINK REL="Next"  HREF="001766.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Youtube fullscreen not working</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Youtube%20fullscreen%20not%20working&In-Reply-To=%3C20091127085742.GA5223%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Youtube fullscreen not working">tuomov at iki.fi
+       </A><BR>
+    <I>Fri Nov 27 09:57:42 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001772.html">Youtube fullscreen not working
+</A></li>
+        <LI>Next message: <A HREF="001766.html">bindings to move mouse cursor?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1773">[ date ]</a>
+              <a href="thread.html#1773">[ thread ]</a>
+              <a href="subject.html#1773">[ subject ]</a>
+              <a href="author.html#1773">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2009-11-27 00:54 -0500, Timandahaf wrote:
+&gt;<i> I tried to do this, but I still have the exact same problem. I see what
+</I>&gt;<i> your kludge is doing, but it doesn't seem to fix the problem. Regardless
+</I>&gt;<i> of whether or not I use your script, when I press the full-screen button
+</I>&gt;<i> inside the youtube player, the video disappears, and the browser window
+</I>&gt;<i> gets surrounded by a thin read line (which I assume is the video
+</I>&gt;<i> window). Any clue what else the problem could be?
+</I>
+The red line is probably Ion's marker for the source frame of a detached
+window. You can detach/reattach windows with Mod1+K D, but &quot;too big&quot;
+transients also get detached automatically... is flash purporting its
+fullscreen document window to be a &quot;transient&quot; now? And then it somehow
+fails when Ion's detach code keeps moving the window around? Maybe it
+even gives the window size hints that force it to be a single pixel,
+and hence basically invisible with the minimal transient decorations.
+(Ion always applies size hints; modern idiot-applications often request 
+sizes that do not fall into the range of their size hints.)
+
+You may be able to find the window id with xprop -tree -root or
+something, if it sets any identifying information at all (probably
+won't, being modern crapware), and then find the size hints and
+the TRANSIENT_FOR property with xprop -id the_id.
+
+I'm not running Linux or even X anymore, so that's all I can help.
+
+-- 
+Tuomo
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001772.html">Youtube fullscreen not working
+</A></li>
+	<LI>Next message: <A HREF="001766.html">bindings to move mouse cursor?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1773">[ date ]</a>
+              <a href="thread.html#1773">[ thread ]</a>
+              <a href="subject.html#1773">[ subject ]</a>
+              <a href="author.html#1773">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

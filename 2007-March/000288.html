@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> If it is still unclear to someone...
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20If%20it%20is%20still%20unclear%20to%20someone...&In-Reply-To=%3C20070320120525.GE23458%40marco.fz-rossendorf.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000286.html">
+   <LINK REL="Next"  HREF="000289.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>If it is still unclear to someone...</H1>
+    <B>Joerg van den Hoff</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20If%20it%20is%20still%20unclear%20to%20someone...&In-Reply-To=%3C20070320120525.GE23458%40marco.fz-rossendorf.de%3E"
+       TITLE="If it is still unclear to someone...">j.van_den_hoff at fzd.de
+       </A><BR>
+    <I>Tue Mar 20 13:05:25 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000286.html">If it is still unclear to someone...
+</A></li>
+        <LI>Next message: <A HREF="000289.html">If it is still unclear to someone...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#288">[ date ]</a>
+              <a href="thread.html#288">[ thread ]</a>
+              <a href="subject.html#288">[ subject ]</a>
+              <a href="author.html#288">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Tue, Mar 20, 2007 at 11:15:53AM +0000, Tuomo Valkonen wrote:
+&gt;<i> On 2007-03-20, Joerg van den Hoff &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">j.van_den_hoff at fzd.de</A>&gt; wrote:
+</I>&gt;<i> &gt; instead of calling `nroff -man some_file' you'd do `nroff -ms some_file'. so
+</I>&gt;<i> &gt; it's really a question whether the ms-macros are too complicated to use (they
+</I>&gt;<i> &gt; are'nt, maybe easier than '-man').
+</I>&gt;<i> 
+</I>&gt;<i> But can 'man' call it that way?
+</I>
+the original `man' did directly execute `troff -man' I believe. the variant coming 
+with OSX/FreeBSD gives the following for
+
+`man -d ion3':
+
+(cd /opt/local/share/man &amp;&amp; /usr/bin/gunzip -c '/opt/local/share/man/man1/ion3.1.gz' | /usr/bin/tbl | /usr/bin/groff -Wall -mtty-char -Tascii -mandoc -c | less -fR)
+
+
+i.e. it actually pipes the manpage source first through `tbl' and than through
+
+/usr/bin/groff -Wall -mtty-char -Tascii -mandoc -c.
+
+it boils down to selecting terminal output with -Tascii
+and selecting the macropackage with -mandoc (which in turn branches
+to `mdoc' or `man' macros whichever appropriate for the manpage source file).
+another macro-package (tty-char) defines some characters.
+
+if writing the tutorial (which actually need not be the complete story. why not
+leave room for getting a 'real' manual a la `mutt'?) with `-ms' one would not
+call
+
+man tutorial.txt
+
+but rather essentially replace `-mandoc' by `-ms' in the `groff' call used
+by `man':
+
+groff -Tascii -mtty-char -ms tutorial.txt
+
+or actually probably:
+
+groff -Tlatin1 -mtty-char -ms tutorial.txt.
+
+that would be the whole difference. if tables are included one would do
+the same thing as can be seen with the `man' pipe:
+
+groff -t -Tlatin1 -mtty-char -ms tutorial.txt
+
+(piping through `tbl' can be initiated by the `-t' flag of groff, too).
+
+and finally pipe it through less -fR, of course.
+
+so, if the tutorial is called via some keybinding or menu it does'nt matter.
+if the user wants to view it from the command line it's of course inferior to
+`man' since you would have to locate it in the `share' directory or whatever
+and know how to view it (but that could be explained in a comment block at the
+beginning of the file of course). but on the positive side: `ms'  is to `troff'
+what  `latex' is to `tex', i.e. a comprehensive macro package allowing much
+better control than the `-man' macros.
+
+in case someone is interested (and it is not stripped from the mail) I attach a
+small `ms'-tutorial which probably  is written with `ms' itself so you get an
+impresssion (autonumbered sections, table of content, etc.) the ion3 manual
+might look similar in the end.
+
+&gt;<i> 
+</I>&gt;<i> &gt; not important. but why do you find it necessary to have to equally easy/short ways
+</I>&gt;<i> &gt; to get at the manpage (Mod1+F1 and F1&lt;CR&gt; (I actually use the latter)?
+</I>&gt;<i> &gt;&gt; tutorial and how to get to it in the welcome message.
+</I>&gt;<i> 
+</I>&gt;<i> No particular reason... but I don't think a tutorial should have
+</I>&gt;<i> a special reserved key, unlike a reference. Now, if there was a 
+</I>&gt;<i> statusbar reference or so, then Mod1+F1 would be the suitable key
+</I>&gt;<i> for that.
+</I>as I said, I rather think of it as the first chapter of the 'ultimate guide to
+ion3' :-). so I don't really care whether it is reached via mod1+f1 or via
+f12-menu (but still think one does not  need the ion3 manpage twice (mod1+f1 and
+f1&lt;cr&gt;) in the keybindings.
+
+I definitely would not like a permanently visible entry in the statusbar (it's
+like all the &quot;HELP&quot; entries in main menues of applications: wasting valuable
+space).
+
+
+joerg
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: ms.pdf
+Type: application/pdf
+Size: 36453 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20070320/ee6f7b2d/attachment.pdf">https://lists.berlios.de/pipermail/ion-general/attachments/20070320/ee6f7b2d/attachment.pdf</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000286.html">If it is still unclear to someone...
+</A></li>
+	<LI>Next message: <A HREF="000289.html">If it is still unclear to someone...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#288">[ date ]</a>
+              <a href="thread.html#288">[ thread ]</a>
+              <a href="subject.html#288">[ subject ]</a>
+              <a href="author.html#288">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

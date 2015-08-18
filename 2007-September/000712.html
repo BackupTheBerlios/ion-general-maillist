@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> kpdf
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-September/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20kpdf&In-Reply-To=%3C20070912112901.GF64892%40pcjas.obspm.fr%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000707.html">
+   <LINK REL="Next"  HREF="000713.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>kpdf</H1>
+    <B>Albert Shih</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20kpdf&In-Reply-To=%3C20070912112901.GF64892%40pcjas.obspm.fr%3E"
+       TITLE="kpdf">Albert.Shih at obspm.fr
+       </A><BR>
+    <I>Wed Sep 12 13:29:01 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000707.html">kpdf
+</A></li>
+        <LI>Next message: <A HREF="000713.html">kpdf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#712">[ date ]</a>
+              <a href="thread.html#712">[ thread ]</a>
+              <a href="subject.html#712">[ subject ]</a>
+              <a href="author.html#712">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE> Le 11/09/2007 &#224; 21:06:03+0100, Ben Hutchings a &#233;crit
+&gt;<i> On Tue, 2007-09-11 at 20:31 +0200, Albert Shih wrote:
+</I>&gt;<i> &gt;  Le 11/09/2007 &#224; 10:31:25+0000, Tuomo Valkonen a &#233;crit
+</I>&gt;<i> &gt; &gt; On 2007-09-11, Albert Shih &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">Albert.Shih at obspm.fr</A>&gt; wrote:
+</I>&gt;<i> &gt; &gt; &gt; Sometime I need to use the &quot;presentation mode&quot; of kpdf, well it's not work
+</I>&gt;<i> &gt; &gt; &gt; very well with ion3.
+</I>&gt;<i> &gt; &gt; 
+</I>&gt;<i> &gt; &gt; That piece of crapware (version below) seems to create a new window
+</I>&gt;<i> &gt; &gt; for the FS mode instead of asking the window manager to FS the present
+</I>&gt;<i> &gt; &gt; one, and the most brain-dead of all: marks the window as transient of
+</I>&gt;<i> &gt; &gt; the main window. So Ion handles it as a transient.
+</I>&gt;<i> &gt; &gt; 
+</I>&gt;<i> &gt; &gt; $ kpdf --version
+</I>&gt;<i> &gt; &gt; Qt: 3.3.4
+</I>&gt;<i> &gt; &gt; KDE: 3.5.3-0.2.fc4 Red Hat
+</I>&gt;<i> &gt; &gt; KPDF: 0.5.3
+</I>&gt;<i> &gt; &gt; 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; Hummm..thanks for your answer....but....please don't shoot me, ..how can I
+</I>&gt;<i> &gt; define this ? 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; How can I tell ion the kpdf windows is a transient windows ? 
+</I>&gt;<i> 
+</I>&gt;<i> It *is* a transient window, but it shouldn't be.  You can override that
+</I>&gt;<i> by adding this to cfg_ion.lua:
+</I>&gt;<i> 
+</I>&gt;<i> defwinprop {
+</I>&gt;<i>    class = &quot;Kpdf&quot;,
+</I>&gt;<i>    role = &quot;presentationWidget&quot;,
+</I>&gt;<i>    transient_mode = &quot;off&quot;
+</I>&gt;<i> }
+</I>&gt;<i> 
+</I>
+Thanks. It's work no for me.
+
+Regards.
+
+
+
+
+--
+Albert SHIH
+Observatoire de Paris Meudon
+SIO batiment 15
+Heure local/Local time:
+Mer 12 sep 2007 13:28:44 CEST
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000707.html">kpdf
+</A></li>
+	<LI>Next message: <A HREF="000713.html">kpdf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#712">[ date ]</a>
+              <a href="thread.html#712">[ thread ]</a>
+              <a href="subject.html#712">[ subject ]</a>
+              <a href="author.html#712">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

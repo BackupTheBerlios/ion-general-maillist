@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Tutorial vs. help screen
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Tutorial%20vs.%20help%20screen&In-Reply-To=%3Cm38xddnjvf.fsf%40lifelogs.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000327.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Tutorial vs. help screen</H1>
+    <B>Ted Zlatanov</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Tutorial%20vs.%20help%20screen&In-Reply-To=%3Cm38xddnjvf.fsf%40lifelogs.com%3E"
+       TITLE="Tutorial vs. help screen">tzz at lifelogs.com
+       </A><BR>
+    <I>Sun Apr  1 00:11:48 CEST 2007</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000327.html">transient windows are being weird?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#326">[ date ]</a>
+              <a href="thread.html#326">[ thread ]</a>
+              <a href="subject.html#326">[ subject ]</a>
+              <a href="author.html#326">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Wed, 21 Mar 2007 12:29:41 +0000 Giles Constant &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">gilesc at hyperlink-interactive.co.uk</A>&gt; wrote: 
+
+GC&gt; I've got this lot.  I also disabled F3/F5/F6, because many apps use F3 
+GC&gt; for &quot;find next&quot;, F5 for &quot;reload&quot;, and F6 for &quot;highlight location bar&quot; (in web 
+GC&gt; browsers).
+
+GC&gt;     kpress(MOD1..&quot;XF86AudioNext&quot;, &quot;ioncore.exec_on(_, 'mpc seek +00:00:10')&quot;),
+GC&gt;     kpress(MOD1..&quot;XF86AudioPrev&quot;, &quot;ioncore.exec_on(_, 'mpc seek -00:00:10')&quot;),
+GC&gt;     kpress(&quot;XF86Standby&quot;, &quot;ioncore.exec_on(_, 'xlock')&quot;),
+GC&gt;     kpress(MOD1..&quot;T&quot;, &quot;WRegion.set_tagged(_sub, 'toggle')&quot;, &quot;_sub:non-nil&quot;),
+GC&gt;     kpress(MOD1..&quot;A&quot;, &quot;WFrame.attach_tagged(_)&quot;),
+GC&gt;         ^^^  got rid of the alt-k
+GC&gt;     kpress(MOD1..&quot;I&quot;, &quot;WFrame.switch_next(_)&quot;),
+GC&gt;     kpress(MOD1..&quot;U&quot;, &quot;WFrame.switch_prev(_)&quot;),
+GC&gt;         ^^^ easy to switch around with the right hand.
+GC&gt;     kpress(MOD1..&quot;P&quot;, &quot;WIonWS.goto_dir(_, 'above')&quot;),
+GC&gt;     kpress(MOD1..&quot;N&quot;, &quot;WIonWS.goto_dir(_, 'below')&quot;),
+GC&gt;     kpress(MOD1..&quot;F&quot;, &quot;WIonWS.goto_dir(_, 'right')&quot;),
+GC&gt;     kpress(MOD1..&quot;B&quot;, &quot;WIonWS.goto_dir(_, 'left')&quot;),
+GC&gt;         ^^^^ emacs-style window navigation
+GC&gt;     kpress(&quot;XF86AudioLowerVolume&quot;, &quot;ioncore.exec_on(_, 'umix vol 4-')&quot;),
+GC&gt;     kpress(&quot;XF86AudioRaiseVolume&quot;, &quot;ioncore.exec_on(_, 'umix vol 4+')&quot;),
+GC&gt;     kpress(&quot;XF86AudioPlay&quot;, &quot;ioncore.exec_on(_, 'mpc toggle')&quot;),
+GC&gt;     kpress(&quot;XF86AudioStop&quot;, &quot;ioncore.exec_on(_, 'mpc stop')&quot;),
+GC&gt;     kpress(&quot;XF86AudioNext&quot;, &quot;ioncore.exec_on(_, 'mpc next')&quot;),
+GC&gt;     kpress(&quot;XF86AudioPrev&quot;, &quot;ioncore.exec_on(_, 'mpc prev')&quot;),
+
+I've posted on this in the past.  Any modifier keys are bad, because
+they strain the hand in unnatural ways.  There are several medical
+problems that can come from overuse of the wrong fingers, especially
+using the pinky finger (which is weakest) to hit key combinations.
+I'm a heavy Emacs user, and I map as much as possible to single-key
+combinations (Meta is just &quot;Escape&quot; for me, I usually don't use Alt).
+If I have to use modifiers, I make sure I use either the thumb (the
+strongest finger) or multiple fingers at once.
+
+I had wrist and finger joint problems before adopting the &quot;no
+modifiers when possible&quot; rule, and have been OK since.  I would
+recommend it to anyone concerned about their physical health who types
+more than 2 hours per day.  Of course, you should also consult an
+ergonomics specialist or a doctor if you are uncomfortable or in pain,
+and consider things like elbow angle, eye level with the top of the
+monitor, etc.  This is just my experience, and I hope others find it
+useful.
+
+For Ion specifically, I've long used the keypad.  It's almost never
+used by applications, so why not?  Here's a summary without the actual
+config stanza, just the interesting bits.  Just think about how often
+you use the keypad--almost never!  Try this for a few days and you'll
+see how convenient keypad-based navigation is.
+
+Ted
+
+-- move left/right between tabs
+   kpress(&quot;KP_6&quot;, &quot;WFrame.switch_next(_)&quot;),
+   kpress(&quot;KP_4&quot;, &quot;WFrame.switch_prev(_)&quot;),
+-- 'close' should not be a single key, of course
+    kpress_wait(META..&quot;W&quot;, &quot;WRegion.rqclose_propagate(_, _sub)&quot;),
+
+-- split H/V
+    kpress(&quot;Pause&quot;, &quot;WTiling.split_at(_, _sub, 'right', true)&quot;),
+    kpress(MOD1..&quot;Pause&quot;, &quot;WTiling.split_at(_, _sub, 'bottom', true)&quot;),    
+-- unsplit is not a single key
+    kpress(&quot;Shift+Pause&quot;, &quot;WTiling.unsplit_at(_, _sub)&quot;),
+
+-- these are the keys around the numbers in the keypad, sequentially clockwise
+    kpress(&quot;KP_Divide&quot;,   &quot;WScreen.switch_nth(_, 0)&quot;),
+    kpress(&quot;KP_Multiply&quot;, &quot;WScreen.switch_nth(_, 1)&quot;),
+    kpress(&quot;KP_Subtract&quot;, &quot;WScreen.switch_nth(_, 2)&quot;),
+    kpress(&quot;KP_Add&quot;,      &quot;WScreen.switch_nth(_, 3)&quot;),
+    kpress(&quot;KP_Enter&quot;,    &quot;WScreen.switch_nth(_, 4)&quot;),
+    kpress(&quot;KP_Delete&quot;,   &quot;WScreen.switch_nth(_, 5)&quot;),
+    kpress(&quot;KP_Insert&quot;,   &quot;WScreen.switch_nth(_, 6)&quot;),
+
+-- navigate between splits: 5 and Shift+5 on the keypad to go
+-- left/right (I almost never need Shift+5);
+-- 8 and 2 to go up and down between splits
+    kpress(&quot;KP_5&quot;, &quot;ioncore.goto_next(_chld, 'right')&quot;, 
+    kpress(&quot;KP_8&quot;, &quot;ioncore.goto_next(_chld, 'up')&quot;, 
+    kpress(&quot;Shift+KP_5&quot;, &quot;ioncore.goto_next(_chld, 'left')&quot;, 
+    kpress(&quot;KP_2&quot;, &quot;ioncore.goto_next(_chld, 'down')&quot;, 
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000327.html">transient windows are being weird?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#326">[ date ]</a>
+              <a href="thread.html#326">[ thread ]</a>
+              <a href="subject.html#326">[ subject ]</a>
+              <a href="author.html#326">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

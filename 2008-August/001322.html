@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Preventing windows from grabbing the focus
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-August/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Preventing%20windows%20from%20grabbing%20the%20focus&In-Reply-To=%3Cslrngako37.bmj.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001321.html">
+   <LINK REL="Next"  HREF="001323.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Preventing windows from grabbing the focus</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Preventing%20windows%20from%20grabbing%20the%20focus&In-Reply-To=%3Cslrngako37.bmj.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Preventing windows from grabbing the focus">tuomov at iki.fi
+       </A><BR>
+    <I>Tue Aug 19 07:55:51 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001321.html">Preventing windows from grabbing the focus
+</A></li>
+        <LI>Next message: <A HREF="001323.html">Preventing windows from grabbing the focus
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1322">[ date ]</a>
+              <a href="thread.html#1322">[ thread ]</a>
+              <a href="subject.html#1322">[ subject ]</a>
+              <a href="author.html#1322">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-08-19, Peter Romianowski &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">pr-ion3 at optivo.de</A>&gt; wrote:
+&gt;<i> It would be great if I could just disable the focus request. Is this
+</I>&gt;<i> possible? I already searched the web, the documentation and the
+</I>&gt;<i> newsgroups for hours and hours but could not find a hint.
+</I>
+Unfortunately, focus change is not a &quot;request&quot;, unlike geometry change.
+Geometry changes get forwarded for the WM to act upon, and according
+to the ICCCM, it can do as it pleases, and the app must not fight
+back. (Many do, these days!) Focus change messages are acted upon by
+the server, and are honoured when they can be (i.e. the window is 
+visible, no active grabs, and so). AFAIK ICCCM does not discuss 
+whether the WM is allowed to overrule such changes by switching
+focus back.
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001321.html">Preventing windows from grabbing the focus
+</A></li>
+	<LI>Next message: <A HREF="001323.html">Preventing windows from grabbing the focus
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1322">[ date ]</a>
+              <a href="thread.html#1322">[ thread ]</a>
+              <a href="subject.html#1322">[ subject ]</a>
+              <a href="author.html#1322">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

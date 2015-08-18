@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Ion3 wishlist / a note about Ion4
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-April/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion3%20wishlist%20/%20a%20note%20about%20Ion4&In-Reply-To=%3C20080425064832.GA16299%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001170.html">
+   <LINK REL="Next"  HREF="001173.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Ion3 wishlist / a note about Ion4</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion3%20wishlist%20/%20a%20note%20about%20Ion4&In-Reply-To=%3C20080425064832.GA16299%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Ion3 wishlist / a note about Ion4">tuomov at iki.fi
+       </A><BR>
+    <I>Fri Apr 25 08:48:32 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001170.html">Ion3 wishlist / a note about Ion4
+</A></li>
+        <LI>Next message: <A HREF="001173.html">Ion3 wishlist / a note about Ion4
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1172">[ date ]</a>
+              <a href="thread.html#1172">[ thread ]</a>
+              <a href="subject.html#1172">[ subject ]</a>
+              <a href="author.html#1172">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-04-23 09:32 +0300, Tuomo Valkonen wrote:
+&gt;<i> 3. I will provide a list of some suggestions I have for Ion3plus, 
+</I>&gt;<i> some of which might get into Ion4, in another post.
+</I>
+Here are some. There may be others that I can't recall right now.
+
+  * Statusd improvements: should use a proper protocol, and support
+    multiple independent daemons; perhaps one for each monitor,
+    written in the author's language of choice. It really sucks
+    that every clone-statusbar author duplicates the work that
+    goes into writing and maintaining those monitoring
+    scripts/plugins. (That's typical FOSS: lots of redundant work,
+    although it's supposed to foster cooperation. But nobody ever
+    bothers to write properly reusable code -- across languages --
+    which I'm trying to encourage here.)
+
+    DBus is in principle the right protocol for this, although I 
+    really don't like the UTF-8 monoculturism [1] inherit in DBus and
+    all the commercial-quality crap that this powerful FDO clique of
+    paid developers spews out. One could also use mod_ionflux [2] 
+    as a base, improving the protol slightly to be similar to the 
+    present statusd protocol, and to support arbitrary commands.
+    
+  [1]: <A HREF="http://iki.fi/tuomov/b/archives/2006/08/26/T20_16_06/">http://iki.fi/tuomov/b/archives/2006/08/26/T20_16_06/</A>
+
+  [2]: <A HREF="http://iki.fi/tuomov/ion/misc.html">http://iki.fi/tuomov/ion/misc.html</A>
+
+  * Statusbar improvements: multi-line support, perhaps pointer
+    action support for fields, etc. (If one wants
+    support for the over-complex FDO systray protocol, it has to
+    be a separate module. Complete support is very difficult,
+    because it depends on the brain-damage known as XEmbed:
+    essentially that means writing a new non-ICCCM window 
+    manager with lots of ugly NIH hacks that work around using 
+    proper existing solutions like XGrabKey.)
+
+  * FDO startup notification spec [3] support could be nice. 
+    If more applications supported it, it should allow for proper
+    placement of windows in their startup frames. As usual, the protocol 
+    is quite complex to implement support for, and should be a separate
+    module (plus maybe new extra hooks, although I think I
+    specifically added some already).
+
+  [3]: <A HREF="http://standards.freedesktop.org/startup-notification-spec/startup-notification-latest.txt">http://standards.freedesktop.org/startup-notification-spec/startup-notification-latest.txt</A>
+
+  * Much of libmainloop could be replaced by libevent [4],
+    improving code reuse and taking away maintenance burden.
+
+  [4]: <A HREF="http://monkey.org/~provos/libevent/">http://monkey.org/~provos/libevent/</A>
+
+  * Further drawing engine interface abstraction (I have some more
+    detailed ideas, if there's real interest).
+
+  * Additional drawing engines, with better configurability than
+    the simple default one.
+
+  * An ELisp-style binding command system might be nice, complete with
+    queries for parameters if not given, although it's extra work to 
+    maintain compared to the mere Lua programming interface [5].
+    But then again, menus already do contain the same definitions,
+    so one could just extend the menu definitions, and use menu names
+    as the commands (with translation support!), a bit like Opera has
+    clear-text command names.
+
+  [5]: <A HREF="http://iki.fi/tuomov/b/archives/2007/02/02/T18_49_51/">http://iki.fi/tuomov/b/archives/2007/02/02/T18_49_51/</A>
+
+  * Maybe, especially in conjunction of the previous feature, the 
+    config could be more tree-form, storable in arbitrary structural
+    files (incl. a single Lua table). 
+
+  * There are tonnes of minor glitches and incompleteness in Ion3.
+
+-- 
+Tuomo
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001170.html">Ion3 wishlist / a note about Ion4
+</A></li>
+	<LI>Next message: <A HREF="001173.html">Ion3 wishlist / a note about Ion4
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1172">[ date ]</a>
+              <a href="thread.html#1172">[ thread ]</a>
+              <a href="subject.html#1172">[ subject ]</a>
+              <a href="author.html#1172">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

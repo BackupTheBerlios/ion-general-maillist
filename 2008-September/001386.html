@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> fullscreen flash videos with firefox
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20fullscreen%20flash%20videos%20with%20firefox&In-Reply-To=%3C43993.88.146.1.38.1222009922.squirrel%40drak.ucw.cz%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001387.html">
+   <LINK REL="Next"  HREF="001388.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>fullscreen flash videos with firefox</H1>
+    <B>Tom&#225;&#353; Ebenlendr</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20fullscreen%20flash%20videos%20with%20firefox&In-Reply-To=%3C43993.88.146.1.38.1222009922.squirrel%40drak.ucw.cz%3E"
+       TITLE="fullscreen flash videos with firefox">ebik at drak.ucw.cz
+       </A><BR>
+    <I>Sun Sep 21 17:12:02 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001387.html">fullscreen flash videos with firefox
+</A></li>
+        <LI>Next message: <A HREF="001388.html">empty workspace and kpress bindings
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1386">[ date ]</a>
+              <a href="thread.html#1386">[ thread ]</a>
+              <a href="subject.html#1386">[ subject ]</a>
+              <a href="author.html#1386">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Following kludge works for me with youtube &amp; Iceweasel(Firefox) 3.
+I didn't tested other software/web pages.
+I don't know, why the window should be 'transient', but it was the only
+option that made it work for me.
+
+defwinprop{
+    name = &quot;Firefox&quot;,
+    class = &quot;Firefox-bin&quot;,
+    instance = &quot;firefox-bin&quot;,
+    transient_mode = &quot;current&quot;,
+    jumpto = true,
+}
+
+I'm lucky, that Iceweasel identifies itself as: class=&quot;Iceweasel&quot;, thus this
+klugde is not activated by other Iceweasel windows. Maybe other firefox
+plugins may trigger this.
+
+Dne 21 Z&#225;&#345;&#237; 2008, 16:01, andre hollstein napsal(a):
+&gt;<i> Hello all
+</I>&gt;<i> I'm using Ion3 on my ubuntu box integrated in gnome where I followed the
+</I>&gt;<i> instructions given here:  <A HREF="http://wiki.ubuntuusers.de/Ion3">http://wiki.ubuntuusers.de/Ion3</A> One problem i
+</I>&gt;<i> couldn't solve myself is still out there. I can not play flash videos in
+</I>&gt;<i> firefox in fullscreen - when i press the fs button the video goes
+</I>&gt;<i> fullscreen for one moment and then returns to the original state. What
+</I>&gt;<i> can I do? Can this misbehaviour be solved with winprob options? Thanx for
+</I>&gt;<i> any help on this. Cheers Andre
+</I>&gt;<i>
+</I>&gt;<i>
+</I>
+
+-- 
+.                           Tomas Ebenlendr
+.                           <A HREF="http://drak.ucw.cz/~ebik">http://drak.ucw.cz/~ebik</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001387.html">fullscreen flash videos with firefox
+</A></li>
+	<LI>Next message: <A HREF="001388.html">empty workspace and kpress bindings
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1386">[ date ]</a>
+              <a href="thread.html#1386">[ thread ]</a>
+              <a href="subject.html#1386">[ subject ]</a>
+              <a href="author.html#1386">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

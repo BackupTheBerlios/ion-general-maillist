@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> making floating padding configurable
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-April/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20making%20floating%20padding%20configurable&In-Reply-To=%3C20080418180630.GA8776%40griffis1.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001161.html">
+   <LINK REL="Next"  HREF="001163.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>making floating padding configurable</H1>
+    <B>Aron Griffis</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20making%20floating%20padding%20configurable&In-Reply-To=%3C20080418180630.GA8776%40griffis1.net%3E"
+       TITLE="making floating padding configurable">agriffis at n01se.net
+       </A><BR>
+    <I>Fri Apr 18 20:06:31 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001161.html">ion-3plus darcs repository problem?
+</A></li>
+        <LI>Next message: <A HREF="001163.html">making floating padding configurable
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1162">[ date ]</a>
+              <a href="thread.html#1162">[ thread ]</a>
+              <a href="subject.html#1162">[ subject ]</a>
+              <a href="author.html#1162">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>It's not clear to me that there's any notification to this list
+when somebody sends a patch to Tuomo using darcs send.  (It's
+also possible I should have somehow cc'd the list using darcs,
+but my knowledge of darcs is limited to what I learned to do
+&quot;darcs send&quot;)
+
+Consequently I'll post my patch here, too, for review and to see
+if anybody else is interested in this feature...
+
+This patch makes the padding between floating frames
+configurable.  Right now ion3 assumes 1 pixel of padding.
+I wanted it to be zero, but this patch simply moves the choice to
+the user.  I can imagine that some people might like a wider gap.
+
+diff -ur ion3-20080411/ioncore/conf.c ion3-20080411.agriffis/ioncore/conf.c
+--- ion3-20080411/ioncore/conf.c	2008-04-18 11:22:02.000000000 -0400
++++ ion3-20080411.agriffis/ioncore/conf.c	2008-04-18 09:44:17.000000000 -0400
+@@ -76,6 +76,9 @@
+  *                          One of \codestr{udlr} (up-down, then left-right), 
+  *                          \codestr{lrud} (left-right, then up-down), or 
+  *                          \codestr{random}. \\
++ *  \var{float_placement_padding} &amp; (integer) Pixels between frames when 
++ *                          \var{float_placement_method} is \codestr{udlr} or
++ *                          \codestr{lrud}. \\
+  *  \var{mousefocus} &amp; (string) Mouse focus mode: 
+  *                     \codestr{disabled} or \codestr{sloppy}. \\
+  *  \var{unsqueeze} &amp; (boolean) Auto-unsqueeze transients/menus/queries/etc. \\
+diff -ur ion3-20080411/ioncore/float-placement.c ion3-20080411.agriffis/ioncore/float-placement.c
+--- ion3-20080411/ioncore/float-placement.c	2008-04-11 11:03:31.000000000 -0400
++++ ion3-20080411.agriffis/ioncore/float-placement.c	2008-04-17 18:25:06.000000000 -0400
+@@ -14,6 +14,7 @@
+ 
+ 
+ WFloatPlacement ioncore_placement_method=PLACEMENT_LRUD;
++int ioncore_placement_padding=1;
+ 
+ 
+ static void random_placement(WRectangle box, WRectangle *g)
+@@ -131,7 +132,7 @@
+             p=is_occupied(ws, level, &amp;r);
+             while(p!=NULL &amp;&amp; r.y+r.h&lt;maxy){
+                 ggeom(p, &amp;r2);
+-                r.y=r2.y+r2.h+1;
++                r.y=r2.y+r2.h+ioncore_placement_padding;
+                 p=is_occupied(ws, level, &amp;r);
+             }
+             if(r.y+r.h&lt;maxy &amp;&amp; r.x+r.w&lt;maxx){
+@@ -148,7 +149,7 @@
+             p=is_occupied(ws, level, &amp;r);
+             while(p!=NULL &amp;&amp; r.x+r.w&lt;maxx){
+                 ggeom(p, &amp;r2);
+-                r.x=r2.x+r2.w+1;
++                r.x=r2.x+r2.w+ioncore_placement_padding;
+                 p=is_occupied(ws, level, &amp;r);
+             }
+             if(r.y+r.h&lt;maxy &amp;&amp; r.x+r.w&lt;maxx){
+diff -ur ion3-20080411/ioncore/float-placement.h ion3-20080411.agriffis/ioncore/float-placement.h
+--- ion3-20080411/ioncore/float-placement.h	2008-04-11 11:03:30.000000000 -0400
++++ ion3-20080411.agriffis/ioncore/float-placement.h	2008-04-17 18:25:23.000000000 -0400
+@@ -18,6 +18,7 @@
+ } WFloatPlacement;
+ 
+ extern WFloatPlacement ioncore_placement_method;
++extern int ioncore_placement_padding;
+ 
+ extern void group_calc_placement(WGroup *ws, uint level, 
+                                  WRectangle *geom);
+diff -ur ion3-20080411/ioncore/group-ws.c ion3-20080411.agriffis/ioncore/group-ws.c
+--- ion3-20080411/ioncore/group-ws.c	2008-04-11 11:03:31.000000000 -0400
++++ ion3-20080411.agriffis/ioncore/group-ws.c	2008-04-18 11:39:10.000000000 -0400
+@@ -34,7 +34,7 @@
+ void ioncore_groupws_set(ExtlTab tab)
+ {
+     char *method=NULL;
+-    ExtlTab t;
++    int fpp;
+     
+     if(extl_table_gets_s(tab, &quot;float_placement_method&quot;, &amp;method)){
+         if(strcmp(method, &quot;udlr&quot;)==0)
+@@ -47,6 +47,8 @@
+             warn(TR(&quot;Unknown placement method \&quot;%s\&quot;.&quot;), method);
+         free(method);
+     }
++    if(extl_table_gets_i(tab, &quot;float_placement_padding&quot;, &amp;fpp))
++        ioncore_placement_padding=maxof(0, fpp);
+ }
+ 
+ 
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001161.html">ion-3plus darcs repository problem?
+</A></li>
+	<LI>Next message: <A HREF="001163.html">making floating padding configurable
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1162">[ date ]</a>
+              <a href="thread.html#1162">[ thread ]</a>
+              <a href="subject.html#1162">[ subject ]</a>
+              <a href="author.html#1162">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

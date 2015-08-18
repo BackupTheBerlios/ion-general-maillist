@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Ion rewriting
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-November/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion%20rewriting&In-Reply-To=%3Cslrnghgmnl.2ra.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001460.html">
+   <LINK REL="Next"  HREF="001462.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Ion rewriting</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion%20rewriting&In-Reply-To=%3Cslrnghgmnl.2ra.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Ion rewriting">tuomov at iki.fi
+       </A><BR>
+    <I>Mon Nov 10 17:01:57 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001460.html">Ion rewriting
+</A></li>
+        <LI>Next message: <A HREF="001462.html">Ion rewriting
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1461">[ date ]</a>
+              <a href="thread.html#1461">[ thread ]</a>
+              <a href="subject.html#1461">[ subject ]</a>
+              <a href="author.html#1461">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-11-10, Roy Lanek &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">lanek at novenine.com</A>&gt; wrote:
+&gt;<i>     instead of their heads.) In the hands of a great programmer (like James
+</I>&gt;<i>     Clark), it's astounding what can be done in a few lines of Haskel, and
+</I>&gt;<i>     it's interesting to compare the amount of Java code it takes the same
+</I>&gt;<i>     programmer to implement the same algorithm.
+</I>
+Yep, you can do incredible things in 10 lines. But to think how to write
+those few lines takes ten times as long as the writing the corresponding
+1000 lines of C. That approach doesn't scale to big projects, where you have
+some other objective than an academic exercise in the language in question.
+And Haskell just sucks for the moderately object-oriented approach that is
+&quot;obvious&quot; for certain things. You have to build workarounds upon
+workarounds, because the obvious approach can't be sanely done.[*] And it gets
+very tiresome, if you have to try to come up with a non-obvious model for
+everything in a big project. The massive threading approach that I proposed
+might be workable and &quot;functional&quot; (as well as actually &quot;message passing&quot;
+OO), perhaps even scalable, but it also would need better language support
+to be convenient to use.
+
+I am actually very very slowly working on something in Haskell, dunno if
+I'll ever finish, and in all the time I've spent fighting with the language,
+I'd already have finished the project in C. Actually many things that would
+be a single line in C are tens of lines of Haskell... But the entire project
+is really an academic exercise.
+
+
+[*] That said, a lot of time should be spent on designing the 
+API of important core libraries etc. that everyone gets to suffer
+from, to avoid the crummy &quot;obvious&quot; approach, and maybe come up 
+with something nicer.
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001460.html">Ion rewriting
+</A></li>
+	<LI>Next message: <A HREF="001462.html">Ion rewriting
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1461">[ date ]</a>
+              <a href="thread.html#1461">[ thread ]</a>
+              <a href="subject.html#1461">[ subject ]</a>
+              <a href="author.html#1461">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

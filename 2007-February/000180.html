@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> SetFS
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20SetFS&In-Reply-To=%3C20070227212239.GN13216%40samason.me.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000178.html">
+   <LINK REL="Next"  HREF="000181.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>SetFS</H1>
+    <B>Sam Mason</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20SetFS&In-Reply-To=%3C20070227212239.GN13216%40samason.me.uk%3E"
+       TITLE="SetFS">mason at f2s.com
+       </A><BR>
+    <I>Tue Feb 27 22:22:40 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000178.html">SetFS [Was: Re: Feature freeze imminent]
+</A></li>
+        <LI>Next message: <A HREF="000181.html">SetFS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#180">[ date ]</a>
+              <a href="thread.html#180">[ thread ]</a>
+              <a href="subject.html#180">[ subject ]</a>
+              <a href="author.html#180">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Tue, Feb 27, 2007 at 08:01:40PM +0000, Tuomo Valkonen wrote:
+&gt;<i> On 2007-02-27, Sam Mason &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">mason at f2s.com</A>&gt; wrote:
+</I>&gt;<i> &gt; If you can think up any cases where you're not going to have a similar
+</I>&gt;<i> &gt; number of tags to files then I'd be interested to know, I'm failing.
+</I>&gt;<i> 
+</I>&gt;<i> Well, I suppose all the cases I can come up with are quite artificial.
+</I>&gt;<i> There do tend to be a lot of files with unique names, and the rest
+</I>&gt;<i> of the components of the path simply help locating them.
+</I>
+That sounds similar to where I ended up!
+
+&gt;<i> &gt; It's up to the users to find the optimal way to use the tools isn't it?
+</I>&gt;<i> 
+</I>&gt;<i> And the optimal tools.
+</I>
+Indeed.
+
+&gt;<i> &gt; Wouldn't there be the same number of occurrences for each tag? If so,
+</I>&gt;<i> &gt; how does the pruner know which one to pick?
+</I>&gt;<i> 
+</I>&gt;<i> It depends on all the results. And, yes, if there are tags with the
+</I>&gt;<i> same frequencies (and same covered objects), the decision is arbitrary.
+</I>
+Good to know, I thought I was missing something.
+
+&gt;<i> The point is to remove any fixed hierarchy. But the user isn't going
+</I>&gt;<i> to like looking for a needle in a haystack.
+</I>
+I'm wondering if the name should be specific attribute seperate from the
+tags.  This would shrink the set of tag down a lot and I think that may
+be all that's needed.
+
+I'd also be tempted to split the tags into two groups &quot;identifier&quot;
+tags and &quot;informational&quot; tags.  The unique name check would be done on
+(identifier tags,name) and the informational tags would exist to make
+searching easier.
+
+&gt;<i> Therefore you want to 
+</I>&gt;<i> present a dynamic hierarchy of results for each query: to somehow
+</I>&gt;<i> prsent in multiple clusters all the files whose sets of tags contain
+</I>&gt;<i> the search set of tags. These are naturally partially ordered by further
+</I>&gt;<i> set inclusions, and in some interfaces you might want to show clusters 
+</I>&gt;<i> by that partial order, i.e. show the files with minimal tag sets among 
+</I>&gt;<i> the results. (These are also expensive to find: if we had the minimal tag
+</I>&gt;<i> sets, the pruning would be trivial.) However, to map the results to the 
+</I>&gt;<i> unix file system, that is not sufficient: readdir should return a list of 
+</I>&gt;<i> tags, not a list of sets of tags. Therefore we must essentially add
+</I>&gt;<i> the intervening &quot;directories&quot; between the search set, and the minimal
+</I>&gt;<i> result tag sets.
+</I>
+I'm still not sold on the pruning idea.  It could be because I've not
+done anything like it before and therefore I'm just worried about it
+because I don't know much about it.  I've rationalised this as thinking
+there will be problems with scaling, but to be honest I don't know.
+
+&gt;<i> &gt;:) you said you wanted to keep it simple earlier and now you're
+</I>&gt;<i> &gt; proposing some ad-hock language to &quot;fix&quot; the pruning process?
+</I>&gt;<i> 
+</I>&gt;<i> Well, additional search filters, for which I've thought the 
+</I>&gt;<i> #filter:params path elements (and that are ignored for single
+</I>&gt;<i> file operations as opposed to listings), is one of the few 
+</I>&gt;<i> features that I've considered something to have there, although
+</I>&gt;<i> not necessarily in the first versions. They are also a quite
+</I>&gt;<i> simple faeture: you just essentially 'and' the tag bitmaps with
+</I>&gt;<i> yet another bitmap. (On the implementation level, this should 
+</I>&gt;<i> probably be just a functional composition of filters, like unix
+</I>&gt;<i> pipes.) Obviously it should be possible to add such filters by 
+</I>&gt;<i> plugins. The #prune control is not exactly such a filter, but 
+</I>&gt;<i> you could still have it there without significantly complicating
+</I>&gt;<i> things...
+</I>
+I don't like plugin for things like this, they force you to expose
+too many implementation details, make things brittle and resistent to
+change.
+
+&gt;<i> You mentioned that hierarchy naturally suits code trees, and I
+</I>&gt;<i> agree. So I've thought about ways of having such things on SetFS,
+</I>&gt;<i> but it just gets too complicated. SetFS simply isn't a tool for
+</I>&gt;<i> code trees, at least not as we presently think of them.
+</I>
+I agree.  I've got a couple of ideas about how to reconsile the view,
+but I'll leave it to another note as this one is getting pretty
+gigantine already.
+
+&gt;<i> &gt; I would be personally interested to see if we could turn this into
+</I>&gt;<i> &gt; something that would be usable as a file system that could be mounted
+</I>&gt;<i> &gt; to look after most of the files in a user's home directory.
+</I>&gt;<i> 
+</I>&gt;<i> Not necessarily most files in the home directory (there's a lot of
+</I>&gt;<i> code trees in my $HOME), but most of the data that tends to collect
+</I>&gt;<i> there almost unorganised -- largely thanks to the cumbersomeness
+</I>&gt;<i> of saving random cruft on a hierarchical FS, or at least so it would
+</I>&gt;<i> seem. One needs to experiment and have tools that support the tagged
+</I>&gt;<i> way of working to find out if it really helps.
+</I>
+I was meaning, at least initally, that you would probably have a couple
+of file systems in your home directory.  One hierachial for code and
+other things that suit the hieralial view and another for the tagging.
+It would obviously be better if these differences could be reconsiled,
+but one step at a time.
+
+&gt;<i> &gt; p.s. I hope this is somewhat interesting to you, I tend to get carried
+</I>&gt;<i> &gt; away with these sorts of discussions!
+</I>&gt;<i> 
+</I>&gt;<i> Sure.. and hopefully others on the list too :).
+</I>
+Lets hope so!
+
+
+  Sam
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000178.html">SetFS [Was: Re: Feature freeze imminent]
+</A></li>
+	<LI>Next message: <A HREF="000181.html">SetFS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#180">[ date ]</a>
+              <a href="thread.html#180">[ thread ]</a>
+              <a href="subject.html#180">[ subject ]</a>
+              <a href="author.html#180">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

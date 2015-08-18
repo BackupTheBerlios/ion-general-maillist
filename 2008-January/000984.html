@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> clientwin_property_change_hook, enumerate.lua
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20clientwin_property_change_hook%2C%20enumerate.lua&In-Reply-To=%3Cslrnfo6omq.94f.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000983.html">
+   <LINK REL="Next"  HREF="000985.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>clientwin_property_change_hook, enumerate.lua</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20clientwin_property_change_hook%2C%20enumerate.lua&In-Reply-To=%3Cslrnfo6omq.94f.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="clientwin_property_change_hook, enumerate.lua">tuomov at iki.fi
+       </A><BR>
+    <I>Tue Jan  8 12:47:38 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000983.html">clientwin_property_change_hook, enumerate.lua
+</A></li>
+        <LI>Next message: <A HREF="000985.html">Desktop apps.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#984">[ date ]</a>
+              <a href="thread.html#984">[ thread ]</a>
+              <a href="subject.html#984">[ subject ]</a>
+              <a href="author.html#984">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-01-08, Felix Schmidt &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">fesc2000 at gmail.com</A>&gt; wrote:
+&gt;<i> Other hooks work fine with the same code, so i wonder if there is anything
+</I>&gt;<i> else i need to do to get notified about property changes.
+</I>
+There shouldn't be. The following example (poorly-formatted copy-paste 
+from Mod1+F3) works for me.
+
+local tmp=io.open('NCHG', 'w'); function nchg_fn(reg, how) if how=='name'
+then tmp:write(string.format('%s\t%s\n', reg:name(), reg.__typename));
+tmp:flush(); end; end; ioncore.get_hook(&quot;region_notify_hook&quot;):add(nchg_fn)
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000983.html">clientwin_property_change_hook, enumerate.lua
+</A></li>
+	<LI>Next message: <A HREF="000985.html">Desktop apps.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#984">[ date ]</a>
+              <a href="thread.html#984">[ thread ]</a>
+              <a href="subject.html#984">[ subject ]</a>
+              <a href="author.html#984">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

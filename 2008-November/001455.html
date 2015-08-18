@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Ion rewriting
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-November/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion%20rewriting&In-Reply-To=%3Cslrnghg0ie.ues.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001454.html">
+   <LINK REL="Next"  HREF="001456.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Ion rewriting</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion%20rewriting&In-Reply-To=%3Cslrnghg0ie.ues.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Ion rewriting">tuomov at iki.fi
+       </A><BR>
+    <I>Mon Nov 10 10:43:42 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001454.html">Ion rewriting
+</A></li>
+        <LI>Next message: <A HREF="001456.html">Ion rewriting
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1455">[ date ]</a>
+              <a href="thread.html#1455">[ thread ]</a>
+              <a href="subject.html#1455">[ subject ]</a>
+              <a href="author.html#1455">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-11-10, Roy Lanek &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">lanek at novenine.com</A>&gt; wrote:
+&gt;<i> What--and I am serious--about rewriting Ion in ... Haskell?
+</I>
+Rewrites in The Language of the Day are lame (see also the .signature),
+for people with a lot of time in their hands and no original ideas.
+
+&gt;<i> Why so?!, because Ion is written--shudder--in the US-dollar of the programming
+</I>&gt;<i> languages anno 2008 still; hence, Tuomo (but not only he) has, to ... I am
+</I>&gt;<i> paraphrasing Torvalds, play at the &quot;masturbating monke^H^H^H^H^Hreindeer&quot;
+</I>&gt;<i> every time he needs to change something in the code that goes beyond
+</I>&gt;<i> cosmetics, and be it as as an experiment only, quite likely. ( C's
+</I>&gt;<i> *expressivity* oblige.)
+</I>
+C works quite well, especially combined with Lua for the tasks that
+are not nicely done in C. Working on Ion's code, I don't often run
+into the limitations of C, because I have my frameworks written ages
+ago. What would make sense is gradually moving some of auxiliary C 
+code to the Lua side.
+
+I really don't like writing the kind of stuff a window manager is in
+Haskell. It's too painful. The language just isn't meant for that kind
+of stuff. Dynamic data structures (e.g. objects) are _pain_; perhaps
+the best way to get around this is _heavy_ threading, every object being
+its own thread... it's an academic exercise that I have no time for, 
+and of little practical benefit over a tried C implementation that 
+works today.
+
+&gt;<i> I skip mentioning other advantages in general, moreover I am sure Tuomo
+</I>&gt;<i> perfectly knows that Compiled Haskell is as fast than C
+</I>
+Bullshit. It's very very laboursome to make fast Haskell code, and
+especially such that doesn't eat gigabytes of memory for breakfast.
+
+Lie, statistic, benchmark.
+
+Liar, politician, software advocate..
+
+&gt;<i> Lua may be fun, but Haskell (and other modern functional languages) are no
+</I>&gt;<i> match ... on standard environments at the least. 
+</I>
+Haskell is fun for academic exercises. Real-world programs are pain. 
+Plus the Haskell build environments are shit. GHC is infinite
+pain to install anything under. All these language fundies (which
+includes the majority of FP people) are always reinventing the OS
+for their language only, instead of using the operating system's
+tools (such as the file system).
+
+&gt;<i> dwm and all its clone and derivatives look like nano (the editor), or pico of
+</I>&gt;<i> the window managers pretty much to me, where ion could be vi; 
+</I>
+Ion is joe &lt;<A HREF="http://joe-editor.sf.net/">http://joe-editor.sf.net/</A>&gt;.
+
+-- 
+&quot;[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months.&quot; -- Oscar Wilde
+&quot;The computer industry is the only industry that is more fashion-driven
+ than women's fashion.&quot; -- RMS
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001454.html">Ion rewriting
+</A></li>
+	<LI>Next message: <A HREF="001456.html">Ion rewriting
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1455">[ date ]</a>
+              <a href="thread.html#1455">[ thread ]</a>
+              <a href="subject.html#1455">[ subject ]</a>
+              <a href="author.html#1455">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

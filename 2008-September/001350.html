@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Attach WGroupCWs or WClientWins?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Attach%20WGroupCWs%20or%20WClientWins%3F&In-Reply-To=%3Cslrngc9ntl.mqa.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001349.html">
+   <LINK REL="Next"  HREF="001352.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Attach WGroupCWs or WClientWins?</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Attach%20WGroupCWs%20or%20WClientWins%3F&In-Reply-To=%3Cslrngc9ntl.mqa.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Attach WGroupCWs or WClientWins?">tuomov at iki.fi
+       </A><BR>
+    <I>Mon Sep  8 10:17:57 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001349.html">Attach WGroupCWs or WClientWins?
+</A></li>
+        <LI>Next message: <A HREF="001352.html">Attach WGroupCWs or WClientWins?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1350">[ date ]</a>
+              <a href="thread.html#1350">[ thread ]</a>
+              <a href="subject.html#1350">[ subject ]</a>
+              <a href="author.html#1350">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-09-07, Carlos Pita &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">carlosjosepita at gmail.com</A>&gt; wrote:
+&gt;&gt;<i> Can you explain me how to achieve the frame--&gt;wgroupcw--&gt;clientwin setup
+</I>&gt;&gt;<i> instead?
+</I>&gt;<i>
+</I>&gt;<i> I've been messing a little more with this and discovered that the
+</I>&gt;<i> difference is more subtle that I had thought. In both cases the parent
+</I>&gt;<i> is the frame, but reg:attach(cwin) will make the frame also the manager
+</I>&gt;<i> while customary ion handling of new windows will put them under a new wc
+</I>&gt;<i> group management, which is itself ultimately managed by the frame. Could
+</I>&gt;<i> you clarify this please? Which is the rationale behind this slightly
+</I>&gt;<i> complex setup? A snippet of lua (?) code showing the creation and/or
+</I>&gt;<i> connection of the different collaborators (the wc group, the frame, the
+</I>&gt;<i> window) will be very enlightening.
+</I>
+The layout savefiles (~/.ion3/SESSIONNAME/saved_layout.lua) can be
+englightening. It's exactly the same data that can be passed to
+the attach functions.
+
+The template for the WGroupCW container attach is. For details,
+see the documentation and the savefiles.
+
+reg:attach{
+    type = &quot;WGroupCW&quot;,
+    ...,
+    managed = {
+        {
+            type = &quot;WClientWin&quot;,
+            ...
+        }
+    },
+}
+
+---
+
+As for rationale.. client windows within frames are managed
+in groups just like workspaces (and FS client windows) are
+groups within the screen. Also, both WFrames and WScreens 
+(incl. WRootWins) are WMPlexes; a frame is just a decorated 
+one, but the bulk of the code for the functionality is the 
+same. 
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001349.html">Attach WGroupCWs or WClientWins?
+</A></li>
+	<LI>Next message: <A HREF="001352.html">Attach WGroupCWs or WClientWins?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1350">[ date ]</a>
+              <a href="thread.html#1350">[ thread ]</a>
+              <a href="subject.html#1350">[ subject ]</a>
+              <a href="author.html#1350">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

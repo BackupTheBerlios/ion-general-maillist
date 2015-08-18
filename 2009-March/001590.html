@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Ikiwiki replacement etc.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ikiwiki%20replacement%20etc.&In-Reply-To=%3Cslrngrs5ts.d9i.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001589.html">
+   <LINK REL="Next"  HREF="001591.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Ikiwiki replacement etc.</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ikiwiki%20replacement%20etc.&In-Reply-To=%3Cslrngrs5ts.d9i.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Ikiwiki replacement etc.">tuomov at iki.fi
+       </A><BR>
+    <I>Mon Mar 16 10:11:24 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001589.html">Proportional tab sizes (ugly patch).
+</A></li>
+        <LI>Next message: <A HREF="001591.html">Ikiwiki replacement etc.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1590">[ date ]</a>
+              <a href="thread.html#1590">[ thread ]</a>
+              <a href="subject.html#1590">[ subject ]</a>
+              <a href="author.html#1590">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+I will have to replace Ikiwiki as the Ion site generator, since
+it fails to work under Cygwin. (Excessive and ugly mangling of
+all input into UTF-8 breaks down in the 2007 snapshot I'd been
+using. *sigh*. The compiler doesn't need to know the encoding
+used; only the web frontend does. Newer versions don't build. 
+No response from the author.)
+
+One thing that has been suggested, is webgen. But it seems that to do
+all the inlining or even listing of all the FAQ entries, I'd have to
+spend time learning Ruby/ERB/webgen internals, and I really have spent
+far too much time on the computer/OS switch [1] already. A quick&amp;dirty
+Lua or shell script would be faster to write. (Actually, I hate the
+way Ikiwiki handles intra-wiki links, with its own syntax instead of
+using markdown. Webgen, OTOH, doesn't have any support for easy linking.
+I'd like to just define ready aliases for markdown for pages on the
+site. There actually exists a markdown implementation in Lua...)
+
+Does anyone have any other suggestions for site generator, or what 
+to do with the site, that wouldn't involve too much effort from me? 
+This could also be tied to the scripts repository, distribution of 
+extra patches etc..
+
+I still refuse to edit pages through crappy browsers' editors,
+and whatever is chosen should support markdown for easy conversion
+(and because most other ASCII markup languages are too bloated).
+
+  [1]: <A HREF="http://iki.fi/tuomov/b/archives/2009/03/13/T16_46_57/">http://iki.fi/tuomov/b/archives/2009/03/13/T16_46_57/</A>
+
+-- 
+&quot;[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months.&quot; -- Oscar Wilde
+&quot;The computer industry is the only industry that is more fashion-driven
+ than women's fashion.&quot; -- RMS
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001589.html">Proportional tab sizes (ugly patch).
+</A></li>
+	<LI>Next message: <A HREF="001591.html">Ikiwiki replacement etc.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1590">[ date ]</a>
+              <a href="thread.html#1590">[ thread ]</a>
+              <a href="subject.html#1590">[ subject ]</a>
+              <a href="author.html#1590">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

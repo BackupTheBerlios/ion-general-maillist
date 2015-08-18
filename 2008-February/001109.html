@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> attach_new problems
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20attach_new%20problems&In-Reply-To=%3C940ef3c00802222331oeac0661t1262ee52ed0d45e0%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001110.html">
+   <LINK REL="Next"  HREF="001111.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>attach_new problems</H1>
+    <B>Alte</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20attach_new%20problems&In-Reply-To=%3C940ef3c00802222331oeac0661t1262ee52ed0d45e0%40mail.gmail.com%3E"
+       TITLE="attach_new problems">alex.barinov at gmail.com
+       </A><BR>
+    <I>Sat Feb 23 08:31:41 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001110.html">could msg from mod_query.message disappear automatically after a	while?
+</A></li>
+        <LI>Next message: <A HREF="001111.html">attach_new problems
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1109">[ date ]</a>
+              <a href="thread.html#1109">[ thread ]</a>
+              <a href="subject.html#1109">[ subject ]</a>
+              <a href="author.html#1109">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Tuomo,
+
+I'm running ion3-20080207 on Debian, installed from native debian
+package ion3-20080207-1.
+
+Since I upgraded to this package, the code, that was working
+flawlessly before, started to trow errors.  Here is the snippet of
+offending code:
+
+        local tf = ioncore.lookup_region(&quot;WFrameSS&quot;, &quot;WFrame&quot;)
+        local wg = tf:attach_new({type = &quot;WGroupCW&quot;, switchto = t.switchto})
+        local opt = {type = &quot;WTiling&quot;, name = c, dir = &quot;horizontal&quot;,
+switchto = t.switchto, bottom = true,
+            split_tree = {type = &quot;WSplitSplit&quot;, dir = &quot;horizontal&quot;,
+tls = 1, brs = 1,
+            tl = {type = &quot;WSplitRegion&quot;, regparams = {type = &quot;WFrame&quot;,
+name = c..&quot;-left&quot;}},
+            br = {type = &quot;WSplitRegion&quot;, regparams = {type = &quot;WFrame&quot;,
+name = c..&quot;-right&quot;}}}}
+        local ws = wg:attach_new(opt)
+
+And now it says (refferring to the last line of the of the snippet):
+
+ion3: /home/alte/etc/.ion3/mod_smallscreen.lua:124: attempt to index
+local 'wg' (a nil value)
+
+As I understand this, 'attach_new' call returns 'nil' in this version
+of ion3 for the reasons not very clear to me.
+
+Could you please comment on how to update the code to make it work in
+new version of ion?
+
+Thanks in advance,
+
+Alexander
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001110.html">could msg from mod_query.message disappear automatically after a	while?
+</A></li>
+	<LI>Next message: <A HREF="001111.html">attach_new problems
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1109">[ date ]</a>
+              <a href="thread.html#1109">[ thread ]</a>
+              <a href="subject.html#1109">[ subject ]</a>
+              <a href="author.html#1109">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

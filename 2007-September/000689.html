@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> ion-3rc-20070902
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-September/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion-3rc-20070902&In-Reply-To=%3C20070902153438.GA27360%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000688.html">
+   <LINK REL="Next"  HREF="000690.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>ion-3rc-20070902</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion-3rc-20070902&In-Reply-To=%3C20070902153438.GA27360%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="ion-3rc-20070902">tuomov at iki.fi
+       </A><BR>
+    <I>Sun Sep  2 17:34:38 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000688.html">ion-3rc-20070902
+</A></li>
+        <LI>Next message: <A HREF="000690.html">ion-3rc-20070902
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#689">[ date ]</a>
+              <a href="thread.html#689">[ thread ]</a>
+              <a href="subject.html#689">[ subject ]</a>
+              <a href="author.html#689">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2007-09-02 16:40 +0200, Andreas Poisel wrote:
+&gt;<i> One small issue (introduced with 3rc-20070720) regarding floating dock:
+</I>&gt;<i> After configuring positions &quot;mr&quot; or &quot;ml&quot; the dock appears on &quot;mc&quot;
+</I>&gt;<i> (center of the screen).  Other positions work as normal.
+</I>
+Seems to be a copy-paste unimplementation.. Does the hopefully* 
+attached patch help? I'm too lazy to test it.
+
+
+(* The sucky thing about MUAs that launch your favourite editor in
+the terminal is that you can't attach files before or during editing,
+only after.. and you're so keen on and used to just hitting the send
+key at that point. It would be possible to properly embed the editor 
+by writing a custom terminal emulator..)
+
+-- 
+Tuomo
+-------------- next part --------------
+diff -rN old-ion-3-work1.1/mod_dock/dock.c new-ion-3-work1.1/mod_dock/dock.c
+986c986,990
+&lt;        : SIZEPOLICY_GRAVITY_CENTER);
+---
+&gt;<i>        : (hp!=DOCK_HPOS_CENTER
+</I>&gt;<i>           ? (hp==DOCK_HPOS_RIGHT
+</I>&gt;<i>              ? SIZEPOLICY_GRAVITY_EAST
+</I>&gt;<i>              : SIZEPOLICY_GRAVITY_WEST)
+</I>&gt;<i>           : SIZEPOLICY_GRAVITY_CENTER));
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000688.html">ion-3rc-20070902
+</A></li>
+	<LI>Next message: <A HREF="000690.html">ion-3rc-20070902
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#689">[ date ]</a>
+              <a href="thread.html#689">[ thread ]</a>
+              <a href="subject.html#689">[ subject ]</a>
+              <a href="author.html#689">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Youtube fullscreen not working
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-December/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Youtube%20fullscreen%20not%20working&In-Reply-To=%3C249287510912151229t48b659e7ucef9e4d5bd4f6647%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001784.html">
+   <LINK REL="Next"  HREF="001787.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Youtube fullscreen not working</H1>
+    <B>Tony Emma</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Youtube%20fullscreen%20not%20working&In-Reply-To=%3C249287510912151229t48b659e7ucef9e4d5bd4f6647%40mail.gmail.com%3E"
+       TITLE="Youtube fullscreen not working">tony.emma62 at gmail.com
+       </A><BR>
+    <I>Tue Dec 15 21:29:02 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001784.html">Youtube fullscreen not working
+</A></li>
+        <LI>Next message: <A HREF="001787.html">Youtube fullscreen not working
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1786">[ date ]</a>
+              <a href="thread.html#1786">[ thread ]</a>
+              <a href="subject.html#1786">[ subject ]</a>
+              <a href="author.html#1786">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello,
+
+Sorry, I still have the problem. In fact it's work for Youtube but not for
+dalymotion and other Flash applications. Why?
+
+Tony
+
+
+
+
+2009/12/14 Tony Emma &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tony.emma62 at gmail.com</A>&gt;
+
+&gt;<i> Ok Thank You !!!!
+</I>&gt;<i>
+</I>&gt;<i> It's work now :)
+</I>&gt;<i>
+</I>&gt;<i> Sorry i'm not an expert but when i see xterm i was surprised.
+</I>&gt;<i>
+</I>&gt;<i> the content of file windowinfos.lua is
+</I>&gt;<i>
+</I>&gt;<i> -- Ce fichier a &#233;t&#233; g&#233;n&#233;r&#233; par Ion, Ne pas &#233;diter.
+</I>&gt;<i> return {
+</I>&gt;<i>     [&quot;instance&quot;] = &quot;firefox-bin&quot;,
+</I>&gt;<i>     [&quot;class&quot;] = &quot;Firefox-bin&quot;,
+</I>&gt;<i> }
+</I>&gt;<i>
+</I>&gt;<i> FILE cfg_kludge_flash.lua:
+</I>&gt;<i>
+</I>&gt;<i> -- Flash player opens full-screen windows from Firefox with size
+</I>&gt;<i> -- request 200x200.  It closes them if they lose focus, but also if
+</I>&gt;<i> -- they get focus too quickly.  Therefore set focus 200 ms after
+</I>&gt;<i> -- such a window is mapped (this may need to be adjusted on slower
+</I>&gt;<i> -- computers).
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> _NET_WM_STATE = ioncore.x_intern_atom('_NET_WM_STATE', false)
+</I>&gt;<i> _NET_WM_STATE_FULLSCREEN =
+</I>&gt;<i> ioncore.x_intern_atom('_NET_WM_STATE_FULLSCREEN',
+</I>&gt;<i>                                                  false)
+</I>&gt;<i>
+</I>&gt;<i> function is_fullscreen(cwin)
+</I>&gt;<i>     local state = ioncore.x_get_window_property(cwin:xid(), _NET_WM_STATE,
+</I>&gt;<i> 4,
+</I>&gt;<i>                                                 1, true)
+</I>&gt;<i>     if state then
+</I>&gt;<i>         for k, v in pairs(state) do
+</I>&gt;<i>             if v == _NET_WM_STATE_FULLSCREEN then
+</I>&gt;<i>                 return true
+</I>&gt;<i>             end
+</I>&gt;<i>         end
+</I>&gt;<i>     end
+</I>&gt;<i>     return false
+</I>&gt;<i> end
+</I>&gt;<i>
+</I>&gt;<i> defwinprop {
+</I>&gt;<i>     class = 'Firefox-bin',
+</I>&gt;<i>     instance = 'firefox-bin',
+</I>&gt;<i> --    match = function(prop, cwin, id)
+</I>&gt;<i>
+</I>&gt;<i> --              local geom = cwin:geom()
+</I>&gt;<i> --              return is_fullscreen(cwin) and geom.w == 200 and geom.h ==
+</I>&gt;<i> 200
+</I>&gt;<i> --          end,
+</I>&gt;<i>     match = function(prop, cwin, id) return is_fullscreen(cwin); end,
+</I>&gt;<i>     switchto = false,
+</I>&gt;<i>     flash_fullscreen = true,
+</I>&gt;<i> }
+</I>&gt;<i>
+</I>&gt;<i> ioncore.get_hook('clientwin_do_manage_alt'):add(
+</I>&gt;<i>     function(cwin, table)
+</I>&gt;<i>         --ioncore.write_savefile(&quot;windowinfos&quot;, cwin:get_ident())
+</I>&gt;<i>         local winprop = ioncore.getwinprop(cwin)
+</I>&gt;<i>         if winprop and winprop.flash_fullscreen then
+</I>&gt;<i>             local timer = ioncore.create_timer()
+</I>&gt;<i>             timer:set(500, function() cwin:goto() end)
+</I>&gt;<i>
+</I>&gt;<i>             return true
+</I>&gt;<i>         else
+</I>&gt;<i>             return false
+</I>&gt;<i>         end
+</I>&gt;<i>     end
+</I>&gt;<i> )
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> I have changed also the timer to 500 ms. Now it's work.
+</I>&gt;<i>
+</I>&gt;<i> PS: I have the same problem with VLC or game the fullscreen mode doesn't
+</I>&gt;<i> work. It's not a real problem because i can do ALT + ENTER for fullscreen.
+</I>&gt;<i>
+</I>&gt;<i> Thank very much
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> 2009/12/14 Canaan Hadley-Voth &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">ugggg at hotmail.com</A>&gt;
+</I>&gt;<i>
+</I>&gt;<i> Tony Emma &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tony.emma62 at ...</A>&gt; writes:
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt;     class = 'UXTerm',
+</I>&gt;&gt;<i> &gt;     instance = 'xterm',
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> I see that you're following the instruction &quot;restart ion, fullscreen a
+</I>&gt;&gt;<i> flash
+</I>&gt;&gt;<i> video and see what got written to windowinfos.lua&quot; very precisely, but in
+</I>&gt;&gt;<i> the
+</I>&gt;&gt;<i> act of &quot;see what got written&quot; you're opening an xterm window, and
+</I>&gt;&gt;<i> windowinfos.lua only shows you the *last* client window opened, in your
+</I>&gt;&gt;<i> case
+</I>&gt;&gt;<i> the xterm.  So open xterm first, then fullscreen a flash video, then enter
+</I>&gt;&gt;<i> the
+</I>&gt;&gt;<i> command in the terminal that would read the file windowinfos.lua.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> If it still fails when you get the right class and instance, the author of
+</I>&gt;&gt;<i> script warned that the delay may need to be adjusted on some computers,
+</I>&gt;&gt;<i> which
+</I>&gt;&gt;<i> means changing the number in &quot;timer:set(200, function() cwin:goto() end)&quot;.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20091215/d615c4e4/attachment.html">https://lists.berlios.de/pipermail/ion-general/attachments/20091215/d615c4e4/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001784.html">Youtube fullscreen not working
+</A></li>
+	<LI>Next message: <A HREF="001787.html">Youtube fullscreen not working
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1786">[ date ]</a>
+              <a href="thread.html#1786">[ thread ]</a>
+              <a href="subject.html#1786">[ subject ]</a>
+              <a href="author.html#1786">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

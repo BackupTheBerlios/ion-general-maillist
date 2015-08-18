@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Feature freeze imminent
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Feature%20freeze%20imminent&In-Reply-To=%3C20070227151352.GG13216%40samason.me.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000179.html">
+   <LINK REL="Next"  HREF="000167.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Feature freeze imminent</H1>
+    <B>Sam Mason</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Feature%20freeze%20imminent&In-Reply-To=%3C20070227151352.GG13216%40samason.me.uk%3E"
+       TITLE="Feature freeze imminent">mason at f2s.com
+       </A><BR>
+    <I>Tue Feb 27 16:13:52 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000179.html">Feature freeze imminent
+</A></li>
+        <LI>Next message: <A HREF="000167.html">Feature freeze imminent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#165">[ date ]</a>
+              <a href="thread.html#165">[ thread ]</a>
+              <a href="subject.html#165">[ subject ]</a>
+              <a href="author.html#165">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Tue, Feb 27, 2007 at 07:30:32AM +0000, Tuomo Valkonen wrote:
+&gt;<i> On 2007-02-26, Sam Mason &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">mason at f2s.com</A>&gt; wrote:
+</I>&gt;<i> &gt; File lookups would have to stop while tags were being modified though.
+</I>&gt;<i> &gt; But yes, it's much less of an issue for file systems than for databases.
+</I>&gt;<i> 
+</I>&gt;<i> Actually, with suitable structures for the bitmaps, it might only be
+</I>&gt;<i> necessary to lock suitable ranges of the bitmaps containing the ID of 
+</I>&gt;<i> the object to be added/removed, so that other threads could continue 
+</I>&gt;<i> working on searches on the remaining parts, until they reach a locked
+</I>&gt;<i> part. 
+</I>
+Definitly possible, but you'd have to be very careful about
+deadlocking.  Think about the case when you're extending the bitmap
+somewhere in the middle.
+
+&gt;<i> But it's not really that important on my toy file system. 
+</I>
+I agree, it's also way outside any real programming experience I've ever
+had.
+
+&gt;<i> I primarily 
+</I>&gt;<i> want to test the concept in an application where efficiencies should 
+</I>&gt;<i> not be a big issue: riot. Of course, if it works out, I'd like to
+</I>&gt;<i> store other random data as well that way... I hate trying to remember 
+</I>&gt;<i> the exact paths for random Web saves and stuff. But saving by metadata
+</I>&gt;<i> pre-entered by others isn't going to work either: the unusefulness of
+</I>&gt;<i> ID3 tags in MP3s is evidence of that. Non-hierarchical tags should 
+</I>&gt;<i> work better. (Now, if you could still combine this with that: 
+</I>&gt;<i> &lt;<A HREF="http://iki.fi/tuomov/b/archives/2006/06/16/T18_23_18/">http://iki.fi/tuomov/b/archives/2006/06/16/T18_23_18/</A>&gt;).
+</I>
+I tend to get annoyed when things fit into several categories and having
+to choose between one.  For example I have a &quot;projects&quot; directory
+containing the projects I'm working on at the moment and a &quot;people&quot;
+directory for stuff that doesn't fit into a specific project.  But
+really I'd like to be able to say that a file is from this person and
+also belongs to this project.
+
+&gt;<i> &gt; Why not [bar,baz,quk,zum]? all of these tags appear in files once you've
+</I>&gt;<i> &gt; filtered out the ones that don't have foo in.  But yes, I see why
+</I>&gt;<i> &gt; pruning could be problematic.  I'll have to think about it more!
+</I>&gt;<i> 
+</I>&gt;<i> Because that would not be much of a pruning, would it? 
+</I>
+I thought that was because as the filesystem grew there would be many
+more files relative to tags.  If this was the case then it would help;
+but maybe there would always be a similar number of tags to files.
+You'll probably have a few files called &quot;index.html&quot; on your computer
+but most other files are going to have unique names (the basename in a
+hierachial system).
+
+If these names were treated the same as the rest of the tags thos
+would kill my naive pruning attempts.  One possible fix would be to
+diffrentiate between the filename and it's tags.  This is very different
+from what you wanted to do, but I'm not sure if it would be bad in
+practice.  After all, the latest Firefox browser just tends to dump
+downloaded files into your home directory with just the name taken from
+the URL.
+
+&gt;<i> It would make
+</I>&gt;<i> for more predictable results, however, when the pruning would otherwise
+</I>&gt;<i> resort to tag frequencies. 
+</I>
+Yes, and, as you noted, reconstructing a hierachy dynamically is not an
+easy thing to do.  Additionally there are potentially lots of ways of
+doing it which /could/ lead to confusion when the defaults change.
+
+&gt;<i> (If there are objects with immediate successor
+</I>&gt;<i> tag sets to the search set, the extra tags _must_ be included in the
+</I>&gt;<i> result, and therefore creating even such dummy &quot;directories&quot; will let
+</I>&gt;<i> one control the results.)
+</I>
+I'm not sure how you would identify these by looking at the frequency
+of occurance, wouldn't you just get two tags occuring with the same
+frequency?
+
+&gt;<i> Whereas in the worst case, the computational complexity of even the
+</I>&gt;<i> frequency-based pruning operation can be quite high(*) (let alone the
+</I>&gt;<i> optimal Minimum Hitting Set, which is NP-complete), I doubt it is 
+</I>&gt;<i> a big problem in practise. What I do find problematic, is storing all 
+</I>&gt;<i> the search results in memory for pruning: there can be quite a few 
+</I>&gt;<i> results for the top-level empty search.  However, it is possible to 
+</I>&gt;<i> do even more sub-optimal pruning by working on smaller (fixed-length)
+</I>&gt;<i> blocks of results at a time, and thus also providing a O(log n_tags)
+</I>&gt;<i> average time bound for producing a single result (a tag).
+</I>
+&gt;<i> (*) The number of tags per object can probably have a fixed upper limit,
+</I>&gt;<i> so the number of tags an object has plays no role in the complexities,
+</I>&gt;<i> as does not the length of the query. A very conservative estimate for 
+</I>&gt;<i> inserting all the tags in the found objects in a frequency-counting 
+</I>&gt;<i> search tree, and also inserting the objects in a search tree, is 
+</I>&gt;<i> O(n_objects * log n_tags). Likewise, a _very_ conservative estimate 
+</I>&gt;<i> for working through all the tags, removing objects listed after the tag
+</I>&gt;<i> from an object search tree, and removing the tags no longer referenced 
+</I>&gt;<i> to by any object from the tag search tree, is
+</I>&gt;<i> O(n_tags * n_objects * max(log n_objects, log n_tags)).
+</I>&gt;<i> The n_objects term is the estimate for number objects for each tag
+</I>&gt;<i> and is, of course, a serious over-estimation in practise. Also, if one
+</I>&gt;<i> tag (not in the search set) has all the objects, there's nothing to be
+</I>&gt;<i> done after that. The n_tags factor also a heavy over-estimation in 
+</I>&gt;<i> practise, as the tags  get removed along the way.
+</I>
+That all sounds like quite a hard problem for any reasonable number of
+objects and tags.
+
+
+  Sam
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000179.html">Feature freeze imminent
+</A></li>
+	<LI>Next message: <A HREF="000167.html">Feature freeze imminent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#165">[ date ]</a>
+              <a href="thread.html#165">[ thread ]</a>
+              <a href="subject.html#165">[ subject ]</a>
+              <a href="author.html#165">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

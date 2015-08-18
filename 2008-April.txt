@@ -1,0 +1,951 @@
+From tuomov at iki.fi  Fri Apr 11 17:55:50 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 11 Apr 2008 18:55:50 +0300
+Subject: ion-3-20080411
+Message-ID: <20080411155550.GA16505@jolt.modeemi.cs.tut.fi>
+
+This is a maintenance release that fixes a few issues in the
+previous release.
+
+Notice also that the ZeroInstall [1] feed for Ion3 [2] now 
+includes a native FreeBSD/i386 binary as well. 
+
+  [1]: http://0install.net
+
+  [2]: http://iki.fi/tuomov/dl/Ion3.xml
+
+-- 
+Tuomo
+
+
+From agriffis at n01se.net  Fri Apr 18 01:35:46 2008
+From: agriffis at n01se.net (Aron Griffis)
+Date: Thu, 17 Apr 2008 19:35:46 -0400
+Subject: ion-3plus darcs repository problem?
+Message-ID: <20080417233546.GA6213@griffis1.net>
+
+Hi,
+
+I'd like to submit a patch but it appears the darcs repository isn't working:
+
+$ darcs get http://modeemi.fi/~tuomov/repos/ion-3plus/
+Copying patch 23 of 2819...
+darcs failed:  Failed to download URL http://modeemi.fi/~tuomov/repos/ion-3plus/_darcs/patches/20080122185412-4eba8-ff6cc973a060522f9867fa36f479f3d6a27610a9.gz : HTTP error (404?)
+
+Thanks,
+Aron
+
+
+From deryni at unreliablesource.net  Fri Apr 18 02:04:41 2008
+From: deryni at unreliablesource.net (Etan Reisner)
+Date: Thu, 17 Apr 2008 20:04:41 -0400
+Subject: ion-3plus darcs repository problem?
+In-Reply-To: <20080417233546.GA6213@griffis1.net>
+References: <20080417233546.GA6213@griffis1.net>
+Message-ID: <20080418000441.GO11356@aran>
+
+On Thu, Apr 17, 2008 at 07:35:46PM -0400, Aron Griffis wrote:
+> Hi,
+>
+> I'd like to submit a patch but it appears the darcs repository isn't working:
+>
+> $ darcs get http://modeemi.fi/~tuomov/repos/ion-3plus/
+> Copying patch 23 of 2819...
+> darcs failed:  Failed to download URL http://modeemi.fi/~tuomov/repos/ion-3plus/_darcs/patches/20080122185412-4eba8-ff6cc973a060522f9867fa36f479f3d6a27610a9.gz : HTTP error (404?)
+>
+> Thanks,
+> Aron
+
+The ion-3plus repository requires --partial to function. It isn't a
+complete repository (intentionally). I don't agree with that decision but
+such is the way of things at the moment.
+
+Tuomo, the ion website indicates that --partial is to be used but doesn't
+make it explicit that it needs to be, perhaps it should.
+
+    -Etan
+
+
+From agriffis at n01se.net  Fri Apr 18 15:26:23 2008
+From: agriffis at n01se.net (Aron Griffis)
+Date: Fri, 18 Apr 2008 09:26:23 -0400
+Subject: ion-3plus darcs repository problem?
+In-Reply-To: <20080418000441.GO11356@aran>
+References: <20080417233546.GA6213@griffis1.net> <20080418000441.GO11356@aran>
+Message-ID: <20080418132622.GB14522@griffis1.net>
+
+Etan Reisner wrote:  [Thu Apr 17 2008, 08:04:41PM EDT]
+> The ion-3plus repository requires --partial to function. It
+> isn't a complete repository (intentionally). I don't agree with
+> that decision but such is the way of things at the moment.
+
+Thanks!  I had missed that detail.
+
+Aron
+
+
+From agriffis at n01se.net  Fri Apr 18 20:06:31 2008
+From: agriffis at n01se.net (Aron Griffis)
+Date: Fri, 18 Apr 2008 14:06:31 -0400
+Subject: making floating padding configurable
+Message-ID: <20080418180630.GA8776@griffis1.net>
+
+It's not clear to me that there's any notification to this list
+when somebody sends a patch to Tuomo using darcs send.  (It's
+also possible I should have somehow cc'd the list using darcs,
+but my knowledge of darcs is limited to what I learned to do
+"darcs send")
+
+Consequently I'll post my patch here, too, for review and to see
+if anybody else is interested in this feature...
+
+This patch makes the padding between floating frames
+configurable.  Right now ion3 assumes 1 pixel of padding.
+I wanted it to be zero, but this patch simply moves the choice to
+the user.  I can imagine that some people might like a wider gap.
+
+diff -ur ion3-20080411/ioncore/conf.c ion3-20080411.agriffis/ioncore/conf.c
+--- ion3-20080411/ioncore/conf.c	2008-04-18 11:22:02.000000000 -0400
++++ ion3-20080411.agriffis/ioncore/conf.c	2008-04-18 09:44:17.000000000 -0400
+@@ -76,6 +76,9 @@
+  *                          One of \codestr{udlr} (up-down, then left-right), 
+  *                          \codestr{lrud} (left-right, then up-down), or 
+  *                          \codestr{random}. \\
++ *  \var{float_placement_padding} & (integer) Pixels between frames when 
++ *                          \var{float_placement_method} is \codestr{udlr} or
++ *                          \codestr{lrud}. \\
+  *  \var{mousefocus} & (string) Mouse focus mode: 
+  *                     \codestr{disabled} or \codestr{sloppy}. \\
+  *  \var{unsqueeze} & (boolean) Auto-unsqueeze transients/menus/queries/etc. \\
+diff -ur ion3-20080411/ioncore/float-placement.c ion3-20080411.agriffis/ioncore/float-placement.c
+--- ion3-20080411/ioncore/float-placement.c	2008-04-11 11:03:31.000000000 -0400
++++ ion3-20080411.agriffis/ioncore/float-placement.c	2008-04-17 18:25:06.000000000 -0400
+@@ -14,6 +14,7 @@
+ 
+ 
+ WFloatPlacement ioncore_placement_method=PLACEMENT_LRUD;
++int ioncore_placement_padding=1;
+ 
+ 
+ static void random_placement(WRectangle box, WRectangle *g)
+@@ -131,7 +132,7 @@
+             p=is_occupied(ws, level, &r);
+             while(p!=NULL && r.y+r.h<maxy){
+                 ggeom(p, &r2);
+-                r.y=r2.y+r2.h+1;
++                r.y=r2.y+r2.h+ioncore_placement_padding;
+                 p=is_occupied(ws, level, &r);
+             }
+             if(r.y+r.h<maxy && r.x+r.w<maxx){
+@@ -148,7 +149,7 @@
+             p=is_occupied(ws, level, &r);
+             while(p!=NULL && r.x+r.w<maxx){
+                 ggeom(p, &r2);
+-                r.x=r2.x+r2.w+1;
++                r.x=r2.x+r2.w+ioncore_placement_padding;
+                 p=is_occupied(ws, level, &r);
+             }
+             if(r.y+r.h<maxy && r.x+r.w<maxx){
+diff -ur ion3-20080411/ioncore/float-placement.h ion3-20080411.agriffis/ioncore/float-placement.h
+--- ion3-20080411/ioncore/float-placement.h	2008-04-11 11:03:30.000000000 -0400
++++ ion3-20080411.agriffis/ioncore/float-placement.h	2008-04-17 18:25:23.000000000 -0400
+@@ -18,6 +18,7 @@
+ } WFloatPlacement;
+ 
+ extern WFloatPlacement ioncore_placement_method;
++extern int ioncore_placement_padding;
+ 
+ extern void group_calc_placement(WGroup *ws, uint level, 
+                                  WRectangle *geom);
+diff -ur ion3-20080411/ioncore/group-ws.c ion3-20080411.agriffis/ioncore/group-ws.c
+--- ion3-20080411/ioncore/group-ws.c	2008-04-11 11:03:31.000000000 -0400
++++ ion3-20080411.agriffis/ioncore/group-ws.c	2008-04-18 11:39:10.000000000 -0400
+@@ -34,7 +34,7 @@
+ void ioncore_groupws_set(ExtlTab tab)
+ {
+     char *method=NULL;
+-    ExtlTab t;
++    int fpp;
+     
+     if(extl_table_gets_s(tab, "float_placement_method", &method)){
+         if(strcmp(method, "udlr")==0)
+@@ -47,6 +47,8 @@
+             warn(TR("Unknown placement method \"%s\"."), method);
+         free(method);
+     }
++    if(extl_table_gets_i(tab, "float_placement_padding", &fpp))
++        ioncore_placement_padding=maxof(0, fpp);
+ }
+ 
+ 
+
+
+From tuomov at iki.fi  Fri Apr 18 21:17:02 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 18 Apr 2008 22:17:02 +0300
+Subject: making floating padding configurable
+In-Reply-To: <20080418180630.GA8776@griffis1.net>
+References: <20080418180630.GA8776@griffis1.net>
+Message-ID: <20080418191702.GA26637@jolt.modeemi.cs.tut.fi>
+
+On 2008-04-18 14:06 -0400, Aron Griffis wrote:
+> It's not clear to me that there's any notification to this list
+> when somebody sends a patch to Tuomo using darcs send.  
+
+No. There's just the RSS
+
+   http://iki.fi/tuomov/repos/_rss/ion-3plus.rss
+
+if one is interested in following the changes. Also the
+changelog is available as HTML at
+
+   http://iki.fi/tuomov/repos/_log/ion-3plus.html.gz
+
+-- 
+Tuomo
+
+
+From tuomov at iki.fi  Wed Apr 23 08:32:12 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 23 Apr 2008 09:32:12 +0300
+Subject: Ion3 wishlist / a note about Ion4
+Message-ID: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+
+1. I thought it would be good to collect somewhere, some possible
+things to work on in Ion3plus, if anyone can be arsed. Please post
+what you'd like to see here, and I'll comment if would include a
+quality patch. Maybe someone can one day be arsed to code the feature
+or modification, if it's known that it has a chance of getting there.
+(Things that are clearly separable into modules, should be implemented
+as separate modules, whether they are included in the main package 
+or not.)
+
+No, given the current state and trend of fonts [1], Xft still
+snowball's chance in hell of getting in. That's politics for you
+(which is what you get for imposing too much policy in software!).
+Xinerama also isn't going back in, especially not after what the
+shitheads in power did to Xrandr: turning it into Shitorama 2.0. 
+However, as Ion3plus is a sort of "wiki branch" that I won't be 
+actively maintaining, and perhaps not even making releases of, 
+I may include patches that I might not otherwise care to maintain;
+those, however, are unlikely to get further into Ion4.
+
+  [1]: http://iki.fi/tuomov/b/archives/2008/03/20/T13_47_17/
+
+2. Yes, I think I will at least try to write Ion4, since I have some
+nice ideas that I can't resist testing out... :). Indeed, with Ion4 
+I plan to get back into working on "research code", and will also
+try to simplify things, further removing features. Throughout Ion2 
+and, especially, Ion3, the project grew too much into a proper complex
+and bloated software development project, and I don't really have time 
+or even interest for such gruntwork. Research and testing out new ideas
+is what I prefer to do.
+
+Don't hold your breath. Ion4, if it happens, is likely to take quite
+some time to near even a preview release, and I think I prefer to work
+in peace, and I'll only release it, once it's almost finished. That 
+could indeed be 2016, as joked in the stable Ion3 release announcement
+thread. That's how much time I seem to be able to spare for coding, and 
+I do have a few other very slowly proceeding coding projects. (And since 
+working on the code is very intermittent, it always takes more time 
+to recall what you were going to do, than you actually spend writing
+code.) A slow progress rate will especially be the case, if I have to
+do it all myself...  I'd really just like to move to the management 
+department already :).
+
+Indeed, the rate of contributions to Ion3plus can affect when and with
+what kind of license (if any) Ion4 is released, and if the source
+will be released at all (or just a Cygwin or so binary). Some of the
+suggestions I will list for Ion3plus in a later post, may be part of
+Ion4 (but they are non-essential nice things, that do not form the 
+new core ideas). Here's your chance to prove that FOSS isn't a completely
+lost cause, as it has lately started to appear [2].
+
+  [2]: http://iki.fi/tuomov/b/archives/2007/06/01/T19_09_43/
+
+3. I will provide a list of some suggestions I have for Ion3plus, 
+some of which might get into Ion4, in another post.
+
+-- 
+Tuomo
+
+
+From janj+ion at wenf.org  Wed Apr 23 15:38:31 2008
+From: janj+ion at wenf.org (Jan Johansson)
+Date: Wed, 23 Apr 2008 15:38:31 +0200
+Subject: Ion3 wishlist / a note about Ion4
+In-Reply-To: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080423133831.GA7806@tuvok.wenf.org>
+
+Tuomo Valkonen <tuomov at iki.fi> wrote:
+> 1. I thought it would be good to collect somewhere, some
+> possible things to work on in Ion3plus, if anyone can be arsed.
+> Please post what you'd like to see here, and I'll comment if
+> would include a quality patch.
+
+I would like to see window groups (awesome call it tags) so that
+windows can easily be hidden or shown depending on their group.
+
+
+
+From EvgenyKurbatov at yandex.ru  Wed Apr 23 16:11:47 2008
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Wed, 23 Apr 2008 18:11:47 +0400
+Subject: Ion3 wishlist / a note about Ion4
+In-Reply-To: <20080423133831.GA7806@tuvok.wenf.org>
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+	<20080423133831.GA7806@tuvok.wenf.org>
+Message-ID: <480F43A3.1090500@yandex.ru>
+
+Hi, Jan
+
+Jan Johansson wrote:
+> Tuomo Valkonen <tuomov at iki.fi> wrote:
+>> 1. I thought it would be good to collect somewhere, some
+>> possible things to work on in Ion3plus, if anyone can be arsed.
+>> Please post what you'd like to see here, and I'll comment if
+>> would include a quality patch.
+> 
+> I would like to see window groups (awesome call it tags) so that
+> windows can easily be hidden or shown depending on their group.
+
+Maybe the separated workspace for these windows can help you?
+
+
+From tuomov at iki.fi  Wed Apr 23 16:23:24 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 23 Apr 2008 14:23:24 +0000 (UTC)
+Subject: Ion3 wishlist / a note about Ion4
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+	<20080423133831.GA7806@tuvok.wenf.org>
+Message-ID: <slrng0uhis.usr.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-04-23, Jan Johansson <janj+ion at wenf.org> wrote:
+> I would like to see window groups (awesome call it tags) so that
+> windows can easily be hidden or shown depending on their group.
+
+This does not seem to very well fit with the tiling approach 
+of Ion, but in relation to floating windows, Ion does support
+groups. You may create multiple simultaneously visible groups
+(also known as workspaces). They key is to not put them on the
+'mutually exclusive' or 'unnumbered' list of the screen. This
+is what the 'unnumbered = true' option of WMPlex.attach[_new]
+does. The scratchpad, for example, is contained in an
+'unnumbered' WGroupWS. IIRC there are some related scripts
+in the scripts repo [1], but I'm not sure how up-to-date
+they are, and certainly they could be improved.
+
+Of course, if you mean real non-hierarchical tagging of
+floating windows, instead of grouping, that isn't supported
+as such. But it is also possible to implement that support
+as a script, at least to some extent: you don't have to put
+your 'unnumbered' objects within a group. (Or 'numbered',
+but then tagging doesn't make sense, because 'numbered'
+objects are mutually exclusive.)
+
+  [1]: http://iki.fi/tuomov/repos/ion-scripts-3/
+
+-- 
+Tuomo
+
+
+
+From agriffis at n01se.net  Wed Apr 23 16:25:36 2008
+From: agriffis at n01se.net (Aron Griffis)
+Date: Wed, 23 Apr 2008 10:25:36 -0400
+Subject: Ion3 wishlist / a note about Ion4
+In-Reply-To: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080423142535.GA9607@griffis1.net>
+
+Tuomo Valkonen wrote:  [Wed Apr 23 2008, 02:32:12AM EDT]
+> 1. I thought it would be good to collect somewhere, some possible
+> things to work on in Ion3plus, if anyone can be arsed. Please post
+> what you'd like to see here, and I'll comment if would include a
+> quality patch. Maybe someone can one day be arsed to code the feature
+> or modification, if it's known that it has a chance of getting there.
+> (Things that are clearly separable into modules, should be implemented
+> as separate modules, whether they are included in the main package 
+> or not.)
+
+Well, I haven't thought about this too hard yet, but I'd like to
+see more flexible maximisation.  Right now there's
+frame_maximize_horiz() and frame_maximize_vert() which toggle
+frame->flags bits FRAME_MAXED_HORIZ and FRAME_MAXED_VERT,
+respectively.
+
+I'd like to implement a "fill" version of these functions that
+maximizes until it bumps into another frame (or the dock, etc).
+I know this could be done entirely in lua, but it seems like some
+integration with the existing functions would be nice, so that
+de-maximization could take advantage of the existing
+frame->saved_x, frame->saved_w, etc.
+
+Aron
+
+
+From ebik at drak.ucw.cz  Wed Apr 23 16:57:38 2008
+From: ebik at drak.ucw.cz (=?iso-8859-2?Q?Tom=E1=B9_Ebenlendr?=)
+Date: Wed, 23 Apr 2008 16:57:38 +0200 (CEST)
+Subject: Ion3 wishlist / a note about Ion4
+Message-ID: <44352.88.146.1.38.1208962658.squirrel@drak.ucw.cz>
+
+I'd like to use mouse chording [1], when defining my mouse bindings. As I
+cannot (and also I don't want to) prevent mouse, I use mouse with as much
+additional buttons as possible to avoid mouse-keyboard switching. I'd like
+to use the additional buttons as mouse-modifiers.
+
+Ideal state is when all keys and buttons are treated the same way (imagine
+doublehit "Enter" :-) or modifier "Backspace").
+
+But it will suffice to create msubmap which accepts events described by
+button specifications (as in mpress,) and allow mouse bindings inside
+(both) submaps. Msubmap may be canceled by button release.
+
+I played with xev, Xwindows reports state of only first five buttons in
+modifiers bitmask. (There is the braindead thing mapping wheels to
+buttons, and more brainded thing that button 4 & 5 are the vertical wheel,
+so I cannot state of my thumb buttons from current X event.)
+
+[1] http://en.wikipedia.org/wiki/Mouse_chording
+
+-- 
+                            Tomas Ebenlendr
+                            http://drak.ucw.cz/~ebik
+
+
+
+From tuomov at iki.fi  Thu Apr 24 07:38:37 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 24 Apr 2008 05:38:37 +0000 (UTC)
+Subject: Ion3 wishlist / a note about Ion4
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+	<20080423142535.GA9607@griffis1.net>
+Message-ID: <slrng1076t.t8i.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-04-23, Aron Griffis <agriffis at n01se.net> wrote:
+> I'd like to implement a "fill" version of these functions that
+> maximizes until it bumps into another frame (or the dock, etc).
+
+Apparently this is only for floating frames: for tiled frames
+the "bumping" is already there, in a sense. But I suppose tiled
+maximisation could be better as well. I static layout mostly
+suits my usage patterns, so I haven't thought so much about
+resizing in general.. and it could be better. Even on tiled
+workspaces the saved_w/saved_h isn't entirely good enough,
+and rather there should be better attempts at restoring the
+sizes in all of layout, so far as the structure is still the
+same.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Thu Apr 24 07:48:38 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 24 Apr 2008 05:48:38 +0000 (UTC)
+Subject: Ion3 wishlist / a note about Ion4
+References: <44352.88.146.1.38.1208962658.squirrel@drak.ucw.cz>
+Message-ID: <slrng107pm.t8i.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-04-23, Tom?? Ebenlendr <ebik at drak.ucw.cz> wrote:
+> I'd like to use mouse chording [1], when defining my mouse bindings. As I
+> cannot (and also I don't want to) prevent mouse, I use mouse with as much
+> additional buttons as possible to avoid mouse-keyboard switching. I'd like
+> to use the additional buttons as mouse-modifiers.
+
+Sounds ok, and should be relatively trivial to implement, for X does
+pass ButtonXMask in the modifier state mask. 
+
+> But it will suffice to create msubmap 
+
+Submaps are not for modifies. All you should need is 
+
+        mpress("Button1Mask+Button2", ...) 
+
+or so, after adding support for buttons as modifiers. However, if
+you want to support button press sequences (without necessarily
+holding down the earlier buttons), then you don't really need
+the support for the buttons as modifiers (which you said isn't there
+fore buttons > 5... WTF? More than 5 buttons? I have just three;
+no wheel). Even in that case, the existing submap might suffice
+and support more general combos (mouse press in a keyboard submap,
+etc.), although would demand a bit more work.
+
+...
+
+There should actually also be a patch around somewhere, that adds
+support for some variant of double-clicking or something (I don't
+recall exactly what), that someone wrote for use on the N770 or so.
+But he never submitted it with darcs, so I couldn't be arsed to
+apply it, although would otherwise have included it.
+
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Fri Apr 25 08:48:32 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 25 Apr 2008 09:48:32 +0300
+Subject: Ion3 wishlist / a note about Ion4
+In-Reply-To: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080425064832.GA16299@jolt.modeemi.cs.tut.fi>
+
+On 2008-04-23 09:32 +0300, Tuomo Valkonen wrote:
+> 3. I will provide a list of some suggestions I have for Ion3plus, 
+> some of which might get into Ion4, in another post.
+
+Here are some. There may be others that I can't recall right now.
+
+  * Statusd improvements: should use a proper protocol, and support
+    multiple independent daemons; perhaps one for each monitor,
+    written in the author's language of choice. It really sucks
+    that every clone-statusbar author duplicates the work that
+    goes into writing and maintaining those monitoring
+    scripts/plugins. (That's typical FOSS: lots of redundant work,
+    although it's supposed to foster cooperation. But nobody ever
+    bothers to write properly reusable code -- across languages --
+    which I'm trying to encourage here.)
+
+    DBus is in principle the right protocol for this, although I 
+    really don't like the UTF-8 monoculturism [1] inherit in DBus and
+    all the commercial-quality crap that this powerful FDO clique of
+    paid developers spews out. One could also use mod_ionflux [2] 
+    as a base, improving the protol slightly to be similar to the 
+    present statusd protocol, and to support arbitrary commands.
+    
+  [1]: http://iki.fi/tuomov/b/archives/2006/08/26/T20_16_06/
+
+  [2]: http://iki.fi/tuomov/ion/misc.html
+
+  * Statusbar improvements: multi-line support, perhaps pointer
+    action support for fields, etc. (If one wants
+    support for the over-complex FDO systray protocol, it has to
+    be a separate module. Complete support is very difficult,
+    because it depends on the brain-damage known as XEmbed:
+    essentially that means writing a new non-ICCCM window 
+    manager with lots of ugly NIH hacks that work around using 
+    proper existing solutions like XGrabKey.)
+
+  * FDO startup notification spec [3] support could be nice. 
+    If more applications supported it, it should allow for proper
+    placement of windows in their startup frames. As usual, the protocol 
+    is quite complex to implement support for, and should be a separate
+    module (plus maybe new extra hooks, although I think I
+    specifically added some already).
+
+  [3]: http://standards.freedesktop.org/startup-notification-spec/startup-notification-latest.txt
+
+  * Much of libmainloop could be replaced by libevent [4],
+    improving code reuse and taking away maintenance burden.
+
+  [4]: http://monkey.org/~provos/libevent/
+
+  * Further drawing engine interface abstraction (I have some more
+    detailed ideas, if there's real interest).
+
+  * Additional drawing engines, with better configurability than
+    the simple default one.
+
+  * An ELisp-style binding command system might be nice, complete with
+    queries for parameters if not given, although it's extra work to 
+    maintain compared to the mere Lua programming interface [5].
+    But then again, menus already do contain the same definitions,
+    so one could just extend the menu definitions, and use menu names
+    as the commands (with translation support!), a bit like Opera has
+    clear-text command names.
+
+  [5]: http://iki.fi/tuomov/b/archives/2007/02/02/T18_49_51/
+
+  * Maybe, especially in conjunction of the previous feature, the 
+    config could be more tree-form, storable in arbitrary structural
+    files (incl. a single Lua table). 
+
+  * There are tonnes of minor glitches and incompleteness in Ion3.
+
+-- 
+Tuomo
+
+
+From tzz at lifelogs.com  Fri Apr 25 16:12:23 2008
+From: tzz at lifelogs.com (Ted Zlatanov)
+Date: Fri, 25 Apr 2008 09:12:23 -0500
+Subject: Ion3 wishlist / a note about Ion4
+In-Reply-To: <20080425064832.GA16299@jolt.modeemi.cs.tut.fi> (Tuomo Valkonen's
+	message of "Fri, 25 Apr 2008 09:48:32 +0300")
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+	<20080425064832.GA16299@jolt.modeemi.cs.tut.fi>
+Message-ID: <86zlrixbug.fsf@lifelogs.com>
+
+On Fri, 25 Apr 2008 09:48:32 +0300 Tuomo Valkonen <tuomov at iki.fi> wrote: 
+
+TV>   * An ELisp-style binding command system might be nice, complete with
+TV>     queries for parameters if not given, although it's extra work to 
+TV>     maintain compared to the mere Lua programming interface [5].
+TV>     But then again, menus already do contain the same definitions,
+TV>     so one could just extend the menu definitions, and use menu names
+TV>     as the commands (with translation support!), a bit like Opera has
+TV>     clear-text command names.
+
+TV>   [5]: http://iki.fi/tuomov/b/archives/2007/02/02/T18_49_51/
+
+God, yes please.  I'd be really happy to avoid Lua, and might get some
+real work done with Ion extensions if they used something Lisp-like.
+Every time I try to get going with Lua I end up annoyed.
+
+It's not a lot of work to support such a language because Lisp itself is
+almost trivial to parse and there's a million embeddable Lisp parsers
+out there.
+
+TV>   * Maybe, especially in conjunction of the previous feature, the 
+TV>     config could be more tree-form, storable in arbitrary structural
+TV>     files (incl. a single Lua table). 
+
+Just use JSON, every major language these days can parse it.  It's far
+from perfect, but compared to XML and others it's a joy to use.  It has
+the essentials (hashes, arrays, strings, numbers, and real null values),
+and it's not verbose.
+
+Ted
+
+
+From tuomov at iki.fi  Fri Apr 25 17:09:55 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 25 Apr 2008 15:09:55 +0000 (UTC)
+Subject: Ion3 wishlist / a note about Ion4
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+	<20080425064832.GA16299@jolt.modeemi.cs.tut.fi>
+	<86zlrixbug.fsf@lifelogs.com>
+Message-ID: <slrng13t23.t8t.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-04-25, Ted Zlatanov <tzz at lifelogs.com> wrote:
+> It's not a lot of work to support such a language because Lisp itself is
+> almost trivial to parse and there's a million embeddable Lisp parsers
+> out there.
+
+I didn't mean Lisp support (*yuck*). I meant merely the way ELisp
+code defines commands available to the user, so that emacs is able
+to query the parameters etc., documentation is included in the
+definition, and stuff. An implementation of The (defun ... interactive) 
+stuff in Lua, basically.
+
+defcmd("WRegion",       -- Context
+       "Execute",       -- Command name
+       {ProgramName},   -- List of parameter classes
+       "Run a program", -- Documentation
+       -- And finally the code
+       function(_, _sub, name)
+                ioncore.exec_on(_, name)
+       end)
+
+bind("WMPlex", "F3", "Execute")
+bind("WMPlex", "F2", "Execute", "xterm")
+
+defcmd might also provide the command as a lua function somewhere,
+e.g. cmds.WRegion.Execute or maybe WRegion.cmd_Execute. Note that
+this works with spaces too, as WFrame["cmd_Switch next"]. This
+way perhaps some of the C-side exports could be removed, making
+the API smaller. This function would require the _ and _sub arguments
+to be passed to it. Basically what 'bind' would then do is pass this
+function to the C-side stuff that only understands Lua functions.
+
+Something like that, with ProgramName being some class that defines 
+a completor for queries. (Maybe also WRegion, WMPlex should be passed
+as class definitions instead of strings... but that's just minor 
+details.) Better design suggestions are welcome, and implementations
+in particular.
+
+> TV>   * Maybe, especially in conjunction of the previous feature, the 
+> TV>     config could be more tree-form, storable in arbitrary structural
+> TV>     files (incl. a single Lua table). 
+>
+> Just use JSON, every major language these days can parse it.  It's far
+> from perfect, but compared to XML and others it's a joy to use.  
+
+It's shit, because it doesn't have identifiers and probably was
+UTF-8 monoculturist too, IIRC. In Lua, 
+
+        { foo = "bar" }
+
+is equivalent to
+
+        { ["foo"] = "bar" },
+
+the former being special identifier syntax. JSON only provides
+the equivalent of the latter.
+
+In case someone took me wrong, I have absolutely no plans of 
+abandoning Lua. Quite on the contrary, I will try to use more
+Lua and less C in any code I might get around to writing for
+Ion4. Lua can be used for table-form config just fine; there's
+no need to come up with a new format for storage. (If I did use
+something other than Lua, it would be .INI or something *binary*).
+But a config addressable in table-form by e.g. external tools, 
+offers various possibilities that a pure scripting language
+config doesn't.
+
+-- 
+Tuomo
+
+
+
+From alaborie at gmail.com  Mon Apr 28 12:17:02 2008
+From: alaborie at gmail.com (Alex)
+Date: Mon, 28 Apr 2008 12:17:02 +0200
+Subject: Regular behavior ?
+Message-ID: <26056dfc0804280317g4dcf1d03rb9ac7e14edc7a974@mail.gmail.com>
+
+Hi,
+
+I just want to know if this action agree with the regular behavior of ion. I
+have two workspaces: A and B. I am on workspace A, I switch into fullscreen
+mode (Alt+Enter), I do my stuff on xterm for instance, and I switch to
+workspace B (Alt+2). When I switch back to workspace A (Alt+1) xterm is
+closed. It's regular behavior of ion ? Because it's not very usefull. It's
+can be better if application was not closed. And maybe to choose in ion3
+configuration if fullsreen mode is keep or not...
+
+Alex
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080428/b5a0f449/attachment.html>
+
+From EvgenyKurbatov at yandex.ru  Mon Apr 28 12:32:05 2008
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Mon, 28 Apr 2008 14:32:05 +0400
+Subject: Regular behavior ?
+In-Reply-To: <26056dfc0804280317g4dcf1d03rb9ac7e14edc7a974@mail.gmail.com>
+References: <26056dfc0804280317g4dcf1d03rb9ac7e14edc7a974@mail.gmail.com>
+Message-ID: <4815A7A5.3090301@yandex.ru>
+
+Hi, Alex!
+
+It is not closing but migrating to separate and unnamed workspace.  You
+can have access to maximized window with the focuslist.
+
+Alex wrote:
+> Hi,
+> 
+> I just want to know if this action agree with the regular behavior of
+> ion. I have two workspaces: A and B. I am on workspace A, I switch into
+> fullscreen mode (Alt+Enter), I do my stuff on xterm for instance, and I
+> switch to workspace B (Alt+2). When I switch back to workspace A (Alt+1)
+> xterm is closed. It's regular behavior of ion ? Because it's not very
+> usefull. It's can be better if application was not closed. And maybe to
+> choose in ion3 configuration if fullsreen mode is keep or not...
+> 
+> Alex
+> 
+
+
+From EvgenyKurbatov at yandex.ru  Mon Apr 28 14:51:01 2008
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Mon, 28 Apr 2008 16:51:01 +0400
+Subject: Ion3 wishlist / a note about Ion4
+In-Reply-To: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+Message-ID: <4815C835.8030908@yandex.ru>
+
+Hi, Tuomo!
+
+I don't know whether it appropriate for wishlist or for unwanted-feature
+list..  I have problem.  Sometimes I use non-default X11 keyboard layout
+"ru(winkeys)" and when I switch to other application with focuslist or
+to other workspace with workspace list, the switching does not proceeded
+actually until I turn the keyboard layout to default.  It looks like
+menu would wait for me to switch language and then do what I asked about.
+
+This is example of menu binding.  No language-specific settings,
+everything is kosher:
+kpress(META.."Tab", "mod_menu.grabmenu(_, _sub, 'focuslist')"),
+
+Best witches,
+E
+
+
+From tuomov at iki.fi  Mon Apr 28 18:26:23 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 28 Apr 2008 16:26:23 +0000 (UTC)
+Subject: Ion3 wishlist / a note about Ion4
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+	<4815C835.8030908@yandex.ru>
+Message-ID: <slrng1bulf.jbk.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-04-28, Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+> Sometimes I use non-default X11 keyboard layout
+> "ru(winkeys)" and when I switch to other application with focuslist or
+> to other workspace with workspace list, the switching does not proceeded
+> actually until I turn the keyboard layout to default.  
+
+Sounds like a bug in something.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Wed Apr 30 07:37:02 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 30 Apr 2008 05:37:02 +0000 (UTC)
+Subject: Ion3 wishlist / a note about Ion4
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+	<20080425064832.GA16299@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrng1g1bu.8fu.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-04-25, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2008-04-23 09:32 +0300, Tuomo Valkonen wrote:
+>> 3. I will provide a list of some suggestions I have for Ion3plus, 
+>> some of which might get into Ion4, in another post.
+>
+> Here are some. There may be others that I can't recall right now.
+
+A few more ideas that have occasionally popped up:
+
+  * Help screen. There was some discussion about it on this list
+    a year ago [1]. 
+
+  [1]: http://www.mail-archive.com/ion-general at lists.berlios.de/msg01834.html
+
+  * Archy/Enso/etc. style input support, where you press down a modifier
+    and start typing a command. AFAIK there's been some work on this
+    by someone, but it's unfinished.
+
+  * Better support for the few applicable EWMH hints. One might e.g.
+    be able to imperfectly detect a panel from the struts properties,
+    and use it as the "status display" automatically, if one doesn't
+    already exist; see [2] for the present manual method.
+
+  [2]: http://iki.fi/tuomov/repos/ion-scripts-3/scripts/panel.lua
+
+  * One could also look into lifting the "one status display" limitation.
+    (It's not necessarily entirely trivial, because of the tiling layout
+    adaptation algorithms.)
+
+-- 
+Tuomo
+
+
+
+From janj+ion at wenf.org  Wed Apr 30 17:02:59 2008
+From: janj+ion at wenf.org (Jan Johansson)
+Date: Wed, 30 Apr 2008 17:02:59 +0200
+Subject: Ion3 wishlist / a note about Ion4
+In-Reply-To: <480F43A3.1090500@yandex.ru>
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+	<20080423133831.GA7806@tuvok.wenf.org> <480F43A3.1090500@yandex.ru>
+Message-ID: <20080430150259.GA20293@tuvok.wenf.org>
+
+Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+> Jan Johansson wrote:
+> > I would like to see window groups (awesome call it tags) so
+> > that windows can easily be hidden or shown depending on their
+> > group.
+> 
+> Maybe the separated workspace for these windows can help you?
+
+No, I have tried to use workspaces many times and they always
+confuses me on where my windows are.
+
+For more info on my setup see
+https://lists.berlios.de/pipermail/ion-general/2007-August/001465.html
+
+
+
+From janj+ion at wenf.org  Wed Apr 30 17:27:45 2008
+From: janj+ion at wenf.org (Jan Johansson)
+Date: Wed, 30 Apr 2008 17:27:45 +0200
+Subject: Ion3 wishlist / a note about Ion4
+In-Reply-To: <slrng0uhis.usr.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+	<20080423133831.GA7806@tuvok.wenf.org>
+	<slrng0uhis.usr.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080430152745.GB20293@tuvok.wenf.org>
+
+Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2008-04-23, Jan Johansson <janj+ion at wenf.org> wrote:
+> > I would like to see window groups (awesome call it tags) so
+> > that windows can easily be hidden or shown depending on their
+> > group.
+> 
+> This does not seem to very well fit with the tiling approach of
+> Ion
+
+On the contrary I think it fits very well. For my optimal setup I
+would only have one single workspace. Split in two or four
+(equal) parts. As the day goes on it fills with windows for
+different tasks. Just staring up I load my IM client, calendar
+and mail client. Then starting work in an a number of xterms. If
+I then want to dig into a problem I need to stop the IM, mail and
+such. I think it would be nice to just hide/unmap the tag/group
+"Interupters".
+
+> , but in relation to floating windows, Ion does support groups.
+
+Floating windows is so bad, thats why I use Ion. :-)
+
+> You may create multiple simultaneously visible groups (also
+> known as workspaces). They key is to not put them on the
+> 'mutually exclusive' or 'unnumbered' list of the screen. This
+> is what the 'unnumbered = true' option of WMPlex.attach[_new]
+> does. The scratchpad, for example, is contained in an
+> 'unnumbered' WGroupWS. IIRC there are some related scripts in
+> the scripts repo [1], but I'm not sure how up-to-date they are,
+> and certainly they could be improved.
+
+You lost me here but I think I get the point. I will have to
+experiment with that one day.
+
+> Of course, if you mean real non-hierarchical tagging of
+> floating windows, instead of grouping, that isn't supported as
+> such. But it is also possible to implement that support as a
+> script, at least to some extent: you don't have to put your
+> 'unnumbered' objects within a group. (Or 'numbered', but then
+> tagging doesn't make sense, because 'numbered' objects are
+> mutually exclusive.)
+
+Yes, I believe what I want is possible to script. Someday I will
+get there. (Never enough time).
+
+
+
+From EvgenyKurbatov at yandex.ru  Wed Apr 30 19:34:25 2008
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Wed, 30 Apr 2008 21:34:25 +0400
+Subject: Ion3 wishlist / a note about Ion4
+In-Reply-To: <slrng1bulf.jbk.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20080423063211.GA18304@jolt.modeemi.cs.tut.fi>
+	<4815C835.8030908@yandex.ru>
+	<slrng1bulf.jbk.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <4818ADA1.30507@yandex.ru>
+
+
+
+Tuomo Valkonen wrote:
+> On 2008-04-28, Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+>> Sometimes I use non-default X11 keyboard layout
+>> "ru(winkeys)" and when I switch to other application with focuslist or
+>> to other workspace with workspace list, the switching does not proceeded
+>> actually until I turn the keyboard layout to default.  
+> 
+> Sounds like a bug in something.
+
+Yes.  Such a behaviour I observed since first release if ion3 I used, it
+was far ago (I was too lasy to report this bug).  The bug looks like
+this.  The workspace list binded on Win+W combination and this list
+raised when I press Win+W or Win+Tse (Tse is russian symbol mapped onto
+W key in russian layout).  After list raised I can select something with
+mouse or cursor keys.  The mouse selection works independently on
+current keyboard layout but keyboard selection (i.e. when I press enter
+on needed item) works for default layout only, so if the russian layout
+set, pressing Enter do not lead to any action until I switch keyboard
+layout to default.  This is the bug.
+
+Best witches,
+E
+
+

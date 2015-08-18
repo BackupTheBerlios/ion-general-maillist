@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Feature freeze imminent
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Feature%20freeze%20imminent&In-Reply-To=%3C20070227192235.GL13216%40samason.me.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000167.html">
+   <LINK REL="Next"  HREF="000176.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Feature freeze imminent</H1>
+    <B>Sam Mason</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Feature%20freeze%20imminent&In-Reply-To=%3C20070227192235.GL13216%40samason.me.uk%3E"
+       TITLE="Feature freeze imminent">mason at f2s.com
+       </A><BR>
+    <I>Tue Feb 27 20:22:35 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000167.html">Feature freeze imminent
+</A></li>
+        <LI>Next message: <A HREF="000176.html">SetFS [Was: Re: Feature freeze imminent]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#174">[ date ]</a>
+              <a href="thread.html#174">[ thread ]</a>
+              <a href="subject.html#174">[ subject ]</a>
+              <a href="author.html#174">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Tue, Feb 27, 2007 at 04:39:27PM +0000, Tuomo Valkonen wrote:
+&gt;<i> On 2007-02-27, Sam Mason &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">mason at f2s.com</A>&gt; wrote:
+</I>&gt;<i> &gt; I thought that was because as the filesystem grew there would be many
+</I>&gt;<i> &gt; more files relative to tags.  
+</I>&gt;<i> 
+</I>&gt;<i> It depends on the use I guess. If, say, you would be saving email in
+</I>&gt;<i> the SetFS, each with its MessageID as one tag, and other information
+</I>&gt;<i> as other tags (say, 'ion/list/<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>/msg.123098asdfasdf234'),
+</I>&gt;<i> there would be more tags than files. But in many other use cases the
+</I>&gt;<i> situation might be the opposite.
+</I>
+If you can think up any cases where you're not going to have a similar
+number of tags to files then I'd be interested to know, I'm failing.
+The only one I can think of would be if you treated the tags like
+the digits of a binary number, I can't see anyone doing that in
+practise---the number tags would grow to the log of the files though!
+
+&gt;<i> &gt; If these names were treated the same as the rest of the tags thos
+</I>&gt;<i> &gt; would kill my naive pruning attempts.  One possible fix would be to
+</I>&gt;<i> &gt; diffrentiate between the filename and it's tags.  This is very different
+</I>&gt;<i> &gt; from what you wanted to do, but I'm not sure if it would be bad in
+</I>&gt;<i> &gt; practice.  
+</I>&gt;<i> 
+</I>&gt;<i> I've thought about a lot of extensions to the basic scheme, because,
+</I>&gt;<i> well it is not perfect, and there are still many situations where
+</I>&gt;<i> it is difficult to decide how one should tag things. (Even that
+</I>&gt;<i> example above, 'ion/list/<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>/msg.123098asdfasdf234' could
+</I>&gt;<i> be rendered in various different ways.) However, I've decided against
+</I>&gt;<i> most of these, because they would unnecessarily complicate the system,
+</I>&gt;<i> without really solving anything. One of these things is a distinguished
+</I>&gt;<i> file name component. KISS. 
+</I>
+It's up to the users to find the optimal way to use the tools isn't it?
+
+&gt;<i> Suppose you search by 'foo/bar', and get 'foo/bar/baz' among the 
+</I>&gt;<i> (fully qualified) results. The you absolutely have to list 'baz'
+</I>&gt;<i> in the output, because there's no other route to it, there being
+</I>&gt;<i> no additional tags. However, if you get the result 'foo/bar/baz/quk',
+</I>&gt;<i> but do _not_ get 'foo/bar/baz', you do not have to list 'baz', as
+</I>&gt;<i> 'quk' provides a path to the result 'foo/bar/baz/quk'. 
+</I>
+OK
+
+&gt;<i> You see, if you have a file with the set A of tags, and a file with
+</I>&gt;<i> the set B of tags, superset of A, you do not have to have the files
+</I>&gt;<i> with the sets of tags C_i, where C_i is between A and B. However, 
+</I>&gt;<i> if you want to, you can create such dummy files (&quot;directories&quot;), and
+</I>&gt;<i> thus direct the pruner.
+</I>
+Wouldn't there be the same number of occurrences for each tag? If so,
+how does the pruner know which one to pick?
+
+&gt;<i> The pruning operation would be unnecessary/automatic if we, instead 
+</I>&gt;<i> of tag bitmaps, stored the partial order of the tag sets in the FS. 
+</I>&gt;<i> Such a partial order would also immediately provide the structure to
+</I>&gt;<i> use for search for a file with exactly the given set of tags. However,
+</I>&gt;<i> the partial order structure seems intractable to maintain. (Consider 
+</I>&gt;<i> the number of subsets of a set.) Not that I've given it careful 
+</I>&gt;<i> thought yet...
+</I>
+I thought the point was to remove the hierarchy!
+
+More usefully, if you're sold on having a pruner then it sounds like
+the only way to get sensible answers out is to have some order in there
+somewhere.
+
+&gt;<i> &gt; That all sounds like quite a hard problem for any reasonable number of
+</I>&gt;<i> &gt; objects and tags.
+</I>&gt;<i> 
+</I>&gt;<i> Yes, the optimal pruning (at least without bounds on the number of
+</I>&gt;<i> tags per file) is (NP-) hard. However, sub-optimal should suffice.
+</I>&gt;<i> Of course, the pruning method can be user-tunable, and perhaps even
+</I>&gt;<i> some simple greedy lexicographical pruning would suffice sometimes
+</I>&gt;<i> (i.e. if an object is not covered by one of the tags seen yet, take
+</I>&gt;<i> the first of its tags in, say, lexicographical order, not part of the
+</I>&gt;<i> search set). Or maybe one could use the total occurence frequencies 
+</I>&gt;<i> of the tags (which can be stored on the fs) when there are many 
+</I>&gt;<i> results, and use the frequency within the results, when there aren't
+</I>&gt;<i> that many. Infact, if some program one wants particular kind of
+</I>&gt;<i> results, this could be configured in some path element:
+</I>&gt;<i> foo/#created:year=2006/#prune:alltags/ (demonstrating also the
+</I>&gt;<i> additional filters).
+</I>
+:<i>) you said you wanted to keep it simple earlier and now you're
+</I>proposing some ad-hock language to &quot;fix&quot; the pruning process?
+
+
+You mentioned earlier that you'd come up with lots of ideas and
+discarded them because they didn't really solve anything.  I'm not
+really sure what problems you're trying to solve!  I would be personally
+interested to see if we could turn this into something that would be
+usable as a file system that could be mounted to look after most of the
+files in a user's home directory.
+
+I think that hierarchical file systems are going to exist for a
+while---they are very good ways of organising code.  But unless you're
+doing something that naturally breaks down into a hierarchy, like code,
+(i.e. most things) then the tag concept is probably more useful.
+
+How far apart are our goals?
+
+
+  Sam
+
+p.s. I hope this is somewhat interesting to you, I tend to get carried
+away with these sorts of discussions!
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000167.html">Feature freeze imminent
+</A></li>
+	<LI>Next message: <A HREF="000176.html">SetFS [Was: Re: Feature freeze imminent]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#174">[ date ]</a>
+              <a href="thread.html#174">[ thread ]</a>
+              <a href="subject.html#174">[ subject ]</a>
+              <a href="author.html#174">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

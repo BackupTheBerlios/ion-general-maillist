@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Statusbar and colors
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Statusbar%20and%20colors&In-Reply-To=%3C20070107202708.GA17273%40mail.gh-nmental.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000005.html">
+   <LINK REL="Next"  HREF="000007.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Statusbar and colors</H1>
+    <B>G.H.</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Statusbar%20and%20colors&In-Reply-To=%3C20070107202708.GA17273%40mail.gh-nmental.net%3E"
+       TITLE="Statusbar and colors">drosophila at nmental.com
+       </A><BR>
+    <I>Sun Jan  7 21:27:08 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000005.html">Statusbar and colors
+</A></li>
+        <LI>Next message: <A HREF="000007.html">ion3 with dynamic twinview
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#6">[ date ]</a>
+              <a href="thread.html#6">[ thread ]</a>
+              <a href="subject.html#6">[ subject ]</a>
+              <a href="author.html#6">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&gt;<i> Is it possible to restore a frame layout for a given application with 
+</I>&gt;<i> more than one window (e.g. gimp) or have I always have to move the 
+</I>&gt;<i> windows into the appropriate frame (Gimp Main Icon Bar into a small left 
+</I>&gt;<i> frame, Layers into a small right frame, Image into a big center frame)? 
+</I>&gt;<i> I already created a workspace with the desired frame layout, but I would 
+</I>&gt;<i> like that gimp automagically fills the frames when started.
+</I>Yes, but somebody could fill less lines showing you how to do it.
+The key is to look for window names, binding the respective 'regexp' with
+actual Ion frames. the procedure is indeed in the Ion help pages.
+
+&gt;<i> Is it possible to use colors in the status bar (e.g. a label in blue 
+</I>&gt;<i> and the value in white or separators in gray)
+</I>Yes, you could change colors editing the module lookcommon_*.lua, depending
+on the theme actually used.
+
+&gt;<i> Is it possible to turn of some of Ions key bindings only for a given 
+</I>&gt;<i> application (e.g. midnight commander)?
+</I>Very possible, you don't need to change anything to achieve your goal.
+On Linux systems the META key is usually left-ALT.
+press META + K + Q to bind the next command to another program.
+Example: META + K + Q  =&gt;  F10  to exit from &quot;mc&quot;.
+
+Alternatively you could bind some special commands like this (note: the module
+used is 'ioncore', the ioncore's function used is: &quot;exec_on&quot;):
+
+    bdoc(&quot;SLEEP&quot;),
+    kpress(&quot;XF86Sleep&quot;, &quot;ioncore.exec_on(_, 'xset dpms force off')&quot;)
+
+(Put to sleep your monitor).
+
+Bye.
+-- 
+Mario G.H.
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000005.html">Statusbar and colors
+</A></li>
+	<LI>Next message: <A HREF="000007.html">ion3 with dynamic twinview
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#6">[ date ]</a>
+              <a href="thread.html#6">[ thread ]</a>
+              <a href="subject.html#6">[ subject ]</a>
+              <a href="author.html#6">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

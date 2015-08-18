@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Lua integration suggestions
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Lua%20integration%20suggestions&In-Reply-To=%3Cslrnerrccp.j71.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000085.html">
+   <LINK REL="Next"  HREF="000089.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Lua integration suggestions</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Lua%20integration%20suggestions&In-Reply-To=%3Cslrnerrccp.j71.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Lua integration suggestions">tuomov at iki.fi
+       </A><BR>
+    <I>Mon Jan 29 09:34:33 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000085.html">Lua integration suggestions
+</A></li>
+        <LI>Next message: <A HREF="000089.html">Compilation problem: &quot;Using 'dlopen' in statically linked	applications (...)&quot;
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#86">[ date ]</a>
+              <a href="thread.html#86">[ thread ]</a>
+              <a href="subject.html#86">[ subject ]</a>
+              <a href="author.html#86">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2007-01-29, Thomas Harning Jr. &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">harningt+ion at gmail.com</A>&gt; wrote:
+&gt;<i> I was looking through things in Ion-3 and noticed the usage of some
+</I>&gt;<i> structures that could be implemented using existing structures in Lua,
+</I>&gt;<i> one of the seemingly important elements of the WM.
+</I>
+I'm a bit divided on taking so much advantage of Lua, and keeping the
+core of Ion rather ignorant to the extension language used. 
+
+&gt;<i>  1) stringstore
+</I>&gt;<i>    This could take advantage Lua's string storage.  
+</I>
+Yeah, I've thought about this...
+
+&gt;<i> Perhaps using a  table in the registry w/ a known index (ex: name).  
+</I>
+That's slow. The C-side references are already indices into the registry.
+You could simply directly use the registry, just like the ExtlTab and ExtlFn
+references use, but there is a tiny problem: you'd still need to do your 
+own reference counting. The ExtlTab and ExtlFn reference IDs are duplicated
+for each C-side reference, and so can not be compared. And being able
+to compare the strings with simple integer equality is crucial of
+stringstore. Lua also does so, by comparing the object pointers, but
+these are not available to user C code from the basic API -- and for
+a reason: the garbage collector doesn't know of client C code references.
+So you'd have to do the comparison as well through the Lua API, and that
+has a _lot_ of overhead. Especially as thanks to the extensive use of 
+longjmp by Lua, I have to wrap everything in lua_pcall...
+
+So it seems, that for stringstore Lua integration is not an option,
+at least not with the present API.
+
+&gt;<i>  2) other rv_tree usage/map/ptrlist/
+</I>
+I actually used to use Lua tables for some uses of the red black trees,
+before I added the code to libtu. But then I needed a more efficient
+implementation for something (or maybe it was because working with
+tables or Objs alone is cumbersome, and I didn't want to extend libextl 
+to support arbitrary userdata). And once the code is there, it's better
+to use it.
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000085.html">Lua integration suggestions
+</A></li>
+	<LI>Next message: <A HREF="000089.html">Compilation problem: &quot;Using 'dlopen' in statically linked	applications (...)&quot;
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#86">[ date ]</a>
+              <a href="thread.html#86">[ thread ]</a>
+              <a href="subject.html#86">[ subject ]</a>
+              <a href="author.html#86">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

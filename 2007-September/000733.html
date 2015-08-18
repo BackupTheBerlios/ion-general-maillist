@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Bug#409612: xlibs-data: Modifier mappings broken
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-September/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Bug%23409612%3A%20xlibs-data%3A%20Modifier%20mappings%20broken&In-Reply-To=%3C20070923165448.GA14587%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000732.html">
+   <LINK REL="Next"  HREF="000734.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Bug#409612: xlibs-data: Modifier mappings broken</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Bug%23409612%3A%20xlibs-data%3A%20Modifier%20mappings%20broken&In-Reply-To=%3C20070923165448.GA14587%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Bug#409612: xlibs-data: Modifier mappings broken">tuomov at iki.fi
+       </A><BR>
+    <I>Sun Sep 23 18:54:48 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000732.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+        <LI>Next message: <A HREF="000734.html">Bug#409612: xlibs-data: Modifier mappings broken
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#733">[ date ]</a>
+              <a href="thread.html#733">[ thread ]</a>
+              <a href="subject.html#733">[ subject ]</a>
+              <a href="author.html#733">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>(Quoting full post, because Cc:ing to the Ion list.)
+
+On 2007-09-23 03:01 +0200, Mohammed Adn&#232;ne Trojette wrote:
+&gt;<i> tag 409612 moreinfo
+</I>&gt;<i> thanks
+</I>&gt;<i> 
+</I>&gt;<i> On Sun, Feb 04, 2007, tuomov wrote:
+</I>&gt;<i> &gt; The modifier mappings in stock keyboard layouts are broken.
+</I>&gt;<i> &gt; For details, I'll just attach the Ion FAQ entry below from
+</I>&gt;<i> &gt; &lt;<A HREF="http://iki.fi/tuomov/ion/faq/entries/Modifier_releases.html">http://iki.fi/tuomov/ion/faq/entries/Modifier_releases.html</A>&gt;.
+</I>&gt;<i> &gt; (I have not myself experienced that problem, though -- I don't
+</I>&gt;<i> &gt; use Xkb crud at all, because customisation of Xkb based layouts
+</I>&gt;<i> &gt; is too laboursome, difficult, undocumented etc. -- but users have 
+</I>&gt;<i> &gt; experienced it on various systems, and this seems the easiest 
+</I>&gt;<i> &gt; channel to report the problem.)
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; ---
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; _Ion doesn't notice that a modifier has been released
+</I>&gt;<i> &gt; (in actions that use like `kpress_wait`, such as META+C, 
+</I>&gt;<i> &gt; or in &#8220;grabmenus&#8221;)._
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; This is most likely to be an X bug/keyboard misconfiguration,
+</I>&gt;<i> &gt; when you have changed the &#8220;META&#8221; key of Ion to Mod4, or 
+</I>&gt;<i> &gt; something else that supposed has one of the Win-keys bound to
+</I>&gt;<i> &gt; it. For some reason, some Xorg comes with some totally broken
+</I>&gt;<i> &gt; stock keyboard layouts that define multiple keycodes for the 
+</I>&gt;<i> &gt; `Super_L` and such &#8220;keysyms&#8221;, one of them spurious. However, 
+</I>&gt;<i> &gt; various part of X or Xlib can not handle that, and report the
+</I>&gt;<i> &gt; wrong keycode when queried.&lt;sup&gt;1&lt;/sup&gt;
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; To check if this is the case, first run `xmodmap` to check
+</I>&gt;<i> &gt; what key is bound to the Mod4 (or perhaps Mod3 depending
+</I>&gt;<i> &gt; on the configuration) modifier. You may see a line like
+</I>&gt;<i> &gt; this:
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt;     mod4        Super_L (0x7f),  Hyper_L (0x80)
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; The number 0x7f=127 is the keycode, and this is highly likely 
+</I>&gt;<i> &gt; the wrong keycode. Check with `xmodmap -pke|grep Super_L`
+</I>&gt;<i> &gt; to see what keycodes have `Super_L` bound to them. If you
+</I>&gt;<i> &gt; see something like this, your keymap is misconfigured:
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt;     keycode 115 = Super_L
+</I>&gt;<i> &gt;     keycode 127 = NoSymbol Super_L
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; The keycode 115 is the keycode for the real left Win key,
+</I>&gt;<i> &gt; and 127 is spurious. However, the modifier subsystem only
+</I>&gt;<i> &gt; seems to see the latter. Putting the following commands
+</I>&gt;<i> &gt; in `~/.Xmodmap` and runnning `xmodmap ~/.Xmodmap` should
+</I>&gt;<i> &gt; fix the issue. You may also want/need to repeat for the 
+</I>&gt;<i> &gt; other Win keys (`Hyper_L` and 0x80=127 in our example case).
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt;     remove mod4 = Super_L
+</I>&gt;<i> &gt;     keycode 127 = NoSymbol
+</I>&gt;<i> &gt;     add mod4 = Super_L
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; (The `remove` command is needed for some reason to not confuse X.)
+</I>&gt;<i> &gt; Unless your system configuration is totally weird (and I wouldn't 
+</I>&gt;<i> &gt; put it past systems built to run Gnome), next time you start X, 
+</I>&gt;<i> &gt; `~/.Xmodmap` should be loaded automatically. On a working modifier
+</I>&gt;<i> &gt; configuration running `xmodmap` should display a line like below
+</I>&gt;<i> &gt; (0x73 following `Super_L` being the important part).
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt;     mod4        Super_L (0x73)
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; ---
+</I>&gt;<i> 
+</I>&gt;<i> Hello,
+</I>&gt;<i> 
+</I>&gt;<i> does this bug apply to Debian's Xorg? Is it still a problem with the
+</I>&gt;<i> recent Xorg versions in Debian?
+</I>&gt;<i> 
+</I>&gt;<i> What is the output of the following command?
+</I>&gt;<i> % xprop -root | grep XKB
+</I>&gt;<i> 
+</I>&gt;<i> (I don't use ion myself.)
+</I>&gt;<i> 
+</I>&gt;<i> -- 
+</I>&gt;<i> Mohammed Adn&#232;ne Trojette
+</I>
+Does recent mean something later than etch? In that case I can't
+help now, and unlikely in the future either (because the present 
+2.6.14 kernel and etch setup is likely to be my last Linux setup 
+ever unless something marvellous happens, which seems unlikely). 
+In any case, the output from that command is
+
+    _XKB_RULES_NAMES(STRING) = &quot;xfree86&quot;, &quot;logicdp&quot;, &quot;fi&quot;, &quot;nodeadkeys&quot;,
+    &quot;ctrl:nocaps&quot;
+
+But, as mentioned above, I don't actually use Xkb crud at all myself
+(thanks to the use of ISO_Level3_Shift instead of Mode_Switch, only
+the latter of which can be customised easily with xmodmap, Xkb 
+configuration itself being cryptic and ultra-complex like almost
+anything recent in *nix).
+
+Maybe some people on the Ion list can be of more help; I just reported
+this bug because nobody else seemed to be arsed to.
+
+-- 
+Tuomo
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000732.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+	<LI>Next message: <A HREF="000734.html">Bug#409612: xlibs-data: Modifier mappings broken
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#733">[ date ]</a>
+              <a href="thread.html#733">[ thread ]</a>
+              <a href="subject.html#733">[ subject ]</a>
+              <a href="author.html#733">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

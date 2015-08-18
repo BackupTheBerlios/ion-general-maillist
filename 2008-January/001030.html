@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Keybindings
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Keybindings&In-Reply-To=%3C3661995d0801290944r7588e4eam5a904580935f77cf%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001029.html">
+   <LINK REL="Next"  HREF="001031.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Keybindings</H1>
+    <B>Jorge Gajon</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Keybindings&In-Reply-To=%3C3661995d0801290944r7588e4eam5a904580935f77cf%40mail.gmail.com%3E"
+       TITLE="Keybindings">jorge.gajon at gmail.com
+       </A><BR>
+    <I>Tue Jan 29 18:44:12 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001029.html">Keybindings
+</A></li>
+        <LI>Next message: <A HREF="001031.html">Keybindings
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1030">[ date ]</a>
+              <a href="thread.html#1030">[ thread ]</a>
+              <a href="subject.html#1030">[ subject ]</a>
+              <a href="author.html#1030">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Jan 29, 2008 11:34 AM, Jens Jahnke &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">jan0sch at gmx.net</A>&gt; wrote:
+&gt;<i> Hi there,
+</I>&gt;<i>
+</I>&gt;<i> I tried to configure some keybindings and they don't seem to work.
+</I>&gt;<i> The corresponding file:
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">jens at nifelheim</A>:~# cat .ion3/cfg_keys.lua
+</I>&gt;<i> -- some shortcuts
+</I>&gt;<i> defbindings(&quot;WScreen&quot;, {
+</I>&gt;<i>   kpress(XF86WWW, &quot;ioncore.exec_on(_, 'opera -nomail')&quot;),
+</I>&gt;<i>   kpress(XF86Search, &quot;ioncore.exec_on(_, 'xfe')&quot;),
+</I>&gt;<i>   kpress(XF86Mail, &quot;ioncore.exec_on(_, 'sylpheed')&quot;),
+</I>&gt;<i>   kpress(XF86Forward, &quot;WScreen.switch_next(_)&quot;),
+</I>&gt;<i>   kpress(XF86Back, &quot;WScreen.switch_prev(_)&quot;),
+</I>&gt;<i> })
+</I>&gt;<i>
+</I>
+Shouldn't the key names be strings?, try it:
+
+  kpress(&quot;XF86WWW&quot;, &quot;ioncore.exec_on(_, 'opera -nomail')&quot;)
+
+
+
+Regards,
+- Jorge
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001029.html">Keybindings
+</A></li>
+	<LI>Next message: <A HREF="001031.html">Keybindings
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1030">[ date ]</a>
+              <a href="thread.html#1030">[ thread ]</a>
+              <a href="subject.html#1030">[ subject ]</a>
+              <a href="author.html#1030">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

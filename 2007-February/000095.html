@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> ion-3ds-20070203
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion-3ds-20070203&In-Reply-To=%3Cslrnes99je.3kg.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000094.html">
+   <LINK REL="Next"  HREF="000096.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>ion-3ds-20070203</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion-3ds-20070203&In-Reply-To=%3Cslrnes99je.3kg.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="ion-3ds-20070203">tuomov at iki.fi
+       </A><BR>
+    <I>Sat Feb  3 16:12:46 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000094.html">Doing more with less &amp; Re: Xinerama support
+</A></li>
+        <LI>Next message: <A HREF="000096.html">Not-a-wiki (do we need a &quot;community editable&quot; site?)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#95">[ date ]</a>
+              <a href="thread.html#95">[ thread ]</a>
+              <a href="subject.html#95">[ subject ]</a>
+              <a href="author.html#95">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Release notes:
+
+  * There's been changes in padding/spacing usage in styles. Frames
+    now surround stuff inside borders not with `spacing` pixels, but
+    with `padding_pixels`. Spacing is only used to space things within
+    the borders (all the tabs and the client window from each other).
+    Consequently, custom styles may need to be updated to reflect this,
+    by increasing the padding, possibly also altering/removing colour
+    (to set it to background colour).
+
+  * The use of drawing engine attributes has also changed, and strict
+    ordering of them in the styles is no longer necessary. Additionally,
+    much more attributes are supported, including the name of every
+    statusbar meter.
+
+  * Xinerama support is gone. In addition to being problematic as such,
+    it had bit-rotted, and I will not waste time fixing it.
+
+  * `ioncore.set` no longer supports the `default_ws_params parameter
+    for configuring the default layout. It is replaced by
+    `ioncore.deflayout(&quot;default&quot;, { ... })`, which allows configuring
+    other layouts as well, known by `mod_query.query_workspace` (F9).
+    Some default layouts are configured in `cfg_layout.lua`.
+
+  * It is now possible to automatically create new workspaces for
+    windows with the `new_group` winprop.
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000094.html">Doing more with less &amp; Re: Xinerama support
+</A></li>
+	<LI>Next message: <A HREF="000096.html">Not-a-wiki (do we need a &quot;community editable&quot; site?)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#95">[ date ]</a>
+              <a href="thread.html#95">[ thread ]</a>
+              <a href="subject.html#95">[ subject ]</a>
+              <a href="author.html#95">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

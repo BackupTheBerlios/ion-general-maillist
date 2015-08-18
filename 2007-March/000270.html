@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> If it is still unclear to someone...
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20If%20it%20is%20still%20unclear%20to%20someone...&In-Reply-To=%3C20070318122408.GA852%40marco.fz-rossendorf.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000269.html">
+   <LINK REL="Next"  HREF="000271.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>If it is still unclear to someone...</H1>
+    <B>Joerg van den Hoff</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20If%20it%20is%20still%20unclear%20to%20someone...&In-Reply-To=%3C20070318122408.GA852%40marco.fz-rossendorf.de%3E"
+       TITLE="If it is still unclear to someone...">j.van_den_hoff at fzd.de
+       </A><BR>
+    <I>Sun Mar 18 13:24:08 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000269.html">If it is still unclear to someone...
+</A></li>
+        <LI>Next message: <A HREF="000271.html">If it is still unclear to someone...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#270">[ date ]</a>
+              <a href="thread.html#270">[ thread ]</a>
+              <a href="subject.html#270">[ subject ]</a>
+              <a href="author.html#270">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Sun, Mar 18, 2007 at 11:05:55AM +0000, Tuomo Valkonen wrote:
+&gt;<i> On 2007-03-18, Ted Zlatanov &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tzz at lifelogs.com</A>&gt; wrote:
+</I>&gt;<i> &gt; I think this kind of help should actually live in the scratchpad, it's
+</I>&gt;<i> &gt; exactly the right pop-up model.
+</I>&gt;<i> 
+</I>&gt;<i> As already mentioned, this has the problem that the user has to be
+</I>&gt;<i> able to toggle it on, _and_ also has to toggle it off to do anything.
+</I>&gt;<i> The statusbar would provide a constantly visible help or instruction
+</I>&gt;<i> area.
+</I>&gt;<i> 
+</I>&gt;<i> &gt; Also, it should automatically discover the current key bindings for
+</I>&gt;<i> &gt; commands.  So if I rebind &quot;delete split&quot; to key X, I want to see X
+</I>&gt;<i> &gt; there.
+</I>that's how `mutt' dynamically adjusts it's help pages. I think that is good,
+but even better would be augmenting this by parenthesis a la &quot;(changed from
+default definition xxx)&quot; so that one could incrementally restore default
+bindings easily if need be.
+&gt;<i> 
+</I>&gt;<i> There are no identifiable commands, only arbitrary function calls.
+</I>&gt;<i> (The closest Ion comes to commands, is the context menu...) However,
+</I>&gt;<i> by overriding `defbindings`, it is possible to store this information
+</I>&gt;<i> and the `bdoc` documentation -- which may, however, be too long for 
+</I>&gt;<i> a simple statusbar help display.
+</I>&gt;<i> 
+</I>&gt;<i> &gt; blank screen = first start (determined by Ion, e.g. by missing ~/.ion3
+</I>&gt;<i> &gt; directory)
+</I>&gt;<i> 
+</I>&gt;<i> Ion already has first start detection, for the welcome xmessage --
+</I>&gt;<i> that many seem to ignore.
+</I>&gt;<i> 
+</I>&gt;<i> &gt; Does this seem like the right way to go, a linear tutorial that
+</I>&gt;<i> &gt; introduces simple concepts one by one?
+</I>&gt;<i> 
+</I>&gt;<i> Perhaps, but as already mentioned, in the scratchpad, it has the
+</I>&gt;<i> problem of the user having to constantly toggle it.
+</I>&gt;<i> 
+</I>I agree: scratchpad as the sole location is no good for this. but why not make
+it available instead of the ion3-manpage with MOD1-F1?  the manpage everyone
+will be able to access otherwisei -- be it via F1 (where it is the default
+anyway), be it via some xterm.
+
+having the tutorial come up with MOD1-F1 (and an initial xmessage at first
+startup that it is there to find) would be a good thing. It could even still be
+in `man' format. (or some more flexible troff macro package, such as `ms'. one
+then could even use the troff preprocessors such as `tbl', 'eqn', `pic', but
+keep the ability to get a reasonable ascii/latin1 approximation of the formatted
+document in the terminal).
+
+I recently convinced some colleague to dump GNOME and try out `ion3' (hey!
+and just for the record: he at that point tried to compare `ion3' to `wmii' and
+immediately dropped the latter due to it's inability to manage his second
+monitor). 
+what I noticed, then, were two things:
+
+1. the list of default keybindings and available actions is somehow there in the
+manpage but people have difficulties at first to understand the terminology
+(workspaces, clients, objects, frames etc.) and thus difficulties to understand
+what the commands do. conclusion: the tutorial should try to make this easier to
+grasp.
+
+2. more important is to tell the users, where to configure what and how: in
+other words, each explanation of an action/keybinding should be augmented by the
+name of the config-file where I can change the binding. suggesting a strategy how to do
+customization in such a way that it survives with minimal damage any update
+would be helpful, too (if you simply copies over everything to ~/.ion3 and edits
+this heavily you've to start over from scratch the next time, if the
+default config-scripts have changed due to update. probably some kind of
+`dopath' strategy would be the best thing to suggest?).
+
+
+
+joerg
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000269.html">If it is still unclear to someone...
+</A></li>
+	<LI>Next message: <A HREF="000271.html">If it is still unclear to someone...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#270">[ date ]</a>
+              <a href="thread.html#270">[ thread ]</a>
+              <a href="subject.html#270">[ subject ]</a>
+              <a href="author.html#270">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

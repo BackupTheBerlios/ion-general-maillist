@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> ion-statusd eating up 100% cpu
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-June/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion-statusd%20eating%20up%20100%25%20cpu&In-Reply-To=%3C20080623223808.5c46672f%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001258.html">
+   <LINK REL="Next"  HREF="001261.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>ion-statusd eating up 100% cpu</H1>
+    <B>Christian Glindkamp</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion-statusd%20eating%20up%20100%25%20cpu&In-Reply-To=%3C20080623223808.5c46672f%40gmail.com%3E"
+       TITLE="ion-statusd eating up 100% cpu">christian.glindkamp at gmail.com
+       </A><BR>
+    <I>Mon Jun 23 22:38:08 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001258.html">ion-statusd eating up 100% cpu
+</A></li>
+        <LI>Next message: <A HREF="001261.html">ion-statusd eating up 100% cpu
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1260">[ date ]</a>
+              <a href="thread.html#1260">[ thread ]</a>
+              <a href="subject.html#1260">[ subject ]</a>
+              <a href="author.html#1260">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Mon, 23 Jun 2008 22:25:53 +0300, Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt; wrote:
+&gt;<i> On 2008-06-23 19:40 +0200, Christian Glindkamp wrote:
+</I>&gt;<i> &gt;   setitimer(ITIMER_REAL, {it_interval={0, 19}, it_value={0, 19}}, NULL) = 0
+</I>&gt;<i> &gt;   --- SIGALRM (Alarm clock) @ 0 (0) ---
+</I>&gt;<i> 
+</I>&gt;<i> Ok, there's a small chance that it may be as I already suspected: 
+</I>&gt;<i> For some reason (bitrot maybe; I didn't actually write the code, 
+</I>&gt;<i> IIRC), the timer code sets it_interval, although it does not need
+</I>&gt;<i> the signal repeated at static intervals. So, when this interval
+</I>&gt;<i> is very short, Ion may never actually get far from returning
+</I>&gt;<i> from the signal handler, until the signal is delivered again.
+</I>&gt;<i> 
+</I>&gt;<i> The attached patch might fix the issue, if this is the case.
+</I>&gt;<i> However, now there's a potential for another race condition:
+</I>&gt;<i> what if the signal gets delivered before we call select()?
+</I>&gt;<i> Without repetion, we might never return from select() to
+</I>&gt;<i> handle the timer signal.
+</I>
+Exactly this seems to have happened now. Wouldn't it be possible, at
+least as a workaround, to call select with a timeout or did I missed
+something (I don't know the ion code base, I just skimmed through some
+of the related code sections)?
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001258.html">ion-statusd eating up 100% cpu
+</A></li>
+	<LI>Next message: <A HREF="001261.html">ion-statusd eating up 100% cpu
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1260">[ date ]</a>
+              <a href="thread.html#1260">[ thread ]</a>
+              <a href="subject.html#1260">[ subject ]</a>
+              <a href="author.html#1260">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

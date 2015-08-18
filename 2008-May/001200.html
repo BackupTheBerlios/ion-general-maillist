@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Ion3 wishlist / a note about Ion4
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion3%20wishlist%20/%20a%20note%20about%20Ion4&In-Reply-To=%3Cslrng3bpb9.gt5.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001201.html">
+   <LINK REL="Next"  HREF="001202.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Ion3 wishlist / a note about Ion4</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion3%20wishlist%20/%20a%20note%20about%20Ion4&In-Reply-To=%3Cslrng3bpb9.gt5.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Ion3 wishlist / a note about Ion4">tuomov at iki.fi
+       </A><BR>
+    <I>Thu May 22 23:28:09 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001201.html">Ion3 wishlist / a note about Ion4
+</A></li>
+        <LI>Next message: <A HREF="001202.html">Ion3 wishlist / a note about Ion4
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1200">[ date ]</a>
+              <a href="thread.html#1200">[ thread ]</a>
+              <a href="subject.html#1200">[ subject ]</a>
+              <a href="author.html#1200">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-05-22, Alain-Pierre Manine &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">apmanine at free.fr</A>&gt; wrote:
+&gt;<i> Just a naive question: doesn't the code for locking submaps exist in a way  
+</I>&gt;<i> or another, as resizing a frame is done following a modal way (contrary to  
+</I>&gt;<i> the other frames operations)?
+</I>
+Indeed, there's some code to that end there too. However, the resize
+modes etc. don't support further submaps. (Not that one would likely
+want them in a vi-style mode anyway.)
+
+Infact, now that I recall, I did write mod_mgmtmode, but never
+finished it and removed it for the release. I can make it available
+of there's interest in finishing it.
+
+&gt;<i> To do this, I may tag  
+</I>&gt;<i> the relevant windows, hit a magic key, and after that, the windows will  
+</I>&gt;<i> show in a temporary workspace (i.e. fullscreen-like way), organized  
+</I>&gt;<i> following an user-defined heuristic. Hit the magic keys again, and all  
+</I>&gt;<i> windows would go back to their original location.
+</I>
+It's not difficult to script this. However, the 'placeholder'
+mechanisms of Ion would be very useful in returning windows more
+intelligently where they were. That is not currently exported on
+the Lua side. It should not be that much work, and really should
+be done, but once again I can't have been arsed. (I don't have
+immediate personal use for the feature, it's gruntwork, and
+I don't have much time for coding anyway.)
+
+(A lot of the complexity of Ion's code is actually due to these
+&quot;placeholders&quot; and pointers to them in other structures. They're
+used to ensure that windows return from full screen mode exactly
+where they were, that under a session manager applications restart
+exactly where they were, and so on. Ion tries very hard to do these
+things &quot;right&quot;.)
+
+&gt;<i> 4bis) Somehow related to 4): when you organize your workspaces by task, it  
+</I>&gt;<i> may happen that a window is common to multiple tasks. Thus, it might be  
+</I>&gt;<i> useful to have a way to duplicate a window. With xterms, I (ok, very  
+</I>&gt;<i> seldom) use &quot;screen -x&quot; to do this.
+</I>
+Scriptable, but a bit ugly. Maybe there even was a script already,
+as this is a sort FAQ item?
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001201.html">Ion3 wishlist / a note about Ion4
+</A></li>
+	<LI>Next message: <A HREF="001202.html">Ion3 wishlist / a note about Ion4
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1200">[ date ]</a>
+              <a href="thread.html#1200">[ thread ]</a>
+              <a href="subject.html#1200">[ subject ]</a>
+              <a href="author.html#1200">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

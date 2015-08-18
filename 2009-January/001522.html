@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> path, alias with F3
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20path%2C%20alias%20with%20F3&In-Reply-To=%3C20090107221653.53b1480c%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001521.html">
+   <LINK REL="Next"  HREF="001523.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>path, alias with F3</H1>
+    <B>Christian Glindkamp</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20path%2C%20alias%20with%20F3&In-Reply-To=%3C20090107221653.53b1480c%40gmail.com%3E"
+       TITLE="path, alias with F3">christian.glindkamp at gmail.com
+       </A><BR>
+    <I>Wed Jan  7 22:16:53 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001521.html">path, alias with F3
+</A></li>
+        <LI>Next message: <A HREF="001523.html">ion-3-20090110
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1522">[ date ]</a>
+              <a href="thread.html#1522">[ thread ]</a>
+              <a href="subject.html#1522">[ subject ]</a>
+              <a href="author.html#1522">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Wed, 7 Jan 2009 21:58:52 +0100 Colin Cartade &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">colin.cartade at ens-cachan.fr</A>&gt; wrote:
+&gt;<i> On 19:39  07-01, Tuomo Valkonen wrote:
+</I>&gt;<i> &gt; &gt; I tried
+</I>&gt;<i> &gt; &gt;     mod_query.message(_, os.get_env('PATH'))
+</I>&gt;<i> &gt; &gt; but I got an error :
+</I>&gt;<i> &gt; &gt;     attempt to call field 'get_env' (a nil value)
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; It's getenv. (There's also a shorter way to display values
+</I>&gt;<i> &gt; from queries, as the Lua print function is overridden in them:
+</I>&gt;<i> &gt; print(os.getenv(&quot;PATH&quot;)) )
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; &gt; I launch ion with exec ion3 in my .xsession and gdm.
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; Then set PATH in your .xsession before launching Ion.
+</I>&gt;<i> &gt; setenv is also provided by the Lua posix module, but
+</I>&gt;<i> &gt; it's better to set the PATH by loading some .bashenv or
+</I>&gt;<i> &gt; something from .xsession. 
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; (Actually, it's all a big mess, because the crappy display 
+</I>&gt;<i> &gt; managers don't load the shells' environment from anywhere, 
+</I>&gt;<i> &gt; but you should do redundant work by defining the stuff in 
+</I>&gt;<i> &gt; .xsession again. But .xsession is also sometimes loaded by
+</I>&gt;<i> &gt; stock xinitrc these days, and in that case then you shouldn't 
+</I>&gt;<i> &gt; load the environment definitions again.)
+</I>&gt;<i> 
+</I>&gt;<i> Thanks, it works very well. If there's a better way than using gdm, I am
+</I>&gt;<i> interested (I don't like gnome very much).
+</I>
+Why don't you just login on a text console and run startx?
+
+I also have the following code in my .bash_profile, which automatically
+starts X, when I log in from the first text console:
+
+if [ &quot;$(tty)&quot; = &quot;/dev/tty1&quot; -o &quot;$(tty)&quot; = &quot;/dev/vc/1&quot; ] ; then
+	startx
+fi
+
+This way I don't need a display manager and still have the only
+functionality from them I used (startup of the X session on login).
+
+If you still want a graphical display manager, you could try slim[1].
+It is much lighter.
+
+[1] <A HREF="http://slim.berlios.de/">http://slim.berlios.de/</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001521.html">path, alias with F3
+</A></li>
+	<LI>Next message: <A HREF="001523.html">ion-3-20090110
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1522">[ date ]</a>
+              <a href="thread.html#1522">[ thread ]</a>
+              <a href="subject.html#1522">[ subject ]</a>
+              <a href="author.html#1522">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

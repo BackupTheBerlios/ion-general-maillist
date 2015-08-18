@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> quickly cloning an existing statusbar script (date)?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-November/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20quickly%20cloning%20an%20existing%20statusbar%20script%20%28date%29%3F&In-Reply-To=%3C750567.41042.qm%40web45610.mail.sp1.yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001475.html">
+   <LINK REL="Next"  HREF="001478.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>quickly cloning an existing statusbar script (date)?</H1>
+    <B>Juri Mianovich</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20quickly%20cloning%20an%20existing%20statusbar%20script%20%28date%29%3F&In-Reply-To=%3C750567.41042.qm%40web45610.mail.sp1.yahoo.com%3E"
+       TITLE="quickly cloning an existing statusbar script (date)?">juri_mian at yahoo.com
+       </A><BR>
+    <I>Thu Nov 13 20:05:03 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001475.html">Ion rewriting [OFF-TOPIC Stalker]
+</A></li>
+        <LI>Next message: <A HREF="001478.html">quickly cloning an existing statusbar script (date)?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1476">[ date ]</a>
+              <a href="thread.html#1476">[ thread ]</a>
+              <a href="subject.html#1476">[ subject ]</a>
+              <a href="author.html#1476">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I'm trying to do something very simple:
+
+[ Thu 2008-11-13 12:56 (US) || Thu 2008-11-13 19:56 (UK) ]
+
+I'm just trying to display two timezones at the same time in the statusbar.  Since 'date' is already included in the statusbar by default, I am trying to do this without writing a new script.
+
+
+I have tried two things:
+
+
+First, I:
+
+cp /usr/local/lib/ion3/lc/statusd_date.lc /usr/local/lib/ion3/lc/statusd_ukdate.lc
+
+and then uncommented, and changed the /usr/local/etc/ion3/cfg_statusbar.lua template line to:
+
+template=&quot;[ %date || %ukdate || load: %05load_1min || mail: %02mail_new/%02mail_total ] %filler%systray&quot;,
+
+But the statusbar just has a &quot;??&quot; in it for &quot;%ukdate&quot;, even though that script exists.
+
+ALSO, I am not sure how I would edit statusd_ukdate.lc to have a +7 hours in its 'date' command, since the .lc file is not text, but just binary data.
+
+So that attempt did not work well - was I close ?  Is there any way to just copy and quickly edit the _existing_ date script and stick it into my systemwide template ?
+
+
+
+My second attempt was to just change the default date_format line in cfg_statusbar.lua to output multiple dates:
+
+date_format='%a %Y-%m-%d %H:%M (US) || %a %Y-%m-%d %H:%M (UK)
+
+This ^^^ DOES work, but I do not see how to modify the:
+
+%a %Y-%m-%d %H:%M
+
+to add a +7 offset to %H ...
+
+
+---
+
+which of these two strategies should I continue to pursue ?  Again, I don't want to write new scripts since the date script is _already_ written and I just want to reuse it ...
+
+Thanks.
+
+
+      
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001475.html">Ion rewriting [OFF-TOPIC Stalker]
+</A></li>
+	<LI>Next message: <A HREF="001478.html">quickly cloning an existing statusbar script (date)?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1476">[ date ]</a>
+              <a href="thread.html#1476">[ thread ]</a>
+              <a href="subject.html#1476">[ subject ]</a>
+              <a href="author.html#1476">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Xinerama support
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Xinerama%20support&In-Reply-To=%3Cp5d558ln23.fsf%40de.uu.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000032.html">
+   <LINK REL="Next"  HREF="000037.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Xinerama support</H1>
+    <B>Ulrich Pfeifer</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Xinerama%20support&In-Reply-To=%3Cp5d558ln23.fsf%40de.uu.net%3E"
+       TITLE="Xinerama support">ion at wait.de
+       </A><BR>
+    <I>Sun Jan 21 10:57:24 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000032.html">Xinerama support
+</A></li>
+        <LI>Next message: <A HREF="000037.html">Xinerama support
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#36">[ date ]</a>
+              <a href="thread.html#36">[ thread ]</a>
+              <a href="subject.html#36">[ subject ]</a>
+              <a href="author.html#36">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello Tuomo,
+
+    Tuomo&gt; You either don't really need the information, or you'd
+    Tuomo&gt; simply want plain old X multihead with window migration
+    Tuomo&gt; between screens, something that is only _artificially_
+    Tuomo&gt; restricted when the bit depths are the same.
+
+I don't know enough about X to fully understand your mail.
+
+In my setup I do have a laptop and an external LCD with a different
+resolution when I am in the office.  I currently fold my applications
+from the monitor to the laptop screen when I leave the office.
+
+Are you saying I do not need Xinerama to achieve this or are you
+saying that I need to implement that module if I ever want to upgrade
+ion?
+
+Thanks,
+
+Ulrich
+
+-- Xinerama configuration:
+-- Screen		&quot;Screen0&quot;
+-- Screen		&quot;Screen1&quot; LeftOf &quot;Screen0&quot;
+
+function go_home ()
+   local right_screen = ioncore.find_screen_id(0)
+   local left_screen  = ioncore.find_screen_id(1)
+   for _, r in pairs(left_screen:managed_list()) do
+       right_screen:attach(r)
+   end
+end
+
+function to_other_screen (r)
+   local left_screen  = ioncore.find_screen_id(1)
+   local right_screen = ioncore.find_screen_id(0)
+   local ws = ioncore.find_manager(r, &quot;WGroupWS&quot;)
+   local sc = ioncore.find_manager(ws, &quot;WScreen&quot;)
+
+   if sc == left_screen then
+        right_screen:attach(ws)
+   else
+        left_screen:attach(ws)
+   end
+end
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000032.html">Xinerama support
+</A></li>
+	<LI>Next message: <A HREF="000037.html">Xinerama support
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#36">[ date ]</a>
+              <a href="thread.html#36">[ thread ]</a>
+              <a href="subject.html#36">[ subject ]</a>
+              <a href="author.html#36">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

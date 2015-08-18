@@ -1,0 +1,255 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> yay, my lay-out load and safe script
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20yay%2C%20my%20lay-out%20load%20and%20safe%20script&In-Reply-To=%3C20070128163427.GA29193%40jurjenm.stack.nl%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000083.html">
+   <LINK REL="Next"  HREF="000078.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>yay, my lay-out load and safe script</H1>
+    <B>Jurjen Middendorp</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20yay%2C%20my%20lay-out%20load%20and%20safe%20script&In-Reply-To=%3C20070128163427.GA29193%40jurjenm.stack.nl%3E"
+       TITLE="yay, my lay-out load and safe script">jurjenm at stack.nl
+       </A><BR>
+    <I>Sun Jan 28 17:34:27 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000083.html">yay, my lay-out load and safe script (was Re: More ion-configuration)
+</A></li>
+        <LI>Next message: <A HREF="000078.html">upgrade problems
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#84">[ date ]</a>
+              <a href="thread.html#84">[ thread ]</a>
+              <a href="subject.html#84">[ subject ]</a>
+              <a href="author.html#84">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I'm almost done with my lay-out load and safe script, i think it's getting
+pretty nice so i'll post it here :) If you have any comments on what i can
+improve in it i'd like to hear them, i'm pretty new to ion (scripting) and
+very new to lua, so all advice is welcome!
+
+also printing a table (with ioncore.write_savefile) i get with functions 
+like region_list and such all give an error message &quot;failed
+to initialize userdata&quot; so i'm not sure on how to use these functions. How
+do i examine the data these functions give back?
+
+anyway, here it is! hope someone finds it easier to use then the other
+session-save scripts out there (i do :)
+
+--   script that produces a menu to manage workspace lay-outs. it uses
+--   an unexported C-function Export it by typing &quot;EXTL_EXPORT_AS(WRegion,
+--   get_configuration)&quot; above the function region_get_configuration in
+--   ioncore/saveload.c end then rebuild ion. everything should work now :)
+--   TODO: 
+--    - make the winprop-maker better in recognizing programs
+workspacer={}
+
+defmenu(&quot;Workspacer&quot;, {
+   menuentry(&quot;Save current workspace&quot;, &quot;workspacer.save_ws(ioncore.find_manager(_, 'WGroupWS'))&quot;),
+   menuentry(&quot;Load saved workspace&quot;, &quot;workspacer.query_saved_ws(_, 'WS to load', workspacer.get_ws)&quot;),
+   menuentry(&quot;Remove saved workspace&quot;, &quot;workspacer.query_saved_ws(_, 'WS to remove', workspacer.remove_saved)&quot;),
+   menuentry(&quot;Rename saved workspace&quot;, &quot;workspacer.query_saved_ws(_, 'WS to rename', workspacer.rename_saved)&quot;),
+   menuentry(&quot;Rename workspace&quot;, &quot;mod_query.query(_, 'Rename ws and frames to', nil, workspacer.rename_stuff)&quot;),
+})
+
+defbindings(&quot;WFrame&quot;, {
+   kpress(META..&quot;W&quot;, &quot;mod_menu.menu(_, _sub, 'Workspacer')&quot;),
+})
+
+-- Save/restore workspaces functions
+------------------------------------
+local workspaces = ioncore.read_savefile('saved_workspaces') or {}
+function workspacer.write_ws_table()
+   ioncore.write_savefile('saved_workspaces', workspaces)
+end
+
+function workspacer.save_ws(r)
+   if obj_is(r, &quot;WGroupWS&quot;) then
+      workspacer.make_cwin_config(r)
+      ws_def = r:get_configuration(r)
+      ws_def.switchto = true
+      ws_def.bottom_last_close = true
+      workspaces[ ws_def.name ] = ws_def
+      workspacer.write_ws_table()
+      workspacer.save_apps()
+   end
+end
+
+function workspacer.query_saved_ws(mplex, q_string, handler)
+   mod_query.query(mplex, q_string, nil, handler, 
+                   mod_query.make_completor(workspacer.complete_saved_ws))
+end
+
+function workspacer.rename_saved(_, old_name)
+   local function rename_to(_, new_name)
+      workspaces.new_name = workspaces.old_name
+      applist.new_name = applist.old_name
+      workspacer.remove_saved(_, old_name)
+   end
+   mod_query.query(_, &quot;Rename &quot;..old_name..&quot; to&quot;, nil, rename_to)
+end
+
+function workspacer.remove_saved(_, name)
+   workspaces[name] = nil
+   workspacer.write_ws_table()
+   applist[name] = nil
+   workspacer.save_apps()
+end
+
+function workspacer.complete_saved_ws(s)
+   ws_list = {}
+   for i, _ in pairs(workspaces) do
+      if string.find(i, s, 1, true) then
+         table.insert(ws_list, i)
+      end
+   end
+   return ws_list
+end
+
+function workspacer.get_ws(mplex, ws_name)
+   WMPlex.attach_new(mplex:screen_of(), workspaces[ws_name]):goto()
+   workspacer.fill_space(ioncore.lookup_region(ws_name, &quot;WGroupWS&quot;))
+end
+
+-- Auto-winprop functions ideas+code from collapse and autoprop scripts
+-----------------------------------------------------------------------
+-- make an applist with the same names as the workspaces
+-- an applist = commandline for programs and winprops for the 
+-- saved workspace
+
+local applist = ioncore.read_savefile('saved_workspace_apps') or {}
+function workspacer.save_apps()
+   ioncore.write_savefile('saved_workspace_apps', applist)
+end
+
+function workspacer.fill_space(ws)
+   ws_name = ws:name()
+   table.foreach(applist[ws_name], function(_, tab)
+                                     defwinprop{
+                                        class=tab.class,
+                                        instance=tab.instance,
+                                        role=tab.role,
+                                        target=tab.target,
+                                        oneshot=true
+                                     }
+                                     ioncore.exec(tab.exe)
+                                  end)
+end
+
+function workspacer.rename_stuff(mp, str)
+   local ws = ioncore.find_manager(mp, &quot;WGroupWS&quot;)
+   if ws then
+      local old = ws:name()
+      WRegion.set_name(ws, str)
+      workspacer.rename_frames(ws, old)
+   end
+end
+
+function workspacer.rename_frames(wantws, str)
+   -- rename WFrames on the wantws
+   l = ioncore.region_list(&quot;WFrame&quot;)
+   want_ws = wantws:name()
+   for _,x in ipairs(l) do
+      local ws = ioncore.find_manager(x, &quot;WGroupWS&quot;)
+      if ws then
+         if ws:name() == want_ws then 
+            -- put the name of the current ws somewhere in the name of frame
+            rname = x:name()
+            if str then
+               rname = string.gsub(rname, str, want_ws)
+            end
+            if not string.find(rname, want_ws, 1, true) then
+               rname = want_ws..&quot;--&quot;..rname
+            end
+            WRegion.set_name(x, rname)
+         end
+      end
+   end
+end
+
+function workspacer.make_cwin_config(ws)
+      local function is_useful(cwin)
+         -- return the command line option to starting this program 
+         -- TODO: copy more stuff from oops.lua
+         name = cwin:name()
+         first, last, file, dir = string.find(name, &quot;^(.-) %+?=? ?%((.+)%) %- G?VIM$&quot;)
+         if file and dir then return &quot;xterm -e vim &quot;..dir..&quot;/&quot;..file end
+         _,__,file=string.find(name, &quot;^Xpdf: (.+)$&quot;)
+         if file then return &quot;xpdf &quot;..file end
+         if string.find(name, &quot;.*Firefox$&quot;) then return &quot;firefox&quot; end
+         _, _, file = string.find(name, &quot;^gv: (.+)$&quot;)
+         --maybe rebuild the location database and use locate to find filenames for gv?
+         if file then return &quot;gv &quot;..file end
+      end
+
+      local function autoprop(cwin, dest, cmd, ws_name)
+        if not (cmd and ws_name) then return end
+        local p={}
+        name=dest:name()
+        p.exe = cmd
+        p.class=&quot;*&quot;
+        p.role=&quot;*&quot;
+        p.instance=&quot;*&quot;
+        p.target=name
+        p=table.join(cwin:get_ident(), p)
+        if p.target then
+           applist[ws_name][p.class..p.role..p.instance..p.target..p.exe]=p
+        end
+      end
+
+   -- make a good applist for this workspace
+   workspacer.rename_frames(ws)
+   local ws_name = ws:name()
+   applist[ws_name] = {}
+   -- make a winprop for the clientwindow if it's on this workspace and
+   for _, cw in pairs(ioncore.clientwin_list()) do
+      local in_ws = ioncore.find_manager(cw, &quot;WGroupWS&quot;):name()
+      if in_ws == ws_name then 
+         local exe = is_useful(cw)
+         autoprop(cw, cw:parent(), exe, ws_name)
+      end
+   end
+end
+
+function workspacer.print_all_names()
+   l = ioncore.region_list('WFrame')
+   for _, f in pairs(l) do 
+      mod_query.message(f, f:name())
+   end
+end
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000083.html">yay, my lay-out load and safe script (was Re: More ion-configuration)
+</A></li>
+	<LI>Next message: <A HREF="000078.html">upgrade problems
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#84">[ date ]</a>
+              <a href="thread.html#84">[ thread ]</a>
+              <a href="subject.html#84">[ subject ]</a>
+              <a href="author.html#84">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

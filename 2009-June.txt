@@ -1,0 +1,429 @@
+From seb at borriglion.fr  Mon Jun  1 16:20:19 2009
+From: seb at borriglion.fr (Seb Haezebrouck)
+Date: Mon, 1 Jun 2009 16:20:19 +0200
+Subject: Scripting problem
+Message-ID: <h00o33$o2t$1@ger.gmane.org>
+
+Hi,
+
+Since I do not like having empty frames on my screen, I figured I'll try and 
+write a small function that would close the frame if I close the last client 
+in a frame. This is the (wrong) code I came up with. Could not find a better 
+way than this io.write thing to debug what was going on.
+
+function close_test(wmp)
+    local c = WMPlex.mx_count(wmp)
+    io.output("/tmp/dbg.ionscript")
+    io.write("Number of children: ", c, ".\n")
+    if WRegion.rqclose_propagate(wmp, _sub) then
+        io.write("Closed one child.\n")
+        if c == 1 then
+            while WMPlex.mx_count(wmp) == 1 do
+                io.write("Still one child seen.\n")
+            end
+            WRegion.rqclose(wmp)
+        end
+    end
+end
+
+... and as I half expected - this goes into an infinite loop when I try and 
+use it on a frame in which there is only one client (and the client is not 
+destroyed).
+
+I am sure Ion3 can do what I want... but could someone tell me what is wrong 
+with my script, and what is the proper way, if any to make this function not 
+blocking?
+
+Looks like a hook (deinit ?) is probably what I really need, but I am afraid 
+I might run into the same type of issue. And all my feebles attempts to 
+implement hooks so far miserably failed.
+
+Thanks,
+
+Seb
+
+PS: I am using ion3-20090110. 
+
+
+
+
+
+From tuomov at iki.fi  Tue Jun  2 09:19:11 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 2 Jun 2009 07:19:11 +0000 (UTC)
+Subject: Scripting problem
+References: <h00o33$o2t$1@ger.gmane.org>
+Message-ID: <slrnh29kjf.3ij.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-06-01, Seb Haezebrouck <seb at borriglion.fr> wrote:
+> ... and as I half expected - this goes into an infinite loop when I try and 
+> use it on a frame in which there is only one client (and the client is not 
+> destroyed).
+
+rqclose is asynchronous. Generally, the code should return to the 
+main loop for the actions to take effect; and for client windows,
+you have to wait for the client to take action, if it does. Ion can
+only get to know of this, when it returns to the... main loop.
+
+> I am sure Ion3 can do what I want... but could someone tell me what is wrong 
+> with my script, and what is the proper way, if any to make this function not 
+> blocking?
+
+You should listen to frame_managed_changed_hook. No need to make
+new bindings, just check when a frame becomes empty in that hook.
+min_tabs.lua from the scripts repository might provide some useful
+bits.
+
+-- 
+Stop Gnomes and other pests! Purchase Windows today!
+
+
+
+From tuomov at iki.fi  Tue Jun  2 09:21:05 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 2 Jun 2009 07:21:05 +0000 (UTC)
+Subject: confirm 852223f5c787b0857a42616c26c0a94208eae60a
+References: <mailman.0.1243456574.11778.ion-general@lists.berlios.de>
+	<544191d90905271406s72912366w56892f52b5592940@mail.gmail.com>
+	<op.uumvnuytvocxtk@tabole-debian> <op.uumw6j0avocxtk@tabole-debian>
+	<544191d90905281147i2ef8a5c2w39e07103edde50d8@mail.gmail.com>
+	<544191d90905281451o77ab2f33gcac1154dca876131@mail.gmail.com>
+	<op.uuqtdkqsvocxtk@tabole-debian>
+Message-ID: <slrnh29kn1.3ij.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-05-30, Ole J??rgen Br??nner <olejorgenb at yahoo.no> wrote:
+> I'm not sure how you can easily force the number to be exacly 10, but ion3
+> will remember your layout, so if you create 10 workspaces manually they  
+> should still be there after a restart.
+
+If you restart/quit properly, i.e., though Ion's menus/functions,
+instead of simply killing X (C-A-BS). 
+
+-- 
+Stop Gnomes and other pests! Purchase Windows today!
+
+
+
+From seb at borriglion.fr  Wed Jun  3 22:20:00 2009
+From: seb at borriglion.fr (Seb Haezebrouck)
+Date: Wed, 3 Jun 2009 22:20:00 +0200
+Subject: Scripting problem
+References: <h00o33$o2t$1@ger.gmane.org>
+	<slrnh29kjf.3ij.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <h06ltm$9qq$1@ger.gmane.org>
+
+> You should listen to frame_managed_changed_hook. No need to make
+> new bindings, just check when a frame becomes empty in that hook.
+> min_tabs.lua from the scripts repository might provide some useful
+> bits.
+
+Thanks - I did just this, but face yet another issue, this time with the 
+below code:
+
+local function close_empty_frame(ftable)
+    if ftable.mode ~= 'remove' then return end
+    local wmp = ftable.reg
+    -- Should probably test that wmp is not nil here - or is it guaranteed 
+to contain sth meaningful ?
+    if WMPlex.mx_count(wmp) == 0 then
+        ioncore.defer(WRegion.rqclose(wmp))
+    end
+end
+
+local hk=ioncore.get_hook("frame_managed_changed_hook")
+hk:add(close_empty_frame)
+
+Now the code does not hang anymore, but I get "ion3: Attempt to call an 
+unsafe function "rqclose" in restricted mode." each time I close the last 
+client in a frame.
+
+I thought ioncore.defer would do the trick and defer the execution of the 
+rqclose until I am back in the main loop (so probably out of "restricted" 
+mode), but it looks like it does not... What am I still missing ?
+
+Seb 
+
+
+
+
+
+From olejorgenb at yahoo.no  Wed Jun  3 22:29:35 2009
+From: olejorgenb at yahoo.no (=?utf-8?Q?Ole_J=C3=B8rgen_Br=C3=B8nner?=)
+Date: Wed, 03 Jun 2009 22:29:35 +0200
+Subject: Scripting problem
+In-Reply-To: <h06ltm$9qq$1@ger.gmane.org>
+References: <h00o33$o2t$1@ger.gmane.org>
+	<slrnh29kjf.3ij.tuomov@jolt.modeemi.cs.tut.fi>
+	<h06ltm$9qq$1@ger.gmane.org>
+Message-ID: <op.uuytvjusvocxtk@tabole-debian>
+
+ioncore.defer takes a _function_. In your code WRegion.rqclose(wmp) will  
+be executed and the result will be passed to defer.
+
+You need to wrap the function call in a lamba like this:
+   ioncore.defer(function () WRegion.rqclose(wmp) end)
+
+--
+Ole J?rgen Br?nner
+
+On Wed, 03 Jun 2009 22:20:00 +0200, Seb Haezebrouck <seb at borriglion.fr>  
+wrote:
+
+>> You should listen to frame_managed_changed_hook. No need to make
+>> new bindings, just check when a frame becomes empty in that hook.
+>> min_tabs.lua from the scripts repository might provide some useful
+>> bits.
+>
+> Thanks - I did just this, but face yet another issue, this time with the
+> below code:
+>
+> local function close_empty_frame(ftable)
+>     if ftable.mode ~= 'remove' then return end
+>     local wmp = ftable.reg
+>     -- Should probably test that wmp is not nil here - or is it  
+> guaranteed
+> to contain sth meaningful ?
+>     if WMPlex.mx_count(wmp) == 0 then
+>         ioncore.defer(WRegion.rqclose(wmp))
+>     end
+> end
+>
+> local hk=ioncore.get_hook("frame_managed_changed_hook")
+> hk:add(close_empty_frame)
+>
+> Now the code does not hang anymore, but I get "ion3: Attempt to call an
+> unsafe function "rqclose" in restricted mode." each time I close the last
+> client in a frame.
+>
+> I thought ioncore.defer would do the trick and defer the execution of the
+> rqclose until I am back in the main loop (so probably out of "restricted"
+> mode), but it looks like it does not... What am I still missing ?
+>
+> Seb
+>
+>
+>
+
+
+
+From seb at borriglion.fr  Thu Jun  4 21:30:18 2009
+From: seb at borriglion.fr (Seb Haezebrouck)
+Date: Thu, 4 Jun 2009 21:30:18 +0200
+Subject: Scripting problem
+References: <h00o33$o2t$1@ger.gmane.org><slrnh29kjf.3ij.tuomov@jolt.modeemi.cs.tut.fi><h06ltm$9qq$1@ger.gmane.org>
+	<op.uuytvjusvocxtk@tabole-debian>
+Message-ID: <h097kv$mmm$1@ger.gmane.org>
+
+Working fine - thank you.
+
+BTW, I also had to change the default behaviour of the splitting bindings.
+By default, they have the 'attach_current' parameter set to true. This
+prevented splitting a frame which had only one client: the frame was split,
+the only client of the  previous frame was moved to the new split, the hook
+triggered and the previous frame (now empty) was destroyed.
+In this situation, I would see is the frame briefly flashing, but no split
+occurring.
+
+Changing the default split binding to use 'attach_current' false fixed this.
+
+Thanks a lot for your answers,
+
+Seb
+
+"Ole J?rgen Br?nner" <olejorgenb at yahoo.no> a ?crit dans
+le message de news: op.uuytvjusvocxtk at tabole-debian...
+ioncore.defer takes a _function_. In your code WRegion.rqclose(wmp) will
+be executed and the result will be passed to defer.
+
+You need to wrap the function call in a lamba like this:
+   ioncore.defer(function () WRegion.rqclose(wmp) end)
+
+--
+Ole J?rgen Br?nner
+
+
+
+
+
+
+
+
+From timandahaf+dev at gmail.com  Fri Jun  5 06:40:15 2009
+From: timandahaf+dev at gmail.com (Timandahaf)
+Date: Fri, 5 Jun 2009 00:40:15 -0400 (EDT)
+Subject: Winsplit-revolution - window "manager" for MS-WindowsXP etc.
+Message-ID: <alpine.LNX.2.00.0906050039200.5393@india.ece.cmu.edu>
+
+Has anyone seen/heard of this?
+
+http://winsplit-revolution.com/
+
+
+
+
+From tuomov at iki.fi  Fri Jun  5 11:14:03 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 5 Jun 2009 09:14:03 +0000 (UTC)
+Subject: Winsplit-revolution - window "manager" for MS-WindowsXP etc.
+References: <alpine.LNX.2.00.0906050039200.5393@india.ece.cmu.edu>
+Message-ID: <slrnh2hoeq.v74.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-06-05, Timandahaf <timandahaf+dev at gmail.com> wrote:
+> Has anyone seen/heard of this?
+>
+> http://winsplit-revolution.com/
+
+I find that tiling w/o tabbing is rather useless.
+And it's the tabbing part that takes extra effort to
+implement under Windows. Under X, the WM can -- still
+as of June 2009 -- reparent application windows within
+its own windows, and draw the decorations in its frame
+windows. Under Windows, applications always create 
+top-level windows, which are divided into "client area"
+and the remaining boundary, that is drawn by the "system"
+-- whatever part that is. You'd somehow have to replace 
+that "system" to draw different kind of decorations and
+add different kind of controls, which are duplicated
+between all the windows associated to a pseudo-frame/
+tabbed set. Of course, further problems arise because
+many applications seem to override the "system", and
+draw their own decorations... and then there's the
+issue of the apparent lack of the equivalent of the
+ICCCM, so you can't enforce tiling... as far as I know,
+but I'm no WinAPI expert.
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+
+From seb at borriglion.fr  Sat Jun  6 11:09:38 2009
+From: seb at borriglion.fr (Seb Haezebrouck)
+Date: Sat, 6 Jun 2009 11:09:38 +0200
+Subject: Scripting problem
+References: <h00o33$o2t$1@ger.gmane.org><slrnh29kjf.3ij.tuomov@jolt.modeemi.cs.tut.fi><h06ltm$9qq$1@ger.gmane.org>
+	<op.uuytvjusvocxtk@tabole-debian>
+Message-ID: <h0dbof$sk$1@ger.gmane.org>
+
+<Reposting since it seems my first answer did not appear in the mailing 
+list>
+
+Working fine - thank you.
+
+BTW, I also had to change the default behaviour of the splitting bindings.
+
+By default, they have the 'attach_current' parameter set to true. This 
+prevented splitting a frame which had only one client: the frame was split, 
+the only client of the previous frame was moved to the new split, the hook 
+triggered and the previous frame (now empty) was destroyed.
+
+In this situation, I would see is the frame briefly flashing, but no split 
+occurring.
+
+Changing the default split binding to use 'attach_current' false fixed this.
+
+Thanks a lot for your answers,
+
+Seb
+
+"Ole J?rgen Br?nner" <olejorgenb at yahoo.no> a ?crit dans 
+le message de news: op.uuytvjusvocxtk at tabole-debian...
+ioncore.defer takes a _function_. In your code WRegion.rqclose(wmp) will
+be executed and the result will be passed to defer.
+
+You need to wrap the function call in a lamba like this:
+   ioncore.defer(function () WRegion.rqclose(wmp) end)
+
+--
+Ole J?rgen Br?nner
+
+
+
+
+
+From marc.hartstein at alum.vassar.edu  Sat Jun  6 19:47:51 2009
+From: marc.hartstein at alum.vassar.edu (Marc Hartstein)
+Date: Sat, 06 Jun 2009 13:47:51 -0400
+Subject: Scripting problem
+In-Reply-To: <h0dbof$sk$1@ger.gmane.org>
+References: <h00o33$o2t$1@ger.gmane.org>
+	<slrnh29kjf.3ij.tuomov@jolt.modeemi.cs.tut.fi>
+	<h06ltm$9qq$1@ger.gmane.org> <op.uuytvjusvocxtk@tabole-debian>
+	<h0dbof$sk$1@ger.gmane.org>
+Message-ID: <1244310396-sup-4300@cabinet>
+
+Excerpts from Seb Haezebrouck's message of Sat Jun 06 05:09:38 -0400 2009:
+> <Reposting since it seems my first answer did not appear in the mailing 
+> list>
+
+I received your first answer.  Check your list subscription information
+and your mail user agent configuration to find what's behaving
+differently than you expect?  Many mailing lists by default don't send
+messages back to the person who sent them.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 198 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20090606/629ee45f/attachment.pgp>
+
+From olejorgenb at yahoo.no  Tue Jun  9 03:52:44 2009
+From: olejorgenb at yahoo.no (=?utf-8?Q?Ole_J=C3=B8rgen_Br=C3=B8nner?=)
+Date: Tue, 09 Jun 2009 03:52:44 +0200
+Subject: Ion wiki?
+Message-ID: <op.uu8h56x2vocxtk@tabole-debian>
+
+I have very limited experience with web services and hosting, but I've set
+up a temporary
+dokuwiki [1] at http://folk.ntnu.no/bronner/ion3wiki
+(Temporary as in I don't really have a proper host. Maybe someone else
+has?)
+
+My thought is that the wiki can contain an extended FAQ, further
+documentation of lua scripting, and maybe some guide to the C code base.
+(and other stuff people want there of course)
+It could also serve as a temporary home for new user scripts / patches to
+existing ones until the source control issue is resolved.
+
+Suggestions and comments are welcome. eg. if dokuwiki a good choice?
+
+
+Old wiki:
+http://web.archive.org/web/20060524031132/ereb.us/ion-wiki/pmwiki/pmwiki.php/Main/HomePage
+
+[1] http://www.dokuwiki.org/dokuwiki
+
+--
+Ole J?rgen Br?nner
+
+
+
+From tuomov at iki.fi  Wed Jun 10 09:47:29 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 10 Jun 2009 07:47:29 +0000 (UTC)
+Subject: Ion wiki?
+References: <op.uu8h56x2vocxtk@tabole-debian>
+Message-ID: <slrnh2up8h.j4p.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-06-09, Ole J??rgen Br??nner <olejorgenb at yahoo.no> wrote:
+> I have very limited experience with web services and hosting, but I've set
+> up a temporary
+> dokuwiki [1] at http://folk.ntnu.no/bronner/ion3wiki
+> (Temporary as in I don't really have a proper host. Maybe someone else
+> has?)
+
+Maybe you an just use some of the hosting services? (sf.net, berlios, etc.)
+Ion of course has a berlios account for this mailing list, and in theory
+a wiki could be hosted on that account... but I don't support webshit-only
+wikis, and I don't think it's right for an unofficial wiki to appear at
+a semi-official address.
+
+-- 
+Stop Gnomes and other pests! Purchase Windows today!
+
+
+

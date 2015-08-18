@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> configuration files not respected on ubuntu?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20configuration%20files%20not%20respected%20on%20ubuntu%3F&In-Reply-To=%3C46B578E0.2000605%40stanford.edu%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000647.html">
+   <LINK REL="Next"  HREF="000656.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>configuration files not respected on ubuntu?</H1>
+    <B>Red Daly</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20configuration%20files%20not%20respected%20on%20ubuntu%3F&In-Reply-To=%3C46B578E0.2000605%40stanford.edu%3E"
+       TITLE="configuration files not respected on ubuntu?">reddaly at stanford.edu
+       </A><BR>
+    <I>Sun Aug  5 09:14:40 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000647.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+        <LI>Next message: <A HREF="000656.html">configuration files not respected on ubuntu?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#651">[ date ]</a>
+              <a href="thread.html#651">[ thread ]</a>
+              <a href="subject.html#651">[ subject ]</a>
+              <a href="author.html#651">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I have recently installed ion3 and am trying to use the windows key 
+rather than the alt key for META.  xmodmap shows the windows key is 
+Mod4, so I made the following edit to cfg_ion.lua in my ~/.ion3/ directory:
+
+-- Set default modifiers. Alt should usually be mapped to Mod1 on
+-- XFree86-based systems. The flying window keys are probably Mod3
+-- or Mod4; see the output of 'xmodmap'.
+META=&quot;Mod4+&quot;
+--ALTMETA=&quot;&quot;
+
+from
+
+-- Set default modifiers. Alt should usually be mapped to Mod1 on
+-- XFree86-based systems. The flying window keys are probably Mod3
+-- or Mod4; see the output of 'xmodmap'.
+-- META=&quot;Mod1+&quot;
+--ALTMETA=&quot;&quot;
+
+I restarted the session and nothing doing.  I restarted my computer and 
+still windows does nothing.
+
+I then made a different edit which had no effect.  I commented line 237 
+in ~/.ion3/cfg_ioncore.lua  so that Meta-P's default behavior is 
+disabled.  I again restarted my computer and witnessed no effect.
+
+What am I doing wrong?
+
+I might also take this time to ask what the best way is to test 
+configuration changes.  I have been logging in and out.  Is there a 
+better/faster way?
+
+Thanks,
+Red
+
+p.s.  I am running the ion3 that I apt-got with my ubuntu feisty machine.
+&gt;<i> $ ion3 -V
+</I>&gt;<i> 3ds-20061029
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000647.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+	<LI>Next message: <A HREF="000656.html">configuration files not respected on ubuntu?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#651">[ date ]</a>
+              <a href="thread.html#651">[ thread ]</a>
+              <a href="subject.html#651">[ subject ]</a>
+              <a href="author.html#651">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

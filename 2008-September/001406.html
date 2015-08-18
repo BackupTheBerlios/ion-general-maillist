@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> mod_xinerama
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20mod_xinerama&In-Reply-To=%3C54183.88.146.1.38.1222123850.squirrel%40drak.ucw.cz%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001412.html">
+   <LINK REL="Next"  HREF="001409.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>mod_xinerama</H1>
+    <B>Tom&#225;&#353; Ebenlendr</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20mod_xinerama&In-Reply-To=%3C54183.88.146.1.38.1222123850.squirrel%40drak.ucw.cz%3E"
+       TITLE="mod_xinerama">ebik at drak.ucw.cz
+       </A><BR>
+    <I>Tue Sep 23 00:50:50 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001412.html">Shit-or-rama [Was: mod_xinerama]
+</A></li>
+        <LI>Next message: <A HREF="001409.html">mod_xinerama
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1406">[ date ]</a>
+              <a href="thread.html#1406">[ thread ]</a>
+              <a href="subject.html#1406">[ subject ]</a>
+              <a href="author.html#1406">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Dne 22 Z&#225;&#345;&#237; 2008, 12:02, Thomas Themel napsal(a):
+&gt;<i> ...
+</I>&gt;<i>
+</I>&gt;<i> I though I could just fix it by removing the extra screen for the root
+</I>&gt;<i> window from the ioncore_g.screens list, but this then causes the crash on
+</I>&gt;<i> restart, since the destructor for a WScreen object assumes that the object
+</I>&gt;<i> is in the list.
+</I>
+And moreover I sometimes need to have DOUBLEFULLSCREEN window. And
+sometimes full(single)screen. Thus I want the root window lua-accessible.
+(Then I can do :attach directly to RootWin to have DoubleFuckScreen window.)
+
+P.S: It served me very well on conference, where I want to put upper half
+of my pdf-presentation to beamer and lower half to my laptop screen. Then
+I had notes for myself on my screen and the presentation itself was on
+beamer.
+
+&gt;<i> How would one do this properly? From my analysis of ioncore_goto_*_scr,
+</I>&gt;<i> it doesn't seem possible to exempt a screen from the iteration list.
+</I>&gt;<i>
+</I>&gt;<i> They also _seem_ to be intended to do wrapping, but I don't see how this
+</I>&gt;<i> would ever have worked (but I don't have the old Xinerama code around to
+</I>&gt;<i> really check).
+</I>&gt;<i>
+</I>&gt;<i> The next thing I though of was writing lua wrappers to goto_*_screen
+</I>&gt;<i> which would just skip the default screen, but it appears that there is no
+</I>&gt;<i> easy way to distinguish the root window screen from the Xinerama screens
+</I>&gt;<i> in lua. About the only thing I can think of is that it's the only screen
+</I>&gt;<i> that can't be found ioncore.find_screen_id(), but that is starting to feel
+</I>&gt;<i> like too much of a crutch.
+</I>
+What about testing its :parent() ? RootWindow has none, Screens have the
+rootwindow :-).
+
+
+I think that mod_xinerama should be rewritten to something like
+mod_xrandr_ng, to support screen reconfiguration in online manner.
+Together with some handy scripts to save layouts for each xrandr config
+separately. (Now I have to restart ion after screen reconfiguration,
+I use ioncore.set_paths() to get layout saved for actual setup.)
+
+-- 
+.                           Tomas Ebenlendr
+.                           <A HREF="http://drak.ucw.cz/~ebik">http://drak.ucw.cz/~ebik</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001412.html">Shit-or-rama [Was: mod_xinerama]
+</A></li>
+	<LI>Next message: <A HREF="001409.html">mod_xinerama
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1406">[ date ]</a>
+              <a href="thread.html#1406">[ thread ]</a>
+              <a href="subject.html#1406">[ subject ]</a>
+              <a href="author.html#1406">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

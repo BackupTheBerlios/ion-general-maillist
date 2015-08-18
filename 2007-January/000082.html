@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> More ion-configuration
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20More%20ion-configuration&In-Reply-To=%3C20070127155200.GA3532%40jurjenm.stack.nl%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000077.html">
+   <LINK REL="Next"  HREF="000083.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>More ion-configuration</H1>
+    <B>Jurjen Middendorp</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20More%20ion-configuration&In-Reply-To=%3C20070127155200.GA3532%40jurjenm.stack.nl%3E"
+       TITLE="More ion-configuration">jurjenm at stack.nl
+       </A><BR>
+    <I>Sat Jan 27 16:52:00 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000077.html">More ion-configuration (was Re: problem with queries on man-pages	and sed?)
+</A></li>
+        <LI>Next message: <A HREF="000083.html">yay, my lay-out load and safe script (was Re: More ion-configuration)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#82">[ date ]</a>
+              <a href="thread.html#82">[ thread ]</a>
+              <a href="subject.html#82">[ subject ]</a>
+              <a href="author.html#82">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Fri, Jan 26, 2007 at 07:11:07PM +0000, Tuomo Valkonen wrote:
+&gt;<i>On 2007-01-26, Jurjen Middendorp &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">jurjenm at stack.nl</A>&gt; wrote:
+</I>&gt;&gt;<i> No i ment WEdln.complete() (which is bind to tab). What is the old
+</I>&gt;&gt;<i> tab-completion model?
+</I>&gt;<i>
+</I>&gt;<i>The usual tab-completion model: Hit tab. If there's only one completion,
+</I>&gt;<i>it is substituted into the query line. If there are multiple, they're
+</I>&gt;<i>displayed, and only the common part substituted into the query line.
+</I>&gt;<i>You can get this with mod_query.set{autoshowcompl=false}. (Well, could
+</I>&gt;<i>-- apparently there's a segfault problem in the present release.)
+</I>
+I thought autoshowcompl had something to do with the box that showed all
+the possible completions, not the kind of completion. It doesn't segfault
+on my computer though (i386 freebsd, ion 20061223).
+
+&gt;&gt;<i> - Is there some more documention on (or in) the ion code somewhere besides
+</I>&gt;&gt;<i>   the listing of classes in the ion manual? 
+</I>&gt;<i>
+</I>&gt;<i>No. It should all be self-evident :).
+</I>
+Starting to be :)
+
+&gt;&gt;<i> - anyway, i think ioncore.create_ws(_,my_ws_params,true) will do what i
+</I>&gt;&gt;<i>   want, but is _ for the first parameter the current WScreen (also known
+</I>&gt;&gt;<i>   as the right option)?
+</I>&gt;<i>
+</I>&gt;<i>Depends on where the call is. In the default configruation, it IIRC is in 
+</I>&gt;<i>the WScreen bindings, so yes.
+</I>
+I found an old thread on the mailing list about how to do this, and you
+said there it would be easy to export region_get_configuration(). I made
+a litle script with it and it works nicely i just have a few problems with
+how mod_query.query() works (see below).
+
+&gt;&gt;<i> - Is there a way to make Ion obey the maximum window size hints (WM_SIZE_HINTS)
+</I>&gt;&gt;<i>   throug winprops so they only work for some programs?  I cannot make
+</I>&gt;&gt;<i>   windows smaller then the application wants, but i can make the window
+</I>&gt;&gt;<i>   bigger which sometimes is annoying because some programs stay at 1 size
+</I>&gt;<i>
+</I>&gt;<i>Maybe. Maybe there is already a suitable winprops. RTFM.
+</I>
+i couldn't find one, but i haven't tried them all yet :) 
+
+
+Here is the litle script i made to test loading and saving workspaces, i
+can load workspaces as much as i want but i can't seem to get the
+query-completer function to work. Any tips on that?
+
+tester={}
+local workspaces = ioncore.read_savefile('saved_workspaces') or {}
+
+-- bind this function to a button with WGroupWS context to save the current
+-- ws
+function tester.save_ws(r)
+   ws_def = r:get_configuration(r)
+   ws_def[&quot;switchto&quot;] = true
+   ws_def[&quot;bottom_last_close&quot;] = true
+   workspaces[ ws_def[&quot;name&quot;] ] = ws_def
+   ioncore.write_savefile('saved_workspaces', workspaces)
+end
+
+function tester.query_load_ws(mplex)
+   mod_query.query(mplex, &quot;Load workspace:&quot;, &quot;&quot;, tester.get_ws, 
+                   mod_query.make_completor(complete_saved_ws), &quot;load_ws&quot;)
+end
+
+local function complete_saved_ws(s)
+   ws_list = {}
+   for i,d in pairs(workspaces) do
+      table.insert(ws_list, i)
+   end
+   return mod_query.complete_name(s, ws_list)
+end
+
+function tester.get_ws(mplex, ws_name)
+   WMPlex.attach_new(mplex:screen_of(), workspaces[ws_name])
+end
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000077.html">More ion-configuration (was Re: problem with queries on man-pages	and sed?)
+</A></li>
+	<LI>Next message: <A HREF="000083.html">yay, my lay-out load and safe script (was Re: More ion-configuration)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#82">[ date ]</a>
+              <a href="thread.html#82">[ thread ]</a>
+              <a href="subject.html#82">[ subject ]</a>
+              <a href="author.html#82">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

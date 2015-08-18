@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> ion-statusd eating up 100% cpu
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-June/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion-statusd%20eating%20up%20100%25%20cpu&In-Reply-To=%3C20080623193403.GA31184%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001257.html">
+   <LINK REL="Next"  HREF="001260.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>ion-statusd eating up 100% cpu</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion-statusd%20eating%20up%20100%25%20cpu&In-Reply-To=%3C20080623193403.GA31184%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="ion-statusd eating up 100% cpu">tuomov at iki.fi
+       </A><BR>
+    <I>Mon Jun 23 21:34:03 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001257.html">ion-statusd eating up 100% cpu
+</A></li>
+        <LI>Next message: <A HREF="001260.html">ion-statusd eating up 100% cpu
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1258">[ date ]</a>
+              <a href="thread.html#1258">[ thread ]</a>
+              <a href="subject.html#1258">[ subject ]</a>
+              <a href="author.html#1258">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-06-23 22:25 +0300, Tuomo Valkonen wrote:
+&gt;<i> The attached patch might fix the issue, if this is the case.
+</I>&gt;<i> However, now there's a potential for another race condition:
+</I>&gt;<i> what if the signal gets delivered before we call select()?
+</I>&gt;<i> Without repetion, we might never return from select() to
+</I>&gt;<i> handle the timer signal. pselect() would solve this problem,
+</I>&gt;<i> but it was not implemented in linux until 2.6.16, and glibc
+</I>&gt;<i> has an emulation prone to the same race conditions. Also
+</I>&gt;<i> the changes needed maybe too big for inclusion into Ion3.
+</I>&gt;<i> (The patch is found in the Ion3+ darcs repository, however.)
+</I>
+(And as I recall mentioning in the Ion3+ wishlist thread, I'm open
+to a contributed quality patch replacing libmainloop with libevent [1], 
+in order to not have to do redundant work in maintaining similar code.)
+
+  [1]: <A HREF="http://www.monkey.org/~provos/libevent/">http://www.monkey.org/~provos/libevent/</A>
+
+-- 
+Tuomo
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001257.html">ion-statusd eating up 100% cpu
+</A></li>
+	<LI>Next message: <A HREF="001260.html">ion-statusd eating up 100% cpu
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1258">[ date ]</a>
+              <a href="thread.html#1258">[ thread ]</a>
+              <a href="subject.html#1258">[ subject ]</a>
+              <a href="author.html#1258">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

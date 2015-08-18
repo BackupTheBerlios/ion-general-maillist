@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> scratchpad sizepolicy problem
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-December/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20scratchpad%20sizepolicy%20problem&In-Reply-To=%3Cop.u4hme1oyvocxtk%40tabole-debian%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001774.html">
+   <LINK REL="Next"  HREF="001776.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>scratchpad sizepolicy problem</H1>
+    <B>Ole J&#248;rgen Br&#248;nner</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20scratchpad%20sizepolicy%20problem&In-Reply-To=%3Cop.u4hme1oyvocxtk%40tabole-debian%3E"
+       TITLE="scratchpad sizepolicy problem">olejorgenb at yahoo.no
+       </A><BR>
+    <I>Sun Dec  6 00:05:15 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001774.html">scratchpad sizepolicy problem
+</A></li>
+        <LI>Next message: <A HREF="001776.html">Youtube fullscreen not working
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1775">[ date ]</a>
+              <a href="thread.html#1775">[ thread ]</a>
+              <a href="subject.html#1775">[ subject ]</a>
+              <a href="author.html#1775">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Thanks a lot for finding the condition for this bug!
+
+The problem is this: Moving the scratchpad eventually ends up in &quot;sizepolicy_free_snap&quot; (seems to have been in-lined in the build I debugged)
+
+#0  sizepolicy (szplcy=0x88f998c, reg=0x88f93e8, rq_geom=0xbfd774cc, rq_flags=&lt;value optimized out&gt;, fp=0xbfd773e0) at sizepolicy.c:194
+#1  0x08073852 in group_managed_rqgeom (ws=0x88f8fa8, reg=0x88f93e8, rq=0xbfd774cc, geomret=0x891d468) at group.c:997
+#2  0x08065c21 in region_managed_rqgeom (mgr=0x88f8fa8, reg=0x88f93e8, rq=0xbfd774cc, geomret=0x891d468) at resize.c:593
+#3  0x08065e83 in region_rqgeom (reg=0x88f93e8, rq=0xbfd774cc, geomret=0x891d468) at resize.c:531
+#4  0x08066514 in moveresmode_do_newgeom (mode=0x891d408, rq=0xbfd774cc) at resize.c:336
+#5  0x0806679b in moveresmode_delta (mode=0x891d408, dx1=&lt;value optimized out&gt;, dx2=&lt;value optimized out&gt;, dy1=-6, dy2=-6, rret=0x0) at resize.c:423
+#6  0x0805ec7d in ioncore_do_handle_motionnotify (ev=0xbfd77644) at pointer.c:176
+#7  0x080653bc in ioncore_handle_buttonpress (ev=0xbfd77644) at eventh.c:493
+#8  0x08065705 in ioncore_handle_event (ev=0xbfd773e0) at eventh.c:81
+#9  0x0807a92d in hook_call_alt (hk=0x88246f8, p=0xbfd77644, m=0x807a8b1 &lt;marshall_alt_p&gt;, em=0) at hooks.c:371
+#10 0x0807a9ff in hook_call_alt_p (hk=0x88246f8, p=0xbfd77644, em=0) at hooks.c:416
+#11 0x0805cd37 in ioncore_x_connection_handler (conn=10, unused=0x0) at event.c:210
+#12 0x0807997c in mainloop_select () at select.c:88
+#13 0x0805ce1f in ioncore_mainloop () at event.c:238
+#14 0x0805b631 in main (argc=) at ion.c:278
+
+Here the sizepolicy is combined with border modifiers (e.g. SIZEPOLICY_HORIZ_LEFT) if the scratchpad is at one of the borders.
+
+This results in a sizepolicy without a string representation (szplcy_specs, sizepolicy.c:311), so when stringpolizy2string is called when the layout is saved it returns NULL.
+
+The following small patch fixes the issue: (done against ion3plus with latest patchset)
+
+hunk ./ioncore/sizepolicy.c 363
+-    return stringintmap_key(szplcy_specs, szplcy, NULL);
++    char* str=stringintmap_key(szplcy_specs, szplcy, NULL);
++    if(str==NULL){
++        /* fall back on policy without modifiers if full name not found */
++        str=stringintmap_key(szplcy_specs, szplcy&amp;0xff, NULL);
++    }
++    return str;
+
+On Sat, 05 Dec 2009 04:16:23 +0100, Canaan Hadley-Voth &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">ugggg at hotmail.com</A>&gt; wrote:
+
+&gt;<i>
+</I>&gt;<i> More on this issue:
+</I>&gt;<i>
+</I>&gt;<i> <A HREF="http://article.gmane.org/gmane.comp.window-managers.ion.general/8897/match=scratchpad">http://article.gmane.org/gmane.comp.window-managers.ion.general/8897/match=scratchpad</A> (Scratchpad stuck in max size &quot;mode&quot;)
+</I>&gt;<i>
+</I>&gt;<i> If my scratchpad is touching any screen border when I restart, ion will forget to write sizepolicy=&quot;free glue&quot; to the saved_layout.lua file, and after restarting it will then take up the whole screen and not be resizeable.  If the scratchpad is not touching any border when I restart, saved_layout will show the &quot;free glue&quot; entry for *scratchpad* and will function properly.
+</I>&gt;<i>  		 	   		
+</I>&gt;<i> _________________________________________________________________
+</I>&gt;<i> Windows Live Hotmail gives you a free,exclusive  gift.
+</I>&gt;<i> <A HREF="http://www.microsoft.com/windows/windowslive/hotmail_bl1/hotmail_bl1.aspx?ocid=PID23879::T:WLMTAGL:ON:WL:en-ww:WM_IMHM_7:092009">http://www.microsoft.com/windows/windowslive/hotmail_bl1/hotmail_bl1.aspx?ocid=PID23879::T:WLMTAGL:ON:WL:en-ww:WM_IMHM_7:092009</A>
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001774.html">scratchpad sizepolicy problem
+</A></li>
+	<LI>Next message: <A HREF="001776.html">Youtube fullscreen not working
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1775">[ date ]</a>
+              <a href="thread.html#1775">[ thread ]</a>
+              <a href="subject.html#1775">[ subject ]</a>
+              <a href="author.html#1775">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

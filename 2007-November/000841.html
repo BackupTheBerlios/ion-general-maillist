@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> &quot;?&quot; instead of meters
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20%22%3F%22%20instead%20of%20meters&In-Reply-To=%3Ce66209d30711051623r675fc827j71943e8cc3e0f2a5%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000839.html">
+   <LINK REL="Next"  HREF="000842.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>&quot;?&quot; instead of meters</H1>
+    <B>Dmitry</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20%22%3F%22%20instead%20of%20meters&In-Reply-To=%3Ce66209d30711051623r675fc827j71943e8cc3e0f2a5%40mail.gmail.com%3E"
+       TITLE="&quot;?&quot; instead of meters">prankish at gmail.com
+       </A><BR>
+    <I>Tue Nov  6 01:23:52 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000839.html">&quot;?&quot; instead of meters
+</A></li>
+        <LI>Next message: <A HREF="000842.html">ion-3rc-20071109
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#841">[ date ]</a>
+              <a href="thread.html#841">[ thread ]</a>
+              <a href="subject.html#841">[ subject ]</a>
+              <a href="author.html#841">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&gt;<i> Nothing else? Timeout means that mod_statusbar didn't get enough
+</I>&gt;<i> responses from ion-statusd within 3 seconds of its launch. That
+</I>&gt;<i> itself is not fatal; the timeout is there merely to calculate a
+</I>&gt;<i> useful initial statusbar size before workspaces are created etc.
+</I>&gt;<i> Ion can cope without that, but it can result in annoying extra
+</I>&gt;<i> resizes after the statusbar has finally managed to start up.
+</I>&gt;<i> It, however, seems that statusd just quit without doing anything,
+</I>&gt;<i> not even complaining. That should not happen.
+</I>&gt;<i>
+</I>&gt;<i> Try running ion-statusd outside Ion (it's in $PREFIX/lib/ion3/bin/
+</I>&gt;<i> normally), with and without parameters (such as -q -m scriptname).
+</I>&gt;<i> If that works, try figuring out the parameters Ion is running it
+</I>&gt;<i> with, and check your configuration, including any custom scripts
+</I>&gt;<i> that might call os.exit() or something.
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> Tuomo
+</I>&gt;<i>
+</I>
+Hm... It seems statusd_amarok was guilty. Don't know how and why it
+used to  work before. But when I disabled this script all returned to
+normal behavior.
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000839.html">&quot;?&quot; instead of meters
+</A></li>
+	<LI>Next message: <A HREF="000842.html">ion-3rc-20071109
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#841">[ date ]</a>
+              <a href="thread.html#841">[ thread ]</a>
+              <a href="subject.html#841">[ subject ]</a>
+              <a href="author.html#841">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

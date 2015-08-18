@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Keyboard%20focus%20lost%20in%20Swing%20applications%20%28ex%3A%20Netbeans%29%20after%0A%09changing%20to%20window&In-Reply-To=%3C87zlgwy7lp.fsf%40yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="001558.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window</H1>
+    <B>Daniel Clemente</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Keyboard%20focus%20lost%20in%20Swing%20applications%20%28ex%3A%20Netbeans%29%20after%0A%09changing%20to%20window&In-Reply-To=%3C87zlgwy7lp.fsf%40yahoo.com%3E"
+       TITLE="Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window">dcl441-bugs at yahoo.com
+       </A><BR>
+    <I>Sun Feb  8 21:52:18 CET 2009</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="001558.html">Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1557">[ date ]</a>
+              <a href="thread.html#1557">[ thread ]</a>
+              <a href="subject.html#1557">[ subject ]</a>
+              <a href="author.html#1557">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hi; thanks for the helpful explanations.
+
+  I tried doing that change and it stayed the same. I also tried doing a sleep(2) before sending the WM_TAKE_FOCUS (with the +2s timestamp), but without success.
+
+  What did work is this:
+
+static void clientwin_do_set_focus(WClientWin *cwin, bool warp)
+{
+    if(cwin-&gt;flags&amp;CLIENTWIN_P_WM_TAKE_FOCUS){
+        Time stmp=ioncore_get_timestamp();
+        send_clientmsg(cwin-&gt;win, ioncore_g.atom_wm_take_focus, stmp);
+    } else {
+        region_finalise_focusing((WRegion*)cwin, cwin-&gt;win, warp);
+    }
+    
+    XSync(ioncore_g.dpy, 0);
+}
+
+
+  I just added the &#8222;else&#8220; keyword so that region_finalise_focusing is not called if the WM_TAKE_FOCUS is sent. I don't know the meaning of this, but only that it solves all problems with Netbeans and my example Swing application. Focus is set to the last active widget.
+  This, however, makes Konqueror 4 stop receiving focus. This makes me think:
+- Konqueror has flag CLIENTWIN_P_WM_TAKE_FOCUS and apparently needs both the WM_TAKE_FOCUS call and the region_finalise_focusing
+- Netbeans/Swing also has flag CLIENTWIN_P_WM_TAKE_FOCUS, but if you run the region_finalise_focusing code on it, it loses focus
+
+  Maybe region_finalise_focusing should sometimes be doing nothing in windows like Netbeans.
+  Or maybe Swing should be correctly handling the XSetInputFocus(ioncore_g.dpy, win, RevertToParent, CurrentTime) in region_finalise_focusing.
+
+  It is exactly at that XSetInputFocus where the text field at the Swing application loses the keyboard focus (I tested it inserting sleeps between calls).
+
+
+  I filed this bug to Sun but I don't know whether they think the bug is in JDK. The bug report is at <A HREF="http://bugs.sun.com/view_bug.do?bug_id=6798064">http://bugs.sun.com/view_bug.do?bug_id=6798064</A>
+
+  Greetings,
+Daniel
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="001558.html">Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1557">[ date ]</a>
+              <a href="thread.html#1557">[ thread ]</a>
+              <a href="subject.html#1557">[ subject ]</a>
+              <a href="author.html#1557">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

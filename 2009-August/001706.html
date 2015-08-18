@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> &quot;command line&quot; ?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-August/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20%22command%20line%22%20%3F&In-Reply-To=%3Cslrnh9fij3.3qb.tuomov%40beer.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001705.html">
+   <LINK REL="Next"  HREF="001707.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>&quot;command line&quot; ?</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20%22command%20line%22%20%3F&In-Reply-To=%3Cslrnh9fij3.3qb.tuomov%40beer.modeemi.cs.tut.fi%3E"
+       TITLE="&quot;command line&quot; ?">tuomov at iki.fi
+       </A><BR>
+    <I>Fri Aug 28 14:15:31 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001705.html">&quot;command line&quot; ?
+</A></li>
+        <LI>Next message: <A HREF="001707.html">Ion on Mac -- status?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1706">[ date ]</a>
+              <a href="thread.html#1706">[ thread ]</a>
+              <a href="subject.html#1706">[ subject ]</a>
+              <a href="author.html#1706">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2009-08-28, Ole J&#248;rgen Br&#248;nner &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">olejorgenb at yahoo.no</A>&gt; wrote:
+&gt;<i> No, you're right, they don't.
+</I>
+If someone wants to work on this, here's what I after
+a very quick glance over the code (that it's been ages
+since I last looked into), think might be the plan:
+
+- In input_do_refit, we have to rqgeom instead of window_do_fitrep. 
+The crux is that with FULL_BOUNDS we know the available space. 
+With the size policy set to something else, we only know the 
+area the managing WMPlex (or other region) is willing to give us
+per the size policy. So we have to ask for as much as we'd like
+to have with rqgeom... but to calculate the wanted height for our
+requests, we have to assume that the width stays fixed. 
+Thus, input_calc_size has to be modified to support calculations
+with infinite max_geom.h (virtually; INT_MAX or so).
+
+- We can no longer use the modified input_refit in input_fitrep 
+(that gets alled by the managing object to do the resizing),
+instead an updated version of the current code has to be used
+there. (It's just a couple of lines.)
+
+- It should be possible to get rid of the last_fp field, modifying
+all code involving it, as we no longer make requests using the
+last known available space.
+
+- Of course, for nicer top-aligned queries, the completions
+should expand downwards, and this demands a bit of extra work,
+figuring out whether we're actually attached to a WMPlex,
+and asking for the effective size policy to see if it is a
+top-aligned one.
+
+Probably I'm missing something, but that should get anyone
+interested in this started. I have better things to do...
+actually haven't been able to use Ion lately, because Cygwin
+X has been in a &quot;crash every 5 minutes&quot; state for nearly a
+couple of months now. Typical FOSScrap.
+
+-- 
+Off the dope since 2009;
+  <A HREF="http://iki.fi/tuomov/b/archives/2009/07/21/T17_26_09/">http://iki.fi/tuomov/b/archives/2009/07/21/T17_26_09/</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001705.html">&quot;command line&quot; ?
+</A></li>
+	<LI>Next message: <A HREF="001707.html">Ion on Mac -- status?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1706">[ date ]</a>
+              <a href="thread.html#1706">[ thread ]</a>
+              <a href="subject.html#1706">[ subject ]</a>
+              <a href="author.html#1706">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

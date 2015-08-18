@@ -1,0 +1,918 @@
+From me at robin.com.au  Sun Jun  1 12:40:42 2008
+From: me at robin.com.au (robin)
+Date: Sun, 1 Jun 2008 17:40:42 +0700
+Subject: Mouse Click Context Menu Instead of Mouse Down
+Message-ID: <FDF91BB3-9266-4B65-BED9-10DCFE961B23@robin.com.au>
+
+I chose Digest mode.
+Not sure how to directly reply to Nick's post. So this is a new  
+message with copy and pasted subject.
+There's no nesting involved is there?
+
+Anyway:
+
+ >You have to wait for a second for the menu to appear, which is time- 
+wastey.
+
+Not really, maybe i should have just said 'click' instead of 'press  
+and release'.
+All I really want is to do a single right-click on the tab, to open  
+the context menu and REMAIN open WITHOUT having my finger down on the  
+mouse button. Like how other mainstream desktop environments deal with  
+menus.
+Until you click elsewhere, the menu will disappear.
+
+I'm proposing this as a dell laptop user with a two button trackpad. I  
+use two finger tap as right-click.
+
+Don't you think it is a tad annoying to have your finger down on the  
+button at all times while choosing something from a menu? No matter  
+whether you use a trackpad, mouse, laptop, desktop.
+
+Of course the keyboard is always a faster solution, and that's the  
+point of ion3 isn't it?
+However, I think within an environment such as ion3, the mouse/ 
+trackpad has potential to work much better than any 'modern' desktop  
+environments.
+
+Thanks,
+Robin
+
+
+From nickmurdoch at gmail.com  Sun Jun  1 13:51:29 2008
+From: nickmurdoch at gmail.com (Nick Murdoch)
+Date: Sun, 01 Jun 2008 12:51:29 +0100
+Subject: Mouse Click Context Menu Instead of Mouse Down
+In-Reply-To: <FDF91BB3-9266-4B65-BED9-10DCFE961B23@robin.com.au>
+References: <FDF91BB3-9266-4B65-BED9-10DCFE961B23@robin.com.au>
+Message-ID: <op.ub2i73q2q54ctd@localhost>
+
+On Sun, 01 Jun 2008 11:40:42 +0100, robin <me at robin.com.au> wrote:
+
+> I chose Digest mode.
+> Not sure how to directly reply to Nick's post. So this is a new message  
+> with copy and pasted subject.
+> There's no nesting involved is there?
+>
+> Anyway:
+>
+>  >You have to wait for a second for the menu to appear, which is time- 
+> wastey.
+>
+> Not really, maybe i should have just said 'click' instead of 'press and  
+> release'.
+> All I really want is to do a single right-click on the tab, to open the  
+> context menu and REMAIN open WITHOUT having my finger down on the mouse  
+> button. Like how other mainstream desktop environments deal with menus.
+> Until you click elsewhere, the menu will disappear.
+>
+> I'm proposing this as a dell laptop user with a two button trackpad. I  
+> use two finger tap as right-click.
+
+Ah, I see. Yes, with a trackpad that'd be a useful (optional) feature, I'd  
+think!
+
+> Don't you think it is a tad annoying to have your finger down on the  
+> button at all times while choosing something from a menu? No matter  
+> whether you use a trackpad, mouse, laptop, desktop.
+
+I tend to click+hold for most other 'normal' menus too sometimes, so that  
+never really bothered me in ion. Actually, I've just noticed that in  
+Opera, a shortcut menu doesn't appear until you release the right mouse  
+button. That's rather annoying. I suppose it's to allow for their crazy  
+mouse gestures, which I can't be bothered trying to figure out.
+
+> Of course the keyboard is always a faster solution, and that's the point  
+> of ion3 isn't it?
+> However, I think within an environment such as ion3, the mouse/trackpad  
+> has potential to work much better than any 'modern' desktop environments.
+>
+> Thanks,
+> Robin
+
+
+
+
+From tuomov at iki.fi  Sun Jun  1 15:42:57 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 1 Jun 2008 13:42:57 +0000 (UTC)
+Subject: Mouse Click Context Menu Instead of Mouse Down
+References: <23808e2d0805310833t3855f11dkda1a4231f586e3b8@mail.gmail.com>
+Message-ID: <slrng459r1.bsk.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-05-31, Robin Chew <me at robin.com.au> wrote:
+> Currently you have to mouse press and hold on to the tab in order for
+> the context menu to pop up. The menu will disappear on mouse release.
+
+I hate the mainstream menus that only show up after you release 
+the button, and where you have to press somewhere outside the menu
+to close it. Totally unintuitive. (I also hate the arbitrary mainstream
+menu placement, as witnessed by the Window Maker (NeXTStep?) style 
+fixed placement and scrolling in Ion.)
+
+-- 
+Tuomo
+
+
+
+From me at robin.com.au  Sun Jun  1 21:39:16 2008
+From: me at robin.com.au (robin)
+Date: Mon, 2 Jun 2008 02:39:16 +0700
+Subject: Mouse Click Context Menu Instead of Mouse Down
+In-Reply-To: <slrng459r1.bsk.tuomov@jolt.modeemi.cs.tut.fi>
+References: <23808e2d0805310833t3855f11dkda1a4231f586e3b8@mail.gmail.com>
+	<slrng459r1.bsk.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <7886DFAC-7E0B-477C-8C0C-EA050716F854@robin.com.au>
+
+Apologies Tuomo, I've sent the same reply directly to you as well.
+I guess there's no form of nesting in this mailing list.
+
+If no one wants to read my long email, go straight to the gist of it  
+below.
+
+On Jun 1, 2008, at 8:42 PM, Tuomo Valkonen wrote:
+> I hate the mainstream menus that only show up after you release
+> the button, and where you have to press somewhere outside the menu
+> to close it. Totally unintuitive. (I also hate the arbitrary  
+> mainstream
+> menu placement, as witnessed by the Window Maker (NeXTStep?) style
+> fixed placement and scrolling in Ion.)
+>
+> -- 
+> Tuomo
+>
+
+Tuomo hates it. I guess I failed.
+Bear with me while I attempt one last time.
+
+Actually I think I explained poorly in some areas, sorry.
+I was suggesting, after you click on the tab, the menu STAYS up. Click  
+on option of choice, then menu disappear OR clicking elsewhere  
+(because you changed your mind you don't wanna click anything from the  
+menu), then menu disappear also. But you guys already got that right?  
+Anyway...
+
+I'm only suggesting an 'optional' feature where I can just stick one  
+line into cfg_ioncore.lua :
+
+mclick("Button3 at tab", "mod_menu.pmenu(_, _sub, 'ctxmenu')"),
+
+It already looks to me like it's already possible and easy to do, but  
+I wouldn't know really.
+
+It would be a big plus for trackpad users like me, and it would not  
+negatively affect other pointing devices, and it is only an optional  
+feature. Everything can stay the same on default.
+
+Think of it this way, ion3 encourages use of the keyboard. The  
+trackpad is closer to the keyboard than the mouse.  It is much more  
+convenient and closer to reach for the trackpad from the keyboard (as  
+you can just use your thumbs while your fingers stay on the keyboard  
+area) than reaching for the mouse. The usability of the trackpad  
+should be higher priority than the mouse.
+
+I try to see it your way and the way I understand it is, it takes 2  
+mouse events, to execute the option from the menu.
+1. Press and hold (menu popup, choose option)
+
+(May be 'hold' can be counted as a 2nd event? or more? because the  
+event is ongoing)
+
+2. Release             (option chosen, menu disappear)
+
+Whereas my way, it takes 4 mouse events.
+1. Press
+2. Release (menu popup)
+3. Press      (choose option or press elsewhere)
+4. Release (option chosen or release elsewhere, menu disappear)
+
+If it's measured by mouse events, then yes the default way is 2 times  
+more efficient if you ignore to define how many events 'hold' is  
+counted as.
+
+If you look at the effort the finger as to put in, my way is lazier  
+(therefore better i say).
+Because your way makes the finger hold down the button, it requires  
+continuous effort for a period of time.
+
+Especially so for trackpad users, cos in addition to using one finger  
+to navigate, I have to use my thumb to  press down the physical  
+trackpad right button and have my thumb stay there, while my finger  
+chooses an option from the menu.
+
+Or I can double tap hold, and have my finger stick to the touchpad as  
+I choose the option, but my height of the touchpad isn't that large,  
+so it would suck if I am in the middle of dragging my finger down the  
+touchpad and reached the end, and have not reached down to the option  
+that I wanted from the menu. I let go, and the menu is gone. Wasted  
+seconds.
+
+Now I've spent too much time talking about mouse/trackpad usage and it  
+seems like im diluting the main focus of ion3 which is to be keyboard  
+oriented. For me, the keyboard functionality is pretty near perfect  
+and I can't think of anything to improve on it. The only ONE  
+improvement I can think of is on the trackpad/mouse side (more the  
+trackpad side) with the menus.
+
+Anyway right,
+
+---------------------THE GIST OF IT IS:-------------------
+I just wanna do this:
+mclick("Button3 at tab", "mod_menu.pmenu(_, _sub, 'ctxmenu')"),
+
+As an optional thing.
+If possible.
+
+Thank you for taking the time to read,
+I don't think I got anymore to add,
+Robin
+
+
+From tuomov at iki.fi  Sun Jun  1 21:54:33 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 1 Jun 2008 19:54:33 +0000 (UTC)
+Subject: Mouse Click Context Menu Instead of Mouse Down
+References: <23808e2d0805310833t3855f11dkda1a4231f586e3b8@mail.gmail.com>
+	<slrng459r1.bsk.tuomov@jolt.modeemi.cs.tut.fi>
+	<7886DFAC-7E0B-477C-8C0C-EA050716F854@robin.com.au>
+Message-ID: <slrng45vjp.fau.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-06-01, robin <me at robin.com.au> wrote:
+> I'm only suggesting an 'optional' feature where I can just stick one  
+> line into cfg_ioncore.lua :
+>
+> mclick("Button3 at tab", "mod_menu.pmenu(_, _sub, 'ctxmenu')"),
+>
+> It already looks to me like it's already possible and easy to do, but  
+> I wouldn't know really.
+
+It's not possible. pmenu only works when the pointer is already
+grabbed. Maybe it would be possible to extend it by specifically
+grabbing again and adding other kludges. Add it to the Ion3+ wishlist
+if you want, but I don't personally care. 
+
+> Think of it this way, ion3 encourages use of the keyboard. The  
+> trackpad is closer to the keyboard than the mouse.  It is much more  
+> convenient and closer to reach for the trackpad from the keyboard (as  
+> you can just use your thumbs while your fingers stay on the keyboard  
+> area) than reaching for the mouse. The usability of the trackpad  
+> should be higher priority than the mouse.
+
+The trackpad is The. Worst. Pointing. Device. Ever. I'll rather
+have my hand glued to a mouse than use a trackpad. It's not only
+totally inaccurate, and the integrated button always triggered at
+the wrong time, but you constantly have to scrub your finger against
+plastic, wearing the skin out and feeling it afterwards for days.
+
+I'll rather nip a nipple, thank you.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue Jun  3 21:59:30 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 3 Jun 2008 19:59:30 +0000 (UTC)
+Subject: Minor issue when using alternate xkb groups
+References: <20080524085841.GA19261@kytoma>
+	<slrng3vem4.pth.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrng4b8l2.455.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-05-30, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> I suppose that with regard to this problem, it suffices to 
+> apply KNOWN_MODIFIERS_MASK
+
+So has anyone tried this? (I CBA)
+
+-- 
+Tuomo
+
+
+
+From deryni at unreliablesource.net  Sat Jun  7 05:53:58 2008
+From: deryni at unreliablesource.net (Etan Reisner)
+Date: Fri, 6 Jun 2008 23:53:58 -0400
+Subject: extended window manager hints
+In-Reply-To: <5ad23a300805301135n4c6e5415n7d4d64801d74f7aa@mail.gmail.com>
+References: <5ad23a300805300854r2a0f30b9hca277d1a84d1d17c@mail.gmail.com>
+	<slrng40ah6.976.tuomov@jolt.modeemi.cs.tut.fi>
+	<5ad23a300805301135n4c6e5415n7d4d64801d74f7aa@mail.gmail.com>
+Message-ID: <20080607035358.GU11356@aran>
+
+On Fri, May 30, 2008 at 11:35:45AM -0700, Jordan Sissel wrote:
+<snip>
+> I didn't see _NET_ACTIVE_WINDOW mentioned in the faq entry, and I see
+> code in ion-3 that looks like this request is supported. However, when
+> I send it, the window chosen isn't activated. Testing in gnome2
+> (metacity?) shows the same code working.
+>
+> Is _NET_ACTIVE_WINDOW supported?
+>
+> -Jordan
+<snip>
+
+I would have sworn that _NET_ACTIVE_WINDOW caused the activity
+notification to go off but it seems like it doesn't. Maybe that was just a
+change I made locally that I never submitted. I think that would be a
+reasonable thing to do when the request is ignored and as such I have
+just submitted a patch to ion3+ for that.
+
+	-Etan
+
+
+From jan0sch at gmx.net  Tue Jun 10 10:07:08 2008
+From: jan0sch at gmx.net (Jens Jahnke)
+Date: Tue, 10 Jun 2008 10:07:08 +0200
+Subject: ion-statusd eating up 100% cpu
+Message-ID: <20080610100708.33b9b60c.jan0sch@gmx.net>
+
+Hi,
+
+I just saw that ion-statusd is running at 100% cpu.
+Running ion3 20080411 on ubuntu 8.04 and no gnome stuff on the run here.
+from cfg_statusbar.lua: 
+template="[ %date || load:  %load | cpu:  %cpustat ][ %wsname_full ][ %
+mocp_user_defined ] %systray_dock",
+Removing mocp, wsname and cpustat didn't help.
+
+Any ideas?
+
+regards,
+
+Jens
+
+-- 
+10. Brachet 2008, 09:58
+Homepage : http://www.jan0sch.de
+
+If you stand on your head, you will get footprints in your hair.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 697 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080610/9b3402f8/attachment.pgp>
+
+From tuomov at iki.fi  Tue Jun 10 16:22:26 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 10 Jun 2008 14:22:26 +0000 (UTC)
+Subject: ion-statusd eating up 100% cpu
+References: <20080610100708.33b9b60c.jan0sch@gmx.net>
+Message-ID: <slrng4t3h2.hl0.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-06-10, Jens Jahnke <jan0sch at gmx.net> wrote:
+> I just saw that ion-statusd is running at 100% cpu.
+> Running ion3 20080411 on ubuntu 8.04 and no gnome stuff on the run here.
+> from cfg_statusbar.lua:=20
+> template=3D"[ %date || load:  %load | cpu:  %cpustat ][ %wsname_full ][ %
+> mocp_user_defined ] %systray_dock",
+> Removing mocp, wsname and cpustat didn't help.
+
+Have you tried running ion-statusd without Ion (with the same 
+parameters)? What does it do? Print lots of dots or something?
+In that case, have the broken the kernel's support for 
+POSIX_MONOTONIC_CLOCK? That wouldn't be totally unexpected,
+they even fucked up the system clock between 2.6.7 and 2.6.14.
+Try disabling the use of the monotonic clock (libmainloop/signal.c, 
+fairly obviously #ifdef modification).
+
+-- 
+Tuomo
+
+
+
+From jan0sch at gmx.net  Tue Jun 10 19:00:08 2008
+From: jan0sch at gmx.net (Jens Jahnke)
+Date: Tue, 10 Jun 2008 19:00:08 +0200
+Subject: ion-statusd eating up 100% cpu
+In-Reply-To: <slrng4t3h2.hl0.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20080610100708.33b9b60c.jan0sch@gmx.net>
+	<slrng4t3h2.hl0.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080610190008.da37a6c7.jan0sch@gmx.net>
+
+On Tue, 10 Jun 2008 14:22:26 +0000 (UTC)
+Tuomo Valkonen <tuomov at iki.fi> wrote:
+
+TV> Have you tried running ion-statusd without Ion (with the same 
+TV> parameters)? What does it do? Print lots of dots or something?
+TV> In that case, have the broken the kernel's support for 
+TV> POSIX_MONOTONIC_CLOCK? That wouldn't be totally unexpected,
+TV> they even fucked up the system clock between 2.6.7 and 2.6.14.
+TV> Try disabling the use of the monotonic clock (libmainloop/signal.c, 
+TV> fairly obviously #ifdef modification).
+TV> 
+
+When running it on the command line it behaves as expected (no printing of
+dots, just the regular infos). POSIX_MONOTONIC_CLOCK is not compiled into
+the kernel.
+I noticed that statusd is not consuming 100% cpu right away. It seems that
+this occurs only after running it for quite a while (my session is usually
+running for several days). I've had the 100% cpu after some minutes but
+right now I'm logged on for hours and it behaves normal. I'll keep an eye
+on it and report if there is something more reproducable.
+
+regards,
+
+Jens
+
+-- 
+10. Brachet 2008, 18:54
+Homepage : http://www.jan0sch.de
+
+You will be divorced within a year.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 697 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080610/16050476/attachment.pgp>
+
+From tuomov at iki.fi  Thu Jun 12 09:02:23 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 12 Jun 2008 07:02:23 +0000 (UTC)
+Subject: ion-statusd eating up 100% cpu
+References: <20080610100708.33b9b60c.jan0sch@gmx.net>
+	<slrng4t3h2.hl0.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080610190008.da37a6c7.jan0sch@gmx.net>
+Message-ID: <slrng51ifv.pqv.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-06-10, Jens Jahnke <jan0sch at gmx.net> wrote:
+> POSIX_MONOTONIC_CLOCK is not compiled into the kernel.
+
+Can it even be disabled? In that case, I suggest adding that support.
+The lack of a monotonic clock (or alternatively an unlimited number of
+timers) in the original unix/POSIX, is a fundamental design flaw.
+
+If there's no monotonic clock, in theory adjustment of the system clock
+(e.g. by NTP) could mess timings, esp. if your hardware is fucked up.
+But typically the adjustment shouldn't be so frequent as to cause
+100% cpu use. 
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Thu Jun 19 23:49:42 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 20 Jun 2008 00:49:42 +0300
+Subject: ion-statusd eating up 100% cpu
+In-Reply-To: <20080610190008.da37a6c7.jan0sch@gmx.net>
+References: <20080610100708.33b9b60c.jan0sch@gmx.net>
+	<slrng4t3h2.hl0.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080610190008.da37a6c7.jan0sch@gmx.net>
+Message-ID: <20080619214942.GA9799@jolt.modeemi.cs.tut.fi>
+
+On 2008-06-10 19:00 +0200, Jens Jahnke wrote:
+> I've had the 100% cpu after some minutes but
+> right now I'm logged on for hours and it behaves normal. I'll keep an eye
+> on it and report if there is something more reproducable.
+
+One thing you could try is attach to it with strace (-p pid), to
+try to see what it's doing. Another thing is to attach with gdb
+(--pid), but this is of little use if you have debugging symbols
+disabled (as they by default are), or if the code is in lua.
+
+-- 
+Tuomo
+
+
+From chris at mretc.net  Sat Jun 21 19:58:43 2008
+From: chris at mretc.net (Chris Burkhardt)
+Date: Sat, 21 Jun 2008 11:58:43 -0600
+Subject: Mouse Click Context Menu Instead of Mouse Down
+In-Reply-To: <slrng459r1.bsk.tuomov@jolt.modeemi.cs.tut.fi>
+References: <23808e2d0805310833t3855f11dkda1a4231f586e3b8@mail.gmail.com>
+	<slrng459r1.bsk.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <g3jfgl$4se$1@ger.gmane.org>
+
+Tuomo Valkonen wrote:
+> On 2008-05-31, Robin Chew <me at robin.com.au> wrote:
+>> Currently you have to mouse press and hold on to the tab in order for
+>> the context menu to pop up. The menu will disappear on mouse release.
+> 
+> I hate the mainstream menus that only show up after you release 
+> the button, and where you have to press somewhere outside the menu
+> to close it. Totally unintuitive. (I also hate the arbitrary mainstream
+> menu placement, as witnessed by the Window Maker (NeXTStep?) style 
+> fixed placement and scrolling in Ion.)
+
+I think the Macintosh interface does menus/pop-up menus right by 
+demonstrating that the two methods are not mutually exclusive: if you 
+click and hold, the menu appears; you make your selection by releasing 
+over an item, or if you change your mind you release away form the menu 
+and it disappears (like in Ion). But if you click and release, the menu 
+stays open and you either click on an item to select it, or you click 
+away from the menu to dismiss it (like most modern menus).
+
+Anyway, I would echo Robin's request, mostly because the 
+click-once-to-display method is much easier when using a stylus on a 
+tablet. I plan to compile a list of features that would make Ion easier 
+to use on a tablet pc which I'll post to the ion3+ wishlist thread.
+
+- Chris Burkhardt
+
+
+
+From christian.glindkamp at gmail.com  Mon Jun 23 19:40:07 2008
+From: christian.glindkamp at gmail.com (Christian Glindkamp)
+Date: Mon, 23 Jun 2008 19:40:07 +0200
+Subject: ion-statusd eating up 100% cpu
+In-Reply-To: <20080619214942.GA9799@jolt.modeemi.cs.tut.fi>
+References: <20080610100708.33b9b60c.jan0sch@gmx.net>
+	<slrng4t3h2.hl0.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080610190008.da37a6c7.jan0sch@gmx.net>
+	<20080619214942.GA9799@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080623194007.48143008@gmail.com>
+
+Hi,
+
+> On 2008-06-10 19:00 +0200, Jens Jahnke wrote:  
+> > I've had the 100% cpu after some minutes but
+> > right now I'm logged on for hours and it behaves normal. I'll keep
+> > an eye on it and report if there is something more reproducable.
+>
+> One thing you could try is attach to it with strace (-p pid), to
+> try to see what it's doing. Another thing is to attach with gdb
+> (--pid), but this is of little use if you have debugging symbols
+> disabled (as they by default are), or if the code is in lua.
+> 
+
+I have seen a similar behaviour and used strace to examine the
+situation. At first, it makes no difference whether I start ion-statusd
+from the console or through ion.
+
+When ion-statusd consumes 100% cpu, strace gives the following output
+in an endless loop:
+
+  --- SIGALRM (Alarm clock) @ 0 (0) ---
+  sigreturn()                             = ? (mask now [])
+  --- SIGALRM (Alarm clock) @ 0 (0) ---
+  sigreturn()                             = ? (mask now [])
+
+I further noticed that ion-statusd returns to normal behaviour after
+detaching from the process most of the time. In my strace logfile I've
+done on the console without attaching to a running process I have also
+seen one instance of the strace output above, but intermixed with
+single calls to different functions. This loop later stopped and statusd
+returned to normal behaviour without manipulation by myself.
+This incident started with
+
+  clock_gettime(CLOCK_MONOTONIC, {13941, 540036351}) = 0
+  clock_gettime(CLOCK_MONOTONIC, {13941, 540067869}) = 0
+  setitimer(ITIMER_REAL, {it_interval={0, 179}, it_value={0, 179}}, NULL) = 0
+  clock_gettime(CLOCK_MONOTONIC, {13941, 540187362}) = 0
+  setitimer(ITIMER_REAL, {it_interval={0, 59}, it_value={0, 59}}, NULL) = 0
+  write(1, ".\n", 2)                      = 2
+  --- SIGALRM (Alarm clock) @ 0 (0) ---
+  sigreturn()                             = ? (mask now [])
+  --- SIGALRM (Alarm clock) @ 0 (0) ---
+  sigreturn()                             = ? (mask now [])
+
+and ended with
+
+  --- SIGALRM (Alarm clock) @ 0 (0) ---
+  sigreturn()                             = ? (mask now [])
+  --- SIGALRM (Alarm clock) @ 0 (0) ---
+  sigreturn()                             = ? (mask now [])
+  setitimer(ITIMER_REAL, {it_interval={0, 815411}, it_value={0, 815411}}, NULL) = 0
+  --- SIGALRM (Alarm clock) @ 0 (0) ---
+  sigreturn()                             = ? (mask now [])
+  clock_gettime(CLOCK_MONOTONIC, {13941, 591428682}) = 0
+  setitimer(ITIMER_REAL, {it_interval={0, 814784}, it_value={0, 814784}}, NULL) = 0
+  clock_gettime(CLOCK_MONOTONIC, {13941, 591488730}) = 0
+  clock_gettime(CLOCK_MONOTONIC, {13941, 591515976}) = 0
+
+The loop, which didn't stop started with
+
+  clock_gettime(CLOCK_MONOTONIC, {14538, 463099728}) = 0
+  clock_gettime(CLOCK_MONOTONIC, {14538, 463131462}) = 0
+  setitimer(ITIMER_REAL, {it_interval={0, 19}, it_value={0, 19}}, NULL) = 0
+  --- SIGALRM (Alarm clock) @ 0 (0) ---
+  sigreturn()                             = ? (mask now [])
+  --- SIGALRM (Alarm clock) @ 0 (0) ---
+  sigreturn()                             = ? (mask now [])
+(I aborted it after over 100000 lines of strace output)
+
+I still use ion3-20080207 but I hope that is no problem as this issue
+seems to exist in the recent version, too. ion-statusd is configured to
+use the following meters: exec, binclock, netmon, sysmon, date, load,
+mocp
+As you have implied it may be broken kernel support: I am currently
+running Linux version 2.6.26-rc5.
+
+If wished, I will try to reproduce this behaviour with minimal set of
+meters and a current version of ion3, and even other kernel versions.
+
+I hope this helps a bit in analyzing the problem.
+
+Regard,
+Christian Glindkamp
+
+
+From tuomov at iki.fi  Mon Jun 23 21:25:53 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 23 Jun 2008 22:25:53 +0300
+Subject: ion-statusd eating up 100% cpu
+In-Reply-To: <20080623194007.48143008@gmail.com>
+References: <20080610100708.33b9b60c.jan0sch@gmx.net>
+	<slrng4t3h2.hl0.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080610190008.da37a6c7.jan0sch@gmx.net>
+	<20080619214942.GA9799@jolt.modeemi.cs.tut.fi>
+	<20080623194007.48143008@gmail.com>
+Message-ID: <20080623192553.GA29807@jolt.modeemi.cs.tut.fi>
+
+On 2008-06-23 19:40 +0200, Christian Glindkamp wrote:
+>   setitimer(ITIMER_REAL, {it_interval={0, 19}, it_value={0, 19}}, NULL) = 0
+>   --- SIGALRM (Alarm clock) @ 0 (0) ---
+
+Ok, there's a small chance that it may be as I already suspected: 
+For some reason (bitrot maybe; I didn't actually write the code, 
+IIRC), the timer code sets it_interval, although it does not need
+the signal repeated at static intervals. So, when this interval
+is very short, Ion may never actually get far from returning
+from the signal handler, until the signal is delivered again.
+
+The attached patch might fix the issue, if this is the case.
+However, now there's a potential for another race condition:
+what if the signal gets delivered before we call select()?
+Without repetion, we might never return from select() to
+handle the timer signal. pselect() would solve this problem,
+but it was not implemented in linux until 2.6.16, and glibc
+has an emulation prone to the same race conditions. Also
+the changes needed maybe too big for inclusion into Ion3.
+(The patch is found in the Ion3+ darcs repository, however.)
+
+-- 
+Tuomo
+-------------- next part --------------
+Wed Jun 18 13:06:21 EEST 2008  Tuomo Valkonen <tuomov at iki.fi>
+  * We don't really need it_interval
+diff -rN -u old-ion-3-work1.1/libmainloop/signal.c new-ion-3-work1.1/libmainloop/signal.c
+--- old-ion-3-work1.1/libmainloop/signal.c	2008-06-23 22:16:51.504899340 +0300
++++ new-ion-3-work1.1/libmainloop/signal.c	2008-06-23 22:16:51.564907535 +0300
+@@ -112,8 +112,8 @@
+         return;
+     }
+ 
+-    val.it_interval.tv_usec=val.it_value.tv_usec;
+-    val.it_interval.tv_sec=val.it_value.tv_sec;
++    val.it_interval.tv_usec=0;
++    val.it_interval.tv_sec=0;
+     
+     if((setitimer(ITIMER_REAL, &val, NULL))){
+         had_tmr=TRUE;
+
+
+From tuomov at iki.fi  Mon Jun 23 21:34:03 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 23 Jun 2008 22:34:03 +0300
+Subject: ion-statusd eating up 100% cpu
+In-Reply-To: <20080623192553.GA29807@jolt.modeemi.cs.tut.fi>
+References: <20080610100708.33b9b60c.jan0sch@gmx.net>
+	<slrng4t3h2.hl0.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080610190008.da37a6c7.jan0sch@gmx.net>
+	<20080619214942.GA9799@jolt.modeemi.cs.tut.fi>
+	<20080623194007.48143008@gmail.com>
+	<20080623192553.GA29807@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080623193403.GA31184@jolt.modeemi.cs.tut.fi>
+
+On 2008-06-23 22:25 +0300, Tuomo Valkonen wrote:
+> The attached patch might fix the issue, if this is the case.
+> However, now there's a potential for another race condition:
+> what if the signal gets delivered before we call select()?
+> Without repetion, we might never return from select() to
+> handle the timer signal. pselect() would solve this problem,
+> but it was not implemented in linux until 2.6.16, and glibc
+> has an emulation prone to the same race conditions. Also
+> the changes needed maybe too big for inclusion into Ion3.
+> (The patch is found in the Ion3+ darcs repository, however.)
+
+(And as I recall mentioning in the Ion3+ wishlist thread, I'm open
+to a contributed quality patch replacing libmainloop with libevent [1], 
+in order to not have to do redundant work in maintaining similar code.)
+
+  [1]: http://www.monkey.org/~provos/libevent/
+
+-- 
+Tuomo
+
+
+From realblades at gmail.com  Mon Jun 23 21:53:54 2008
+From: realblades at gmail.com (Harri Haataja)
+Date: Mon, 23 Jun 2008 22:53:54 +0300
+Subject: Mouse Click Context Menu Instead of Mouse Down
+In-Reply-To: <g3jfgl$4se$1@ger.gmane.org>
+References: <23808e2d0805310833t3855f11dkda1a4231f586e3b8@mail.gmail.com>
+	<slrng459r1.bsk.tuomov@jolt.modeemi.cs.tut.fi>
+	<g3jfgl$4se$1@ger.gmane.org>
+Message-ID: <74e3492a0806231253q4549e6e1pb0acf73339167036@mail.gmail.com>
+
+2008/6/21 Chris Burkhardt <chris at mretc.net>:
+> Anyway, I would echo Robin's request, mostly because the
+> click-once-to-display method is much easier when using a stylus on a tablet.
+> I plan to compile a list of features that would make Ion easier to use on a
+> tablet pc which I'll post to the ion3+ wishlist thread.
+
+Holding is also massively annoying if the interface is lagged.
+Rio (plan9) does it. Isn't that reason enough to do the opposite? :)
+
+-- 
+I appear to be temporarily using gmail's horrible interface. I
+apologise for any failure in my part in trying to make it do the right
+thing with post formatting.
+
+
+From christian.glindkamp at gmail.com  Mon Jun 23 22:38:08 2008
+From: christian.glindkamp at gmail.com (Christian Glindkamp)
+Date: Mon, 23 Jun 2008 22:38:08 +0200
+Subject: ion-statusd eating up 100% cpu
+In-Reply-To: <20080623192553.GA29807@jolt.modeemi.cs.tut.fi>
+References: <20080610100708.33b9b60c.jan0sch@gmx.net>
+	<slrng4t3h2.hl0.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080610190008.da37a6c7.jan0sch@gmx.net>
+	<20080619214942.GA9799@jolt.modeemi.cs.tut.fi>
+	<20080623194007.48143008@gmail.com>
+	<20080623192553.GA29807@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080623223808.5c46672f@gmail.com>
+
+On Mon, 23 Jun 2008 22:25:53 +0300, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2008-06-23 19:40 +0200, Christian Glindkamp wrote:
+> >   setitimer(ITIMER_REAL, {it_interval={0, 19}, it_value={0, 19}}, NULL) = 0
+> >   --- SIGALRM (Alarm clock) @ 0 (0) ---
+> 
+> Ok, there's a small chance that it may be as I already suspected: 
+> For some reason (bitrot maybe; I didn't actually write the code, 
+> IIRC), the timer code sets it_interval, although it does not need
+> the signal repeated at static intervals. So, when this interval
+> is very short, Ion may never actually get far from returning
+> from the signal handler, until the signal is delivered again.
+> 
+> The attached patch might fix the issue, if this is the case.
+> However, now there's a potential for another race condition:
+> what if the signal gets delivered before we call select()?
+> Without repetion, we might never return from select() to
+> handle the timer signal.
+
+Exactly this seems to have happened now. Wouldn't it be possible, at
+least as a workaround, to call select with a timeout or did I missed
+something (I don't know the ion code base, I just skimmed through some
+of the related code sections)?
+
+
+From tuomov at iki.fi  Mon Jun 23 22:46:53 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 23 Jun 2008 20:46:53 +0000 (UTC)
+Subject: ion-statusd eating up 100% cpu
+References: <20080610100708.33b9b60c.jan0sch@gmx.net>
+	<slrng4t3h2.hl0.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080610190008.da37a6c7.jan0sch@gmx.net>
+	<20080619214942.GA9799@jolt.modeemi.cs.tut.fi>
+	<20080623194007.48143008@gmail.com>
+	<20080623192553.GA29807@jolt.modeemi.cs.tut.fi>
+	<20080623223808.5c46672f@gmail.com>
+Message-ID: <slrng602tt.52k.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-06-23, Christian Glindkamp <christian.glindkamp at gmail.com> wrote:
+> Exactly this seems to have happened now. Wouldn't it be possible, at
+> least as a workaround, to call select with a timeout or did I missed
+> something (I don't know the ion code base, I just skimmed through some
+> of the related code sections)?
+
+A fixed timeout as such does not properly remove the race condition,
+as it may take some time to reach that time, unless it's so short as
+to cause a busyloop. In principle, one could however do entirely without
+the timer signal, by adjusting the select timeouts suitably. But that's
+another change that's perhaps a bit too big for Ion3, and for Ion3+, 
+instead of more work on libmainloop, I'd rather see a patch to use 
+libevent. Also, there are other signals for which the race condition
+remains (it is there even now). pselect() is the correct solution.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue Jun 24 12:03:15 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 24 Jun 2008 10:03:15 +0000 (UTC)
+Subject: ion-statusd eating up 100% cpu
+References: <20080610100708.33b9b60c.jan0sch@gmx.net>
+	<slrng4t3h2.hl0.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080610190008.da37a6c7.jan0sch@gmx.net>
+	<20080619214942.GA9799@jolt.modeemi.cs.tut.fi>
+	<20080623194007.48143008@gmail.com>
+	<20080623192553.GA29807@jolt.modeemi.cs.tut.fi>
+	<20080623223808.5c46672f@gmail.com>
+	<slrng602tt.52k.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrng61hj3.ga5.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-06-23, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> instead of more work on libmainloop, I'd rather see a patch to use 
+> libevent. Also, there are other signals for which the race condition
+> remains (it is there even now). pselect() is the correct solution.
+
+Before anyone rushes to implement the support, I should note that
+libevent needs to be fixed first: it some places, it exit()s on
+error. That behaviour is totally unacceptable. Interactive programs
+should recover from errors. (Suppose e.g. that there's no memory
+for internal structures to manage a new window. Then we simply 
+should not manage that window, instead of crashing all of X.) 
+My computer still is not a Turing machine [1]. The default 
+behaviour of the Linux memory manager is a fatal bug, totally
+unacceptable in quality software (which Linux isn't). There's also
+an alternative to libevent, ev [2] that has been designed expecting
+this bug: it always aborts on memory allocation error, as well as 
+some other errors, instead of failing with an error code, so that
+the application can recover gracefully.
+
+  [1]: http://modeemi.fi/~tuomov/b/archives/2007/02/16/T19_26_12/
+
+  [2]: http://software.schmorp.de/pkg/libev.html
+
+-- 
+Tuomo
+
+
+
+From jan0sch at gmx.net  Mon Jun 30 16:17:43 2008
+From: jan0sch at gmx.net (Jens Jahnke)
+Date: Mon, 30 Jun 2008 16:17:43 +0200
+Subject: ion-statusd eating up 100% cpu
+In-Reply-To: <20080623194007.48143008@gmail.com>
+References: <20080610100708.33b9b60c.jan0sch@gmx.net>
+	<slrng4t3h2.hl0.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080610190008.da37a6c7.jan0sch@gmx.net>
+	<20080619214942.GA9799@jolt.modeemi.cs.tut.fi>
+	<20080623194007.48143008@gmail.com>
+Message-ID: <20080630161743.ae16d1dd.jan0sch@gmx.net>
+
+Hi there,
+
+On Mon, 23 Jun 2008 19:40:07 +0200
+Christian Glindkamp <christian.glindkamp at gmail.com> wrote:
+
+CG> When ion-statusd consumes 100% cpu, strace gives the following output
+CG> in an endless loop:
+CG> 
+CG>   --- SIGALRM (Alarm clock) @ 0 (0) ---
+CG>   sigreturn()                             = ? (mask now [])
+CG>   --- SIGALRM (Alarm clock) @ 0 (0) ---
+CG>   sigreturn()                             = ? (mask now [])
+
+I get the same information on my system when attaching via strace.
+
+CG> I further noticed that ion-statusd returns to normal behaviour after
+CG> detaching from the process most of the time.
+
+Can also confirm that.
+
+regards
+
+Jens
+
+-- 
+30. Brachet 2008, 16:15
+Homepage : http://www.jan0sch.de
+
+BOFH excuse #369:
+
+Virus transmitted from computer to sysadmins.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 697 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080630/3bf9743f/attachment.pgp>
+
+From tuomov at iki.fi  Mon Jun 30 21:05:48 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 30 Jun 2008 19:05:48 +0000 (UTC)
+Subject: ion-statusd eating up 100% cpu
+References: <20080610100708.33b9b60c.jan0sch@gmx.net>
+	<slrng4t3h2.hl0.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080610190008.da37a6c7.jan0sch@gmx.net>
+	<20080619214942.GA9799@jolt.modeemi.cs.tut.fi>
+	<20080623194007.48143008@gmail.com>
+	<20080630161743.ae16d1dd.jan0sch@gmx.net>
+Message-ID: <slrng6ibkc.pu8.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-06-30, Jens Jahnke <jan0sch at gmx.net> wrote:
+> CG> I further noticed that ion-statusd returns to normal behaviour after
+> CG> detaching from the process most of the time.
+>
+> Can also confirm that.
+
+Can you confirm that the patch worked?
+
+(I should make a new maintenance release one of these days..)
+
+-- 
+Tuomo
+
+
+

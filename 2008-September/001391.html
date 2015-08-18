@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Move frames to and from scratchpad
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Move%20frames%20to%20and%20from%20scratchpad&In-Reply-To=%3C20080921190128.GB19082%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001389.html">
+   <LINK REL="Next"  HREF="001413.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Move frames to and from scratchpad</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Move%20frames%20to%20and%20from%20scratchpad&In-Reply-To=%3C20080921190128.GB19082%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Move frames to and from scratchpad">tuomov at iki.fi
+       </A><BR>
+    <I>Sun Sep 21 21:01:28 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001389.html">Move frames to and from scratchpad
+</A></li>
+        <LI>Next message: <A HREF="001413.html">Move frames to and from scratchpad
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1391">[ date ]</a>
+              <a href="thread.html#1391">[ thread ]</a>
+              <a href="subject.html#1391">[ subject ]</a>
+              <a href="author.html#1391">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-09-21 19:23 +0200, Daniel Clemente wrote:
+&gt;<i> - If the scratchpad is open, then move the current frame (inside the
+</I>&gt;<i> scratchpad) to the window below the scratchpad. Don't close the scratchpad
+</I>
+This is a bit tricky, if &quot;below&quot; is to be taken geometrically. I'm not 
+sure if it is 100% doable on the Lua side. The problem is that Ion does 
+not expose the stacking orders to the Lua scripts. Otherwise, one would
+just have to recursively scan from the root, checking the geometries of 
+objects.. and it will work in a typical tiled arrangement, but not in 
+a messy floating arrangement.
+
+Perhaps easier would be to use the screen's mx_current object, which
+is typically the current group, and then recurse WRegion.current until
+it produces a frame and use that as the target (or the last frame seen
+until the recursion returns no result). The result should typically be
+the frame that was last active on the current workspace.
+
+&gt;<i> - If the scratchpad is not open, then move the current frame to the
+</I>&gt;<i> scratchpad. Don't open the scratchpad
+</I>
+This should be rather easy. Just use ioncore.lookup_region to find one
+named &quot;*scratchpad*&quot;, and use WMPlex.attach on it. If there are multiple
+scratchpads (such as when there are multiple screens), one may have to 
+choose between them, numbered in the typical fashion (*scratchpad*, 
+*scratchpad*&lt;1&gt;, ... etc., but with guaranteed correspondence to screen
+numbers). In that case ioncore.region_i may be better. One can also cache them 
+in variables the script to not have to look them up all the time. 
+(obj_exists is then useful to check that the scratchpad is still there).
+An alternative to the global scanning functions in ioncore. is to
+use WScreen.mx_i, which is also what the modules does (essentially, 
+but in C).
+
+
+-- 
+Tuomo
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001389.html">Move frames to and from scratchpad
+</A></li>
+	<LI>Next message: <A HREF="001413.html">Move frames to and from scratchpad
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1391">[ date ]</a>
+              <a href="thread.html#1391">[ thread ]</a>
+              <a href="subject.html#1391">[ subject ]</a>
+              <a href="author.html#1391">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

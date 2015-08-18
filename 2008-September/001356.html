@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> winprop.target and nested workspace
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20winprop.target%20and%20nested%20workspace&In-Reply-To=%3C20080909143608.GA9213%40monad%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001355.html">
+   <LINK REL="Next"  HREF="001357.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>winprop.target and nested workspace</H1>
+    <B>Carlos Pita</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20winprop.target%20and%20nested%20workspace&In-Reply-To=%3C20080909143608.GA9213%40monad%3E"
+       TITLE="winprop.target and nested workspace">carlosjosepita at gmail.com
+       </A><BR>
+    <I>Tue Sep  9 16:36:08 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001355.html">winprop.target and nested workspace
+</A></li>
+        <LI>Next message: <A HREF="001357.html">winprop.target and nested workspace
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1356">[ date ]</a>
+              <a href="thread.html#1356">[ thread ]</a>
+              <a href="subject.html#1356">[ subject ]</a>
+              <a href="author.html#1356">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&gt;<i> I wouldn't attach a group within a group.. it's asking for a bleeding
+</I>
+Maybe it's not clear from my poor ascii art but groupws2 is attached to
+frame1, not groupcw1. I wasn't at home when I sent that email and maybe
+I didn't realize that the mua wasn't configured with monospaced fonts. I
+just followed this faq entry
+<A HREF="http://modeemi.fi/~tuomov/ion/faq/entries/Nested_workspaces.html">http://modeemi.fi/~tuomov/ion/faq/entries/Nested_workspaces.html</A> to get
+the layout. Here is the graph again:
+
+groupws1 --- frame1 --- groupcw1 --- window1
+                    |__ groupws2 --- frame2 --- groupcw2 --- window2
+
+&gt;<i> nose, although in theory the code can handle that. Why not just attach
+</I>&gt;<i> frame2 directly under groupcw1?
+</I>
+And then attaching the nested workspace groupws2 directly under frame2?
+I'll try that.
+
+&gt;<i> When there's no target winprop, Ion starts searching for a place to
+</I>&gt;<i> manage window at, starting from the root window. The target winprop
+</I>&gt;<i> has the semantic of changing that start node (plus a few other things).
+</I>&gt;<i> WGroupCW shouldn't forward prepare_manage calls, though...
+</I>
+Let me be more precise. The resulting parent is frame2 in both cases,
+and the resulting manager is the tilling for frame2 in both cases. It's
+exactly as if both winprop targets were pointing to frame2. I don't
+understand what do you mean with &quot;forward prepare_manage calls&quot;. Is it
+that groupcw1 &quot;refuses&quot; to manage app1 so it forwards the management to
+the next group (groupws2) ?
+
+&gt;<i> There could also be some problem with the app2 winprop matching both
+</I>&gt;<i> windows. (Some apps are slow at setting the properties.)
+</I>
+I don't think this is the case because if I layout the workspace as a
+vsplit with frames A and B -just to say- and app1.target  = A and
+app2.target = B, then both apps are positioned at the expected places
+after startup.
+
+Regards
+-Carlos
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001355.html">winprop.target and nested workspace
+</A></li>
+	<LI>Next message: <A HREF="001357.html">winprop.target and nested workspace
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1356">[ date ]</a>
+              <a href="thread.html#1356">[ thread ]</a>
+              <a href="subject.html#1356">[ subject ]</a>
+              <a href="author.html#1356">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

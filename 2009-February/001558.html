@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Keyboard%20focus%20lost%20in%20Swing%20applications%20%28ex%3A%20Netbeans%29%20after%0A%09changing%20to%20window&In-Reply-To=%3C20090208223716.GA29391%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001557.html">
+   <LINK REL="Next"  HREF="001559.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Keyboard%20focus%20lost%20in%20Swing%20applications%20%28ex%3A%20Netbeans%29%20after%0A%09changing%20to%20window&In-Reply-To=%3C20090208223716.GA29391%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window">tuomov at iki.fi
+       </A><BR>
+    <I>Sun Feb  8 23:37:16 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001557.html">Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window
+</A></li>
+        <LI>Next message: <A HREF="001559.html">Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1558">[ date ]</a>
+              <a href="thread.html#1558">[ thread ]</a>
+              <a href="subject.html#1558">[ subject ]</a>
+              <a href="author.html#1558">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2009-02-08 21:52 +0100, Daniel Clemente wrote:
+&gt;<i> 
+</I>&gt;<i> Hi; thanks for the helpful explanations.
+</I>&gt;<i> 
+</I>&gt;<i>   I tried doing that change and it stayed the same. I also tried doing a sleep(2) before sending the WM_TAKE_FOCUS (with the +2s timestamp), but without success.
+</I>&gt;<i> 
+</I>&gt;<i>   What did work is this:
+</I>
+Try the attached patch. (Disclaimer: I haven't particularly tried it; 
+just quickly threw it together.)
+
+-- 
+Stop Gnomes and other pests! Purchase Windows today!
+
+-------------- next part --------------
+diff -rN -u old-ion-3/ioncore/clientwin.c new-ion-3/ioncore/clientwin.c
+--- old-ion-3/ioncore/clientwin.c	2009-02-09 00:35:07.380883290 +0200
++++ new-ion-3/ioncore/clientwin.c	2009-02-09 00:35:07.488878930 +0200
+@@ -1015,10 +1015,11 @@
+ {
+     if(cwin-&gt;flags&amp;CLIENTWIN_P_WM_TAKE_FOCUS){
+         Time stmp=ioncore_get_timestamp();
++        region_finalise_focusing((WRegion*)cwin, cwin-&gt;win, warp, stmp);
+         send_clientmsg(cwin-&gt;win, ioncore_g.atom_wm_take_focus, stmp);
++    }else{
++        region_finalise_focusing((WRegion*)cwin, cwin-&gt;win, warp, CurrentTime);
+     }
+-
+-    region_finalise_focusing((WRegion*)cwin, cwin-&gt;win, warp);
+     
+     XSync(ioncore_g.dpy, 0);
+ }
+diff -rN -u old-ion-3/ioncore/focus.c new-ion-3/ioncore/focus.c
+--- old-ion-3/ioncore/focus.c	2009-02-09 00:35:07.368883774 +0200
++++ new-ion-3/ioncore/focus.c	2009-02-09 00:35:07.484879092 +0200
+@@ -347,7 +347,7 @@
+ /*Time ioncore_focus_time=CurrentTime;*/
+ 
+ 
+-void region_finalise_focusing(WRegion* reg, Window win, bool warp)
++void region_finalise_focusing(WRegion* reg, Window win, bool warp, Time time)
+ {
+     if(warp)
+         region_do_warp(reg);
+@@ -356,10 +356,7 @@
+         return;
+     
+     region_set_await_focus(reg);
+-    /*xwindow_do_set_focus(win);*/
+-    XSetInputFocus(ioncore_g.dpy, win, RevertToParent, 
+-                   CurrentTime/*ioncore_focus_time*/);
+-    /*ioncore_focus_time=CurrentTime;*/
++    XSetInputFocus(ioncore_g.dpy, win, RevertToParent, time);
+ }
+ 
+ 
+diff -rN -u old-ion-3/ioncore/focus.h new-ion-3/ioncore/focus.h
+--- old-ion-3/ioncore/focus.h	2009-02-09 00:35:07.368883774 +0200
++++ new-ion-3/ioncore/focus.h	2009-02-09 00:35:07.484879092 +0200
+@@ -23,7 +23,7 @@
+ extern void region_warp(WRegion *reg); /* maybewarp TRUE */
+ extern void region_set_focus(WRegion *reg); /* maybewarp FALSE */
+ 
+-extern void region_finalise_focusing(WRegion* reg, Window win, bool warp);
++extern void region_finalise_focusing(WRegion* reg, Window win, bool warp, Time time);
+ 
+ DYNFUN void region_do_set_focus(WRegion *reg, bool warp);
+ extern void region_do_warp(WRegion *reg);
+diff -rN -u old-ion-3/ioncore/group.c new-ion-3/ioncore/group.c
+--- old-ion-3/ioncore/group.c	2009-02-09 00:35:07.272887653 +0200
++++ new-ion-3/ioncore/group.c	2009-02-09 00:35:07.460880061 +0200
+@@ -241,7 +241,7 @@
+     if(st!=NULL &amp;&amp; st-&gt;reg!=NULL)
+         region_do_set_focus(st-&gt;reg, warp);
+     else
+-        region_finalise_focusing((WRegion*)ws, ws-&gt;dummywin, warp);
++        region_finalise_focusing((WRegion*)ws, ws-&gt;dummywin, warp, CurrentTime);
+ }
+ 
+ 
+diff -rN -u old-ion-3/ioncore/window.c new-ion-3/ioncore/window.c
+--- old-ion-3/ioncore/window.c	2009-02-09 00:35:07.332885230 +0200
++++ new-ion-3/ioncore/window.c	2009-02-09 00:35:07.480879252 +0200
+@@ -182,7 +182,7 @@
+ 
+ void window_do_set_focus(WWindow *wwin, bool warp)
+ {
+-    region_finalise_focusing((WRegion*)wwin, wwin-&gt;win, warp);
++    region_finalise_focusing((WRegion*)wwin, wwin-&gt;win, warp, CurrentTime);
+ }
+ 
+ 
+diff -rN -u old-ion-3/mod_tiling/tiling.c new-ion-3/mod_tiling/tiling.c
+--- old-ion-3/mod_tiling/tiling.c	2009-02-09 00:35:07.124893627 +0200
++++ new-ion-3/mod_tiling/tiling.c	2009-02-09 00:35:07.416881837 +0200
+@@ -158,7 +158,7 @@
+ 
+ void tiling_fallback_focus(WTiling *ws, bool warp)
+ {
+-    region_finalise_focusing((WRegion*)ws, ws-&gt;dummywin, warp);
++    region_finalise_focusing((WRegion*)ws, ws-&gt;dummywin, warp, CurrentTime);
+ }
+ 
+ 
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001557.html">Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window
+</A></li>
+	<LI>Next message: <A HREF="001559.html">Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1558">[ date ]</a>
+              <a href="thread.html#1558">[ thread ]</a>
+              <a href="subject.html#1558">[ subject ]</a>
+              <a href="author.html#1558">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

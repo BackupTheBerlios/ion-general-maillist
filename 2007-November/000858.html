@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> A devious little hack...
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20A%20devious%20little%20hack...&In-Reply-To=%3Cslrnfk5ue9.egj.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000870.html">
+   <LINK REL="Next"  HREF="000862.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>A devious little hack...</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20A%20devious%20little%20hack...&In-Reply-To=%3Cslrnfk5ue9.egj.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="A devious little hack...">tuomov at iki.fi
+       </A><BR>
+    <I>Tue Nov 20 16:14:17 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000870.html">Forbiding focus to floating window
+</A></li>
+        <LI>Next message: <A HREF="000862.html">A devious little hack...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#858">[ date ]</a>
+              <a href="thread.html#858">[ thread ]</a>
+              <a href="subject.html#858">[ subject ]</a>
+              <a href="author.html#858">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>... or how to make them obey me while still keeping Ion DFSG-&quot;free&quot; /
+satisfy the &quot;Open Source&quot; definition.
+
+It seems that ideologist distros aren't going for the rather reasonable
+28-day clause in the present license, so I've been considering simplifying
+the license. It could simply forbid distributing non-renamed versions.
+But it could also be just:
+
+&gt;<i> You may use, modify, and redistribute this software under the LGPL,
+</I>&gt;<i> version 2.1, reproduced below, extended with the following terms:
+</I>&gt;<i>
+</I>&gt;<i>  * Unless explicitly permitted by the copyright holder, redistribution
+</I>&gt;<i>    of modified versions is only allowed if they are and any executables
+</I>&gt;<i>    and library files installed by them, are renamed to not be associated
+</I>&gt;<i>    with the Ion(tm) project, and neither the copyright holder nor the
+</I>&gt;<i>    Ion(tm) project are pointed to for support.
+</I>&gt;<i>
+</I>&gt;<i>  (Plus some standard stuff about how these conditions may not be
+</I>&gt;<i>  altered, how I retain the right to use your modifications, etc.)
+</I>
+This kind of terms are permitted under these definitions [1,2]
+(or at least requiring name change, which _should_ by any reasonable
+interpretation include renaming executables with non-generic names,
+etc.)
+
+Now, behold, GPLv3! From my reading of it [3], it actually allows
+adding this kind of terms while remaining compatible with other GPLv3
+(and &quot;GPLv2 or later&quot;) works; cf. Section 7. The 28-day clause 
+unfortunately does not seem to fit under the terms therein.
+
+
+But such a simple extra term alone doesn't really do much with regard
+to bastard distributors carrying ancient versions. Now comes the hack:
+you'd have to patch/modify the source code to actually build something
+worth using. It shouldn't be much extra effort for users building from
+orignal source: just a simple './modify' script. And yet you couldn't 
+distribute the result under the name Ion anymore -- unless explicitly
+permitted by me, outside the license, in which case I'd just show them
+the terms of the present license. MUAHHAHAHAHAHHAAA }:-&gt; 
+
+
+Not sure I'll go for this, but it's a devious little &quot;use their own
+rules agains them&quot; hack I came up with, which would simplify the license
+considerably. It should also work better for Ion3plus from which I
+have no intention of making releases, or responding to support requests
+of random lusers who probably couldn't install it from the repository
+anyway.
+
+
+  [1]: <A HREF="http://www.debian.org/social_contract">http://www.debian.org/social_contract</A>
+  
+  [2]: <A HREF="http://www.opensource.org/docs/definition.php">http://www.opensource.org/docs/definition.php</A>
+
+  [3]: <A HREF="http://www.gnu.org/licenses/gpl-3.0.html">http://www.gnu.org/licenses/gpl-3.0.html</A>
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000870.html">Forbiding focus to floating window
+</A></li>
+	<LI>Next message: <A HREF="000862.html">A devious little hack...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#858">[ date ]</a>
+              <a href="thread.html#858">[ thread ]</a>
+              <a href="subject.html#858">[ subject ]</a>
+              <a href="author.html#858">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

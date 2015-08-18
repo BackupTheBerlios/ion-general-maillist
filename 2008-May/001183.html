@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Ion3 wishlist / a note about Ion4
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion3%20wishlist%20/%20a%20note%20about%20Ion4&In-Reply-To=%3Cslrng1lnt9.kn4.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="001184.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Ion3 wishlist / a note about Ion4</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion3%20wishlist%20/%20a%20note%20about%20Ion4&In-Reply-To=%3Cslrng1lnt9.kn4.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Ion3 wishlist / a note about Ion4">tuomov at iki.fi
+       </A><BR>
+    <I>Fri May  2 11:32:25 CEST 2008</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="001184.html">Ion3 wishlist / a note about Ion4
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1183">[ date ]</a>
+              <a href="thread.html#1183">[ thread ]</a>
+              <a href="subject.html#1183">[ subject ]</a>
+              <a href="author.html#1183">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-04-30, Jan Johansson &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">janj+ion at wenf.org</A>&gt; wrote:
+&gt;<i> On the contrary I think it fits very well. For my optimal setup I
+</I>&gt;<i> would only have one single workspace. Split in two or four
+</I>&gt;<i> (equal) parts. As the day goes on it fills with windows for
+</I>&gt;<i> different tasks. Just staring up I load my IM client, calendar
+</I>&gt;<i> and mail client. Then starting work in an a number of xterms. If
+</I>&gt;<i> I then want to dig into a problem I need to stop the IM, mail and
+</I>&gt;<i> such. I think it would be nice to just hide/unmap the tag/group
+</I>&gt;<i> &quot;Interupters&quot;.
+</I>
+Ah, so you want to show/hide window within a group of frames, based
+on a tag? That certainly does fit the Ion tiling approach relatively
+well. Selection should be a fairly trivial extension of the bookmarks
+script [1] to support multiple frames (bms[frame][tag] -- although the
+binding setup of the script uses, numbers, it is possible to use 
+arbitrary index objects, such as string tags). Hiding demands a little
+bit more work: you have to find out if an object with the given tag is
+active in any frame, and then if the frame contains objects with other
+tags that could be activated, etc. Ion does not provide a ready command
+to hide a particular object on the &quot;mutually exclusive&quot; list a multiplexer.
+
+  [1]: <A HREF="http://modeemi.fi/~tuomov/repos/ion-scripts-3/scripts/bookmarks.lua">http://modeemi.fi/~tuomov/repos/ion-scripts-3/scripts/bookmarks.lua</A>
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="001184.html">Ion3 wishlist / a note about Ion4
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1183">[ date ]</a>
+              <a href="thread.html#1183">[ thread ]</a>
+              <a href="subject.html#1183">[ subject ]</a>
+              <a href="author.html#1183">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

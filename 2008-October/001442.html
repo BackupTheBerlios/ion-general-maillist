@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Manipulate floating splits or the scratchpad on the fly
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-October/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Manipulate%20floating%20splits%20or%20the%20scratchpad%20on%20the%20fly&In-Reply-To=%3Cslrnggjntr.oia.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001441.html">
+   <LINK REL="Next"  HREF="001443.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Manipulate floating splits or the scratchpad on the fly</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Manipulate%20floating%20splits%20or%20the%20scratchpad%20on%20the%20fly&In-Reply-To=%3Cslrnggjntr.oia.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Manipulate floating splits or the scratchpad on the fly">tuomov at iki.fi
+       </A><BR>
+    <I>Thu Oct 30 17:24:27 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001441.html">Manipulate floating splits or the scratchpad on the fly
+</A></li>
+        <LI>Next message: <A HREF="001443.html">Fwd: Re: ICCCM
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1442">[ date ]</a>
+              <a href="thread.html#1442">[ thread ]</a>
+              <a href="subject.html#1442">[ subject ]</a>
+              <a href="author.html#1442">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-10-30, Christian Walther &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">cptsalek at gmail.com</A>&gt; wrote:
+&gt;<i> One of these workspaces contains Xnest with a Citrix client running
+</I>&gt;<i> Lotus Notes (Citrix is by far the whorst App to run on any Unix host
+</I>&gt;<i> since it behaves like a window manager in every regard except for
+</I>&gt;<i> displaying icons of its iconified windows).
+</I>
+It won't work on a non-tiled workspace? 
+
+&gt;<i> So, I would like to have some commands to manipulate either the
+</I>&gt;<i> scratchpad or a floating split:
+</I>&gt;<i> - making it (dis)appear
+</I>&gt;<i> - resize and reposition it (to be a column on the right side of the
+</I>&gt;<i> screen, or a row taking all screen width on the bottom half of the
+</I>&gt;<i> screen, or even resizining it to scatchpads default size).
+</I>&gt;<i>
+</I>&gt;<i> Thing is: I've no idea how to do this, and hope for your help.
+</I>&gt;<i> Yes, I did take a look at lua, so I'm afraid to do some coding. I just
+</I>&gt;<i> don't know what ion3 resources I need.
+</I>
+Let us consider the scratchpad first: You need to request a new geometry 
+for the object. To do so, you probably first want to find bounds for 
+the geometry. For the present setting, the width and height of the
+parent region is good enough a bound. To get the parent region, you
+use WRegion.parent. And to get its geometry, WRegion.geom. Then you
+calculate the new geometry within the parent region, and use 
+WRegion.rqgeom on the scratchpad frame.
+
+The mechanism for floating splits is similar, and the above might just
+work, but you may instead want rqgeom on the floating split object.
+If you want to do a detailed search for the split object, you can use
+WTiling.node_of and WSplit.parent and obj_is testing or something.
+Or you can use WTiling.split_tree and scan towards the leaves.
+
+But such scanning may not be necessary. It may just suffice
+to get WTiling.split_tree, check that it's a WSplitSplit (or
+WSplitFloat), and use WSplitWSplit.current() as the node to
+be resized.
+
+If you're in a WTiling binding callback, _ is the tiling, and
+_sub the frame. If you're in a WFrame binding callback, _
+is the frame, and to get the tiling, you use _:manager().
+
+Hopefully that helps. Ask more if it doesn't.
+
+-- 
+&quot;[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months.&quot; -- Oscar Wilde
+&quot;The computer industry is the only industry that is more fashion-driven
+ than women's fashion.&quot; -- RMS
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001441.html">Manipulate floating splits or the scratchpad on the fly
+</A></li>
+	<LI>Next message: <A HREF="001443.html">Fwd: Re: ICCCM
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1442">[ date ]</a>
+              <a href="thread.html#1442">[ thread ]</a>
+              <a href="subject.html#1442">[ subject ]</a>
+              <a href="author.html#1442">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

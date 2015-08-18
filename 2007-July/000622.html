@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> error questions
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20error%20questions&In-Reply-To=%3C1184410257.5854.10.camel%40deadeye.i.decadent.org.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000619.html">
+   <LINK REL="Next"  HREF="000625.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>error questions</H1>
+    <B>Ben Hutchings</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20error%20questions&In-Reply-To=%3C1184410257.5854.10.camel%40deadeye.i.decadent.org.uk%3E"
+       TITLE="error questions">ben at decadent.org.uk
+       </A><BR>
+    <I>Sat Jul 14 12:50:57 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000619.html">error questions
+</A></li>
+        <LI>Next message: <A HREF="000625.html">ion-3rc-20070708
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#622">[ date ]</a>
+              <a href="thread.html#622">[ thread ]</a>
+              <a href="subject.html#622">[ subject ]</a>
+              <a href="author.html#622">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Fri, 2007-07-13 at 10:03 -0500, David Polk wrote:
+&gt;<i> On startup I get this error message - &quot;Unable to find
+</I>&gt;<i> 'debian-menu-i18n' on search path&quot; - Ion seems to work fine, so how do
+</I>&gt;<i> I eliminate this error message?
+</I>&lt;snip&gt;
+
+I'm the maintainer of the Debian package and should be the first person
+you ask about it.  The debian-menu-i18n.lua file is generated
+automatically on installation of Ion3 or another package that provides a
+menu entry, and is loaded by cfg_ioncore.  It lives in /var/lib/ion3 but
+sym-linked from /usr/share/ion3 so that Ion3 can find it.  Please report
+the output of:
+
+$ dpkg -l ion3
+$ ls -l /usr/share/ion3/debian-menu-i18n.lua
+$ ls -l /var/lib/ion3/debian-menu-i18n.lua
+
+I can't answer your other question.
+
+Ben.
+
+-- 
+Ben Hutchings
+Nothing is ever a complete failure; it can always serve as a bad example.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20070714/52896c5d/attachment.pgp">https://lists.berlios.de/pipermail/ion-general/attachments/20070714/52896c5d/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000619.html">error questions
+</A></li>
+	<LI>Next message: <A HREF="000625.html">ion-3rc-20070708
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#622">[ date ]</a>
+              <a href="thread.html#622">[ thread ]</a>
+              <a href="subject.html#622">[ subject ]</a>
+              <a href="author.html#622">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

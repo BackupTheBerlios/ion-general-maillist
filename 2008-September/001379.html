@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> inc/dec workspace
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20inc/dec%20workspace&In-Reply-To=%3Cslrngd9n4s.v9a.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001378.html">
+   <LINK REL="Next"  HREF="001380.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>inc/dec workspace</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20inc/dec%20workspace&In-Reply-To=%3Cslrngd9n4s.v9a.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="inc/dec workspace">tuomov at iki.fi
+       </A><BR>
+    <I>Sat Sep 20 13:21:00 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001378.html">inc/dec workspace
+</A></li>
+        <LI>Next message: <A HREF="001380.html">inc/dec workspace
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1379">[ date ]</a>
+              <a href="thread.html#1379">[ thread ]</a>
+              <a href="subject.html#1379">[ subject ]</a>
+              <a href="author.html#1379">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-09-20, Timandahaf &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">timandahaf+dev at gmail.com</A>&gt; wrote:
+&gt;<i> This does what I want, except for the fact that it doesn't update the
+</I>&gt;<i> statusbar. (I use statusbar_workspace.lua and have
+</I>&gt;<i> &quot;template=%workspace_pager&quot; set). The statusbar does get updated
+</I>&gt;<i> correctly whenever I next do anything that would normally update it.
+</I>&gt;<i>
+</I>&gt;<i> How would I get the statusbar to update after rearranging my workspace?
+</I>
+The hook usage of statusbar_workspace.lua is quite bad. It only listens
+to region_notify_hook, which is used to notify of all sorts of changes
+(non-structural, aside from setting the manager) to a region, and has
+a parameter describing this change. statusbar_workspace.lua ignores the
+parameter, thus doing lots of useless work when nothing has changed
+that it should be interested in. It only incidentally works, I guess,
+because mapping state is notified by this hook. What it should really
+do is: a) listen to screen_managed_changed_hook (RTFM for details) for
+structural changes, and b) listen to region_notify_hook with detail
+&quot;name&quot; for workspace name changes.
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001378.html">inc/dec workspace
+</A></li>
+	<LI>Next message: <A HREF="001380.html">inc/dec workspace
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1379">[ date ]</a>
+              <a href="thread.html#1379">[ thread ]</a>
+              <a href="subject.html#1379">[ subject ]</a>
+              <a href="author.html#1379">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

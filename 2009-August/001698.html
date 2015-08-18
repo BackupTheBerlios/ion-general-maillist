@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> close frame when empty
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-August/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20close%20frame%20when%20empty&In-Reply-To=%3C20090814071125.GA12671%40fenchurch%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001697.html">
+   <LINK REL="Next"  HREF="001699.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>close frame when empty</H1>
+    <B>Javier Rojas</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20close%20frame%20when%20empty&In-Reply-To=%3C20090814071125.GA12671%40fenchurch%3E"
+       TITLE="close frame when empty">jerojasro at devnull.li
+       </A><BR>
+    <I>Fri Aug 14 09:11:25 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001697.html">scripting winprop extension
+</A></li>
+        <LI>Next message: <A HREF="001699.html">close frame when empty
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1698">[ date ]</a>
+              <a href="thread.html#1698">[ thread ]</a>
+              <a href="subject.html#1698">[ subject ]</a>
+              <a href="author.html#1698">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I'd like Ion to close all the empty frames automatically. I've checked
+the list, and found this thread
+<A HREF="https://lists.berlios.de/pipermail/ion-general/2009-June/002452.html">https://lists.berlios.de/pipermail/ion-general/2009-June/002452.html</A> in
+which I found how to do it (add a call to the close method of the frame
+in a hook, and close only when the client count is zero)
+
+However, now I have one issue: if the frame is the last one in the
+workspace, the workspace is also closed.
+
+I think is possible to avoid such behaviour by checking the tiling
+(or the ws) to close the frame only when there are more frames in the
+tiling. But I don't know how to ask Ion about how many frames are in a
+tiling (or in a workspace). Any suggestions?
+
+Thanks
+
+-- 
+Javier Rojas
+
+GPG Key ID: 0x24E00D68
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20090814/a6759d87/attachment.pgp">https://lists.berlios.de/pipermail/ion-general/attachments/20090814/a6759d87/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001697.html">scripting winprop extension
+</A></li>
+	<LI>Next message: <A HREF="001699.html">close frame when empty
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1698">[ date ]</a>
+              <a href="thread.html#1698">[ thread ]</a>
+              <a href="subject.html#1698">[ subject ]</a>
+              <a href="author.html#1698">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

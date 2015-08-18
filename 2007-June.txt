@@ -1,0 +1,1349 @@
+From Albert.Shih at obspm.fr  Mon Jun  4 10:43:44 2007
+From: Albert.Shih at obspm.fr (Albert Shih)
+Date: Mon, 4 Jun 2007 10:43:44 +0200
+Subject: status_bar with LANG
+Message-ID: <20070604084344.GA51356@pcjas.obspm.fr>
+
+Hi all
+
+Just report if I put LANG=fr_FR.ISO8859-1 export LANG in my .xession the
+?load? fearture in the statusbar don't work. There just (null).
+
+Not very important bug but...well..
+
+I'm running ion-3ds-20070318_1 in FreeBSD box, and ion-3d is installed with
+FreeBSD ports.
+
+Regards.
+
+
+--
+Albert SHIH
+Observatoire de Paris Meudon
+SIO batiment 15
+Heure local/Local time:
+Lun 4 jui 2007 10:40:25 CEST
+
+
+From tuomov at iki.fi  Mon Jun  4 10:59:46 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 4 Jun 2007 08:59:46 +0000 (UTC)
+Subject: status_bar with LANG
+References: <20070604084344.GA51356@pcjas.obspm.fr>
+Message-ID: <slrnf67l42.vgk.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-06-04, Albert Shih <Albert.Shih at obspm.fr> wrote:
+> Just report if I put LANG=fr_FR.ISO8859-1 export LANG in my .xession the
+> ?load? fearture in the statusbar don't work. There just (null).
+
+That's when /proc/loadavg does not exist, it parses the output of
+the 'uptime' command... in english. I never got around to adding
+a getloadavg(3) export to statusd for the script... maybe I should.
+
+-- 
+Tuomo
+
+
+
+From Matthieu.Moy at imag.fr  Mon Jun  4 12:02:16 2007
+From: Matthieu.Moy at imag.fr (Matthieu Moy)
+Date: Mon, 04 Jun 2007 12:02:16 +0200
+Subject: status_bar with LANG
+In-Reply-To: <slrnf67l42.vgk.tuomov@jolt.modeemi.cs.tut.fi> (Tuomo Valkonen's
+	message of "Mon\, 4 Jun 2007 08\:59\:46 +0000 \(UTC\)")
+References: <20070604084344.GA51356@pcjas.obspm.fr>
+	<slrnf67l42.vgk.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <vpq1wgs82c7.fsf@bauges.imag.fr>
+
+Tuomo Valkonen <tuomov at iki.fi> writes:
+
+> On 2007-06-04, Albert Shih <Albert.Shih at obspm.fr> wrote:
+>> Just report if I put LANG=fr_FR.ISO8859-1 export LANG in my .xession the
+>> ?load? fearture in the statusbar don't work. There just (null).
+>
+> That's when /proc/loadavg does not exist, it parses the output of
+> the 'uptime' command... in english.
+
+Then, $(LC_ALL=C uptime) should do it (?).
+
+-- 
+Matthieu
+
+
+From andreas.bernauer at gmx.de  Mon Jun  4 11:54:54 2007
+From: andreas.bernauer at gmx.de (Andreas Bernauer)
+Date: Mon, 4 Jun 2007 11:54:54 +0200
+Subject: status_bar with LANG
+In-Reply-To: <slrnf67l42.vgk.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070604084344.GA51356@pcjas.obspm.fr>
+	<slrnf67l42.vgk.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070604095454.GB20290@informatik.uni-tuebingen.de>
+
+Tuomo Valkonen schrieb am Mo, 04. Jun 2007 um 08:59 (+0000):
+> On 2007-06-04, Albert Shih <Albert.Shih at obspm.fr> wrote:
+> > Just report if I put LANG=fr_FR.ISO8859-1 export LANG in my .xession the
+> > ?load? fearture in the statusbar don't work. There just (null).
+> 
+> That's when /proc/loadavg does not exist, it parses the output of
+> the 'uptime' command... in english. I never got around to adding
+> a getloadavg(3) export to statusd for the script... maybe I should.
+
+Or (temporarily) set LANG=C before executing uptime in
+/mod_statusbar/ion-statusd/statusd_load.lua?  Don't know whether or
+how this works in lua, though.
+
+Andreas.
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070604/8c6c98fa/attachment.pgp>
+
+From Albert.Shih at obspm.fr  Mon Jun  4 14:39:20 2007
+From: Albert.Shih at obspm.fr (Albert Shih)
+Date: Mon, 4 Jun 2007 14:39:20 +0200
+Subject: status_bar with LANG
+In-Reply-To: <slrnf67l42.vgk.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070604084344.GA51356@pcjas.obspm.fr>
+	<slrnf67l42.vgk.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070604123920.GC7167@pcjas.obspm.fr>
+
+ Le 04/06/2007 ? 08:59:46+0000, Tuomo Valkonen a ?crit
+> On 2007-06-04, Albert Shih <Albert.Shih at obspm.fr> wrote:
+> > Just report if I put LANG=fr_FR.ISO8859-1 export LANG in my .xession the
+> > ?load? fearture in the statusbar don't work. There just (null).
+> 
+> That's when /proc/loadavg does not exist, it parses the output of
+> the 'uptime' command... in english. I never got around to adding
+> a getloadavg(3) export to statusd for the script... maybe I should.
+> 
+Humm....
+
+I'm just a poor sysadmin don't known anything in developpment I can help
+you. But if you want some test that's I can. Just tell me i fyou need some
+test.
+
+The uptime command work for me what's ever in my LANG.
+
+Sorry, I would like to help but I'm just enought smart to report a bug not to help you... :-(
+
+Regards.
+
+
+--
+Albert SHIH
+Observatoire de Paris Meudon
+SIO batiment 15
+Heure local/Local time:
+Lun 4 jui 2007 14:37:10 CEST
+
+
+From quentinhuys at gmail.com  Mon Jun  4 21:00:04 2007
+From: quentinhuys at gmail.com (Quentin Huys)
+Date: Mon, 4 Jun 2007 15:00:04 -0400
+Subject: ion on mac os x tiger
+Message-ID: <b85d58c40706041200r7398739ck3662833542b1cf71@mail.gmail.com>
+
+Hi there
+
+I've so far run ion on ubuntu and come to love it -- so much I absolutely
+need it on my new workstation, which for random reasons had to be a mac.
+
+All compiles happily, but I then don't know how to get things started. I'd
+really appreciate any help a lot... Thanks. So:
+
+I first tried to log into console, run x11 (xinit) from there and then run
+ion on it, but it generates errors, and then leaves me with a blue screen
+that is utterly unresponsive to anything, incluing ctrl-alt-backspace etc.
+
+So I tried the following, while running the standard mac os x window
+manager:
+
+First start an x server on display 1 by doing
+
+      xinit -- :1
+
+And then run ion on that display:
+
+     ion -display :1
+
+But that won't work, and it comes up with all kinds of errors:
+
+q-computer:~% xinit -- :1 &
+[1] 427
+
+q-computer:~%
+XFree86 Version 4.4.0 / X Window System
+(protocol Version 11, revision 0, vendor release 6600)
+[DRI] screen 0 installation complete
+Screen 0 added: 1920x1200 @ (0,0)
+Could not init font path element /usr/X11R6/lib/X11/fonts/CID/, removing
+from list!
+
+q-computer:~%
+q-computer:~% ion -display :1
+>> Failed to load module de: dlopen(/usr/local/lib/ion/de.so, 9): Symbol not
+found: _grbrush_get_slave
+     Referenced from: /usr/local/lib/ion/de.so
+     Expected in: flat namespace
+
+>> Stack trace:
+   0 [C]: in 'gr_select_engine'
+   1 /usr/local/etc/ion/draw.lua:6
+     [Skipping unnamed C functions.]
+>> No drawing engines loaded, trying "de".
+>> Failed to load module de: dlopen(/usr/local/lib/ion/de.so, 9): Symbol not
+found: _grbrush_get_slave
+     Referenced from: /usr/local/lib/ion/de.so
+     Expected in: flat namespace
+
+>> Failed to load module query: dlopen(/usr/local/lib/ion/query.so, 9):
+Symbol not found: _region_inactivated
+     Referenced from: /usr/local/lib/ion/query.so
+     Expected in: flat namespace
+
+>> Stack trace:
+   0 [C]: in 'load_module'
+   1 /usr/local/etc/ion/ion.lua:55
+     [Skipping unnamed C functions.]
+>> Failed to load module menu: dlopen(/usr/local/lib/ion/menu.so, 9): Symbol
+not found: _region_inactivated
+     Referenced from: /usr/local/lib/ion/menu.so
+     Expected in: flat namespace
+
+>> Stack trace:
+   0 [C]: in 'load_module'
+   1 /usr/local/etc/ion/ion.lua:56
+     [Skipping unnamed C functions.]
+>> Failed to load module ionws: dlopen(/usr/local/lib/ion/ionws.so, 9):
+Symbol not found: _genframe_brushes_updated
+     Referenced from: /usr/local/lib/ion/ionws.so
+     Expected in: flat namespace
+
+>> Stack trace:
+   0 [C]: in 'load_module'
+   1 /usr/local/etc/ion/ion.lua:57
+     [Skipping unnamed C functions.]
+>> Failed to load module floatws: dlopen(/usr/local/lib/ion/floatws.so, 9):
+Symbol not found: _region_do_rescue_clientwins
+     Referenced from: /usr/local/lib/ion/floatws.so
+     Expected in: flat namespace
+
+>> Stack trace:
+   0 [C]: in 'load_module'
+   1 /usr/local/etc/ion/ion.lua:58
+     [Skipping unnamed C functions.]
+>> Could not find a complete workspace class. Please load some modules.
+>> Unable to set up any rootwins.
+>> Refusing to start due to encountered errors.
+q-computer:~%
+waiting for X server to shut down Quitting XDarwin...
+
+[1]  + done       xinit -- :1
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Thanks very much -- any help appreciated,
+Q
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070604/a91990f3/attachment.html>
+
+From samer.abdallah at elec.qmul.ac.uk  Tue Jun  5 00:44:33 2007
+From: samer.abdallah at elec.qmul.ac.uk (Samer Abdallah)
+Date: Mon, 4 Jun 2007 23:44:33 +0100
+Subject: ion on mac os x tiger
+In-Reply-To: <b85d58c40706041200r7398739ck3662833542b1cf71@mail.gmail.com>
+References: <b85d58c40706041200r7398739ck3662833542b1cf71@mail.gmail.com>
+Message-ID: <237C3A3D-C481-4352-947D-7833322C3D97@elec.qmul.ac.uk>
+
+Quentin,
+
+I'm running ion on a powerbook g4 with Mac OS X 10.4
+and using the XDarwin installed via the xorg packages in
+Fink. I used to use the X11.app that Apple supplies, but I
+found it a bit unstable. In either case, you start the X server
+by starting the .app application, not by running some
+command directly. You can always put the app in your
+autostart list.
+
+You may have some trouble with the keyboard - both
+X servers provide options for setting the keyboard map
+and you might also have add to some stuff to your
+~/.Xmodmap. I can post mine if it will help, but be warned
+that I don't think either X server actually implements the
+keyboard mappings correctly - I haven't been able to get
+it to work exactly as I want even after lots of messing
+around with xev, .Xmodmap etc.
+
+Anyway, this is my ~/.xinit (or at least the relevant parts of it).
+
+Hope it's useful
+
+Samer.
+
+
+--------------------------------------------------
+usermodmap=$HOME/.Xmodmap
+
+# don't forget system/user resources..
+
+if [ -f $usermodmap ]; then
+     echo Installing user modmap from $usermodmap
+     xmodmap $usermodmap
+fi
+
+# set X11 font paths
+xset fp+ ~/Library/Fonts/artwiz-aleczapka-en-1.3
+xset fp+ /sw/lib/X11/fonts/misc
+xset fp rehash
+
+# this might cause font problems depending on which X server you use
+export LANG='en_GB.UTF-8'
+
+# Fink set-up
+source /sw/bin/init.sh
+
+# start the window manager
+ion3 &
+xsetroot -solid black
+exec gkrellm
+-------------------------------------------------
+
+On 4 Jun 2007, at 20:00, Quentin Huys wrote:
+
+> Hi there
+>
+> I've so far run ion on ubuntu and come to love it -- so much I  
+> absolutely need it on my new workstation, which for random reasons  
+> had to be a mac.
+>
+> All compiles happily, but I then don't know how to get things  
+> started. I'd really appreciate any help a lot... Thanks. So:
+>
+> I first tried to log into console, run x11 (xinit) from there and  
+> then run ion on it, but it generates errors, and then leaves me  
+> with a blue screen that is utterly unresponsive to anything,  
+> incluing ctrl-alt-backspace etc.
+>
+> So I tried the following, while running the standard mac os x  
+> window manager:
+>
+> First start an x server on display 1 by doing
+>
+>       xinit -- :1
+>
+> And then run ion on that display:
+>
+>      ion -display :1
+>
+> But that won't work, and it comes up with all kinds of errors:
+>
+> q-computer:~% xinit -- :1 &
+> [1] 427
+>
+> q-computer:~%
+> XFree86 Version 4.4.0 / X Window System
+> (protocol Version 11, revision 0, vendor release 6600)
+> [DRI] screen 0 installation complete
+> Screen 0 added: 1920x1200 @ (0,0)
+> Could not init font path element /usr/X11R6/lib/X11/fonts/CID/,  
+> removing from list!
+>
+> q-computer:~%
+> q-computer:~% ion -display :1
+> >> Failed to load module de: dlopen(/usr/local/lib/ion/de.so, 9):  
+> Symbol not found: _grbrush_get_slave
+>      Referenced from: /usr/local/lib/ion/de.so
+>      Expected in: flat namespace
+>
+> >> Stack trace:
+>    0 [C]: in 'gr_select_engine'
+>    1 /usr/local/etc/ion/draw.lua:6
+>      [Skipping unnamed C functions.]
+> >> No drawing engines loaded, trying "de".
+> >> Failed to load module de: dlopen(/usr/local/lib/ion/de.so, 9):  
+> Symbol not found: _grbrush_get_slave
+>      Referenced from: /usr/local/lib/ion/de.so
+>      Expected in: flat namespace
+>
+> >> Failed to load module query: dlopen(/usr/local/lib/ion/query.so,  
+> 9): Symbol not found: _region_inactivated
+>      Referenced from: /usr/local/lib/ion/query.so
+>      Expected in: flat namespace
+>
+> >> Stack trace:
+>    0 [C]: in 'load_module'
+>    1 /usr/local/etc/ion/ion.lua:55
+>      [Skipping unnamed C functions.]
+> >> Failed to load module menu: dlopen(/usr/local/lib/ion/menu.so,  
+> 9): Symbol not found: _region_inactivated
+>      Referenced from: /usr/local/lib/ion/menu.so
+>      Expected in: flat namespace
+>
+> >> Stack trace:
+>    0 [C]: in 'load_module'
+>    1 /usr/local/etc/ion/ion.lua:56
+>      [Skipping unnamed C functions.]
+> >> Failed to load module ionws: dlopen(/usr/local/lib/ion/ionws.so,  
+> 9): Symbol not found: _genframe_brushes_updated
+>      Referenced from: /usr/local/lib/ion/ionws.so
+>      Expected in: flat namespace
+>
+> >> Stack trace:
+>    0 [C]: in 'load_module'
+>    1 /usr/local/etc/ion/ion.lua:57
+>      [Skipping unnamed C functions.]
+> >> Failed to load module floatws: dlopen(/usr/local/lib/ion/ 
+> floatws.so, 9): Symbol not found: _region_do_rescue_clientwins
+>      Referenced from: /usr/local/lib/ion/floatws.so
+>      Expected in: flat namespace
+>
+> >> Stack trace:
+>    0 [C]: in 'load_module'
+>    1 /usr/local/etc/ion/ion.lua:58
+>      [Skipping unnamed C functions.]
+> >> Could not find a complete workspace class. Please load some  
+> modules.
+> >> Unable to set up any rootwins.
+> >> Refusing to start due to encountered errors.
+> q-computer:~%
+> waiting for X server to shut down Quitting XDarwin...
+>
+> [1]  + done       xinit -- :1
+>
+> ---------------------------------------------------------------------- 
+> ---------------------------------------------------------------------- 
+> --------------------------
+> Thanks very much -- any help appreciated,
+> Q
+>
+
+
+
+From ktvoelker at gmail.com  Tue Jun  5 07:42:27 2007
+From: ktvoelker at gmail.com (Karl Voelker)
+Date: Tue, 5 Jun 2007 00:42:27 -0500
+Subject: "connect" two windows
+In-Reply-To: <464A11A3.3090104@dadark.de>
+References: <4649D075.1000100@dadark.de> <464A11A3.3090104@dadark.de>
+Message-ID: <82e712e00706042242s3d36f7echf55dc9a2b0fed0a5@mail.gmail.com>
+
+> To make it a little clearer let's assume I have an instant messenger and
+> the buddy list is in one frame, the actual conversation in another.. If
+> I now switch to the messanger's buddy list in the first frame, I would
+> like the conversation to appear automatically in the second frame.
+>
+
+I don't know how to do what you want, but I think I know what you
+mean. If I'm right, perhaps my explanation will help someone else help
+you. So here is the situation you seem to be talking about:
+
+1. Two IM-related windows are already open: a buddy list and a
+conversation. They are in two different frames.
+2. The conversation window is hidden by another window in its frame.
+3. When the buddy list window gains focus, you want the conversation
+window to become the visible window in its frame.
+
+-Karl V.
+
+
+From tuomov at iki.fi  Tue Jun  5 14:14:18 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 5 Jun 2007 12:14:18 +0000 (UTC)
+Subject: ion on mac os x tiger
+References: <b85d58c40706041200r7398739ck3662833542b1cf71@mail.gmail.com>
+Message-ID: <slrnf6aksq.qbo.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-06-04, Quentin Huys <quentinhuys at gmail.com> wrote:
+>>> Failed to load module de: dlopen(/usr/local/lib/ion/de.so, 9): Symbol not
+> found: _grbrush_get_slave
+
+This is some BSD-inherited symbol mangling brain damage.
+(libdl and gcc/linker not agreeing whether it should be done.) 
+Try linking statically (the PRELOAD_MODULES setting).
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Fri Jun  8 19:10:31 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 8 Jun 2007 17:10:31 +0000 (UTC)
+Subject: ion-3rc-20070608
+Message-ID: <slrnf6j3c7.pkc.tuomov@jolt.modeemi.cs.tut.fi>
+
+
+This is the second "rc" release, and contains primarily bug fixes
+and other minor improvements.
+
+-- 
+Tuomo
+
+
+
+From intrigeri at boum.org  Wed Jun 13 15:20:14 2007
+From: intrigeri at boum.org (intrigeri)
+Date: Wed, 13 Jun 2007 15:20:14 +0200
+Subject: mod_sp.set_shown_on does not return the resulting status
+Message-ID: <85r6ogvvn5.fsf@boum.org>
+
+Hello,
+
+looking at mod_sp_set_shown_on code, it seems it returns TRUE even
+when it actually hides the scratchpad, whereas the documentation says
+"The resulting status is returned."
+
+This prevents me from using this return value is custom lua code.
+
+Ciao,
+-- 
+  intrigeri <intrigeri at boum.org>
+  | gnupg key @ http://intrigeri.boum.org/intrigeri.asc
+  | Who wants a world in which the guarantee that we shall not
+  | die of starvation would entail the risk of dying of boredom ?
+
+
+From tuomov at iki.fi  Thu Jun 14 08:18:46 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 14 Jun 2007 06:18:46 +0000 (UTC)
+Subject: mod_sp.set_shown_on does not return the resulting status
+References: <85r6ogvvn5.fsf@boum.org>
+Message-ID: <slrnf71ne6.kff.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-06-13, intrigeri <intrigeri at boum.org> wrote:
+> This prevents me from using this return value is custom lua code.
+
+Fixed (for next rc... or release?).
+
+-- 
+Tuomo
+
+
+
+From pierre at queinnec.org  Fri Jun 15 22:24:59 2007
+From: pierre at queinnec.org (Pierre Queinnec)
+Date: Fri, 15 Jun 2007 22:24:59 +0200
+Subject: ion on mac os x tiger
+Message-ID: <4672F59B.2030605@queinnec.org>
+
+Tuomo Valkonen <tuomov at ...> writes:
+ >
+ > On 2007-06-04, Quentin Huys <quentinhuys at ...> wrote:
+ > >>> Failed to load module de: dlopen(/usr/local/lib/ion/de.so, 9): 
+Symbol not
+ > > found: _grbrush_get_slave
+ >
+ > This is some BSD-inherited symbol mangling brain damage.
+ > (libdl and gcc/linker not agreeing whether it should be done.)
+ > Try linking statically (the PRELOAD_MODULES setting).
+
+On OS X, you'll need PRELOAD_MODULES, EXTRA_LIBS+=-lintl but you need to 
+kill the -lrt part.
+For those willing to compile the latest version, you'll also need a 
+patch for signal.c. I uploaded a trivial one at [1].
+-- Pierre
+
+[1] 
+http://svn.macports.org/repository/macports/trunk/dports/x11/ion3/files/patch-signal.c
+
+
+From intrigeri at boum.org  Sat Jun 16 16:40:38 2007
+From: intrigeri at boum.org (intrigeri)
+Date: Sat, 16 Jun 2007 16:40:38 +0200
+Subject: ion3 RC backports for Debian etch
+Message-ID: <851wgcotcp.fsf@boum.org>
+
+Hello,
+
+I?m maintaining backports for Debian etch of Debian unstable ion3-*
+packages : https://intrigeri.boum.org/debian/
+
+I?ll update them reasonably quickly when Debian unstable packages are
+themselves updated. They are built for i386, a bit later for powerpc,
+and the source packages are of course available.
+
+I?ll go on with this work as long as I materially can, until Ben or
+another Debian developer takes responsibility of maintaining backports
+on backports.org, volatile.debian.org, or wherever.
+
+As strongly stated on my Debian packages page, these packages are
+usually somehow outdated in regard to upstream (pre-)releases : they
+are thus not supported upstream, so *please do not report any bug
+about these packages to the Ion author*. Really. My Debian packages
+page also explains the current RC-nature of ion3.
+
+Ciao,
+-- 
+  intrigeri <intrigeri at boum.org>
+  | gnupg key @ http://intrigeri.boum.org/intrigeri.asc
+  | Every now and then I get a little bit restless
+  | and I dream of something wild.
+
+
+From formorer at formorer.de  Sat Jun 16 17:14:42 2007
+From: formorer at formorer.de (Alexander Wirt)
+Date: Sat, 16 Jun 2007 17:14:42 +0200
+Subject: ion3 RC backports for Debian etch
+In-Reply-To: <851wgcotcp.fsf@boum.org>
+References: <851wgcotcp.fsf@boum.org>
+Message-ID: <20070616151442.GG24357@ned.snow-crash.org>
+
+intrigeri schrieb am Samstag, den 16. Juni 2007:
+
+> Hello,
+> 
+> I???m maintaining backports for Debian etch of Debian unstable ion3-*
+> packages : https://intrigeri.boum.org/debian/
+> 
+> I???ll update them reasonably quickly when Debian unstable packages are
+> themselves updated. They are built for i386, a bit later for powerpc,
+> and the source packages are of course available.
+> 
+> I???ll go on with this work as long as I materially can, until Ben or
+> another Debian developer takes responsibility of maintaining backports
+> on backports.org, volatile.debian.org, or wherever.
+> 
+> As strongly stated on my Debian packages page, these packages are
+> usually somehow outdated in regard to upstream (pre-)releases : they
+> are thus not supported upstream, so *please do not report any bug
+> about these packages to the Ion author*. Really. My Debian packages
+> page also explains the current RC-nature of ion3.
+Which is a good reason to not include them on bpo. I really should remove
+this package with this really braindead author.
+
+Alex, ftp-master hat on 
+
+
+
+
+From ben at decadent.org.uk  Sun Jun 17 00:29:29 2007
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Sat, 16 Jun 2007 23:29:29 +0100
+Subject: ion3 RC backports for Debian etch
+In-Reply-To: <851wgcotcp.fsf@boum.org>
+References: <851wgcotcp.fsf@boum.org>
+Message-ID: <1182032969.4703.32.camel@deadeye.i.decadent.org.uk>
+
+On Sat, 2007-06-16 at 16:40 +0200, intrigeri wrote:
+> Hello,
+> 
+> I?m maintaining backports for Debian etch of Debian unstable ion3-*
+> packages : https://intrigeri.boum.org/debian/
+> 
+> I?ll update them reasonably quickly when Debian unstable packages are
+> themselves updated.
+
+Which should happen this week.  I am currently busy with DebConf video
+coverage.
+
+> They are built for i386, a bit later for powerpc,
+> and the source packages are of course available.
+> 
+> I?ll go on with this work as long as I materially can, until Ben or
+> another Debian developer takes responsibility of maintaining backports
+> on backports.org, volatile.debian.org, or wherever.
+<snip>
+
+Only packages in testing should have backports on backports.org.  Ion3
+is blocked from propagating into testing (by #415287) until there is a
+stable release of Ion3 that can be supported in a stable release of
+Debian.  However, since I normally run stable myself, I normally ensure
+that my packages will build on both stable and unstable, making it
+trivial to backport them.
+
+Ben.
+
+-- 
+Ben Hutchings
+Power corrupts.  Absolute power is kind of neat.
+                           - John Lehman, Secretary of the US Navy 1981-1987
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070616/773090a0/attachment.pgp>
+
+From mcolman at gmail.com  Sun Jun 17 15:37:23 2007
+From: mcolman at gmail.com (Miles Colman)
+Date: Sun, 17 Jun 2007 22:37:23 +0900
+Subject: ion on mac os x tiger
+Message-ID: <ff055fb80706170637u61e91398q9fa054abe25aa623@mail.gmail.com>
+
+Hi keyboard gurus,
+
+I think the default install of x11-wm/ion on Mac OS 10.4 is broken.
+Ion installs sucessfully, but produces the following errors:
+Ion startup error log:
+>> Failed to load module de: dlopen(/sw/lib/ion/de.so, 9): Symbol not found:
+_grbrush_get_slave
+     Referenced from: /sw/lib/ion/de.so
+     Expected in: dynamic lookup
+
+>> Stack trace:
+   0 [C]: in 'gr_select_engine'
+   1 /sw/etc/ion/draw.lua:6
+     [Skipping unnamed C functions.]
+>> No drawing engines loaded, trying "de".
+>> Failed to load module de: dlopen(/sw/lib/ion/de.so, 9): Symbol not found:
+_grbrush_get_slave
+     Referenced from: /sw/lib/ion/de.so
+     Expected in: dynamic lookup
+
+>> Failed to load module query: dlopen(/sw/lib/ion/query.so, 9): Symbol not
+found: _region_inactivated
+     Referenced from: /sw/lib/ion/query.so
+     Expected in: dynamic lookup
+
+>> Stack trace:
+   0 [C]: in 'load_module'
+   1 /sw/etc/ion/ion.lua:55
+     [Skipping unnamed C functions.]
+>> Failed to load module menu: dlopen(/sw/lib/ion/menu.so, 9): Symbol not
+found: _region_inactivated
+     Referenced from: /sw/lib/ion/menu.so
+     Expected in: dynamic lookup
+
+>> Stack trace:
+   0 [C]: in 'load_module'
+   1 /sw/etc/ion/ion.lua:56
+     [Skipping unnamed C functions.]
+>> Failed to load module ionws: dlopen(/sw/lib/ion/ionws.so, 9): Symbol not
+found: _genframe_brushes_updated
+     Referenced from: /sw/lib/ion/ionws.so
+     Expected in: dynamic lookup
+
+>> Stack trace:
+   0 [C]: in 'load_module'
+   1 /sw/etc/ion/ion.lua:57
+     [Skipping unnamed C functions.]
+>> Failed to load module floatws: dlopen(/sw/lib/ion/floatws.so, 9): Symbol
+not found: _region_do_rescue_clientwins
+     Referenced from: /sw/lib/ion/floatws.so
+     Expected in: dynamic lookup
+
+>> Stack trace:
+   0 [C]: in 'load_module'
+   1 /sw/etc/ion/ion.lua:58
+     [Skipping unnamed C functions.]
+>> Could not find a complete workspace class. Please load some modules.
+>> Unable to set up any rootwins.
+>> Refusing to start due to encountered errors.
+
+According to the thread found here:
+http://www.mail-archive.com/ion-general at lists.berlios.de/msg02067.html
+the problem can be fixed by turning off dynamic linking. I tried to do this
+by changing /sw/fink/10.4/unstable/main/finkinfo/x11-wm/ion.info as follows:
+
+
+[...]
+Revision: 2
+[...]
+ConfigureParams: --with-lua-prefix=%p --mandir=%p/share/man
+--infodir=%p/share/\
+info --libexecdir=%p/sbin --with-libtool=%p --with-disable-shared
+[...]
+
+however, even with the --diable-shared flag (found in the configure file of
+the current ion-2 source package),
+
+fink rebuild ion
+fink reinstall ion
+
+did not produce a working ion install.
+Any help would be greatly appreciated!
+Miles
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070617/5fe8d6e3/attachment.html>
+
+From nedko at users.sourceforge.net  Mon Jun 18 15:41:18 2007
+From: nedko at users.sourceforge.net (Nedko Arnaudov)
+Date: Mon, 18 Jun 2007 16:41:18 +0300
+Subject: [PATCH] ion-3rc-20070608 crash
+In-Reply-To: <87fy4p4ecd.fsf@arnaudov.name> (Nedko Arnaudov's message of
+	"Mon, 18 Jun 2007 15:49:38 +0300")
+References: <slrnf6j3c7.pkc.tuomov@jolt.modeemi.cs.tut.fi>
+	<87fy4p4ecd.fsf@arnaudov.name>
+Message-ID: <87645lqt1d.fsf_-_@users.sourceforge.net>
+
+Nedko Arnaudov <nedko at arnaudov.name> writes:
+
+> I get ion crashing after I upgraded. I managed to get a screenshot:
+>
+> http://nedko.arnaudov.name/tmp/ion-3rc-20070608-crash.jpg
+>
+> Sun strats to fall when dockapp (not sure if any such but I'd assume
+> that) starts. I have a multi-head system here. I could do additional
+> tests if needed. As can be seen from the screenshot, I was launching
+> wmclock - this is the first dockapp being launched during normal
+> xsession login.
+
+With help of deryni (Etan Reisner) I found the problem. Attached patch
+fixes it here.
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: ion-3rc-20070608-crash-fix.patch
+Type: text/x-patch
+Size: 578 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070618/ec354fe8/attachment.bin>
+-------------- next part --------------
+
+-- 
+Nedko Arnaudov <GnuPG KeyID: DE1716B0>
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 188 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070618/ec354fe8/attachment.pgp>
+
+From Albert.Shih at obspm.fr  Mon Jun 18 16:28:57 2007
+From: Albert.Shih at obspm.fr (Albert Shih)
+Date: Mon, 18 Jun 2007 16:28:57 +0200
+Subject: status_bar with LANG
+In-Reply-To: <20070604084344.GA51356@pcjas.obspm.fr>
+References: <20070604084344.GA51356@pcjas.obspm.fr>
+Message-ID: <20070618142857.GY80753@pcjas.obspm.fr>
+
+ Le 04/06/2007 ? 10:43:44+0200, Albert Shih a ?crit
+> Hi all
+> 
+> Just report if I put LANG=fr_FR.ISO8859-1 export LANG in my .xession the
+> ?load? fearture in the statusbar don't work. There just (null).
+> 
+> Not very important bug but...well..
+> 
+> I'm running ion-3ds-20070318_1 in FreeBSD box, and ion-3d is installed with
+> FreeBSD ports.
+> 
+I don't known who or when, or how, but now with the new version from ports 
+
+	ion-3rc-20070608_1
+
+everything work fine 
+
+Very thanks you for you help.
+
+Regards.
+
+JAS very happy user of ion from ion-2.
+--
+Albert SHIH
+Observatoire de Paris Meudon
+SIO batiment 15
+Heure local/Local time:
+Lun 18 jui 2007 16:26:50 CEST
+
+
+From udvzsolt at gmail.com  Mon Jun 18 21:01:19 2007
+From: udvzsolt at gmail.com (Zsolt Udvari)
+Date: Mon, 18 Jun 2007 21:01:19 +0200
+Subject: Dialogs winprop
+Message-ID: <760ece280706181201h2bb32b31sf9b90a88292a18eb@mail.gmail.com>
+
+Hello!
+
+I've searched in the ion-general mailing-lists but I didn't found
+answer about following:
+I want the dialogs handle with winprop. E.g. the firefox "Save" dialog.
+I've probed the xprop but it isn't differences the main (firefox)
+window and the "Save" dialog (only in time:
+  diff main save
+13c13
+< _NET_WM_USER_TIME(CARDINAL) = 1077127821
+---
+> _NET_WM_USER_TIME(CARDINAL) = 1077151494
+)
+
+How can I handle it?
+/I want to place in other frame/
+
+I'm using ion2, 20040729.
+
+Thanks.
+Zsolt
+
+
+From tuomov at iki.fi  Mon Jun 18 21:55:44 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 18 Jun 2007 19:55:44 +0000 (UTC)
+Subject: ion on mac os x tiger
+References: <ff055fb80706170637u61e91398q9fa054abe25aa623@mail.gmail.com>
+Message-ID: <slrnf7doq0.hed.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-06-17, Miles Colman <mcolman at gmail.com> wrote:
+> I think the default install of x11-wm/ion on Mac OS 10.4 is broken.
+> Ion installs sucessfully, but produces the following errors:
+> Ion startup error log:
+>>> Failed to load module de: dlopen(/sw/lib/ion/de.so, 9): Symbol not found:
+> _grbrush_get_slave
+
+This is some *BSD legacy brain damage, gcc/linker/libdl not agreeing on
+whether symbols should be prefixed with _.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Mon Jun 18 21:53:00 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 18 Jun 2007 19:53:00 +0000 (UTC)
+Subject: Dialogs winprop
+References: <760ece280706181201h2bb32b31sf9b90a88292a18eb@mail.gmail.com>
+Message-ID: <slrnf7doks.hed.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-06-18, Zsolt Udvari <udvzsolt at gmail.com> wrote:
+> How can I handle it?
+
+Fix Gnomefox.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Mon Jun 18 21:53:50 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 18 Jun 2007 19:53:50 +0000 (UTC)
+Subject: status_bar with LANG
+References: <20070604084344.GA51356@pcjas.obspm.fr>
+	<20070618142857.GY80753@pcjas.obspm.fr>
+Message-ID: <slrnf7dome.hed.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-06-18, Albert Shih <Albert.Shih at obspm.fr> wrote:
+> I don't known who or when, or how, but now with the new version from ports 
+> ion-3rc-20070608_1 everything work fine 
+
+That's because it now uses getloadavg(3) instead of the uptime command.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Mon Jun 18 21:54:49 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 18 Jun 2007 19:54:49 +0000 (UTC)
+Subject: [PATCH] ion-3rc-20070608 crash
+References: <slrnf6j3c7.pkc.tuomov@jolt.modeemi.cs.tut.fi>
+	<87fy4p4ecd.fsf@arnaudov.name>
+	<87645lqt1d.fsf_-_@users.sourceforge.net>
+Message-ID: <slrnf7doo9.hed.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-06-18, Nedko Arnaudov <nedko at users.sourceforge.net> wrote:
+> With help of deryni (Etan Reisner) I found the problem. Attached patch
+> fixes it here.
+
+Fixed a few days ago.. strangely the typo's been there for years.
+Stupid weak type systems..
+
+-- 
+Tuomo
+
+
+
+From j.van_den_hoff at fzd.de  Wed Jun 20 09:43:59 2007
+From: j.van_den_hoff at fzd.de (Joerg van den Hoff)
+Date: Wed, 20 Jun 2007 09:43:59 +0200
+Subject: no updates in statusbar meters
+Message-ID: <20070620074358.GA2474@marco.fz-rossendorf.de>
+
+hi,
+
+I upgraded to 3rc-20070608 yesterday and everything runs just fine except
+the statusbar where the time is only updated on startup or restart of `ion3'.
+once it's there no updates occur. same with the load meters. this occurs even
+with the "factory setup" (i.e. without a custom `.ion3' directory).
+
+to be complete:
+the only thing which went not through smoothly during ugrade was a (apparently
+not relevant) complain with regards to an acompanying libiconv upgrade, so a
+slightly older libiconv is still in effect.
+
+platform: mac g5, MacOS 10.4.9
+
+any ideas more specific than RTFM or RTFSC?
+
+regards,
+
+joerg
+
+
+
+From tuomov at iki.fi  Wed Jun 20 10:37:17 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 20 Jun 2007 08:37:17 +0000 (UTC)
+Subject: no updates in statusbar meters
+References: <20070620074358.GA2474@marco.fz-rossendorf.de>
+Message-ID: <slrnf7hppt.63v.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-06-20, Joerg van den Hoff <j.van_den_hoff at fzd.de> wrote:
+> I upgraded to 3rc-20070608 yesterday and everything runs just fine except
+> the statusbar where the time is only updated on startup or restart of `ion3'.
+> once it's there no updates occur. same with the load meters. this occurs even
+> with the "factory setup" (i.e. without a custom `.ion3' directory).
+>
+> platform: mac g5, MacOS 10.4.9
+
+Could it be that this piece of crapware defines _POSIX_MONOTONIC_CLOCK,
+but does not actually implement it? That (a clock that advances 
+predictably) is an essential feature that any operating system that
+isn't totally moronic should have had to  begin with... or alternatively
+an unlimited number of timer signals.
+
+
+-- 
+Tuomo
+
+
+
+From pierre at queinnec.org  Wed Jun 20 10:49:16 2007
+From: pierre at queinnec.org (Pierre Queinnec)
+Date: Wed, 20 Jun 2007 10:49:16 +0200
+Subject: no updates in statusbar meters
+In-Reply-To: <slrnf7hppt.63v.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070620074358.GA2474@marco.fz-rossendorf.de>
+	<slrnf7hppt.63v.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <4678EA0C.2010704@queinnec.org>
+
+Tuomo Valkonen wrote:
+> On 2007-06-20, Joerg van den Hoff <j.van_den_hoff at fzd.de> wrote:
+>> I upgraded to 3rc-20070608 yesterday and everything runs just fine except
+>> the statusbar where the time is only updated on startup or restart of `ion3'.
+>> once it's there no updates occur. same with the load meters. this occurs even
+>> with the "factory setup" (i.e. without a custom `.ion3' directory).
+>>
+>> platform: mac g5, MacOS 10.4.9
+> 
+> Could it be that this piece of crapware defines _POSIX_MONOTONIC_CLOCK,
+> but does not actually implement it? That (a clock that advances 
+> predictably) is an essential feature that any operating system that
+> isn't totally moronic should have had to  begin with... or alternatively
+> an unlimited number of timer signals.
+
+Yes, it defines it as -1. See the trivial patch I sent in the 'Re: ion 
+on mac os x tiger' thread.
+-- Pierre
+
+
+From j.van_den_hoff at fzd.de  Wed Jun 20 12:44:50 2007
+From: j.van_den_hoff at fzd.de (Joerg van den Hoff)
+Date: Wed, 20 Jun 2007 12:44:50 +0200
+Subject: no updates in statusbar meters
+In-Reply-To: <4678EA0C.2010704@queinnec.org>
+References: <20070620074358.GA2474@marco.fz-rossendorf.de>
+	<slrnf7hppt.63v.tuomov@jolt.modeemi.cs.tut.fi>
+	<4678EA0C.2010704@queinnec.org>
+Message-ID: <20070620104450.GA9011@marco.fz-rossendorf.de>
+
+On Wed, Jun 20, 2007 at 10:49:16AM +0200, Pierre Queinnec wrote:
+> Tuomo Valkonen wrote:
+> >On 2007-06-20, Joerg van den Hoff <j.van_den_hoff at fzd.de> wrote:
+> >>I upgraded to 3rc-20070608 yesterday and everything runs just fine except
+> >>the statusbar where the time is only updated on startup or restart of 
+> >>`ion3'.
+> >>once it's there no updates occur. same with the load meters. this occurs 
+> >>even
+> >>with the "factory setup" (i.e. without a custom `.ion3' directory).
+> >>
+> >>platform: mac g5, MacOS 10.4.9
+> >
+> >Could it be that this piece of crapware defines _POSIX_MONOTONIC_CLOCK,
+> >but does not actually implement it? That (a clock that advances 
+> >predictably) is an essential feature that any operating system that
+> >isn't totally moronic should have had to  begin with... or alternatively
+> >an unlimited number of timer signals.
+> 
+> Yes, it defines it as -1. See the trivial patch I sent in the 'Re: ion 
+> on mac os x tiger' thread.
+> -- Pierre
+
+which means master valkonen might integrate this patch if he deems such
+a thing tolerable and the clock will tick happily away again?  
+
+or have I to notify steve jobs that MacOS is as rotten as an old wet mold-covered 
+piece of wood and even worse than {insert_each+any_other_OS_here_as_far_as_I_understand_tuomo}?
+not that this would get the clock running, though...
+
+but `crapware' is nice. opens up a whole new field of insults (how about, e.g.
+`pukeware').
+
+joerg
+
+
+From tuomov at iki.fi  Wed Jun 20 13:04:03 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 20 Jun 2007 11:04:03 +0000 (UTC)
+Subject: no updates in statusbar meters
+References: <20070620074358.GA2474@marco.fz-rossendorf.de>
+	<slrnf7hppt.63v.tuomov@jolt.modeemi.cs.tut.fi>
+	<4678EA0C.2010704@queinnec.org>
+	<20070620104450.GA9011@marco.fz-rossendorf.de>
+Message-ID: <slrnf7i2d3.m9a.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-06-20, Joerg van den Hoff <j.van_den_hoff at fzd.de> wrote:
+> not that this would get the clock running, though...
+
+They could start by stopping to claim that it is there. All the
+documentation I have found says either that a) _POSIX_MONOTONIC_CLOCK
+is defined when CLOCK_MONOTONIC is available, or b) must be defined
+to the value 200112L (or so). I'd prefer the latter (since it's a
+POSIX version check too), but glibc is also crapware, and the header
+/usr/include/bits/posix_opt.h simply defines:
+
+/* The monotonic clock might be available.  */ 
+#define _POSIX_MONOTONIC_CLOCK  0
+
+Note the moronic "might".
+
+But, oh, in the world of FOSS herdware it is _forbidden_ for things to
+work just like that: you're supposed to use autocrap scripts (broken
+and unmaintainable themselves) to test for every possible form of brain
+damage the author of some other piece of software -- and distributors --
+might be suffering from.
+
+-- 
+Tuomo
+
+
+
+From j.van_den_hoff at fzd.de  Wed Jun 20 13:41:02 2007
+From: j.van_den_hoff at fzd.de (Joerg van den Hoff)
+Date: Wed, 20 Jun 2007 13:41:02 +0200
+Subject: no updates in statusbar meters
+In-Reply-To: <slrnf7i2d3.m9a.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070620074358.GA2474@marco.fz-rossendorf.de>
+	<slrnf7hppt.63v.tuomov@jolt.modeemi.cs.tut.fi>
+	<4678EA0C.2010704@queinnec.org>
+	<20070620104450.GA9011@marco.fz-rossendorf.de>
+	<slrnf7i2d3.m9a.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070620114102.GB9011@marco.fz-rossendorf.de>
+
+On Wed, Jun 20, 2007 at 11:04:03AM +0000, Tuomo Valkonen wrote:
+> On 2007-06-20, Joerg van den Hoff <j.van_den_hoff at fzd.de> wrote:
+> > not that this would get the clock running, though...
+> 
+> They could start by stopping to claim that it is there. All the
+> documentation I have found says either that a) _POSIX_MONOTONIC_CLOCK
+> is defined when CLOCK_MONOTONIC is available, or b) must be defined
+> to the value 200112L (or so). I'd prefer the latter (since it's a
+> POSIX version check too), but glibc is also crapware, and the header
+> /usr/include/bits/posix_opt.h simply defines:
+> 
+> /* The monotonic clock might be available.  */ 
+> #define _POSIX_MONOTONIC_CLOCK  0
+> 
+> Note the moronic "might".
+> 
+> But, oh, in the world of FOSS herdware it is _forbidden_ for things to
+> work just like that: you're supposed to use autocrap scripts (broken
+> and unmaintainable themselves) to test for every possible form of brain
+> damage the author of some other piece of software -- and distributors --
+> might be suffering from.
+> 
+> -- 
+> Tuomo
+> 
+yes. but would/could you integrate pierre's patch nevertheless (for the time
+being, that is: I've heard that apple promises major improvements w.r.t. POSIX
+compliance and such with the next major OS upgrade -- which, on the other hand,
+needs not to be true, of course)?
+
+joerg
+
+
+From tuomov at iki.fi  Wed Jun 20 13:45:26 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 20 Jun 2007 11:45:26 +0000 (UTC)
+Subject: no updates in statusbar meters
+References: <20070620074358.GA2474@marco.fz-rossendorf.de>
+	<slrnf7hppt.63v.tuomov@jolt.modeemi.cs.tut.fi>
+	<4678EA0C.2010704@queinnec.org>
+	<20070620104450.GA9011@marco.fz-rossendorf.de>
+	<slrnf7i2d3.m9a.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070620114102.GB9011@marco.fz-rossendorf.de>
+Message-ID: <slrnf7i4qm.qkm.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-06-20, Joerg van den Hoff <j.van_den_hoff at fzd.de> wrote:
+> yes. but would/could you integrate pierre's patch nevertheless 
+
+No. I just added a check for EINVAL return value.. which should
+be more reliable supposing some system isn't so utterly and 
+totally brain dead, that it defines _POSIX_MONOTONIC_CLOCK, but 
+does not even define clock_gettime and CLOCK_MONOTONIC... or
+does not return an error when the clock doesn't exist. 
+I wouldn't put it past the kind of crapware most software 
+these days is.
+
+-- 
+Tuomo
+
+
+
+From clemens at endorphin.org  Thu Jun 21 20:59:50 2007
+From: clemens at endorphin.org (Clemens Fruhwirth)
+Date: Thu, 21 Jun 2007 20:59:50 +0200
+Subject: Xinerama Status?
+Message-ID: <87tzt1876h.wl%clemens@endorphin.org>
+
+Hi,
+
+Can someone give me a status update on the latest Xinerama support?
+Just a few lines, whether it works or if it's broken. Depending on the
+answer I might want to bump my xft patches to the latest RC and create
+a separate distribution tar ball.
+--
+Fruhwirth Clemens - http://clemens.endorphin.org 
+
+
+
+
+
+From udvzsolt at gmail.com  Fri Jun 22 12:10:52 2007
+From: udvzsolt at gmail.com (Zsolt Udvari)
+Date: Fri, 22 Jun 2007 12:10:52 +0200
+Subject: Dialogs winprop
+In-Reply-To: <slrnf7doks.hed.tuomov@jolt.modeemi.cs.tut.fi>
+References: <760ece280706181201h2bb32b31sf9b90a88292a18eb@mail.gmail.com>
+	<slrnf7doks.hed.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <760ece280706220310n7bd08a3ay8cca6e004d5c91c2@mail.gmail.com>
+
+Do you think to this:
+http://modeemi.fi/~tuomov/ion/faq/entries/GTK2_focus_bug.html
+?
+
+(google/linux has 0 results to gnomefox and the "simple" google gives
+this as the first hit ;)
+
+Zsolt
+
+2007/6/18, Tuomo Valkonen <tuomov at iki.fi>:
+> On 2007-06-18, Zsolt Udvari <udvzsolt at gmail.com> wrote:
+> > How can I handle it?
+>
+> Fix Gnomefox.
+>
+> --
+> Tuomo
+>
+>
+
+
+From udvzsolt at gmail.com  Fri Jun 22 12:11:56 2007
+From: udvzsolt at gmail.com (Zsolt Udvari)
+Date: Fri, 22 Jun 2007 12:11:56 +0200
+Subject: Dialogs winprop
+In-Reply-To: <slrnf7doks.hed.tuomov@jolt.modeemi.cs.tut.fi>
+References: <760ece280706181201h2bb32b31sf9b90a88292a18eb@mail.gmail.com>
+	<slrnf7doks.hed.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <760ece280706220311w3d630f01l8686b3ff43dacad9@mail.gmail.com>
+
+Sorry, can you explain it? What does it mean "fix gnomefox"?
+I've applied the patch on
+http://bugzilla.gnome.org/show_bug.cgi?id=143349 but no changes :(
+I'm using gtk+ 2.11.4.
+
+2007/6/18, Tuomo Valkonen <tuomov at iki.fi>:
+- Id?zett sz?veg elrejt?se -
+> On 2007-06-18, Zsolt Udvari <udvzsolt at gmail.com> wrote:
+> > How can I handle it?
+>
+> Fix Gnomefox.
+>
+> --
+> Tuomo
+>
+>
+
+
+From ion at themel.com  Fri Jun 22 14:54:15 2007
+From: ion at themel.com (Thomas Themel)
+Date: Fri, 22 Jun 2007 14:54:15 +0200
+Subject: Xinerama Status?
+In-Reply-To: <87tzt1876h.wl%clemens@endorphin.org>
+References: <87tzt1876h.wl%clemens@endorphin.org>
+Message-ID: <20070622125415.GR890@themel.com>
+
+Hi,
+Clemens Fruhwirth (clemens at endorphin.org) wrote on 2007-06-22:
+> Can someone give me a status update on the latest Xinerama support?
+> Just a few lines, whether it works or if it's broken. Depending on the
+> answer I might want to bump my xft patches to the latest RC and create
+> a separate distribution tar ball.
+
+It works for me with the latest rc, after being broken in the one
+before.
+
+ciao,
+-- 
+[*Thomas  Themel*] Das passiert den meisten Systemen die gut funktionieren,
+[extended contact] man h?rt nichts davon, sie geraten in Vergessenheit und
+[info provided in] verschwinden dann.
+[*message header*]  - Erwin Burgstaller in at.linux
+
+
+From jbms at cmu.edu  Fri Jun 22 16:10:49 2007
+From: jbms at cmu.edu (Jeremy Maitin-Shepard)
+Date: Fri, 22 Jun 2007 10:10:49 -0400
+Subject: Dialogs winprop
+In-Reply-To: <760ece280706220311w3d630f01l8686b3ff43dacad9@mail.gmail.com>
+	(Zsolt Udvari's message of "Fri\, 22 Jun 2007 12\:11\:56 +0200")
+References: <760ece280706181201h2bb32b31sf9b90a88292a18eb@mail.gmail.com>
+	<slrnf7doks.hed.tuomov@jolt.modeemi.cs.tut.fi>
+	<760ece280706220311w3d630f01l8686b3ff43dacad9@mail.gmail.com>
+Message-ID: <87hcp0gjva.fsf@jbms.ath.cx>
+
+"Zsolt Udvari" <udvzsolt at gmail.com> writes:
+
+> Sorry, can you explain it? What does it mean "fix gnomefox"?
+> I've applied the patch on
+> http://bugzilla.gnome.org/show_bug.cgi?id=143349 but no changes :(
+> I'm using gtk+ 2.11.4.
+
+I believe he means that you would need to modify Firefox to apply
+different window properties to each window.  This is somewhat
+complicated because the C++ code that creates the dialogs may likely not
+know anything about what its purpose will be, while the JavaScript code
+(the UI of Mozilla browsers is written in JavaScript, essentially) that
+actually knows the purpose of the window doesn't know anything about
+X11, and thus isn't prepared to set specific window properties.
+
+One hack may be to match the title of the window somehow.
+
+-- 
+Jeremy Maitin-Shepard
+
+
+From udvzsolt at gmail.com  Fri Jun 22 17:56:10 2007
+From: udvzsolt at gmail.com (Zsolt Udvari)
+Date: Fri, 22 Jun 2007 17:56:10 +0200
+Subject: Dialogs winprop
+In-Reply-To: <87hcp0gjva.fsf@jbms.ath.cx>
+References: <760ece280706181201h2bb32b31sf9b90a88292a18eb@mail.gmail.com>
+	<slrnf7doks.hed.tuomov@jolt.modeemi.cs.tut.fi>
+	<760ece280706220311w3d630f01l8686b3ff43dacad9@mail.gmail.com>
+	<87hcp0gjva.fsf@jbms.ath.cx>
+Message-ID: <760ece280706220856j5f5131afo726179899972b417@mail.gmail.com>
+
+OK. I understand :(
+I'm using a LFS so I compile all from sources.
+
+But I'm using some gtk2 applications (transmission, liferea,...), so
+the dialogs don't work with ion :(
+A little bit uncomfortable, but I bear it...
+
+Thanks.
+
+Zsolt
+
+

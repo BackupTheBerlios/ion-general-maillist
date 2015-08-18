@@ -1,0 +1,332 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Some build. sys. improvs. (Cygwin in particular)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Some%20build.%20sys.%20improvs.%20%28Cygwin%20in%20particular%29&In-Reply-To=%3C20080107184604.GA6894%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000973.html">
+   <LINK REL="Next"  HREF="000975.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Some build. sys. improvs. (Cygwin in particular)</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Some%20build.%20sys.%20improvs.%20%28Cygwin%20in%20particular%29&In-Reply-To=%3C20080107184604.GA6894%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Some build. sys. improvs. (Cygwin in particular)">tuomov at iki.fi
+       </A><BR>
+    <I>Mon Jan  7 19:46:04 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000973.html">Some build. sys. improvs. (Cygwin in particular)
+</A></li>
+        <LI>Next message: <A HREF="000975.html">Some build. sys. improvs. (Cygwin in particular)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#974">[ date ]</a>
+              <a href="thread.html#974">[ thread ]</a>
+              <a href="subject.html#974">[ subject ]</a>
+              <a href="author.html#974">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-01-07 20:45 +0200, Tuomo Valkonen wrote:
+&gt;<i> The attached patch contains some improvements to the Ion build system,
+</I>&gt;<i> in particular for hopefully better Cygwin support. It does contain
+</I>&gt;<i> quite big modifications (to do things in one place instead of a zillion
+</I>&gt;<i> Makefiles), and I'd rather not make another RC release, so I'd appreciate
+</I>&gt;<i> people checking that it (still) works, even on non-Cygwin configurations,
+</I>&gt;<i> but in particular on that.
+</I>
+And the attachment... *sigh*
+
+-- 
+Tuomo
+-------------- next part --------------
+Mon Jan  7 20:39:24 EET 2008  Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt;
+  * Some build system improvements for nicer .exe handling
+Mon Jan  7 20:02:53 EET 2008  Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt;
+  * Added CF_NO_GET_LOADAVG
+Sun Jan  6 22:41:19 EET 2008  Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt;
+  * Dockapp WM_CLASS hack had been broken. Fixed.
+Fri Jan  4 17:25:05 EET 2008  Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt;
+  * Removed defer-pending on destroy warning
+Thu Jan  3 20:49:45 EET 2008  Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt;
+  * Bah, statusd build was still broken
+Thu Jan  3 20:23:46 EET 2008  Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt;
+  tagged ion-3rc-20080103
+diff -rN old-ixx/build/rules.mk new-ixx/build/rules.mk
+18a19,29
+&gt;<i> ifdef EXTRA_EXECUTABLE
+</I>&gt;<i> EXECUTABLE := $(EXTRA_EXECUTABLE)
+</I>&gt;<i> BINDIR_ := $(EXTRABINDIR)
+</I>&gt;<i> endif
+</I>&gt;<i> 
+</I>&gt;<i> ifdef EXECUTABLE
+</I>&gt;<i> BINDIR_ ?= $(BINDIR)
+</I>&gt;<i> EXECUTABLE_ := $(EXECUTABLE)$(BIN_SUFFIX)
+</I>&gt;<i> TARGETS := $(TARGETS) $(EXECUTABLE_)
+</I>&gt;<i> endif
+</I>&gt;<i> 
+</I>89a101,136
+&gt;<i> 
+</I>&gt;<i> ifdef EXECUTABLE
+</I>&gt;<i> 
+</I>&gt;<i> ifdef MODULE_LIST
+</I>&gt;<i> ifdef MODULE_PATH
+</I>&gt;<i> ifeq ($(PRELOAD_MODULES),1)
+</I>&gt;<i> EXT_OBJS += $(foreach mod, $(MODULE_LIST), $(MODULE_PATH)/$(mod)/$(mod).a)
+</I>&gt;<i> DEPEND_DEPENDS += preload.c
+</I>&gt;<i> SOURCES += preload.c
+</I>&gt;<i> TO_CLEAN += preload.c
+</I>&gt;<i> else # !PRELOAD_MODULES
+</I>&gt;<i> LDFLAGS += $(EXPORT_DYNAMIC)
+</I>&gt;<i> WHOLEA = -Wl,-whole-archive
+</I>&gt;<i> NO_WHOLEA = -Wl,-no-whole-archive
+</I>&gt;<i> endif # !PRELOAD_MODULES
+</I>&gt;<i> 
+</I>&gt;<i> preload.c:
+</I>&gt;<i> 	$(LUA) $(TOPDIR)/build/mkpreload.lua $(MODULE_LIST) &gt; preload.c
+</I>&gt;<i> 
+</I>&gt;<i> endif # MODULE_PATH
+</I>&gt;<i> endif # MODULE_LIST
+</I>&gt;<i> 
+</I>&gt;<i> ifeq ($(RELOCATABLE),1)
+</I>&gt;<i> DEFINES += -DCF_RELOCATABLE_BIN_LOCATION=\&quot;$(BINDIR_)/$(EXECUTABLE)\&quot;
+</I>&gt;<i> endif
+</I>&gt;<i> 
+</I>&gt;<i> $(EXECUTABLE_): $(OBJS) $(EXT_OBJS)
+</I>&gt;<i> 	$(CC) $(OBJS) $(WHOLEA) $(EXT_OBJS) $(NO_WHOLEA) $(LDFLAGS) -o $@
+</I>&gt;<i> 
+</I>&gt;<i> executable_install:
+</I>&gt;<i> 	$(INSTALLDIR) $(BINDIR_)
+</I>&gt;<i> 	$(INSTALLBIN) $(EXECUTABLE_) $(BINDIR_)
+</I>&gt;<i> 
+</I>&gt;<i> endif # EXECUTABLE
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>diff -rN old-ixx/ion/Makefile new-ixx/ion/Makefile
+14c14
+&lt; SOURCES=ion.c
+---
+&gt;<i> EXECUTABLE = ion3
+</I>16c16
+&lt; TARGETS=ion3
+---
+&gt;<i> SOURCES = ion.c
+</I>18c18
+&lt; INCLUDES += $(X11_INCLUDES) 
+---
+&gt;<i> INCLUDES += $(X11_INCLUDES)
+</I>22c22
+&lt; LIBS += $(X11_LIBS)
+---
+&gt;<i> LIBS += $(X11_LIBS) -lSM -lICE
+</I>27,41c27
+&lt; ifeq ($(PRELOAD_MODULES),1)
+&lt; EXT_OBJS += $(foreach mod, $(MODULE_LIST), ../$(mod)/$(mod).a)
+&lt; DEPEND_DEPENDS += preload.c
+&lt; SOURCES += preload.c
+&lt; TO_CLEAN += preload.c
+&lt; LIBS += -lSM -lICE
+&lt; else
+&lt; LDFLAGS += $(EXPORT_DYNAMIC)
+&lt; WHOLEA = -Wl,-whole-archive
+&lt; NO_WHOLEA = -Wl,-no-whole-archive
+&lt; endif
+&lt; 
+&lt; ifeq ($(RELOCATABLE),1)
+&lt; DEFINES += -DCF_RELOCATABLE_ION3_LOCATION=\&quot;$(BINDIR)/ion3\&quot;
+&lt; endif
+---
+&gt;<i> MODULE_PATH = $(TOPDIR)
+</I>57,58d42
+&lt; ion3: $(OBJS) $(EXT_OBJS)
+&lt; 	$(CC) $(OBJS) $(WHOLEA) $(EXT_OBJS) $(NO_WHOLEA) $(LDFLAGS) -o $@
+60,61c44
+&lt; preload.c:
+&lt; 	$(LUA) ../build/mkpreload.lua $(MODULE_LIST) &gt; preload.c
+---
+&gt;<i> _install: executable_install
+</I>63,65d45
+&lt; _install:
+&lt; 	$(INSTALLDIR) $(BINDIR)
+&lt; 	$(INSTALLBIN) ion3 $(BINDIR)
+diff -rN old-ixx/ion/ion.c new-ixx/ion/ion.c
+154,155c154,155
+&lt; #ifdef CF_RELOCATABLE_ION3_LOCATION
+&lt;     prefix_set(argv[0], CF_RELOCATABLE_ION3_LOCATION);
+---
+&gt;<i> #ifdef CF_RELOCATABLE_BIN_LOCATION
+</I>&gt;<i>     prefix_set(argv[0], CF_RELOCATABLE_BIN_LOCATION);
+</I>diff -rN old-ixx/ioncore/clientwin.c new-ixx/ioncore/clientwin.c
+511,514c511
+&lt; 
+&lt;                 win=icon_win;
+&lt;                 attr=icon_attr;
+&lt; 
+---
+&gt;<i>                 
+</I>527a525,527
+&gt;<i>                 
+</I>&gt;<i>                 win=icon_win;
+</I>&gt;<i>                 attr=icon_attr;
+</I>diff -rN old-ixx/libmainloop/defer.c new-ixx/libmainloop/defer.c
+20a21
+&gt;<i> #include &lt;libtu/debug.h&gt;
+</I>81c82
+&lt;     warn(TR(&quot;Object destroyed while deferred actions are still pending.&quot;));
+---
+&gt;<i>     D(warn(TR(&quot;Object destroyed while deferred actions are still pending.&quot;)));
+</I>diff -rN old-ixx/pwm/Makefile new-ixx/pwm/Makefile
+14c14
+&lt; SOURCES=pwm.c
+---
+&gt;<i> EXECUTABLE = pwm3
+</I>16c16
+&lt; ETC = cfg_pwm.lua
+---
+&gt;<i> SOURCES = pwm.c
+</I>18c18
+&lt; TARGETS = pwm3
+---
+&gt;<i> ETC = cfg_pwm.lua
+</I>24c24
+&lt; LIBS += $(X11_LIBS)
+---
+&gt;<i> LIBS += $(X11_LIBS) -lSM -lICE
+</I>29,43c29
+&lt; ifeq ($(PRELOAD_MODULES),1)
+&lt; EXT_OBJS += $(foreach mod, $(PWM_MODULE_LIST), ../$(mod)/$(mod).a)
+&lt; DEPEND_DEPENDS += preload.c
+&lt; SOURCES += preload.c
+&lt; TO_CLEAN += preload.c
+&lt; LIBS += -lSM -lICE
+&lt; else
+&lt; LDFLAGS += $(EXPORT_DYNAMIC)
+&lt; WHOLEA = -Wl,-whole-archive
+&lt; NO_WHOLEA = -Wl,-no-whole-archive
+&lt; endif
+&lt; 
+&lt; ifeq ($(RELOCATABLE),1)
+&lt; DEFINES += -DCF_RELOCATABLE_PWM3_LOCATION=\&quot;$(BINDIR)/pwm3\&quot;
+&lt; endif
+---
+&gt;<i> MODULE_PATH = $(TOPDIR)
+</I>65,73c51
+&lt; pwm3: $(OBJS) $(EXT_OBJS)
+&lt; 	$(CC) $(OBJS) $(WHOLEA) $(EXT_OBJS) $(NO_WHOLEA) $(LDFLAGS) -o $@
+&lt; 
+&lt; preload.c:
+&lt; 	$(LUA) ../build/mkpreload.lua $(PWM_MODULE_LIST) &gt; preload.c
+&lt; 
+&lt; _install:
+&lt; 	$(INSTALLDIR) $(BINDIR)
+&lt; 	$(INSTALLBIN) pwm3 $(BINDIR)
+---
+&gt;<i> _install: executable_install
+</I>diff -rN old-ixx/pwm/pwm.c new-ixx/pwm/pwm.c
+101,102c101,102
+&lt; #ifdef CF_RELOCATABLE_PWM3_LOCATION
+&lt;     prefix_set(argv[0], CF_RELOCATABLE_PWM3_LOCATION);
+---
+&gt;<i> #ifdef CF_RELOCATABLE_BIN_LOCATION
+</I>&gt;<i>     prefix_set(argv[0], CF_RELOCATABLE_BIN_LOCATION);
+</I>diff -rN old-ixx/system.mk new-ixx/system.mk
+41a42,44
+&gt;<i> # Executable suffix (for Cygwin).
+</I>&gt;<i> #BIN_SUFFIX = .exe
+</I>&gt;<i> 
+</I>134a138,140
+&gt;<i> # Cygwin needs this.
+</I>&gt;<i> #DEFINES += -DCF_NO_GETLOADAVG
+</I>&gt;<i> 
+</I>diff -rN old-ixx/utils/ion-completefile/Makefile new-ixx/utils/ion-completefile/Makefile
+11,13c11
+&lt; LIBS += $(LIBTU_LIBS)
+&lt; INCLUDES += $(LIBTU_INCLUDES)
+&lt; CFLAGS += $(XOPEN_SOURCE) $(C99_SOURCE)
+---
+&gt;<i> EXTRA_EXECUTABLE = ion-completefile
+</I>17c15,17
+&lt; TARGETS=ion-completefile
+---
+&gt;<i> LIBS += $(LIBTU_LIBS)
+</I>&gt;<i> INCLUDES += $(LIBTU_INCLUDES)
+</I>&gt;<i> CFLAGS += $(XOPEN_SOURCE) $(C99_SOURCE)
+</I>25,30c25
+&lt; ion-completefile: $(SOURCES)
+&lt; 	$(CC) $&lt; $(CFLAGS) $(LDFLAGS) -o $@
+&lt; 
+&lt; _install:
+&lt; 	$(INSTALLDIR) $(EXTRABINDIR)
+&lt; 	$(INSTALLBIN) ion-completefile $(EXTRABINDIR)
+---
+&gt;<i> _install: executable_install
+</I>diff -rN old-ixx/utils/ion-statusd/Makefile new-ixx/utils/ion-statusd/Makefile
+10a11,14
+&gt;<i> EXTRA_EXECUTABLE = ion-statusd
+</I>&gt;<i> 
+</I>&gt;<i> SOURCES = ion-statusd.c exec.c extlrx.c
+</I>&gt;<i> 
+</I>17,18c21
+&lt; 	   -DLCDIR=\&quot;$(LCDIR)\&quot; -DLOCALEDIR=\&quot;$(LOCALEDIR)\&quot; \
+&lt;            -DSTATUSD_LOCATION=\&quot;$(EXTRABINDIR)/ion-statusd\&quot;
+---
+&gt;<i> 	   -DLCDIR=\&quot;$(LCDIR)\&quot; -DLOCALEDIR=\&quot;$(LOCALEDIR)\&quot;
+</I>20,23d22
+&lt; SOURCES = ion-statusd.c exec.c extlrx.c
+&lt; 
+&lt; TARGETS = ion-statusd
+&lt; 
+36,41c35
+&lt; ion-statusd: $(OBJS) $(EXT_OBJS)
+&lt; 	$(CC) $(OBJS) $(EXT_OBJS) $(LDFLAGS) -o $@
+&lt; 
+&lt; _install: lc_install
+&lt; 	$(INSTALLDIR) $(EXTRABINDIR)
+&lt; 	$(INSTALLBIN) ion-statusd $(EXTRABINDIR)
+---
+&gt;<i> _install: lc_install executable_install
+</I>diff -rN old-ixx/utils/ion-statusd/ion-statusd.c new-ixx/utils/ion-statusd/ion-statusd.c
+164,165c164,165
+&lt; #ifdef STATUSD_LOCATION
+&lt;     prefix_set(argv[0], STATUSD_LOCATION);
+---
+&gt;<i> #ifdef CF_RELOCATABLE_BIN_LOCATION
+</I>&gt;<i>     prefix_set(argv[0], CF_RELOCATABLE_BIN_LOCATION);
+</I>302a303
+&gt;<i> #ifndef CF_NO_GETLOADAVG
+</I>314c315
+&lt;         
+---
+&gt;<i> #endif
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000973.html">Some build. sys. improvs. (Cygwin in particular)
+</A></li>
+	<LI>Next message: <A HREF="000975.html">Some build. sys. improvs. (Cygwin in particular)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#974">[ date ]</a>
+              <a href="thread.html#974">[ thread ]</a>
+              <a href="subject.html#974">[ subject ]</a>
+              <a href="author.html#974">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

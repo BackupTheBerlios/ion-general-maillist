@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Are title-bars/tabs necessary? (was Re: Possible? Toggle	statusbar)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Are%20title-bars/tabs%20necessary%3F%20%28was%20Re%3A%20Possible%3F%20Toggle%0A%09statusbar%29&In-Reply-To=%3C9c6605e40702150850lbaa9bd4j8ea5cd835616eb2a%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000111.html">
+   <LINK REL="Next"  HREF="000113.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Are title-bars/tabs necessary? (was Re: Possible? Toggle	statusbar)</H1>
+    <B>Sylvain Ab&#233;lard</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Are%20title-bars/tabs%20necessary%3F%20%28was%20Re%3A%20Possible%3F%20Toggle%0A%09statusbar%29&In-Reply-To=%3C9c6605e40702150850lbaa9bd4j8ea5cd835616eb2a%40mail.gmail.com%3E"
+       TITLE="Are title-bars/tabs necessary? (was Re: Possible? Toggle	statusbar)">sylvain.abelard at gmail.com
+       </A><BR>
+    <I>Thu Feb 15 17:50:51 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000111.html">Are title-bars/tabs necessary? (was Re: Possible? Toggle statusbar)
+</A></li>
+        <LI>Next message: <A HREF="000113.html">Are title-bars/tabs necessary?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#112">[ date ]</a>
+              <a href="thread.html#112">[ thread ]</a>
+              <a href="subject.html#112">[ subject ]</a>
+              <a href="author.html#112">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&gt;<i> The main problem usually is that *terminals*
+</I>&gt;<i> (which are the majority of client windows on my system) don't
+</I>&gt;<i> really tell you in the the window title what you were busy with on them...
+</I>&gt;<i> although probably this is a problem that could be solved. Any good
+</I>&gt;<i> suggestions on a &quot;better&quot; management without title bars are welcome. :)
+</I>
+I don't think this can be solved. Some programs do think about you and
+print their status on the term's titlebar, such as Gentoo's &quot;emerge&quot;
+command. This is made by the guys who code their app, you can't ask
+for every console program and script to do that.
+
+This is just like asking every graphical app developer to follow ICCCM
+and to set the 'role' winprop cleverly so that you could organize them
+well in ion. I especially think of IM programs and their chat windows,
+which is one of the things I tried to automagically tidy in my ion3.
+
+
+I am not on an unix right now and I can't test what I'm about to say,
+but even if I'm not right on every point, I'm positive at least some
+of them are true :
+
+For a console app, what you could do would recode the term (that's
+without me, pal) to print on its titlebar either the program in action
+or the pwd when not told otherwise. That could help, but I'm sure
+you'll find cases in which this is still not the perfect solution.
+
+For example, when executing a shellscript, maybe you want to print
+only the name or $0, or every arg. Perhaps you want it to describe
+changes to the cwd, and every command it's using, perhaps not.
+
+And you may not want anything to change your terminal window's title,
+so you can do funky stuff with ion and not having to bother to write a
+cleverest parsing in Lua to recognize your original window.
+
+-- 
+Sylvain Abelard,
+Railer Rubyist. Epita MTI 2008.
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000111.html">Are title-bars/tabs necessary? (was Re: Possible? Toggle statusbar)
+</A></li>
+	<LI>Next message: <A HREF="000113.html">Are title-bars/tabs necessary?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#112">[ date ]</a>
+              <a href="thread.html#112">[ thread ]</a>
+              <a href="subject.html#112">[ subject ]</a>
+              <a href="author.html#112">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

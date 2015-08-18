@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> SetFS
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20SetFS&In-Reply-To=%3Cslrneub8sb.upe.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000183.html">
+   <LINK REL="Next"  HREF="000152.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>SetFS</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20SetFS&In-Reply-To=%3Cslrneub8sb.upe.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="SetFS">tuomov at iki.fi
+       </A><BR>
+    <I>Wed Feb 28 16:45:15 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000183.html">SetFS
+</A></li>
+        <LI>Next message: <A HREF="000152.html">Feature freeze imminent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#184">[ date ]</a>
+              <a href="thread.html#184">[ thread ]</a>
+              <a href="subject.html#184">[ subject ]</a>
+              <a href="author.html#184">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2007-02-28, Ted Zlatanov &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tzz at lifelogs.com</A>&gt; wrote:
+&gt;<i> On Wed, 28 Feb 2007 10:20:33 +0000 (UTC) Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt; wrote: 
+</I>&gt;<i>
+</I>&gt;<i> TV&gt; In fact, for tab-completion to work nicely, most tags should 
+</I>&gt;<i> TV&gt; perhaps be listed. Ideally the application in question would 
+</I>&gt;<i> TV&gt; do the pruning/clustering as suited to the task at hand, but 
+</I>&gt;<i> TV&gt; in a FUSE plugin for applications (mostly) unaware of SetFS, 
+</I>&gt;<i> TV&gt; we do not have the luxury of that. But for 'ls' output the whole
+</I>&gt;<i> TV&gt; list can be unusably long. 
+</I>&gt;<i>
+</I>&gt;<i> Just like `ls', I don't think you should filter out results, just
+</I>&gt;<i> write a filter tool or an option to make the list usable.
+</I>
+It's not really filtering out anything, just producing a dynamic
+hierarchy for the *nix tools that have been written for hierarchic
+file systems. I think the default behaviour should be adjusted for
+them, not tools aware of SetFS, which can, of course, use other 
+methods.
+
+If a simple list of tags is sufficient, then #options in the path 
+could do it, but if the real search results are wanted, we don't 
+want to cram them down through `readdir`. (I'm thinking of a FUSE 
+plugin here constantly!) Therefore some other communication method 
+is needed. One very simple option is a special read-only file with 
+an additional #listing or some such element in the path. So if our
+file system had the files foo/bar, foo/bar/baz, and foo/quk, then 
+the read-only file foo/#listing could, for example, have the contents
+
+	bar
+	bar/baz
+	quk
+
+(You don't want to pass that slash down readdir!) Some additional
+information might also be passed in this file (or a file with 
+additional #options), if the FS can do it more efficiently during
+the search than it would be for the application to obtain that 
+information for each file separately. 
+
+(If we pass the set identifier down the file instead of an internal 
+numeric object identifier -- inode number, if you will -- the inode 
+will probably need to be accessed during the search for each of the 
+results, and therefore additional information is quickly available 
+during the search. Contrast this with traditional unix file systems, 
+like ext3, where `echo /usr/bin/*` is immediate, while `ls /usr/bin/*`
+is not quite as fast. This is because the latter has to read the inode
+`stat`, whereas the former doesn't. #listing could, of course, just 
+list inode numbers, and another channel be provided for converting 
+inode numbers to tag sets or other information. I'm not sure which 
+behaviour is preferrable, although I do think exposing inode numbers
+is a bit ugly.)
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000183.html">SetFS
+</A></li>
+	<LI>Next message: <A HREF="000152.html">Feature freeze imminent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#184">[ date ]</a>
+              <a href="thread.html#184">[ thread ]</a>
+              <a href="subject.html#184">[ subject ]</a>
+              <a href="author.html#184">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

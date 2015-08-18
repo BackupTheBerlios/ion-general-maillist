@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Multi-, different- monitors is multi-hopeless?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Multi-%2C%20different-%20monitors%20is%20multi-hopeless%3F&In-Reply-To=%3Calpine.LNX.2.00.0901161522440.10643%40acer.home.local%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001543.html">
+   <LINK REL="Next"  HREF="001551.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Multi-, different- monitors is multi-hopeless?</H1>
+    <B>Benjamin R. Haskell</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Multi-%2C%20different-%20monitors%20is%20multi-hopeless%3F&In-Reply-To=%3Calpine.LNX.2.00.0901161522440.10643%40acer.home.local%3E"
+       TITLE="Multi-, different- monitors is multi-hopeless?">ion at benizi.com
+       </A><BR>
+    <I>Fri Jan 16 23:55:53 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001543.html">Multi-, different- monitors is multi-hopeless?
+</A></li>
+        <LI>Next message: <A HREF="001551.html">Multi-, different- monitors is multi-hopeless?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1546">[ date ]</a>
+              <a href="thread.html#1546">[ thread ]</a>
+              <a href="subject.html#1546">[ subject ]</a>
+              <a href="author.html#1546">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Fri, 16 Jan 2009, Tom&#225;&#353; Ebenlendr wrote:
+
+&gt;<i> I use mod_xinerama, xrandr, and lua script that changes ion's session 
+</I>&gt;<i> string via ioncore.set_paths(). This suffices, as I need to restart ion3 
+</I>&gt;<i> (but not X nor applications) every time I switch xrandr configuration. 
+</I>&gt;<i> This way I have one saved layout for each xrandr configuration I tried.
+</I>&gt;<i>
+</I>
+Argh. I'm an idiot. I assumed since mod_xrandr was loaded that 
+mod_xinerama had been loaded, too. This is working well for me, too, now. 
+Thanks, and sorry for the noise.
+
+
+&gt;<i> [...]
+</I>&gt;<i>
+</I>&gt;<i> Note that I use patched mod_xinerama, because original mod_xinerama 
+</I>&gt;<i> doesn't allow ion3 to shutdown/restart properly. The one line change was 
+</I>&gt;<i> posted to the list by someone already.
+</I>
+Yep, in the same &quot;shit-or-rama&quot; thread I mentioned.
+
+BTW, Tobias Hommel: I'm using your ebuild from a few days ago, and it 
+doesn't seem to have that patch. (It has mod_xinerama-20080902 rather than 
+-20080923.) Putting that in was just a matter of: grabbing the tar.gz from 
+<A HREF="http://wannabehacker.com/src/mod_xinerama-20080923.tar.gz">http://wannabehacker.com/src/mod_xinerama-20080923.tar.gz</A> (Thanks 
+Thomas!), tar -zxf'ing, renaming the root dir, tar -jcf'ing, and bumping 
+the module's _PV.
+
+Thanks all,
+Ben
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001543.html">Multi-, different- monitors is multi-hopeless?
+</A></li>
+	<LI>Next message: <A HREF="001551.html">Multi-, different- monitors is multi-hopeless?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1546">[ date ]</a>
+              <a href="thread.html#1546">[ thread ]</a>
+              <a href="subject.html#1546">[ subject ]</a>
+              <a href="author.html#1546">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

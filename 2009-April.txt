@@ -1,0 +1,856 @@
+From oskar.nordquist at gmail.com  Mon Apr  6 22:57:47 2009
+From: oskar.nordquist at gmail.com (Oskar Nordquist)
+Date: Mon, 6 Apr 2009 22:57:47 +0200
+Subject: Attach client to several workspaces
+Message-ID: <bced70ce0904061357v31fba071ieccbaf1340cc6b3e@mail.gmail.com>
+
+Hi,
+
+I'm wondering how hard it would be to implement support for having clients
+visible in more than one workspace, e.g it could work like the tagging feature
+for moving windows, only clients could be attached to several frames and/or
+workspaces.
+
+If anyone know of a script with similar features, please let me know.
+
+Regards,
+
+Oskar N
+
+
+From tuomov at iki.fi  Tue Apr  7 12:14:02 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 7 Apr 2009 10:14:02 +0000 (UTC)
+Subject: Attach client to several workspaces
+References: <bced70ce0904061357v31fba071ieccbaf1340cc6b3e@mail.gmail.com>
+Message-ID: <slrngtm9ra.vq2.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-04-06, Oskar Nordquist <oskar.nordquist at gmail.com> wrote:
+> I'm wondering how hard it would be to implement support for having clients
+> visible in more than one workspace, e.g it could work like the tagging feature
+> for moving windows, only clients could be attached to several frames and/or
+> workspaces.
+
+A basic version shouldn't be too difficult. Just a script that attaches 
+to one of the hooks that signal workspace change, and then moves the 
+window around.
+
+What's more work is remembering where exactly the window was on each
+workspace... for that, there's the placeholder mechanism, but it
+isn't exported to the Lua side ATM.
+
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+
+From oskar.nordquist at gmail.com  Tue Apr  7 13:40:51 2009
+From: oskar.nordquist at gmail.com (Oskar Nordquist)
+Date: Tue, 7 Apr 2009 13:40:51 +0200
+Subject: Attach client to several workspaces
+In-Reply-To: <slrngtm9ra.vq2.tuomov@jolt.modeemi.cs.tut.fi>
+References: <bced70ce0904061357v31fba071ieccbaf1340cc6b3e@mail.gmail.com>
+	<slrngtm9ra.vq2.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <bced70ce0904070440i7b574e69q553310fa30b8e705@mail.gmail.com>
+
+2009/4/7 Tuomo Valkonen <tuomov at iki.fi>:
+> On 2009-04-06, Oskar Nordquist <oskar.nordquist at gmail.com> wrote:
+>> I'm wondering how hard it would be to implement support for having clients
+>> visible in more than one workspace, e.g it could work like the tagging feature
+>> for moving windows, only clients could be attached to several frames and/or
+>> workspaces.
+>
+> A basic version shouldn't be too difficult. Just a script that attaches
+> to one of the hooks that signal workspace change, and then moves the
+> window around.
+>
+
+Would it not be easier to just duplicate the client to refer to the same X
+window? I don't even know if that is possible, but if it is, that's how I'd
+prefer to do it.
+
+
+From tuomov at iki.fi  Tue Apr  7 15:50:13 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 7 Apr 2009 13:50:13 +0000 (UTC)
+Subject: Attach client to several workspaces
+References: <bced70ce0904061357v31fba071ieccbaf1340cc6b3e@mail.gmail.com>
+	<slrngtm9ra.vq2.tuomov@jolt.modeemi.cs.tut.fi>
+	<bced70ce0904070440i7b574e69q553310fa30b8e705@mail.gmail.com>
+Message-ID: <slrngtmmgl.tpf.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-04-07, Oskar Nordquist <oskar.nordquist at gmail.com> wrote:
+> Would it not be easier to just duplicate the client to refer to the same X
+> window? I don't even know if that is possible, but if it is, that's how I'd
+> prefer to do it.
+
+Ummm... I don't know what you really mean. The client always refers to
+the same window it initially created. You can move it around in Ion's
+window management hierarchy (cf. Mod1+A, Mod1+T & Mod1+K A, tab drag),
+also to follow you around. Obviously you can automate this by attaching
+a script to suitable hooks. 
+
+The difficult part is that it would always appear at the same index in
+a frame etc.; this demands exporting the placeholders to Lua side.
+
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+
+From agriffis at n01se.net  Tue Apr  7 16:47:05 2009
+From: agriffis at n01se.net (Aron Griffis)
+Date: Tue, 7 Apr 2009 10:47:05 -0400
+Subject: Attach client to several workspaces
+In-Reply-To: <bced70ce0904061357v31fba071ieccbaf1340cc6b3e@mail.gmail.com>
+References: <bced70ce0904061357v31fba071ieccbaf1340cc6b3e@mail.gmail.com>
+Message-ID: <20090407144704.GA1613@griffis1.net>
+
+Oskar Nordquist wrote:  [Mon Apr 06 2009, 04:57:47PM EDT]
+>I'm wondering how hard it would be to implement support for
+>having clients visible in more than one workspace, e.g it could
+>work like the tagging feature for moving windows, only clients
+>could be attached to several frames and/or workspaces.
+
+This would be really nice to have in ion3.  Something I miss from
+sawfish.
+
+Aron
+
+
+From oskar.nordquist at gmail.com  Tue Apr  7 18:22:05 2009
+From: oskar.nordquist at gmail.com (Oskar Nordquist)
+Date: Tue, 7 Apr 2009 18:22:05 +0200
+Subject: Attach client to several workspaces
+In-Reply-To: <slrngtmmgl.tpf.tuomov@jolt.modeemi.cs.tut.fi>
+References: <bced70ce0904061357v31fba071ieccbaf1340cc6b3e@mail.gmail.com>
+	<slrngtm9ra.vq2.tuomov@jolt.modeemi.cs.tut.fi>
+	<bced70ce0904070440i7b574e69q553310fa30b8e705@mail.gmail.com>
+	<slrngtmmgl.tpf.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <bced70ce0904070922u360396bka15f38df20f1cabb@mail.gmail.com>
+
+2009/4/7 Tuomo Valkonen <tuomov at iki.fi>:
+> On 2009-04-07, Oskar Nordquist <oskar.nordquist at gmail.com> wrote:
+>> Would it not be easier to just duplicate the client to refer to the same X
+>> window? I don't even know if that is possible, but if it is, that's how I'd
+>> prefer to do it.
+>
+> Ummm... I don't know what you really mean. The client always refers to
+> the same window it initially created. You can move it around in Ion's
+> window management hierarchy (cf. Mod1+A, Mod1+T & Mod1+K A, tab drag),
+> also to follow you around. Obviously you can automate this by attaching
+> a script to suitable hooks.
+>
+
+I'm not sure how X works, but I'm guessing there is some kind of handle that
+an Ion client refers to to draw the window. Would it not be possible to
+use this same handle in a new Ion client, which would essentially render the
+same window?
+
+Excuse my ignorance.
+
+
+From Matthieu.Moy at imag.fr  Tue Apr  7 19:03:51 2009
+From: Matthieu.Moy at imag.fr (Matthieu Moy)
+Date: Tue, 07 Apr 2009 19:03:51 +0200
+Subject: Attach client to several workspaces
+In-Reply-To: <bced70ce0904070922u360396bka15f38df20f1cabb@mail.gmail.com>
+	(Oskar Nordquist's message of "Tue\, 7 Apr 2009 18\:22\:05 +0200")
+References: <bced70ce0904061357v31fba071ieccbaf1340cc6b3e@mail.gmail.com>
+	<slrngtm9ra.vq2.tuomov@jolt.modeemi.cs.tut.fi>
+	<bced70ce0904070440i7b574e69q553310fa30b8e705@mail.gmail.com>
+	<slrngtmmgl.tpf.tuomov@jolt.modeemi.cs.tut.fi>
+	<bced70ce0904070922u360396bka15f38df20f1cabb@mail.gmail.com>
+Message-ID: <vpqr6048kg8.fsf@bauges.imag.fr>
+
+Oskar Nordquist <oskar.nordquist at gmail.com> writes:
+
+> 2009/4/7 Tuomo Valkonen <tuomov at iki.fi>:
+>> On 2009-04-07, Oskar Nordquist <oskar.nordquist at gmail.com> wrote:
+>>> Would it not be easier to just duplicate the client to refer to the same X
+>>> window? I don't even know if that is possible, but if it is, that's how I'd
+>>> prefer to do it.
+>>
+>> Ummm... I don't know what you really mean. The client always refers to
+>> the same window it initially created. You can move it around in Ion's
+>> window management hierarchy (cf. Mod1+A, Mod1+T & Mod1+K A, tab drag),
+>> also to follow you around. Obviously you can automate this by attaching
+>> a script to suitable hooks.
+>>
+>
+> I'm not sure how X works, but I'm guessing there is some kind of handle that
+> an Ion client refers to to draw the window. Would it not be possible to
+> use this same handle in a new Ion client, which would essentially render the
+> same window?
+
+You cannot have the same application actually running in different
+frames without application support. At least one problem is that
+different frames can have different sizes, and the application will
+draw its content based on the size.
+
+With application support, you can do such kind of things (like Emacs
+"make new frame" for example), but they will still be two distinct
+frames.
+
+What you can do (and what wmii, awesome and other do) is that the
+resize the window on-the-fly when the workspace changes. Then the
+application redraws the frame at the new place, with its new size.
+
+-- 
+Matthieu
+
+
+From deepkesh at gmail.com  Thu Apr  9 00:34:35 2009
+From: deepkesh at gmail.com (Deepanjan Kesh)
+Date: Thu, 9 Apr 2009 04:04:35 +0530
+Subject: cannot type in run dialog
+Message-ID: <16dd5c4c0904081534i5dd85c1du5ac2c1e8b91983de@mail.gmail.com>
+
+i have installed ion3 in ubuntu 8.10. but i am not able to type in the
+run dialog though tab completion works.
+any help would be really appreciated
+
+
+From tuomov at iki.fi  Thu Apr  9 08:59:25 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 9 Apr 2009 06:59:25 +0000 (UTC)
+Subject: cannot type in run dialog
+References: <16dd5c4c0904081534i5dd85c1du5ac2c1e8b91983de@mail.gmail.com>
+Message-ID: <slrngtr76d.qrn.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-04-08, Deepanjan Kesh <deepkesh at gmail.com> wrote:
+> i have installed ion3 in ubuntu 8.10. but i am not able to type in the
+> run dialog though tab completion works.
+> any help would be really appreciated
+
+Fix your locales settings. You need the .encoding (e.g. fi_FI.UTF-8)
+part in LC_CTYPE (or LANG), because Xlib is broken.
+
+-- 
+Stop Gnomes and other pests! Purchase Windows today!
+
+
+
+From jasbir.k at gmail.com  Thu Apr  9 11:41:18 2009
+From: jasbir.k at gmail.com (Jasbir Khehra)
+Date: Thu, 9 Apr 2009 15:11:18 +0530
+Subject: cannot type in run dialog
+In-Reply-To: <slrngtr76d.qrn.tuomov@jolt.modeemi.cs.tut.fi>
+References: <16dd5c4c0904081534i5dd85c1du5ac2c1e8b91983de@mail.gmail.com>
+	<slrngtr76d.qrn.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <e053ca9d0904090241t76d42f32p8cef359c004ed8e9@mail.gmail.com>
+
+On Thu, Apr 9, 2009 at 12:29 PM, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2009-04-08, Deepanjan Kesh <deepkesh at gmail.com> wrote:
+>> i have installed ion3 in ubuntu 8.10. but i am not able to type in the
+>> run dialog though tab completion works.
+>> any help would be really appreciated
+>
+> Fix your locales settings. You need the .encoding (e.g. fi_FI.UTF-8)
+> part in LC_CTYPE (or LANG), because Xlib is broken.
+Hi Deepanjan,
+To change the locales setting you need to modify /etc/default/locales
+and reboot.
+Check the output with locale command.
+
+
+From deepkesh at gmail.com  Thu Apr  9 13:56:07 2009
+From: deepkesh at gmail.com (Deepanjan Kesh)
+Date: Thu, 9 Apr 2009 17:26:07 +0530
+Subject: cannot type in run dialog
+In-Reply-To: <e053ca9d0904090241t76d42f32p8cef359c004ed8e9@mail.gmail.com>
+References: <16dd5c4c0904081534i5dd85c1du5ac2c1e8b91983de@mail.gmail.com>
+	<slrngtr76d.qrn.tuomov@jolt.modeemi.cs.tut.fi>
+	<e053ca9d0904090241t76d42f32p8cef359c004ed8e9@mail.gmail.com>
+Message-ID: <16dd5c4c0904090456w263d362fg44b2a76292fd39b7@mail.gmail.com>
+
+thank you all! after the change, things are working just fine.
+
+
+On Thu, Apr 9, 2009 at 3:11 PM, Jasbir Khehra <jasbir.k at gmail.com> wrote:
+> On Thu, Apr 9, 2009 at 12:29 PM, Tuomo Valkonen <tuomov at iki.fi> wrote:
+>> On 2009-04-08, Deepanjan Kesh <deepkesh at gmail.com> wrote:
+>>> i have installed ion3 in ubuntu 8.10. but i am not able to type in the
+>>> run dialog though tab completion works.
+>>> any help would be really appreciated
+>>
+>> Fix your locales settings. You need the .encoding (e.g. fi_FI.UTF-8)
+>> part in LC_CTYPE (or LANG), because Xlib is broken.
+> Hi Deepanjan,
+> To change the locales setting you need to modify /etc/default/locales
+> and reboot.
+> Check the output with locale command.
+>
+
+
+From tuomov at iki.fi  Thu Apr  9 18:03:42 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 9 Apr 2009 16:03:42 +0000 (UTC)
+Subject: X is dead. Long live windows.
+Message-ID: <slrngts72u.jq4.tuomov@jolt.modeemi.cs.tut.fi>
+
+
+The X we all knew is dying, and it's being killed by its developers.
+
+As their latest onslaught, the Xorg dickheads have removed 
+SaveUnders from X. Expect flicker when dragging tabs or 
+moving windows under Ion and a new and rusy X. They want you
+to implement and use a heavy memory, cpu, and battery-hungry
+composite manager instead... and do not provide a generic 
+one worth shit.
+
+They do not follow the original design of X and extend it; 
+they gradually replace everything with crap and remove the 
+old ways of doing things. Soon on their list will be core
+the good old fonts, as they want you to use their blur-fascist
+fantasies. It's impossible to keep up with the shit that the 
+FOSScracy throws at you, unless you're one of the big 
+corporate-sponsored projects that is already part of the FOSScracy.
+
+The lamers even banned me from posting on the list. Censorship, 
+silencing the critique. Sure sing of an incompetent tyranny.
+
+
+It was a good time to switch to Windows. X as we knew it will 
+soon no longer be. 
+
+
+Something to laugh at:
+
+On the same tread, the fuckwits discuss how they need some way
+to identify displays for DPI settings etc... after they removed
+simple display identification by switching from the good old X
+multihead o Xinerama/Xrandr crap.
+
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and the cycle paths 
+have been replaced with polluted motorways.
+
+
+
+From lukasgraesslin at googlemail.com  Thu Apr  9 18:33:55 2009
+From: lukasgraesslin at googlemail.com (Lukas =?ISO-8859-1?B?R3Lkc3NsaW4=?=)
+Date: Thu, 9 Apr 2009 18:33:55 +0200
+Subject: X is dead. Long live windows.
+In-Reply-To: <slrngts72u.jq4.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrngts72u.jq4.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20090409183355.20bbdaef@q9400-arch>
+
+Propably a stupid question, but:
+Do you still work on ion or will you let it die (which would be very
+sad, because it's the only window manager I can productively work with)
+
+Regards,
+Lukas
+
+Am Thu, 9 Apr 2009 16:03:42 +0000 (UTC)
+schrieb Tuomo Valkonen <tuomov at iki.fi>:
+
+> 
+> The X we all knew is dying, and it's being killed by its developers.
+> 
+> As their latest onslaught, the Xorg dickheads have removed 
+> SaveUnders from X. Expect flicker when dragging tabs or 
+> moving windows under Ion and a new and rusy X. They want you
+> to implement and use a heavy memory, cpu, and battery-hungry
+> composite manager instead... and do not provide a generic 
+> one worth shit.
+> 
+> They do not follow the original design of X and extend it; 
+> they gradually replace everything with crap and remove the 
+> old ways of doing things. Soon on their list will be core
+> the good old fonts, as they want you to use their blur-fascist
+> fantasies. It's impossible to keep up with the shit that the 
+> FOSScracy throws at you, unless you're one of the big 
+> corporate-sponsored projects that is already part of the FOSScracy.
+> 
+> The lamers even banned me from posting on the list. Censorship, 
+> silencing the critique. Sure sing of an incompetent tyranny.
+> 
+> 
+> It was a good time to switch to Windows. X as we knew it will 
+> soon no longer be. 
+> 
+> 
+> Something to laugh at:
+> 
+> On the same tread, the fuckwits discuss how they need some way
+> to identify displays for DPI settings etc... after they removed
+> simple display identification by switching from the good old X
+> multihead o Xinerama/Xrandr crap.
+> 
+> 
+
+
+
+From tuomov at iki.fi  Thu Apr  9 21:19:03 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 9 Apr 2009 19:19:03 +0000 (UTC)
+Subject: X is dead. Long live windows.
+References: <slrngts72u.jq4.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090409183355.20bbdaef@q9400-arch>
+Message-ID: <slrngtsih7.8jq.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-04-09, Lukas Gr?sslin <lukasgraesslin at googlemail.com> wrote:
+> Propably a stupid question, but:
+> Do you still work on ion or will you let it die (which would be very
+> sad, because it's the only window manager I can productively work with)
+
+I don't have the time to really work on it.. and it would all in
+any case be wasted keeping up with the degradation of X and other
+dependencies. In any case, I'll try to fix bugs (I still have a
+cygwin X), although ATM the the VCS switch is still in progress,
+and nothing really happening... it's too much pain to convert
+a multi-repository project, the usual tools even fail on the
+repositories thanks to the windows darcs being just broken...
+which generally doesn't work nicely enough with cygwin to keep
+using. (And there's no cygwin darcs, because GHC sucks.)
+
+If there's going to be any new development on Ion -- and
+it seems doubtful that I'll find the time and energy,
+although I'd really like to see my Ion4 ideas implemented
+and tested -- it would most likely be in the direction of 
+a Windows IDE: not even attempting to be a whole WM for 
+Windows, but rather just running some cooperative 
+apps/components (e.g. modified cygterm) in a nice
+environment. That's how I use it now in any case:
+as an "IDE" with xterms in it. It still depends on
+X, however, which is something to remove from the loop.
+
+But it's unlikely I'll find the time and energy...
+I'd like to already move to the management department
+and direct some code slaves. But what's more likely
+and happening already, is an army of imitating monkeys,
+all doing redundant work and producing shit due to
+limited resources.
+
+-- 
+Stop Gnomes and other pests! Purchase Windows today!
+
+
+
+From skuratovich at gmail.com  Thu Apr  9 22:05:37 2009
+From: skuratovich at gmail.com (Vladimir Skuratovich)
+Date: Thu, 9 Apr 2009 23:05:37 +0300
+Subject: VirtualBox seamless mode
+Message-ID: <20090409200536.GA19882@fl.fami.org>
+
+Hi,
+
+Is it possible to set up the VirtualBox 'seamless mode', where it is
+supposed to integrate with the window manager, so that the guest
+windows are managed by Ion? Currently if I turn on seamless mode, the
+only thing that changes is that the background of the guest desktop is
+replaced with the root window of X.
+
+Or is there any other VM software that can do that?
+
+The host is Linux with X.org 1.6 and Ion3, the guest is Windows XP.
+
+Regards,
+        Vladimir
+
+
+From james.eacret at gmail.com  Fri Apr 10 02:03:01 2009
+From: james.eacret at gmail.com (James Eacret)
+Date: Thu, 9 Apr 2009 19:03:01 -0500
+Subject: X is dead. Long live windows.
+In-Reply-To: <slrngts72u.jq4.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrngts72u.jq4.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <dd3f30d50904091703s1818c357o699ce83d23b43acc@mail.gmail.com>
+
+Tuomo -- I certainly respect your opinion.  When it comes down to it,
+this is your distribution list, and I would not be a part of it if I
+did not want to read about your ideas and thoughts.  So, I wish you do
+not take offense to anything I am about to say.  I do not want you to
+think I am providing anything more than an ignorant view from a
+desktop user.
+
+It seems to me, that if this is what "killed" X, than Windows 95 was
+the death of Windows.  And if that had not done the trick, Windows ME
+and Vista were two pointblank shots to the temple, leaving a rotting
+carcass behind.
+
+However, truth be told, I am not one to firmly state one OS is better
+than another.  I use both Windows XP and Linux and am quite happy.  I
+tend to think far to much energy is spent trying to convince others of
+a particular operating system's superiority over another.  I think all
+have great features that can be utilized.
+
+But, like I said, having very little in the way of true programming
+experience, I am an ignorant, if not blissfully ignorant user.  I just
+see irony in you outlying the increase memory use, cpu power, and
+battery consumption; my wife's new laptop with Vista is all that, and
+more bothersome for me, it is way to colorful.
+
+On Thu, Apr 9, 2009 at 11:03 AM, Tuomo Valkonen <tuomov at iki.fi> wrote:
+>
+> The X we all knew is dying, and it's being killed by its developers.
+>
+> As their latest onslaught, the Xorg dickheads have removed
+> SaveUnders from X. Expect flicker when dragging tabs or
+> moving windows under Ion and a new and rusy X. They want you
+> to implement and use a heavy memory, cpu, and battery-hungry
+> composite manager instead... and do not provide a generic
+> one worth shit.
+>
+> They do not follow the original design of X and extend it;
+> they gradually replace everything with crap and remove the
+> old ways of doing things. Soon on their list will be core
+> the good old fonts, as they want you to use their blur-fascist
+> fantasies. It's impossible to keep up with the shit that the
+> FOSScracy throws at you, unless you're one of the big
+> corporate-sponsored projects that is already part of the FOSScracy.
+>
+> The lamers even banned me from posting on the list. Censorship,
+> silencing the critique. Sure sing of an incompetent tyranny.
+>
+>
+> It was a good time to switch to Windows. X as we knew it will
+> soon no longer be.
+>
+>
+> Something to laugh at:
+>
+> On the same tread, the fuckwits discuss how they need some way
+> to identify displays for DPI settings etc... after they removed
+> simple display identification by switching from the good old X
+> multihead o Xinerama/Xrandr crap.
+>
+>
+> --
+> In 1995, Linux was almost a bicycle; an alternative way of live to the
+> Windows petrol beasts that had to be taken to the dealer for service.
+> By 2008, Linux has bloated into a gas-guzzler, and the cycle paths
+> have been replaced with polluted motorways.
+>
+>
+
+
+
+-- 
+James D. Eacret
+(??? ????)
+I am the weapon that strikes, In the hearts of man I thrive, Feeding
+their fear with lies, I will devour I will divide, I am the god of
+hellfire, Inside every man there lives a liar, Before their gods they
+cower, I will divide I will devour
+
+Antichrist or harbinger of fate, Prophet and priest born of the
+ancient rage, I will assassinate their way,  Annihilation of the human
+race
+
+
+From tuomov at iki.fi  Fri Apr 10 07:55:58 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 10 Apr 2009 05:55:58 +0000 (UTC)
+Subject: X is dead. Long live windows.
+References: <slrngts72u.jq4.tuomov@jolt.modeemi.cs.tut.fi>
+	<dd3f30d50904091703s1818c357o699ce83d23b43acc@mail.gmail.com>
+Message-ID: <slrngttnre.625.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-04-10, James Eacret <james.eacret at gmail.com> wrote:
+> It seems to me, that if this is what "killed" X, than Windows 95 was
+> the death of Windows.  And if that had not done the trick, Windows ME
+> and Vista were two pointblank shots to the temple, leaving a rotting
+> carcass behind.
+
+Oh, no, there's no single one thing that killed X, but all the
+recent actions to "modernise" (read: over-complexify) it:
+
+  http://modeemi.fi/~tuomov/b/archives/2008/07/13/T18_03_06/
+
+  http://modeemi.fi/~tuomov/b/archives/2008/03/20/T13_47_17/
+
+  http://modeemi.fi/~tuomov/b/archives/2009/03/13/T16_46_57/
+
+"DOS as a simple and manageable system was the high point of computing. XP
+was a local maximum: the last OS with good fonts, and not even nearly as bad
+as W95, around the release of which I switched from DOS to what can now
+clearly be seen as the failure known as Linux/FOSS."
+
+> But, like I said, having very little in the way of true programming
+> experience, I am an ignorant, if not blissfully ignorant user.  I just
+> see irony in you outlying the increase memory use, cpu power, and
+> battery consumption; my wife's new laptop with Vista is all that, and
+> more bothersome for me, it is way to colorful.
+
+Vista does suck in my experience... in vmware. But I use XP.
+Windows 7 sees like in improvement.. based on vmware tests.
+
+You can select a W98-lookalike theme in both Vista and W7,
+and as a nice side effect blurring gets disabled.
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and local vendors and
+artisans have had to yield to "all under one roof" big box hypermarkets.
+
+
+
+From tuomov at iki.fi  Fri Apr 10 07:59:01 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 10 Apr 2009 05:59:01 +0000 (UTC)
+Subject: VirtualBox seamless mode
+References: <20090409200536.GA19882@fl.fami.org>
+Message-ID: <slrngtto15.625.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-04-09, Vladimir Skuratovich <skuratovich at gmail.com> wrote:
+> Hi,
+>
+> Is it possible to set up the VirtualBox 'seamless mode', where it is
+> supposed to integrate with the window manager, so that the guest
+> windows are managed by Ion? 
+
+Does it create managed windows or just override-redirects?
+I'd expect the latter, which are likely to then get hidden
+under Ion's tiling.
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+
+From tuomov at iki.fi  Fri Apr 10 08:10:22 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 10 Apr 2009 06:10:22 +0000 (UTC)
+Subject: X is dead. Long live windows.
+References: <slrngts72u.jq4.tuomov@jolt.modeemi.cs.tut.fi>
+	<dd3f30d50904091703s1818c357o699ce83d23b43acc@mail.gmail.com>
+	<slrngttnre.625.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrngttome.8rb.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-04-10, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> "DOS as a simple and manageable system was the high point of computing. XP
+> was a local maximum: the last OS with good fonts, and not even nearly as bad
+> as W95, around the release of which I switched from DOS to what can now
+> clearly be seen as the failure known as Linux/FOSS."
+
+And unlike Linux from 2001 -- which didn't suck quite as much 
+as Linux 2009 -- Windows XP is still a widely-used and somewhat
+supported operating system that you can actually use and run 
+new applications on.
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and the cycle paths 
+have been replaced with polluted motorways.
+
+
+
+From tuomov at iki.fi  Fri Apr 10 13:29:08 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 10 Apr 2009 11:29:08 +0000 (UTC)
+Subject: Attach client to several workspaces
+References: <bced70ce0904061357v31fba071ieccbaf1340cc6b3e@mail.gmail.com>
+	<slrngtm9ra.vq2.tuomov@jolt.modeemi.cs.tut.fi>
+	<bced70ce0904070440i7b574e69q553310fa30b8e705@mail.gmail.com>
+	<slrngtmmgl.tpf.tuomov@jolt.modeemi.cs.tut.fi>
+	<bced70ce0904070922u360396bka15f38df20f1cabb@mail.gmail.com>
+	<vpqr6048kg8.fsf@bauges.imag.fr>
+Message-ID: <slrngtubc4.uau.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-04-07, Matthieu Moy <Matthieu.Moy at imag.fr> wrote:
+> What you can do (and what wmii, awesome and other do) is that the
+> resize the window on-the-fly when the workspace changes. Then the
+> application redraws the frame at the new place, with its new size.
+
+You can manually emulate this by tagging a window with Mod1+T,
+switchking workspace, and attaching the window in a frame on the
+chosen workspace with Mod1+K A.
+
+It's not difficult to write a basic script to automate this.
+I can't find one in the repository, but I'd expect someone
+to already have done this...
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+
+From skuratovich at gmail.com  Fri Apr 10 19:07:31 2009
+From: skuratovich at gmail.com (Vladimir Skuratovich)
+Date: Fri, 10 Apr 2009 20:07:31 +0300
+Subject: VirtualBox seamless mode
+In-Reply-To: <slrngtto15.625.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20090409200536.GA19882@fl.fami.org>
+	<slrngtto15.625.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20090410170731.GA9093@fl.fami.org>
+
+On Fri, Apr 10, 2009 at 05:59:01AM +0000, Tuomo Valkonen wrote:
+> > Is it possible to set up the VirtualBox 'seamless mode', where it is
+> > supposed to integrate with the window manager, so that the guest
+> > windows are managed by Ion?
+>
+> Does it create managed windows or just override-redirects?
+> I'd expect the latter, which are likely to then get hidden
+> under Ion's tiling.
+
+It seems that all guest window are drawn inside one X window even in
+'seamless mode', so probably the latter.
+
+Maybe some other virtual machine is able to create a separate X window
+for each window inside the guest OS?
+
+
+From treibholz-ion at sozial-inkompetent.de  Fri Apr 10 21:43:36 2009
+From: treibholz-ion at sozial-inkompetent.de (Klaus Umbach)
+Date: Fri, 10 Apr 2009 21:43:36 +0200
+Subject: VirtualBox seamless mode
+In-Reply-To: <20090410170731.GA9093@fl.fami.org>
+References: <20090409200536.GA19882@fl.fami.org>
+	<slrngtto15.625.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090410170731.GA9093@fl.fami.org>
+Message-ID: <20090410194336.GA19255@umbach-racing.de>
+
+On 10/04/09 20:07, Vladimir Skuratovich wrote:
+> On Fri, Apr 10, 2009 at 05:59:01AM +0000, Tuomo Valkonen wrote:
+> > > Is it possible to set up the VirtualBox 'seamless mode', where it is
+> > > supposed to integrate with the window manager, so that the guest
+> > > windows are managed by Ion?
+> >
+> > Does it create managed windows or just override-redirects?
+> > I'd expect the latter, which are likely to then get hidden
+> > under Ion's tiling.
+> 
+> It seems that all guest window are drawn inside one X window even in
+> 'seamless mode', so probably the latter.
+> 
+> Maybe some other virtual machine is able to create a separate X window
+> for each window inside the guest OS?
+
+Just use VirtualBox in standard-fullscreen-mode on a separate Workspace.
+That's the most acceptable pain.
+
+-
+	Klaus
+
+-- 
+BOFH excuse #262:
+
+Our POP server was kidnapped by a weasel.
+
+
+From tuomov at iki.fi  Fri Apr 10 21:54:03 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 10 Apr 2009 19:54:03 +0000 (UTC)
+Subject: VirtualBox seamless mode
+References: <20090409200536.GA19882@fl.fami.org>
+	<slrngtto15.625.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090410170731.GA9093@fl.fami.org>
+	<20090410194336.GA19255@umbach-racing.de>
+Message-ID: <slrngtv8ur.e24.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-04-10, Klaus Umbach <treibholz-ion at sozial-inkompetent.de> wrote:
+> Just use VirtualBox in standard-fullscreen-mode on a separate Workspace.
+> That's the most acceptable pain.
+
+No, that's Ion-in-cygwin-X-on-windows, after changing Mod1+Tab
+to Mod1+Q in Ion. Integrates much better than a fully 
+keyboard-grabbing VM... albeit not perfectly :(.
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and the cycle paths 
+have been replaced with polluted motorways.
+
+
+
+From jstadermann at gmxpro.de  Wed Apr 15 07:26:06 2009
+From: jstadermann at gmxpro.de (Joerg Stadermann)
+Date: Wed, 15 Apr 2009 07:26:06 +0200
+Subject: Questions regarding statusd monitors
+Message-ID: <200904150726.06817.jstadermann@gmxpro.de>
+
+Hi,
+
+I'm using ion3 nearly a year by now and I can't imagine ever going 
+back to a "normal" wimdow manager. Currently I'm playing around 
+with statusd monitors, and I have some questions that probably 
+some of you can answer:
+
+Does anybody know of a monitor for the sensors program on linux? 
+Currently I use the statusd_exec script and a combination of grep 
+and awk to monitor temperatures and fan, but I would rather use a 
+lua solution. If not, that's probably a good start to get some lua 
+experience.
+
+Does anybody use  statusd_df or statusd_sysmon? I only get '?' as 
+value for the meter. Since both scripts use templates, I'm doing 
+probably something wrong here, but I handled them the same way as 
+other monitors.
+Example: statusd_df.lua has the line 
+
+statusd.inform("df", df_str)
+
+so I put %df as meter in my template in cfg_statusbar.lua and 
+ 
+mod_statusbar.launch_statusd{
+-- 
+--
+  df={
+     -- some options
+  },
+--
+--
+}
+
+Again the result is '?'. Probably the script is broken, but I 
+don't know enough lua to tell, therefore it would be interesting 
+to know if somebody uses statusd_df or statusd_sysmon. 
+
+I'm using ion-3-20090110 on slackware-current.
+
+TIA
+Joerg
+
+
+From jstadermann at gmxpro.de  Wed Apr 15 08:28:07 2009
+From: jstadermann at gmxpro.de (Joerg Stadermann)
+Date: Wed, 15 Apr 2009 08:28:07 +0200
+Subject: Questions regarding statusd monitors
+In-Reply-To: <20090415062001.GA26584@fl.fami.org>
+References: <200904150726.06817.jstadermann@gmxpro.de>
+	<20090415062001.GA26584@fl.fami.org>
+Message-ID: <200904150828.07881.jstadermann@gmxpro.de>
+
+On Mittwoch 15 April 2009, Vladimir Skuratovich wrote:
+> On Wed, Apr 15, 2009 at 07:26:06AM +0200, Joerg Stadermann 
+wrote:
+> > Does anybody know of a monitor for the sensors program on
+> > linux? Currently I use the statusd_exec script and a
+> > combination of grep and awk to monitor temperatures and fan,
+> > but I would rather use a lua solution. If not, that's
+> > probably a good start to get some lua experience.
+>
+> Are the sensors you are going to monitor visible in /proc/acpi?
+> If so, then a simple file read will be enough.
+>
+> For example, the temperature sensors on my laptop are.
+>
+> Regards,
+>         Vladimir
+
+No, I have to use sensors to get this info.
+
+Joerg
+
+
+

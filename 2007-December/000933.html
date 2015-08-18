@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> ion-3rc-20071220
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion-3rc-20071220&In-Reply-To=%3C476F1231.1000903%40ubuntu.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000927.html">
+   <LINK REL="Next"  HREF="000937.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>ion-3rc-20071220</H1>
+    <B>Mariano Mara</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion-3rc-20071220&In-Reply-To=%3C476F1231.1000903%40ubuntu.com%3E"
+       TITLE="ion-3rc-20071220">marplatense at ubuntu.com
+       </A><BR>
+    <I>Mon Dec 24 02:58:09 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000927.html">ion-3rc-20071220
+</A></li>
+        <LI>Next message: <A HREF="000937.html">ion-3rc-20071220
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#933">[ date ]</a>
+              <a href="thread.html#933">[ thread ]</a>
+              <a href="subject.html#933">[ subject ]</a>
+              <a href="author.html#933">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Tuomo Valkonen escribi&#243;:
+&gt;<i> There are a few minor fixes in this RC, plus a major one related to layout
+</I>&gt;<i> restore under a session manager.
+</I>&gt;<i> 
+</I>Hi everyone,
+I downloaded the diff file and successfully patched ion-3rc-20071130 dir.
+However when I run &quot;make&quot; I get a few errors.
+I list here the tail:
+
+gcc -Xlinker --export-dynamic ion.o  -Wl,-whole-archive 
+../ioncore/ioncore.a -Wl,-no-whole-archive -Os -lrt -L/usr/X11R6/lib 
+-lX11 -lXext -Wl,-whole-archive -L../libmainloop -lmainloop -L../libextl 
+-lextl -L../libtu -ltu -Wl,-no-whole-archive `pkg-config --libs lua5.1` 
+-ldl -lm -o ion3
+../ioncore/ioncore.a(groupedpholder.o): In function 
+`groupedpholder_do_root':
+groupedpholder.c:(.text+0x52): undefined reference to `pholder_root'
+../ioncore/ioncore.a(groupedpholder.o):(.data+0x38): undefined reference 
+to `pholder_do_root'
+collect2: ld returned 1 exit status
+make[1]: *** [ion3] Error 1
+make[1]: Leaving directory `/home/mariano/Ion3-Sc/ion-3rc-20071130/ion'
+make: *** [subdirs] Error 2
+
+If someone can suggest how to fix this, I'll appreciate it.
+
+TIA,
+Mariano.
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000927.html">ion-3rc-20071220
+</A></li>
+	<LI>Next message: <A HREF="000937.html">ion-3rc-20071220
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#933">[ date ]</a>
+              <a href="thread.html#933">[ thread ]</a>
+              <a href="subject.html#933">[ subject ]</a>
+              <a href="author.html#933">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

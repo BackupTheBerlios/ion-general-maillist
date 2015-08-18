@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> statusd_mpd-socket.lua
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-November/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20statusd_mpd-socket.lua&In-Reply-To=%3C1227063811-sup-2931%40cabinet%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001491.html">
+   <LINK REL="Next"  HREF="001493.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>statusd_mpd-socket.lua</H1>
+    <B>Marc Hartstein</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20statusd_mpd-socket.lua&In-Reply-To=%3C1227063811-sup-2931%40cabinet%3E"
+       TITLE="statusd_mpd-socket.lua">marc.hartstein at alum.vassar.edu
+       </A><BR>
+    <I>Wed Nov 19 04:18:02 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001491.html">Can't type queries
+</A></li>
+        <LI>Next message: <A HREF="001493.html">statusd_mpd-socket.lua
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1492">[ date ]</a>
+              <a href="thread.html#1492">[ thread ]</a>
+              <a href="subject.html#1492">[ subject ]</a>
+              <a href="author.html#1492">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>A drop-in replacement for statusd_mpd.lua which uses sockets instead of
+popen to communicate with mpd.  Suggest renaming to replace the other
+script.
+
+Requires LuaSocket 
+(<A HREF="http://www.tecgraf.puc-rio.br/~diego/professional/luasocket/home.html">http://www.tecgraf.puc-rio.br/~diego/professional/luasocket/home.html</A>)
+
+I've been having difficulty with the existing statusd_mpd.  In
+particular, the existing script frequently but fairly randomly causes
+the statusbar to fail to load, necessitating multiple restarts of ion3
+before it behaves properly.
+
+This replacement sets a short timer at startup and exits quickly, which
+seems to help with the problem I was experiencing: if it's slow to open
+a connection to mpd, it will not bring down the entire statusbar.
+
+It also follows Tuomo's suggestion of using sockets rather than running
+a program with popen every half-second.  This should be less overhead
+for the system.  It does tie up one of your mpd connections permanently,
+however, so you may need to make sure max_connections is high enough to
+support it.  If you're running out of connections, though, it's more
+likely that you have a whole bunch of redundant ion-statusd processes
+hanging out doing nothing.
+
+I've also added %artist_or_album, which I use so tracks from Broadway
+shows are displayed reasonably in my collection.  There might be a
+better way to do this, but I haven't come up with anything I like.
+
+Comments welcome, particularly if there are any situations in which it
+can get hung up holding an open socket of which I'm unaware.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: statusd_mpd-socket.lua
+Type: application/octet-stream
+Size: 5872 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20081118/095fb5cf/attachment.obj">https://lists.berlios.de/pipermail/ion-general/attachments/20081118/095fb5cf/attachment.obj</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20081118/095fb5cf/attachment.pgp">https://lists.berlios.de/pipermail/ion-general/attachments/20081118/095fb5cf/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001491.html">Can't type queries
+</A></li>
+	<LI>Next message: <A HREF="001493.html">statusd_mpd-socket.lua
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1492">[ date ]</a>
+              <a href="thread.html#1492">[ thread ]</a>
+              <a href="subject.html#1492">[ subject ]</a>
+              <a href="author.html#1492">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

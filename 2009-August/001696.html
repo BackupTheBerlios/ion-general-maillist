@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> scripting winprop extension
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-August/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20scripting%20winprop%20extension&In-Reply-To=%3C557085.95038.bm%40omp103.mail.re3.yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001695.html">
+   <LINK REL="Next"  HREF="001697.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>scripting winprop extension</H1>
+    <B>olejorgenb at yahoo.no</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20scripting%20winprop%20extension&In-Reply-To=%3C557085.95038.bm%40omp103.mail.re3.yahoo.com%3E"
+       TITLE="scripting winprop extension">olejorgenb at yahoo.no
+       </A><BR>
+    <I>Sat Aug  8 18:00:31 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001695.html">scripting winprop extension
+</A></li>
+        <LI>Next message: <A HREF="001697.html">scripting winprop extension
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1696">[ date ]</a>
+              <a href="thread.html#1696">[ thread ]</a>
+              <a href="subject.html#1696">[ subject ]</a>
+              <a href="author.html#1696">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Yes, something like that, but I'm not sure if you can define arbitrary
+winprops. Also You can simpy do cwin:rqgeom({x=prop.position.x,  
+y=prop.position.y})
+
+- Ole J&#248;rgen Br&#248;nner
+
+On Sat, 08 Aug 2009 15:05:17 +0200, Maximilian W. Zeller
+&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">mawize at gmail.com</A>&gt; wrote:
+
+&gt;<i> hi again
+</I>&gt;<i>
+</I>&gt;<i> i am not quite familiar with lua but think it must be something like
+</I>&gt;<i> the following to extend winprop by the option position. I don't know
+</I>&gt;<i> how to make ion3 use this file. Is it enough to just put it in the
+</I>&gt;<i> ~/.ion3 folder? And as i said i don't know if this is how its done. I
+</I>&gt;<i> got these functions from the documentation but i am not sure if i used
+</I>&gt;<i> them right.
+</I>&gt;<i>
+</I>&gt;<i> -- usage:
+</I>&gt;<i> -- defwinprop {
+</I>&gt;<i> --    class = &quot;something&quot;
+</I>&gt;<i> --    instance = &quot;anything&quot;
+</I>&gt;<i> --    float = true
+</I>&gt;<i> --    position = { x = 100, y = 100 }
+</I>&gt;<i> -- }
+</I>&gt;<i>
+</I>&gt;<i> windowpos = {}
+</I>&gt;<i>
+</I>&gt;<i> function windowpos.set (cwin, tab) {
+</I>&gt;<i>
+</I>&gt;<i>         local prop = ioncore.get_winprop(cwin)
+</I>&gt;<i>         if prop and prop.float and prop.position then
+</I>&gt;<i>
+</I>&gt;<i>                 local horizmul = prop.position.x
+</I>&gt;<i>                 local vertmul = prop.position.y
+</I>&gt;<i>
+</I>&gt;<i>                 WFloatFrame.begin_resize(cwin)
+</I>&gt;<i>                 WFloatFrame.do_move(cwin, horizmul, vertmul)
+</I>&gt;<i>                 WFloatFrame.end_resize(cwin)
+</I>&gt;<i>
+</I>&gt;<i>                 return true
+</I>&gt;<i>
+</I>&gt;<i>         end
+</I>&gt;<i>
+</I>&gt;<i>         return false
+</I>&gt;<i> }
+</I>&gt;<i>
+</I>&gt;<i> ioncore.get_hook(&quot;clientwin_do_manage_alt&quot;):add(windowpos.set)
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001695.html">scripting winprop extension
+</A></li>
+	<LI>Next message: <A HREF="001697.html">scripting winprop extension
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1696">[ date ]</a>
+              <a href="thread.html#1696">[ thread ]</a>
+              <a href="subject.html#1696">[ subject ]</a>
+              <a href="author.html#1696">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

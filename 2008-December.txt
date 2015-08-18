@@ -1,0 +1,477 @@
+From Albert.Shih at obspm.fr  Thu Dec 11 10:14:52 2008
+From: Albert.Shih at obspm.fr (Albert Shih)
+Date: Thu, 11 Dec 2008 10:14:52 +0100
+Subject: rdesktop
+Message-ID: <20081211091452.GK83602@obspm.fr>
+
+Hi all,
+
+I'm using....sorry...a old version of ion. 
+
+I've a problem, I don't knwon if it's come from my old version or it's
+because my config is not complete.
+
+My version of ION is 3rc-20070927 on FreeBSD.
+
+My problem is with rdesktop :
+
+	Sometime I need rdesktop to connect on a windows server. 
+	After rdesktop is launch I can not use the short-key to change
+	workplace (only the workplace where run rdesktop). I need to click 
+	on the top of the workplace, after that i can use short-key. 
+
+of course that's not big problem. But if you can tell me how can I fix it.
+
+Thanks for your help ? 
+
+Regards.
+
+JAS
+
+
+-- 
+Albert SHIH
+SIO batiment 15
+Observatoire de Paris Meudon
+5 Place Jules Janssen
+92195 Meudon Cedex
+Heure local/Local time:
+Jeu 11 d?c 2008 10:09:35 CET
+
+
+From Albert.Shih at obspm.fr  Thu Dec 11 11:26:14 2008
+From: Albert.Shih at obspm.fr (Albert Shih)
+Date: Thu, 11 Dec 2008 11:26:14 +0100
+Subject: rdesktop
+In-Reply-To: <20081211091452.GK83602@obspm.fr>
+References: <20081211091452.GK83602@obspm.fr>
+Message-ID: <20081211102614.GE85572@obspm.fr>
+
+ Le 11/12/2008 ? 10:14:52+0100, Albert Shih a ?crit
+> Hi all,
+> 
+> I'm using....sorry...a old version of ion. 
+> 
+> I've a problem, I don't knwon if it's come from my old version or it's
+> because my config is not complete.
+> 
+> My version of ION is 3rc-20070927 on FreeBSD.
+> 
+> My problem is with rdesktop :
+> 
+> 	Sometime I need rdesktop to connect on a windows server. 
+> 	After rdesktop is launch I can not use the short-key to change
+> 	workplace (only the workplace where run rdesktop). I need to click 
+> 	on the top of the workplace, after that i can use short-key. 
+> 
+> of course that's not big problem. But if you can tell me how can I fix it.
+> 
+> Thanks for your help ? 
+
+Someone tell me the solution (thanks to him).
+
+In fact it's rdesktop to grab the keyboard.
+
+So to avoid this problem :
+
+	rdesktop -K instead rdesktop
+
+regards.
+
+
+-- 
+Albert SHIH
+SIO batiment 15
+Observatoire de Paris Meudon
+5 Place Jules Janssen
+92195 Meudon Cedex
+Heure local/Local time:
+Jeu 11 d?c 2008 11:24:57 CET
+
+
+From ion at benizi.com  Sat Dec 13 06:18:58 2008
+From: ion at benizi.com (Benjamin R. Haskell)
+Date: Sat, 13 Dec 2008 00:18:58 -0500 (EST)
+Subject: rdesktop
+In-Reply-To: <20081211102614.GE85572@obspm.fr>
+References: <20081211091452.GK83602@obspm.fr> <20081211102614.GE85572@obspm.fr>
+Message-ID: <alpine.LNX.2.00.0812130012230.5516@acer.home.local>
+
+On Thu, 11 Dec 2008, Albert Shih wrote:
+
+> Le 11/12/2008 ? 10:14:52+0100, Albert Shih a ?crit
+>> Hi all,
+>>
+>> I'm using....sorry...a old version of ion.
+>>
+>> I've a problem, I don't knwon if it's come from my old version or it's 
+>> because my config is not complete.
+>>
+>> My version of ION is 3rc-20070927 on FreeBSD.
+>>
+>> My problem is with rdesktop :
+>>
+>> 	Sometime I need rdesktop to connect on a windows server.
+>> 	After rdesktop is launch I can not use the short-key to change
+>> 	workplace (only the workplace where run rdesktop). I need to click
+>> 	on the top of the workplace, after that i can use short-key.
+>>
+>> of course that's not big problem. But if you can tell me how can I fix 
+>> it.
+>>
+>> Thanks for your help ?
+>
+> Someone tell me the solution (thanks to him).
+>
+> In fact it's rdesktop to grab the keyboard.
+>
+> So to avoid this problem :
+>
+> 	rdesktop -K instead rdesktop
+>
+> regards.
+
+I haven't fully committed to Ion yet, but it always annoyed me that 
+rdesktop did this. It was surprisingly easy to add a keyboard shortcut to 
+get rdesktop to release the keyboard. The attached patch is against 
+rdesktop-1.6.0.
+
+I chose Ctrl+Alt+Shift+Enter as the key to perform the "un-grab". (Mainly 
+because it's very unlikely I'd ever use that in Windows, but also because 
+there was already a shortcut for Ctrl+Alt+Enter.)
+
+Best,
+Ben
+-------------- next part --------------
+--- xkeymap.c.orig	2007-10-08 08:34:05.000000000 -0400
++++ xkeymap.c	2008-12-12 23:55:00.000000000 -0500
+@@ -514,10 +514,17 @@
+ 			    && (get_key_state(state, XK_Control_L)
+ 				|| get_key_state(state, XK_Control_R)))
+ 			{
+-				/* Ctrl-Alt-Enter: toggle full screen */
+-				if (pressed)
+-					xwin_toggle_fullscreen();
+-				return True;
++				if (get_key_state(state, XK_Shift_L) || get_key_state(state, XK_Shift_R))
++				{
++					/* Ctrl-Alt-Shift-Enter: release keyboard */
++					XUngrabKeyboard(g_display, CurrentTime);
++					return True;
++				} else {
++					/* Ctrl-Alt-Enter: toggle full screen */
++					if (pressed)
++						xwin_toggle_fullscreen();
++					return True;
++				}
+ 			}
+ 			break;
+ 
+
+From ilya.schurov at noo.ru  Mon Dec 15 17:37:44 2008
+From: ilya.schurov at noo.ru (Ilya Schurov)
+Date: Mon, 15 Dec 2008 19:37:44 +0300
+Subject: Toggle horizontal/vertical maximize behaviour
+Message-ID: <494687D8.40909@noo.ru>
+
+Hi there,
+
+I'm trying to switch to ion3 from ion2 now due to distro upgrade.
+(Actually, I'm happy with ion2 for now, but can't compile it under
+Ubuntu 8.10.) There's a problem which can be reproduced in stable ion3
+(from 0install feed).
+
+I'm always have some sort of auxiliary frames which are typically
+minimized when i work in main frame. From time to time I need to restore
+their size into e.g. 1/4 of the screen, do to something with them and
+minimize them again. In ion2 it was done by ALT+K-V either in the main
+frame (which de-maximized it) or in the auxiliary frame (which
+de-minimized it). It is generally works in ion3 too. However, sometimes
+auxiliary frames get minimized to zero height and stop reacting on any
+resize commands. (E.g. I see only tab heading, but if I switch to that
+heading and try to do ALT+K-V or even ALT+R-N, there's no reaction.) The
+only way to unshrink it is to resize main frame.
+
+Is it a bug or a feature? :)
+
+-- 
+Regards,
+Ilya V. Schurov.
+
+
+
+From tuomov at iki.fi  Mon Dec 15 18:09:41 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 15 Dec 2008 17:09:41 +0000 (UTC)
+Subject: Toggle horizontal/vertical maximize behaviour
+References: <494687D8.40909@noo.ru>
+Message-ID: <slrngkd3ql.p1c.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-12-15, Ilya Schurov <ilya.schurov at noo.ru> wrote:
+> resize commands. (E.g. I see only tab heading, but if I switch to that
+> heading and try to do ALT+K-V or even ALT+R-N, there's no reaction.) The
+> only way to unshrink it is to resize main frame.
+>
+> Is it a bug or a feature? :)
+
+For some reason, Alt+R Mod1+N does work, although it's the
+move binding.
+
+I may look into this more closely next year; now I have
+other things to concentrate on.
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and the cycle paths 
+have been replaced with polluted motorways.
+
+
+
+From citrin at citrin.ru  Fri Dec 19 20:57:07 2008
+From: citrin at citrin.ru (Anton Yuzhaninov)
+Date: Fri, 19 Dec 2008 22:57:07 +0300
+Subject: ion scripts location
+Message-ID: <494BFC93.1060000@citrin.ru>
+
+How to download ion scripts collection?
+
+On page:
+http://modeemi.fi/~tuomov/repos/ion-scripts-3/#download
+
+written:
+
+This scripts collection is a darcs repository. You can download a copy of the repository by 
+first installing darcs and then running the command
+
+darcs get http://iki.fi/tuomov/repos/ion-scripts-3/
+
+but it seems to be outdated location:
+
+% darcs get http://iki.fi/tuomov/repos/ion-scripts-3/
+darcs failed:  Not a repository: http://iki.fi/tuomov/repos/ion-scripts-3 (Failed to download
+URL http://iki.fi/tuomov/repos/ion-scripts-3/_darcs/inventory: HTTP 302 error getting
+http://iki.fi/tuomov/repos/ion-scripts-3/_darcs/inventory)
+
+-- 
+  Anton Yuzhaninov
+
+
+
+From tuomov at iki.fi  Fri Dec 19 21:16:59 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 19 Dec 2008 20:16:59 +0000 (UTC)
+Subject: ion scripts location
+References: <494BFC93.1060000@citrin.ru>
+Message-ID: <slrngko09r.pqb.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-12-19, Anton Yuzhaninov <citrin at citrin.ru> wrote:
+> darcs get http://iki.fi/tuomov/repos/ion-scripts-3/
+
+Works for me.
+
+However, http://modeemi.fi/~tuomov/repos/ion-scripts-3/
+may be faster; at least darcs1 used to handle redirects
+stupidly.
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+
+From citrin at citrin.ru  Sat Dec 20 00:54:11 2008
+From: citrin at citrin.ru (Anton Yuzhaninov)
+Date: Sat, 20 Dec 2008 02:54:11 +0300
+Subject: xkbion.lua
+Message-ID: <494C3423.1070309@citrin.ru>
+
+xkbion.lua from ion scripts collection works for me only with this patch:
+
+--- xkbion.lua.orig	2008-12-20 02:43:25.000000000 +0300
++++ xkbion.lua	2008-12-20 02:48:24.000000000 +0300
+@@ -149,7 +149,7 @@
+
+      ioncore.get_hook("region_notify_hook"):add(
+          function(reg, action)
+-            if (tostring(reg.__typename) == "WClientWin") and (action == "activated") then
++            if (reg and tostring(reg.__typename) == "WClientWin") and (action == "activated") then
+                  set_group(reg)
+              end
+          end
+@@ -158,7 +158,7 @@
+      local key = groups.key
+      if key and type(key) == "string" then
+          defbindings("WClientWin", {
+-            kpress(key, function (_, _sub) set_group(_, true)  end, "_sub:WClientWin")
++            kpress(key, function (_, _sub) set_group(_, true)  end)
+          })
+      end
+
+Without first change this error appeared:
+
+Ion startup error log:
+ >> /home/citrin/.ion3/xkbion.lua:152: attempt to index local 'reg' (a nil value)
+ >> /home/citrin/.ion3/xkbion.lua:152: attempt to index local 'reg' (a nil value)
+
+Without second change key binding don't work.
+
+Why guard _sub:WClientWin was added?
+_sub seems to be nil in most cases, when this key bind checked.
+
+-- 
+  Anton Yuzhaninov
+
+
+From chris at mretc.net  Mon Dec 22 18:35:42 2008
+From: chris at mretc.net (Chris Burkhardt)
+Date: Mon, 22 Dec 2008 10:35:42 -0700
+Subject: Toggle horizontal/vertical maximize behaviour
+In-Reply-To: <494687D8.40909@noo.ru>
+References: <494687D8.40909@noo.ru>
+Message-ID: <gioj5h$jcg$1@ger.gmane.org>
+
+Ilya Schurov wrote:
+> Hi there,
+> 
+[...]
+> 
+> I'm always have some sort of auxiliary frames which are typically
+> minimized when i work in main frame. From time to time I need to restore
+> their size into e.g. 1/4 of the screen, do to something with them and
+> minimize them again. In ion2 it was done by ALT+K-V either in the main
+> frame (which de-maximized it) or in the auxiliary frame (which
+> de-minimized it). It is generally works in ion3 too. However, sometimes
+> auxiliary frames get minimized to zero height and stop reacting on any
+> resize commands. (E.g. I see only tab heading, but if I switch to that
+> heading and try to do ALT+K-V or even ALT+R-N, there's no reaction.) The
+> only way to unshrink it is to resize main frame.
+
+I've been frustrated by this as well. I haven't yet been able to determine under
+what conditions a minimized frame "forgets" its maximized height/width, only
+that it happens occasionally.
+
+I'll be happy when Tuomo finds time to look into this :)
+
+- Chris
+
+
+
+From tuomov at iki.fi  Tue Dec 30 18:29:16 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 30 Dec 2008 17:29:16 +0000 (UTC)
+Subject: xkbion.lua
+References: <494C3423.1070309@citrin.ru>
+Message-ID: <slrnglkmjc.dv6.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-12-19, Anton Yuzhaninov <citrin at citrin.ru> wrote:
+> xkbion.lua from ion scripts collection works for me only with this patch:
+
+Please submit the fixes to the repository.
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and local vendors and
+artisans have had to yield to "all under one roof" big box hypermarkets.
+
+
+
+From tuomov at iki.fi  Tue Dec 30 18:26:29 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 30 Dec 2008 19:26:29 +0200
+Subject: Toggle horizontal/vertical maximize behaviour
+In-Reply-To: <slrngkd3ql.p1c.tuomov@jolt.modeemi.cs.tut.fi>
+References: <494687D8.40909@noo.ru>
+	<slrngkd3ql.p1c.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20081230172629.GA10480@jolt.modeemi.cs.tut.fi>
+
+On 2008-12-15 17:09 +0000, Tuomo Valkonen wrote:
+> > resize commands. (E.g. I see only tab heading, but if I switch to that
+> > heading and try to do ALT+K-V or even ALT+R-N, there's no reaction.) The
+> > only way to unshrink it is to resize main frame.
+> 
+> I may look into this more closely next year; now I have
+> other things to concentrate on.
+
+Ok, attached is a patch that might help with the issue, also
+available from the darcs repository. Please let me know if it
+helps, so I can finally make the new maintenance release that's
+been pending (getting through with PhD defence busyness).
+
+-- 
+In 1988, automated information processing, ATK (automaattinen
+tietojenk?sittely), was a budding new field.
+By 2008, it has become known as IT, information technology, 
+manually operated by human slaves. 
+-------------- next part --------------
+
+                                                                    
+Tue Dec 30 19:11:19 EET 2008  Tuomo Valkonen <tuomov at iki.fi>
+  * Apply FRAME_SHADED_TOGGLE hack in WFrame.maximize_vert
+  for correct unshaded size hints to rqgeom handlers.
+diff -rN -u old-ion-3/ioncore/resize.c new-ion-3/ioncore/resize.c
+--- old-ion-3/ioncore/resize.c	2008-12-30 19:15:31.000000000 +0200
++++ new-ion-3/ioncore/resize.c	2008-12-30 19:15:31.000000000 +0200
+@@ -756,9 +756,11 @@
+     int oy, oh;
+     
+     if(frame->flags&FRAME_SHADED || frame->flags&FRAME_MAXED_VERT){
++        if(frame->flags&FRAME_SHADED)
++            frame->flags|=FRAME_SHADED_TOGGLE;
+         if(frame->flags&FRAME_SAVED_VERT)
+             rqh(frame, frame->saved_y, frame->saved_h);
+-        frame->flags&=~(FRAME_MAXED_VERT|FRAME_SAVED_VERT);
++        frame->flags&=~(FRAME_MAXED_VERT|FRAME_SAVED_VERT|FRAME_SHADED_TOGGLE);
+         return;
+     }
+ 
+
+
+From EvgenyKurbatov at yandex.ru  Wed Dec 31 11:12:35 2008
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Wed, 31 Dec 2008 13:12:35 +0300
+Subject: Happy New Year!
+Message-ID: <20081231131235.10d5b87f@hnum.inasan.ru>
+
+Hello, protein life forms!
+I wish to wish you a good year, a lot of features and a lack of bugs.
+Be sure of oneself, breath smoothly and fuck all the troubles!
+
+Best witches,
+Evgeny Kurbatov
+
+
+From alexander.shishckin at gmail.com  Wed Dec 31 12:04:10 2008
+From: alexander.shishckin at gmail.com (Alexander Shishkin)
+Date: Wed, 31 Dec 2008 13:04:10 +0200
+Subject: Happy New Year!
+In-Reply-To: <20081231131235.10d5b87f@hnum.inasan.ru>
+References: <20081231131235.10d5b87f@hnum.inasan.ru>
+Message-ID: <71a0d6ff0812310304w7a193ad9pa8086a3212fd0343@mail.gmail.com>
+
+On Wed, Dec 31, 2008 at 12:12 PM, Evgeny Kurbatov
+<EvgenyKurbatov at yandex.ru> wrote:
+> Hello, protein life forms!
+> I wish to wish you a good year, a lot of features and a lack of bugs.
+> Be sure of oneself, breath smoothly and fuck all the troubles!
+When fucking troubles, it's more important to breathe steadily than smoothly. :)
+
+Happy new year!
+
+Regards,
+-- 
+Alex
+
+
+From fgeek at hack.fi  Wed Dec 31 12:29:11 2008
+From: fgeek at hack.fi (Henri Salo)
+Date: Wed, 31 Dec 2008 13:29:11 +0200
+Subject: New Year -spam
+Message-ID: <20081231112911.GA16410@hack.fi>
+
+Plain and simple. Please do not reply to spam.
+
+---
+Henri Salo
+
+

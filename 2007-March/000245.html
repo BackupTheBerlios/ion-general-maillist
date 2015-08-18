@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> xdm, pager (less) ion-manual page viewing
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20xdm%2C%20pager%20%28less%29%20ion-manual%20page%20viewing&In-Reply-To=%3C0F28F1F0-2A1F-43A1-BCD9-B3A96F60F8E0%40collax.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000244.html">
+   <LINK REL="Next"  HREF="000246.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>xdm, pager (less) ion-manual page viewing</H1>
+    <B>Tilman Baumann</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20xdm%2C%20pager%20%28less%29%20ion-manual%20page%20viewing&In-Reply-To=%3C0F28F1F0-2A1F-43A1-BCD9-B3A96F60F8E0%40collax.com%3E"
+       TITLE="xdm, pager (less) ion-manual page viewing">tilman.baumann at collax.com
+       </A><BR>
+    <I>Sun Mar 11 04:02:34 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000244.html">xdm, pager (less) ion-manual page viewing
+</A></li>
+        <LI>Next message: <A HREF="000246.html">xdm, pager (less) ion-manual page viewing
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#245">[ date ]</a>
+              <a href="thread.html#245">[ thread ]</a>
+              <a href="subject.html#245">[ subject ]</a>
+              <a href="author.html#245">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>HACK:
+Put export PAGER=less in your xinit.
+
+Or better look how the xinit of your distribution is set up. Or  
+better exec your system-xinit-script at the last line of our own  
+xinit. (use exec not the plain command)
+
+startx inhertis the environment of your login shell.
+xdm does nit. xdm sets up its own onvornment.
+
+. $home/.profile or . /etc/profile
+or
+. $HOME/.bashrc
+would probably help. The later is not really the right way because it  
+is only meant to set the shell environment.
+
+
+The esence of my answer is. Check what your distro does in xinit and  
+do it the distro-way. ;)
+
+
+PS: Debian uses the alternatives system. Check update-alternatives
+
+Am 11.03.2007 um 03:01 schrieb Jurjen Middendorp:
+
+&gt;<i> Hello, what is the difference between starting X with xdm and with  
+</I>&gt;<i> startx?  When
+</I>&gt;<i> i start X with the startx command, the pager which displays the  
+</I>&gt;<i> manuals works as
+</I>&gt;<i> it should, but when i start ion with xdm the pager (less) exits  
+</I>&gt;<i> after it gets to
+</I>&gt;<i> the last line, which is annoying if the page is smaller then 1  
+</I>&gt;<i> screen, because i
+</I>&gt;<i> can't read that fast.
+</I>&gt;<i>
+</I>&gt;<i> My .xsession and .xinit both end with these lines:
+</I>&gt;<i> /usr/X11R6/bin/ion3 &amp;
+</I>&gt;<i> xmms &amp;
+</I>&gt;<i> xterm -name main &amp;
+</I>&gt;<i> exec /usr/X11R6/bin/xterm -name login
+</I>&gt;<i>
+</I>&gt;<i> I don't have any less-environment or config options on and couldn't  
+</I>&gt;<i> find anywhere
+</I>&gt;<i> if xdm changes some of those. So i don't understand why the pager  
+</I>&gt;<i> behaves differently
+</I>&gt;<i> after i start X with xdm.
+</I>&gt;<i>
+</I>&gt;<i> -greetings, jurjen
+</I>&gt;<i>
+</I>&gt;<i> note: with pager i mean the pager that gets opened with the  
+</I>&gt;<i> mod_query.query_man()
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000244.html">xdm, pager (less) ion-manual page viewing
+</A></li>
+	<LI>Next message: <A HREF="000246.html">xdm, pager (less) ion-manual page viewing
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#245">[ date ]</a>
+              <a href="thread.html#245">[ thread ]</a>
+              <a href="subject.html#245">[ subject ]</a>
+              <a href="author.html#245">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

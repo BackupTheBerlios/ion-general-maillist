@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> emulating xinerama?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20emulating%20xinerama%3F&In-Reply-To=%3Cslrnf0vlsb.n70.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000334.html">
+   <LINK REL="Next"  HREF="000336.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>emulating xinerama?</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20emulating%20xinerama%3F&In-Reply-To=%3Cslrnf0vlsb.n70.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="emulating xinerama?">tuomov at iki.fi
+       </A><BR>
+    <I>Sun Apr  1 18:02:19 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000334.html">emulating xinerama?
+</A></li>
+        <LI>Next message: <A HREF="000336.html">Documentation bughunt
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#335">[ date ]</a>
+              <a href="thread.html#335">[ thread ]</a>
+              <a href="subject.html#335">[ subject ]</a>
+              <a href="author.html#335">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2007-04-01, moe &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">filter-ion at mbox.bz</A>&gt; wrote:
+&gt;<i> but i think the fact that there are so few apps that benefit
+</I>&gt;<i> from &quot;proper&quot; xinerama support
+</I>
+That's because Xinerama is absolutely stupid. If you run multiple
+screens (itself stupid most of the time) of widely differing sizes,
+you most likely want them to behave as _separate_ screens, and hence
+Xinerama complicates matters too much. OTOH, if you want to emulate
+a single big screen (seems totally lame to me, unless you have some
+huge billboard or something, what with the screen edges), you don't
+really need the physical screen positioning information on the
+root window. 
+
+So, once again, a better extension than the crappy Xinerama, would 
+have been a small extension to the already existing X protocols, 
+to allow reparenting of windows between root windows with matching
+&quot;visuals&quot; -- something that is only artificially forbidden presently.
+But, you can't hope for a decent X extension these days -- it's all
+crap that they spew out. (Well, I haven't looked into Xcb in detail,
+and in principle agree that asynchronity is the way to go. But then
+again, Xcb isn't really an X extension, just a new library.)
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000334.html">emulating xinerama?
+</A></li>
+	<LI>Next message: <A HREF="000336.html">Documentation bughunt
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#335">[ date ]</a>
+              <a href="thread.html#335">[ thread ]</a>
+              <a href="subject.html#335">[ subject ]</a>
+              <a href="author.html#335">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

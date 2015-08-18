@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> FreeBSD 7 &amp; ion3 (man page can't view)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20FreeBSD%207%20%26%20ion3%20%28man%20page%20can%27t%20view%29&In-Reply-To=%3C20080306115739.GK67780%40pcjas.obspm.fr%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001149.html">
+   <LINK REL="Next"  HREF="001151.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>FreeBSD 7 &amp; ion3 (man page can't view)</H1>
+    <B>Albert Shih</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20FreeBSD%207%20%26%20ion3%20%28man%20page%20can%27t%20view%29&In-Reply-To=%3C20080306115739.GK67780%40pcjas.obspm.fr%3E"
+       TITLE="FreeBSD 7 &amp; ion3 (man page can't view)">Albert.Shih at obspm.fr
+       </A><BR>
+    <I>Thu Mar  6 12:57:39 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001149.html">FreeBSD 7 &amp; ion3 (man page can't view)
+</A></li>
+        <LI>Next message: <A HREF="001151.html">FreeBSD 7 &amp; ion3 (man page can't view)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1150">[ date ]</a>
+              <a href="thread.html#1150">[ thread ]</a>
+              <a href="subject.html#1150">[ subject ]</a>
+              <a href="author.html#1150">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE> Le 06/03/2008 &#224; 11:07:21+0100, Alex a &#233;crit
+&gt;<i> Hi,
+</I>&gt;<i> 
+</I>&gt;<i> I have install ion3 on my freeBSD 7, I only needed to tweak system.mk like
+</I>&gt;<i> this:
+</I>&gt;<i> * Comment for dl library
+</I>&gt;<i> #DL_LIBS=-ldl
+</I>&gt;<i> * Uncomment this line
+</I>&gt;<i> DEFINES += -DCF_NO_LOCALE -DCF_NO_GETTEXT
+</I>&gt;<i> * And set value for the LUA.
+</I>&gt;<i> 
+</I>&gt;<i> So, compilation work perfecly and ion3 use work fine. But I can't access to the
+</I>&gt;<i> ion3 man page (No manual entry for ion3). But when I search ion3 man page on my
+</I>&gt;<i> disk, I found that:
+</I>&gt;<i> /usr/local/share/man/man1/ion3.1
+</I>&gt;<i> /usr/local/share/man/fi/man1/ion3.1
+</I>&gt;<i> /usr/local/share/man/cs/man1/ion3.1
+</I>
+In FreeBSD the man page &#171;must&#187; in
+
+	/usr/local/man/
+
+so just do
+
+	mv /usr/local/share/man/man1/ion3.1 /usr/local/man/man1
+	mv /usr/local/share/man/fi/man1/ion3.1 /usr/local/man/fi/man1/
+	mv /usr/local/share/man/cs/man1/ion3.1 /usr/local/man/cs/man1/
+
+Regards.
+ 
+--
+Albert SHIH
+SIO batiment 15
+Observatoire de Paris Meudon
+5 Place Jules Janssen
+92195 Meudon Cedex
+Heure local/Local time:
+Jeu 6 mar 2008 12:56:15 CET
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001149.html">FreeBSD 7 &amp; ion3 (man page can't view)
+</A></li>
+	<LI>Next message: <A HREF="001151.html">FreeBSD 7 &amp; ion3 (man page can't view)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1150">[ date ]</a>
+              <a href="thread.html#1150">[ thread ]</a>
+              <a href="subject.html#1150">[ subject ]</a>
+              <a href="author.html#1150">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

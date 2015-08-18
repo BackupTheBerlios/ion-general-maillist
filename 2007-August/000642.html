@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Not all bindings are defined in cfg_ioncore.lua
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Not%20all%20bindings%20are%20defined%20in%20cfg_ioncore.lua&In-Reply-To=%3Cm23az1y8ve.fsf%40lifelogs.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000640.html">
+   <LINK REL="Next"  HREF="000650.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Not all bindings are defined in cfg_ioncore.lua</H1>
+    <B>Ted Zlatanov</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Not%20all%20bindings%20are%20defined%20in%20cfg_ioncore.lua&In-Reply-To=%3Cm23az1y8ve.fsf%40lifelogs.com%3E"
+       TITLE="Not all bindings are defined in cfg_ioncore.lua">tzz at lifelogs.com
+       </A><BR>
+    <I>Thu Aug  2 22:33:25 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000640.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+        <LI>Next message: <A HREF="000650.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#642">[ date ]</a>
+              <a href="thread.html#642">[ thread ]</a>
+              <a href="subject.html#642">[ subject ]</a>
+              <a href="author.html#642">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Thu, 2 Aug 2007 11:42:35 -0400 Etan Reisner &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">deryni at unreliablesource.net</A>&gt; wrote: 
+
+ER&gt; On Thu, Aug 02, 2007 at 08:37:21AM +0200, Andreas Bernauer wrote:
+&gt;&gt;<i> Etan Reisner schrieb am Di, 31. Jul 2007 um 13:58 (-0400):
+</I>&gt;&gt;<i> &gt; &gt; Copy /usr/local/etc/ion3/cfg_tiling to your ~/.ion3 and modify it.
+</I>&gt;&gt;<i> &gt;
+</I>&gt;&gt;<i> &gt; No, do not copy random system files into ~/.ion3 only copy cfg_ion.lua,
+</I>&gt;&gt;<i> &gt; cfg_statusbar.lua, and cfg_dock.lua. Leave the rest in the system
+</I>&gt;&gt;<i> &gt; locations and override the bindings in cfg_ion.lua or in any other file
+</I>&gt;&gt;<i> &gt; you want as long as you dopath(&quot;&quot;) it from cfg_ion.lua.
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> Could you give me any special reasons for your suggestion, just out of
+</I>&gt;&gt;<i> curiosity?
+</I>&gt;&gt;<i> 
+</I>&gt;&gt;<i> Andreas.
+</I>
+ER&gt; Short version: Easier to maintain across upstream changes.
+
+ER&gt; Long version If you copy the entire cfg_tiling.lua into .ion3 and then a
+ER&gt; function name changes your carefully copied and modified version will be
+ER&gt; broken. And you will have no idea why. Essentially you become forced to
+ER&gt; watch the changelog very carefully and diff your version against the
+ER&gt; system version after each new release. If, on the other hand, all you do
+ER&gt; is create secondary config file (e.g. cfg_my.lua or my_tiling.lua) then
+ER&gt; when versions change you only need to worry about changes to the bindings
+ER&gt; you have actually customized (and perhaps any newly added system bindings
+ER&gt; that take precedence over yours, but that is much easier to notice and
+ER&gt; fix). Unless you intend to change the majority of the existing bindings it
+ER&gt; is, as far as I have ever been concerned, a net loss to copy the system
+ER&gt; files in.
+
+I'd just like to point out that this is exactly why the Ion
+configuration should not be in Lua and subject to change any time an
+update comes down IMO.
+
+Something like this:
+
+META..&quot;S&quot; = split_here_horizontal
+META..&quot;V&quot; = split_here_vertical
+
+Is all 99% of end users need.  Wouldn't this be easier for everyone?
+Maybe it could be a module...
+
+Ted
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000640.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+	<LI>Next message: <A HREF="000650.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#642">[ date ]</a>
+              <a href="thread.html#642">[ thread ]</a>
+              <a href="subject.html#642">[ subject ]</a>
+              <a href="author.html#642">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> &quot;command line&quot; ?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-August/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20%22command%20line%22%20%3F&In-Reply-To=%3Cop.uzcb1xvivocxtk%40tabole-debian%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001702.html">
+   <LINK REL="Next"  HREF="001704.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>&quot;command line&quot; ?</H1>
+    <B>Ole J&#248;rgen Br&#248;nner</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20%22command%20line%22%20%3F&In-Reply-To=%3Cop.uzcb1xvivocxtk%40tabole-debian%3E"
+       TITLE="&quot;command line&quot; ?">olejorgenb at yahoo.no
+       </A><BR>
+    <I>Thu Aug 27 23:45:23 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001702.html">&quot;command line&quot; ?
+</A></li>
+        <LI>Next message: <A HREF="001704.html">&quot;command line&quot; ?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1703">[ date ]</a>
+              <a href="thread.html#1703">[ thread ]</a>
+              <a href="subject.html#1703">[ subject ]</a>
+              <a href="author.html#1703">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Turns out this is quite easy to do.
+
+I just changed line 49 in mod_query/query.c from
+
+par.szplcy=SIZEPOLICY_FULL_BOUNDS;
+par.level=STACKING_LEVEL_MODAL1+2;
+
+to
+
+par.szplcy=SIZEPOLICY_STRETCH_TOP;
+par.level=STACKING_LEVEL_MODAL1+2;
+
+Not sure why SIZEPOLICY_FULL_BOUNDS is used in place of  
+SIZEPOLICY_STRETCH_BOTTOM originally. I guess that could mean that the TOP  
+solution will have som bugs.
+
+I did this in ion3plus.
+
+On Thu, 27 Aug 2009 19:44:21 +0200, Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt; wrote:
+
+&gt;<i> On 2009-08-27, Piter_ &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">x.piter at gmail.com</A>&gt; wrote:
+</I>&gt;&gt;<i> There is &quot;command line&quot; opened by F3 button.
+</I>&gt;&gt;<i> I wonder if its possible to move it up from the bottom of the screen.
+</I>&gt;&gt;<i> Thanks.
+</I>&gt;&gt;<i> Petro
+</I>&gt;<i>
+</I>&gt;<i> No, unless you write the necessary code.
+</I>&gt;<i>
+</I>
+
+
+-- 
+mvh.
+Ole J&#248;rgen Br&#248;nner
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001702.html">&quot;command line&quot; ?
+</A></li>
+	<LI>Next message: <A HREF="001704.html">&quot;command line&quot; ?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1703">[ date ]</a>
+              <a href="thread.html#1703">[ thread ]</a>
+              <a href="subject.html#1703">[ subject ]</a>
+              <a href="author.html#1703">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> ion3 packaging advice
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion3%20packaging%20advice&In-Reply-To=%3Cacb0c1690809121211q71a7fdf4o4ca5f93dcd7b3385%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001377.html">
+   <LINK REL="Next"  HREF="001374.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>ion3 packaging advice</H1>
+    <B>Paulo Matias</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion3%20packaging%20advice&In-Reply-To=%3Cacb0c1690809121211q71a7fdf4o4ca5f93dcd7b3385%40mail.gmail.com%3E"
+       TITLE="ion3 packaging advice">thotypous at gmail.com
+       </A><BR>
+    <I>Fri Sep 12 21:11:41 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001377.html">ion3 packaging advice
+</A></li>
+        <LI>Next message: <A HREF="001374.html">ion3 packaging advice
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1373">[ date ]</a>
+              <a href="thread.html#1373">[ thread ]</a>
+              <a href="subject.html#1373">[ subject ]</a>
+              <a href="author.html#1373">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Fri, Sep 12, 2008 at 3:40 PM, Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt; wrote:
+&gt;<i>
+</I>&gt;<i> I was more thinking of being shown but hidden amidst a flood of
+</I>&gt;<i> install messages, if you install multiple packages (such as
+</I>&gt;<i> upgrading all of them).
+</I>
+If the package is being installed together with a lot of the packages
+that already display install messages, then all the messages would be
+displayed, one at a time, to the user like the following:
+
+(1/3) upgrading abc
+[#######################] 100%
+(abc install messages go here)
+(2/3) upgrading ion-3
+[#######################] 100%
+(ion-3 install messages go here)
+(3/3) upgrading xyz
+[#######################] 100%
+(xyz install messages go here)
+bash-3.2#
+
+So would it be OK according to the trademark license the way this is
+implemented now?
+
+Otherwise, what if I put
+
+ for i in `seq 3`; do echo -ne '\a'; sleep 1; done
+
+just after the message being displayed? Will it be OK according to the
+trademark license?
+
+
+And, otherwise, what if I put
+
+ echo &quot;Press ENTER to continue&quot;; read
+
+would it be OK according to the trademark license?
+
+
+Thanks and best regards,
+
+Paulo Matias
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001377.html">ion3 packaging advice
+</A></li>
+	<LI>Next message: <A HREF="001374.html">ion3 packaging advice
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1373">[ date ]</a>
+              <a href="thread.html#1373">[ thread ]</a>
+              <a href="subject.html#1373">[ subject ]</a>
+              <a href="author.html#1373">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

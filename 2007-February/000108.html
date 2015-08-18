@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> sending keystroke to unfocused window
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20sending%20keystroke%20to%20unfocused%20window&In-Reply-To=%3Cslrnet3ekm.vad.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000103.html">
+   <LINK REL="Next"  HREF="000104.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>sending keystroke to unfocused window</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20sending%20keystroke%20to%20unfocused%20window&In-Reply-To=%3Cslrnet3ekm.vad.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="sending keystroke to unfocused window">tuomov at iki.fi
+       </A><BR>
+    <I>Tue Feb 13 14:18:14 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000103.html">sending keystroke to unfocused window
+</A></li>
+        <LI>Next message: <A HREF="000104.html">Possible? Toggle statusbar
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#108">[ date ]</a>
+              <a href="thread.html#108">[ thread ]</a>
+              <a href="subject.html#108">[ subject ]</a>
+              <a href="author.html#108">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2007-02-11, Renee Klawitter &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">klawitter at email.de</A>&gt; wrote:
+&gt;<i> Is it possible to send a keystroke to an unfocused window ? 
+</I>
+If you write a program to send it, yes. The target window might not
+want to handle it, though. And you can't easily target a particular
+widget. (Modern crap tends to have its own [broken][1] focus tracking
+code, though, and handle all events as if they were sent to their
+top-level windows.)
+
+Ion does not have a function to send arbitrary keypresses, and I'm
+not sure I want it there. It really isn't the job of a window manager.
+It's an ugly hack. Even quote_next is a huge concession to programs
+with brain-damaged bindings. (Plus it is difficult to do with an 
+external program, because there would have to be a moment where the
+keyboard is not grabbed between Ion/X releasing the grab for the 
+quote_next prefix, and the program obtaining one for getting the
+next key. But there is no such problem in sending predefined 
+sequences.)
+
+  [1]: <A HREF="http://iki.fi/tuomov/ion/faq/entries/GTK2_focus_bug.html">http://iki.fi/tuomov/ion/faq/entries/GTK2_focus_bug.html</A>
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000103.html">sending keystroke to unfocused window
+</A></li>
+	<LI>Next message: <A HREF="000104.html">Possible? Toggle statusbar
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#108">[ date ]</a>
+              <a href="thread.html#108">[ thread ]</a>
+              <a href="subject.html#108">[ subject ]</a>
+              <a href="author.html#108">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

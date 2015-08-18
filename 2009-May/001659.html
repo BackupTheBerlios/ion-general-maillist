@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> confirm 852223f5c787b0857a42616c26c0a94208eae60a
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-May/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20confirm%20852223f5c787b0857a42616c26c0a94208eae60a&In-Reply-To=%3C544191d90905281451o77ab2f33gcac1154dca876131%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001658.html">
+   <LINK REL="Next"  HREF="001661.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>confirm 852223f5c787b0857a42616c26c0a94208eae60a</H1>
+    <B>mosi</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20confirm%20852223f5c787b0857a42616c26c0a94208eae60a&In-Reply-To=%3C544191d90905281451o77ab2f33gcac1154dca876131%40mail.gmail.com%3E"
+       TITLE="confirm 852223f5c787b0857a42616c26c0a94208eae60a">amosat+ion at gmail.com
+       </A><BR>
+    <I>Thu May 28 23:51:48 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001658.html">confirm 852223f5c787b0857a42616c26c0a94208eae60a
+</A></li>
+        <LI>Next message: <A HREF="001661.html">confirm 852223f5c787b0857a42616c26c0a94208eae60a
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1659">[ date ]</a>
+              <a href="thread.html#1659">[ thread ]</a>
+              <a href="subject.html#1659">[ subject ]</a>
+              <a href="author.html#1659">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+few more things I cannot find in the manual,
+
+1. in the old pwm, you could set number of workspaces to use at start in a
+config file. Currently ion3 patched starts in pwm mode with 1 workspace
+accessible under META..&quot;1&quot; More workspaces are created manually. The wish is
+to always have 10.
+
+2. Now I understood, you could name some of the workspaces, e.g.
+
+defwinprop{
+    class = &quot;XTerm&quot;,
+    instance = &quot;sysmon&quot;,
+    target = &quot;terminals&quot;,
+}
+
+and by invocation of &quot;XTerm -name terminals&quot;
+the xterm should be started in a named workspace terminals.
+After renaming WS2
+
+mod_query.query_renameframe(_)
+
+to &quot;terminals&quot; and invoking the aforementioned command from WS1, the new
+frame stays on WS1 instead of being created in WS2 = terminals. ?
+
+3. According to Tuomo, there is no &quot;sticky&quot; window option anymore.
+I looked for something like WFrame.move_to_WS(x) in order to move the
+currently selected Frame  (or window) to a workspace X, by default
+accessible by keypress META..&quot;X&quot;, where X is a number.
+
+Any ideas how this could be done?
+
+And something for open discussion:
+ion3 grew into a huge WS offering through lua a lot of options on
+workspaces, frames, splitting, scripting, etc.
+As an ordinary user, I find it really difficult to configure it.
+The old plain pwm .cfg files were less time consuming to set-up, and very
+understandable. I must also say, that I have no previous lua experience. The
+need to reconfigure arises from the unlucky choice of several default
+keybindings, already used in many programs (firefox, emacs, mc).
+I know META could be re-binded to ModX in X, but the first impression from
+the WM is VERY important for new users.
+
+My subjective suggestion would be to significantly simplify the basic
+version of pwm3 configuration with just a few, unified keybindings for such
+users. Advanced users could use for example ion3.
+
+Does anybody know what is the size of the userbase?
+
+Thank you once again for your efforts, making life easier on desktop is much
+appreciated.
+
+Best regards,
+mosi
+
+/o&gt;
+|<i>/
+</I>
+
+2009/5/28 mosi &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">amosat+ion at gmail.com</A> &lt;amosat%<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">2Bion at gmail.com</A>&gt;&gt;
+
+&gt;<i> Hi,
+</I>&gt;<i> it works!
+</I>&gt;<i> Now I feel at home again ;-)
+</I>&gt;<i> And as a bonus, the lua query in the new ion3.
+</I>&gt;<i> I suppose one can do marvelous things with it, but for the lack of time, I
+</I>&gt;<i> always look rather quickly over the features list and cannot relate the
+</I>&gt;<i> function descriptions to the actions on the desktop.
+</I>&gt;<i>
+</I>&gt;<i> Thank you very much for the quick help and hints.
+</I>&gt;<i> Best regards,
+</I>&gt;<i> mosi
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> /o&gt;
+</I>&gt;<i> |/
+</I>&gt;<i>
+</I>&gt;<i>
+</I>&gt;<i> 2009/5/28 Ole J&#248;rgen Br&#248;nner &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">olejorgenb at yahoo.no</A>&gt;
+</I>&gt;<i>
+</I>&gt;<i>  Another question:
+</I>&gt;&gt;&gt;&gt;<i> Alt+F11 will put a window into a fullscreen mode. If the window was on
+</I>&gt;&gt;&gt;&gt;<i> Desktop 1 before, now it is on Desktop 0.  Is this the default?
+</I>&gt;&gt;&gt;&gt;<i>
+</I>&gt;&gt;&gt;<i> Well, META+Return is the standard binding for fullscreen, and this should
+</I>&gt;&gt;&gt;<i> place the window back where it came from.
+</I>&gt;&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> ie. when the window is in fullscreen it will be placed on a new workspace.
+</I>&gt;&gt;<i> When you switch back it should be moved to its origianl position.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> --
+</I>&gt;&gt;<i> Ole J&#248;rgen Br&#248;nner
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i>
+</I>&gt;<i>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20090528/5f5a7fa0/attachment.html">https://lists.berlios.de/pipermail/ion-general/attachments/20090528/5f5a7fa0/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001658.html">confirm 852223f5c787b0857a42616c26c0a94208eae60a
+</A></li>
+	<LI>Next message: <A HREF="001661.html">confirm 852223f5c787b0857a42616c26c0a94208eae60a
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1659">[ date ]</a>
+              <a href="thread.html#1659">[ thread ]</a>
+              <a href="subject.html#1659">[ subject ]</a>
+              <a href="author.html#1659">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

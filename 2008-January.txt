@@ -1,0 +1,3445 @@
+From tuomov at iki.fi  Tue Jan  1 17:16:17 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 1 Jan 2008 16:16:17 +0000 (UTC)
+Subject: Happy New Year
+References: <e66209d30712310313x4ee78c1bw360e2103351a4024@mail.gmail.com>
+	<20071231164251.GA4083@sirih>
+	<975fd1710712310944j37c8494bjb3d94f5c68fc6cbb@mail.gmail.com>
+Message-ID: <slrnfnkpqh.2rf.tuomov@jolt.modeemi.cs.tut.fi>
+
+Happy new year etc. to those who deserve the greeting.
+
+-- 
+Tuomo
+
+
+
+From lanek at novenine.com  Tue Jan  1 19:12:58 2008
+From: lanek at novenine.com (Roy Lanek)
+Date: Wed, 2 Jan 2008 01:12:58 +0700
+Subject: Happy New Year
+In-Reply-To: <slrnfnkpqh.2rf.tuomov@jolt.modeemi.cs.tut.fi>
+References: <e66209d30712310313x4ee78c1bw360e2103351a4024@mail.gmail.com>
+	<20071231164251.GA4083@sirih>
+	<975fd1710712310944j37c8494bjb3d94f5c68fc6cbb@mail.gmail.com>
+	<slrnfnkpqh.2rf.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080101181258.GA12200@sirih>
+
+> Happy new year etc. to those who deserve the greeting.
+
+:)
+
+Tuomo has style, and I am serious.
+
+Let me quote Adolf Loos, a g-e-n-i-a-l architect:
+
+     On the subject of "home-furnishing" [Roy: it doesn't matter per se, it
+     could have been on the subject of entomology, motocross or bread kneading
+     too, though architects talk on these slightly less commonly] Loos liked
+     to quote "that worthy housewife" (in other words, plain common sense)
+     who, when asked what good style is, gave the following excellent reply:
+
+     "When there's a lion's head on the bedside table, and this same lion's
+     head is also on the couch, the cupboard, the beds, the armchairs, the
+     washstand, in other words on everything on the room, THAT'S WHAT'S CALLED A
+     ROOM WITH STYLE." [Emphasis added] ^1
+
+QED
+
+Which is of course a good omen for Ion. 
+
+/Roy
+
+     1. Adolf Loos, 1870-1933: Architect, Cultural Critic, Dandy; by August
+Sarnitz, Taschen, 2003.
+
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   bagai air di daun talas--as if water on a
+SSSSS . s l a c k w a r e  SSSSSS   leaf of talas [two things that never get
+SSSSS +------------ linux  SSSSSS   along ... talas has a thin waxy layer and
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   therefore is waterproof]
+
+
+From j.van_den_hoff at fzd.de  Wed Jan  2 14:28:58 2008
+From: j.van_den_hoff at fzd.de (Joerg van den Hoff)
+Date: Wed, 2 Jan 2008 14:28:58 +0100
+Subject: I'm very sad...
+In-Reply-To: <slrnfmnrdg.iv1.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071213235825.GB25558@pcjas.obspm.fr>
+	<slrnfm3k2s.u45.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071214005515.GC25748@pcjas.obspm.fr>
+	<20071214013641.GA4020@jolt.modeemi.cs.tut.fi>
+	<20071221162422.GA8111@marco.fz-rossendorf.de>
+	<slrnfmnrdg.iv1.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080102132858.GB5689@marco.fz-rossendorf.de>
+
+On Fri, Dec 21, 2007 at 04:45:36PM +0000, Tuomo Valkonen wrote:
+> On 2007-12-21, Joerg van den Hoff <j.van_den_hoff at fzd.de> wrote:
+> > -shared
+> > -whole-archive
+> > -export-dynamic
+> 
+> system.mk:
+> 
+> # Set PRELOAD_MODULES=1 if your system does not support dynamically loaded
+> # modules through 'libdl' or has non-standard naming conventions.
+> #PRELOAD_MODULES=1
+> 
+> That one option takes care of all that.
+> 
+> > and  librt:  is  that  supposedly  a  standard lib? it's not
+> > there.
+> 
+> # clock_gettime for monotonic time
+> EXTRA_LIBS += -lrt
+> 
+> (I suppose this could be better explained..)
+> 
+> Disable that, and if the MacOS X isn't totally brain-damaged,
+> things should work (aside from setting the system clock confusing
+> Ion's timers, if the POSIX monotonic clock isn't available through
+> libc directly or so. But that's just an annoyance that was only
+> recently fixed with support for the monotonic clock, where
+> available).
+> 
+> ...
+> 
+> See, it's not so difficult, once you get rid of the autocrap
+> mindset. Of course, I'd also prefer not having to edit a file
+> to compile a program, but this is still better than the autocrap
+> solution.
+> 
+> Also, if people reported more complex settings required for 
+> particular systems back upstream, instead of just working on
+> their silent forks, things would be easier. But in the Distro
+> Code Of Conduct, it's forbidden to have any contact with
+> authors.
+> 
+> > but I suspect your attitude is uncorrectable.)
+> 
+> It seems to be me, that the distros' and the FOSS herd's attitude
+> is uncorrectable. And their present attitude is incompatible with
+> me.
+> 
+> -- 
+> Tuomo
+> 
+
+thanks  to  everybody  giving  hints.  I actually can report
+success: first time ever "manual" compile  of  `ion3'  under
+MacOSX.
+
+here is the diff:
+
+===============================CUT=========================================
+--- system.mk	2007-12-20 19:46:46.000000000 +0100
++++ system.mk.mod	2008-01-02 12:46:09.000000000 +0100
+@@ -6,7 +6,7 @@
+ ## Installation paths
+ ##
+ 
+-PREFIX=/usr/local
++PREFIX=/home/vdh/Desktop/ion3
+ 
+ # For relocatable build, use the following, and start with absolute path.
+ # RELOCATABLE=1
+@@ -47,7 +47,7 @@
+ 
+ # Set PRELOAD_MODULES=1 if your system does not support dynamically loaded
+ # modules through 'libdl' or has non-standard naming conventions.
+-#PRELOAD_MODULES=1
++PRELOAD_MODULES=1
+ 
+ # Flags to link with libdl.
+ DL_LIBS=-ldl
+@@ -59,7 +59,7 @@
+ 
+ # If you have installed Lua 5.1 from the official tarball without changing
+ # paths, this should do it.
+-LUA_DIR=/usr/local
++LUA_DIR=/opt/local
+ LUA_LIBS = -L$(LUA_DIR)/lib -llua
+ LUA_INCLUDES = -I$(LUA_DIR)/include
+ LUA=$(LUA_DIR)/bin/lua
+@@ -115,11 +115,11 @@
+ #DEFINES += -DCF_NO_LOCALE -DCF_NO_GETTEXT
+ 
+ # On some other systems you may something like this:
+-#EXTRA_LIBS += -lintl
+-#EXTRA_INCLUDES +=
++EXTRA_LIBS += -lintl
++EXTRA_INCLUDES += -I/opt/local/include
+ 
+ # clock_gettime for monotonic time
+-EXTRA_LIBS += -lrt
++#EXTRA_LIBS += -lrt
+ 
+ 
+ ##
+@@ -135,7 +135,7 @@
+ 	-Wparentheses -pedantic -Wuninitialized
+ 
+ CFLAGS=-Os $(WARN) $(DEFINES) $(EXTRA_INCLUDES) $(INCLUDES)
+-LDFLAGS=-Os $(EXTRA_LIBS) $(LIBS)
++LDFLAGS=-Os -L/opt/local/lib $(EXTRA_LIBS) $(LIBS)
+ EXPORT_DYNAMIC=-Xlinker --export-dynamic
+ 
+ # The following options are mainly for development use and can be used
+===============================CUT=========================================
+
+for those interested: put this in a file "macpatch.diff"
+
+in the ion tarball directory and then in this directory do
+
+patch -b < macpatch.diff
+
+which   should  keep  a  copy  `system.mk.orig'  and  modify
+system.mk  so  that  it  works  with  macos   10.4.11   (but
+definitely not with 10.5 because of the move from xfree86 to
+xorg).
+
+my   modficiations  assume  that  you  are  otherwise  using
+`macports' for installing  additional  software  (especially
+lua), thus all references to `/opt/local'.
+
+note,  that  finally  you still need to adjust PREFIX in the
+resulting `system.mk' to something sensible (the above patch
+leads  to a test installation in a directory on my "Desktop"
+-- you won't have this one, I presume :-)).
+
+tuomo:   you  know  that  I  don't  like  this  scenario  of
+"everybody compiles from scratch on  his  own"   (it  simply
+burns  time  again  and again) and I know you probably won't
+alter your attitude. so, maybe you could  start  to  provide
+alternate  `system.mk' versions or at least the patch files?
+this one could be called, e.g.
+
+system.mk-macos10.4.11_patch.diff
+
+the  crucial  hint here was yours: activate PRELOAD_MODULES.
+you might point out that the modifications are  minor  (true
+in  retrospect), but the necessity to do this is not obvious
+for the average user (including me) from the outset.   patch
+files  introduce  additional assumptions but probably remove
+the crucial problems,  at  least  (the  search  path  issues
+should be managable more easily).
+
+hth
+
+joerg
+
+
+From tuomov at iki.fi  Wed Jan  2 16:01:38 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 2 Jan 2008 17:01:38 +0200
+Subject: I'm very sad...
+In-Reply-To: <20080102132858.GB5689@marco.fz-rossendorf.de>
+References: <20071213235825.GB25558@pcjas.obspm.fr>
+	<slrnfm3k2s.u45.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071214005515.GC25748@pcjas.obspm.fr>
+	<20071214013641.GA4020@jolt.modeemi.cs.tut.fi>
+	<20071221162422.GA8111@marco.fz-rossendorf.de>
+	<slrnfmnrdg.iv1.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080102132858.GB5689@marco.fz-rossendorf.de>
+Message-ID: <20080102150138.GA3849@jolt.modeemi.cs.tut.fi>
+
+On 2008-01-02 14:28 +0100, Joerg van den Hoff wrote:
+> tuomo:   you  know  that  I  don't  like  this  scenario  of
+> "everybody compiles from scratch on  his  own"   (it  simply
+> burns  time  again  and again) and I know you probably won't
+> alter your attitude. so, maybe you could  start  to  provide
+> alternate  `system.mk' versions or at least the patch files?
+> this one could be called, e.g.
+
+I have suggested using the scripts repo for all the build files
+needed on different platforms. Please submit those patches to
+it (via darcs, if you can, or send on the ML and maybe someone
+else will submit).
+
+I have also added some documentation to system.mk, which should 
+make it a bit easier to modify to your needs. (This also means
+that your patch may no longer apply. The full old system.mk
+should work, though.) It is attached. Comments?
+
+-- 
+Tuomo
+-------------- next part --------------
+##
+## System settings
+##
+
+##
+## Installation paths
+##
+
+# Installation path prefix. Unless you know what you're doing, the default
+# of /usr/local is likely the correct choice.
+#DIST: PREFIX=/usr/local
+PREFIX=/usr/local/ion-3
+
+# Unless you are creating a package conforming to some OS's standards, you
+# probably do not want to modify the following directories:
+
+# Main binaries
+BINDIR=$(PREFIX)/bin
+# Configuration .lua files
+ETCDIR=$(PREFIX)/etc/ion3
+# Some .lua files and ion-* shell scripts
+SHAREDIR=$(PREFIX)/share/ion3
+# Manual pages
+MANDIR=$(PREFIX)/share/man
+# Some documents
+DOCDIR=$(PREFIX)/share/doc/ion3
+# Nothing at the moment
+INCDIR=$(PREFIX)/include/ion3
+# Nothing at the moment
+LIBDIR=$(PREFIX)/lib
+# Modules
+MODULEDIR=$(LIBDIR)/ion3/mod
+# Compiled Lua source code
+LCDIR=$(LIBDIR)/ion3/lc
+# ion-completefile (does not belong in SHAREDIR being a binary file)
+EXTRABINDIR=$(LIBDIR)/ion3/bin
+# For ion-completeman system-wide cache
+VARDIR=/var/cache/ion3
+# Message catalogs
+LOCALEDIR=$(PREFIX)/share/locale
+
+
+##
+## Modules
+##
+
+# Set PRELOAD_MODULES=1 if your system does not support dynamically loaded
+# modules through 'libdl' or has non-standard naming conventions.
+# You will likely need this option on e.g. Cygwin and Mac OS X.
+#PRELOAD_MODULES=1
+
+# Flags to link with libdl. Even if PRELOAD_MODULES=1, you may need this
+# setting (for e.g. Lua, when not instructed by pkg-config).
+DL_LIBS=-ldl
+
+
+##
+## Lua
+##
+
+# If you have installed Lua 5.1 from the official tarball without changing
+# paths, this should do it.
+LUA_DIR=/usr/local
+LUA_LIBS = -L$(LUA_DIR)/lib -llua
+LUA_INCLUDES = -I$(LUA_DIR)/include
+LUA=$(LUA_DIR)/bin/lua
+LUAC=$(LUA_DIR)/bin/luac
+
+# If you are using the Debian packages, the following settings should be
+# what you want.
+#LUA_LIBS=`pkg-config --libs lua5.1`
+#LUA_INCLUDES=`pkg-config --cflags lua5.1`
+#LUA=/usr/bin/lua5.1
+#LUAC=/usr/bin/luac5.1
+
+
+##
+## X libraries, includes and options
+##
+
+# Paths
+X11_PREFIX=/usr/X11R6
+# SunOS/Solaris
+#X11_PREFIX=/usr/openwin
+
+X11_LIBS=-L$(X11_PREFIX)/lib -lX11 -lXext
+X11_INCLUDES=-I$(X11_PREFIX)/include
+
+# XFree86 libraries up to 4.3.0 have a bug that can cause a segfault.
+# The following setting  should  work around that situation.
+DEFINES += -DCF_XFREE86_TEXTPROP_BUG_WORKAROUND
+
+# Use the Xutf8 routines (XFree86 extension) instead of the Xmb routines
+# in an UTF-8 locale. (No, you don't need this in UTF-8 locales, and 
+# most likely don't even want. It's only there because both Xmb and 
+# Xutf8 routines are broken, in different ways.)
+#DEFINES += -DCF_DE_USE_XUTF8
+
+# Remap F11 key to SunF36 and F12 to SunF37? You may want to set this
+# on SunOS.
+#DEFINES += -DCF_SUN_F1X_REMAP
+
+
+##
+## Localisation
+##
+
+# If you're on an archaic system (such as relatively recent *BSD releases)
+# without even dummy multibyte/widechar and localisation support, you may 
+# have to uncomment the following line:
+#DEFINES += -DCF_NO_LOCALE -DCF_NO_GETTEXT
+
+# On some other systems you may need to explicitly link against libintl.
+#EXTRA_LIBS += -lintl
+# You may also need to give the location of its headers. The following
+# should work on Mac OS X (which needs the above option as well).
+#EXTRA_INCLUDES += -I/opt/local/include
+
+
+##
+## libc
+##
+
+# You may uncomment this if you know that your system C libary provides
+# asprintf and  vasprintf. (GNU libc does.) If HAS_SYSTEM_ASPRINTF is not
+# defined, an implementation provided in libtu/sprintf_2.2/ is used. 
+#HAS_SYSTEM_ASPRINTF=1
+
+# The following setting is needed with GNU libc for clock_gettime and the
+# monotonic clock. Other systems may not need it, or may not provide a
+# monotonic clock at all (which Ion can live with, and usually detect).
+EXTRA_LIBS += -lrt
+
+
+#
+# If you're using/have gcc, it is unlikely that you need to modify
+# any of the settings below this line.
+#
+#####################################################################
+
+
+##
+## C compiler. 
+##
+
+CC=gcc
+
+# Same as '-Wall -pedantic' without '-Wunused' as callbacks often
+# have unused variables.
+WARN=	-W -Wimplicit -Wreturn-type -Wswitch -Wcomment \
+	-Wtrigraphs -Wformat -Wchar-subscripts \
+	-Wparentheses -pedantic -Wuninitialized
+
+CFLAGS=-Os $(WARN) $(DEFINES) $(INCLUDES) $(EXTRA_INCLUDES)
+LDFLAGS=$(LIBS) $(EXTRA_LIBS)
+EXPORT_DYNAMIC=-Xlinker --export-dynamic
+
+# The following options are mainly for development use and can be used
+# to check that the code seems to conform to some standards. Depending
+# on the version and vendor of you libc, the options may or may not have
+# expected results. If you define one of C99_SOURCE or XOPEN_SOURCE, you
+# may also have to define the other. 
+
+#C89_SOURCE=-ansi
+
+#POSIX_SOURCE=-D_POSIX_C_SOURCE=200112L
+
+# Most systems
+#XOPEN_SOURCE=-D_XOPEN_SOURCE -D_XOPEN_SOURCE_EXTENDED
+# SunOS, (Irix)
+#XOPEN_SOURCE=-D__EXTENSIONS__
+
+#C99_SOURCE=-std=c99 -DCF_HAS_VA_COPY
+
+# The -DCF_HAS_VA_COPY option should allow for some optimisations, and 
+# in some cases simply defining
+#C99_SOURCE=-DCF_HAS_VA_COPY
+# might allow for those optimisations to be taken without any  special
+# libc or compiler options.
+
+
+##
+## make depend
+##
+
+DEPEND_FILE=.depend
+DO_MAKE_DEPEND=$(CC) -MM $(DEFINES) $(INCLUDES) $(EXTRA_INCLUDES)
+MAKE_DEPEND=$(DO_MAKE_DEPEND) $(SOURCES) > $(DEPEND_FILE)
+
+
+##
+## AR
+##
+
+AR=ar
+ARFLAGS=cr
+RANLIB=ranlib
+
+
+##
+## Install & strip
+##
+
+INSTALL=sh $(TOPDIR)/install-sh -c
+INSTALL_STRIP=-s
+INSTALLDIR=mkdir -p
+
+BIN_MODE=755
+DATA_MODE=644
+
+RM=rm
+
+
+##
+## Debugging
+##
+
+#INSTALL_STRIP =
+#CFLAGS += -g
+
+
+From j.van_den_hoff at fzd.de  Wed Jan  2 17:26:02 2008
+From: j.van_den_hoff at fzd.de (Joerg van den Hoff)
+Date: Wed, 2 Jan 2008 17:26:02 +0100
+Subject: I'm very sad...
+In-Reply-To: <20080102150138.GA3849@jolt.modeemi.cs.tut.fi>
+References: <20071213235825.GB25558@pcjas.obspm.fr>
+	<slrnfm3k2s.u45.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071214005515.GC25748@pcjas.obspm.fr>
+	<20071214013641.GA4020@jolt.modeemi.cs.tut.fi>
+	<20071221162422.GA8111@marco.fz-rossendorf.de>
+	<slrnfmnrdg.iv1.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080102132858.GB5689@marco.fz-rossendorf.de>
+	<20080102150138.GA3849@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080102162602.GG12120@marco.fz-rossendorf.de>
+
+On Wed, Jan 02, 2008 at 05:01:38PM +0200, Tuomo Valkonen wrote:
+> On 2008-01-02 14:28 +0100, Joerg van den Hoff wrote:
+> > tuomo:   you  know  that  I  don't  like  this  scenario  of
+> > "everybody compiles from scratch on  his  own"   (it  simply
+> > burns  time  again  and again) and I know you probably won't
+> > alter your attitude. so, maybe you could  start  to  provide
+> > alternate  `system.mk' versions or at least the patch files?
+> > this one could be called, e.g.
+> 
+> I have suggested using the scripts repo for all the build files
+> needed on different platforms. Please submit those patches to
+> it (via darcs, if you can, or send on the ML and maybe someone
+
+darcs: I installed it once, but don't really know how to use
+it. if I find time, I'll give it a try. otherwise I'd prefer
+the ML. but such patches to system.mk rapidly go out of sync
+with the actual state of  affairs,  i.e.  they  are  version
+dependent, obviously. so, if they really make sense (to you,
+that is), why not inlcude them  (even  "post-release"  time)
+with  sensible  names  in the tarball together with a README
+addendum? actually, this is of  course  what  the  different
+distros do, when they include a package. one will not get it
+100% watertight but sure it will help to reduce the  pain  a
+bit.
+
+
+> else will submit).
+> 
+> I have also added some documentation to system.mk, which should 
+> make it a bit easier to modify to your needs. (This also means
+> that your patch may no longer apply. The full old system.mk
+> should work, though.) It is attached. Comments?
+> 
+> -- 
+> Tuomo
+
+adding  more  documentation sure is a good thing to do. some
+coments see below.
+
+> ##
+> ## System settings
+> ##
+> 
+> ##
+> ## Installation paths
+> ##
+> 
+> # Installation path prefix. Unless you know what you're doing, the default
+> # of /usr/local is likely the correct choice.
+
+what is DIST:? above comment and actual PREFIX value are out
+of sync.  I would think the phrase  'unless  you  know  what
+you're doing' can be omitted altogether...
+
+> #DIST: PREFIX=/usr/local
+> PREFIX=/usr/local/ion-3
+> 
+> # Unless you are creating a package conforming to some OS's standards, you
+> # probably do not want to modify the following directories:
+> 
+> # Main binaries
+> BINDIR=$(PREFIX)/bin
+> # Configuration .lua files
+> ETCDIR=$(PREFIX)/etc/ion3
+> # Some .lua files and ion-* shell scripts
+> SHAREDIR=$(PREFIX)/share/ion3
+> # Manual pages
+> MANDIR=$(PREFIX)/share/man
+> # Some documents
+> DOCDIR=$(PREFIX)/share/doc/ion3
+> # Nothing at the moment
+> INCDIR=$(PREFIX)/include/ion3
+> # Nothing at the moment
+> LIBDIR=$(PREFIX)/lib
+> # Modules
+> MODULEDIR=$(LIBDIR)/ion3/mod
+> # Compiled Lua source code
+> LCDIR=$(LIBDIR)/ion3/lc
+> # ion-completefile (does not belong in SHAREDIR being a binary file)
+> EXTRABINDIR=$(LIBDIR)/ion3/bin
+> # For ion-completeman system-wide cache
+> VARDIR=/var/cache/ion3
+> # Message catalogs
+> LOCALEDIR=$(PREFIX)/share/locale
+> 
+> 
+> ##
+> ## Modules
+> ##
+> 
+> # Set PRELOAD_MODULES=1 if your system does not support dynamically loaded
+> # modules through 'libdl' or has non-standard naming conventions.
+> # You will likely need this option on e.g. Cygwin and Mac OS X.
+> #PRELOAD_MODULES=1
+> 
+> # Flags to link with libdl. Even if PRELOAD_MODULES=1, you may need this
+> # setting (for e.g. Lua, when not instructed by pkg-config).
+> DL_LIBS=-ldl
+> 
+> 
+> ##
+> ## Lua
+> ##
+> 
+> # If you have installed Lua 5.1 from the official tarball without changing
+> # paths, this should do it.
+> LUA_DIR=/usr/local
+> LUA_LIBS = -L$(LUA_DIR)/lib -llua
+> LUA_INCLUDES = -I$(LUA_DIR)/include
+> LUA=$(LUA_DIR)/bin/lua
+> LUAC=$(LUA_DIR)/bin/luac
+> 
+> # If you are using the Debian packages, the following settings should be
+> # what you want.
+> #LUA_LIBS=`pkg-config --libs lua5.1`
+> #LUA_INCLUDES=`pkg-config --cflags lua5.1`
+> #LUA=/usr/bin/lua5.1
+> #LUAC=/usr/bin/luac5.1
+> 
+> 
+> ##
+> ## X libraries, includes and options
+> ##
+> 
+> # Paths
+> X11_PREFIX=/usr/X11R6
+> # SunOS/Solaris
+> #X11_PREFIX=/usr/openwin
+> 
+> X11_LIBS=-L$(X11_PREFIX)/lib -lX11 -lXext
+> X11_INCLUDES=-I$(X11_PREFIX)/include
+> 
+> # XFree86 libraries up to 4.3.0 have a bug that can cause a segfault.
+> # The following setting  should  work around that situation.
+> DEFINES += -DCF_XFREE86_TEXTPROP_BUG_WORKAROUND
+> 
+> # Use the Xutf8 routines (XFree86 extension) instead of the Xmb routines
+> # in an UTF-8 locale. (No, you don't need this in UTF-8 locales, and 
+> # most likely don't even want. It's only there because both Xmb and 
+> # Xutf8 routines are broken, in different ways.)
+> #DEFINES += -DCF_DE_USE_XUTF8
+> 
+> # Remap F11 key to SunF36 and F12 to SunF37? You may want to set this
+> # on SunOS.
+> #DEFINES += -DCF_SUN_F1X_REMAP
+> 
+> 
+> ##
+> ## Localisation
+> ##
+> 
+> # If you're on an archaic system (such as relatively recent *BSD releases)
+> # without even dummy multibyte/widechar and localisation support, you may 
+> # have to uncomment the following line:
+> #DEFINES += -DCF_NO_LOCALE -DCF_NO_GETTEXT
+> 
+> # On some other systems you may need to explicitly link against libintl.
+> #EXTRA_LIBS += -lintl
+> # You may also need to give the location of its headers. The following
+> # should work on Mac OS X (which needs the above option as well).
+
+--add:
+# presuming you otherwise use `macports' for installing additional software
+
+> #EXTRA_INCLUDES += -I/opt/local/include
+> 
+> 
+> ##
+> ## libc
+> ##
+> 
+> # You may uncomment this if you know that your system C libary provides
+> # asprintf and  vasprintf. (GNU libc does.) If HAS_SYSTEM_ASPRINTF is not
+> # defined, an implementation provided in libtu/sprintf_2.2/ is used. 
+> #HAS_SYSTEM_ASPRINTF=1
+> 
+> # The following setting is needed with GNU libc for clock_gettime and the
+> # monotonic clock. Other systems may not need it, or may not provide a
+> # monotonic clock at all (which Ion can live with, and usually detect).
+> EXTRA_LIBS += -lrt
+> 
+> 
+> #
+> # If you're using/have gcc, it is unlikely that you need to modify
+> # any of the settings below this line.
+> #
+> #####################################################################
+> 
+> 
+> ##
+> ## C compiler. 
+> ##
+> 
+> CC=gcc
+> 
+> # Same as '-Wall -pedantic' without '-Wunused' as callbacks often
+> # have unused variables.
+> WARN=	-W -Wimplicit -Wreturn-type -Wswitch -Wcomment \
+> 	-Wtrigraphs -Wformat -Wchar-subscripts \
+> 	-Wparentheses -pedantic -Wuninitialized
+> 
+> CFLAGS=-Os $(WARN) $(DEFINES) $(INCLUDES) $(EXTRA_INCLUDES)
+> LDFLAGS=$(LIBS) $(EXTRA_LIBS)
+
+--add two lines:
+#under Mac OS X (using macports) you'll need
+LDFLAGS=-L/opt/local/lib $(LIBS) $(EXTRA_LIBS)
+
+> EXPORT_DYNAMIC=-Xlinker --export-dynamic
+> 
+> # The following options are mainly for development use and can be used
+> # to check that the code seems to conform to some standards. Depending
+> # on the version and vendor of you libc, the options may or may not have
+> # expected results. If you define one of C99_SOURCE or XOPEN_SOURCE, you
+> # may also have to define the other. 
+> 
+> #C89_SOURCE=-ansi
+> 
+> #POSIX_SOURCE=-D_POSIX_C_SOURCE=200112L
+> 
+> # Most systems
+> #XOPEN_SOURCE=-D_XOPEN_SOURCE -D_XOPEN_SOURCE_EXTENDED
+> # SunOS, (Irix)
+> #XOPEN_SOURCE=-D__EXTENSIONS__
+> 
+> #C99_SOURCE=-std=c99 -DCF_HAS_VA_COPY
+> 
+> # The -DCF_HAS_VA_COPY option should allow for some optimisations, and 
+> # in some cases simply defining
+> #C99_SOURCE=-DCF_HAS_VA_COPY
+> # might allow for those optimisations to be taken without any  special
+> # libc or compiler options.
+> 
+> 
+> ##
+> ## make depend
+> ##
+> 
+> DEPEND_FILE=.depend
+> DO_MAKE_DEPEND=$(CC) -MM $(DEFINES) $(INCLUDES) $(EXTRA_INCLUDES)
+> MAKE_DEPEND=$(DO_MAKE_DEPEND) $(SOURCES) > $(DEPEND_FILE)
+> 
+> 
+> ##
+> ## AR
+> ##
+> 
+> AR=ar
+> ARFLAGS=cr
+> RANLIB=ranlib
+> 
+> 
+> ##
+> ## Install & strip
+> ##
+> 
+> INSTALL=sh $(TOPDIR)/install-sh -c
+> INSTALL_STRIP=-s
+> INSTALLDIR=mkdir -p
+> 
+> BIN_MODE=755
+> DATA_MODE=644
+> 
+> RM=rm
+> 
+> 
+> ##
+> ## Debugging
+> ##
+> 
+> #INSTALL_STRIP =
+> #CFLAGS += -g
+> 
+
+
+
+From tuomov at iki.fi  Wed Jan  2 17:32:03 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 2 Jan 2008 16:32:03 +0000 (UTC)
+Subject: I'm very sad...
+References: <20071213235825.GB25558@pcjas.obspm.fr>
+	<slrnfm3k2s.u45.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071214005515.GC25748@pcjas.obspm.fr>
+	<20071214013641.GA4020@jolt.modeemi.cs.tut.fi>
+	<20071221162422.GA8111@marco.fz-rossendorf.de>
+	<slrnfmnrdg.iv1.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080102132858.GB5689@marco.fz-rossendorf.de>
+	<20080102150138.GA3849@jolt.modeemi.cs.tut.fi>
+	<20080102162602.GG12120@marco.fz-rossendorf.de>
+Message-ID: <slrnfnnf43.c9j.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-01-02, Joerg van den Hoff <j.van_den_hoff at fzd.de> wrote:
+> but such patches to system.mk rapidly go out of sync
+> with the actual state of  affairs,  i.e.  they  are  version
+> dependent, obviously. so, if they really make sense (to you,
+> that is), why not inlcude them  (even  "post-release"  time)
+> with  sensible  names  in the tarball together with a README
+> addendum? 
+
+You stated the reason yourself. I will not include things in
+Ion that I can not or am not willing to maintain. The scripts
+repository as a "poor man's wiki" is a much better place.
+
+> what is DIST:? 
+
+That's just stuff in the source repository. The release scripts
+replace the following line with the DIST-line for release.
+
+> --add two lines:
+> #under Mac OS X (using macports) you'll need
+> LDFLAGS=-L/opt/local/lib $(LIBS) $(EXTRA_LIBS)
+
+As started earlier in the file, changing LDFLAGS etc. should not
+be needed with GCC. -L option should go in the _LIBS option for
+the library that needs it.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Thu Jan  3 19:36:39 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 3 Jan 2008 18:36:39 +0000 (UTC)
+Subject: ion-3rc-20080103
+Message-ID: <slrnfnqapn.ge.tuomov@jolt.modeemi.cs.tut.fi>
+
+This release features a few minor fixes to behavioural regressions
+in the previous release, as well as some build configuration file
+self-documentation improvements.
+
+I am hoping for this to be the last RC...
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Thu Jan  3 19:42:50 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 3 Jan 2008 18:42:50 +0000 (UTC)
+Subject: Nagware version
+References: <20071229152546.GA22341@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnfnqb5a.13g.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-29, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> I've been considering releasing (as a patch) a separate nagware version
+> of Ion, which would have a license without the 28-day clause. 
+
+I take it there's no interest for such a "free" nagware version?
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Thu Jan  3 22:03:37 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 3 Jan 2008 23:03:37 +0200
+Subject: [bryan.richter@gmail.com: Fwd: Compile error under cygwin]
+Message-ID: <20080103210337.GA14445@jolt.modeemi.cs.tut.fi>
+
+
+-- 
+Tuomo
+-------------- next part --------------
+An embedded message was scrubbed...
+From: "Bryan Richter" <bryan.richter at gmail.com>
+Subject: Fwd: Compile error under cygwin
+Date: Thu, 3 Jan 2008 11:27:14 -0800
+Size: 6480
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080103/8cc665b6/attachment.mht>
+
+From tuomov at iki.fi  Thu Jan  3 22:30:35 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 3 Jan 2008 21:30:35 +0000 (UTC)
+Subject: [bryan.richter-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org: Fwd:
+	Compile error under cygwin]
+References: <20080103210337.GA14445@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnfnqkvr.fhi.tuomov@jolt.modeemi.cs.tut.fi>
+
+(Bah, berlios or something is taking forever to send the mail back
+to me, although gmane already has it. But the nntp interface/slrn
+don't handle attachments well, so I'll just copy-paste quote.)
+
+> The two problems with compiling Ion are
+> (1) Windows does not have getloadavg, and with the way
+> libextl_mkexports works, the only quick way to avoid this problem is
+> to obliterate all references to getloadavg. This means deleting (not
+> commenting out!) a couple functions and the whole file
+> utils/ion-statusd/statusd_load.lua.
+
+There's no real need to alter statusd_load, but cfg_statusbar should
+perhaps be altered to not include the load meter. It gets a bit too
+complicated to to properly. The altogether too hacky loadavg export
+(some more general Lua lib should really provide all this!) can in
+any case be easily #ifdef'd out. (DEFINES += -DCF_NO_GETLOADAVG)
+
+> (2) Cygwin's gcc appends ".exe" to executables, which means Makefiles
+> must be modified accordingly.
+
+That's just utterly and totally brain-dead. If I say '-o ion3', 
+then that's where the output should go, even if the rest of the
+system can't handle the lack of a lame extension. I wonder if 
+they have a modified variant of install-sh or so, that can 
+handle the way they've fucked up gcc? The latest release actually
+introduced the INSTALLBIN variable to take care of passing
+the -s(trip) flag to install-sh nicely based on configuration.
+Maybe gmake provides some macros that could be used to redefine
+this to append the .exe idiocy to the source file.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Fri Jan  4 09:30:33 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 4 Jan 2008 08:30:33 +0000 (UTC)
+Subject: [bryan.richter-Re5JQEeQqe8AvxtiuMwx3w-XMD5yJDbdMReXY1tMh2IBg@public.gmane.org:
+	Fwd: Compile error under cygwin]
+References: <20080103210337.GA14445@jolt.modeemi.cs.tut.fi>
+	<slrnfnqkvr.fhi.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnfnrrl9.ekk.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-01-03, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> That's just utterly and totally brain-dead. If I say '-o ion3', 
+> then that's where the output should go, even if the rest of the
+> system can't handle the lack of a lame extension. I wonder if 
+> they have a modified variant of install-sh or so, that can 
+> handle the way they've fucked up gcc? 
+
+By googling around a bit, I found this:
+
+> The Cygwin stat(), lstat() and readlink() functions make the .exe extension
+> transparent by looking for foo.exe when you ask for foo (unless a foo also
+> exists). Cygwin does not require a .exe extension, but gcc adds it
+> automatically when building a program. However, when accessing an executable
+> as a normal file (e.g., cp in a makefile) the .exe is not transparent. The
+> install included with Cygwin automatically appends a .exe when necessary.
+(http://www.ayni.com/perldoc/perl5.8.0/README.cygwin.html)
+
+So it's not even cygwin itself that's brain-dead, but gcc itself (typical!)
+and, indeed, cygwin provides a hacked version of install. Just replacing the
+provided install-sh in the INSTALL setting with cygwin's install, should do
+the job. (The provided install-sh script instead of the system's install
+command is used by default, because there are incompatible versions of
+install.)
+
+-- 
+Tuomo
+
+
+
+From nyarlazathoth666 at yahoo.fr  Fri Jan  4 13:56:49 2008
+From: nyarlazathoth666 at yahoo.fr (Jean Verdon)
+Date: Fri, 4 Jan 2008 13:56:49 +0100 (CET)
+Subject: tab's name question... (beginner)
+Message-ID: <855656.99004.qm@web28504.mail.ukl.yahoo.com>
+
+Hi and happy new year to you,
+
+I installed Ion3 a couple of days ago and I plan to
+write a monitor for the status bar to be warned when a
+tab's name changes (like when your gmail account is
+open in firefox and you receive an incomming event; or
+when an xterm's title is updated).
+
+Unfortunately, I don't know how to get those names ! 
+print(WClientWin.name(_)) only returns "WFrame<n>" and
+such. 
+xprop WM_NAME gives me what I want but I don't know
+where to find it using Lua code.
+
+Could someone help me ?
+
+Thanks
+Jean, hoping that this question is not too silly...
+
+
+
+      _____________________________________________________________________________ 
+Ne gardez plus qu'une seule adresse mail ! Copiez vos mails vers Yahoo! Mail http://mail.yahoo.fr
+
+
+From tuomov at iki.fi  Fri Jan  4 14:59:33 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 4 Jan 2008 13:59:33 +0000 (UTC)
+Subject: tab's name question... (beginner)
+References: <855656.99004.qm@web28504.mail.ukl.yahoo.com>
+Message-ID: <slrnfnseu5.crs.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-01-04, Jean Verdon <nyarlazathoth666 at yahoo.fr> wrote:
+> I plan to write a monitor for the status bar to be warned when a
+> tab's name changes 
+
+The "right" approach to something imporatnt happening in an application
+is, of course, for the application to set the X UrgencyHint. When this
+happens, Ion will display a box a corner of the screen indicating this,
+as well as move (in the stock configuration) the window on top in the 
+Mod1+K K listing. There also exists a statusbar script for listing such
+windows [1]. (I'm afraid I don't know if it is up-to-date.)
+
+You could, based on name change, also set the activity/urgency flag from
+a script.
+
+> Unfortunately, I don't know how to get those names ! 
+> print(WClientWin.name(_)) only returns "WFrame<n>" and
+> such. 
+
+The object _ is bound to depends on the context. It is only
+bound to WClientWin in bindings for client windows. _sub may
+in such situation be bound to WGroupCW, but even this does not
+get you the name yet... (WRegion.displayname isn't presently 
+exported to the Lua side.)
+
+However, I don't think you need to worry about the nesting of
+objects in this case. If you hook on to region_notify_hook, and
+check for name change messages, you should have the client window 
+in question directly at hand, and can do what you need to do.
+The aforementioned script [1] provides an example of using the
+hook in question.
+
+
+  [1]: http://iki.fi/tuomov/repos/ion-scripts-3/statusbar/statusbar_act.lua
+
+-- 
+Tuomo
+
+
+
+From timandahaf+dev at gmail.com  Sun Jan  6 06:50:24 2008
+From: timandahaf+dev at gmail.com (Timandahaf)
+Date: Sat, 5 Jan 2008 21:50:24 -0800
+Subject: Nagware version
+In-Reply-To: <slrnfnqb5a.13g.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071229152546.GA22341@jolt.modeemi.cs.tut.fi>
+	<slrnfnqb5a.13g.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <Pine.LNX.4.64.0801052142130.31226@localhost.localdomain>
+
+> On 2007-12-29, Tuomo Valkonen <tuomov at iki.fi> wrote:
+>> I've been considering releasing (as a patch) a separate nagware version
+>> of Ion, which would have a license without the 28-day clause.
+>
+> I take it there's no interest for such a "free" nagware version?
+
+I'd be interested in a free, nagware version, if the 28-day clause in
+the non-nagware version is here to stay (I'm still hoping it'll
+disappear :)).
+
+I'm in the process of developing an Ion package for Fedora. I use Ion
+extensively, and in all my Linux GUI environments, and wouldn't mind
+maintaining such a package.
+
+A free (nagware) version would allow this package to be absorbed into
+the main Fedora distribution, or at least to an 'Extras' repo like
+livna/RPM Fusion.
+
+Thanks, BTW, for such an incredibly good WM!
+
+
+
+From ben at decadent.org.uk  Sun Jan  6 19:12:14 2008
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Sun, 06 Jan 2008 18:12:14 +0000
+Subject: Nagware version
+In-Reply-To: <slrnfnqb5a.13g.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071229152546.GA22341@jolt.modeemi.cs.tut.fi>
+	<slrnfnqb5a.13g.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <1199643134.15551.11.camel@deadeye.i.decadent.org.uk>
+
+On Thu, 2008-01-03 at 18:42 +0000, Tuomo Valkonen wrote:
+> On 2007-12-29, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> > I've been considering releasing (as a patch) a separate nagware version
+> > of Ion, which would have a license without the 28-day clause. 
+> 
+> I take it there's no interest for such a "free" nagware version?
+
+Any version that goes into a Debian stable release would be outdated and
+therefore unsupported by you.  So how about a free version that simply
+disclaims upstream support without bothering to check?
+
+Ben.
+
+-- 
+Ben Hutchings
+Beware of programmers who carry screwdrivers. - Leonard Brandwein
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080106/9e2abab3/attachment.pgp>
+
+From tuomov at iki.fi  Sun Jan  6 20:13:42 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 6 Jan 2008 19:13:42 +0000 (UTC)
+Subject: Nagware version
+References: <20071229152546.GA22341@jolt.modeemi.cs.tut.fi>
+	<slrnfnqb5a.13g.tuomov@jolt.modeemi.cs.tut.fi>
+	<1199643134.15551.11.camel@deadeye.i.decadent.org.uk>
+Message-ID: <slrnfo2a36.vtt.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-01-06, Ben Hutchings <ben at decadent.org.uk> wrote:
+> Any version that goes into a Debian stable release would be outdated and
+> therefore unsupported by you.  So how about a free version that simply
+> disclaims upstream support without bothering to check?
+
+On every startup? Just don't provide luacurl, and it will do that.
+
+Or did you mean less frequently and annoyingly? But that would be
+something displayed at the installation phase then.. and guess who
+controls the installation phase?
+
+-- 
+Tuomo
+
+
+
+From intrigeri at boum.org  Sun Jan  6 23:41:25 2008
+From: intrigeri at boum.org (intrigeri)
+Date: Sun, 06 Jan 2008 23:41:25 +0100
+Subject: ion3 RC packages for Debian etch, and now lenny
+In-Reply-To: <858x5vo4vs.fsf@boum.org> (intrigeri@boum.org's message of "Mon, 
+	22 Oct 2007 11:49:59 +0200")
+References: <858x5vo4vs.fsf@boum.org>
+Message-ID: <85k5mm4lwq.fsf@boum.org>
+
+Hello,
+
+intrigeri wrote (22 Oct 2007 09:49:59 GMT) :
+> for a few months[1], I?ve been maintaining backports of Debian sid?s
+> ion3 RC packages for Debian etch.
+
+> I updated my build environment a bit, so that I am now in a position
+> to provide such packages built for Debian lenny (testing) as well :
+>
+>             http://intrigeri.boum.org/debian/
+
+I?m not using ion3 anymore, so I won?t go on maintaining these
+packages. They will be removed soon.
+
+Bye,
+-- 
+  intrigeri <intrigeri at boum.org>
+  | gnupg key @ http://intrigeri.boum.org/intrigeri.asc
+  | Did you exchange a walk on part in the war
+  | for a lead role in the cage?
+
+
+From tuomov at iki.fi  Mon Jan  7 19:45:06 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 7 Jan 2008 20:45:06 +0200
+Subject: Some build. sys. improvs. (Cygwin in particular)
+Message-ID: <20080107184506.GA6503@jolt.modeemi.cs.tut.fi>
+
+The attached patch contains some improvements to the Ion build system,
+in particular for hopefully better Cygwin support. It does contain
+quite big modifications (to do things in one place instead of a zillion
+Makefiles), and I'd rather not make another RC release, so I'd appreciate
+people checking that it (still) works, even on non-Cygwin configurations,
+but in particular on that.
+
+-- 
+Tuomo
+
+
+From tuomov at iki.fi  Mon Jan  7 19:46:04 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 7 Jan 2008 20:46:04 +0200
+Subject: Some build. sys. improvs. (Cygwin in particular)
+In-Reply-To: <20080107184506.GA6503@jolt.modeemi.cs.tut.fi>
+References: <20080107184506.GA6503@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080107184604.GA6894@jolt.modeemi.cs.tut.fi>
+
+On 2008-01-07 20:45 +0200, Tuomo Valkonen wrote:
+> The attached patch contains some improvements to the Ion build system,
+> in particular for hopefully better Cygwin support. It does contain
+> quite big modifications (to do things in one place instead of a zillion
+> Makefiles), and I'd rather not make another RC release, so I'd appreciate
+> people checking that it (still) works, even on non-Cygwin configurations,
+> but in particular on that.
+
+And the attachment... *sigh*
+
+-- 
+Tuomo
+-------------- next part --------------
+Mon Jan  7 20:39:24 EET 2008  Tuomo Valkonen <tuomov at iki.fi>
+  * Some build system improvements for nicer .exe handling
+Mon Jan  7 20:02:53 EET 2008  Tuomo Valkonen <tuomov at iki.fi>
+  * Added CF_NO_GET_LOADAVG
+Sun Jan  6 22:41:19 EET 2008  Tuomo Valkonen <tuomov at iki.fi>
+  * Dockapp WM_CLASS hack had been broken. Fixed.
+Fri Jan  4 17:25:05 EET 2008  Tuomo Valkonen <tuomov at iki.fi>
+  * Removed defer-pending on destroy warning
+Thu Jan  3 20:49:45 EET 2008  Tuomo Valkonen <tuomov at iki.fi>
+  * Bah, statusd build was still broken
+Thu Jan  3 20:23:46 EET 2008  Tuomo Valkonen <tuomov at iki.fi>
+  tagged ion-3rc-20080103
+diff -rN old-ixx/build/rules.mk new-ixx/build/rules.mk
+18a19,29
+> ifdef EXTRA_EXECUTABLE
+> EXECUTABLE := $(EXTRA_EXECUTABLE)
+> BINDIR_ := $(EXTRABINDIR)
+> endif
+> 
+> ifdef EXECUTABLE
+> BINDIR_ ?= $(BINDIR)
+> EXECUTABLE_ := $(EXECUTABLE)$(BIN_SUFFIX)
+> TARGETS := $(TARGETS) $(EXECUTABLE_)
+> endif
+> 
+89a101,136
+> 
+> ifdef EXECUTABLE
+> 
+> ifdef MODULE_LIST
+> ifdef MODULE_PATH
+> ifeq ($(PRELOAD_MODULES),1)
+> EXT_OBJS += $(foreach mod, $(MODULE_LIST), $(MODULE_PATH)/$(mod)/$(mod).a)
+> DEPEND_DEPENDS += preload.c
+> SOURCES += preload.c
+> TO_CLEAN += preload.c
+> else # !PRELOAD_MODULES
+> LDFLAGS += $(EXPORT_DYNAMIC)
+> WHOLEA = -Wl,-whole-archive
+> NO_WHOLEA = -Wl,-no-whole-archive
+> endif # !PRELOAD_MODULES
+> 
+> preload.c:
+> 	$(LUA) $(TOPDIR)/build/mkpreload.lua $(MODULE_LIST) > preload.c
+> 
+> endif # MODULE_PATH
+> endif # MODULE_LIST
+> 
+> ifeq ($(RELOCATABLE),1)
+> DEFINES += -DCF_RELOCATABLE_BIN_LOCATION=\"$(BINDIR_)/$(EXECUTABLE)\"
+> endif
+> 
+> $(EXECUTABLE_): $(OBJS) $(EXT_OBJS)
+> 	$(CC) $(OBJS) $(WHOLEA) $(EXT_OBJS) $(NO_WHOLEA) $(LDFLAGS) -o $@
+> 
+> executable_install:
+> 	$(INSTALLDIR) $(BINDIR_)
+> 	$(INSTALLBIN) $(EXECUTABLE_) $(BINDIR_)
+> 
+> endif # EXECUTABLE
+> 
+> 
+diff -rN old-ixx/ion/Makefile new-ixx/ion/Makefile
+14c14
+< SOURCES=ion.c
+---
+> EXECUTABLE = ion3
+16c16
+< TARGETS=ion3
+---
+> SOURCES = ion.c
+18c18
+< INCLUDES += $(X11_INCLUDES) 
+---
+> INCLUDES += $(X11_INCLUDES)
+22c22
+< LIBS += $(X11_LIBS)
+---
+> LIBS += $(X11_LIBS) -lSM -lICE
+27,41c27
+< ifeq ($(PRELOAD_MODULES),1)
+< EXT_OBJS += $(foreach mod, $(MODULE_LIST), ../$(mod)/$(mod).a)
+< DEPEND_DEPENDS += preload.c
+< SOURCES += preload.c
+< TO_CLEAN += preload.c
+< LIBS += -lSM -lICE
+< else
+< LDFLAGS += $(EXPORT_DYNAMIC)
+< WHOLEA = -Wl,-whole-archive
+< NO_WHOLEA = -Wl,-no-whole-archive
+< endif
+< 
+< ifeq ($(RELOCATABLE),1)
+< DEFINES += -DCF_RELOCATABLE_ION3_LOCATION=\"$(BINDIR)/ion3\"
+< endif
+---
+> MODULE_PATH = $(TOPDIR)
+57,58d42
+< ion3: $(OBJS) $(EXT_OBJS)
+< 	$(CC) $(OBJS) $(WHOLEA) $(EXT_OBJS) $(NO_WHOLEA) $(LDFLAGS) -o $@
+60,61c44
+< preload.c:
+< 	$(LUA) ../build/mkpreload.lua $(MODULE_LIST) > preload.c
+---
+> _install: executable_install
+63,65d45
+< _install:
+< 	$(INSTALLDIR) $(BINDIR)
+< 	$(INSTALLBIN) ion3 $(BINDIR)
+diff -rN old-ixx/ion/ion.c new-ixx/ion/ion.c
+154,155c154,155
+< #ifdef CF_RELOCATABLE_ION3_LOCATION
+<     prefix_set(argv[0], CF_RELOCATABLE_ION3_LOCATION);
+---
+> #ifdef CF_RELOCATABLE_BIN_LOCATION
+>     prefix_set(argv[0], CF_RELOCATABLE_BIN_LOCATION);
+diff -rN old-ixx/ioncore/clientwin.c new-ixx/ioncore/clientwin.c
+511,514c511
+< 
+<                 win=icon_win;
+<                 attr=icon_attr;
+< 
+---
+>                 
+527a525,527
+>                 
+>                 win=icon_win;
+>                 attr=icon_attr;
+diff -rN old-ixx/libmainloop/defer.c new-ixx/libmainloop/defer.c
+20a21
+> #include <libtu/debug.h>
+81c82
+<     warn(TR("Object destroyed while deferred actions are still pending."));
+---
+>     D(warn(TR("Object destroyed while deferred actions are still pending.")));
+diff -rN old-ixx/pwm/Makefile new-ixx/pwm/Makefile
+14c14
+< SOURCES=pwm.c
+---
+> EXECUTABLE = pwm3
+16c16
+< ETC = cfg_pwm.lua
+---
+> SOURCES = pwm.c
+18c18
+< TARGETS = pwm3
+---
+> ETC = cfg_pwm.lua
+24c24
+< LIBS += $(X11_LIBS)
+---
+> LIBS += $(X11_LIBS) -lSM -lICE
+29,43c29
+< ifeq ($(PRELOAD_MODULES),1)
+< EXT_OBJS += $(foreach mod, $(PWM_MODULE_LIST), ../$(mod)/$(mod).a)
+< DEPEND_DEPENDS += preload.c
+< SOURCES += preload.c
+< TO_CLEAN += preload.c
+< LIBS += -lSM -lICE
+< else
+< LDFLAGS += $(EXPORT_DYNAMIC)
+< WHOLEA = -Wl,-whole-archive
+< NO_WHOLEA = -Wl,-no-whole-archive
+< endif
+< 
+< ifeq ($(RELOCATABLE),1)
+< DEFINES += -DCF_RELOCATABLE_PWM3_LOCATION=\"$(BINDIR)/pwm3\"
+< endif
+---
+> MODULE_PATH = $(TOPDIR)
+65,73c51
+< pwm3: $(OBJS) $(EXT_OBJS)
+< 	$(CC) $(OBJS) $(WHOLEA) $(EXT_OBJS) $(NO_WHOLEA) $(LDFLAGS) -o $@
+< 
+< preload.c:
+< 	$(LUA) ../build/mkpreload.lua $(PWM_MODULE_LIST) > preload.c
+< 
+< _install:
+< 	$(INSTALLDIR) $(BINDIR)
+< 	$(INSTALLBIN) pwm3 $(BINDIR)
+---
+> _install: executable_install
+diff -rN old-ixx/pwm/pwm.c new-ixx/pwm/pwm.c
+101,102c101,102
+< #ifdef CF_RELOCATABLE_PWM3_LOCATION
+<     prefix_set(argv[0], CF_RELOCATABLE_PWM3_LOCATION);
+---
+> #ifdef CF_RELOCATABLE_BIN_LOCATION
+>     prefix_set(argv[0], CF_RELOCATABLE_BIN_LOCATION);
+diff -rN old-ixx/system.mk new-ixx/system.mk
+41a42,44
+> # Executable suffix (for Cygwin).
+> #BIN_SUFFIX = .exe
+> 
+134a138,140
+> # Cygwin needs this.
+> #DEFINES += -DCF_NO_GETLOADAVG
+> 
+diff -rN old-ixx/utils/ion-completefile/Makefile new-ixx/utils/ion-completefile/Makefile
+11,13c11
+< LIBS += $(LIBTU_LIBS)
+< INCLUDES += $(LIBTU_INCLUDES)
+< CFLAGS += $(XOPEN_SOURCE) $(C99_SOURCE)
+---
+> EXTRA_EXECUTABLE = ion-completefile
+17c15,17
+< TARGETS=ion-completefile
+---
+> LIBS += $(LIBTU_LIBS)
+> INCLUDES += $(LIBTU_INCLUDES)
+> CFLAGS += $(XOPEN_SOURCE) $(C99_SOURCE)
+25,30c25
+< ion-completefile: $(SOURCES)
+< 	$(CC) $< $(CFLAGS) $(LDFLAGS) -o $@
+< 
+< _install:
+< 	$(INSTALLDIR) $(EXTRABINDIR)
+< 	$(INSTALLBIN) ion-completefile $(EXTRABINDIR)
+---
+> _install: executable_install
+diff -rN old-ixx/utils/ion-statusd/Makefile new-ixx/utils/ion-statusd/Makefile
+10a11,14
+> EXTRA_EXECUTABLE = ion-statusd
+> 
+> SOURCES = ion-statusd.c exec.c extlrx.c
+> 
+17,18c21
+< 	   -DLCDIR=\"$(LCDIR)\" -DLOCALEDIR=\"$(LOCALEDIR)\" \
+<            -DSTATUSD_LOCATION=\"$(EXTRABINDIR)/ion-statusd\"
+---
+> 	   -DLCDIR=\"$(LCDIR)\" -DLOCALEDIR=\"$(LOCALEDIR)\"
+20,23d22
+< SOURCES = ion-statusd.c exec.c extlrx.c
+< 
+< TARGETS = ion-statusd
+< 
+36,41c35
+< ion-statusd: $(OBJS) $(EXT_OBJS)
+< 	$(CC) $(OBJS) $(EXT_OBJS) $(LDFLAGS) -o $@
+< 
+< _install: lc_install
+< 	$(INSTALLDIR) $(EXTRABINDIR)
+< 	$(INSTALLBIN) ion-statusd $(EXTRABINDIR)
+---
+> _install: lc_install executable_install
+diff -rN old-ixx/utils/ion-statusd/ion-statusd.c new-ixx/utils/ion-statusd/ion-statusd.c
+164,165c164,165
+< #ifdef STATUSD_LOCATION
+<     prefix_set(argv[0], STATUSD_LOCATION);
+---
+> #ifdef CF_RELOCATABLE_BIN_LOCATION
+>     prefix_set(argv[0], CF_RELOCATABLE_BIN_LOCATION);
+302a303
+> #ifndef CF_NO_GETLOADAVG
+314c315
+<         
+---
+> #endif
+
+
+From bryan.richter at gmail.com  Mon Jan  7 21:19:43 2008
+From: bryan.richter at gmail.com (Bryan Richter)
+Date: Mon, 7 Jan 2008 12:19:43 -0800
+Subject: Some build. sys. improvs. (Cygwin in particular)
+In-Reply-To: <20080107184604.GA6894@jolt.modeemi.cs.tut.fi>
+References: <20080107184506.GA6503@jolt.modeemi.cs.tut.fi>
+	<20080107184604.GA6894@jolt.modeemi.cs.tut.fi>
+Message-ID: <ce85019e0801071219o2d06488dk2a5137cbb68875c@mail.gmail.com>
+
+> On 2008-01-07 20:45 +0200, Tuomo Valkonen wrote:
+> > The attached patch contains some improvements to the Ion build system,
+> > in particular for hopefully better Cygwin support. It does contain
+> > quite big modifications (to do things in one place instead of a zillion
+> > Makefiles), and I'd rather not make another RC release, so I'd appreciate
+> > people checking that it (still) works, even on non-Cygwin configurations,
+> > but in particular on that.
+
+[CC'd to Tuomo because I doubt this will make it to the list.]
+
+Thanks Tuomo, this works pretty well. My hackery was obviously the
+cause of statusd's date monitor not working, because it works just
+fine now.
+
+The only problem left is that 'make clean' doesn't know about *.exe,
+so they get left behind.
+
+Unless you know something better, you might want to add this to
+{ion,pwm,utils/ion-completefile,utils/ion-statusd}/Makefile:
+
+TO_CLEAN += $(EXECUTABLE)$(BIN_SUFFIX)
+
+-Bryan
+aka chreekat
+
+
+From tzz at lifelogs.com  Mon Jan  7 21:42:47 2008
+From: tzz at lifelogs.com (Ted Zlatanov)
+Date: Mon, 07 Jan 2008 14:42:47 -0600
+Subject: running shell commands when the mouse hits a corner
+Message-ID: <86lk71nz94.fsf@lifelogs.com>
+
+(I also posted this to the wmii mailing list, but thought Ion users
+might like it too)
+
+I found the xmousepos utility (part of the xautomation package).  I
+wrote a simple Perl script, using xmousepos, which is run like this:
+
+poscycle.pl -2 'xlock -mode matrix' 
+(run that command when corner 2, top right, is hit)
+
+poscycle.pl understands the xmousepos 'X Y ...' format, so any
+application that prints the mouse cursor position as a single line of
+output would work.  poscycle.pl has a -idle option for how long to wait,
+and -size for how big the "hit" spot should be.  It cycles every second
+so I doubt it's a big CPU hog.
+
+Also, the X and Y dimensions are set to 1920x1200 in the script, but can
+be overridden with -x and -y respectively.  I don't know how to grab
+those automatically.
+
+I hope it's useful to someone.
+
+Ted
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: poscycle.pl
+Type: text/x-perl
+Size: 2176 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080107/e3d00097/attachment.pl>
+
+From tuomov at iki.fi  Mon Jan  7 22:11:43 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 7 Jan 2008 21:11:43 +0000 (UTC)
+Subject: Some build. sys. improvs. (Cygwin in particular)
+References: <20080107184506.GA6503@jolt.modeemi.cs.tut.fi>
+	<20080107184604.GA6894@jolt.modeemi.cs.tut.fi>
+	<ce85019e0801071219o2d06488dk2a5137cbb68875c@mail.gmail.com>
+Message-ID: <slrnfo55cf.k99.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-01-07, Bryan Richter <bryan.richter at gmail.com> wrote:
+> The only problem left is that 'make clean' doesn't know about *.exe,
+> so they get left behind.
+
+'make realclean' should clean them up?
+
+-- 
+Tuomo
+
+
+
+From eichin-ion at thok.org  Mon Jan  7 22:12:19 2008
+From: eichin-ion at thok.org (Mark Eichin)
+Date: Mon, 07 Jan 2008 16:12:19 -0500
+Subject: running shell commands when the mouse hits a corner
+In-Reply-To: <86lk71nz94.fsf@lifelogs.com> (Ted Zlatanov's message of "Mon, 07
+	Jan 2008 14:42:47 -0600")
+References: <86lk71nz94.fsf@lifelogs.com>
+Message-ID: <87tzlpjq6k.fsf@curl-up-paw-under-nose.thok.org>
+
+> Also, the X and Y dimensions are set to 1920x1200 in the script, but can
+> be overridden with -x and -y respectively.  I don't know how to grab
+> those automatically.
+
+If you're into running commands instead of doing Xlib from perl
+directly, just run "xwininfo -root" and parse out the Width: and
+Height: fields.  (For multi-monitor setups, just run one on each
+screen, or maybe look at xdpyinfo and parse "screen #" and
+"dimensions:" instead.)
+
+
+From bryan.richter at gmail.com  Mon Jan  7 22:38:26 2008
+From: bryan.richter at gmail.com (Bryan Richter)
+Date: Mon, 7 Jan 2008 13:38:26 -0800
+Subject: Some build. sys. improvs. (Cygwin in particular)
+In-Reply-To: <slrnfo55cf.k99.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20080107184506.GA6503@jolt.modeemi.cs.tut.fi>
+	<20080107184604.GA6894@jolt.modeemi.cs.tut.fi>
+	<ce85019e0801071219o2d06488dk2a5137cbb68875c@mail.gmail.com>
+	<slrnfo55cf.k99.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <ce85019e0801071338y6443db82te95d1cdc680338b3@mail.gmail.com>
+
+On Jan 7, 2008 1:11 PM, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2008-01-07, Bryan Richter <bryan.richter at gmail.com> wrote:
+> > The only problem left is that 'make clean' doesn't know about *.exe,
+> > so they get left behind.
+>
+> 'make realclean' should clean them up?
+
+I had assumed that 'clean' would remove executables.
+
+But yeah, 'realclean' catches them.
+
+-Bryan
+
+
+From tzz at lifelogs.com  Mon Jan  7 22:47:37 2008
+From: tzz at lifelogs.com (Ted Zlatanov)
+Date: Mon, 07 Jan 2008 15:47:37 -0600
+Subject: running shell commands when the mouse hits a corner
+In-Reply-To: <87tzlpjq6k.fsf@curl-up-paw-under-nose.thok.org> (Mark Eichin's
+	message of "Mon, 07 Jan 2008 16:12:19 -0500")
+References: <86lk71nz94.fsf@lifelogs.com>
+	<87tzlpjq6k.fsf@curl-up-paw-under-nose.thok.org>
+Message-ID: <868x31nw92.fsf@lifelogs.com>
+
+On Mon, 07 Jan 2008 16:12:19 -0500 Mark Eichin <eichin-ion at thok.org> wrote: 
+
+>> Also, the X and Y dimensions are set to 1920x1200 in the script, but can
+>> be overridden with -x and -y respectively.  I don't know how to grab
+>> those automatically.
+
+ME> If you're into running commands instead of doing Xlib from perl
+ME> directly, just run "xwininfo -root" and parse out the Width: and
+ME> Height: fields.  (For multi-monitor setups, just run one on each
+ME> screen, or maybe look at xdpyinfo and parse "screen #" and
+ME> "dimensions:" instead.)
+
+I'd do Xlib directly to get the mouse position and the screen
+dimensions, but I just don't have the time to play with it.  I know
+Inline::C will do almost all the glue work, but the remaining 10% of
+work will take me a long time...  If you or someone else can tell me the
+Xlib calls to do those two things, I'll rewrite my script.  I did some
+googling but didn't hit useful information.
+
+There's a Perl X11::Protocol module but I'd rather not make the end user
+install a huge CPAN module just for a few lines of C.  Similarly, I'd
+rather not set up the X event loop if I can help it.  So the simpler the
+better...  Thanks for any ideas.
+
+Ted
+
+
+From tuomov at iki.fi  Mon Jan  7 22:53:15 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 7 Jan 2008 21:53:15 +0000 (UTC)
+Subject: Some build. sys. improvs. (Cygwin in particular)
+References: <20080107184506.GA6503@jolt.modeemi.cs.tut.fi>
+	<20080107184604.GA6894@jolt.modeemi.cs.tut.fi>
+	<ce85019e0801071219o2d06488dk2a5137cbb68875c@mail.gmail.com>
+	<slrnfo55cf.k99.tuomov@jolt.modeemi.cs.tut.fi>
+	<ce85019e0801071338y6443db82te95d1cdc680338b3@mail.gmail.com>
+Message-ID: <slrnfo57qb.o6f.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-01-07, Bryan Richter <bryan.richter at gmail.com> wrote:
+> I had assumed that 'clean' would remove executables.
+
+'clean' only removes (or should remove anyway) stuff that is
+not needed by 'install'.
+
+-- 
+Tuomo
+
+
+
+From eichin-ion at thok.org  Tue Jan  8 00:26:13 2008
+From: eichin-ion at thok.org (Mark Eichin)
+Date: Mon, 07 Jan 2008 18:26:13 -0500
+Subject: running shell commands when the mouse hits a corner
+In-Reply-To: <868x31nw92.fsf@lifelogs.com> (Ted Zlatanov's message of "Mon, 07
+	Jan 2008 15:47:37 -0600")
+References: <86lk71nz94.fsf@lifelogs.com>
+	<87tzlpjq6k.fsf@curl-up-paw-under-nose.thok.org>
+	<868x31nw92.fsf@lifelogs.com>
+Message-ID: <87myrhjjze.fsf@curl-up-paw-under-nose.thok.org>
+
+Ted Zlatanov <tzz at lifelogs.com> writes:
+
+> On Mon, 07 Jan 2008 16:12:19 -0500 Mark Eichin <eichin-ion at thok.org> wrote: 
+>
+>>> Also, the X and Y dimensions are set to 1920x1200 in the script, but can
+>>> be overridden with -x and -y respectively.  I don't know how to grab
+>>> those automatically.
+>
+> ME> If you're into running commands instead of doing Xlib from perl
+> ME> directly, just run "xwininfo -root" and parse out the Width: and
+> ME> Height: fields.  (For multi-monitor setups, just run one on each
+> ME> screen, or maybe look at xdpyinfo and parse "screen #" and
+> ME> "dimensions:" instead.)
+>
+> I'd do Xlib directly to get the mouse position and the screen
+> dimensions, but I just don't have the time to play with it.  I know
+> Inline::C will do almost all the glue work, but the remaining 10% of
+> work will take me a long time...  If you or someone else can tell me the
+> Xlib calls to do those two things, I'll rewrite my script.  I did some
+> googling but didn't hit useful information.
+
+I was mostly being sarcastic :-) I did an article on X11 in pure perl
+(the protocol is simpler than you'd expect) about 10 years ago in The
+Perl Journal, and it would *do* this, but shelling out to xwininfo is
+Just Fine, especially given that you're already calling xmousepos...
+
+> There's a Perl X11::Protocol module but I'd rather not make the end user
+> install a huge CPAN module just for a few lines of C.  Similarly, I'd
+> rather not set up the X event loop if I can help it.  So the simpler the
+> better...  Thanks for any ideas.
+
+If you do care about the C version - you get the window geometry for
+free from XOpenDisplay (most of what xdpyinfo prints is the stuff in a
+the Display* it gets back.)  You can look at xmousepos to see what
+it's doing for the pointer-location checking.
+
+(Given the overhead of Inline::C [hint, it uses a C compiler] the
+xwininfo version is likely to be faster, at least on startup, anyway :-)
+
+
+From fesc2000 at gmail.com  Tue Jan  8 11:56:03 2008
+From: fesc2000 at gmail.com (Felix Schmidt)
+Date: Tue, 8 Jan 2008 11:56:03 +0100
+Subject: clientwin_property_change_hook, enumerate.lua
+Message-ID: <24cf3e3e0801080256u6560ed9au78647950bb63d2be@mail.gmail.com>
+
+Hi,
+
+i'm trying to implement some application specific window handling. What i
+want to do is to get notified when a window's title changes and raise it. I
+used to do this by hacking the C-code and catching a change to the WM_NAME
+property, but i thought using a hook would be more elegent.
+
+It turns out that my hook never gets called back. I copied the code from the
+enumerate.lua script, and this also does not work as expected (if a window
+title changes, the numbering is not updated).
+
+Other hooks work fine with the same code, so i wonder if there is anything
+else i need to do to get notified about property changes.
+
+Version is 20080103.
+
+Thanks,
+
+Felix.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080108/c5414967/attachment.html>
+
+From tuomov at iki.fi  Tue Jan  8 12:47:38 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 8 Jan 2008 11:47:38 +0000 (UTC)
+Subject: clientwin_property_change_hook, enumerate.lua
+References: <24cf3e3e0801080256u6560ed9au78647950bb63d2be@mail.gmail.com>
+Message-ID: <slrnfo6omq.94f.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-01-08, Felix Schmidt <fesc2000 at gmail.com> wrote:
+> Other hooks work fine with the same code, so i wonder if there is anything
+> else i need to do to get notified about property changes.
+
+There shouldn't be. The following example (poorly-formatted copy-paste 
+from Mod1+F3) works for me.
+
+local tmp=io.open('NCHG', 'w'); function nchg_fn(reg, how) if how=='name'
+then tmp:write(string.format('%s\t%s\n', reg:name(), reg.__typename));
+tmp:flush(); end; end; ioncore.get_hook("region_notify_hook"):add(nchg_fn)
+
+-- 
+Tuomo
+
+
+
+From Albert.Shih at obspm.fr  Tue Jan  8 23:01:32 2008
+From: Albert.Shih at obspm.fr (Albert Shih)
+Date: Tue, 8 Jan 2008 23:01:32 +0100
+Subject: Desktop apps.
+Message-ID: <20080108220132.GB38238@pcjas.obspm.fr>
+
+Hi all.
+
+Those questions is not directly about ion, I'm sorry if it's forbiden.
+
+Please answer me directly not to mailing list. If there are enought answer
+I make a resume of the answer
+
+I like to post those questions here because I use ion and I think when we
+choose ion one reason it's because we are not mouse freak. I don't like
+do everything with the mouse. In fact...I hate mouse.
+
+Well I just want to known what's kind of desktop application you use for
+
+	Agenda 		--> I use wyrd with remind
+	Adresse book	--> 			abook 
+	Email		--> mutt
+
+For those applications have you particular tips for ion integration. 
+
+	Have you find any solution to don't use mouse with web browser ?
+
+BTW .... happy new year.
+
+Regards.
+
+
+
+--
+Albert SHIH
+Observatoire de Paris Meudon
+SIO batiment 15
+Heure local/Local time:
+Mar 8 jan 2008 22:51:23 CET
+
+
+From shardz4217 at gmail.com  Tue Jan  8 23:09:45 2008
+From: shardz4217 at gmail.com (Samuel Baldwin)
+Date: Tue, 8 Jan 2008 17:09:45 -0500
+Subject: Desktop apps.
+In-Reply-To: <20080108220132.GB38238@pcjas.obspm.fr>
+References: <20080108220132.GB38238@pcjas.obspm.fr>
+Message-ID: <975fd1710801081409l39591cd6w6e2ffcde4bb824fb@mail.gmail.com>
+
+2008/1/8, Albert Shih <Albert.Shih at obspm.fr>:
+> I like to post those questions here because I use ion and I think when we
+> choose ion one reason it's because we are not mouse freak. I don't like
+> do everything with the mouse. In fact...I hate mouse.
+
+Me too.
+
+>         Agenda          --> I use wyrd with remind
+>         Adresse book    -->                     abook
+>         Email           --> mutt
+>
+
+
+>         Have you find any solution to don't use mouse with web browser ?
+
+links, lynx, links2, elinks. Probably something in emacs too, if you
+go for that stuff. I read somewhere about VIM keys for firefox. I
+should look into that.
+
+-- 
+Samuel 'Shardz' Baldwin
+
+Shardz's Igloo: shardz.homelinux.net
+
+Registered Linux User #410639
+
+
+From shardz4217 at gmail.com  Tue Jan  8 23:11:15 2008
+From: shardz4217 at gmail.com (Samuel Baldwin)
+Date: Tue, 8 Jan 2008 17:11:15 -0500
+Subject: Desktop apps.
+In-Reply-To: <975fd1710801081409l39591cd6w6e2ffcde4bb824fb@mail.gmail.com>
+References: <20080108220132.GB38238@pcjas.obspm.fr>
+	<975fd1710801081409l39591cd6w6e2ffcde4bb824fb@mail.gmail.com>
+Message-ID: <975fd1710801081411h72994d2bx482168fa58bec95a@mail.gmail.com>
+
+2008/1/8, Samuel Baldwin <shardz4217 at gmail.com>:
+> >         Agenda          --> I use wyrd with remind
+> >         Adresse book    -->                     abook
+> >         Email           --> mutt
+> >
+
+Overzealous with the reply... I use mutt/gmail web interface for
+email. I just keep TODO files in my home directories, and mutt/gmail
+handles the addresses.
+
+-- 
+Samuel 'Shardz' Baldwin
+
+Shardz's Igloo: shardz.homelinux.net
+
+Registered Linux User #410639
+
+
+From nickmurdoch at gmail.com  Tue Jan  8 23:49:57 2008
+From: nickmurdoch at gmail.com (Nick Murdoch)
+Date: Tue, 08 Jan 2008 22:49:57 -0000
+Subject: Desktop apps.
+In-Reply-To: <20080108220132.GB38238@pcjas.obspm.fr>
+References: <20080108220132.GB38238@pcjas.obspm.fr>
+Message-ID: <op.t4mu1jd9q54ctd@localhost>
+
+On Tue, 08 Jan 2008 22:01:32 -0000, Albert Shih <Albert.Shih at obspm.fr>  
+wrote:
+> 	Have you find any solution to don't use mouse with web browser ?
+
+Presuming you want a graphical client rather than a terminal browser,  
+Opera is pretty nice for keybindings... an awful lot can be set in the  
+advanced preferences. Tab only cycles through form elements, and  
+Shift+arrows lets you select links, similarly to how elinks does it.
+
+
+From bryan.richter at gmail.com  Wed Jan  9 00:11:00 2008
+From: bryan.richter at gmail.com (Bryan Richter)
+Date: Tue, 8 Jan 2008 15:11:00 -0800
+Subject: Fwd: Desktop apps.
+In-Reply-To: <ce85019e0801081508h3d05a1ecr801bf68cbab5260c@mail.gmail.com>
+References: <20080108220132.GB38238@pcjas.obspm.fr>
+	<op.t4mu1jd9q54ctd@localhost>
+	<ce85019e0801081508h3d05a1ecr801bf68cbab5260c@mail.gmail.com>
+Message-ID: <ce85019e0801081511o6a672f49t3dd8f166436f4ded@mail.gmail.com>
+
+With apologies to Nick for pressing 'reply' instead of 'list-reply'.
+
+
+---------- Forwarded message ----------
+From: Bryan Richter <bryan.richter at gmail.com>
+Date: Jan 8, 2008 3:08 PM
+Subject: Re: Desktop apps.
+To: Nick Murdoch <nickmurdoch at gmail.com>
+
+
+
+On Jan 8, 2008 2:49 PM, Nick Murdoch <nickmurdoch at gmail.com> wrote:
+> On Tue, 08 Jan 2008 22:01:32 -0000, Albert Shih <Albert.Shih at obspm.fr>
+> wrote:
+> >       Have you find any solution to don't use mouse with web browser ?
+>
+> Presuming you want a graphical client rather than a terminal browser,
+> Opera is pretty nice for keybindings... an awful lot can be set in the
+> advanced preferences. Tab only cycles through form elements, and
+> Shift+arrows lets you select links, similarly to how elinks does it.
+>
+
+The Vimperator extension for Firefox is scrumptious. Apart from
+lessening the need for the mouse, it also creates very handy 1-key
+bindings for lots of things.
+
+You have to be a bit of a Vim freak to be comfortable with it, however.
+
+Another quality extension is ItsAllText, which I just remembered
+about! I will go install it now.
+
+
+
+
+--
+Bryan Richter
+
+
+
+-- 
+Bryan Richter
+
+
+From eichin-ion at thok.org  Wed Jan  9 00:11:15 2008
+From: eichin-ion at thok.org (Mark Eichin)
+Date: Tue, 08 Jan 2008 18:11:15 -0500
+Subject: Desktop apps.
+In-Reply-To: <20080108220132.GB38238@pcjas.obspm.fr> (Albert Shih's message of
+	"Tue, 8 Jan 2008 23:01:32 +0100")
+References: <20080108220132.GB38238@pcjas.obspm.fr>
+Message-ID: <874pdnkj58.fsf@curl-up-paw-under-nose.thok.org>
+
+
+> I like to post those questions here because I use ion and I think when we
+> choose ion one reason it's because we are not mouse freak. I don't like
+> do everything with the mouse. In fact...I hate mouse.
+>
+> Well I just want to known what's kind of desktop application you use for
+>
+> 	Agenda 		--> I use wyrd with remind
+> 	Adresse book	--> 			abook 
+> 	Email		--> mutt
+>
+> For those applications have you particular tips for ion integration. 
+>
+> 	Have you find any solution to don't use mouse with web browser ?
+
+conkeror, with numberedlinks (if you're an emacs type - vimperator if
+you prefer vi, I think.  Though w3m_img is pretty neat too.)
+
+
+From davison at stats.ox.ac.uk  Wed Jan  9 00:18:30 2008
+From: davison at stats.ox.ac.uk (Dan Davison)
+Date: Tue, 8 Jan 2008 23:18:30 +0000
+Subject: Desktop apps.
+In-Reply-To: <op.t4mu1jd9q54ctd@localhost>
+References: <20080108220132.GB38238@pcjas.obspm.fr>
+	<op.t4mu1jd9q54ctd@localhost>
+Message-ID: <20080108231830.GA17120@stats.ox.ac.uk>
+
+On Tue, Jan 08, 2008 at 10:49:57PM -0000, Nick Murdoch wrote:
+> On Tue, 08 Jan 2008 22:01:32 -0000, Albert Shih <Albert.Shih at obspm.fr>  
+> wrote:
+> >	Have you find any solution to don't use mouse with web browser ?
+> 
+> Presuming you want a graphical client rather than a terminal browser,  
+> Opera is pretty nice for keybindings... an awful lot can be set in the  
+
+So do people not like trying to use firefox from the keyboard? It doesn't
+seem that bad to me; e.g. <ctrl>-l to get the cursor in the address bar,
+<ctrl>-k to get the cursor in the search engine submit thing in the top 
+right, <ctrl>-up/down to select search  engine, type initial part of string 
+and <return> to select and follow link, / to search for text ...
+
+While we're on the subject, do people have any sensible way of doing the 
+following without mousing?
+
+- selecting text from e.g. mutt, and pasting into a different X window?
+- telling a browser to visit a URL contained in an email in mutt
+
+(Perhaps I need to learn more about clipboard features in ion3)
+
+> advanced preferences. Tab only cycles through form elements, and  
+> Shift+arrows lets you select links, similarly to how elinks does it.
+
+
+From realblades at gmail.com  Wed Jan  9 05:59:20 2008
+From: realblades at gmail.com (Harri Haataja)
+Date: Wed, 9 Jan 2008 06:59:20 +0200
+Subject: Desktop apps.
+In-Reply-To: <20080108231830.GA17120@stats.ox.ac.uk>
+References: <20080108220132.GB38238@pcjas.obspm.fr>
+	<op.t4mu1jd9q54ctd@localhost> <20080108231830.GA17120@stats.ox.ac.uk>
+Message-ID: <74e3492a0801082059k2d284ec7oe5addc9617589d46@mail.gmail.com>
+
+On 09/01/2008, Dan Davison <davison at stats.ox.ac.uk> wrote:
+> While we're on the subject, do people have any sensible way of doing the
+> following without mousing?
+>
+> - selecting text from e.g. mutt, and pasting into a different X window?
+
+Running (under) screen will give you selection and copying. I'm not
+sure if that can be passed to X selection. Istr seeing some hack about
+that.
+
+> - telling a browser to visit a URL contained in an email in mutt
+
+> (Perhaps I need to learn more about clipboard features in ion3)
+
+I'm not sure if ion messes with the clipboard in any particular way.
+
+-- 
+I appear to be temporarily using gmail's horrible interface. I
+apologise for any failure in my part in trying to make it do the right
+thing with post formatting.
+
+
+From mestelan at gmail.com  Wed Jan  9 10:11:49 2008
+From: mestelan at gmail.com (Jean-Baptiste Mestelan)
+Date: Wed, 9 Jan 2008 10:11:49 +0100
+Subject: Desktop apps.
+In-Reply-To: <20080108231830.GA17120@stats.ox.ac.uk>
+References: <20080108220132.GB38238@pcjas.obspm.fr>
+	<op.t4mu1jd9q54ctd@localhost> <20080108231830.GA17120@stats.ox.ac.uk>
+Message-ID: <eaa71e3e0801090111u5506f048q34308976ea5235f5@mail.gmail.com>
+
+On 09/01/2008, Dan Davison <davison at stats.ox.ac.uk> wrote:
+> So do people not like trying to use firefox from the keyboard? It doesn't
+> seem that bad to me; e.g. <ctrl>-l to get the cursor in the address bar,
+> <ctrl>-k to get the cursor in the search engine submit thing in the top
+> right, <ctrl>-up/down to select search  engine, type initial part of string
+> and <return> to select and follow link, / to search for text ...
+
+Yes, and F7 toggles 'caret browsing' mode, which is a lot more
+convenient for selecting text.
+(The drawback is that, on some pages, this prevents from scrolling
+using PgUp/PgDwn. So you WILL have to toggle between modes).
+
+
+From nickmurdoch at gmail.com  Wed Jan  9 10:22:15 2008
+From: nickmurdoch at gmail.com (Nick Murdoch)
+Date: Wed, 09 Jan 2008 09:22:15 -0000
+Subject: Disabling or bipassing shorcut keys
+Message-ID: <op.t4nobdldq54ctd@localhost>
+
+Hi,
+
+A nice feature of ion2 was that a lot of key combinations that were  
+usually ion's keybindings were actually passed to an app when it was in  
+fullscreen mode. A handy product of this was that I could open a vnc  
+client to another box running ion and still have enough keys passed  
+through to the viewer to be able to control the remote ion session.
+
+ion3 intercepts all the keybindings when in full screen mode, meaning I  
+can't do this. So, I was wondering if it's possible to have a key or set  
+up an xprop or similar that would allow me to disable the host's ion3's  
+bindings while I need to use them for that specific application.
+
+Another example where this would be useful would be in applications like  
+Xara Xtreme (a vector graphics program), which has F-key bindings for a  
+lot of the tools.
+
+I understand the best solution would be to use a program that let me  
+configure its keybindings so that they don't conflict, or to have  
+different keybindings set in ion3, but I'd rather not do either if that's  
+avoidable.
+
+Thanks,
+
+Nick
+
+
+From tuomov at iki.fi  Wed Jan  9 10:49:45 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 9 Jan 2008 09:49:45 +0000 (UTC)
+Subject: Disabling or bipassing shorcut keys
+References: <op.t4nobdldq54ctd@localhost>
+Message-ID: <slrnfo965p.806.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-01-09, Nick Murdoch <nickmurdoch at gmail.com> wrote:
+> A nice feature of ion2 was that a lot of key combinations that were  
+> usually ion's keybindings were actually passed to an app when it was in  
+> fullscreen mode. 
+>
+> ion3 intercepts all the keybindings when in full screen mode, meaning I  
+> can't do this. 
+
+Wrong. Difference is that a lot more of the bindings are in the 
+global (WScreen) or the client window context in Ion3, while they
+were e.g. in the frame context in Ion2. Just moving bindings away
+from these context (modifying them suitably) will make those keys
+available in FS mode.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Wed Jan  9 11:04:07 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 9 Jan 2008 10:04:07 +0000 (UTC)
+Subject: Desktop apps.
+References: <20080108220132.GB38238@pcjas.obspm.fr>
+	<op.t4mu1jd9q54ctd@localhost>
+Message-ID: <slrnfo970n.806.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-01-08, Nick Murdoch <nickmurdoch at gmail.com> wrote:
+> Presuming you want a graphical client rather than a terminal browser,  
+> Opera is pretty nice for keybindings... an awful lot can be set in the  
+> advanced preferences. Tab only cycles through form elements, and  
+> Shift+arrows lets you select links, similarly to how elinks does it.
+
+I find that Opera is actually _more_ keyboard-usable than the typical
+text-mode browsers. A lot of the time I just use inline search to go to
+a link. Spatial navigation is also nice, although that could be improved^1.
+With a lot of search keywords (^l to location bar, "wp foobar" for wikipedia
+search, etc.), as well as address completion, there's little need to touch 
+the mouse for browsing well-designed Web pages (i.e. those that have not 
+seen a Web Designer). Opera also supports configuration the bindings,
+though a rather awkward WIMPy interface, which is still better than
+Firefox's "install an extension and hunt for javascript snippets all
+over the Web for even remapping existing bindings".
+
+
+^1 I'd like there to be some indication where it will take
+you, because it isn't always clear in complex layouts, and there
+should also be header navigation, like with the linear, w/s. I'd
+also like it not to jump page, when the next option isn't visible,
+but rather scroll, possibly not moving anywhere, until a target
+is visible. Among other possible improvements.)
+
+-- 
+Tuomo
+
+
+
+From andreas.bernauer at gmx.de  Thu Jan 10 12:34:58 2008
+From: andreas.bernauer at gmx.de (Andreas Bernauer)
+Date: Thu, 10 Jan 2008 12:34:58 +0100
+Subject: Desktop apps.
+In-Reply-To: <20080108231830.GA17120@stats.ox.ac.uk>
+References: <20080108220132.GB38238@pcjas.obspm.fr>
+	<op.t4mu1jd9q54ctd@localhost>
+	<20080108231830.GA17120@stats.ox.ac.uk>
+Message-ID: <20080110113458.GD4450@informatik.uni-tuebingen.de>
+
+Dan Davison schrieb am Di, 08. Jan 2008 um 23:18 (+0000):
+> - telling a browser to visit a URL contained in an email in mutt
+
+Check http://www.mutt.org/links.html for urlview
+
+Andreas.
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080110/2c2da048/attachment.pgp>
+
+From lanek at novenine.com  Fri Jan 11 04:39:23 2008
+From: lanek at novenine.com (Roy Lanek)
+Date: Fri, 11 Jan 2008 10:39:23 +0700
+Subject: Desktop apps.
+In-Reply-To: <20080110113458.GD4450@informatik.uni-tuebingen.de>
+References: <20080108220132.GB38238@pcjas.obspm.fr>
+	<op.t4mu1jd9q54ctd@localhost>
+	<20080108231830.GA17120@stats.ox.ac.uk>
+	<20080110113458.GD4450@informatik.uni-tuebingen.de>
+Message-ID: <20080111033923.GA15023@sirih>
+
+> Dan Davison schrieb am Di, 08. Jan 2008 um 23:18 (+0000):
+> > - telling a browser to visit a URL contained in an email in mutt
+> 
+> Check http://www.mutt.org/links.html for urlview
+
+On *l'art pour l'art*,^1 example:
+
+I use ELinks 99.99...% of the time. Since YEARS. And use Links a couple of
+times a month ... when I really need/want to watch some graphics, say that I
+want to have some fun and wish to witness a close up of Hugo Chavez when he
+tells to Condi: --"don't mess with me, chica."-- :)
+
+This to make clear that I am COMFORTABLE enough [I believe and hope] with a
+text-mode browser, ELinks.
+
+And here is the example. I am just building the last sysstat [it could be
+anything else], version 8.0.4 [2008-01-06], whose source I have downloaded a
+couple of days ago.
+
+sysstat comes without asc- or sig-files ... on the other hand, the md5sums are
+published--which is better than nothing.
+
+Good, I have waited one-two-three days, have not read monster-/terror-stories
+on sysstat in the interval, hence I go: I check the md5sum on *term, copy
+the result, type '/' in ELinks, paste the checksum into the field just below
+"Search for text," type enter ... thankfully there is a match.
+
+I could imagine more or less laborious and industrious ways to do the same
+without using the mouse. But why do so ... for "art's sake"?
+
+ELinks works VERY WELL with the mouse. Which is a blessing--e.g., by using the
+mouse one doesn't need to repeatedly press the arrows '^' and 'v' [whatever],
+or to do searches for reaching a given entry/field.
+
+Ditto, of course, with Mutt: copy and paste ... via selection of the
+respective displays, *c'est tout*.
+
+One of the MANY advantages of Ion is that one can have many windows open
+contemporaneously without having the screen messed up; *maybe* there is an
+ELinks running already, somewhere ... while ELinks supports PERFECTLY tabbing
+as Ion does: just type 't'.
+
+Cheers,
+
+/Roy
+
+
+     1. "Art for art's sake" is the usual English rendition of a French
+slogan, from the early 19th century, ''l'art pour l'art'', and expresses
+a philosophy that the intrinsic value of art, and the only "true" art, is
+divorced from any didactic, moral or utilitarian function.
+http://en.wikipedia.org/wiki/Art_for_art's_sake
+
+
+
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  jadilah kumbang, hidup sekali di taman bunga,
+SSSSS . s l a c k w a r e  SSSSSS  jangan jadi lalat, hidup sekali di bukit sampah
+SSSSS +------------ linux  SSSSSS  be a bee, lived once in a flowery garden,
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  not a fly, lived once in heaps of garbage
+
+
+From lanek at novenine.com  Fri Jan 11 05:18:05 2008
+From: lanek at novenine.com (Roy Lanek)
+Date: Fri, 11 Jan 2008 11:18:05 +0700
+Subject: Desktop apps.--addendum
+In-Reply-To: <20080111033923.GA15023@sirih>
+References: <20080108220132.GB38238@pcjas.obspm.fr>
+	<op.t4mu1jd9q54ctd@localhost>
+	<20080108231830.GA17120@stats.ox.ac.uk>
+	<20080110113458.GD4450@informatik.uni-tuebingen.de>
+	<20080111033923.GA15023@sirih>
+Message-ID: <20080111041805.GA23446@sirih>
+
+> On *l'art pour l'art*,^1 example:
+
+Addendum:
+
+add in your .muttrc something like:
+
+# --    Items in the body:
+# --    ------------------
+color body      white           brightgreen     "http://[^ ]*"
+color body      white           brightgreen     "ftp://[^ ]*"
+color body      white           brightgreen     \
+                                                \
+                    "[[:alnum:]][-+.#_[:alnum:]]*@[-+.[:alnum:]]*[[:alnum:]]"
+
+
+if it's not there already. Then you can pick up URLs and addresses like
+cherries.
+
+/Roy
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   bagai air di daun talas--as if water on a
+SSSSS . s l a c k w a r e  SSSSSS   leaf of talas [two things that never get
+SSSSS +------------ linux  SSSSSS   along ... talas has a thin waxy layer and
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   therefore is waterproof]
+
+
+From lanek at novenine.com  Fri Jan 11 06:20:06 2008
+From: lanek at novenine.com (Roy Lanek)
+Date: Fri, 11 Jan 2008 12:20:06 +0700
+Subject: "security holes" off-topic
+Message-ID: <20080111052006.GA27574@sirih>
+
+For what it's worth, but nevertheless ...
+
+     Popular open source projects such as Samba, the PHP, Perl, Tcl dynamic
+     languages, and Amanda were all found to have dozens or hundreds of
+     security exposures.
+
+     By Charles Babcock
+     InformationWeek
+     January 8, 2008 09:40 AM
+
+     http://www.informationweek.com/story/showArticle.jhtml?articleID=20560022
+     9&cid=RSSfeed_IWK_All
+
+     [...]
+
+     Linux came in with far fewer defects than average as did a number of
+     other open source projects. The version 2.6 of the Linux kernel had a
+     security bug rate of .127 per thousand lines of code. The kernel scan
+     covered 3,639,322 lines of code. As exposures were identified by repeated
+     scans, 452 defects have been fixed by kernel developers; 48 have been
+     verified but not yet fixed; another 413 remain to be verified and fixed,
+     according to code scanning results posted on the Coverity.
+
+     FreeBSD, sometimes posed as an alternative to Linux, has been slower to
+     respond to the Coverity scans. In 1,582,166 lines of code, it has fixed
+     zero defects, verified six and has another 605 to go.
+
+     x Tuomo:
+     --------
+     Linux user interfaces also came in for a thorough review. The KDE
+     interface contains 4,712,273 lines of code, has fixed 1,554 defects, has
+     verified another 25 and has only 65 to go. Gnome contains 430,809 lines
+     of code, has fixed 357 defects, verified 5 and has 214 to go.
+
+     [...]
+
+Cheers,
+
+/Roy
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   tak ada rotan, akar pun jadi
+SSSSS . s l a c k w a r e  SSSSSS   no rattans, roots will do [if you are
+SSSSS +------------ linux  SSSSSS   desperate, you must not be choosy]
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+
+
+From tuomov at iki.fi  Fri Jan 11 11:30:29 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 11 Jan 2008 10:30:29 +0000 (UTC)
+Subject: "security holes" off-topic
+References: <20080111052006.GA27574@sirih>
+Message-ID: <slrnfoeha5.sat.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-01-11, Roy Lanek <lanek at novenine.com> wrote:
+>      --------
+>      Linux user interfaces also came in for a thorough review. The KDE
+>      interface contains 4,712,273 lines of code, has fixed 1,554 defects, has
+>      verified another 25 and has only 65 to go. Gnome contains 430,809 lines
+>      of code, has fixed 357 defects, verified 5 and has 214 to go.
+
+Umm... 4,712,273 vs. 430,809 lines of code? Surely they're not including
+all of Gnome.
+
+-- 
+Tuomo
+
+
+
+From lobzang at free.fr  Mon Jan 14 10:58:46 2008
+From: lobzang at free.fr (lobzang at free.fr)
+Date: Mon, 14 Jan 2008 10:58:46 +0100
+Subject: Riot
+In-Reply-To: <slrnfiguvd.ce8.tuomov@jolt.modeemi.cs.tut.fi>
+References: <1193834196.472876d4cf935@imp.free.fr>
+	<slrnfiguvd.ce8.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <1200304726.478b3256127b2@imp.free.fr>
+
+Hi,
+
+I wrote a vim twiki-like syntax that I called twiki, this is very simple but
+very helpful.
+
+I would like to change the default temporary file name opened (vi).
+Currently the names are like /tmp/riot-wB98lI , I would like the names to be
+suffixed by .twiki . I looked at the code but I'm not a programmer :)
+Do you think that can be done easily ?
+
+Thank you, Lobzang.
+
+
+Quoting Tuomo Valkonen <tuomov at iki.fi>:
+
+> On 2007-10-31, lobzang at free.fr <lobzang at free.fr> wrote:
+> > Is there any chance Riot have any update ?
+>
+> Snowball's chance in hell. Seriously, though, I'm _very_ slowly
+> working on some major changes -- the pace recently seems to have
+> been about two hours a month -- so it might take a few years for
+> there to be anything to publish, if ever. In all likelyhood, the
+> release will be license-free [1] (i.e. The Piratic License applies)
+> and for Windows, after I've spent a few more years writing a highly
+> sophisticated terminal emulator for it. Right now, other things
+> have precedence over coding, however.
+>
+>   [1]: http://thedjbway.org/license_free.html
+>
+> --
+> Tuomo
+>
+>
+
+
+
+
+From tuomov at iki.fi  Mon Jan 14 12:17:23 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 14 Jan 2008 13:17:23 +0200
+Subject: Riot
+In-Reply-To: <1200304726.478b3256127b2@imp.free.fr>
+References: <1193834196.472876d4cf935@imp.free.fr>
+	<slrnfiguvd.ce8.tuomov@jolt.modeemi.cs.tut.fi>
+	<1200304726.478b3256127b2@imp.free.fr>
+Message-ID: <20080114111722.GA30427@jolt.modeemi.cs.tut.fi>
+
+On 2008-01-14 10:58 +0100, lobzang at free.fr wrote:
+> I would like the names to be
+> suffixed by .twiki . I looked at the code but I'm not a programmer :)
+> Do you think that can be done easily ?
+
+It demands some work. Essentially use of mkstemp in  make_temp in
+Riot/Editor.hs needs to be replaced with something else (mkstemp
+requiring the template to be of a particular form that can't have
+an extension).
+
+-- 
+Tuomo
+
+
+From lanek at novenine.com  Mon Jan 14 18:58:50 2008
+From: lanek at novenine.com (Roy Lanek)
+Date: Tue, 15 Jan 2008 00:58:50 +0700
+Subject: "security holes" off-topic
+In-Reply-To: <slrnfoeha5.sat.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20080111052006.GA27574@sirih>
+	<slrnfoeha5.sat.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080114175850.GA8634@sirih>
+
+
+> >      The KDE interface contains 4,712,273 lines of code, has fixed 1,554
+> >      defects, has verified another 25 and has only 65 to go. Gnome
+> >      contains 430,809 lines of code, has fixed 357 defects, verified 5 and
+> >      has 214 to go.
+> 
+> Umm... 4,712,273 vs. 430,809 lines of code? Surely they're not including
+> all of Gnome.
+
+:)
+
+Also ... KDE: 1600 defects only per 5 million lines of code--it would be
+outclassing the M-U-C-H tinier Postfix [how many lines? less than 50'000 I
+bet, that is < 1/100] which has been designed by a security expert programmer
+with security as the goal from the start, already--and down from 1600 to 100
+"with only 65 to go" by surplus. Miracle.
+
+Quite likely it's about *defects* of a kind a given program can detect in
+other programs (hello halting theorem) ... it recalls me very much the
+statistics on Finland's guns which xinhuanet.com has (mis)quoted time ago [see
+a previous, off-topic post].
+
+Anyway. I have been told--by friends ... I have seen deserts only from the
+windows of the airplanes, unfortunately--that a guide of the [African] desert
+has commented once, in years in which GPS and GLONAS were not used yet, that
+when rescue teams managed to locate people who went lost in the desert the
+former nearly always managed to reconstruct how the latter did try to drink
+EVERYTHING before dying: water from the flasks, water from the radiator of the
+car, aftershave, shampoo, toothpaste, ...
+
+At which stage are *we* [I mean, the people directly or indirectly mentioned
+by the article]--drinking water of the radiator, or shampoo?
+
+One reason more to love Ion, and ... cheers
+
+/Roy
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  jadilah kumbang, hidup sekali di taman bunga,
+SSSSS . s l a c k w a r e  SSSSSS  jangan jadi lalat, hidup sekali di bukit sampah
+SSSSS +------------ linux  SSSSSS  be a bee, lived once in a flowery garden,
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  not a fly, lived once in heaps of garbage
+
+
+From lanek at novenine.com  Mon Jan 14 20:01:31 2008
+From: lanek at novenine.com (Roy Lanek)
+Date: Tue, 15 Jan 2008 02:01:31 +0700
+Subject: "security holes" off-topic--addendum
+In-Reply-To: <20080114175850.GA8634@sirih>
+References: <20080111052006.GA27574@sirih>
+	<slrnfoeha5.sat.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080114175850.GA8634@sirih>
+Message-ID: <20080114190131.GA14697@sirih>
+
+
+     Noted "secure coder" Wietse Venema estimates that there is roughly one
+     security bug per 1000 lines in his source code.^1
+
+If writing programs would be a proportional matter--which is not--that is,
+if writing a program of 10'000 lines is like writing 10 programs of 1'000
+lines each, of 100'000 like 10 of 10'000, and so on; and if we say that KDE
+has been written by fellows such Venema or better only; then there should be
+5000 [5'000'000 / 1'000] security bugs in KDE. [Security bugs nota bene, not
+counting the other bugs.] Half-good fellows as Venema makes 10'000 security
+bugs [how many lines of source code for Ion?], and 15'000 for programers 1/3
+as good as Venema ... admitting the proportionality from above.
+
+
+     1. Mark G. Graff, Kenneth R. van Wyk, Secure Coding, Principles &
+Practice, O'Reilly. [Roy: notice the general "in his source code," Venema has
+not only written Postfix.]
+
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   anjing menggonggong, kafilah tetap berlalu
+SSSSS . s l a c k w a r e  SSSSSS   the dogs are barking, the caravan moves on
+SSSSS +------------ linux  SSSSSS   [illustrates useless protest, critic, or
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   sarcasm]
+
+
+From eric at boese-wolf.eu  Wed Jan 16 11:23:00 2008
+From: eric at boese-wolf.eu (Eric =?utf-8?Q?B=C3=B6se-Wolf?=)
+Date: Wed, 16 Jan 2008 11:23:00 +0100
+Subject: Application toggled fullscreen should be in WFloatWS
+Message-ID: <873asy2hob.fsf@hq.LOKALETLD>
+
+Hello all,
+
+if I toggle fullscreen mode in an application from within the
+application it gets placed on a new workspace. I want this workspace to
+be of type WFloatWS. How can I do this?
+
+Yours sincerely,
+
+Eric
+-- 
+If you think technology can solve your problems you don't understand
+technology and you don't understand your problems.  (Bruce Schneier)
+
+
+From tuomov at iki.fi  Wed Jan 16 21:54:45 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 16 Jan 2008 20:54:45 +0000 (UTC)
+Subject: Application toggled fullscreen should be in WFloatWS
+References: <873asy2hob.fsf@hq.LOKALETLD>
+Message-ID: <slrnfosrol.n04.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-01-16, Eric B??se-Wolf <eric at boese-wolf.eu> wrote:
+> if I toggle fullscreen mode in an application from within the
+> application it gets placed on a new workspace. I want this workspace to
+> be of type WFloatWS. How can I do this?
+
+There are no different workspace classes anymore. They're all groups
+(WGroupWS), that typically contain a tiling (WTiling) as their "bottom"
+element.
+
+-- 
+Tuomo
+
+
+
+From eric at boese-wolf.eu  Wed Jan 16 23:45:29 2008
+From: eric at boese-wolf.eu (Eric =?utf-8?Q?B=C3=B6se-Wolf?=)
+Date: Wed, 16 Jan 2008 23:45:29 +0100
+Subject: Application toggled fullscreen should be in WFloatWS
+In-Reply-To: <slrnfosrol.n04.tuomov@jolt.modeemi.cs.tut.fi> (Tuomo Valkonen's
+	message of "Wed, 16 Jan 2008 20:54:45 +0000 (UTC)")
+References: <873asy2hob.fsf@hq.LOKALETLD>
+	<slrnfosrol.n04.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <877ii9v186.fsf@hq.LOKALETLD>
+
+Tuomo Valkonen <tuomov at iki.fi> writes:
+
+> On 2008-01-16, Eric B??se-Wolf <eric at boese-wolf.eu> wrote:
+>> if I toggle fullscreen mode in an application from within the
+>> application it gets placed on a new workspace. I want this workspace to
+>> be of type WFloatWS. How can I do this?
+>
+> There are no different workspace classes anymore. They're all groups
+> (WGroupWS), that typically contain a tiling (WTiling) as their "bottom"
+> element.
+
+I use ion2 with last changelog entry dated to 2004-07-29.
+(debian lenny ion2 package)
+
+mfg
+Eric
+-- 
+If you think technology can solve your problems you don't understand
+technology and you don't understand your problems.  (Bruce Schneier)
+
+
+From tuomov at iki.fi  Thu Jan 17 01:08:06 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 17 Jan 2008 00:08:06 +0000 (UTC)
+Subject: Application toggled fullscreen should be in WFloatWS
+References: <873asy2hob.fsf@hq.LOKALETLD>
+	<slrnfosrol.n04.tuomov@jolt.modeemi.cs.tut.fi>
+	<877ii9v186.fsf@hq.LOKALETLD>
+Message-ID: <slrnfot736.92b.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-01-16, Eric B??se-Wolf <eric at boese-wolf.eu> wrote:
+> I use ion2 
+
+No can do. Not easily anyway. The FS window is neither on a WFloatWS 
+nor a WIonWS (or whatwasit). Rather the client window object is directly
+attached to the screen.  It is possible to script attaching to any type 
+of (new) WS from within Ion, but application requests for FS always 
+do what is asked: to put it in FS mode (instead of grouped mode).
+
+-- 
+Tuomo
+
+
+
+From lobzang at free.fr  Thu Jan 17 16:36:01 2008
+From: lobzang at free.fr (lobzang at free.fr)
+Date: Thu, 17 Jan 2008 16:36:01 +0100
+Subject: Riot
+In-Reply-To: <20080114111722.GA30427@jolt.modeemi.cs.tut.fi>
+References: <1193834196.472876d4cf935@imp.free.fr>
+	<slrnfiguvd.ce8.tuomov@jolt.modeemi.cs.tut.fi>
+	<1200304726.478b3256127b2@imp.free.fr>
+	<20080114111722.GA30427@jolt.modeemi.cs.tut.fi>
+Message-ID: <1200584161.478f75e1372cb@imp.free.fr>
+
+Quoting Tuomo Valkonen <tuomov at iki.fi>:
+
+> It demands some work. Essentially use of mkstemp in  make_temp in
+> Riot/Editor.hs needs to be replaced with something else (mkstemp
+> requiring the template to be of a particular form that can't have
+> an extension).
+>
+> --
+> Tuomo
+
+
+OK for now I found a workaround : I simply add the following line in every
+document I want to use my syntax
+
+# vim: syntax=twiki
+
+
+Lobzang.
+
+
+From tuomov at iki.fi  Thu Jan 17 16:59:47 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 17 Jan 2008 17:59:47 +0200
+Subject: Riot
+In-Reply-To: <1200584161.478f75e1372cb@imp.free.fr>
+References: <1193834196.472876d4cf935@imp.free.fr>
+	<slrnfiguvd.ce8.tuomov@jolt.modeemi.cs.tut.fi>
+	<1200304726.478b3256127b2@imp.free.fr>
+	<20080114111722.GA30427@jolt.modeemi.cs.tut.fi>
+	<1200584161.478f75e1372cb@imp.free.fr>
+Message-ID: <20080117155947.GA3300@jolt.modeemi.cs.tut.fi>
+
+On 2008-01-17 16:36 +0100, lobzang at free.fr wrote:
+> OK for now I found a workaround : I simply add the following line in every
+> document I want to use my syntax
+> 
+> # vim: syntax=twiki
+
+Hmm.. maybe vim supports providing this information on the command
+line too? In that case all you'd have to do is set VISUAL for Riot
+to something with the parameter set.
+
+Or maybe you can configure vim to match against /tmp/riot-* for
+twiki syntax?
+
+-- 
+Tuomo
+
+
+From sns at severinghaus.org  Thu Jan 17 17:22:46 2008
+From: sns at severinghaus.org (Steven N. Severinghaus)
+Date: Thu, 17 Jan 2008 10:22:46 -0600
+Subject: Riot
+In-Reply-To: <20080117155947.GA3300@jolt.modeemi.cs.tut.fi>
+References: <1193834196.472876d4cf935@imp.free.fr>	<slrnfiguvd.ce8.tuomov@jolt.modeemi.cs.tut.fi>	<1200304726.478b3256127b2@imp.free.fr>	<20080114111722.GA30427@jolt.modeemi.cs.tut.fi>	<1200584161.478f75e1372cb@imp.free.fr>
+	<20080117155947.GA3300@jolt.modeemi.cs.tut.fi>
+Message-ID: <478F80D6.9060307@severinghaus.org>
+
+Tuomo Valkonen said the following on 2008-01-17 09:59:
+> Hmm.. maybe vim supports providing this information on the command
+> line too? In that case all you'd have to do is set VISUAL for Riot
+> to something with the parameter set.
+
+Something along these lines:
+
+export VISUAL="vim +'set filetype=twiki'"
+
+> Or maybe you can configure vim to match against /tmp/riot-* for
+> twiki syntax?
+
+Something like this in your ~/.vimrc could work:
+
+autocmd BufRead,BufNewFile /tmp/riot-* setfiletype twiki
+
+Hope that helps,
+-Steve
+
+-- 
+Steven N. Severinghaus
+sns at severinghaus.org
+http://severinghaus.org/
+
+
+From lobzang at free.fr  Thu Jan 17 17:52:34 2008
+From: lobzang at free.fr (lobzang at free.fr)
+Date: Thu, 17 Jan 2008 17:52:34 +0100
+Subject: Riot
+In-Reply-To: <478F80D6.9060307@severinghaus.org>
+References: <1193834196.472876d4cf935@imp.free.fr>
+	<slrnfiguvd.ce8.tuomov@jolt.modeemi.cs.tut.fi>
+	<1200304726.478b3256127b2@imp.free.fr>
+	<20080114111722.GA30427@jolt.modeemi.cs.tut.fi>
+	<1200584161.478f75e1372cb@imp.free.fr>
+	<20080117155947.GA3300@jolt.modeemi.cs.tut.fi>
+	<478F80D6.9060307@severinghaus.org>
+Message-ID: <1200588754.478f87d23fef4@imp.free.fr>
+
+Great that did it thank you :)
+
+FYI I added the following in .vimrc :
+autocmd BufRead,BufNewFile /tmp/riot-* set filetype=twiki
+
+So now riot looks really cool!
+
+Lobzang.
+
+
+Quoting "Steven N. Severinghaus" <sns at severinghaus.org>:
+
+> Tuomo Valkonen said the following on 2008-01-17 09:59:
+> > Hmm.. maybe vim supports providing this information on the command
+> > line too? In that case all you'd have to do is set VISUAL for Riot
+> > to something with the parameter set.
+>
+> Something along these lines:
+>
+> export VISUAL="vim +'set filetype=twiki'"
+>
+> > Or maybe you can configure vim to match against /tmp/riot-* for
+> > twiki syntax?
+>
+> Something like this in your ~/.vimrc could work:
+>
+> autocmd BufRead,BufNewFile /tmp/riot-* setfiletype twiki
+>
+> Hope that helps,
+> -Steve
+>
+> --
+> Steven N. Severinghaus
+> sns at severinghaus.org
+> http://severinghaus.org/
+>
+
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: riot.png
+Type: image/png
+Size: 4420 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080117/15e25d73/attachment.png>
+
+From tuomov at iki.fi  Sun Jan 20 20:23:05 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 20 Jan 2008 21:23:05 +0200
+Subject: Interfacing random C functions from Lua scripts
+Message-ID: <20080120192305.GA6980@jolt.modeemi.cs.tut.fi>
+
+Every now and then, people ask for access to random C functions
+from Lua. Providing access to all of them through Ion is the 
+wrong approach that would make Ion itself bloated. But the set
+of Lua libraries isn't that big either (but be sure to check
+the LuaForge [1]).
+
+So the way to do it in that case, is to provide your own C
+bindings. Unfortunately, that's a bit cumbersome, if you have
+to write an extra Lua or Ion module in addition to your script.
+Fortunately, LuaTCC [2] provides support for inline C code in your
+Lua scripts. It is dependent on the Tiny C Compiler (TCC) [3].
+As have attached to this email, the example of the oft-requested
+'setenv'.
+
+  [1]: http://luaforge.net/
+
+  [2]: http://luatcc.luaforge.net/
+
+  [3]: http://fabrice.bellard.free.fr/tcc/
+
+-- 
+Tuomo
+-------------- next part --------------
+require("tcc") -- http://luatcc.luaforge.net/
+
+local LUA_PATH='/usr/local'
+
+local ctx=tcc.new()
+
+ctx:add_include_path(LUA_PATH)
+ctx:add_library_path(LUA_PATH)
+
+ctx:compile[[
+    #include <stdlib.h>
+    #include <string.h>
+    #include <errno.h>
+    #include <lua.h>
+    #include <lauxlib.h>
+    int lua_setenv(lua_State *st)
+    {
+        const char *name=luaL_checkstring(st, 1);
+        const char *value=luaL_checkstring(st, 2);
+        if(setenv(name, value, 1)!=0){
+            lua_pushstring(st, strerror(errno));
+            lua_error(st);
+        }
+        return 0;
+    }
+]]
+
+ctx:relocate()
+
+os.setenv=ctx:get_symbol('lua_setenv')
+
+-- Test
+os.setenv("FOO", "BAR")
+print(os.getenv("FOO"))
+
+
+From eric at boese-wolf.eu  Mon Jan 21 11:40:10 2008
+From: eric at boese-wolf.eu (Eric =?utf-8?Q?B=C3=B6se-Wolf?=)
+Date: Mon, 21 Jan 2008 11:40:10 +0100
+Subject: Deactivate mouse in X [OT]
+Message-ID: <87lk6jihrp.fsf@hq.LOKALETLD>
+
+How can I deactivate my mouse, so that I get not disturbed from
+touching it?
+
+I could simply unplug it, but I want to have a method of deactivating
+and activating it from within X.
+
+Yours sincerely,
+
+Eric
+-- 
+If you think technology can solve your problems you don't understand
+technology and you don't understand your problems.  (Bruce Schneier)
+
+
+From eric at boese-wolf.eu  Mon Jan 21 11:48:16 2008
+From: eric at boese-wolf.eu (Eric =?utf-8?Q?B=C3=B6se-Wolf?=)
+Date: Mon, 21 Jan 2008 11:48:16 +0100
+Subject: Deactivate mouse in X [OT] [solved]
+In-Reply-To: <87lk6jihrp.fsf@hq.LOKALETLD> ("Eric =?utf-8?Q?B=C3=B6se-Wolf?=
+	=?utf-8?Q?=22's?= message of "Mon, 21 Jan 2008 11:40:10 +0100")
+References: <87lk6jihrp.fsf@hq.LOKALETLD>
+Message-ID: <87lk6jh2tr.fsf@hq.LOKALETLD>
+
+Hello everybody,
+
+this is solved by having a second InputDevice with device="/dev/null"
+and using xsetpointer.
+
+yours sincerely
+
+Eric B?se-Wolf
+-- 
+If you think technology can solve your problems you don't understand
+technology and you don't understand your problems.  (Bruce Schneier)
+
+
+From davison at stats.ox.ac.uk  Mon Jan 21 12:44:10 2008
+From: davison at stats.ox.ac.uk (Dan Davison)
+Date: Mon, 21 Jan 2008 11:44:10 +0000
+Subject: Deactivate mouse in X [OT] [solved]
+In-Reply-To: <87lk6jh2tr.fsf@hq.LOKALETLD>
+References: <87lk6jihrp.fsf@hq.LOKALETLD> <87lk6jh2tr.fsf@hq.LOKALETLD>
+Message-ID: <20080121114410.GB21168@stats.ox.ac.uk>
+
+On Mon, Jan 21, 2008 at 11:48:16AM +0100, Eric B?se-Wolf wrote:
+> Hello everybody,
+> 
+[question is how to deactivate mouse temporarily]
+
+FWIW, to toggle the touchpad on my laptop (Fujitsu-Siemens lifebook S series 
+running Fedora Core 5) I use
+
+kpress("F12", "ioncore.exec_on(_, 'touchpad')")
+
+in the WScreen context bindings, where ~/bin/touchpad is the following
+
+---------------------------------------
+#!/bin/bash
+
+state=`synclient -l | grep TouchpadOff | cut -d "=" -f 2`
+
+if [ $state = '0' ] ; then
+    synclient TouchpadOff=1
+elif [ $state = '1' ] ; then
+    synclient TouchpadOff=0
+else
+    echo "$(basename $0): failed to determine current state of touchpad"
+    exit 1
+fi
+--------------------------------------
+
+This seems to work, but I'd be interested to know if people have criticisms.
+
+Dan
+
+
+> this is solved by having a second InputDevice with device="/dev/null"
+> and using xsetpointer.
+> 
+> yours sincerely
+> 
+> Eric B?se-Wolf
+> -- 
+> If you think technology can solve your problems you don't understand
+> technology and you don't understand your problems.  (Bruce Schneier)
+
+
+From tuomov at iki.fi  Mon Jan 21 16:47:09 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 21 Jan 2008 15:47:09 +0000 (UTC)
+Subject: Deactivate mouse in X [OT]
+References: <87lk6jihrp.fsf@hq.LOKALETLD>
+Message-ID: <slrnfp9fjt.3ep.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-01-21, Eric B??se-Wolf <eric at boese-wolf.eu> wrote:
+> How can I deactivate my mouse, so that I get not disturbed from
+> touching it?
+
+In Ion3, there's ioncore.set{mousefocus='disabled'}. (However, the
+check for the setting appear to have been lost presently...)
+
+-- 
+Tuomo
+
+
+
+From nickmurdoch at gmail.com  Mon Jan 21 16:48:07 2008
+From: nickmurdoch at gmail.com (Nick Murdoch)
+Date: Mon, 21 Jan 2008 15:48:07 -0000
+Subject: Deactivate mouse in X [OT] [solved]
+In-Reply-To: <20080121114410.GB21168@stats.ox.ac.uk>
+References: <87lk6jihrp.fsf@hq.LOKALETLD> <87lk6jh2tr.fsf@hq.LOKALETLD>
+	<20080121114410.GB21168@stats.ox.ac.uk>
+Message-ID: <op.t5ad6hwvq54ctd@localhost>
+
+On Mon, 21 Jan 2008 11:44:10 -0000, Dan Davison <davison at stats.ox.ac.uk>  
+wrote:
+
+> On Mon, Jan 21, 2008 at 11:48:16AM +0100, Eric B?se-Wolf wrote:
+>> Hello everybody,
+>>
+> [question is how to deactivate mouse temporarily]
+>
+> FWIW, to toggle the touchpad on my laptop (Fujitsu-Siemens lifebook S  
+> series
+> running Fedora Core 5) I use
+>
+> kpress("F12", "ioncore.exec_on(_, 'touchpad')")
+
+Ah, and then press F12 to turn the keyboard back on again.... wait.... :P
+
+
+From jan0sch at gmx.net  Fri Jan 25 16:44:47 2008
+From: jan0sch at gmx.net (Jens Jahnke)
+Date: Fri, 25 Jan 2008 16:44:47 +0100
+Subject: autocomplete for ssh
+Message-ID: <20080125164447.3a48cf80.jan0sch@gmx.net>
+
+Hi there,
+
+ist it possible to have Ion's ssh feature autocomplete?
+I tried the solution from the FAQ (I put several hosts in my ssh config
+file.) but it still does no autocompletion.
+I'm using ion3 rc version from 20080103 on an ubuntu gutsy distribution.
+
+regards,
+
+Jens
+
+-- 
+25. Hartung 2008, 16:33
+Homepage : http://www.jan0sch.de
+
+You have many friends and very few living enemies.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 697 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080125/8f5b6598/attachment.pgp>
+
+From tuomov at iki.fi  Fri Jan 25 19:06:22 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 25 Jan 2008 18:06:22 +0000 (UTC)
+Subject: autocomplete for ssh
+References: <20080125164447.3a48cf80.jan0sch@gmx.net>
+Message-ID: <slrnfpk98u.phl.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-01-25, Jens Jahnke <jan0sch at gmx.net> wrote:
+> --Signature=_Fri__25_Jan_2008_16_44_47_+0100_6gYMlkYUz.n732gC
+> Content-Type: text/plain; charset=US-ASCII
+> Content-Disposition: inline
+> Content-Transfer-Encoding: quoted-printable
+>
+> Hi there,
+>
+> ist it possible to have Ion's ssh feature autocomplete?
+
+It does autocomplete, from the contents of ~/.ssh/known_hosts,
+i.e. typically to hosts you have previously connected to. Maybe
+your file uses hashed host names or something like? Ion can't 
+read it then.
+
+The FAQ entry you're probably referring to, only tells you how
+to have SSH itself use a particular port and a host name on a
+given host.
+
+-- 
+Tuomo
+
+
+
+From jan0sch at gmx.net  Fri Jan 25 19:37:02 2008
+From: jan0sch at gmx.net (Jens Jahnke)
+Date: Fri, 25 Jan 2008 19:37:02 +0100
+Subject: autocomplete for ssh
+In-Reply-To: <slrnfpk98u.phl.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20080125164447.3a48cf80.jan0sch@gmx.net>
+	<slrnfpk98u.phl.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080125193702.80925407.jan0sch@gmx.net>
+
+Hi,
+
+On Fri, 25 Jan 2008 18:06:22 +0000 (UTC)
+Tuomo Valkonen <tuomov at iki.fi> wrote:
+
+TV> It does autocomplete, from the contents of ~/.ssh/known_hosts,
+TV> i.e. typically to hosts you have previously connected to. Maybe
+TV> your file uses hashed host names or something like? Ion can't 
+TV> read it then.
+
+thanks for pointing out. The file used hashes indeed. I changed that to
+hostnames and now everything works as expected.
+
+greetings,
+
+Jens
+
+-- 
+25. Hartung 2008, 19:35
+Homepage : http://www.jan0sch.de
+
+Mal: "Use of a swhat?"
+				--Episode #4, "Shindig"
+
+
+From ben at decadent.org.uk  Sun Jan 27 15:35:47 2008
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Sun, 27 Jan 2008 14:35:47 +0000
+Subject: Bug#462690: flashplugin-nonfree's new fullscreen mode doesn't
+	work with ion3
+In-Reply-To: <20080127112432.GA2152@tux4u.de>
+References: <20080126214549.16676.13071.reportbug@flybook.weissi.de>
+	<1201398454.3704.15.camel@deadeye.i.decadent.org.uk>
+	<20080127112432.GA2152@tux4u.de>
+Message-ID: <1201444547.3704.37.camel@deadeye.i.decadent.org.uk>
+
+On Sun, 2008-01-27 at 12:24 +0100, Johannes Weiss wrote:
+> Hi,
+> 
+> > > Package: ion3
+> > > Version: 20080103-1
+> > > Severity: normal
+> > > 
+> > > the fullscreen window opens shortly but closes immediately...
+> > > In GNOME it works.
+> > 
+> > I noticed a similar problem myself on one web site, but assumed it was a
+> > site-specific scripting bug.  If it affects Flash full-screen mode in
+> > general, this is probably a bug in Flash - it's very unlikely that Ion3
+> > is telling the window to close.  However it may be possible to configure
+> > a kluge-rule for Ion3 that will work around the bug.  Can you point to a
+> > specific web site that demonstrates this problem?
+> 
+> It affects the NEW (since flash 9.0.115.0) fullscreen-mode in general.
+> In older flashplayers it was not possible (under Linux) to switch to
+> fullscreen-mode on an existing window. That was very bad, because you had
+> to watch e.g. youtube-videos from the beginning when you wanted to switch to
+> fullscreen.
+> That is now fixed with a real flash fullscreen mode, but it does work with ion
+> at all. Some sample sites:
+> 
+> - http://youtube.com -- choose any video and press fullscreen
+> - http://myvideo.de -- the same thing
+> - http://flowplayer.org/demo/h264
+> 
+> be sure to have installed
+> ii  flashplugin-nonfree 9.0.115.0.1         Adobe Flash Player plugin installer
+
+This seems to be a bug in Flash.  I was able to workaround this by
+adding a nasty hack to cfg_ion.lua:
+
+-- Flash player opens full-screen windows from Firefox with size request
+-- 200x200.  It closes them if they lose focus, but also if they get focus
+-- too quickly.  Therefore delay focus for 100 ms.
+-- Note that we can't create a timer in the match function, and we can't
+-- change switchto in the hook function, so we need both.
+
+defwinprop {
+   class = "Firefox-bin",
+   match = function(prop, cwin, id)
+	      local geom = cwin:geom()
+	      return geom.w == 200 and geom.h == 200
+	   end,
+   switchto = false,
+}
+
+ioncore.get_hook("clientwin_do_manage_alt"):add(
+   function(cwin, table)
+      local ident = cwin:get_ident()
+      local geom = cwin:geom()
+      if ident.class == "Firefox-bin" and geom.w == 200 and geom.h == 200 then
+	 local timer = ioncore.create_timer()
+	 timer:set(100, function() cwin:goto() end)
+	 return true
+      else
+	 return false
+      end
+   end
+)
+
+Ben.
+
+-- 
+Ben Hutchings
+One of the nice things about standards is that there are so many of them.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080127/89482384/attachment.pgp>
+
+From tuomov at iki.fi  Sun Jan 27 16:44:28 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 27 Jan 2008 15:44:28 +0000 (UTC)
+Subject: Bug#462690: flashplugin-nonfree's new fullscreen mode doesn't
+	work with ion3
+References: <20080126214549.16676.13071.reportbug@flybook.weissi.de>
+	<1201398454.3704.15.camel@deadeye.i.decadent.org.uk>
+	<20080127112432.GA2152@tux4u.de>
+	<1201444547.3704.37.camel@deadeye.i.decadent.org.uk>
+Message-ID: <slrnfpp9ms.re2.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-01-27, Ben Hutchings <ben at decadent.org.uk> wrote:
+> -- Note that we can't create a timer in the match function, and we can't
+> -- change switchto in the hook function, so we need both.
+
+You can ioncore.defer(). Also, in the clientwin_do_manage_alt handler,
+it would be possible to check for ioncore.getwinprop(cwin).flashy_shite
+or so, instead of duplicating code.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sun Jan 27 16:45:39 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 27 Jan 2008 15:45:39 +0000 (UTC)
+Subject: Bug#462690: flashplugin-nonfree's new fullscreen mode doesn't
+	work with ion3
+References: <20080126214549.16676.13071.reportbug@flybook.weissi.de>
+	<1201398454.3704.15.camel@deadeye.i.decadent.org.uk>
+	<20080127112432.GA2152@tux4u.de>
+	<1201444547.3704.37.camel@deadeye.i.decadent.org.uk>
+	<20080127144716.GA8492@tux4u.de>
+Message-ID: <slrnfpp9p3.re2.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-01-27, Johannes Weiss <weiss at tux4u.de> wrote:
+> Should I report a bug for the flashplugin 
+
+You expect them to care?
+
+-- 
+Tuomo
+
+
+
+From ben at decadent.org.uk  Mon Jan 28 00:37:34 2008
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Sun, 27 Jan 2008 23:37:34 +0000
+Subject: Bug#462690: flashplugin-nonfree's new fullscreen mode doesn't
+	work with ion3
+In-Reply-To: <slrnfpp9ms.re2.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20080126214549.16676.13071.reportbug@flybook.weissi.de>
+	<1201398454.3704.15.camel@deadeye.i.decadent.org.uk>
+	<20080127112432.GA2152@tux4u.de>
+	<1201444547.3704.37.camel@deadeye.i.decadent.org.uk>
+	<slrnfpp9ms.re2.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <1201477054.31686.14.camel@deadeye.i.decadent.org.uk>
+
+On Sun, 2008-01-27 at 15:44 +0000, Tuomo Valkonen wrote:
+> On 2008-01-27, Ben Hutchings <ben at decadent.org.uk> wrote:
+> > -- Note that we can't create a timer in the match function, and we can't
+> > -- change switchto in the hook function, so we need both.
+> 
+> You can ioncore.defer(). Also, in the clientwin_do_manage_alt handler,
+> it would be possible to check for ioncore.getwinprop(cwin).flashy_shite
+> or so, instead of duplicating code.
+
+OK, here's a cleaner version.  It also increases the focus delay a
+little, and adds a check for full-screen state, to reduce the risk of a
+false positive.  (Is there a simpler way to check this?)
+
+-- Flash player opens full-screen windows from Firefox with size
+-- request 200x200.  It closes them if they lose focus, but also if
+-- they get focus too quickly.  Therefore set focus 200 ms after
+-- such a window is mapped (this may need to be adjusted on slower
+-- computers).
+
+_NET_WM_STATE = ioncore.x_intern_atom('_NET_WM_STATE', false)
+_NET_WM_STATE_FULLSCREEN = ioncore.x_intern_atom('_NET_WM_STATE_FULLSCREEN',
+						 false)
+
+function is_fullscreen(cwin)
+   local state = ioncore.x_get_window_property(cwin:xid(), _NET_WM_STATE, 4,
+					       1, true)
+   if state then
+      for k, v in pairs(state) do
+	 if v == _NET_WM_STATE_FULLSCREEN then
+	    return true
+	 end
+      end
+   end
+   return false
+end
+
+defwinprop {
+   class = "Firefox-bin",
+   match = function(prop, cwin, id)
+	      local geom = cwin:geom()
+	      return is_fullscreen(cwin) and geom.w == 200 and geom.h == 200
+	   end,
+   switchto = false,
+   flash_fullscreen = true,
+}
+
+ioncore.get_hook('clientwin_do_manage_alt'):add(
+   function(cwin, table)
+      local winprop = ioncore.getwinprop(cwin)
+      if winprop and winprop.flash_fullscreen then
+	 local timer = ioncore.create_timer()
+	 timer:set(200, function() cwin:goto() end)
+	 return true
+      else
+	 return false
+      end
+   end
+)
+
+Ben.
+
+-- 
+Ben Hutchings
+One of the nice things about standards is that there are so many of them.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080127/68cc4d06/attachment.pgp>
+
+From samer.abdallah at elec.qmul.ac.uk  Mon Jan 28 01:32:30 2008
+From: samer.abdallah at elec.qmul.ac.uk (Samer Abdallah)
+Date: Mon, 28 Jan 2008 00:32:30 +0000
+Subject: Command line scripting
+In-Reply-To: <1201477054.31686.14.camel@deadeye.i.decadent.org.uk>
+References: <20080126214549.16676.13071.reportbug@flybook.weissi.de>
+	<1201398454.3704.15.camel@deadeye.i.decadent.org.uk>
+	<20080127112432.GA2152@tux4u.de>
+	<1201444547.3704.37.camel@deadeye.i.decadent.org.uk>
+	<slrnfpp9ms.re2.tuomov@jolt.modeemi.cs.tut.fi>
+	<1201477054.31686.14.camel@deadeye.i.decadent.org.uk>
+Message-ID: <B21474C2-731A-40DE-8D64-D1F0D0EB2AB6@elec.qmul.ac.uk>
+
+Hi,
+I'm wondering if there's a way to send commands to a running instance
+of ion3 from the command line, eg through a remote shell without access
+to the console. In particular I'd like to be able to hide the scratch  
+pad or
+dock.
+
+- Samer.
+
+
+From tuomov at iki.fi  Mon Jan 28 08:54:20 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 28 Jan 2008 07:54:20 +0000 (UTC)
+Subject: Command line scripting
+References: <20080126214549.16676.13071.reportbug@flybook.weissi.de>
+	<1201398454.3704.15.camel@deadeye.i.decadent.org.uk>
+	<20080127112432.GA2152@tux4u.de>
+	<1201444547.3704.37.camel@deadeye.i.decadent.org.uk>
+	<slrnfpp9ms.re2.tuomov@jolt.modeemi.cs.tut.fi>
+	<1201477054.31686.14.camel@deadeye.i.decadent.org.uk>
+	<B21474C2-731A-40DE-8D64-D1F0D0EB2AB6@elec.qmul.ac.uk>
+Message-ID: <slrnfpr2hc.the.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-01-28, Samer Abdallah <samer.abdallah at elec.qmul.ac.uk> wrote:
+> I'm wondering if there's a way to send commands to a running instance
+> of ion3 from the command line, eg through a remote shell without access
+> to the console. In particular I'd like to be able to hide the scratch  
+> pad or
+> dock.
+
+darcs get http://modeemi.fi/~tuomov/repos/mod_ionflux-3/
+
+-- 
+Tuomo
+
+
+
+From jan0sch at gmx.net  Tue Jan 29 18:34:50 2008
+From: jan0sch at gmx.net (Jens Jahnke)
+Date: Tue, 29 Jan 2008 18:34:50 +0100
+Subject: Keybindings
+Message-ID: <20080129183450.0334d529.jan0sch@gmx.net>
+
+Hi there,
+
+I tried to configure some keybindings and they don't seem to work.
+The corresponding file:
+jens at nifelheim:~# cat .ion3/cfg_keys.lua 
+-- some shortcuts
+defbindings("WScreen", {
+  kpress(XF86WWW, "ioncore.exec_on(_, 'opera -nomail')"),
+  kpress(XF86Search, "ioncore.exec_on(_, 'xfe')"),
+  kpress(XF86Mail, "ioncore.exec_on(_, 'sylpheed')"),
+  kpress(XF86Forward, "WScreen.switch_next(_)"),
+  kpress(XF86Back, "WScreen.switch_prev(_)"),
+})
+
+The file is/should be parsed via cfg_defaults.lua (dopath("cfg_keys")).
+If I fire up xev and press the corresponding keys I can see, that they are
+set correctly via .Xmodmap but ion simply ignores them.
+Is there some thing I'm missing?
+
+regards,
+
+Jens
+
+p.s.: ion3 rc 20080103
+
+-- 
+29. Hartung 2008, 18:29
+Homepage : http://www.jan0sch.de
+
+An honest tale speeds best being plainly told.
+		-- William Shakespeare, "Henry VI"
+
+
+From jorge.gajon at gmail.com  Tue Jan 29 18:44:12 2008
+From: jorge.gajon at gmail.com (Jorge Gajon)
+Date: Tue, 29 Jan 2008 11:44:12 -0600
+Subject: Keybindings
+In-Reply-To: <20080129183450.0334d529.jan0sch@gmx.net>
+References: <20080129183450.0334d529.jan0sch@gmx.net>
+Message-ID: <3661995d0801290944r7588e4eam5a904580935f77cf@mail.gmail.com>
+
+On Jan 29, 2008 11:34 AM, Jens Jahnke <jan0sch at gmx.net> wrote:
+> Hi there,
+>
+> I tried to configure some keybindings and they don't seem to work.
+> The corresponding file:
+> jens at nifelheim:~# cat .ion3/cfg_keys.lua
+> -- some shortcuts
+> defbindings("WScreen", {
+>   kpress(XF86WWW, "ioncore.exec_on(_, 'opera -nomail')"),
+>   kpress(XF86Search, "ioncore.exec_on(_, 'xfe')"),
+>   kpress(XF86Mail, "ioncore.exec_on(_, 'sylpheed')"),
+>   kpress(XF86Forward, "WScreen.switch_next(_)"),
+>   kpress(XF86Back, "WScreen.switch_prev(_)"),
+> })
+>
+
+Shouldn't the key names be strings?, try it:
+
+  kpress("XF86WWW", "ioncore.exec_on(_, 'opera -nomail')")
+
+
+
+Regards,
+- Jorge
+
+
+From tuomov at iki.fi  Tue Jan 29 19:03:23 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 29 Jan 2008 18:03:23 +0000 (UTC)
+Subject: Keybindings
+References: <20080129183450.0334d529.jan0sch@gmx.net>
+Message-ID: <slrnfpuqjb.s3.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-01-29, Jens Jahnke <jan0sch at gmx.net> wrote:
+> The file is/should be parsed via cfg_defaults.lua (dopath("cfg_keys")).
+
+cfg_defaults.lua (see the name) is not exactly intended for user
+modification, cfg_ion.lua is.
+
+-- 
+Tuomo
+
+
+
+From jan0sch at gmx.net  Tue Jan 29 19:37:38 2008
+From: jan0sch at gmx.net (Jens Jahnke)
+Date: Tue, 29 Jan 2008 19:37:38 +0100
+Subject: Keybindings
+In-Reply-To: <slrnfpuqjb.s3.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20080129183450.0334d529.jan0sch@gmx.net>
+	<slrnfpuqjb.s3.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080129193738.990f07d6.jan0sch@gmx.net>
+
+On Tue, 29 Jan 2008 18:03:23 +0000 (UTC)
+Tuomo Valkonen <tuomov at iki.fi> wrote:
+
+TV> On 2008-01-29, Jens Jahnke <jan0sch at gmx.net> wrote:
+TV> > The file is/should be parsed via cfg_defaults.lua (dopath("cfg_keys")).
+TV> 
+TV> cfg_defaults.lua (see the name) is not exactly intended for user
+TV> modification, cfg_ion.lua is.
+
+ack. :-)
+As Jorge pointed out the missing " solved the problem.
+
+regards,
+
+Jens
+
+-- 
+29. Hartung 2008, 19:36
+Homepage : http://www.jan0sch.de
+
+Q:	Why is Christmas just like a day at the office?
+A:	You do all of the work and the fat guy in the suit
+	gets all the credit.
+
+

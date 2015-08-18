@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> empty workspace and kpress bindings
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20empty%20workspace%20and%20kpress%20bindings&In-Reply-To=%3C20080921162017.GA3950%40ATAC%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001386.html">
+   <LINK REL="Next"  HREF="001390.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>empty workspace and kpress bindings</H1>
+    <B>John Harrigan</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20empty%20workspace%20and%20kpress%20bindings&In-Reply-To=%3C20080921162017.GA3950%40ATAC%3E"
+       TITLE="empty workspace and kpress bindings">jfharrigan at fedex.com
+       </A><BR>
+    <I>Sun Sep 21 18:20:17 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001386.html">fullscreen flash videos with firefox
+</A></li>
+        <LI>Next message: <A HREF="001390.html">empty workspace and kpress bindings
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1388">[ date ]</a>
+              <a href="thread.html#1388">[ thread ]</a>
+              <a href="subject.html#1388">[ subject ]</a>
+              <a href="author.html#1388">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I have a problem where my button bindings sometimes aren't detected
+on an empty workspace.  It doesn't always happen but can be consistently
+reproduced with the following steps.
+
+My .xinitrc:
+   #!/bin/sh
+   conky &amp;
+   ion3
+
+My cfg_binding.lua:
+   defbindings(&quot;WScreen&quot;, {
+      bdoc(&quot;Switch to next/previous object within current screen.&quot;),
+      kpress(&quot;Super_L&quot;, &quot;WScreen.switch_prev(_)&quot;),
+      kpress(&quot;Super_R&quot;, &quot;WScreen.switch_next(_)&quot;),
+
+      bdoc(&quot;Display the main menu.&quot;),
+      kpress(&quot;Menu&quot;, &quot;mod_menu.bigmenu(_, _sub, 'mainmenu')&quot;),
+   })
+
+1)  start X without a .ion3 directory
+2)  use F9 to create an empty workspace named Root
+3)  exit X
+4)  add cfg_binding.lua to .ion3 directory
+5)  add the following line to global cfg_ion.lua:
+
+   dopath(&quot;cfg_binding&quot;)
+
+6)  start X again
+7)  use mouse to focus right split (i.e. empty split, not conky split)
+8)  Use Menu key to bring up menu and 'Run' xterm
+9)  exit xterm
+10) use Super_L to switch to Root (i.e. empty workspace)
+
+At this point Super_L and Menu won't do anything when pressed.
+If I use the mouse to bring up a menu the key bindings will
+start working again.  Also, if I switch focus to the conky
+split before using Super_L to go to the the empty workspace
+the keys will function as expected.
+
+I'm using ion-3-20080825 and lua-5.1.4.  Conky is configured
+to draw to it's own window, not to the root window.
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001386.html">fullscreen flash videos with firefox
+</A></li>
+	<LI>Next message: <A HREF="001390.html">empty workspace and kpress bindings
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1388">[ date ]</a>
+              <a href="thread.html#1388">[ thread ]</a>
+              <a href="subject.html#1388">[ subject ]</a>
+              <a href="author.html#1388">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

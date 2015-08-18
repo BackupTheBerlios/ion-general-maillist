@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> RPM spec file for ion3 for Fedora
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-May/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20RPM%20spec%20file%20for%20ion3%20for%20Fedora&In-Reply-To=%3Calpine.LFD.2.00.0905270001050.16621%40localhost.localdomain%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001649.html">
+   <LINK REL="Next"  HREF="001651.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>RPM spec file for ion3 for Fedora</H1>
+    <B>Timandahaf</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20RPM%20spec%20file%20for%20ion3%20for%20Fedora&In-Reply-To=%3Calpine.LFD.2.00.0905270001050.16621%40localhost.localdomain%3E"
+       TITLE="RPM spec file for ion3 for Fedora">timandahaf+dev at gmail.com
+       </A><BR>
+    <I>Wed May 27 06:23:53 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001649.html">VirtualBox seamless mode
+</A></li>
+        <LI>Next message: <A HREF="001651.html">RPM spec file for ion3 for Fedora
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1650">[ date ]</a>
+              <a href="thread.html#1650">[ thread ]</a>
+              <a href="subject.html#1650">[ subject ]</a>
+              <a href="author.html#1650">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I have an rpm spec file to build ion3 rpms for Fedora. I've been using
+these for a long while on all my systems and I've been meaning to put
+them up somewhere.
+
+This is tested under Fedora Core 6, and Fedora Releases 7 through 10, on
+i386 and x86_64.
+
+To create your own rpm file, run the following commands (tested to work
+on a Fedora system):
+
+$ sudo -c &quot;yum install gcc rpm-build rpmdevtools lua lua-devel libX11-devel libSM-devel gettext&quot;
+$ rpmdev-setuptree 
+$ cd ~/rpmbuild/SOURCES
+$ wget <A HREF="http://iki.fi/tuomov/dl/ion-3-20090110.tar.gz">http://iki.fi/tuomov/dl/ion-3-20090110.tar.gz</A>
+$ cd ~/rpmbuild/SPEC
+$ mv ~/ion.spec ~/rpmbuild/SPEC
+$ rpmbuild -ba ion.spec
+
+
+Voila. You should find your rpm in ~/rpmbuild/RPMS/&lt;arch&gt;/ion*.rpm.
+-------------- next part --------------
+Name:           ion
+Version:        3
+Release:        20090110
+Summary:        Ion is a tiling window manager
+
+Group:          User Interface/Desktops
+License:        LGPLv2 with exceptions
+URL:            <A HREF="http://modeemi.fi/~tuomov/ion">http://modeemi.fi/~tuomov/ion</A>
+Source0:        <A HREF="http://iki.fi/tuomov/dl/ion-3-20090110.tar.gz">http://iki.fi/tuomov/dl/ion-3-20090110.tar.gz</A>
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+BuildRequires:  lua lua-devel libX11-devel libSM-devel libXext-devel gettext 
+Requires:       lua filesystem man
+
+%description
+Ion is a tiling tabbed window manager designed with keyboard users in mind.
+
+%prep
+%setup -n ion-3-20090110
+
+sed 's-/usr/local-/usr-' system.mk &gt; system.mk.$$
+cp -f system.mk.$$ system.mk
+sed 's/^ETCDIR\(.*\)\$(PREFIX)\(.*\)$/ETCDIR\1\2/' system.mk &gt; system.mk.$$
+cp -f system.mk.$$ system.mk
+rm -f system.mk.$$
+
+%build
+make
+
+
+%install
+rm -rf $RPM_BUILD_ROOT
+mkdir $RPM_BUILD_ROOT
+sed &quot;s%^PREFIX=.*%PREFIX=$RPM_BUILD_ROOT/usr%&quot; system.mk &gt; system.mk.install.$$
+cp -f system.mk.install.$$ system.mk
+sed &quot;s%ETCDIR=\(.*$\)%ETCDIR=$RPM_BUILD_ROOT\1%&quot; system.mk &gt; system.mk.install.$$
+cp -f system.mk.install.$$ system.mk
+rm -f system.mk.install.$$
+make install
+%find_lang %{name}3
+#cd $RPM_BUILD_ROOT &amp;&amp; find usr -type d | grep -v '^usr/share$' | grep -v '^usr/lib$' | grep -v '^usr/bin$' | grep -v '^usr$' | grep -v '^etc/$' | grep -v '^usr/share/doc$' | grep -v '$usr/share/man$'  | grep -v '^usr/share/man/man1$' | sed 's-^-%dir /-' &gt; DIRLIST.RPM
+# find usr -type d | grep ion3 | sed 's-^-%dir /-' &gt; DIRLIST.RPM
+#cd $RPM_BUILD_ROOT &amp;&amp; find usr -type f | sed 's-^-/-' | grep -v '^/usr/lib/debug' &gt; FILELIST.RPM
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files -f %{name}3.lang
+#%files -f FILELIST.RPM
+%defattr(-,root,root,-)
+#%doc LICENSE
+%config(noreplace) /etc/*
+
+%dir /usr/share/doc/ion3
+%dir /usr/share/ion3
+%dir /usr/lib/ion3
+%dir /usr/lib/ion3/bin
+%dir /usr/lib/ion3/lc
+%dir /usr/lib/ion3/mod
+
+/usr/bin/ion3
+/usr/bin/pwm3
+/usr/share/man/man1/pwm3.1.gz
+/usr/share/man/man1/ion3.1.gz
+/usr/share/man/fi/man1/pwm3.1.gz
+/usr/share/man/fi/man1/ion3.1.gz
+/usr/share/man/cs/man1/pwm3.1.gz
+/usr/share/man/cs/man1/ion3.1.gz
+/usr/share/doc/ion3/LICENSE
+/usr/share/doc/ion3/RELNOTES
+/usr/share/doc/ion3/ChangeLog
+/usr/share/doc/ion3/README
+/usr/share/ion3/welcome.txt
+/usr/share/ion3/welcome.fi.txt
+/usr/share/ion3/ion-completeman
+/usr/share/ion3/welcome.cs.txt
+/usr/share/ion3/ion-runinxterm
+/usr/lib/ion3/bin/ion-statusd
+/usr/lib/ion3/bin/ion-completefile
+/usr/lib/ion3/lc/ioncore_ext.lc
+/usr/lib/ion3/lc/ioncore_winprops.lc
+/usr/lib/ion3/lc/ioncore_tabnum.lc
+/usr/lib/ion3/lc/ioncore_bindings.lc
+/usr/lib/ion3/lc/de.lc
+/usr/lib/ion3/lc/ioncore_luaext.lc
+/usr/lib/ion3/lc/ioncore_wd.lc
+/usr/lib/ion3/lc/statusd_mail.lc
+/usr/lib/ion3/lc/mod_statusbar.lc
+/usr/lib/ion3/lc/mod_sm.lc
+/usr/lib/ion3/lc/statusd_load.lc
+/usr/lib/ion3/lc/mod_query.lc
+/usr/lib/ion3/lc/ioncore_misc.lc
+/usr/lib/ion3/lc/mod_query_chdir.lc
+/usr/lib/ion3/lc/statusd_date.lc
+/usr/lib/ion3/lc/ioncore_efbb.lc
+/usr/lib/ion3/lc/ioncore_quasiact.lc
+/usr/lib/ion3/lc/mod_dock.lc
+/usr/lib/ion3/lc/mod_tiling.lc
+/usr/lib/ion3/lc/mod_sp.lc
+/usr/lib/ion3/lc/ioncore_menudb.lc
+/usr/lib/ion3/lc/mod_menu.lc
+/usr/lib/ion3/mod/mod_menu.so
+/usr/lib/ion3/mod/mod_statusbar.so
+/usr/lib/ion3/mod/mod_sp.so
+/usr/lib/ion3/mod/de.so
+/usr/lib/ion3/mod/mod_query.so
+/usr/lib/ion3/mod/mod_tiling.so
+/usr/lib/ion3/mod/mod_sm.so
+/usr/lib/ion3/mod/mod_dock.so
+
+
+
+%changelog
+* Sat Feb 7 2009 Timandahaf &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">timandahaf at gmail.com</A>&gt; 3-20090110
+  - Upgraded to the 20090110 version.
+* Fri Oct 17 2008 Timandahaf &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">timandahaf at gmail.com</A>&gt; 3-20081002
+  - Upgraded to the 20081002 version.
+* Tue Sep 23 2008 Timandahaf &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">timandahaf at gmail.com</A>&gt; 3-20080825
+  - Upgraded to the 20080825 version.
+* Sat Jan 05 2008 Timandahaf &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">timandahaf at gmail.com</A>&gt; 3-0.1.rc.20080103
+  - Upgraded to the 20080103 version.
+* Mon Dec 12 2007 Timandahaf &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">timandahaf at gmail.com</A>&gt; 3-0.1.rc.20071130
+  - Initial build.
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001649.html">VirtualBox seamless mode
+</A></li>
+	<LI>Next message: <A HREF="001651.html">RPM spec file for ion3 for Fedora
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1650">[ date ]</a>
+              <a href="thread.html#1650">[ thread ]</a>
+              <a href="subject.html#1650">[ subject ]</a>
+              <a href="author.html#1650">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

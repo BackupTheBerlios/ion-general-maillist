@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Youtube fullscreen not working
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-December/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Youtube%20fullscreen%20not%20working&In-Reply-To=%3Cloom.20091206T032353-956%40post.gmane.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001775.html">
+   <LINK REL="Next"  HREF="001777.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Youtube fullscreen not working</H1>
+    <B>Canaan Hadley-Voth</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Youtube%20fullscreen%20not%20working&In-Reply-To=%3Cloom.20091206T032353-956%40post.gmane.org%3E"
+       TITLE="Youtube fullscreen not working">ugggg at hotmail.com
+       </A><BR>
+    <I>Sun Dec  6 03:34:10 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001775.html">scratchpad sizepolicy problem
+</A></li>
+        <LI>Next message: <A HREF="001777.html">Youtube fullscreen not working
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1776">[ date ]</a>
+              <a href="thread.html#1776">[ thread ]</a>
+              <a href="subject.html#1776">[ subject ]</a>
+              <a href="author.html#1776">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Ben Hutchings &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">ben at ...</A>&gt; writes:
+
+
+&gt;<i> &gt; [1] <A HREF="http://git.decadent.org.uk/gitweb?p=ion3.git;a=blob;f=debian/">http://git.decadent.org.uk/gitweb?p=ion3.git;a=blob;f=debian/</A>
+</I>cfg_kludge_flash.lua
+&gt;<i> 
+</I>
+Your script works for me, thanks for solving that.  I was actually fine when 
+this thread started, then Ubuntu 9.10 came along and flash windows would try to 
+fullscreen themselves and quickly fail.  
+
+For others with the same problem, these are the classes and instances I find 
+for that flash window that disappears too fast, for use in the above script:
+
+defwinprop {
+    class = &quot;Operapluginwrapper-ia32-linux&quot;,
+    instance = &quot;operapluginwrapper-ia32-linux&quot;,
+    match = function(prop, cwin, id) return is_fullscreen(cwin); end,
+    switchto = false,
+    flash_fullscreen = true,
+}
+defwinprop {
+    class = &quot;Firefox&quot;,
+    instance = &quot;firefox&quot;,
+    name = &quot;Firefox&quot;,
+    match = function(prop, cwin, id) return is_fullscreen(cwin); end,
+    switchto = false,
+    flash_fullscreen = true,
+}
+defwinprop {
+    class = &quot;Prism&quot;,
+    instance = &quot;prism&quot;,
+    match = function(prop, cwin, id) return is_fullscreen(cwin); end,
+    switchto = false,
+    flash_fullscreen = true,
+}
+defwinprop {
+    class = &quot;Exe&quot;,  -- google chrome
+    instance = &quot;exe&quot;,
+    name = &quot;exe&quot;,
+    match = function(prop, cwin, id) return is_fullscreen(cwin); end,
+    switchto = false,
+    flash_fullscreen = true,
+}
+
+
+I understand they vary by distro, so here is a hook to figure out the rest:
+
+ioncore.get_hook('clientwin_do_manage_alt'):add(
+    function(cwin, table)
+    ioncore.write_savefile(&quot;windowinfos&quot;, cwin:get_ident())
+end)
+
+Then restart ion, fullscreen a flash video and see what got written to ~/.ion3/
+default-session--0/windowinfos.lua
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001775.html">scratchpad sizepolicy problem
+</A></li>
+	<LI>Next message: <A HREF="001777.html">Youtube fullscreen not working
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1776">[ date ]</a>
+              <a href="thread.html#1776">[ thread ]</a>
+              <a href="subject.html#1776">[ subject ]</a>
+              <a href="author.html#1776">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

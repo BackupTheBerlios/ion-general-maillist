@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> ion-statusd eating up 100% cpu
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-June/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion-statusd%20eating%20up%20100%25%20cpu&In-Reply-To=%3C20080630161743.ae16d1dd.jan0sch%40gmx.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001262.html">
+   <LINK REL="Next"  HREF="001264.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>ion-statusd eating up 100% cpu</H1>
+    <B>Jens Jahnke</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion-statusd%20eating%20up%20100%25%20cpu&In-Reply-To=%3C20080630161743.ae16d1dd.jan0sch%40gmx.net%3E"
+       TITLE="ion-statusd eating up 100% cpu">jan0sch at gmx.net
+       </A><BR>
+    <I>Mon Jun 30 16:17:43 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001262.html">ion-statusd eating up 100% cpu
+</A></li>
+        <LI>Next message: <A HREF="001264.html">ion-statusd eating up 100% cpu
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1263">[ date ]</a>
+              <a href="thread.html#1263">[ thread ]</a>
+              <a href="subject.html#1263">[ subject ]</a>
+              <a href="author.html#1263">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi there,
+
+On Mon, 23 Jun 2008 19:40:07 +0200
+Christian Glindkamp &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">christian.glindkamp at gmail.com</A>&gt; wrote:
+
+CG&gt; When ion-statusd consumes 100% cpu, strace gives the following output
+CG&gt; in an endless loop:
+CG&gt; 
+CG&gt;   --- SIGALRM (Alarm clock) @ 0 (0) ---
+CG&gt;   sigreturn()                             = ? (mask now [])
+CG&gt;   --- SIGALRM (Alarm clock) @ 0 (0) ---
+CG&gt;   sigreturn()                             = ? (mask now [])
+
+I get the same information on my system when attaching via strace.
+
+CG&gt; I further noticed that ion-statusd returns to normal behaviour after
+CG&gt; detaching from the process most of the time.
+
+Can also confirm that.
+
+regards
+
+Jens
+
+-- 
+30. Brachet 2008, 16:15
+Homepage : <A HREF="http://www.jan0sch.de">http://www.jan0sch.de</A>
+
+BOFH excuse #369:
+
+Virus transmitted from computer to sysadmins.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 697 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20080630/3bf9743f/attachment.pgp">https://lists.berlios.de/pipermail/ion-general/attachments/20080630/3bf9743f/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001262.html">ion-statusd eating up 100% cpu
+</A></li>
+	<LI>Next message: <A HREF="001264.html">ion-statusd eating up 100% cpu
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1263">[ date ]</a>
+              <a href="thread.html#1263">[ thread ]</a>
+              <a href="subject.html#1263">[ subject ]</a>
+              <a href="author.html#1263">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

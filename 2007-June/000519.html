@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> ion on mac os x tiger
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion%20on%20mac%20os%20x%20tiger&In-Reply-To=%3C237C3A3D-C481-4352-947D-7833322C3D97%40elec.qmul.ac.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000518.html">
+   <LINK REL="Next"  HREF="000521.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>ion on mac os x tiger</H1>
+    <B>Samer Abdallah</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion%20on%20mac%20os%20x%20tiger&In-Reply-To=%3C237C3A3D-C481-4352-947D-7833322C3D97%40elec.qmul.ac.uk%3E"
+       TITLE="ion on mac os x tiger">samer.abdallah at elec.qmul.ac.uk
+       </A><BR>
+    <I>Tue Jun  5 00:44:33 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000518.html">ion on mac os x tiger
+</A></li>
+        <LI>Next message: <A HREF="000521.html">ion on mac os x tiger
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#519">[ date ]</a>
+              <a href="thread.html#519">[ thread ]</a>
+              <a href="subject.html#519">[ subject ]</a>
+              <a href="author.html#519">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Quentin,
+
+I'm running ion on a powerbook g4 with Mac OS X 10.4
+and using the XDarwin installed via the xorg packages in
+Fink. I used to use the X11.app that Apple supplies, but I
+found it a bit unstable. In either case, you start the X server
+by starting the .app application, not by running some
+command directly. You can always put the app in your
+autostart list.
+
+You may have some trouble with the keyboard - both
+X servers provide options for setting the keyboard map
+and you might also have add to some stuff to your
+~/.Xmodmap. I can post mine if it will help, but be warned
+that I don't think either X server actually implements the
+keyboard mappings correctly - I haven't been able to get
+it to work exactly as I want even after lots of messing
+around with xev, .Xmodmap etc.
+
+Anyway, this is my ~/.xinit (or at least the relevant parts of it).
+
+Hope it's useful
+
+Samer.
+
+
+--------------------------------------------------
+usermodmap=$HOME/.Xmodmap
+
+# don't forget system/user resources..
+
+if [ -f $usermodmap ]; then
+     echo Installing user modmap from $usermodmap
+     xmodmap $usermodmap
+fi
+
+# set X11 font paths
+xset fp+ ~/Library/Fonts/artwiz-aleczapka-en-1.3
+xset fp+ /sw/lib/X11/fonts/misc
+xset fp rehash
+
+# this might cause font problems depending on which X server you use
+export LANG='en_GB.UTF-8'
+
+# Fink set-up
+source /sw/bin/init.sh
+
+# start the window manager
+ion3 &amp;
+xsetroot -solid black
+exec gkrellm
+-------------------------------------------------
+
+On 4 Jun 2007, at 20:00, Quentin Huys wrote:
+
+&gt;<i> Hi there
+</I>&gt;<i>
+</I>&gt;<i> I've so far run ion on ubuntu and come to love it -- so much I  
+</I>&gt;<i> absolutely need it on my new workstation, which for random reasons  
+</I>&gt;<i> had to be a mac.
+</I>&gt;<i>
+</I>&gt;<i> All compiles happily, but I then don't know how to get things  
+</I>&gt;<i> started. I'd really appreciate any help a lot... Thanks. So:
+</I>&gt;<i>
+</I>&gt;<i> I first tried to log into console, run x11 (xinit) from there and  
+</I>&gt;<i> then run ion on it, but it generates errors, and then leaves me  
+</I>&gt;<i> with a blue screen that is utterly unresponsive to anything,  
+</I>&gt;<i> incluing ctrl-alt-backspace etc.
+</I>&gt;<i>
+</I>&gt;<i> So I tried the following, while running the standard mac os x  
+</I>&gt;<i> window manager:
+</I>&gt;<i>
+</I>&gt;<i> First start an x server on display 1 by doing
+</I>&gt;<i>
+</I>&gt;<i>       xinit -- :1
+</I>&gt;<i>
+</I>&gt;<i> And then run ion on that display:
+</I>&gt;<i>
+</I>&gt;<i>      ion -display :1
+</I>&gt;<i>
+</I>&gt;<i> But that won't work, and it comes up with all kinds of errors:
+</I>&gt;<i>
+</I>&gt;<i> q-computer:~% xinit -- :1 &amp;
+</I>&gt;<i> [1] 427
+</I>&gt;<i>
+</I>&gt;<i> q-computer:~%
+</I>&gt;<i> XFree86 Version 4.4.0 / X Window System
+</I>&gt;<i> (protocol Version 11, revision 0, vendor release 6600)
+</I>&gt;<i> [DRI] screen 0 installation complete
+</I>&gt;<i> Screen 0 added: 1920x1200 @ (0,0)
+</I>&gt;<i> Could not init font path element /usr/X11R6/lib/X11/fonts/CID/,  
+</I>&gt;<i> removing from list!
+</I>&gt;<i>
+</I>&gt;<i> q-computer:~%
+</I>&gt;<i> q-computer:~% ion -display :1
+</I>&gt;<i> &gt;&gt; Failed to load module de: dlopen(/usr/local/lib/ion/de.so, 9):  
+</I>&gt;<i> Symbol not found: _grbrush_get_slave
+</I>&gt;<i>      Referenced from: /usr/local/lib/ion/de.so
+</I>&gt;<i>      Expected in: flat namespace
+</I>&gt;<i>
+</I>&gt;<i> &gt;&gt; Stack trace:
+</I>&gt;<i>    0 [C]: in 'gr_select_engine'
+</I>&gt;<i>    1 /usr/local/etc/ion/draw.lua:6
+</I>&gt;<i>      [Skipping unnamed C functions.]
+</I>&gt;<i> &gt;&gt; No drawing engines loaded, trying &quot;de&quot;.
+</I>&gt;<i> &gt;&gt; Failed to load module de: dlopen(/usr/local/lib/ion/de.so, 9):  
+</I>&gt;<i> Symbol not found: _grbrush_get_slave
+</I>&gt;<i>      Referenced from: /usr/local/lib/ion/de.so
+</I>&gt;<i>      Expected in: flat namespace
+</I>&gt;<i>
+</I>&gt;<i> &gt;&gt; Failed to load module query: dlopen(/usr/local/lib/ion/query.so,  
+</I>&gt;<i> 9): Symbol not found: _region_inactivated
+</I>&gt;<i>      Referenced from: /usr/local/lib/ion/query.so
+</I>&gt;<i>      Expected in: flat namespace
+</I>&gt;<i>
+</I>&gt;<i> &gt;&gt; Stack trace:
+</I>&gt;<i>    0 [C]: in 'load_module'
+</I>&gt;<i>    1 /usr/local/etc/ion/ion.lua:55
+</I>&gt;<i>      [Skipping unnamed C functions.]
+</I>&gt;<i> &gt;&gt; Failed to load module menu: dlopen(/usr/local/lib/ion/menu.so,  
+</I>&gt;<i> 9): Symbol not found: _region_inactivated
+</I>&gt;<i>      Referenced from: /usr/local/lib/ion/menu.so
+</I>&gt;<i>      Expected in: flat namespace
+</I>&gt;<i>
+</I>&gt;<i> &gt;&gt; Stack trace:
+</I>&gt;<i>    0 [C]: in 'load_module'
+</I>&gt;<i>    1 /usr/local/etc/ion/ion.lua:56
+</I>&gt;<i>      [Skipping unnamed C functions.]
+</I>&gt;<i> &gt;&gt; Failed to load module ionws: dlopen(/usr/local/lib/ion/ionws.so,  
+</I>&gt;<i> 9): Symbol not found: _genframe_brushes_updated
+</I>&gt;<i>      Referenced from: /usr/local/lib/ion/ionws.so
+</I>&gt;<i>      Expected in: flat namespace
+</I>&gt;<i>
+</I>&gt;<i> &gt;&gt; Stack trace:
+</I>&gt;<i>    0 [C]: in 'load_module'
+</I>&gt;<i>    1 /usr/local/etc/ion/ion.lua:57
+</I>&gt;<i>      [Skipping unnamed C functions.]
+</I>&gt;<i> &gt;&gt; Failed to load module floatws: dlopen(/usr/local/lib/ion/ 
+</I>&gt;<i> floatws.so, 9): Symbol not found: _region_do_rescue_clientwins
+</I>&gt;<i>      Referenced from: /usr/local/lib/ion/floatws.so
+</I>&gt;<i>      Expected in: flat namespace
+</I>&gt;<i>
+</I>&gt;<i> &gt;&gt; Stack trace:
+</I>&gt;<i>    0 [C]: in 'load_module'
+</I>&gt;<i>    1 /usr/local/etc/ion/ion.lua:58
+</I>&gt;<i>      [Skipping unnamed C functions.]
+</I>&gt;<i> &gt;&gt; Could not find a complete workspace class. Please load some  
+</I>&gt;<i> modules.
+</I>&gt;<i> &gt;&gt; Unable to set up any rootwins.
+</I>&gt;<i> &gt;&gt; Refusing to start due to encountered errors.
+</I>&gt;<i> q-computer:~%
+</I>&gt;<i> waiting for X server to shut down Quitting XDarwin...
+</I>&gt;<i>
+</I>&gt;<i> [1]  + done       xinit -- :1
+</I>&gt;<i>
+</I>&gt;<i> ---------------------------------------------------------------------- 
+</I>&gt;<i> ---------------------------------------------------------------------- 
+</I>&gt;<i> --------------------------
+</I>&gt;<i> Thanks very much -- any help appreciated,
+</I>&gt;<i> Q
+</I>&gt;<i>
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000518.html">ion on mac os x tiger
+</A></li>
+	<LI>Next message: <A HREF="000521.html">ion on mac os x tiger
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#519">[ date ]</a>
+              <a href="thread.html#519">[ thread ]</a>
+              <a href="subject.html#519">[ subject ]</a>
+              <a href="author.html#519">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

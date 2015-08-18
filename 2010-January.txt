@@ -1,0 +1,56 @@
+From timandahaf+dev at gmail.com  Thu Jan 14 23:35:21 2010
+From: timandahaf+dev at gmail.com (Timandahaf)
+Date: Thu, 14 Jan 2010 17:35:21 -0500 (EST)
+Subject: Moving workspaces
+Message-ID: <alpine.LNX.2.00.1001141725070.9514@india.ece.cmu.edu>
+
+I want to be able to move an entire workspace from one screen to
+another. I tried (using the context menu), Workspace->Toggle Tag, and
+then went to a new workspace in the other screen, and did
+Workspace->Attach Tagged.
+
+What did this is: it created a new floating workspace, put all my tiled,
+tabbed windows from my original workspace into this new WGroupWS, and
+then attached this WGroupWS to the other screen.
+
+I'd hoped it would attach the tiling itself into the workspace on the
+other screen.
+
+Any ideas on how to do this?
+
+Thank you!
+
+
+
+From tuomov at iki.fi  Wed Jan 20 09:10:21 2010
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 20 Jan 2010 10:10:21 +0200
+Subject: Moving workspaces
+In-Reply-To: <alpine.LNX.2.00.1001141725070.9514@india.ece.cmu.edu>
+References: <alpine.LNX.2.00.1001141725070.9514@india.ece.cmu.edu>
+Message-ID: <20100120081021.GA30165@jolt.modeemi.cs.tut.fi>
+
+On 2010-01-14 17:35 -0500, Timandahaf wrote:
+> I want to be able to move an entire workspace from one screen to
+> another. I tried (using the context menu), Workspace->Toggle Tag, and
+> then went to a new workspace in the other screen, and did
+> Workspace->Attach Tagged.
+> 
+> What did this is: it created a new floating workspace, put all my tiled,
+> tabbed windows from my original workspace into this new WGroupWS, and
+> then attached this WGroupWS to the other screen.
+
+
+There are no "tiled workspaces" anymore. Workspaces are "floating"
+always, but may contain tilings. You moved the entire workspace,
+so you got some mess.
+
+You can do shit better with the primitives, instead of trying to
+extend the tagging functionality beyond its design (as a simple
+component of the default simple Ion way of doing things).
+
+
+-- 
+Tuomo
+
+

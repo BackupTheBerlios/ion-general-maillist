@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> ion on mac os x tiger
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion%20on%20mac%20os%20x%20tiger&In-Reply-To=%3Cff055fb80706170637u61e91398q9fa054abe25aa623%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000528.html">
+   <LINK REL="Next"  HREF="000533.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>ion on mac os x tiger</H1>
+    <B>Miles Colman</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion%20on%20mac%20os%20x%20tiger&In-Reply-To=%3Cff055fb80706170637u61e91398q9fa054abe25aa623%40mail.gmail.com%3E"
+       TITLE="ion on mac os x tiger">mcolman at gmail.com
+       </A><BR>
+    <I>Sun Jun 17 15:37:23 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000528.html">ion3 RC backports for Debian etch
+</A></li>
+        <LI>Next message: <A HREF="000533.html">ion on mac os x tiger
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#529">[ date ]</a>
+              <a href="thread.html#529">[ thread ]</a>
+              <a href="subject.html#529">[ subject ]</a>
+              <a href="author.html#529">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi keyboard gurus,
+
+I think the default install of x11-wm/ion on Mac OS 10.4 is broken.
+Ion installs sucessfully, but produces the following errors:
+Ion startup error log:
+&gt;&gt;<i> Failed to load module de: dlopen(/sw/lib/ion/de.so, 9): Symbol not found:
+</I>_grbrush_get_slave
+     Referenced from: /sw/lib/ion/de.so
+     Expected in: dynamic lookup
+
+&gt;&gt;<i> Stack trace:
+</I>   0 [C]: in 'gr_select_engine'
+   1 /sw/etc/ion/draw.lua:6
+     [Skipping unnamed C functions.]
+&gt;&gt;<i> No drawing engines loaded, trying &quot;de&quot;.
+</I>&gt;&gt;<i> Failed to load module de: dlopen(/sw/lib/ion/de.so, 9): Symbol not found:
+</I>_grbrush_get_slave
+     Referenced from: /sw/lib/ion/de.so
+     Expected in: dynamic lookup
+
+&gt;&gt;<i> Failed to load module query: dlopen(/sw/lib/ion/query.so, 9): Symbol not
+</I>found: _region_inactivated
+     Referenced from: /sw/lib/ion/query.so
+     Expected in: dynamic lookup
+
+&gt;&gt;<i> Stack trace:
+</I>   0 [C]: in 'load_module'
+   1 /sw/etc/ion/ion.lua:55
+     [Skipping unnamed C functions.]
+&gt;&gt;<i> Failed to load module menu: dlopen(/sw/lib/ion/menu.so, 9): Symbol not
+</I>found: _region_inactivated
+     Referenced from: /sw/lib/ion/menu.so
+     Expected in: dynamic lookup
+
+&gt;&gt;<i> Stack trace:
+</I>   0 [C]: in 'load_module'
+   1 /sw/etc/ion/ion.lua:56
+     [Skipping unnamed C functions.]
+&gt;&gt;<i> Failed to load module ionws: dlopen(/sw/lib/ion/ionws.so, 9): Symbol not
+</I>found: _genframe_brushes_updated
+     Referenced from: /sw/lib/ion/ionws.so
+     Expected in: dynamic lookup
+
+&gt;&gt;<i> Stack trace:
+</I>   0 [C]: in 'load_module'
+   1 /sw/etc/ion/ion.lua:57
+     [Skipping unnamed C functions.]
+&gt;&gt;<i> Failed to load module floatws: dlopen(/sw/lib/ion/floatws.so, 9): Symbol
+</I>not found: _region_do_rescue_clientwins
+     Referenced from: /sw/lib/ion/floatws.so
+     Expected in: dynamic lookup
+
+&gt;&gt;<i> Stack trace:
+</I>   0 [C]: in 'load_module'
+   1 /sw/etc/ion/ion.lua:58
+     [Skipping unnamed C functions.]
+&gt;&gt;<i> Could not find a complete workspace class. Please load some modules.
+</I>&gt;&gt;<i> Unable to set up any rootwins.
+</I>&gt;&gt;<i> Refusing to start due to encountered errors.
+</I>
+According to the thread found here:
+<A HREF="http://www.mail-archive.com/ion-general@lists.berlios.de/msg02067.html">http://www.mail-archive.com/ion-general@lists.berlios.de/msg02067.html</A>
+the problem can be fixed by turning off dynamic linking. I tried to do this
+by changing /sw/fink/10.4/unstable/main/finkinfo/x11-wm/ion.info as follows:
+
+
+[...]
+Revision: 2
+[...]
+ConfigureParams: --with-lua-prefix=%p --mandir=%p/share/man
+--infodir=%p/share/\
+info --libexecdir=%p/sbin --with-libtool=%p --with-disable-shared
+[...]
+
+however, even with the --diable-shared flag (found in the configure file of
+the current ion-2 source package),
+
+fink rebuild ion
+fink reinstall ion
+
+did not produce a working ion install.
+Any help would be greatly appreciated!
+Miles
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20070617/5fe8d6e3/attachment.html">https://lists.berlios.de/pipermail/ion-general/attachments/20070617/5fe8d6e3/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000528.html">ion3 RC backports for Debian etch
+</A></li>
+	<LI>Next message: <A HREF="000533.html">ion on mac os x tiger
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#529">[ date ]</a>
+              <a href="thread.html#529">[ thread ]</a>
+              <a href="subject.html#529">[ subject ]</a>
+              <a href="author.html#529">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

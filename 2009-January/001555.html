@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Keyboard%20focus%20lost%20in%20Swing%20applications%20%28ex%3A%20Netbeans%29%20after%0A%09changing%20to%20window&In-Reply-To=%3C8763k9fnm6.fsf%40yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001545.html">
+   <LINK REL="Next"  HREF="001556.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window</H1>
+    <B>Daniel Clemente</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Keyboard%20focus%20lost%20in%20Swing%20applications%20%28ex%3A%20Netbeans%29%20after%0A%09changing%20to%20window&In-Reply-To=%3C8763k9fnm6.fsf%40yahoo.com%3E"
+       TITLE="Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window">dcl441-bugs at yahoo.com
+       </A><BR>
+    <I>Wed Jan 21 02:34:41 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001545.html">Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window
+</A></li>
+        <LI>Next message: <A HREF="001556.html">Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1555">[ date ]</a>
+              <a href="thread.html#1555">[ thread ]</a>
+              <a href="subject.html#1555">[ subject ]</a>
+              <a href="author.html#1555">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Daniel Clemente &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">dcl441-bugs at yahoo.com</A>&gt; writes:
+
+&gt;<i>
+</I>&gt;<i>   I will check it again in other systems. 
+</I>
+
+Hi,
+  I tried it with Sun's Java 1.6.0_10 on Debian (another machine). The bug is still present.
+  However, on the same machine, Sun's Java 1.5.0_16-b02 makes my example work as expected (focus is not lost).
+
+  And with libgcj... well, the example didn't work correctly and I didn't see the text field. My version:
+java version &quot;1.5.0&quot;
+gij (GNU libgcj) version 4.3.3 20090110 (prerelease)
+
+  With OpenJDK 1.6.0_0-b11, the bug shows up.
+  With the unreleased Java 1.7.0-ea-b43, the same (bug present).
+
+  So the focus problem seems to be a regression introduced in version 1.6 of Java and still not corrected...
+  Or maybe it is indeed a bug in ion3; since other window managers (ex: icewm) do work with Java 1.6.
+
+  In any case, I sent this bug to Java (sorry, it's not public yet). I will report progress here.
+
+-- Daniel
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001545.html">Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window
+</A></li>
+	<LI>Next message: <A HREF="001556.html">Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1555">[ date ]</a>
+              <a href="thread.html#1555">[ thread ]</a>
+              <a href="subject.html#1555">[ subject ]</a>
+              <a href="author.html#1555">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

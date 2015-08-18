@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Slightly-OT] On usability: managing usb devices &amp; network	profiles in a ion3 environment
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20%5BSlightly-OT%5D%20On%20usability%3A%20managing%20usb%20devices%20%26%20network%0A%09profiles%20in%20a%20ion3%20environment&In-Reply-To=%3Cslrngrargm.3ej.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001579.html">
+   <LINK REL="Next"  HREF="001581.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Slightly-OT] On usability: managing usb devices &amp; network	profiles in a ion3 environment</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20%5BSlightly-OT%5D%20On%20usability%3A%20managing%20usb%20devices%20%26%20network%0A%09profiles%20in%20a%20ion3%20environment&In-Reply-To=%3Cslrngrargm.3ej.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="[Slightly-OT] On usability: managing usb devices &amp; network	profiles in a ion3 environment">tuomov at iki.fi
+       </A><BR>
+    <I>Mon Mar  9 20:29:26 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001579.html">[Slightly-OT] On usability: managing usb devices &amp; network 	profiles in a ion3 environment
+</A></li>
+        <LI>Next message: <A HREF="001581.html">[Slightly-OT] On usability: managing usb devices &amp; network	profiles in a ion3 environment
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1580">[ date ]</a>
+              <a href="thread.html#1580">[ thread ]</a>
+              <a href="subject.html#1580">[ subject ]</a>
+              <a href="author.html#1580">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2009-03-07, Mico Fil&#243;s &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">elmico.filos at gmail.com</A>&gt; wrote:
+&gt;<i> Thank you all for your feedback. I will play with the scripts a little...
+</I>
+While you're at it, write ion-power-manager. Something simple 
+and reliable to replace the awful bloated and complicated 
+gnome and kde crap. No fucking HAL crap; just talk to /sys,
+acpi, whatever. Can be Thinkpad-specific. Indeed probably 
+should be based on plugins specific to particular computer
+models or classes instead of over-engineered low-level 
+abstr^Windirection.
+
+(I tried reading the gnome-power-damager code to see how it works... 
+with the effort I put into it, I couldn't make heads and tails
+of how it's interacting with other HAL/DBus crap; how the XSync 
+extension is supposed to keep track of idle times -- the documentation
+of the extension is poor at best -- if it is supposed to do that. 
+You have to trace a gazillion levels of indirection.
+
+I'd probably just use the screensaver extension for idle timing, 
+if it can be tricked into multiple timeouts. After all, you want
+to run the screen lock _before_  suspend/hibernate; the scripts
+should synchronise the locking program startup, or just include
+the screen lock in the power manager. The Gnome crap doesn't do 
+this, and all the system-level scripts have finished restoring 
+the system from suspension -- when all the sun spots are correctly
+aligned and it all works -- before it seems to run the locker, 
+which is a big gleaming security black hole.
+
+But it's a lot of work to do all that, and for now Windows mostly
+works for me. I'm really liking _reliable_ suspend and hibernate
+in Windowsland, foobar2k, undervolting -- even that requires a fucking
+kernel patch on the piece of shit Linux -- etc. Finally even managed
+to get locales/UTF-8 working in Cygwin: the trick is to use
+LC_CTYPE=C-UTF-8.UTF-8. The biggest problem ATM is getting a cygwin
+version of darcs. If it doesn't work out, I may have to switch to 
+Mercurial for Ion and my other projects.)
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and local vendors and
+artisans have had to yield to &quot;all under one roof&quot; big box hypermarkets.
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001579.html">[Slightly-OT] On usability: managing usb devices &amp; network 	profiles in a ion3 environment
+</A></li>
+	<LI>Next message: <A HREF="001581.html">[Slightly-OT] On usability: managing usb devices &amp; network	profiles in a ion3 environment
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1580">[ date ]</a>
+              <a href="thread.html#1580">[ thread ]</a>
+              <a href="subject.html#1580">[ subject ]</a>
+              <a href="author.html#1580">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

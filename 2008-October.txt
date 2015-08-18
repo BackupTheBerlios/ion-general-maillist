@@ -1,0 +1,835 @@
+From tuomov at iki.fi  Thu Oct  2 17:54:49 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 2 Oct 2008 15:54:49 +0000 (UTC)
+Subject: ion-3-20081002
+Message-ID: <slrnge9rm9.luo.tuomov@jolt.modeemi.cs.tut.fi>
+
+
+Some minor fixes again, including a few that should've already
+been in the previous release.
+
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+
+From ion at zum-news-lesen.genoetigt.de  Sun Oct  5 14:36:26 2008
+From: ion at zum-news-lesen.genoetigt.de (Tobias Hommel)
+Date: Sun, 5 Oct 2008 14:36:26 +0200
+Subject: ion-3-20081002
+In-Reply-To: <slrnge9rm9.luo.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnge9rm9.luo.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20081005123626.GA21862@shell>
+
+On Thu, Oct 02, 2008 at 03:54:49PM +0000, Tuomo Valkonen wrote:
+> 
+> Some minor fixes again, including a few that should've already
+> been in the previous release.
+> 
+ok, i could spend some time to add a new gentoo ebuild to my overlay. it can be
+found here: https://svn.keksbude.net/repos/keks-overlay/x11-wm/ion3/
+
+> 
+> -- 
+> Be an early adopter! Beat the herd! Choose Windows today!
+> 
+
+-- 
+In a world without walls and fences,
+who needs Windows and Gates?
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20081005/59aaa344/attachment.pgp>
+
+From vulk.stell at tin.it  Sun Oct  5 17:55:03 2008
+From: vulk.stell at tin.it (vulk.stell at tin.it)
+Date: Sun, 5 Oct 2008 16:55:03 +0100 (GMT+01:00)
+Subject: unfocused floating windows
+Message-ID: <11ccdb80f16.vulk.stell@tin.it>
+
+Hi,
+I'm running ion-3-20081002 on my tablet and I would like to use one 
+of those programs that emulate a keyboard end recognize the 
+handwriting. Cellwriter (http://risujin.org/cellwriter/) looks like the 
+kind of program I'd like. There is a problem: once the text has been 
+recognized I must press a button to send it to the focused window and 
+of course with the sloppy focus model the windows is never the one I'd 
+like to but cellwriter's one.
+My question is, is it possible to force a 
+window not to have focus even if the pointer is on it (something 
+similar to what happens to the rest of the windows when the scratchpad 
+is visible)?
+If so is it a winprop? 
+Etn40ff
+
+
+From tuomov at iki.fi  Sun Oct  5 18:33:04 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 5 Oct 2008 16:33:04 +0000 (UTC)
+Subject: unfocused floating windows
+References: <11ccdb80f16.vulk.stell@tin.it>
+Message-ID: <slrngehr20.qjt.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-10-05, vulk.stell at tin.it <vulk.stell at tin.it> wrote:
+> My question is, is it possible to force a 
+> window not to have focus even if the pointer is on it (something 
+> similar to what happens to the rest of the windows when the scratchpad 
+> is visible)?
+
+ioncore.set{mousefocus='disabled'} will disable pointer-based 
+focusing entirely. Restore with 'sloppy'. Currently there are
+no other options, as nobody's been arsed to write them.
+Also, it's possible to make floating windows 'passive'
+(setting passive = true in WMPlex.attach[_new] parameters),
+but there's no winprop hack for it; using it would demand
+some custom scripting.
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+
+From dcl441-bugs at yahoo.com  Sun Oct  5 20:53:46 2008
+From: dcl441-bugs at yahoo.com (Daniel Clemente)
+Date: Sun, 05 Oct 2008 20:53:46 +0200
+Subject: Move frames to and from scratchpad
+References: <87myi1l8fz.fsf@yahoo.com>
+	<20080921190128.GB19082@jolt.modeemi.cs.tut.fi>
+	<878wthmgrp.fsf@yahoo.com>
+	<slrngdl93p.734.tuomov@jolt.modeemi.cs.tut.fi>
+	<874p45m9m5.fsf@yahoo.com>
+	<BAY120-W373C278CFD8D1B1A8B715EBA440@phx.gbl>
+Message-ID: <873ajaan5x.fsf@yahoo.com>
+
+
+Hi,
+
+Canaan Hadley-Voth <ugggg at hotmail.com> writes:
+> I have been using this function to do what you are trying to do.  (Though someone else might anticipate further cases where mine also fails, like a WClientWin attached (unframed) to a WGroupWS.)
+>
+> function send_to_or_from_sp(cwin, jumpto)
+>     local sp=ioncore.lookup_region("*scratchpad*", "WFrame")
+>     if cwin:parent()==sp then
+> 	local scr=cwin:screen_of()
+> 	local destws=scr:mx_current()
+> 	local destwstype=obj_typename(destws)
+> 	if destwstype=="WTiling" then
+> 	    destws:current():attach(cwin)
+> 	elseif destwstype=="WGroupWS" and obj_typename(destws:current())=="WTiling" then
+> 	    destws:current():current():attach(cwin)
+> 	elseif destwstype=="WGroupWS" then
+> 	    destws:attach_framed(cwin)
+> 	end
+> 	mod_sp.set_shown_on(scr, 'unset')
+>     else
+> 	sp:attach(cwin)
+>     end
+>
+>     if jumpto then
+> 	cwin:goto()
+>     end
+> end
+>
+
+
+  I have been using the function you sent and it works very well; thanks.
+  With Tuomo's improvements, I think it would be very helpful for the scratchpad feature of Ion. Could it be included?
+
+
+-- Daniel
+
+
+
+From tuomov at iki.fi  Mon Oct  6 15:12:58 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 6 Oct 2008 13:12:58 +0000 (UTC)
+Subject: Move frames to and from scratchpad
+References: <87myi1l8fz.fsf@yahoo.com>
+	<20080921190128.GB19082@jolt.modeemi.cs.tut.fi>
+	<878wthmgrp.fsf@yahoo.com>
+	<slrngdl93p.734.tuomov@jolt.modeemi.cs.tut.fi>
+	<874p45m9m5.fsf@yahoo.com>
+	<BAY120-W373C278CFD8D1B1A8B715EBA440@phx.gbl>
+	<873ajaan5x.fsf@yahoo.com>
+Message-ID: <slrngek3mq.kte.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-10-05, Daniel Clemente <dcl441-bugs at yahoo.com> wrote:
+>   I have been using the function you sent and it works very well; thanks.
+>   With Tuomo's improvements, I think it would be very helpful for the
+>   scratchpad feature of Ion. Could it be included?
+
+Just send it to the scripts repo.
+
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+
+From biz at wtwf.com  Tue Oct  7 20:08:19 2008
+From: biz at wtwf.com (A K)
+Date: Tue, 7 Oct 2008 11:08:19 -0700
+Subject: pidgin add a buddy transient not moveable
+Message-ID: <92ad778c0810071108l6ee6c8e2yecddee913b69511b@mail.gmail.com>
+
+I seem to be stuck in a position where I can't move a transient window.
+
+I have my pidgin (.im) buddy list nice and narrow on the right of my
+screen. When someone wants to add themselves as a buddy of mine a
+transient window pops up but half of it is hidden and when I move the
+buddy list to another (bigger) frame the transient doesn't move with
+it.
+
+when I right click on the transient all I see is "Close, Attach
+Tagged, Clear Tags, Window Info" resizing the frame the transient is
+in doesn't help either.
+
+I've put up a screenshot at http://wtwf.com/tmp/pidgin.png
+
+is there an easy way for me to get this transient window moved around?
+
+ark
+
+
+From jan0sch at gmx.net  Tue Oct  7 20:33:26 2008
+From: jan0sch at gmx.net (Jens Jahnke)
+Date: Tue, 7 Oct 2008 20:33:26 +0200
+Subject: pidgin add a buddy transient not moveable
+In-Reply-To: <92ad778c0810071108l6ee6c8e2yecddee913b69511b@mail.gmail.com>
+References: <92ad778c0810071108l6ee6c8e2yecddee913b69511b@mail.gmail.com>
+Message-ID: <20081007203326.63d6a566.jan0sch@gmx.net>
+
+Hi,
+
+On Tue, 7 Oct 2008 11:08:19 -0700
+"A K" <biz at wtwf.com> wrote:
+
+AK> is there an easy way for me to get this transient window moved around?
+
+the easiest solution would be starting pidgin on a floating workspace.
+On the other hand you could switch to a bitlbee+irssi combination. ;-)
+
+regards,
+
+Jens
+
+-- 
+07. Gilbhart 2008, 20:32
+Homepage : http://www.jan0sch.de
+
+Your goose is cooked.
+(Your current chick is burned up too!)
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 697 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20081007/659c3955/attachment.pgp>
+
+From nickmurdoch at gmail.com  Tue Oct  7 20:47:52 2008
+From: nickmurdoch at gmail.com (Nick Murdoch)
+Date: Tue, 07 Oct 2008 19:47:52 +0100
+Subject: pidgin add a buddy transient not moveable
+In-Reply-To: <92ad778c0810071108l6ee6c8e2yecddee913b69511b@mail.gmail.com>
+References: <92ad778c0810071108l6ee6c8e2yecddee913b69511b@mail.gmail.com>
+Message-ID: <op.uin3t2ukq54ctd@localhost>
+
+On Tue, 07 Oct 2008 19:08:19 +0100, A K <biz at wtwf.com> wrote:
+
+> is there an easy way for me to get this transient window moved around?
+
+Meta+LeftMouseButton moves floating windows.
+
+
+From tuomov at iki.fi  Tue Oct  7 20:55:12 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 7 Oct 2008 18:55:12 +0000 (UTC)
+Subject: pidgin add a buddy transient not moveable
+References: <92ad778c0810071108l6ee6c8e2yecddee913b69511b@mail.gmail.com>
+Message-ID: <slrngenc4g.ufc.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-10-07, A K <biz at wtwf.com> wrote:
+> I have my pidgin (.im) buddy list nice and narrow on the right of my
+> screen. When someone wants to add themselves as a buddy of mine a
+> transient window pops up but half of it is hidden and when I move the
+> buddy list to another (bigger) frame the transient doesn't move with
+> it.
+
+How is the window hidden? Is it clearly inside the frame of the main
+window, or could it be just partially outside the screen?
+
+These days Ion automatically detaches (or "unsqueezes") big transients
+that don't properly fit in the frame, and they don't follow their main
+windows around. You can disable this behaviour with
+
+    ioncore.set{ unsqueeze = false }
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+
+From biz at wtwf.com  Tue Oct  7 22:37:08 2008
+From: biz at wtwf.com (A K)
+Date: Tue, 7 Oct 2008 13:37:08 -0700
+Subject: pidgin add a buddy transient not moveable
+In-Reply-To: <slrngenc4g.ufc.tuomov@jolt.modeemi.cs.tut.fi>
+References: <92ad778c0810071108l6ee6c8e2yecddee913b69511b@mail.gmail.com>
+	<slrngenc4g.ufc.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <92ad778c0810071337n5ea9b90avf48a8e177b29b737@mail.gmail.com>
+
+On Tue, Oct 7, 2008 at 11:55 AM, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2008-10-07, A K <biz at wtwf.com> wrote:
+>> I have my pidgin (.im) buddy list nice and narrow on the right of my
+>> screen. When someone wants to add themselves as a buddy of mine a
+>> transient window pops up but half of it is hidden and when I move the
+>> buddy list to another (bigger) frame the transient doesn't move with
+>> it.
+>
+> How is the window hidden? Is it clearly inside the frame of the main
+> window, or could it be just partially outside the screen?
+
+yes it's outside of the screen, perhaps hidden isn't the right description.
+I think the secret I'm looking for is the Meta+LeftMouseButton moves
+floating windows. tip. I'll give that a shot next time this issue
+comes up.
+
+thanks for the replies! it's been a big help.
+
+ark
+
+
+> These days Ion automatically detaches (or "unsqueezes") big transients
+> that don't properly fit in the frame, and they don't follow their main
+> windows around. You can disable this behaviour with
+>
+>    ioncore.set{ unsqueeze = false }
+>
+> --
+> "[Fashion] is usually a form of ugliness so intolerable that we have
+>  to alter it every six months." -- Oscar Wilde
+> "The computer industry is the only industry that is more fashion-driven
+>  than women's fashion." -- RMS
+>
+>
+
+
+From panman at widewire.net  Wed Oct  8 05:58:26 2008
+From: panman at widewire.net (panman)
+Date: Tue, 07 Oct 2008 20:58:26 -0700
+Subject: maximizing
+Message-ID: <48EC2FE2.8020301@widewire.net>
+
+I love the new ion maximize behavior, just makes me smile to see even 
+the status bar go away when I use it.
+
+I've been trying to figure out where the problem is with maximizing any 
+of the flash video players out there, google, youtube, etc to the frame 
+they're in. They all try and then return to the normal embedded player 
+mode. Does anyone have any input into that?
+
+
+From tuomov at iki.fi  Wed Oct  8 08:29:25 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 8 Oct 2008 06:29:25 +0000 (UTC)
+Subject: maximizing
+References: <48EC2FE2.8020301@widewire.net>
+Message-ID: <slrngeokq5.qu.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-10-08, panman <panman at widewire.net> wrote:
+> I've been trying to figure out where the problem is with maximizing any 
+> of the flash video players out there, google, youtube, etc to the frame 
+> they're in. They all try and then return to the normal embedded player 
+> mode. Does anyone have any input into that?
+
+They're crap that try to be their own WMs. Flash in particular
+doesn't think it should be in FS mode if it doesn't have the
+focus.
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+
+From sylvain.abelard at gmail.com  Wed Oct  8 10:05:31 2008
+From: sylvain.abelard at gmail.com (=?UTF-8?Q?Sylvain_Ab=C3=A9lard?=)
+Date: Wed, 8 Oct 2008 10:05:31 +0200
+Subject: maximizing
+In-Reply-To: <slrngeokq5.qu.tuomov@jolt.modeemi.cs.tut.fi>
+References: <48EC2FE2.8020301@widewire.net>
+	<slrngeokq5.qu.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <9c6605e40810080105g13ca59e8g141dfd6b40fab68c@mail.gmail.com>
+
+> Flash in particular doesn't think it should be in FS mode if it doesn't have the focus.
+
+Flash has many defects, but is this one so bad ?
+
+I wouldn't like the ugly Flash ads on a web-page to make itself
+fullscreen without asking,
+nor would I like the warning "hit escape to quit fullscreen" screen to
+be disable-able.
+
+Flash is made for dummies. I mean, *real* dummies.
+Some of their limitations are features, not bugs or omissions.
+
+> Be an early adopter! Beat the herd! Choose Windows today!
+Your troll-power is exceptional :D
+
+
+PS: would it be easy to fix this ML's "reply-to"? Is it possible, do
+we want to avoid it?
+
+-- 
+Sylvain Ab?lard
+"J'ai d?cid? d'?tre heureux, c'est meilleur pour la sant?." -Voltaire
+
+From tuomov at iki.fi  Wed Oct  8 10:39:38 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 8 Oct 2008 08:39:38 +0000 (UTC)
+Subject: maximizing
+References: <48EC2FE2.8020301@widewire.net>
+	<slrngeokq5.qu.tuomov@jolt.modeemi.cs.tut.fi>
+	<9c6605e40810080105g13ca59e8g141dfd6b40fab68c@mail.gmail.com>
+Message-ID: <slrngeosea.bjq.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-10-08, Sylvain Ab??lard <sylvain.abelard at gmail.com> wrote:
+>> Flash in particular doesn't think it should be in FS mode if it doesn't have the focus.
+>
+> Flash has many defects, but is this one so bad ?
+
+It is. Most importantly, there's a race condition: if the flash 
+window doesn't get the focus fast enough, when it goes into FS 
+mode, it will close. But this "trying to outsmart the WM" also
+means you can't open the scratchpad while flash is FS, can't
+switch back to another WS while flash is FS, or the window will
+un-FS.
+
+> I wouldn't like the ugly Flash ads on a web-page to make itself
+> fullscreen without asking,
+
+This "feature" won't stop that, if the flash crap can avoid the
+above-mentioned race condition.
+
+> Flash is made for dummies.
+
+All Web technology invented after HTML 2.0, with the exception
+of CSS, is for dummies. 
+
+(And even CSS is too complicated.  I suspect it could be 
+simplified a lot, if would only have to cater to document 
+layout, not application layout. And applications would benefit
+from something not suited to documents. *sigh* again trying
+to do everything with one language.)
+
+>> Be an early adopter! Beat the herd! Choose Windows today!
+> Your troll-power is exceptional :D
+
+Just stating where things seem to be going.
+
+> PS: would it be easy to fix this ML's "reply-to"? Is it possible, do
+> we want to avoid it?
+
+There's a problem? It should not be set, and there's a school of
+thought that thinks this is how it should be. I have no particular
+opinion (!) about the matter, but tend to slightly side with not
+setting it. I just wish MUAs were more intelligent about List-Post
+and headers. Even mutt -- the mail user agent that sucks the least
+-- is stupid with regard to mailing lists. It sucks having to
+configure the lists in .procmailrc, include a subscribe line in
+.muttrc, include a mailbox line in .muttrc for checking for new
+mail (or alternatively, if not procmailed into separate folders, 
+write save-hooks), and then remember to press L instead of r
+to reply. The default reply key should ask what to do when there
+are multiple options (list, group, or just the poster, etc.).
+Setting Reply-To is a workaround to retarded MUAs. 
+
+I just use slrn and nntp://news.gmane.org whenever possible.
+
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+
+From panman at widewire.net  Fri Oct 10 18:20:20 2008
+From: panman at widewire.net (panman)
+Date: Fri, 10 Oct 2008 09:20:20 -0700
+Subject: maximizing
+In-Reply-To: <slrngeosea.bjq.tuomov@jolt.modeemi.cs.tut.fi>
+References: <48EC2FE2.8020301@widewire.net>	<slrngeokq5.qu.tuomov@jolt.modeemi.cs.tut.fi>	<9c6605e40810080105g13ca59e8g141dfd6b40fab68c@mail.gmail.com>
+	<slrngeosea.bjq.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <48EF80C4.8000900@widewire.net>
+
+
+
+>>> Flash in particular doesn't think it should be in FS mode if it doesn't have the focus.
+>>>       
+>
+> It is. Most importantly, there's a race condition: if the flash 
+> window doesn't get the focus fast enough, when it goes into FS 
+> mode, it will close. But this "trying to outsmart the WM" also
+> means you can't open the scratchpad while flash is FS, can't
+> switch back to another WS while flash is FS, or the window will
+> un-FS.
+>   
+So this is generally a flash problem with focus, very interesting, 
+thanks for the insight.
+Obviously letting anything actually have focus control is uncool so 
+that's a problem.
+
+
+From jfharrigan at fedex.com  Mon Oct 13 18:46:21 2008
+From: jfharrigan at fedex.com (John Harrigan)
+Date: Mon, 13 Oct 2008 10:46:21 -0600
+Subject: OpenOffice focus
+Message-ID: <20081013164621.GA11730@ATAC.rmtc.fedex.com>
+
+I have a tiled workspace with a WFrame named 'Aux' and the following
+'Aux' kludges:
+
+defwinprop{
+   class = "OpenOffice.org 2.4",
+   target = "Aux",
+}
+
+defwinprop{
+   class = "Acroread",
+   instance = "acroread",
+   acrobatic = true,
+   target = "Aux",
+}
+
+Both Acrobat and OpenOffice open in the 'Aux' frame as desired,
+but starting OpenOffice moves focus to the 'Aux' frame.  Acrobat
+does not change the focus.  Changing switchto from true to false
+doesn't seem to change this behavior.
+
+Is there a way to configure ion so that OpenOffice leaves the focus
+alone the way Acrobat does?
+
+
+From tuomov at iki.fi  Mon Oct 13 20:06:29 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 13 Oct 2008 18:06:29 +0000 (UTC)
+Subject: OpenOffice focus
+References: <20081013164621.GA11730@ATAC.rmtc.fedex.com>
+Message-ID: <slrngf73h5.fvr.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-10-13, John Harrigan <jfharrigan at fedex.com> wrote:
+> Both Acrobat and OpenOffice open in the 'Aux' frame as desired,
+> but starting OpenOffice moves focus to the 'Aux' frame.  Acrobat
+> does not change the focus.  Changing switchto from true to false
+> doesn't seem to change this behavior.
+
+It is possible that OO is crap [of course it is, and utter and total
+at that] and forces the focus, in violation of the ICCCM [1]. Focus 
+change is not a request, but a command that the X server follows. 
+ICCCM establishes protocols on when it may be used.
+
+  [1]: http://www.tronche.com/gui/x/icccm/sec-4.html#s-4.1.7
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+
+From cptsalek at gmail.com  Thu Oct 30 14:13:00 2008
+From: cptsalek at gmail.com (Christian Walther)
+Date: Thu, 30 Oct 2008 14:13:00 +0100
+Subject: Manipulate floating splits or the scratchpad on the fly
+Message-ID: <14989d6e0810300613m649b8f26qd2b640ba4e771f5f@mail.gmail.com>
+
+Hi,
+
+I use ion as my WM of choice, at home as well as at work. I use a
+couple of workspaces, every one configured to perform a certain task,
+or make this task easier.
+One of these workspaces contains Xnest with a Citrix client running
+Lotus Notes (Citrix is by far the whorst App to run on any Unix host
+since it behaves like a window manager in every regard except for
+displaying icons of its iconified windows).
+Anyway, I'm using the scratchpad rather often on this workspace, it's
+a tool that comes in handy when I receive a mail to create a new user,
+for example. Open scratchpad, enter the commands in the terminal
+contained in it, and everything is done without ever moving a window
+or switching a workspace.
+But: The location or the geometry of the scratchpad often hides some
+information I need, so I found myself changing its size regularly. So
+recently I tried floating splits instead of the scratchpad. It's not
+that bad, but I need to use the mouse to move it around. And I
+remembered how much I hate moving anything around the screen...
+So, I would like to have some commands to manipulate either the
+scratchpad or a floating split:
+- making it (dis)appear
+- resize and reposition it (to be a column on the right side of the
+screen, or a row taking all screen width on the bottom half of the
+screen, or even resizining it to scatchpads default size).
+
+Thing is: I've no idea how to do this, and hope for your help.
+Yes, I did take a look at lua, so I'm afraid to do some coding. I just
+don't know what ion3 resources I need.
+
+Any help would be greatly appreciated, as well as any configuration
+that I could use as an example.
+
+Regards
+Christian Walther
+
+
+From tuomov at iki.fi  Thu Oct 30 17:24:27 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 30 Oct 2008 16:24:27 +0000 (UTC)
+Subject: Manipulate floating splits or the scratchpad on the fly
+References: <14989d6e0810300613m649b8f26qd2b640ba4e771f5f@mail.gmail.com>
+Message-ID: <slrnggjntr.oia.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-10-30, Christian Walther <cptsalek at gmail.com> wrote:
+> One of these workspaces contains Xnest with a Citrix client running
+> Lotus Notes (Citrix is by far the whorst App to run on any Unix host
+> since it behaves like a window manager in every regard except for
+> displaying icons of its iconified windows).
+
+It won't work on a non-tiled workspace? 
+
+> So, I would like to have some commands to manipulate either the
+> scratchpad or a floating split:
+> - making it (dis)appear
+> - resize and reposition it (to be a column on the right side of the
+> screen, or a row taking all screen width on the bottom half of the
+> screen, or even resizining it to scatchpads default size).
+>
+> Thing is: I've no idea how to do this, and hope for your help.
+> Yes, I did take a look at lua, so I'm afraid to do some coding. I just
+> don't know what ion3 resources I need.
+
+Let us consider the scratchpad first: You need to request a new geometry 
+for the object. To do so, you probably first want to find bounds for 
+the geometry. For the present setting, the width and height of the
+parent region is good enough a bound. To get the parent region, you
+use WRegion.parent. And to get its geometry, WRegion.geom. Then you
+calculate the new geometry within the parent region, and use 
+WRegion.rqgeom on the scratchpad frame.
+
+The mechanism for floating splits is similar, and the above might just
+work, but you may instead want rqgeom on the floating split object.
+If you want to do a detailed search for the split object, you can use
+WTiling.node_of and WSplit.parent and obj_is testing or something.
+Or you can use WTiling.split_tree and scan towards the leaves.
+
+But such scanning may not be necessary. It may just suffice
+to get WTiling.split_tree, check that it's a WSplitSplit (or
+WSplitFloat), and use WSplitWSplit.current() as the node to
+be resized.
+
+If you're in a WTiling binding callback, _ is the tiling, and
+_sub the frame. If you're in a WFrame binding callback, _
+is the frame, and to get the tiling, you use _:manager().
+
+Hopefully that helps. Ask more if it doesn't.
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+
+
+From me at robin.com.au  Fri Oct 31 13:25:20 2008
+From: me at robin.com.au (Robin)
+Date: Fri, 31 Oct 2008 19:25:20 +0700
+Subject: Fwd: Re: ICCCM
+In-Reply-To: <20081020080117.GA28223@jolt.modeemi.cs.tut.fi>
+References: <20081013164621.GA11730@ATAC.rmtc.fedex.com>
+	<slrngf73h5.fvr.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.ui8jjvilalb39k@hardy-mac>
+	<20081020080117.GA28223@jolt.modeemi.cs.tut.fi>
+Message-ID: <op.ujv14aabalb39k@hardy-mac>
+
+Thank you for your thoughts and information. I intended this to be on the  
+mailing in the first place. Hope you don't mind Tuomo.
+
+------- Forwarded message -------
+From: "Tuomo Valkonen" <tuomov at iki.fi>
+To: Robin <me at robin.com.au>
+Cc:
+Subject: Re: ICCCM
+Date: Mon, 20 Oct 2008 15:01:17 +0700
+
+On 2008-10-19 02:39 +0700, Robin wrote:
+> On Tue, 14 Oct 2008 01:06:29 +0700, Tuomo Valkonen <tuomov at iki.fi> wrote:
+>
+> >On 2008-10-13, John Harrigan <jfharrigan at fedex.com> wrote:
+> >>Both Acrobat and OpenOffice open in the 'Aux' frame as desired,
+> >>but starting OpenOffice moves focus to the 'Aux' frame.  Acrobat
+> >>does not change the focus.  Changing switchto from true to false
+> >>doesn't seem to change this behavior.
+> >
+> >It is possible that OO is crap [of course it is, and utter and total
+> >at that] and forces the focus, in violation of the ICCCM [1]. Focus
+> >change is not a request, but a command that the X server follows.
+> >ICCCM establishes protocols on when it may be used.
+> >
+> >  [1]: http://www.tronche.com/gui/x/icccm/sec-4.html#s-4.1.7
+> >
+>
+> Whenever I read that there are problems with certain apps (mostly
+> gnome-based) not running properly on ion, your response is usually that
+> the app is crap and does not follow the ICCCM spec.
+>
+> Not knowing what ICCCM means, I looked it up at
+> http://en.wikipedia.org/wiki/Inter-Client_Communication_Conventions_Manual
+>
+> One section says:
+>
+> "The ICCCM is notorious for being ambiguous and difficult to correctly
+> implement [1]. Furthermore, some parts are obsolete or no longer  
+> practical
+> to implement [2].
+
+Says the WIMPshit desktop clique, who does not want to support
+alternatives to their gnome/kde shit, and instead...
+
+> Maybe "does neither follow the ICCCM nor the EWMH"?
+
+... design shit like EWMH, that is very closely tied to WIMPshit
+desktop metaphor.
+
+In any case, the ICCCM is very clear here
+<http://www.tronche.com/gui/x/icccm/sec-4.html#s-4.1.7>:
+
+"""
+There are four models of input handling:
+
+   * No Input - The client never expects keyboard input. An example would be
+     xload or another output-only client.
+"""
+
+The ones that normal applications should adhere to are:
+
+"""
+   * Passive Input - The client expects keyboard input but never explicitly
+sets
+     the input focus. An example would be a simple client with no  
+subwindows,
+     which will accept input in PointerRoot mode or when the window manager
+sets
+     the input focus to its top-level window (in click-to-type mode).
+
+   * Locally Active Input - The client expects keyboard input and explicitly
+sets
+     the input focus, but it only does so when one of its windows already
+has the
+     focus. An example would be a client with subwindows defining various
+data
+     entry fields that uses Next and Prev keys to move the input focus
+between
+     the fields. It does so when its top-level window has acquired the focus
+in
+     PointerRoot mode or when the window manager sets the input focus to its
+     top-level window (in click-to-type mode).
+"""
+
+There is also
+
+"""
+   * Globally Active Input - The client expects keyboard input and  
+explicitly
+     sets the input focus, even when it is in windows the client does not
+own. An
+     example would be a client with a scroll bar that wants to allow users  
+to
+     scroll the window without disturbing the input focus even if it is in
+some
+     other window. It wants to acquire the input focus when the user clicks
+in
+     the scrolled region but not when the user clicks in the scroll bar
+itself.
+     Thus, it wants to prevent the window manager from setting the input
+focus to
+     any of its windows.
+""""
+
+But
+
+"""
+Clients using the Globally Active model can only use a SetInputFocus
+request
+to acquire the input focus when they do not already have it on receipt of
+one of the following events:
+   * ButtonPress
+   * ButtonRelease
+   * Passive-grabbed KeyPress
+   * Passive-grabbed KeyRelease
+"""
+
+So you see, the cases when an application is allowed to set the focus
+are clear and very limited.
+
+
+
+
+From eider.oliveira at gmail.com  Fri Oct 31 15:21:09 2008
+From: eider.oliveira at gmail.com (Eider Oliveira)
+Date: Fri, 31 Oct 2008 12:21:09 -0200
+Subject: Moving tabbar to bottom of the screen
+Message-ID: <2e53f4ef0810310721g5e4dfc6kf6af8e3a9d348362@mail.gmail.com>
+
+Hi all,
+  I did not found in the docs neither in the archives, so I coming to you
+guys.
+
+  Is there a way for me to place the tab below the frame, instead of on top
+of it?
+
+-- 
+Eider Oliveira
+
+Site: http://eider.eti.br
+Blog: http://eider.eti.br/Home/Blog/Blog.html
+
+I shall commit my thoughts to paper, but that is a poor medium for the
+communication of feeling. Robert Walton (Dr. Frankstein)
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20081031/d213f613/attachment.html>
+
+From tuomov at iki.fi  Fri Oct 31 17:22:23 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 31 Oct 2008 16:22:23 +0000 (UTC)
+Subject: Moving tabbar to bottom of the screen
+References: <2e53f4ef0810310721g5e4dfc6kf6af8e3a9d348362@mail.gmail.com>
+Message-ID: <slrnggmc5v.8e5.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-10-31, Eider Oliveira <eider.oliveira at gmail.com> wrote:
+>   Is there a way for me to place the tab below the frame, instead of on top
+> of it?
+
+Other than writing a patch, no.
+
+It shouldn't be too difficult. There's already the 'bar' parameter
+of frame styles, that supports the modes "inside", "outside", and
+"shaped". Just add "-below" variants, and wherever FRAME_BAR_* 
+is referred to, add extra cases for the below geometry.
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+

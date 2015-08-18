@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Ion3 wishlist / a note about Ion4
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-April/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion3%20wishlist%20/%20a%20note%20about%20Ion4&In-Reply-To=%3Cslrng13t23.t8t.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001173.html">
+   <LINK REL="Next"  HREF="001179.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Ion3 wishlist / a note about Ion4</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion3%20wishlist%20/%20a%20note%20about%20Ion4&In-Reply-To=%3Cslrng13t23.t8t.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Ion3 wishlist / a note about Ion4">tuomov at iki.fi
+       </A><BR>
+    <I>Fri Apr 25 17:09:55 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001173.html">Ion3 wishlist / a note about Ion4
+</A></li>
+        <LI>Next message: <A HREF="001179.html">Ion3 wishlist / a note about Ion4
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1174">[ date ]</a>
+              <a href="thread.html#1174">[ thread ]</a>
+              <a href="subject.html#1174">[ subject ]</a>
+              <a href="author.html#1174">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-04-25, Ted Zlatanov &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tzz at lifelogs.com</A>&gt; wrote:
+&gt;<i> It's not a lot of work to support such a language because Lisp itself is
+</I>&gt;<i> almost trivial to parse and there's a million embeddable Lisp parsers
+</I>&gt;<i> out there.
+</I>
+I didn't mean Lisp support (*yuck*). I meant merely the way ELisp
+code defines commands available to the user, so that emacs is able
+to query the parameters etc., documentation is included in the
+definition, and stuff. An implementation of The (defun ... interactive) 
+stuff in Lua, basically.
+
+defcmd(&quot;WRegion&quot;,       -- Context
+       &quot;Execute&quot;,       -- Command name
+       {ProgramName},   -- List of parameter classes
+       &quot;Run a program&quot;, -- Documentation
+       -- And finally the code
+       function(_, _sub, name)
+                ioncore.exec_on(_, name)
+       end)
+
+bind(&quot;WMPlex&quot;, &quot;F3&quot;, &quot;Execute&quot;)
+bind(&quot;WMPlex&quot;, &quot;F2&quot;, &quot;Execute&quot;, &quot;xterm&quot;)
+
+defcmd might also provide the command as a lua function somewhere,
+e.g. cmds.WRegion.Execute or maybe WRegion.cmd_Execute. Note that
+this works with spaces too, as WFrame[&quot;cmd_Switch next&quot;]. This
+way perhaps some of the C-side exports could be removed, making
+the API smaller. This function would require the _ and _sub arguments
+to be passed to it. Basically what 'bind' would then do is pass this
+function to the C-side stuff that only understands Lua functions.
+
+Something like that, with ProgramName being some class that defines 
+a completor for queries. (Maybe also WRegion, WMPlex should be passed
+as class definitions instead of strings... but that's just minor 
+details.) Better design suggestions are welcome, and implementations
+in particular.
+
+&gt;<i> TV&gt;   * Maybe, especially in conjunction of the previous feature, the 
+</I>&gt;<i> TV&gt;     config could be more tree-form, storable in arbitrary structural
+</I>&gt;<i> TV&gt;     files (incl. a single Lua table). 
+</I>&gt;<i>
+</I>&gt;<i> Just use JSON, every major language these days can parse it.  It's far
+</I>&gt;<i> from perfect, but compared to XML and others it's a joy to use.  
+</I>
+It's shit, because it doesn't have identifiers and probably was
+UTF-8 monoculturist too, IIRC. In Lua, 
+
+        { foo = &quot;bar&quot; }
+
+is equivalent to
+
+        { [&quot;foo&quot;] = &quot;bar&quot; },
+
+the former being special identifier syntax. JSON only provides
+the equivalent of the latter.
+
+In case someone took me wrong, I have absolutely no plans of 
+abandoning Lua. Quite on the contrary, I will try to use more
+Lua and less C in any code I might get around to writing for
+Ion4. Lua can be used for table-form config just fine; there's
+no need to come up with a new format for storage. (If I did use
+something other than Lua, it would be .INI or something *binary*).
+But a config addressable in table-form by e.g. external tools, 
+offers various possibilities that a pure scripting language
+config doesn't.
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001173.html">Ion3 wishlist / a note about Ion4
+</A></li>
+	<LI>Next message: <A HREF="001179.html">Ion3 wishlist / a note about Ion4
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1174">[ date ]</a>
+              <a href="thread.html#1174">[ thread ]</a>
+              <a href="subject.html#1174">[ subject ]</a>
+              <a href="author.html#1174">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Bug in ioncore.goto_next() ?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Bug%20in%20ioncore.goto_next%28%29%20%3F&In-Reply-To=%3C20070403102308.GA7733%40tuvok.wenf.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000339.html">
+   <LINK REL="Next"  HREF="000343.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Bug in ioncore.goto_next() ?</H1>
+    <B>Jan Johansson</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Bug%20in%20ioncore.goto_next%28%29%20%3F&In-Reply-To=%3C20070403102308.GA7733%40tuvok.wenf.org%3E"
+       TITLE="Bug in ioncore.goto_next() ?">janj+ion at wenf.org
+       </A><BR>
+    <I>Tue Apr  3 12:23:08 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000339.html">(not quite) full-sreen
+</A></li>
+        <LI>Next message: <A HREF="000343.html">Bug in ioncore.goto_next() ?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#340">[ date ]</a>
+              <a href="thread.html#340">[ thread ]</a>
+              <a href="subject.html#340">[ subject ]</a>
+              <a href="author.html#340">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello.
+
+For testing I created a WTiling looking like 
+
+  AABBCC
+  AABBCC
+  AABBDD
+  AABBDD
+
+In defbindings(&quot;WScreen&quot; .. I created a binding for
+
+kpress(PREFIX..&quot;F&quot;, &quot;ioncore.goto_next(_chld, &lt;DIR&gt;)&quot;,
+&quot;_chld:non-nil&quot;),
+
+Movement was like the following table where i think that &quot;next&quot;
+is quite odd.
+
+&lt;DIR&gt; - movement
+right - A -&gt; B -&gt; D -&gt; A
+left  - A -&gt; D -&gt; B -&gt; A
+next  - A -&gt; B -&gt; D -&gt; A
+prev  - A -&gt; D -&gt; C -&gt; B -&gt; A
+
+Bug, feature or nothing of the kind?
+
+Jan J
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000339.html">(not quite) full-sreen
+</A></li>
+	<LI>Next message: <A HREF="000343.html">Bug in ioncore.goto_next() ?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#340">[ date ]</a>
+              <a href="thread.html#340">[ thread ]</a>
+              <a href="subject.html#340">[ subject ]</a>
+              <a href="author.html#340">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

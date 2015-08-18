@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Statusbar and colors
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Statusbar%20and%20colors&In-Reply-To=%3Cslrneq28gr.3at.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000004.html">
+   <LINK REL="Next"  HREF="000006.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Statusbar and colors</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Statusbar%20and%20colors&In-Reply-To=%3Cslrneq28gr.3at.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Statusbar and colors">tuomov at iki.fi
+       </A><BR>
+    <I>Sun Jan  7 17:38:51 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000004.html">Statusbar and colors
+</A></li>
+        <LI>Next message: <A HREF="000006.html">Statusbar and colors
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#5">[ date ]</a>
+              <a href="thread.html#5">[ thread ]</a>
+              <a href="subject.html#5">[ subject ]</a>
+              <a href="author.html#5">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2007-01-06, Alexander Rink &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">rink at elfenbeinturm.cc</A>&gt; wrote:
+&gt;<i> - Is it possible to restore a frame layout for a given application 
+</I>
+You can assign identifiable windows to certain frames with winprops;
+RTFM for details. You can't presently automatically create a workspace
+of given layout etc.
+
+&gt;<i> - Is it possible to use colors in the status bar (e.g. a label in blue 
+</I>&gt;<i> and the value in white or separators in gray)
+</I>
+In a very complex manner, yes. By modifying all the monitors to specify
+monitorname_hint to have value the appropriate substyle from the stdisp
+style, and setting this style to have the appropriate colour, you can
+get all the monitors to be display in any colour they want. Perhaps
+there should be a way to specify a style to use in the template, or
+perhaps the meter name should be included in the substyle used for the
+meter. However, there _will not_ be a way to specify colours directly: 
+that is against the philosophy behind Ion's drawing engines.
+
+&gt;<i> - Is it possible to turn of some of Ions key bindings only for a given 
+</I>&gt;<i> application (e.g. midnight commander)?
+</I>
+By awful script hacks, yes. (Check the switch_bindings script from the
+repository.) No, there will not be cleaner support for such disgusting
+features.
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000004.html">Statusbar and colors
+</A></li>
+	<LI>Next message: <A HREF="000006.html">Statusbar and colors
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#5">[ date ]</a>
+              <a href="thread.html#5">[ thread ]</a>
+              <a href="subject.html#5">[ subject ]</a>
+              <a href="author.html#5">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

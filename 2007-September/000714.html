@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> minor drawing bug in ion-3rc-20070902
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-September/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20minor%20drawing%20bug%20in%20ion-3rc-20070902&In-Reply-To=%3Ca54d2e230709122313t5f6b13e1h269195a1f67bb05f%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000711.html">
+   <LINK REL="Next"  HREF="000715.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>minor drawing bug in ion-3rc-20070902</H1>
+    <B>Groleo Marius</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20minor%20drawing%20bug%20in%20ion-3rc-20070902&In-Reply-To=%3Ca54d2e230709122313t5f6b13e1h269195a1f67bb05f%40mail.gmail.com%3E"
+       TITLE="minor drawing bug in ion-3rc-20070902">groleo at gmail.com
+       </A><BR>
+    <I>Thu Sep 13 08:13:55 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000711.html">ion in separated thread so it can be run from lua interpreter
+</A></li>
+        <LI>Next message: <A HREF="000715.html">minor drawing bug in ion-3rc-20070902
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#714">[ date ]</a>
+              <a href="thread.html#714">[ thread ]</a>
+              <a href="subject.html#714">[ subject ]</a>
+              <a href="author.html#714">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>1.Symptom:
+the WGroupsWS frame+tab is drawn over by it's contents.
+
+2.Steps to reproduce:
+_:attach_new({type=&quot;WGroupWS&quot;})
+launch your terminal emulator inside the WgroupWS.
+move the terminal it toward the upper bound of the WgroupWS.
+
+3.Setup
+ion-3rc-20070902
+
+<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">groleo at cucu</A>:~/.gnome2$ cat session
+[Default]
+0,id=default1
+0,RestartStyleHint=0
+0,Priority=10
+0,Program=/usr/local/bin/ion3
+0,CloneCommand=/usr/local/bin/ion3
+0,RestartCommand=/usr/local/bin/ion3 -session
+/home/groleo/.ion3/gnome-session-Default -smclientid default1
+1,id=1151b5634c000118968896300000051450000
+1,Program=1000
+1,CloneCommand=xmms
+1,RestartCommand=xmms --sm-client-id 1151b5634c000118968896300000051450000
+2,RestartCommand=/usr/bin/rxvt
+num_clients=3
+
+
+screenshot attached .
+-- 
+Regards, Groleo!
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: ion3sh.jpg
+Type: image/jpeg
+Size: 23870 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20070913/084ed2cc/attachment.jpg">https://lists.berlios.de/pipermail/ion-general/attachments/20070913/084ed2cc/attachment.jpg</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000711.html">ion in separated thread so it can be run from lua interpreter
+</A></li>
+	<LI>Next message: <A HREF="000715.html">minor drawing bug in ion-3rc-20070902
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#714">[ date ]</a>
+              <a href="thread.html#714">[ thread ]</a>
+              <a href="subject.html#714">[ subject ]</a>
+              <a href="author.html#714">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> attach_new problems
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20attach_new%20problems&In-Reply-To=%3C940ef3c00802232210h72d1b6e8o285c01474ba6dc17%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001111.html">
+   <LINK REL="Next"  HREF="001113.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>attach_new problems</H1>
+    <B>Alte</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20attach_new%20problems&In-Reply-To=%3C940ef3c00802232210h72d1b6e8o285c01474ba6dc17%40mail.gmail.com%3E"
+       TITLE="attach_new problems">alex.barinov at gmail.com
+       </A><BR>
+    <I>Sun Feb 24 07:10:00 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001111.html">attach_new problems
+</A></li>
+        <LI>Next message: <A HREF="001113.html">attach_new problems
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1112">[ date ]</a>
+              <a href="thread.html#1112">[ thread ]</a>
+              <a href="subject.html#1112">[ subject ]</a>
+              <a href="author.html#1112">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Thanks a lot for the hint!  Creating non-empty WGroupCW (btw, I really
+wanted WGroupCW and not WGroupWS) works flawlessly.  However, the next
+bit of code, that used to work under previous ion3 version, started to
+fail.  The code now looks as follows (I'm simplifying it a bit for the
+sake of readability, but you'll get the idea):
+
+local tf = ioncore.lookup_region(&quot;WFrameSS&quot;, &quot;WFrame&quot;)
+local opt = {type = &quot;WTiling&quot;, name = c, dir = &quot;horizontal&quot;, switchto
+= t.switchto, bottom = true,
+   split_tree = {type = &quot;WSplitSplit&quot;, dir = &quot;horizontal&quot;, tls = 1, brs = 1,
+   tl = {type = &quot;WSplitRegion&quot;, regparams = {type = &quot;WFrame&quot;, name =
+c..&quot;-left&quot;}},
+   br = {type = &quot;WSplitRegion&quot;, regparams = {type = &quot;WFrame&quot;, name =
+c..&quot;-right&quot;}}}}
+local wg = tf:attach_new({type = &quot;WGroupCW&quot;, switchto = t.switchto,
+managed = { opt }})
+fr = wg:bottom():split_tree():br():reg()
+fr:set_mode(&quot;tiled-alt&quot;)
+fr:attach_new({type = &quot;WGroupCW&quot;, switchto = t.switchto, managed =
+{{reg = cwin, bottom = true}}})
+
+This gives no errors, but cwin gets attached to WFrame named
+&quot;WFrameSS&quot; (a top one), and not to a newly created &quot;Gimp-right&quot;
+WFrame.  Once again, I have no idea at all how this happens, the code
+worked just fine under previous versions of ion3.
+
+--
+Alexander
+
+On Sat, Feb 23, 2008 at 10:41 AM, Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt; wrote:
+&gt;<i> On 2008-02-23, Alte &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">alex.barinov at gmail.com</A>&gt; wrote:
+</I>&gt;<i>  &gt;         local wg = tf:attach_new({type = &quot;WGroupCW&quot;, switchto = t.switchto})
+</I>&gt;<i>  &gt;         local opt = {type = &quot;WTiling&quot;, name = c, dir = &quot;horizontal&quot;,
+</I>&gt;<i>  ...
+</I>&gt;<i>
+</I>&gt;<i> &gt;         local ws = wg:attach_new(opt)
+</I>&gt;<i>
+</I>&gt;<i>  You can not create empty WGroupCWs. (Consider loading a saved layout
+</I>&gt;<i>  without the old client windows (CQW) to be found. These types of
+</I>&gt;<i>  groups have been tuned for groups as client window containers.)
+</I>&gt;<i>  What you probably want is WGroupWS (groups tuned for workspace
+</I>&gt;<i>  usage). Also, you're doing things the clumsy way by repeated
+</I>&gt;<i>  attach_new. You can simply include the second layout in the
+</I>&gt;<i>  first attach_new: managed = { opt }.
+</I>&gt;<i>
+</I>&gt;<i>  --
+</I>&gt;<i>  Tuomo
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001111.html">attach_new problems
+</A></li>
+	<LI>Next message: <A HREF="001113.html">attach_new problems
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1112">[ date ]</a>
+              <a href="thread.html#1112">[ thread ]</a>
+              <a href="subject.html#1112">[ subject ]</a>
+              <a href="author.html#1112">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

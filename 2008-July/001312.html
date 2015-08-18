@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Bug#492906: ion3 does not preserve the aspect for tiled windows
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Bug%23492906%3A%20ion3%20does%20not%20preserve%20the%20aspect%20for%20tiled%20windows&In-Reply-To=%3C1217364100.6073.4.camel%40deadeye.i.decadent.org.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001311.html">
+   <LINK REL="Next"  HREF="001317.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Bug#492906: ion3 does not preserve the aspect for tiled windows</H1>
+    <B>Ben Hutchings</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Bug%23492906%3A%20ion3%20does%20not%20preserve%20the%20aspect%20for%20tiled%20windows&In-Reply-To=%3C1217364100.6073.4.camel%40deadeye.i.decadent.org.uk%3E"
+       TITLE="Bug#492906: ion3 does not preserve the aspect for tiled windows">ben at decadent.org.uk
+       </A><BR>
+    <I>Tue Jul 29 22:41:40 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001311.html">How to include Debian menu in to Ion3 installed from source? -	SOLVED
+</A></li>
+        <LI>Next message: <A HREF="001317.html">Bug#492906: ion3 does not preserve the aspect for tiled windows
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1312">[ date ]</a>
+              <a href="thread.html#1312">[ thread ]</a>
+              <a href="subject.html#1312">[ subject ]</a>
+              <a href="author.html#1312">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Tue, 2008-07-29 at 20:41 +0200, Berenyi Mihaly wrote: 
+&gt;<i> Package: ion3
+</I>&gt;<i> Version: 20080707-3
+</I>&gt;<i> Severity: normal
+</I>&gt;<i> 
+</I>&gt;<i> since the last update (or thereabouts, i cannot be sure, but certainly
+</I>&gt;<i> since the last few days), tiled mplayer windows no longer have the
+</I>&gt;<i> correct aspect ratio. this used to work (the usual black bands around
+</I>&gt;<i> the &quot;extra&quot; space).
+</I>&gt;<i> it still works with floated windows or fullscreen windows, but tiled
+</I>&gt;<i> mplayers just fill the entire split they occupy.
+</I>
+I think this was an intended effect of this upstream change:
+
+Fri May  2 20:14:56 BST 2008  Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt;
+  * WGroup needed &quot;whatever&quot; attach geometry option 
+  for proper WGroupCW/WClientWin initial size setup.
+
+Tuomo, does this seem correct to you?
+
+Ben.
+
+-- 
+Ben Hutchings
+If God had intended Man to program,
+we'd have been born with serial I/O ports.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20080729/ee285432/attachment.pgp">https://lists.berlios.de/pipermail/ion-general/attachments/20080729/ee285432/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001311.html">How to include Debian menu in to Ion3 installed from source? -	SOLVED
+</A></li>
+	<LI>Next message: <A HREF="001317.html">Bug#492906: ion3 does not preserve the aspect for tiled windows
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1312">[ date ]</a>
+              <a href="thread.html#1312">[ thread ]</a>
+              <a href="subject.html#1312">[ subject ]</a>
+              <a href="author.html#1312">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

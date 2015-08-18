@@ -1,0 +1,3650 @@
+From Albert.Shih at obspm.fr  Thu Jan  4 16:38:49 2007
+From: Albert.Shih at obspm.fr (Albert Shih)
+Date: Thu, 4 Jan 2007 16:38:49 +0100
+Subject: workspace name
+Message-ID: <20070104153849.GA7711@pcjas.obspm.fr>
+
+Hi all 
+
+
+I am a very happy user of the ion3 window manager since ion. Thank's for the
+great work.
+
+I've recently update my ion3 and I've read in the README the WSFloat have
+disapear. OK Right.
+
+Now when I need something like WSFloat I'm using context-menu (MOD+M) and
+type new-empty-workspace. But I don't know how I can give a name for this new
+workspace. Or in case that's not the good way to create sometime like
+WSFloat workspace, how can I do ?
+
+Other question : How can I modify the generic workspace configuration
+(create by F9) ?
+
+Last question : I've read 
+
+https://lists.berlios.de/pipermail/ion-general/2006-November/001468.html
+
+but this lua script don't work I've got ??? in statusbar.
+
+
+I'm using 
+
+	ion-3ds-20061223
+
+Regards
+
+--
+Albert SHIH
+Observatoire de Paris Meudon
+Heure local/Local time:
+Jeu 4 jan 2007 16:32:31 CET
+
+
+From tuomov at iki.fi  Fri Jan  5 10:22:19 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 5 Jan 2007 09:22:19 +0000 (UTC)
+Subject: workspace name
+References: <20070104153849.GA7711@pcjas.obspm.fr>
+Message-ID: <slrneps66b.g1g.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-04, Albert Shih <Albert.Shih at obspm.fr> wrote:
+> Now when I need something like WSFloat I'm using context-menu (MOD+M) and
+> type new-empty-workspace. But I don't know how I can give a name for this new
+> workspace. 
+
+Yeah, it isn't there anymore for workspaces without the default layout.
+I wonder what would be the best way to go about this...
+
+> Other question : How can I modify the generic workspace configuration
+> (create by F9) ?
+
+See cfg_tiling.lua for how the default is set. (You could define an
+alternative somewhere else. At the end of cfg_ion.lua, for example.)
+
+-- 
+Tuomo
+
+
+
+From Albert.Shih at obspm.fr  Fri Jan  5 10:54:11 2007
+From: Albert.Shih at obspm.fr (Albert Shih)
+Date: Fri, 5 Jan 2007 10:54:11 +0100
+Subject: workspace name
+In-Reply-To: <slrneps66b.g1g.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070104153849.GA7711@pcjas.obspm.fr>
+	<slrneps66b.g1g.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070105095411.GA78002@pcjas.obspm.fr>
+
+ Le 05/01/2007 ? 09:22:19+0000, Tuomo Valkonen a ?crit
+> On 2007-01-04, Albert Shih <Albert.Shih at obspm.fr> wrote:
+> > Now when I need something like WSFloat I'm using context-menu (MOD+M) and
+> > type new-empty-workspace. But I don't know how I can give a name for this new
+> > workspace. 
+> 
+> Yeah, it isn't there anymore for workspaces without the default layout.
+> I wonder what would be the best way to go about this...
+> 
+> > Other question : How can I modify the generic workspace configuration
+> > (create by F9) ?
+> 
+> See cfg_tiling.lua for how the default is set. (You could define an
+> alternative somewhere else. At the end of cfg_ion.lua, for example.)
+
+Lots of thanks.
+
+I find a way to do exactly what I want.
+
+I've modify the cfg_tiling.lua just like you say ...and I change 
+
+	bottom_last_close = true,
+
+to
+
+	bottom_last_close = false,
+
+And now I can create a workspace (using F9) with a name, destroy the tiling
+frame and I got a floating workspace with a name 
+
+Regards.
+
+--
+Albert SHIH
+Observatoire de Paris Meudon
+Heure local/Local time:
+Ven 5 jan 2007 10:53:55 CET
+
+
+From necui-iongen at nic-nac-project.net  Fri Jan  5 23:10:51 2007
+From: necui-iongen at nic-nac-project.net (Rafal Jedruszek)
+Date: Fri, 05 Jan 2007 23:10:51 +0100
+Subject: Compilation problem: "Using 'dlopen' in statically linked
+	applications (...)" (was: dock getting focus)
+References: <87vem34a7n.fsf@estera.homeip.net>
+	<slrnek9a2v.iqv.tuomov@jolt.modeemi.cs.tut.fi>
+	<87bqnutex8.fsf_-_@estera.homeip.net>
+Message-ID: <874pr59las.fsf@estera.homeip.net>
+
+Rafal Jedruszek
+<necui-iongen at nic-nac-project.net>
+writes:
+
+> Tuomo Valkonen <tuomov at iki.fi> writes:
+>
+>> On 2006-10-29, Rafal Jedruszek <necui-iongen at nic-nac-project.net> wrote:
+>>> I've recently updated ion3 and now the dock is able to get focus
+>>
+>> Maybe fixed. Can't be bothered to test...
+>
+> Thanks.  I will probably have to wait for new version in my
+> distribution's repository because I can't compile ion-3 by hand.
+
+I have upgraded ion3 and it's ok now.  Thanks Tuomo.
+
+
+-- 
+did you ever
+swim in a sea
+breathing air where
+air was free
+
+
+
+From rink at elfenbeinturm.cc  Sat Jan  6 13:40:39 2007
+From: rink at elfenbeinturm.cc (Alexander Rink)
+Date: Sat, 06 Jan 2007 13:40:39 +0100
+Subject: Statusbar and colors
+Message-ID: <459F98C7.90905@elfenbeinturm.cc>
+
+Hello,
+I'm new to ion and I really like it (using ion3-3ds). Most things work 
+like I wanted them to work, but I'm just missing a few things (I hope 
+these questions haven't been answered before, I searched the website and 
+didn't found an answer)
+
+- Is it possible to restore a frame layout for a given application with 
+more than one window (e.g. gimp) or have I always have to move the 
+windows into the appropriate frame (Gimp Main Icon Bar into a small left 
+frame, Layers into a small right frame, Image into a big center frame)? 
+I already created a workspace with the desired frame layout, but I would 
+like that gimp automagically fills the frames when started.
+- Is it possible to use colors in the status bar (e.g. a label in blue 
+and the value in white or separators in gray)
+- Is it possible to turn of some of Ions key bindings only for a given 
+application (e.g. midnight commander)?
+
+Thanks in advance
+
+Alex
+
+
+From tuomov at iki.fi  Sun Jan  7 17:38:51 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 7 Jan 2007 16:38:51 +0000 (UTC)
+Subject: Statusbar and colors
+References: <459F98C7.90905@elfenbeinturm.cc>
+Message-ID: <slrneq28gr.3at.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-06, Alexander Rink <rink at elfenbeinturm.cc> wrote:
+> - Is it possible to restore a frame layout for a given application 
+
+You can assign identifiable windows to certain frames with winprops;
+RTFM for details. You can't presently automatically create a workspace
+of given layout etc.
+
+> - Is it possible to use colors in the status bar (e.g. a label in blue 
+> and the value in white or separators in gray)
+
+In a very complex manner, yes. By modifying all the monitors to specify
+monitorname_hint to have value the appropriate substyle from the stdisp
+style, and setting this style to have the appropriate colour, you can
+get all the monitors to be display in any colour they want. Perhaps
+there should be a way to specify a style to use in the template, or
+perhaps the meter name should be included in the substyle used for the
+meter. However, there _will not_ be a way to specify colours directly: 
+that is against the philosophy behind Ion's drawing engines.
+
+> - Is it possible to turn of some of Ions key bindings only for a given 
+> application (e.g. midnight commander)?
+
+By awful script hacks, yes. (Check the switch_bindings script from the
+repository.) No, there will not be cleaner support for such disgusting
+features.
+
+-- 
+Tuomo
+
+
+
+From drosophila at nmental.com  Sun Jan  7 21:27:08 2007
+From: drosophila at nmental.com (G.H.)
+Date: Sun, 7 Jan 2007 15:27:08 -0500
+Subject: Statusbar and colors
+In-Reply-To: <mailman.41.1168167625.16910.ion-general@lists.berlios.de>
+References: <mailman.41.1168167625.16910.ion-general@lists.berlios.de>
+Message-ID: <20070107202708.GA17273@mail.gh-nmental.net>
+
+> Is it possible to restore a frame layout for a given application with 
+> more than one window (e.g. gimp) or have I always have to move the 
+> windows into the appropriate frame (Gimp Main Icon Bar into a small left 
+> frame, Layers into a small right frame, Image into a big center frame)? 
+> I already created a workspace with the desired frame layout, but I would 
+> like that gimp automagically fills the frames when started.
+Yes, but somebody could fill less lines showing you how to do it.
+The key is to look for window names, binding the respective 'regexp' with
+actual Ion frames. the procedure is indeed in the Ion help pages.
+
+> Is it possible to use colors in the status bar (e.g. a label in blue 
+> and the value in white or separators in gray)
+Yes, you could change colors editing the module lookcommon_*.lua, depending
+on the theme actually used.
+
+> Is it possible to turn of some of Ions key bindings only for a given 
+> application (e.g. midnight commander)?
+Very possible, you don't need to change anything to achieve your goal.
+On Linux systems the META key is usually left-ALT.
+press META + K + Q to bind the next command to another program.
+Example: META + K + Q  =>  F10  to exit from "mc".
+
+Alternatively you could bind some special commands like this (note: the module
+used is 'ioncore', the ioncore's function used is: "exec_on"):
+
+    bdoc("SLEEP"),
+    kpress("XF86Sleep", "ioncore.exec_on(_, 'xset dpms force off')")
+
+(Put to sleep your monitor).
+
+Bye.
+-- 
+Mario G.H.
+
+
+
+From ct at gocept.com  Tue Jan  9 12:30:22 2007
+From: ct at gocept.com (Christian Theune)
+Date: Tue, 09 Jan 2007 12:30:22 +0100
+Subject: ion3 with dynamic twinview
+Message-ID: <45A37CCE.7050007@gocept.com>
+
+Hi,
+
+I've discovered NVidia's dynamic twinview feature last week. It allows 
+me to add and remove displays from my twinview configuration at runtime 
+without restarting the xorg server.
+
+However, Ion (and gnome) don't get it right, when I add a new display. 
+It extends the existing single workspace over both displays instead of 
+making to separate workspaces (or virtual displays, whatever the right 
+term is). When I startup with both displays connected and let twinview 
+figure out the initial configuration, Ion gets it right and gives me two 
+screens.
+
+Christian
+
+-- 
+gocept gmbh & co. kg - forsterstra?e 29 - 06112 halle/saale - germany
+www.gocept.com - ct at gocept.com - phone +49 345 122 9889 7 -
+fax +49 345 122 9889 1 - zope and plone consulting and development
+
+
+
+From tuomov at iki.fi  Tue Jan  9 13:13:09 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 9 Jan 2007 12:13:09 +0000 (UTC)
+Subject: ion3 with dynamic twinview
+References: <45A37CCE.7050007@gocept.com>
+Message-ID: <slrneq71ml.c2e.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-09, Christian Theune <ct at gocept.com> wrote:
+> I've discovered NVidia's dynamic twinview feature last week. It allows 
+> me to add and remove displays from my twinview configuration at runtime 
+> without restarting the xorg server.
+
+Ion does not support runtime changes in display configuration, and 
+_won't_ get it "right" even over restarts if the displays are shuffled
+around a lot. I have no plans of writing that support. Xinerama sucks
+anyway, being incompatible with every other extension, and multihead 
+in general is a fucking waste (of energy etc.) most of the time too.
+
+-- 
+Tuomo
+
+
+
+From ct at gocept.com  Tue Jan  9 13:32:13 2007
+From: ct at gocept.com (Christian Theune)
+Date: Tue, 09 Jan 2007 13:32:13 +0100
+Subject: ion3 with dynamic twinview
+In-Reply-To: <slrneq71ml.c2e.tuomov@jolt.modeemi.cs.tut.fi>
+References: <45A37CCE.7050007@gocept.com>
+	<slrneq71ml.c2e.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <45A38B4D.4050404@gocept.com>
+
+Hi,
+
+Tuomo Valkonen wrote:
+> On 2007-01-09, Christian Theune <ct at gocept.com> wrote:
+>> I've discovered NVidia's dynamic twinview feature last week. It allows 
+>> me to add and remove displays from my twinview configuration at runtime 
+>> without restarting the xorg server.
+> 
+> Ion does not support runtime changes in display configuration, and 
+> _won't_ get it "right" even over restarts if the displays are shuffled
+> around a lot. I have no plans of writing that support. Xinerama sucks
+> anyway, being incompatible with every other extension, and multihead 
+> in general is a fucking waste (of energy etc.) most of the time too.
+
+I'm sad to hear that (both that the situation seems so tiresome and that 
+  ion won't get the support), but I appreciate the effort you take in ion.
+
+Thanks for your quick answer,
+Christian
+
+
+-- 
+gocept gmbh & co. kg - forsterstra?e 29 - 06112 halle/saale - germany
+www.gocept.com - ct at gocept.com - phone +49 345 122 9889 7 -
+fax +49 345 122 9889 1 - zope and plone consulting and development
+
+
+
+From tuomov at iki.fi  Tue Jan  9 13:54:41 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 9 Jan 2007 12:54:41 +0000 (UTC)
+Subject: ion3 with dynamic twinview
+References: <45A37CCE.7050007@gocept.com>
+	<slrneq71ml.c2e.tuomov@jolt.modeemi.cs.tut.fi>
+	<45A38B4D.4050404@gocept.com>
+Message-ID: <slrneq744h.ft2.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-09, Christian Theune <ct at gocept.com> wrote:
+>> Ion does not support runtime changes in display configuration, and 
+>> _won't_ get it "right" even over restarts if the displays are shuffled
+>> around a lot. I have no plans of writing that support. Xinerama sucks
+>> anyway, being incompatible with every other extension, and multihead 
+>> in general is a fucking waste (of energy etc.) most of the time too.
+>
+> I'm sad to hear that (both that the situation seems so tiresome and that 
+>   ion won't get the support), but I appreciate the effort you take in ion.
+
+Actually, with waste of energy I was referring to energy consumption,
+this non-winter we're having, etc. But, yeah, multihead support in
+general is also a waste of my personal energy.
+
+-- 
+Tuomo
+
+
+
+From ct at gocept.com  Tue Jan  9 13:57:21 2007
+From: ct at gocept.com (Christian Theune)
+Date: Tue, 09 Jan 2007 13:57:21 +0100
+Subject: ion3 with dynamic twinview
+In-Reply-To: <slrneq744h.ft2.tuomov@jolt.modeemi.cs.tut.fi>
+References: <45A37CCE.7050007@gocept.com>	<slrneq71ml.c2e.tuomov@jolt.modeemi.cs.tut.fi>	<45A38B4D.4050404@gocept.com>
+	<slrneq744h.ft2.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <45A39131.4010101@gocept.com>
+
+
+
+Tuomo Valkonen wrote:
+> On 2007-01-09, Christian Theune <ct at gocept.com> wrote:
+>>> Ion does not support runtime changes in display configuration, and 
+>>> _won't_ get it "right" even over restarts if the displays are shuffled
+>>> around a lot. I have no plans of writing that support. Xinerama sucks
+>>> anyway, being incompatible with every other extension, and multihead 
+>>> in general is a fucking waste (of energy etc.) most of the time too.
+>> I'm sad to hear that (both that the situation seems so tiresome and that 
+>>   ion won't get the support), but I appreciate the effort you take in ion.
+> 
+> Actually, with waste of energy I was referring to energy consumption,
+> this non-winter we're having, etc. But, yeah, multihead support in
+> general is also a waste of my personal energy.
+
+:) I agree that multihead is something that is rarely needed with ion, 
+but I do enjoy having a separate screen to hold some information that I 
+want to 'passively' monitor while working on my main screen ...
+
+-- 
+gocept gmbh & co. kg - forsterstra?e 29 - 06112 halle/saale - germany
+www.gocept.com - ct at gocept.com - phone +49 345 122 9889 7 -
+fax +49 345 122 9889 1 - zope and plone consulting and development
+
+
+
+From droundy at darcs.net  Tue Jan  9 19:53:54 2007
+From: droundy at darcs.net (David Roundy)
+Date: Tue, 9 Jan 2007 10:53:54 -0800
+Subject: popup windows leaving frames behind when they close
+Message-ID: <20070109185354.GD1993@abridgegame.org>
+
+Hi all,
+
+I have an annoying problem, which is caused by something in my
+configuration, since it goes away if I rename my .ion3 directory to
+something else and restart ion3.  The problem is that when I close a
+transient window, the frame that it opened in stays behind.  I am sure I
+could track this down by some sort of a binary search, but am hopefully
+that someone could point me in the right direction as to what sort of a
+configuration might cause this.  Any ideas?
+
+I'm running the ion3 which is in debian etch, which is version
+3ds-20061029.
+-- 
+David Roundy
+Department of Physics
+Oregon State University
+
+
+From johannes at segitz.de  Wed Jan 10 16:49:34 2007
+From: johannes at segitz.de (Johannes Segitz)
+Date: Wed, 10 Jan 2007 16:49:34 +0100
+Subject: popup windows leaving frames behind when they close
+In-Reply-To: <20070109185354.GD1993@abridgegame.org>
+References: <20070109185354.GD1993@abridgegame.org>
+Message-ID: <20070110154933.GG17156@segitz.de>
+
+On Tue, Jan 09, 2007 at 10:53:54AM -0800, David Roundy wrote:
+> I am sure I could track this down by some sort of a binary search, but
+> am hopefully that someone could point me in the right direction as to
+> what sort of a configuration might cause this.  Any ideas?
+
+It's the min_tab script, i had the same problem but no opportunity to
+look into it
+
+Jonny
+
+
+From tzz at lifelogs.com  Wed Jan 10 16:41:58 2007
+From: tzz at lifelogs.com (Ted Zlatanov)
+Date: Wed, 10 Jan 2007 10:41:58 -0500
+Subject: ion3 with dynamic twinview
+In-Reply-To: <45A39131.4010101@gocept.com> (Christian Theune's message of
+	"Tue\, 09 Jan 2007 13\:57\:21 +0100")
+References: <45A37CCE.7050007@gocept.com>
+	<slrneq71ml.c2e.tuomov@jolt.modeemi.cs.tut.fi>
+	<45A38B4D.4050404@gocept.com>
+	<slrneq744h.ft2.tuomov@jolt.modeemi.cs.tut.fi>
+	<45A39131.4010101@gocept.com>
+Message-ID: <g6964beopmh.fsf@dhcp-65-162.kendall.corp.akamai.com>
+
+On  9 Jan 2007, ct at gocept.com wrote:
+
+> :) I agree that multihead is something that is rarely needed with ion,
+> but I do enjoy having a separate screen to hold some information that
+> I want to 'passively' monitor while working on my main screen ...
+
+I think something like the Optimus Mini3 keyboard could be very handy.
+It has Linux drivers (including Perl bindings) and I've been meaning
+to write some code to integrate resource monitoring with it.  The key
+is that it's separate from X, so it would work with a server and with
+a workstation the same way, you don't need even one monitor.
+
+Ted
+
+
+From nicolas at duboc.net  Wed Jan 10 18:41:38 2007
+From: nicolas at duboc.net (Nicolas Duboc)
+Date: Wed, 10 Jan 2007 18:41:38 +0100
+Subject: Problem with focus on mouse changing screen
+In-Reply-To: <slrneoim3t.vgd.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20061205094350.GA30760@cirrus.ilog.fr>
+	<slrneoim3t.vgd.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070110174138.GH11586@cirrus.ilog.fr>
+
+On Wed, Dec 20, 2006 at 03:36:29PM +0000, Tuomo Valkonen wrote:
+> On 2006-12-05, Nicolas Duboc <nicolas at duboc.net> wrote:
+> >  Since my upgrade to ion3 20061029 I experience problems of focus not
+> > following mouse when changing screen.
+> 
+> Yeah, focus is broken every second release. I hate having anything to do
+> with X focus and esp. EnterWindow events. 
+
+   Upgrading to version 20061223 fixed the problem.
+
+   Thanks,
+
+-- 
+Nicolas Duboc <nicolas at duboc.net>
+
+
+From droundy at darcs.net  Wed Jan 10 20:25:11 2007
+From: droundy at darcs.net (David Roundy)
+Date: Wed, 10 Jan 2007 11:25:11 -0800
+Subject: popup windows leaving frames behind when they close
+In-Reply-To: <20070110154933.GG17156@segitz.de>
+References: <20070109185354.GD1993@abridgegame.org>
+	<20070110154933.GG17156@segitz.de>
+Message-ID: <20070110192510.GA8670@abridgegame.org>
+
+On Wed, Jan 10, 2007 at 04:49:34PM +0100, Johannes Segitz wrote:
+> On Tue, Jan 09, 2007 at 10:53:54AM -0800, David Roundy wrote:
+> > I am sure I could track this down by some sort of a binary search, but
+> > am hopefully that someone could point me in the right direction as to
+> > what sort of a configuration might cause this.  Any ideas?
+> 
+> It's the min_tab script, i had the same problem but no opportunity to
+> look into it
+
+Yes, thanks, that fixes it! So presumably the fix would be to figure out if
+the windows are transient, and avoid modifying them if that's the
+case... (not that I have much time to look into it either...)
+
+Having extraneous tabs, for now, is definitely better than suffering this
+particular bug!
+-- 
+David Roundy
+Department of Physics
+Oregon State University
+
+
+From dkgip at speakeasy.net  Thu Jan 11 04:56:42 2007
+From: dkgip at speakeasy.net (Derek Gipson)
+Date: Wed, 10 Jan 2007 19:56:42 -0800
+Subject: Tab completion
+Message-ID: <20070111035642.GA30829@loquat>
+
+I'm running the latest darcs snap-shot and I've noticed that tab
+completion no longer works from any of the input modes ( F12, Mod1+F3 or
+F9) Oddly enough shift+tab will cycle backwards through the choices but
+tab alone does not work. Here is the error from x server:
+
+ion3: No encoding given in LC_CTYPE.
+ion3: Argument 2 to complete is of invalid type. (Argument template is
+'oSS', got lua type boolean).
+ion3: Stack trace:
+0 [C]: in 'complete'
+1 [string "WEdln.complete(_, true)"]:1
+  [Skipping unnamed C functions.]
+
+
+
+
+From andreas.bernauer at gmx.de  Thu Jan 11 12:25:22 2007
+From: andreas.bernauer at gmx.de (Andreas Bernauer)
+Date: Thu, 11 Jan 2007 12:25:22 +0100
+Subject: Tab completion
+In-Reply-To: <20070111035642.GA30829@loquat>
+References: <20070111035642.GA30829@loquat>
+Message-ID: <20070111112522.GQ13331@informatik.uni-tuebingen.de>
+
+Derek Gipson schrieb am Mi, 10. Jan 2007 um 19:56 (-0800):
+> I'm running the latest darcs snap-shot and I've noticed that tab
+> completion no longer works from any of the input modes ( F12, Mod1+F3 or
+> F9) Oddly enough shift+tab will cycle backwards through the choices but
+> tab alone does not work. Here is the error from x server:
+> 
+> ion3: No encoding given in LC_CTYPE.
+
+This error looks like a problem in your locale setting.  What is your
+locale, ie. what is your $LANG environment variable?  Maybe setting an
+encoding there fixes the issue (eg., for me LANG=en_US.UTF-8)?
+
+> ion3: Argument 2 to complete is of invalid type. (Argument template is
+> 'oSS', got lua type boolean).
+> ion3: Stack trace:
+> 0 [C]: in 'complete'
+> 1 [string "WEdln.complete(_, true)"]:1
+>   [Skipping unnamed C functions.]
+> 
+> 
+
+Cheers,
+
+Andreas.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070111/af3142ac/attachment.pgp>
+
+From tuomov at iki.fi  Fri Jan 12 08:39:23 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 12 Jan 2007 07:39:23 +0000 (UTC)
+Subject: Tab completion
+References: <20070111035642.GA30829@loquat>
+Message-ID: <slrneqeepb.j7.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-11, Derek Gipson <dkgip at speakeasy.net> wrote:
+> ion3: Argument 2 to complete is of invalid type. (Argument template is
+> 'oSS', got lua type boolean).
+
+The parametrisation changed at some point.
+
+-- 
+Tuomo
+
+
+
+From dkgip at speakeasy.net  Fri Jan 12 22:15:10 2007
+From: dkgip at speakeasy.net (Derek Gipson)
+Date: Fri, 12 Jan 2007 13:15:10 -0800
+Subject: Tab completion
+In-Reply-To: <slrneqeepb.j7.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070111035642.GA30829@loquat>
+	<slrneqeepb.j7.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070112211510.GA30874@loquat>
+
+On Fri Jan 12 07:39AM, Tuomo Valkonen wrote:
+> On 2007-01-11, Derek Gipson <dkgip at speakeasy.net> wrote:
+> > ion3: Argument 2 to complete is of invalid type. (Argument template is
+> > 'oSS', got lua type boolean).
+> 
+> The parametrisation changed at some point.
+> 
+> -- 
+> Tuomo
+> 
+I corrected the LC_CTYPE error; however, this one is out of my league.
+
+
+
+From Matthieu.Moy at imag.fr  Sun Jan 14 16:13:59 2007
+From: Matthieu.Moy at imag.fr (Matthieu Moy)
+Date: Sun, 14 Jan 2007 16:13:59 +0100
+Subject: ioncore.goto_next(_, '...') inverted ?
+Message-ID: <vpq64b9bpzc.fsf@olympe.imag.fr>
+
+Hi,
+
+Running ion 3 20061223-1 from Debian, I get a strange behavior:
+
+ioncore.goto_next(_, 'right') actually goes to the left,
+ioncore.goto_next(_, 'left')  actually goes to the right,
+ioncore.goto_next(_, 'below)  actually goes to the above,
+ioncore.goto_next(_, 'above') actually goes to the below.
+
+Did I do something wrong, is this expected, or is this a bug?
+
+Thanks,
+
+-- 
+Matthieu
+
+
+From tuomov at iki.fi  Mon Jan 15 09:34:10 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 15 Jan 2007 08:34:10 +0000 (UTC)
+Subject: ioncore.goto_next(_, '...') inverted ?
+References: <vpq64b9bpzc.fsf@olympe.imag.fr>
+Message-ID: <slrneqmf42.1rb.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-14, Matthieu Moy <Matthieu.Moy at imag.fr> wrote:
+> Did I do something wrong, 
+
+Yes. What that is, I wouldn't know.
+
+-- 
+Tuomo
+
+
+
+From bdcht3 at gmail.com  Tue Jan 16 11:12:29 2007
+From: bdcht3 at gmail.com (captp bdcht)
+Date: Tue, 16 Jan 2007 11:12:29 +0100
+Subject: statusbar sizepolicy (again)
+Message-ID: <90d147170701160212o6332b0f2rc8d04bdcd1a759df@mail.gmail.com>
+
+Hi,
+sorry to bother again with this minor problem
+but my statusbar is still not fullsized
+(with 3ds-20061223 release) in workspaces of type
+ [1] = {
+                ["type"] = "WGroupWS",
+                ["name"] = "main",
+                ["geom"] = {
+                    ["y"] = 0,
+                    ["x"] = 0,
+                    ["w"] = 1024,
+                    ["h"] = 768,
+                },
+                ["switchto"] = true,
+                ["sizepolicy"] = 1,
+                ["managed"] = {
+                },
+                ["level"] = 0,
+            },
+ie workspace with "floating" windows.
+I though that sizepolicies where fixed, can you help
+me figure out why statusbar is not taking fullsize flag
+into account ?
+
+thx,
+bdcht
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070116/28cd2bd2/attachment.html>
+
+From tilman.baumann at collax.com  Tue Jan 16 14:51:07 2007
+From: tilman.baumann at collax.com (Tilman Baumann)
+Date: Tue, 16 Jan 2007 14:51:07 +0100
+Subject: fliping focus problem
+Message-ID: <45ACD84B.2040205@collax.com>
+
+Hi,
+
+i hope this is not too much of a FAQ.
+
+Since a while my ion3 startet fliping the window focus from one screen
+to another. This happened not too much but was verry anoying.
+After upgrading my debian box (unstable) this problem increased
+dramaticly and now occures regulary.
+
+ion3 version 3ds-20061223
+Debian package version 20061223-1
+
+
+First i discovered that the window focus was not allways under the mouse
+(horribly anoying). Now with increased regularity i discoverd some cases
+how to reproduce the effect.
+It seeems as it allways happens when a windos pops up or the window with
+the focus gets closed. Instead of focusing the next window under the
+mouse, the focus flips to the next screen (dualhead setup).
+
+This drives me up the wall!
+I would be glad if i could do anything about this.
+
+
+Thank you
+
+-- 
+Tilman Baumann
+Software Developer
+Collax GmbH . Boetzinger Strasse 60 . 79111 Freiburg . Germany
+
+p: +49 (0) 89-990157-0
+f: +49 (0) 89-990157-11
+
+
+
+
+From tuomov at iki.fi  Tue Jan 16 16:20:29 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 16 Jan 2007 15:20:29 +0000 (UTC)
+Subject: fliping focus problem
+References: <45ACD84B.2040205@collax.com>
+Message-ID: <slrneqpr9t.rat.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-16, Tilman Baumann <tilman.baumann at collax.com> wrote:
+> how to reproduce the effect.
+> It seeems as it allways happens when a windos pops up or the window with
+> the focus gets closed. Instead of focusing the next window under the
+> mouse, the focus flips to the next screen (dualhead setup).
+
+http://modeemi.cs.tut.fi/~tuomov/ion/faq/entries/Xinerama.html
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue Jan 16 16:50:19 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 16 Jan 2007 15:50:19 +0000 (UTC)
+Subject: statusbar sizepolicy (again)
+References: <90d147170701160212o6332b0f2rc8d04bdcd1a759df@mail.gmail.com>
+Message-ID: <slrneqpt1r.9r.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-16, captp bdcht <bdcht3 at gmail.com> wrote:
+> sorry to bother again with this minor problem
+> but my statusbar is still not fullsized
+
+Apparently there still was a size hint restriction.
+(Size hint abuse used to be needed at some point..)
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue Jan 16 16:50:56 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 16 Jan 2007 15:50:56 +0000 (UTC)
+Subject: Tab completion
+References: <20070111035642.GA30829@loquat>
+	<slrneqeepb.j7.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070112211510.GA30874@loquat>
+Message-ID: <slrneqpt30.9r.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-12, Derek Gipson <dkgip at speakeasy.net> wrote:
+>> On 2007-01-11, Derek Gipson <dkgip at speakeasy.net> wrote:
+>> > ion3: Argument 2 to complete is of invalid type. (Argument template is
+>> > 'oSS', got lua type boolean).
+>> 
+>> The parametrisation changed at some point.
+>> 
+> I corrected the LC_CTYPE error; however, this one is out of my league.
+
+RTFM or check the new stock configuration file.
+
+-- 
+Tuomo
+
+
+
+From tilman.baumann at collax.com  Tue Jan 16 18:18:15 2007
+From: tilman.baumann at collax.com (Tilman Baumann)
+Date: Tue, 16 Jan 2007 18:18:15 +0100
+Subject: fliping focus problem
+In-Reply-To: <slrneqpr9t.rat.tuomov@jolt.modeemi.cs.tut.fi>
+References: <45ACD84B.2040205@collax.com>
+	<slrneqpr9t.rat.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <45AD08D7.7040508@collax.com>
+
+Tuomo Valkonen wrote:
+> On 2007-01-16, Tilman Baumann <tilman.baumann at collax.com> wrote:
+>   
+>> how to reproduce the effect.
+>> It seeems as it allways happens when a windos pops up or the window with
+>> the focus gets closed. Instead of focusing the next window under the
+>> mouse, the focus flips to the next screen (dualhead setup).
+>>     
+>
+> http://modeemi.cs.tut.fi/~tuomov/ion/faq/entries/Xinerama.html
+>   
+Oh, well that is it. I did not realise that my default X setting has
+xinerama on.
+I disabled xinerama, and the problem is gone. Thank you so fare...
+
+But i really miss beeing able to move windows from one screen to another.
+Or let me put it this way, i really liked my 17" penis enlargement. :)
+
+Seeing the FAQ, your standpoint on this topic seems verry clear although.
+Maybe it needs someone that ignorant as you to make such a great and
+radical WM like ion. ;-)
+
+Thank you for your work - with little mixed feelings.
+
+-- 
+Tilman Baumann
+Software Developer
+Collax GmbH . Boetzinger Strasse 60 . 79111 Freiburg . Germany
+
+p: +49 (0) 89-990157-0
+f: +49 (0) 89-990157-11
+
+
+
+
+From csant at csant.info  Tue Jan 16 18:30:44 2007
+From: csant at csant.info (csant)
+Date: Tue, 16 Jan 2007 18:30:44 +0100
+Subject: fliping focus problem
+In-Reply-To: <45ACD84B.2040205@collax.com>
+References: <45ACD84B.2040205@collax.com>
+Message-ID: <op.tl9b9imid84skq@fiore.malebolge>
+
+> It seeems as it allways happens when a windos pops up or the window with
+> the focus gets closed. Instead of focusing the next window under the
+> mouse, the focus flips to the next screen (dualhead setup).
+
+Not exactly the same, but related: if I have focus on DISPLAY :0.1 and  
+there is some activity on some other workspace on :0.1, I use M-k k to  
+switch there. But when I M-k k to switch *back* to where I was, it moves  
+me to :0.0.
+
+/c
+
+
+From csant at csant.info  Tue Jan 16 18:33:37 2007
+From: csant at csant.info (csant)
+Date: Tue, 16 Jan 2007 18:33:37 +0100
+Subject: fliping focus problem
+In-Reply-To: <op.tl9b9imid84skq@fiore.malebolge>
+References: <45ACD84B.2040205@collax.com> <op.tl9b9imid84skq@fiore.malebolge>
+Message-ID: <op.tl9cebw2d84skq@fiore.malebolge>
+
+>> It seeems as it allways happens when a windos pops up or the window with
+>> the focus gets closed. Instead of focusing the next window under the
+>> mouse, the focus flips to the next screen (dualhead setup).
+>
+> Not exactly the same, but related: if I have focus on DISPLAY :0.1 and  
+> there is some activity on some other workspace on :0.1, I use M-k k to  
+> switch there. But when I M-k k to switch *back* to where I was, it moves  
+> me to :0.0.
+
+And I forgot to mention explicitly that Xinerama is off.
+/c
+
+
+From tuomov at iki.fi  Wed Jan 17 19:50:31 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 17 Jan 2007 18:50:31 +0000 (UTC)
+Subject: Xinerama support
+Message-ID: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+
+
+The totally bitrotted Xinerama support has now been completely removed. 
+I got annoyed by certain hacks used to make it work, because they made
+the _normal_ case over-complicated, and so turned the dummy WRootWin
+structure into a WScreen, and in the process the bitrot of Xinerama
+support for final and complete. And I won't waste time fixing it.
+
+However, it is possible to re-implement that support as a separate
+module, that should do the following things:
+
+   - Create new WScreen objects within the root window WScreen
+     for each Xinerama screen (mplex_do_attach_new with suitable
+     geometries and size policies).
+
+   - Set the screen id of the root window (WScreen::id) to less
+     than zero for the layout saving and loading code to ignore
+     it. 
+
+   - Number the Xinerama WScreens from 0 upwards
+
+   - Possibly remove bindmaps from the WRootWin, or use other
+     ones, so that they don't overlap with those of the nested
+     WScreens.
+
+Note that this new setup inadvertently provides for the 
+possibility of having both workspaces/windows spanning multiple
+Xinerama screens and single ones. Someone will just have to
+waste time writing and maintaining the module. That someone isn't 
+me.
+
+The mod_xrandr modules provides a suitable skeleton for this
+module, and indeed, as Xrandr support is a separate module,
+it is also fitting for another mutually incompatible, ugly 
+and broken extension to also be a separate module. 
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Thu Jan 18 17:59:17 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 18 Jan 2007 16:59:17 +0000 (UTC)
+Subject: Xinerama support
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+
+I should perhaps add that even with a mod_xinerama and _any_
+reasonable effort, Xinerama will still have serious problems, at
+least with programs that try to position their own floating windows,
+and possibly also ones that use crappy methods to look up windows.
+The former simply is not doable without updates to the ICCCM to be
+aware of nested WM window configurations. Currently the ICCCM does
+not specify how applications should handle multiple levels of WM
+windows, but also does not disallow it. So one app handles that one
+way, and another the other way. 
+
+It is not reasonable to not have the confusing "virtual root windows"
+for each physical screen if you want the workspaces on each screen to
+be separate for floating windows, the windows that this problem
+mostly affects. And if you don't want them to be separate, you don't
+really need Xinerama support. Configurations with screens of totally
+differing sizes appearing as one are absolutely stupid (but so is
+multihead in general, most of the time). Hence, Xinerama is a mostly
+useless piece of crap of an extension. You either don't really need 
+the information, or you'd simply want plain old X multihead with window
+migration between screens, something that is only _artificially_ 
+restricted when the bit depths are the same. 
+
+But the general trend among the X folks is to write crappy mutually
+incompatible extensions for everything, instead of extending the X
+protocols. (There's _no_ need for Xrender, Xft and that shit. It
+would've been sufficient to add extra transparency and blurring bits
+for programs to set when they can cope with that stuff, and use the
+old stuff.)
+
+-- 
+Tuomo
+
+
+
+From klawitter at email.de  Thu Jan 18 19:15:37 2007
+From: klawitter at email.de (Renee Klawitter)
+Date: Thu, 18 Jan 2007 19:15:37 +0100
+Subject: xrandr rotate support broken ... ?
+Message-ID: <87irf4td4m.fsf@Ishmael.Pequod>
+
+I've updated from darcs today ... can it be that the xinerama purging
+has made the workspaces indifferent to xrandr rotation ...
+
+up until today I could do xrandr -o normal/left/... and ion would
+resize everything nicely .. this is gone now :(
+
+/Renee.
+
+-- 
+For contacting me: klawitter(at)email(dot)de
+--
+"The major difference between a thing  that might go wrong and a thing
+    that cannot  possibly go  wrong is that  when a thing  that cannot
+    possibly go wrong goes wrong it usually turns out to be impossible
+    to get at or repair."  Douglas Adams, Mostly Harmless
+
+
+
+From tuomov at iki.fi  Thu Jan 18 19:31:38 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 18 Jan 2007 18:31:38 +0000 (UTC)
+Subject: xrandr rotate support broken ... ?
+References: <87irf4td4m.fsf@Ishmael.Pequod>
+Message-ID: <slrneqvf8a.7tj.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-18, Renee Klawitter <klawitter at email.de> wrote:
+> I've updated from darcs today ... can it be that the xinerama purging
+> has made the workspaces indifferent to xrandr rotation ...
+>
+> up until today I could do xrandr -o normal/left/... and ion would
+> resize everything nicely .. this is gone now :(
+
+I suspected it might not work anymore, but didn't get around to
+updating it yet. But, infact, it _does_ work! You just have
+recompile it, of course, as the structures it needs to access,
+have changed.
+
+-- 
+Tuomo
+
+
+
+From dkgip at speakeasy.net  Sat Jan 20 21:44:36 2007
+From: dkgip at speakeasy.net (Derek Gipson)
+Date: Sat, 20 Jan 2007 12:44:36 -0800
+Subject: Tab completion
+In-Reply-To: <slrneqpt30.9r.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070111035642.GA30829@loquat>
+	<slrneqeepb.j7.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070112211510.GA30874@loquat>
+	<slrneqpt30.9r.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070120204436.GA12005@loquat>
+
+> 
+> RTFM or check the new stock configuration file.
+> 
+> -- 
+> Tuomo
+> 
+That was the fix...thanks
+
+
+
+From ion at wait.de  Sun Jan 21 10:57:24 2007
+From: ion at wait.de (Ulrich Pfeifer)
+Date: Sun, 21 Jan 2007 10:57:24 +0100
+Subject: Xinerama support
+In-Reply-To: <slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi> (Tuomo
+	Valkonen's message of "Thu, 18 Jan 2007 16:59:17 +0000 (UTC)")
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <p5d558ln23.fsf@de.uu.net>
+
+Hello Tuomo,
+
+    Tuomo> You either don't really need the information, or you'd
+    Tuomo> simply want plain old X multihead with window migration
+    Tuomo> between screens, something that is only _artificially_
+    Tuomo> restricted when the bit depths are the same.
+
+I don't know enough about X to fully understand your mail.
+
+In my setup I do have a laptop and an external LCD with a different
+resolution when I am in the office.  I currently fold my applications
+from the monitor to the laptop screen when I leave the office.
+
+Are you saying I do not need Xinerama to achieve this or are you
+saying that I need to implement that module if I ever want to upgrade
+ion?
+
+Thanks,
+
+Ulrich
+
+-- Xinerama configuration:
+-- Screen		"Screen0"
+-- Screen		"Screen1" LeftOf "Screen0"
+
+function go_home ()
+   local right_screen = ioncore.find_screen_id(0)
+   local left_screen  = ioncore.find_screen_id(1)
+   for _, r in pairs(left_screen:managed_list()) do
+       right_screen:attach(r)
+   end
+end
+
+function to_other_screen (r)
+   local left_screen  = ioncore.find_screen_id(1)
+   local right_screen = ioncore.find_screen_id(0)
+   local ws = ioncore.find_manager(r, "WGroupWS")
+   local sc = ioncore.find_manager(ws, "WScreen")
+
+   if sc == left_screen then
+        right_screen:attach(ws)
+   else
+        left_screen:attach(ws)
+   end
+end
+
+
+From Arnaud.Legrand at imag.fr  Sun Jan 21 11:30:44 2007
+From: Arnaud.Legrand at imag.fr (Arnaud Legrand)
+Date: Sun, 21 Jan 2007 11:30:44 +0100 (CET)
+Subject: Xinerama support
+In-Reply-To: <p5d558ln23.fsf@de.uu.net>
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+Message-ID: <Pine.LNX.4.64.0701211119380.5408@kanza.imag.fr>
+
+Hi,
+
+Today Ulrich Pfeifer wrote:
+
+> In my setup I do have a laptop and an external LCD with a different
+> resolution when I am in the office.  I currently fold my applications
+> from the monitor to the laptop screen when I leave the office.
+
+As far I'm concerned, I also have a laptop and an external LCD with a
+different resolution. I'd thought about a setting like yours but I
+finally found out it wasn't really convenient (mainly because I did
+not really make use of the laptop monitor). What I do now is simply
+cloning the externel LCD to my laptop (thus some parts are not
+displayed on the laptop) and when I go home, I just unplug the
+externel monitor, use xrandr and restart ion (with ioncore.restart).
+It works great.
+
+OK, I have an nvidia card and I use the twinview extension to clone
+the external display but I don't think this is actually needed. And
+anyway, ion (3ds-20061223) works perfectly fine with it.
+
+Cheers,
+
+     Arnaud
+
+
+From tuomov at iki.fi  Sun Jan 21 12:59:15 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 21 Jan 2007 11:59:15 +0000 (UTC)
+Subject: Xinerama support
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+Message-ID: <slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-21, Ulrich Pfeifer <ion at wait.de> wrote:
+> Are you saying I do not need Xinerama to achieve this or are you
+> saying that I need to implement that module if I ever want to upgrade
+> ion?
+
+I'm saying that you don't need root windows spanning multiple physical
+screens. Plain old X multihead with completely separate screens is
+quite sufficient, and better than the ugly big-ass root window hack
+of Xinerama. Especially if the migration of sub-windows from one
+root window to another wasn't artificially restricted, as it 
+presently is. But a single screen is also very sufficient for 99.99% 
+of users.
+
+-- 
+Tuomo
+
+
+
+From klawitter at email.de  Sun Jan 21 13:03:22 2007
+From: klawitter at email.de (Renee Klawitter)
+Date: Sun, 21 Jan 2007 13:03:22 +0100
+Subject: xrandr rotate support broken ... ?
+References: <87irf4td4m.fsf@Ishmael.Pequod>
+	<slrneqvf8a.7tj.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <87vej0io39.fsf@Ishmael.Pequod>
+
+
+yup, and you have to do make install also ... then everything works as
+expected ;) Thanks.  
+/Renee.
+
+-- 
+For contacting me: klawitter(at)email(dot)de
+--
+"The major difference between a thing  that might go wrong and a thing
+    that cannot  possibly go  wrong is that  when a thing  that cannot
+    possibly go wrong goes wrong it usually turns out to be impossible
+    to get at or repair."  Douglas Adams, Mostly Harmless
+
+
+
+From klawitter at email.de  Sun Jan 21 13:34:43 2007
+From: klawitter at email.de (Renee Klawitter)
+Date: Sun, 21 Jan 2007 13:34:43 +0100
+Subject: Xinerama support
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <87bqksimn0.fsf@Ishmael.Pequod>
+
+Tuomo Valkonen <tuomov at iki.fi> writes:
+
+> of Xinerama. Especially if the migration of sub-windows from one
+> root window to another wasn't artificially restricted, as it 
+
+What do you mean by artificially ? Sounds to me as if this could 
+easily be changed ... ?
+
+/Renee.
+
+
+-- 
+For contacting me: klawitter(at)email(dot)de
+--
+"The major difference between a thing  that might go wrong and a thing
+    that cannot  possibly go  wrong is that  when a thing  that cannot
+    possibly go wrong goes wrong it usually turns out to be impossible
+    to get at or repair."  Douglas Adams, Mostly Harmless
+
+
+
+From ion at wait.de  Sun Jan 21 18:05:00 2007
+From: ion at wait.de (Ulrich Pfeifer)
+Date: Sun, 21 Jan 2007 18:05:00 +0100
+Subject: Xinerama support
+In-Reply-To: <slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi> (Tuomo
+	Valkonen's message of "Sun, 21 Jan 2007 11:59:15 +0000 (UTC)")
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <p5y7nw5n0j.fsf@de.uu.net>
+
+Hello Tuomo,
+
+still not sure ...
+
+    t> I'm saying that you don't need root windows spanning multiple physical
+    t> screens. Plain old X multihead with completely separate screens is
+    t> quite sufficient
+
+But I cannot move applications from the one head I don't see any more
+when I leave the office easily to the other head - right?
+
+You are saying it *should* be easy, but it currently is not - right?
+
+So I either stay with the current ion version or implement the module
+you proposed - right?
+
+Ulrich Pfeifer
+
+
+From tuomov at iki.fi  Sun Jan 21 19:36:52 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 21 Jan 2007 18:36:52 +0000 (UTC)
+Subject: Xinerama support
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5y7nw5n0j.fsf@de.uu.net>
+Message-ID: <slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-21, Ulrich Pfeifer <ion at wait.de> wrote:
+> You are saying it *should* be easy, but it currently is not - right?
+
+Yep.
+
+> So I either stay with the current ion version or implement the module
+> you proposed - right?
+
+Or forget multihead. It's stupid anyway.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sun Jan 21 19:46:20 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 21 Jan 2007 18:46:20 +0000 (UTC)
+Subject: Xinerama support
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+	<87bqksimn0.fsf@Ishmael.Pequod>
+Message-ID: <slrner7d7s.fgl.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-21, Renee Klawitter <klawitter at email.de> wrote:
+> What do you mean by artificially ? Sounds to me as if this could 
+> easily be changed ... ?
+
+X doesn't allow "reparenting" windows from one root window to
+another. There's no fundamental technical reason why it shouldn't
+be possible when both root windows have the same bit depths 
+(and hence the same X "Visuals"). There doesn't seem to be
+anything in the Xlib API that would prevent that either. Some
+X server implementations and Xlib internals might need some
+updating, and some crappy programs might also get confused
+by allowing this, but issues are not insurmountable, and the
+only real reason why it "can't" be done is, is some hallowed
+specification saying so.
+
+-- 
+Tuomo
+
+
+
+From ion at wait.de  Sun Jan 21 22:52:02 2007
+From: ion at wait.de (Ulrich Pfeifer)
+Date: Sun, 21 Jan 2007 22:52:02 +0100
+Subject: Xinerama support
+In-Reply-To: <slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi> (Tuomo
+	Valkonen's message of "Sun, 21 Jan 2007 18:36:52 +0000 (UTC)")
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5y7nw5n0j.fsf@de.uu.net>
+	<slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <p5y7nwavzx.fsf@de.uu.net>
+
+Hello,
+
+    t> Or forget multihead. It's stupid anyway.
+
+it serves me very well and I will stick with the latest development
+snapshot for the next years I guess.  I don't think I have the
+knowledge to implement the module you sketched.
+
+Ulrich
+
+
+From ion at rrod.net  Mon Jan 22 00:50:38 2007
+From: ion at rrod.net (Jarrod Lowe)
+Date: Sun, 21 Jan 2007 23:50:38 +0000
+Subject: Xinerama support
+In-Reply-To: <p5y7nwavzx.fsf@de.uu.net>
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5y7nw5n0j.fsf@de.uu.net>
+	<slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5y7nwavzx.fsf@de.uu.net>
+Message-ID: <15f314a40701211550i42477e75p6eecaed46c89602f@mail.gmail.com>
+
+On 21/01/07, Ulrich Pfeifer <ion at wait.de> wrote:
+> Hello,
+>
+>     t> Or forget multihead. It's stupid anyway.
+>
+> it serves me very well and I will stick with the latest development
+> snapshot for the next years I guess.  I don't think I have the
+> knowledge to implement the module you sketched.
+>
+> Ulrich
+
+I agree - I'll also be sticking to the last snapshot with support for
+multiple monitors and migrating windows between them (whatever that is
+called in X terms) until someone re-adds support. I simply need the
+space. It is a pity, but I have no feel for coding graphical
+environments (always get my X's and Y's wrong :) so I'll probably be
+forced to abandon ion before to long.
+
+
+-- 
+Jarrod
+
+
+From seth.arnold at suse.de  Mon Jan 22 07:32:06 2007
+From: seth.arnold at suse.de (Seth Arnold)
+Date: Sun, 21 Jan 2007 22:32:06 -0800
+Subject: Xinerama support
+In-Reply-To: <slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5y7nw5n0j.fsf@de.uu.net>
+	<slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070122063206.GE24156@suse.de>
+
+On Sun, Jan 21, 2007 at 06:36:52PM +0000, Tuomo Valkonen wrote:
+> On 2007-01-21, Ulrich Pfeifer <ion at wait.de> wrote:
+> > You are saying it *should* be easy, but it currently is not - right?
+> Yep.
+
+I don't really need my windows to span both displays. I'm perfectly fine
+with windows being confined entirely on one screen or the other. But
+I do like moving windows between the two screens occasionally. (Only
+when starting a new application, and it comes up on the 'wrong' display.
+Because I can easily move windows, I've never figured out the winprops
+support. Would winprops work for the 'standard X multihead'?)
+
+> Or forget multihead. It's stupid anyway.
+
+Sometimes it is more economical to purchase two lower-resolution devices
+than one high-resolution device -- at least, that was the case five years
+ago when I changed from a 1600x1200 fuzzy CRT to two 1280x1024 LCDs. I
+didn't want to give up the screen space, but a 1600x1200 LCD was simply
+not in my budget at the time. (I'd even bet money that my two LCDs draw
+less power than that crummy old CRT. :)
+
+In any event, thanks for the fine window manager. I hope to be able
+to adapt my work habits to fit the new version at some point in the
+future. :)
+
+Thanks
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070121/7654a60b/attachment.pgp>
+
+From tuomov at iki.fi  Mon Jan 22 08:34:03 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 22 Jan 2007 07:34:03 +0000 (UTC)
+Subject: Xinerama support
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5y7nw5n0j.fsf@de.uu.net>
+	<slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122063206.GE24156@suse.de>
+Message-ID: <slrner8q7b.na5.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-22, Seth Arnold <seth.arnold at suse.de> wrote:
+> Sometimes it is more economical to purchase two lower-resolution devices
+> than one high-resolution device -- at least, that was the case five years
+> ago when I changed from a 1600x1200 fuzzy CRT to two 1280x1024 LCDs. I
+> didn't want to give up the screen space, but a 1600x1200 LCD was simply
+> not in my budget at the time. 
+
+You don't need that much space. Your field of vision isn't that big at
+a "working distance" (as opposed to "monitoring distance") from the 
+screens, so you could just as well switch a workspace as turn your head
+to the other display. Like I say in the FAQ, the real reason for 
+multihead is penis enlargment most of the time.
+
+> (I'd even bet money that my two LCDs draw
+> less power than that crummy old CRT. :)
+
+Yes. My 17" TFT is supposed to draw 33W "typically" (whatefer that means), 
+while CRTs can easily draw 100W and more.  But TFTs may very well pollute 
+and waste energy more during their manufacturing. (There's the issue with 
+dead pixels, and hence scrap panels for one thing. Any real statistics on
+the proportion of rejected panels?)
+
+-- 
+Tuomo
+
+
+
+From bruce+ion at cenderis.demon.co.uk  Mon Jan 22 11:01:55 2007
+From: bruce+ion at cenderis.demon.co.uk (Bruce Stephens)
+Date: Mon, 22 Jan 2007 10:01:55 +0000
+Subject: Xinerama support
+In-Reply-To: <slrner8q7b.na5.tuomov@jolt.modeemi.cs.tut.fi> (Tuomo Valkonen's
+	message of "Mon\, 22 Jan 2007 07\:34\:03 +0000 \(UTC\)")
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5y7nw5n0j.fsf@de.uu.net>
+	<slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122063206.GE24156@suse.de>
+	<slrner8q7b.na5.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <87y7nvmlbg.fsf@cenderis.demon.co.uk>
+
+Tuomo Valkonen <tuomov at iki.fi> writes:
+
+[...]
+
+> You don't need that much space. Your field of vision isn't that big
+> at a "working distance" (as opposed to "monitoring distance") from
+> the screens, so you could just as well switch a workspace as turn
+> your head to the other display. Like I say in the FAQ, the real
+> reason for multihead is penis enlargment most of the time.
+
+What we're doing (well, what I'm doing, most of the time) is no
+different to having something printed out for reference while I'm
+working.
+
+In some cases the reference is some sane reflowable format, so there'd
+be no difficulty in fitting everything on one (normal-sized) screen.
+But often, it's PDF, which (I find, anyway) doesn't fit readably on a
+1280x1024 screen concurrently with an editor.  Same seems true of
+quite a bit of web-based documentation.
+
+So I use two monitors.  Alternatives would be a bigger screen, and
+that would work fine, I expect.  Obviously printing things out, though
+it's handy to have searchable things, and I routinely refer to quite a
+lot of material.  Or switching between workspaces, of course.  It's
+just that much more convenient just to have another monitor.
+
+[...]
+
+
+
+From Arnaud.Legrand at imag.fr  Mon Jan 22 11:14:56 2007
+From: Arnaud.Legrand at imag.fr (Arnaud Legrand)
+Date: Mon, 22 Jan 2007 11:14:56 +0100 (CET)
+Subject: Xinerama support
+In-Reply-To: <87y7nvmlbg.fsf@cenderis.demon.co.uk>
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5y7nw5n0j.fsf@de.uu.net>
+	<slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122063206.GE24156@suse.de>
+	<slrner8q7b.na5.tuomov@jolt.modeemi.cs.tut.fi>
+	<87y7nvmlbg.fsf@cenderis.demon.co.uk>
+Message-ID: <Pine.LNX.4.64.0701221108470.4800@kanza.imag.fr>
+
+Today Bruce Stephens wrote:
+
+> What we're doing (well, what I'm doing, most of the time) is no
+> different to having something printed out for reference while I'm
+> working.
+
+A friend of mine uses two monitor to have at the same time her emacs
+and a high definition preview of her documents when LaTeXing her
+articles (she rotates one of her monitors to have a Portrait preview
+of the page). As far as I'm concerned, I prefer splitting my screen in
+half. I don't know whether we can talk about penis enlargement for her
+;) but, although there is definitely some show off in this setting, I
+can understand it might be convenient.
+
+Cheers,
+
+     Arnaud
+
+
+From tuomov at iki.fi  Mon Jan 22 11:54:28 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 22 Jan 2007 10:54:28 +0000 (UTC)
+Subject: Xinerama support
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5y7nw5n0j.fsf@de.uu.net>
+	<slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122063206.GE24156@suse.de>
+	<slrner8q7b.na5.tuomov@jolt.modeemi.cs.tut.fi>
+	<87y7nvmlbg.fsf@cenderis.demon.co.uk>
+Message-ID: <slrner95v4.6q3.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-22, Bruce Stephens <bruce+ion at cenderis.demon.co.uk> wrote:
+> So I use two monitors.  Alternatives would be a bigger screen, and
+> that would work fine, I expect.  Obviously printing things out, though
+> it's handy to have searchable things, and I routinely refer to quite a
+> lot of material.  Or switching between workspaces, of course.  It's
+> just that much more convenient just to have another monitor.
+
+Actually, it's not so much about the size of the screen. I don't find
+19" 4:3 offers anything over 17" 4:3 at the same resolution, or even
+a slightly bigger resolution (e.g. 1600x1200 vs. 1280x1024... which would
+be more of an enhancement on a 17" screen than between 19" and 17", but not
+much of enhancement in either case, as both resolutions are still so poor). 
+It's more about the shape. There's horizontally a bit of space left in 
+the field of vision after a 4:3 screen, that a widescreen display should
+fill. You can comfortably fit two A4 papers on a widescreen display, 
+wasting less resources than multihead, that normally will have a lot 
+of screen space outside your field of vision.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Mon Jan 22 12:11:39 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 22 Jan 2007 11:11:39 +0000 (UTC)
+Subject: Xinerama support
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5y7nw5n0j.fsf@de.uu.net>
+	<slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122063206.GE24156@suse.de>
+	<slrner8q7b.na5.tuomov@jolt.modeemi.cs.tut.fi>
+	<87y7nvmlbg.fsf@cenderis.demon.co.uk>
+	<slrner95v4.6q3.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrner96vb.tqt.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-22, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> You can comfortably fit two A4 papers on a widescreen display, 
+
+And should I remind of the floating splits of Ion? I also mostly just
+split the screen in half horizontally (Mod1+K S), and then float the
+halves (Mod1+M, float...) for e.g. the browser that unfortunately needs
+so much space on crappy Web pages, and for workspaces with LaTeX work.
+
+-- 
+Tuomo
+
+
+
+From klawitter at email.de  Mon Jan 22 17:30:50 2007
+From: klawitter at email.de (Renee Klawitter)
+Date: Mon, 22 Jan 2007 17:30:50 +0100
+Subject: Xinerama support
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5y7nw5n0j.fsf@de.uu.net>
+	<slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122063206.GE24156@suse.de>
+	<slrner8q7b.na5.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <87ps972fd1.fsf@Ishmael.Pequod>
+
+Tuomo Valkonen <tuomov at iki.fi> writes:
+
+>
+> You don't need that much space. Your field of vision isn't that big at
+> a "working distance" (as opposed to "monitoring distance") from the 
+> screens, so you could just as well switch a workspace as turn your head
+
+That's true, but you do not have to search for the workspace. You can
+put the apps you often have to look at (debugger/browser/manuals) on
+one screen and your "working area" at the other one and do not have to
+type in or cycle through app names ...
+
+> to the other display. Like I say in the FAQ, the real reason for 
+> multihead is penis enlargment most of the time.
+
+Maybe so, but we could use gnome too, couldn't we. Is just not
+convenient enough ...
+
+One question: How do you debug ion ? One tft two xservers ?
+
+/Renee.
+
+
+
+
+
+-- 
+For contacting me: klawitter(at)email(dot)de
+--
+"The major difference between a thing  that might go wrong and a thing
+    that cannot  possibly go  wrong is that  when a thing  that cannot
+    possibly go wrong goes wrong it usually turns out to be impossible
+    to get at or repair."  Douglas Adams, Mostly Harmless
+
+
+
+From ion at themel.com  Mon Jan 22 17:39:38 2007
+From: ion at themel.com (Thomas Themel)
+Date: Mon, 22 Jan 2007 17:39:38 +0100
+Subject: Xinerama support
+In-Reply-To: <87ps972fd1.fsf@Ishmael.Pequod>
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5y7nw5n0j.fsf@de.uu.net>
+	<slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122063206.GE24156@suse.de>
+	<slrner8q7b.na5.tuomov@jolt.modeemi.cs.tut.fi>
+	<87ps972fd1.fsf@Ishmael.Pequod>
+Message-ID: <20070122163938.GI12630@themel.com>
+
+Hi,
+Renee Klawitter (klawitter at email.de) wrote on 2007-01-22:
+> Tuomo Valkonen <tuomov at iki.fi> writes:
+> One question: How do you debug ion ? One tft two xservers ?
+
+Not sure whether that's how Tuomo does it, but that sounds like a job
+for Xnest.
+
+ciao,
+-- 
+[*Thomas  Themel*] I'd say that making microchips, or collecting garbage
+[extended contact] for that matter, has much more "meaning" than "raising
+[info provided in] consciousness of ethnic heritage" and other such bullshit.
+[*message header*]    - Anonymous poster on cypherpunks
+
+
+From ion at rrod.net  Mon Jan 22 17:51:05 2007
+From: ion at rrod.net (Jarrod Lowe)
+Date: Mon, 22 Jan 2007 16:51:05 +0000
+Subject: kRe: Xinerama support
+Message-ID: <15f314a40701220851r5bedead0i92cae01943fe6476@mail.gmail.com>
+
+John seems to be having problems posting to the list... I have
+forwarded his messages here:
+
+---------- Forwarded message ----------
+Date: 22-Jan-2007 10:25
+Subject: [Fwd: Re: Xinerama support]
+
+
+My two posts that haven't shown up....
+
+Any chance you could send them on...
+
+ Valkonen wrote:
+> I should perhaps add that even with a mod_xinerama and _any_
+> reasonable effort, Xinerama will still have serious problems, at
+> least with programs that try to position their own floating windows,
+> and possibly also ones that use crappy methods to look up windows.
+> The former simply is not doable without updates to the ICCCM to be
+> aware of nested WM window configurations. Currently the ICCCM does
+> not specify how applications should handle multiple levels of WM
+> windows, but also does not disallow it. So one app handles that one
+> way, and another the other way.
+
+Although there are some programs that are _so_ broken that this is an
+advantage.
+VNCviewer, for instance, jumps to steal focus (any time the remote
+changes size, as it does when you're watching a development machine boot
+up), unless it's on a multihead display, in which case it sticks to one
+screen (I think it's screen 1 in my setup).
+
+Not that that's any excuse, I really ought to try and fix vnc myself...
+
+John
+
+PS - Have to say I disagree about multihead being a waste of time, even
+after reading Tuomo's "Not a blog" entry. I find the additional screen
+real estate very useful, and much cheaper to manufacture/buy/run than a
+40+" screen ;)
+
+_____________
+
+Tuomo Valkonen wrote:
+> On 2007-01-22, Seth Arnold <seth.arnold at suse.de> wrote:
+>> Sometimes it is more economical to purchase two lower-resolution devices
+>> than one high-resolution device ...
+>> I didn't want to give up the screen space, but a 1600x1200 LCD was simply
+>> not in my budget at the time.
+>
+> You don't need that much space. Your field of vision isn't that big at
+> a "working distance" (as opposed to "monitoring distance") from the
+> screens, so you could just as well switch a workspace as turn your head
+> to the other display. Like I say in the FAQ, the real reason for
+> multihead is penis enlargment most of the time.
+
+I disagree - I can easily fill my pair of 1280*1024 monitors with active
+ frames, the overhead of moving my eyeballs slightly is a whole lot less
+than flicking backwards and forwards between workspaces - especially on
+older hardware*, which takes a while to paint the screen.
+
+The other advantage is that it's an infinitely flexible document holder
+by your workspace - so the document I'm referencing and my workspace, as
+well as the results of my code changes can all be displayed comfortably
+and easily - alongside the few windows I actively monitor, sat at the
+far edge of the screens.
+
+Jumping applications between the screens is a very useful thing to be
+ale to do as well, especially if a colleague comes to see what you're
+doing, I'd like to be able to move workspaces in their entirety, but
+that's evidently not happening any time soon.
+
+John
+
+* My monitors are about 5 years old, and PC about 4.  It doesn't always
+crawl, but it does take appreciable time to change workspaces.
+
+
+From tuomov at iki.fi  Mon Jan 22 18:08:46 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 22 Jan 2007 17:08:46 +0000 (UTC)
+Subject: Xinerama support
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5y7nw5n0j.fsf@de.uu.net>
+	<slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122063206.GE24156@suse.de>
+	<slrner8q7b.na5.tuomov@jolt.modeemi.cs.tut.fi>
+	<87ps972fd1.fsf@Ishmael.Pequod> <20070122163938.GI12630@themel.com>
+Message-ID: <slrner9rsu.dpo.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-22, Thomas Themel <ion at themel.com> wrote:
+> Hi,
+> Renee Klawitter (klawitter at email.de) wrote on 2007-01-22:
+>> Tuomo Valkonen <tuomov at iki.fi> writes:
+>> One question: How do you debug ion ? One tft two xservers ?
+>
+> Not sure whether that's how Tuomo does it, but that sounds like a job
+> for Xnest.
+
+Xnest is crap. Firstly, it's buggy and crashes all the time, or causes
+programs not to work. Secondly, bindings will overlap, and Xnest can't
+go into a grabbed mode where it would receive all the key presses, as
+far as I know. VmWare would work better than Xnest! But two servers 
+on one TFT is what I use. How'd you even do anything like that with
+two servers on separate screens? Two keyboards and mice? What an 
+unusable hack.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Mon Jan 22 18:13:27 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 22 Jan 2007 17:13:27 +0000 (UTC)
+Subject: Xinerama support
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5y7nw5n0j.fsf@de.uu.net>
+	<slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122063206.GE24156@suse.de>
+	<slrner8q7b.na5.tuomov@jolt.modeemi.cs.tut.fi>
+	<87ps972fd1.fsf@Ishmael.Pequod>
+Message-ID: <slrner9s5n.dpo.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-22, Renee Klawitter <klawitter at email.de> wrote:
+> Tuomo Valkonen <tuomov at iki.fi> writes:
+> That's true, but you do not have to search for the workspace. You can
+> put the apps you often have to look at (debugger/browser/manuals) on
+> one screen and your "working area" at the other one and do not have to
+> type in or cycle through app names ...
+
+Umm.. I just have the documentation and such stuff on one side of the
+screen, and the code on the other. Works great. One project per
+workspace. 
+
+Debugger? What's that? fprintf is my debugger! (For the occasional
+'gdb backtrace' I usually just use the same xterm running the editor, 
+^Z:ing back to the shell. The same I use for compiles. Although there
+would be space for a small compilation/debugging terminal/frame on the
+documentation side of the screen, I've never got used to switching
+there. ^Z works reat.)
+
+-- 
+Tuomo
+
+
+
+From bruce+ion at cenderis.demon.co.uk  Mon Jan 22 19:59:19 2007
+From: bruce+ion at cenderis.demon.co.uk (Bruce Stephens)
+Date: Mon, 22 Jan 2007 18:59:19 +0000
+Subject: Xinerama support
+In-Reply-To: <slrner95v4.6q3.tuomov@jolt.modeemi.cs.tut.fi> (Tuomo Valkonen's
+	message of "Mon\, 22 Jan 2007 10\:54\:28 +0000 \(UTC\)")
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5y7nw5n0j.fsf@de.uu.net>
+	<slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122063206.GE24156@suse.de>
+	<slrner8q7b.na5.tuomov@jolt.modeemi.cs.tut.fi>
+	<87y7nvmlbg.fsf@cenderis.demon.co.uk>
+	<slrner95v4.6q3.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <874pqi7urc.fsf@cenderis.demon.co.uk>
+
+Tuomo Valkonen <tuomov at iki.fi> writes:
+
+[...]
+
+> Actually, it's not so much about the size of the screen. I don't find
+> 19" 4:3 offers anything over 17" 4:3 at the same resolution, or even
+> a slightly bigger resolution (e.g. 1600x1200 vs. 1280x1024... which would
+> be more of an enhancement on a 17" screen than between 19" and 17", but not
+> much of enhancement in either case, as both resolutions are still so poor). 
+
+Sure, by "size" I really mean in pixels.  I'm constrained by company
+policy to use TFTs (we decided that for reasons which probably aren't
+so valid any more, so possibly I could argue against that), so that
+limits my choices.  I'm disappointed I can't get the same kind of
+resolution on a desktop screen that is available on laptops, but I
+imagine the costs (environmental and other) even out (physically
+bigger screens probably don't cost much more than smaller ones; it
+probably depends more on the number of pixels).
+
+> It's more about the shape. There's horizontally a bit of space left in 
+> the field of vision after a 4:3 screen, that a widescreen display should
+> fill. You can comfortably fit two A4 papers on a widescreen display, 
+> wasting less resources than multihead, that normally will have a lot 
+> of screen space outside your field of vision.
+
+Quite true, although I'm not so confident about the relative costs.
+
+Certainly I don't feel that much advantage in having two screens---a
+single one with a similar number of pixels would do just as well
+(especially with ion).  I guess if ion regards my existing two screens
+as one big one that won't be too bad; it would be slightly annoying on
+the occasions where I want to make some application full-screen,
+though.
+
+
+From tuomov at iki.fi  Mon Jan 22 20:15:43 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 22 Jan 2007 19:15:43 +0000 (UTC)
+Subject: Xinerama support
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5y7nw5n0j.fsf@de.uu.net>
+	<slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122063206.GE24156@suse.de>
+	<slrner8q7b.na5.tuomov@jolt.modeemi.cs.tut.fi>
+	<87y7nvmlbg.fsf@cenderis.demon.co.uk>
+	<slrner95v4.6q3.tuomov@jolt.modeemi.cs.tut.fi>
+	<874pqi7urc.fsf@cenderis.demon.co.uk>
+Message-ID: <slrnera3av.oi0.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-22, Bruce Stephens <bruce+ion at cenderis.demon.co.uk> wrote:
+> but I imagine the costs (environmental and other) even out (physically
+> bigger screens probably don't cost much more than smaller ones; it
+> probably depends more on the number of pixels).
+
+Yeah, I'd suspect so. It probably isn't easy to produce displays with lots
+of tiny pixels, and there are bound to be more defects. Infact, I wonder 
+if we'll go back to analogue tech, one day. If it would be possible to 
+produce thin pixel-less displays somehow, working like plotters. I don't
+know how you'd do that, and it might not work for non-vector graphics, 
+such as moving video, but... it's an interesting prospect anyway. Maybe 
+nano-machines arranging themselves in instructed shapes... :) (Infact,
+the E-paper techs I am aware of are quite "mechanical", and I wonder if 
+you could control the ink balls floating freely instead of suspended 
+in pixels...)
+
+
+> Quite true, although I'm not so confident about the relative costs.
+
+Well, there's the issue of bigger displays probably having more rejects,
+but the widescreen display is about least half smaller than a second
+display, there isn't a second PSU with its lossess and costs, less
+casing, and so on.
+
+-- 
+Tuomo
+
+
+
+From sns at severinghaus.org  Mon Jan 22 20:18:04 2007
+From: sns at severinghaus.org (Steven N. Severinghaus)
+Date: Mon, 22 Jan 2007 13:18:04 -0600
+Subject: Xinerama support
+In-Reply-To: <slrner9s5n.dpo.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>	<p5d558ln23.fsf@de.uu.net>	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>	<p5y7nw5n0j.fsf@de.uu.net>	<slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi>	<20070122063206.GE24156@suse.de>	<slrner8q7b.na5.tuomov@jolt.modeemi.cs.tut.fi>	<87ps972fd1.fsf@Ishmael.Pequod>
+	<slrner9s5n.dpo.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <45B50DEC.3080002@severinghaus.org>
+
+Tuomo Valkonen said the following on 2007-01-22 11:13:
+ > ...^Z works [g]reat.)
+
+It's truly amazing what you can fit into one monitor, isn't?
+
+One monitor
+   Multiple virtual consoles (ick!)
+     Multiple workspaces per console
+       Multiple frames per workspace
+         Multiple tabs with xterms per frame
+           Multiple screens per xterm
+             Multiple vims per screen
+               Multiple tabs per vim
+                 Multiple windows per vim tab
+
+Who could possibly need one more "multiple" at the top of that tower? ;)
+
+-Steve (happy with one!)
+
+-- 
+Steven N. Severinghaus
+sns at severinghaus.org
+http://severinghaus.org/
+
+
+From bruce+ion at cenderis.demon.co.uk  Mon Jan 22 20:54:07 2007
+From: bruce+ion at cenderis.demon.co.uk (Bruce Stephens)
+Date: Mon, 22 Jan 2007 19:54:07 +0000
+Subject: Xinerama support
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5y7nw5n0j.fsf@de.uu.net>
+	<slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122063206.GE24156@suse.de>
+	<slrner8q7b.na5.tuomov@jolt.modeemi.cs.tut.fi>
+	<87y7nvmlbg.fsf@cenderis.demon.co.uk>
+	<slrner95v4.6q3.tuomov@jolt.modeemi.cs.tut.fi>
+	<874pqi7urc.fsf@cenderis.demon.co.uk>
+	<slrnera3av.oi0.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <87sle26dnk.fsf@cenderis.demon.co.uk>
+
+Tuomo Valkonen <tuomov-X3B1VOXEql0 at public.gmane.org> writes:
+
+[...]
+
+> Well, there's the issue of bigger displays probably having more
+> rejects, but the widescreen display is about least half smaller than
+> a second display,
+
+Physically it'll be significantly smaller, but I'd guess the physical
+stuff (glass, plastic, PSU, etc.) aren't significant compared to the
+cost of the TFT.
+
+But I'm guessing.  I wouldn't want to argue that nobody should choose
+a widescreen monitor rather than two squarer ones.  Or a good quality
+CRT.  All seem defensible choices, depending on what you have already,
+what space you have, whether you're worried about heat.
+
+(One of our concerns at work was heat from CRTs (perhaps bizarrely,
+given that we're in south west London, but we really had been in an
+office where heat was a significant problem, though we aren't, now).)
+
+[...]
+
+
+
+From seth.arnold at suse.de  Mon Jan 22 21:45:02 2007
+From: seth.arnold at suse.de (Seth Arnold)
+Date: Mon, 22 Jan 2007 12:45:02 -0800
+Subject: Xinerama support
+In-Reply-To: <slrner8q7b.na5.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5y7nw5n0j.fsf@de.uu.net>
+	<slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122063206.GE24156@suse.de>
+	<slrner8q7b.na5.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070122204502.GO31167@suse.de>
+
+On Mon, Jan 22, 2007 at 07:34:03AM +0000, Tuomo Valkonen wrote:
+> You don't need that much space. Your field of vision isn't that big at
+> a "working distance" (as opposed to "monitoring distance") from the 
+> screens, so you could just as well switch a workspace as turn your head
+> to the other display.
+
+I quite like having my malleable content on one screen and my reference
+content on the other screen. This makes it far easier for me to monitor
+email and IRC (on the left display) while reading reference content (on
+the right display). Swapping workspaces requires erasing the reference
+content when bringing up the malleable content.
+
+This constant erasing and replacing content works against my innate
+ability to remember where content is on a page. When I had a single
+1600x1200 display, I could fit reference content and malleable content
+on screen quite nicely. But it was fuzzy. So I tried 1280x1024 LCD and
+found myself swapping content enough that it detracted from my ability to
+get work done. So I bought a second LCD and have enjoyed the extra space.
+
+Perhaps I've waited long enough to treat myself to a new display with all
+the space I need. :) (Pity my video card can't do more than 1280x1024
+DVI output. I _really_ don't want to be in the market for a new video
+card too. Blech.)
+
+> Like I say in the FAQ, the real reason for 
+> multihead is penis enlargment most of the time.
+
+Perhaps. But some of us find it more useful for reading reference matieral
+while working on other stuff than advertising our qualities as mates. :)
+
+Honestly, expect better from your users. :)
+
+The argument for not supporting Xinerama that I can easily appreciate is
+what it does to your code. Saying "just don't use it" isn't nearly as
+compelling as "it fuglifies the code".
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070122/635da785/attachment.pgp>
+
+From tuomov at iki.fi  Mon Jan 22 21:50:54 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 22 Jan 2007 20:50:54 +0000 (UTC)
+Subject: Xinerama support
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5y7nw5n0j.fsf@de.uu.net>
+	<slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122063206.GE24156@suse.de>
+	<slrner8q7b.na5.tuomov@jolt.modeemi.cs.tut.fi>
+	<87y7nvmlbg.fsf@cenderis.demon.co.uk>
+	<slrner95v4.6q3.tuomov@jolt.modeemi.cs.tut.fi>
+	<874pqi7urc.fsf@cenderis.demon.co.uk>
+	<slrnera3av.oi0.tuomov@jolt.modeemi.cs.tut.fi>
+	<87sle26dnk.fsf@cenderis.demon.co.uk>
+Message-ID: <slrnera8te.1rm.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-22, Bruce Stephens <bruce+ion at cenderis.demon.co.uk> wrote:
+> (One of our concerns at work was heat from CRTs (perhaps bizarrely,
+> given that we're in south west London, but we really had been in an
+> office where heat was a significant problem, though we aren't, now).)
+
+[And speaking of heat and power consumption, the state of software
+suspend in Linux totally sucks, and yet it's one of the most important
+features I can think of. It sucks having to leave the computer
+on when you don't use it, because it's such a _chore_ to bring it 
+and all the programs up again, especially as session management support
+sucks too (and there's no protocol it for terminal programs). The 
+hardware suspend support of desktop mobos also tends to be poor, PSU fan
+still keeping humming and so on. (And I haven't heard of that good
+things of the Linux laptop support either.) That's one very good reason
+to use Windows: hibernate. Of course, even better would be if the computer
+could run on _really_ low power, shutting down all the fans, not using 
+the disks except very infrequently, and so on, but still react to ssh 
+connection attempts etc. ...). Well, at least with 'athcool' I managed
+to make the system run 10C cooler most of the time.]
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Mon Jan 22 22:01:28 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 22 Jan 2007 21:01:28 +0000 (UTC)
+Subject: Xinerama support
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5y7nw5n0j.fsf@de.uu.net>
+	<slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122063206.GE24156@suse.de>
+	<slrner8q7b.na5.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122204502.GO31167@suse.de>
+Message-ID: <slrnera9h8.1rm.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-22, Seth Arnold <seth.arnold at suse.de> wrote:
+> This makes it far easier for me to monitor
+> email and IRC (on the left display) while reading reference content (on
+> the right display). Swapping workspaces requires erasing the reference
+> content when bringing up the malleable content.
+
+Umm... why do you need to check on IRC an Email all the time? Perhaps
+not being able to concentrate on the work at hand is your problem?
+
+> Perhaps I've waited long enough to treat myself to a new display with all
+> the space I need. :) 
+
+Nah, there's no too long time. I used my previous dislay (17" CRT)
+for about 7 years until it died, having been in its dying spasms
+for year (kicking and hitting helps with dying hardware!), and then got
+this TFT, using an ancient laptop as a serial terminal while the shop 
+took two weeks to deliver it (even though they had it in stock). 
+(At least in .fi, it's best to order TFTs online, BTW: the law dictates
+an unconditional 14 day right of return, so if there's a single dead 
+pixels, just return it, no questions asked. Can't do that with IRL 
+shops.) Anyway, unless something really remarkable happens (like 
+4800x3600 on 17"), I'm likely to use this display as well, until it 
+dies.
+
+-- 
+Tuomo
+
+
+
+From tilman.baumann at collax.com  Mon Jan 22 22:06:24 2007
+From: tilman.baumann at collax.com (Tilman Baumann)
+Date: Mon, 22 Jan 2007 22:06:24 +0100
+Subject: *****SPAM***** Re: Xinerama support
+Message-ID: <D87172D3-49D6-44E7-B2C7-65057F7341C6@collax.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070122/b8cf0605/attachment.ksh>
+-------------- next part --------------
+An embedded message was scrubbed...
+From: Tilman Baumann <tilman.baumann at collax.com>
+Subject: Re: Xinerama support
+Date: Mon, 22 Jan 2007 22:06:24 +0100
+Size: 3302
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070122/b8cf0605/attachment.mht>
+
+From seth.arnold at suse.de  Mon Jan 22 23:06:33 2007
+From: seth.arnold at suse.de (Seth Arnold)
+Date: Mon, 22 Jan 2007 14:06:33 -0800
+Subject: Xinerama support
+In-Reply-To: <slrnera9h8.1rm.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5y7nw5n0j.fsf@de.uu.net>
+	<slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122063206.GE24156@suse.de>
+	<slrner8q7b.na5.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122204502.GO31167@suse.de>
+	<slrnera9h8.1rm.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070122220633.GQ31167@suse.de>
+
+On Mon, Jan 22, 2007 at 09:01:28PM +0000, Tuomo Valkonen wrote:
+> Umm... why do you need to check on IRC an Email all the time? Perhaps
+
+I support internal and external users as part of my job; people expect
+(and get :) good response to their questions and problems.
+
+> not being able to concentrate on the work at hand is your problem?
+
+If my job required more dedicated programming, absolutely. In fact,
+when I do the bulk of my programming, I bring my laptop to a location
+without network access and program free of distractions. (I rarely need
+references while programming beyond 'man' in the scratchpad, so the
+single display isn't a serious concern when programming. :)
+
+> for year (kicking and hitting helps with dying hardware!), and then got
+
+"Technical tap" :) swearing rarely helps though :(
+
+> this TFT, using an ancient laptop as a serial terminal while the shop 
+> took two weeks to deliver it (even though they had it in stock). 
+
+Ugh. Yes, you -can- work in that environment, but that doesn't make it
+ideal. :)
+
+> (At least in .fi, it's best to order TFTs online, BTW: the law dictates
+> an unconditional 14 day right of return, so if there's a single dead 
+> pixels, just return it, no questions asked. Can't do that with IRL 
+> shops.) Anyway, unless something really remarkable happens (like 
+
+Wow. Sounds like a civilised place to live. :)
+
+> 4800x3600 on 17"), I'm likely to use this display as well, until it 
+> dies.
+
+We can dream..
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070122/3ea22b74/attachment.pgp>
+
+From bruce+ion at cenderis.demon.co.uk  Mon Jan 22 23:38:06 2007
+From: bruce+ion at cenderis.demon.co.uk (Bruce Stephens)
+Date: Mon, 22 Jan 2007 22:38:06 +0000
+Subject: Xinerama support
+In-Reply-To: <20070122220633.GQ31167@suse.de> (Seth Arnold's message of "Mon\,
+	22 Jan 2007 14\:06\:33 -0800")
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5y7nw5n0j.fsf@de.uu.net>
+	<slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122063206.GE24156@suse.de>
+	<slrner8q7b.na5.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122204502.GO31167@suse.de>
+	<slrnera9h8.1rm.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122220633.GQ31167@suse.de>
+Message-ID: <87k5ze6629.fsf@cenderis.demon.co.uk>
+
+Seth Arnold <seth.arnold at suse.de> writes:
+
+[...]
+
+> (I rarely need references while programming beyond 'man' in the
+> scratchpad, so the single display isn't a serious concern when
+> programming. :)
+
+Depends what you're doing, of course.  Often I'm working with ITU
+standards (X.511, etc.), and I have those in PDF.  For that matter,
+quite a few API docs seem to be in annoying frames-requiring HTML,
+which don't really squash that well.
+
+[...]
+
+>> (At least in .fi, it's best to order TFTs online, BTW: the law dictates
+>> an unconditional 14 day right of return, so if there's a single dead 
+>> pixels, just return it, no questions asked. Can't do that with IRL 
+>> shops.) Anyway, unless something really remarkable happens (like 
+>
+> Wow. Sounds like a civilised place to live. :)
+
+Depends on how the member state has implemented the EU directive, of
+course.  And how that law's interpreted by courts and companies.  In
+the UK I believe the intention is that the Distance Selling
+Regulations provide a similar experience to consumers for things
+they've bought at a distance to what they'd get in a shop.
+
+Specifically, if we buy over the web we can't (necessarily) see the
+physical box, read what it's got on it, etc.
+
+I believe the law here's usually interpreted (by vendors, anyway) such
+that if you actually open the box (and, even worse, plug the device
+in), then you can no longer use the DSR to return it.
+
+And the legislation only applies to consumers, not business purchases.
+
+>> 4800x3600 on 17"), I'm likely to use this display as well, until it 
+>> dies.
+>
+> We can dream..
+
+Yeah, I'm waiting for the flexible, printed, high-resolution display.
+
+In the meantime using two relatively cheap TFTs seems reasonable.
+There's lots of experience producing them, so presumably there's less
+wastage than with less common varieties (unusually high resolution,
+maybe even widescreen, though I guess widescreen ones are common
+enough now).
+
+
+From tuomov at iki.fi  Tue Jan 23 00:10:12 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 22 Jan 2007 23:10:12 +0000 (UTC)
+Subject: Xinerama support
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5y7nw5n0j.fsf@de.uu.net>
+	<slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122063206.GE24156@suse.de>
+	<slrner8q7b.na5.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122204502.GO31167@suse.de>
+	<slrnera9h8.1rm.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122220633.GQ31167@suse.de>
+	<87k5ze6629.fsf@cenderis.demon.co.uk>
+Message-ID: <slrnerah2k.e7g.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-22, Bruce Stephens <bruce+ion at cenderis.demon.co.uk> wrote:
+>>> (At least in .fi, it's best to order TFTs online, BTW: the law dictates
+>>
+>> Wow. Sounds like a civilised place to live. :)
+
+It isn't.
+
+> I believe the law here's usually interpreted (by vendors, anyway) such
+> that if you actually open the box (and, even worse, plug the device
+> in), then you can no longer use the DSR to return it.
+
+Here, AFAIK, you're supposed to be able to inspect the product just 
+like you could in a shop, and to do that, you need to plug it in.
+Basically the returned product has to be in a shape that it can still
+be sold as new.
+
+> In the meantime using two relatively cheap TFTs seems reasonable.
+
+A single TFT is more reasonable, unless you _really_ need the space,
+(i.e. can justify your need to me and other critics). Most don't, 
+least of all for their home setups. (I suppose Seth here may have
+a proper need, if he _has to_ _monitor_ the _content_ -- and not 
+just  something in general happening -- of an IRC discussion 
+constantly (modulo the product being supported being of any positive
+value), while doing something else. A rather small screen should 
+suffice for that, though, e.g. that of a laptop if the computer 
+itself was the laptop.)
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue Jan 23 00:17:59 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 22 Jan 2007 23:17:59 +0000 (UTC)
+Subject: Xinerama support
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5y7nw5n0j.fsf@de.uu.net>
+	<slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122063206.GE24156@suse.de>
+	<slrner8q7b.na5.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122204502.GO31167@suse.de>
+	<slrnera9h8.1rm.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122220633.GQ31167@suse.de>
+	<87k5ze6629.fsf@cenderis.demon.co.uk>
+	<slrnerah2k.e7g.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnerahh7.flu.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-22, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> Here, AFAIK, you're supposed to be able to inspect the product just 
+> like you could in a shop, and to do that, you need to plug it in.
+
+The difference of course being, that in a shop you can't inspect
+that _particular_ item you get, but the display article. And being
+able to inspect the one you get is the crux of getting a TFT without
+dead pixels.
+
+-- 
+Tuomo
+
+
+
+From klawitter at email.de  Wed Jan 24 12:59:18 2007
+From: klawitter at email.de (Renee Klawitter)
+Date: Wed, 24 Jan 2007 12:59:18 +0100
+Subject: keyboard focus
+Message-ID: <87d554tz3d.fsf@Ishmael.Pequod>
+
+Don't know wether my first posting got through or not, so I'll just
+repost ...
+
+After the lengthy xinerama discussion here I got to think about how I
+use ion. As as consequence I find myself using float-splits more and
+more often; now I wonder: 
+
+Is it possible to have the float, that has no keyboard input expanded
+(don't know if there is an "official" other word for it) ? i.e. see my
+opera window in full size but type in my partly hidden emacs ? 
+
+Thanks!
+
+/Renee.
+
+-- 
+For contacting me: klawitter(at)email(dot)de
+--
+"The major difference between a thing  that might go wrong and a thing
+    that cannot  possibly go  wrong is that  when a thing  that cannot
+    possibly go wrong goes wrong it usually turns out to be impossible
+    to get at or repair."  Douglas Adams, Mostly Harmless
+
+
+
+From tuomov at iki.fi  Wed Jan 24 13:34:38 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 24 Jan 2007 12:34:38 +0000 (UTC)
+Subject: keyboard focus
+References: <87d554tz3d.fsf@Ishmael.Pequod>
+Message-ID: <slrnerekiu.nhc.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-24, Renee Klawitter <klawitter at email.de> wrote:
+> Is it possible to have the float, that has no keyboard input expanded
+> (don't know if there is an "official" other word for it) ? i.e. see my
+> opera window in full size but type in my partly hidden emacs ? 
+
+No. It wouldn't be a lot of work to add a function that momentarily
+lowers a frame: there's the generic rqorder function, that's just
+missing an implementation on WTilings. However, the stacking order
+would likely be reset the moment anything else is done on the layout.
+Just switching the workspace could reset it, if an stdisp is used. 
+To maintain the layout, the architecture should be changed considerably
+again, and I don't want to do anything of the sort in relation to Ion3
+anymore. Just finish it quickly, work on other things, and get back
+to Ion in the form of Ion4 in a few decades :) or so.
+
+I've actually been thinking, that a fish-eye view of the presently
+partially hidden window, might be nice. Especially if the program
+could provide a focus point itself, so that things under the cursor
+are not much distorted, but they get more distorted towards the 
+edges (that often contain unimportant controls etc.). This kind
+of things, of course, demand the use of XComposite or such...
+*sigh*, another mostly undocumented X API to learn... which will
+probably delay the work on Ion4 for yet another decade, as a lot
+of ideas I am starting to have for Ion4 almost depend on it.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Wed Jan 24 23:34:39 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 24 Jan 2007 22:34:39 +0000 (UTC)
+Subject: keyboard focus
+References: <87d554tz3d.fsf@Ishmael.Pequod>
+	<slrnerekiu.nhc.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnerfnnv.dpq.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-24, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> To maintain the layout, the architecture should be changed considerably
+> again, 
+
+Actually, that's not completely true. It should infact doable by adding
+a new bit in the split structures, and then doing some work maintaining
+it in the split tree (and that should be the most of the work). 
+Essentially this amounts to duplicating the 'current' pointer that's
+presently used to decide what's on top, and much of the code related
+to it.
+
+However, there's another problem: pointer focus. Lowering the present
+frame could well put the cursor in the other frame, and thus give it
+the focus. (Infact, this _will_ happen on the right-hand side of
+a split, if the pointer has been warped to its default location,
+and also on the left from this same location.) It should be possible
+to kludge around this, but I hate working on anything related to
+focus changes, and especially when the change is caused by the
+pointer changing windows.
+
+-- 
+Tuomo
+
+
+
+From klawitter at email.de  Thu Jan 25 09:41:35 2007
+From: klawitter at email.de (Renee Klawitter)
+Date: Thu, 25 Jan 2007 09:41:35 +0100
+Subject: keyboard focus
+References: <87d554tz3d.fsf@Ishmael.Pequod>
+	<slrnerekiu.nhc.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrnerfnnv.dpq.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <87ejpjebwg.fsf@Ishmael.Pequod>
+
+> a split, if the pointer has been warped to its default location,
+> and also on the left from this same location.) It should be possible
+> to kludge around this, but I hate working on anything related to
+> focus changes, and especially when the change is caused by the
+> pointer changing windows.
+
+I'll have to wait till ion4 then ... which, when xcomposite will be
+supported, opens up a lot of possibilities ...
+Any plan, when you'll begin with it ?
+
+
+/Renee.
+
+-- 
+For contacting me: klawitter(at)email(dot)de
+--
+"The major difference between a thing  that might go wrong and a thing
+    that cannot  possibly go  wrong is that  when a thing  that cannot
+    possibly go wrong goes wrong it usually turns out to be impossible
+    to get at or repair."  Douglas Adams, Mostly Harmless
+
+
+
+From tuomov at iki.fi  Thu Jan 25 10:12:43 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 25 Jan 2007 09:12:43 +0000 (UTC)
+Subject: keyboard focus
+References: <87d554tz3d.fsf@Ishmael.Pequod>
+	<slrnerekiu.nhc.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrnerfnnv.dpq.tuomov@jolt.modeemi.cs.tut.fi>
+	<87ejpjebwg.fsf@Ishmael.Pequod>
+Message-ID: <slrnergt4b.7v5.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-25, Renee Klawitter <klawitter at email.de> wrote:
+> I'll have to wait till ion4 then ... 
+
+It may not be necessary... who knows.. but at least it's not high on
+my TODO list.
+
+> which, when xcomposite will be supported, opens up a lot of possibilities
+> ... Any plan, when you'll begin with it ?
+
+In a few decades, as I said :).
+
+-- 
+Tuomo
+
+
+
+From jurjenm at stack.nl  Fri Jan 26 04:47:45 2007
+From: jurjenm at stack.nl (Jurjen Middendorp)
+Date: Fri, 26 Jan 2007 04:47:45 +0100
+Subject: problem with queries on man-pages and sed? (and other ion questions)
+Message-ID: <20070126034745.GA22812@jurjenm.stack.nl>
+
+Hello! First off, thanks for making ion! it's great!
+
+Something seems to be wrong with the query/ autocompletion part of
+manpages (F1).  I can use F1 and then type the name (or other man commands)
+and then i get a pager etc, but if i accidentally press tab no autocompletion
+comes up, but alot of sed-processes get made and my computer gets very
+slow!  they also don't seem to end (?) but killall sed fixes it.  I
+couldn't find much info on what happens, but either pointers on where
+to find more info or how to completely disable autocompletion for this
+query would be cool!
+
+I also have a litle question about scripting ion... how do i make a litle
+script that opens a new workspace and sets up the correct windows (with
+names for use with winprops) and then load the correct program? I read
+some other mails on the list and found someone asking almost the same
+question asking maybe he could use ioncore.read_safefile(). And he got
+a reply he could use WMplex.attach() to set up his workspace (?). But
+since the function-documentation is sometimes a bit cryptic i have a few
+questions :)
+
+- I think the best way to try at this is to use the lua-code command
+  (mod+f3).  I can type in litle commands i know from the key-bindings
+  i have, but i'm not sure how to use the WMPlex.attach function and
+  usually get weird-ish errors if i try something. so where can i find
+  some examples using read_safefile and/or attach?
+- this is a bit stupid but how would i print the table returned by
+  ioncore.readfile().  I tried something like this
+  print(ioncore.readfile('saved_layout.lua')) but this just prints :
+  'table: <adress>' and i don't know enough lua (yet!) to know how to
+  work work with that :)
+
+greets! jurjen
+
+
+From tuomov at iki.fi  Fri Jan 26 08:23:52 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 26 Jan 2007 07:23:52 +0000 (UTC)
+Subject: problem with queries on man-pages and sed? (and other ion
+	questions)
+References: <20070126034745.GA22812@jurjenm.stack.nl>
+Message-ID: <slrnerjb48.6fb.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-26, Jurjen Middendorp <jurjenm at stack.nl> wrote:
+> but if i accidentally press tab no autocompletion
+
+No tab press is needed by default. Also, there's no "auto-completion".
+Auto-completion where the first completion is inserted on the query
+line. I doesn't do that: I don't like it. The default behaviour is
+"auto-show completions", where the list of completions is generated
+automatically, but nothing is done beyond that. It is possible to
+configure Ion to use the old "tab completion" model too.
+
+> comes up, but alot of sed-processes get made and my computer gets very
+> slow!  they also don't seem to end (?) but killall sed fixes it.  
+
+You know, there's a reason for the note on caching in the README.
+Not that it takes _that_ long on my system without it, but too 
+long to be comfortable. In any case, you want to experiment with
+ion-completeman (in $SHAREDIR).
+
+> I also have a litle question about scripting ion... 
+
+'man grep'. Also check the scripts repository.
+
+-- 
+Tuomo
+
+
+
+From jurjenm at stack.nl  Fri Jan 26 19:05:28 2007
+From: jurjenm at stack.nl (Jurjen Middendorp)
+Date: Fri, 26 Jan 2007 19:05:28 +0100
+Subject: More ion-configuration (was Re: problem with queries on man-pages and
+	sed?)
+Message-ID: <20070126180528.GA12639@jurjenm.stack.nl>
+
+On Fri, Jan 26, 2007 at 07:23:52AM +0000, Tuomo Valkonen wrote:
+> On 2007-01-26, Jurjen Middendorp <jurjenm at stack.nl> wrote:
+>> but if i accidentally press tab no autocompletion
+> 
+> No tab press is needed by default. Also, there's no "auto-completion".
+> Auto-completion where the first completion is inserted on the query line.
+> I doesn't do that: I don't like it. The default behaviour is "auto-show
+> completions", where the list of completions is generated automatically,
+> but nothing is done beyond that. It is possible to configure Ion to use
+> the old "tab completion" model too.
+
+No i ment WEdln.complete() (which is bind to tab). What is the old
+tab-completion model?
+
+It would be cool if i could get ion to do shell-like tab completion instead
+of the next match. I'm not sure if ion can already do this but i couldn't
+find such an option. i'm not a very good programmer, but i had a (very)
+quick look at wedln.c but am not to sure what everything does, but still
+reading it...  Some more questions :)
+- Is there some more documention on (or in) the ion code somewhere besides
+  the listing of classes in the ion manual? Starting at the functions that
+  are exported to Lua is good, but it is a litle annoying that there is
+  no (?) comments in the code about how ion does things..  But maybe i'm
+  just looking in the wrong place as usual :)
+- the completions are in the edln->compl_list thing? I got to complete.c
+  via wedln_do_set_completions() which calls edln_do_completions() and
+  there is a function get_common_part_rmdup() which seems to do part of
+  the kind of tab-completion i want. I think the code i want to make will
+  be easier (for me) because i don't (?) have to call wedln_next_completion
+  (or _prev_) but just can make a litle function that looks at what is in
+  the query-box so far, gets the 'context' of the query (?) and then prints
+  the biggest common part of all the possible completions and updates the
+  autoshowcompletion-box thing. I'm sorry if i sound a bit fuzzy :) i
+  haven't got a clear picture (yet- i hope) of how everything hangs together.
+  Anyway, if someone can help me get some insight on what the variables
+  in the structure (/class) Edln, WEdln and WListing mean or a litle
+  description of how the code for auto-completion is structured i would
+  really appreciate that!
+- edln is the non-visual part and the edit-line and Wedln is the other way
+  around right?
+
+>> comes up, but alot of sed-processes get made and my computer gets very
+>> slow!  they also don't seem to end (?) but killall sed fixes it.
+> 
+> You know, there's a reason for the note on caching in the README.  Not
+> that it takes _that_ long on my system without it, but too long to be
+> comfortable. In any case, you want to experiment with ion-completeman (in
+> $SHAREDIR).
+
+Works a whole lot better now :) Thanks!
+
+>> I also have a litle question about scripting ion...
+> 
+> 'man grep'. Also check the scripts repository.
+
+hehe you're right :)
+
+- anyway, i think ioncore.create_ws(_,my_ws_params,true) will do what i
+  want, but is _ for the first parameter the current WScreen (also known
+  as the right option)?
+- Is there a way to make Ion obey the maximum window size hints (WM_SIZE_HINTS)
+  throug winprops so they only work for some programs?  I cannot make
+  windows smaller then the application wants, but i can make the window
+  bigger which sometimes is annoying because some programs stay at 1 size
+
+greetings - jurjen
+
+
+From tuomov at iki.fi  Fri Jan 26 20:11:07 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 26 Jan 2007 19:11:07 +0000 (UTC)
+Subject: More ion-configuration (was Re: problem with queries on man-pages
+	and sed?)
+References: <20070126180528.GA12639@jurjenm.stack.nl>
+Message-ID: <slrnerkkib.5d1.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-26, Jurjen Middendorp <jurjenm at stack.nl> wrote:
+> No i ment WEdln.complete() (which is bind to tab). What is the old
+> tab-completion model?
+
+The usual tab-completion model: Hit tab. If there's only one completion,
+it is substituted into the query line. If there are multiple, they're
+displayed, and only the common part substituted into the query line.
+You can get this with mod_query.set{autoshowcompl=false}. (Well, could
+-- apparently there's a segfault problem in the present release.)
+
+> - Is there some more documention on (or in) the ion code somewhere besides
+>   the listing of classes in the ion manual? 
+
+No. It should all be self-evident :).
+
+> - the completions are in the edln->compl_list thing? 
+
+Maybe. Probably.
+
+> - edln is the non-visual part and the edit-line and Wedln is the other way
+>   around right?
+
+Yep, Edln is the low-level line editor in no way tied to the UI, whereas
+WEdln is the the Ion query line UI to it. I had to write Edln, because
+all the other line editors available (libreadline and was it editline?)
+seem tied to the TTY with no abstraction away from it. (Plus libreadline
+sucks for being GPL.)
+
+> - anyway, i think ioncore.create_ws(_,my_ws_params,true) will do what i
+>   want, but is _ for the first parameter the current WScreen (also known
+>   as the right option)?
+
+Depends on where the call is. In the default configruation, it IIRC is in 
+the WScreen bindings, so yes.
+
+> - Is there a way to make Ion obey the maximum window size hints (WM_SIZE_HINTS)
+>   throug winprops so they only work for some programs?  I cannot make
+>   windows smaller then the application wants, but i can make the window
+>   bigger which sometimes is annoying because some programs stay at 1 size
+
+Maybe. Maybe there is already a suitable winprops. RTFM.
+
+-- 
+Tuomo
+
+
+
+From frederik at a5.repetae.net  Fri Jan 26 23:41:58 2007
+From: frederik at a5.repetae.net (Frederik Eaton)
+Date: Fri, 26 Jan 2007 22:41:58 +0000
+Subject: upgrade problems
+Message-ID: <20070126224158.GA23250@a5.repetae.net>
+
+Hello,
+
+I have just upgraded ion and I'm trying to figure out what I need to
+change about my configuration files to get it to start functioning
+properly again.
+
+The version is 3ds-20061223. 
+
+When I start it, I see the following errors:
+
+>> Unable to find 'mod_ionws' on search path.
+>> Unable to find 'mod_floatws' on search path.
+>> Unable to find 'mod_panews' on search path.
+Warning: Input Method Open Failed
+
+Also, there are no tabs at the top of the screen, each window I open
+seems to be in full-screen mode. However, when I create a new
+workspace, the windows are floating. This was not the behavior prior
+to upgrading.
+
+Thank you,
+
+Frederik
+
+-- 
+http://ofb.net/~frederik/
+
+
+From frederik at ofb.net  Sat Jan 27 01:32:49 2007
+From: frederik at ofb.net (Frederik Eaton)
+Date: Sat, 27 Jan 2007 00:32:49 +0000
+Subject: upgrade problems
+In-Reply-To: <20070126224158.GA23250@a5.repetae.net>
+References: <20070126224158.GA23250@a5.repetae.net>
+Message-ID: <20070127003249.GB23250@a5.repetae.net>
+
+These questions have been answered on IRC. thanks
+
+On Fri, Jan 26, 2007 at 10:41:58PM +0000, Frederik Eaton wrote:
+> Hello,
+> 
+> I have just upgraded ion and I'm trying to figure out what I need to
+> change about my configuration files to get it to start functioning
+> properly again.
+> 
+> The version is 3ds-20061223. 
+> 
+> When I start it, I see the following errors:
+> 
+> >> Unable to find 'mod_ionws' on search path.
+> >> Unable to find 'mod_floatws' on search path.
+> >> Unable to find 'mod_panews' on search path.
+> Warning: Input Method Open Failed
+> 
+> Also, there are no tabs at the top of the screen, each window I open
+> seems to be in full-screen mode. However, when I create a new
+> workspace, the windows are floating. This was not the behavior prior
+> to upgrading.
+> 
+> Thank you,
+> 
+> Frederik
+> 
+> -- 
+> http://ofb.net/~frederik/
+> 
+
+-- 
+http://ofb.net/~frederik/
+
+
+From csant at csant.info  Sat Jan 27 13:20:55 2007
+From: csant at csant.info (csant)
+Date: Sat, 27 Jan 2007 13:20:55 +0100
+Subject: upgrade problems
+In-Reply-To: <20070127003249.GB23250@a5.repetae.net>
+References: <20070126224158.GA23250@a5.repetae.net>
+	<20070127003249.GB23250@a5.repetae.net>
+Message-ID: <op.tmta85ymd84skq@fiore.malebolge>
+
+On Sat, 27 Jan 2007 01:32:49 +0100, Frederik Eaton <frederik at ofb.net>  
+wrote:
+> These questions have been answered on IRC. thanks
+It would be nice if you could in any case post them to the list as well -  
+so others will have an easier way to find the answers (and they do not  
+have to be repeated once again on IRC).
+
+Thanks,
+/c :)
+
+
+
+From frederik at a5.repetae.net  Sat Jan 27 14:35:46 2007
+From: frederik at a5.repetae.net (Frederik Eaton)
+Date: Sat, 27 Jan 2007 13:35:46 +0000
+Subject: upgrade problems
+In-Reply-To: <op.tmta85ymd84skq@fiore.malebolge>
+References: <20070126224158.GA23250@a5.repetae.net>
+	<20070127003249.GB23250@a5.repetae.net>
+	<op.tmta85ymd84skq@fiore.malebolge>
+Message-ID: <20070127133546.GI17121@a5.repetae.net>
+
+On Sat, Jan 27, 2007 at 01:20:55PM +0100, csant wrote:
+> On Sat, 27 Jan 2007 01:32:49 +0100, Frederik Eaton <frederik at ofb.net> wrote:
+> >These questions have been answered on IRC. thanks
+> It would be nice if you could in any case post them to the list as well - so others will have an easier way to find the 
+> answers (and they do not have to be repeated once again on IRC).
+> 
+> Thanks,
+> /c :)
+
+Summary: "mod_ionws has been renamed to mod_tiling"
+"Maybe one or two keybindings need fixing as well."
+
+22:19 < _frederik_> hello, i've upgraded ion and now it isn't working again
+22:19 < _frederik_> do i have to change something about my configuration?
+22:19 < _frederik_> version is 3ds-20061223
+22:20 < _frederik_> there are no tabs at the top of the screen
+22:50 < urs> _frederik_: what version did you upgrade from? pre-october?
+22:57 < waawaamilk> _frederik_: what happens if you create a new workspace? do things work there?
+23:07 < _frederik_> urs: yes, certainly
+23:07 < _frederik_> waawaamilk: if i create a new workspace, it comes up floating
+23:11 < waawaamilk> can you not get a query for one?
+23:11 < _frederik_> query?
+23:11 < waawaamilk> F9
+23:11 < urs> _frederik_: the most important config-change from pre-december versions is that mod_ionws has been renamed to
+             mod_tiling
+23:12 < _frederik_> urs: oh
+23:12 < _frederik_> urs: perhaps that's the issue
+23:12 < urs> So you'll need to fix that in your config
+23:12 < urs> Maybe one or two keybindings need fixing as well.
+23:12 < _frederik_> why are there so many incompatible changes?
+23:12 < urs> Because the internal architecture has been overhauled an (imho) beautified.
+23:13 < _frederik_> sure, but renaming things isn't important enough to be a reason to break compatibility
+23:13 < urs> The new code doesn't differentiate between tiling and frame workspaces anymore, you can mix them freely.
+23:13 < urs> Well, ion has always been a development playground. If you want stability, stick with ion2. :)
+
+Here's a description of the changes I made, using the above hints:
+
+$ diff -u .ion3/cfg_ion.lua{.orig,} 
+--- .ion3/cfg_ion.lua.orig      2007-01-26 22:36:33.000000000 +0000
++++ .ion3/cfg_ion.lua   2007-01-26 23:29:57.000000000 +0000
+@@ -30,7 +30,7 @@
+     warp=true,
+     
+     -- Default workspace type.
+-    default_ws_type="WIonWS",
++    default_ws_type="WTiling",
+ }
+ 
+ 
+@@ -41,9 +41,9 @@
+ -- Load some modules.
+ dopath("mod_query")
+ dopath("mod_menu")
+-dopath("mod_ionws")
+-dopath("mod_floatws")
+-dopath("mod_panews")
++dopath("mod_tiling")
++--dopath("mod_floatws")
++--dopath("mod_panews")
+ --dopath("mod_statusbar")
+ dopath("mod_dock")
+ --dopath("mod_sp")
+
+Also, I had to change .ion3/cfg_bindings.lua, inserting the following
+blocks (taken from the new /etc/X11/ion3/cfg_bindings.lua) and
+removing the corresponding bindings from their old locations:
+
+----------------------------------------------------------------
+-- Client window bindings
+--
+-- These bindings affect client windows directly.
+
+defbindings("WClientWin", {
+    bdoc("Nudge the client window. This might help with some "..
+         "programs' resizing problems."),
+    kpress_wait(META.."L", "WClientWin.nudge(_)"),
+    
+    submap(META.."T", {
+       bdoc("Kill client owning the client window."),
+       kpress("C", "WClientWin.kill(_)"),
+       
+       bdoc("Send next key press to the client window. "..
+            "Some programs may not allow this by default."),
+       kpress("Q", "WClientWin.quote_next(_)"),
+    }),
+})
+
+
+-- Client window group bindings
+
+defbindings("WGroupCW", {
+    bdoc("Toggle client window group full-screen mode"),
+    kpress_wait(META.."Return",
+                "WClientWin.set_fullscreen(_:bottom(), 'toggle')"),
+})
+----------------------------------------------------------------
+
+Best,
+
+Frederik
+
+-- 
+http://ofb.net/~frederik/
+
+
+From jurjenm at stack.nl  Sat Jan 27 16:52:00 2007
+From: jurjenm at stack.nl (Jurjen Middendorp)
+Date: Sat, 27 Jan 2007 16:52:00 +0100
+Subject: More ion-configuration
+In-Reply-To: <slrnerkkib.5d1.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070126180528.GA12639@jurjenm.stack.nl>
+	<slrnerkkib.5d1.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070127155200.GA3532@jurjenm.stack.nl>
+
+On Fri, Jan 26, 2007 at 07:11:07PM +0000, Tuomo Valkonen wrote:
+>On 2007-01-26, Jurjen Middendorp <jurjenm at stack.nl> wrote:
+>> No i ment WEdln.complete() (which is bind to tab). What is the old
+>> tab-completion model?
+>
+>The usual tab-completion model: Hit tab. If there's only one completion,
+>it is substituted into the query line. If there are multiple, they're
+>displayed, and only the common part substituted into the query line.
+>You can get this with mod_query.set{autoshowcompl=false}. (Well, could
+>-- apparently there's a segfault problem in the present release.)
+
+I thought autoshowcompl had something to do with the box that showed all
+the possible completions, not the kind of completion. It doesn't segfault
+on my computer though (i386 freebsd, ion 20061223).
+
+>> - Is there some more documention on (or in) the ion code somewhere besides
+>>   the listing of classes in the ion manual? 
+>
+>No. It should all be self-evident :).
+
+Starting to be :)
+
+>> - anyway, i think ioncore.create_ws(_,my_ws_params,true) will do what i
+>>   want, but is _ for the first parameter the current WScreen (also known
+>>   as the right option)?
+>
+>Depends on where the call is. In the default configruation, it IIRC is in 
+>the WScreen bindings, so yes.
+
+I found an old thread on the mailing list about how to do this, and you
+said there it would be easy to export region_get_configuration(). I made
+a litle script with it and it works nicely i just have a few problems with
+how mod_query.query() works (see below).
+
+>> - Is there a way to make Ion obey the maximum window size hints (WM_SIZE_HINTS)
+>>   throug winprops so they only work for some programs?  I cannot make
+>>   windows smaller then the application wants, but i can make the window
+>>   bigger which sometimes is annoying because some programs stay at 1 size
+>
+>Maybe. Maybe there is already a suitable winprops. RTFM.
+
+i couldn't find one, but i haven't tried them all yet :) 
+
+
+Here is the litle script i made to test loading and saving workspaces, i
+can load workspaces as much as i want but i can't seem to get the
+query-completer function to work. Any tips on that?
+
+tester={}
+local workspaces = ioncore.read_savefile('saved_workspaces') or {}
+
+-- bind this function to a button with WGroupWS context to save the current
+-- ws
+function tester.save_ws(r)
+   ws_def = r:get_configuration(r)
+   ws_def["switchto"] = true
+   ws_def["bottom_last_close"] = true
+   workspaces[ ws_def["name"] ] = ws_def
+   ioncore.write_savefile('saved_workspaces', workspaces)
+end
+
+function tester.query_load_ws(mplex)
+   mod_query.query(mplex, "Load workspace:", "", tester.get_ws, 
+                   mod_query.make_completor(complete_saved_ws), "load_ws")
+end
+
+local function complete_saved_ws(s)
+   ws_list = {}
+   for i,d in pairs(workspaces) do
+      table.insert(ws_list, i)
+   end
+   return mod_query.complete_name(s, ws_list)
+end
+
+function tester.get_ws(mplex, ws_name)
+   WMPlex.attach_new(mplex:screen_of(), workspaces[ws_name])
+end
+
+
+From jurjenm at stack.nl  Sat Jan 27 19:00:23 2007
+From: jurjenm at stack.nl (Jurjen Middendorp)
+Date: Sat, 27 Jan 2007 19:00:23 +0100
+Subject: yay, my lay-out load and safe script (was Re: More ion-configuration)
+In-Reply-To: <20070127155200.GA3532@jurjenm.stack.nl>
+References: <20070126180528.GA12639@jurjenm.stack.nl>
+	<slrnerkkib.5d1.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070127155200.GA3532@jurjenm.stack.nl>
+Message-ID: <20070127180023.GA53915@jurjenm.stack.nl>
+
+you have to add something like EXTL_EXPORT_AS(WRegion)  above the function
+region_get_configuration in ioncore/saveload.c and then rebuild ion, but
+when that's done, it works pretty good! i'm happy now :)
+
+tester={}
+local workspaces = ioncore.read_savefile('saved_workspaces') or {}
+
+-- bind this function to a button with WGroupWS context to save the current
+-- ws
+function tester.save_ws(r)
+   ws_def = r:get_configuration(r)
+   ws_def["switchto"] = true
+   ws_def["bottom_last_close"] = true
+   workspaces[ ws_def["name"] ] = ws_def
+   ioncore.write_savefile('saved_workspaces', workspaces)
+end
+
+function tester.query_load_ws(mplex)
+   mod_query.query(mplex, "Load workspace:", "", tester.get_ws, 
+                   mod_query.make_completor(tester.complete_saved_ws), "load_ws")
+end
+
+function tester.complete_saved_ws(s)
+   ws_list = {}
+   for i, _ in pairs(workspaces) do
+      if string.find(i, s, 1, true) then
+         table.insert(ws_list, i)
+      end
+   end
+   return ws_list
+end
+
+function tester.get_ws(mplex, ws_name)
+   WMPlex.attach_new(mplex:screen_of(), workspaces[ws_name])
+end
+
+
+From jurjenm at stack.nl  Sun Jan 28 17:34:27 2007
+From: jurjenm at stack.nl (Jurjen Middendorp)
+Date: Sun, 28 Jan 2007 17:34:27 +0100
+Subject: yay, my lay-out load and safe script
+In-Reply-To: <20070127180023.GA53915@jurjenm.stack.nl>
+References: <20070126180528.GA12639@jurjenm.stack.nl>
+	<slrnerkkib.5d1.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070127155200.GA3532@jurjenm.stack.nl>
+	<20070127180023.GA53915@jurjenm.stack.nl>
+Message-ID: <20070128163427.GA29193@jurjenm.stack.nl>
+
+I'm almost done with my lay-out load and safe script, i think it's getting
+pretty nice so i'll post it here :) If you have any comments on what i can
+improve in it i'd like to hear them, i'm pretty new to ion (scripting) and
+very new to lua, so all advice is welcome!
+
+also printing a table (with ioncore.write_savefile) i get with functions 
+like region_list and such all give an error message "failed
+to initialize userdata" so i'm not sure on how to use these functions. How
+do i examine the data these functions give back?
+
+anyway, here it is! hope someone finds it easier to use then the other
+session-save scripts out there (i do :)
+
+--   script that produces a menu to manage workspace lay-outs. it uses
+--   an unexported C-function Export it by typing "EXTL_EXPORT_AS(WRegion,
+--   get_configuration)" above the function region_get_configuration in
+--   ioncore/saveload.c end then rebuild ion. everything should work now :)
+--   TODO: 
+--    - make the winprop-maker better in recognizing programs
+workspacer={}
+
+defmenu("Workspacer", {
+   menuentry("Save current workspace", "workspacer.save_ws(ioncore.find_manager(_, 'WGroupWS'))"),
+   menuentry("Load saved workspace", "workspacer.query_saved_ws(_, 'WS to load', workspacer.get_ws)"),
+   menuentry("Remove saved workspace", "workspacer.query_saved_ws(_, 'WS to remove', workspacer.remove_saved)"),
+   menuentry("Rename saved workspace", "workspacer.query_saved_ws(_, 'WS to rename', workspacer.rename_saved)"),
+   menuentry("Rename workspace", "mod_query.query(_, 'Rename ws and frames to', nil, workspacer.rename_stuff)"),
+})
+
+defbindings("WFrame", {
+   kpress(META.."W", "mod_menu.menu(_, _sub, 'Workspacer')"),
+})
+
+-- Save/restore workspaces functions
+------------------------------------
+local workspaces = ioncore.read_savefile('saved_workspaces') or {}
+function workspacer.write_ws_table()
+   ioncore.write_savefile('saved_workspaces', workspaces)
+end
+
+function workspacer.save_ws(r)
+   if obj_is(r, "WGroupWS") then
+      workspacer.make_cwin_config(r)
+      ws_def = r:get_configuration(r)
+      ws_def.switchto = true
+      ws_def.bottom_last_close = true
+      workspaces[ ws_def.name ] = ws_def
+      workspacer.write_ws_table()
+      workspacer.save_apps()
+   end
+end
+
+function workspacer.query_saved_ws(mplex, q_string, handler)
+   mod_query.query(mplex, q_string, nil, handler, 
+                   mod_query.make_completor(workspacer.complete_saved_ws))
+end
+
+function workspacer.rename_saved(_, old_name)
+   local function rename_to(_, new_name)
+      workspaces.new_name = workspaces.old_name
+      applist.new_name = applist.old_name
+      workspacer.remove_saved(_, old_name)
+   end
+   mod_query.query(_, "Rename "..old_name.." to", nil, rename_to)
+end
+
+function workspacer.remove_saved(_, name)
+   workspaces[name] = nil
+   workspacer.write_ws_table()
+   applist[name] = nil
+   workspacer.save_apps()
+end
+
+function workspacer.complete_saved_ws(s)
+   ws_list = {}
+   for i, _ in pairs(workspaces) do
+      if string.find(i, s, 1, true) then
+         table.insert(ws_list, i)
+      end
+   end
+   return ws_list
+end
+
+function workspacer.get_ws(mplex, ws_name)
+   WMPlex.attach_new(mplex:screen_of(), workspaces[ws_name]):goto()
+   workspacer.fill_space(ioncore.lookup_region(ws_name, "WGroupWS"))
+end
+
+-- Auto-winprop functions ideas+code from collapse and autoprop scripts
+-----------------------------------------------------------------------
+-- make an applist with the same names as the workspaces
+-- an applist = commandline for programs and winprops for the 
+-- saved workspace
+
+local applist = ioncore.read_savefile('saved_workspace_apps') or {}
+function workspacer.save_apps()
+   ioncore.write_savefile('saved_workspace_apps', applist)
+end
+
+function workspacer.fill_space(ws)
+   ws_name = ws:name()
+   table.foreach(applist[ws_name], function(_, tab)
+                                     defwinprop{
+                                        class=tab.class,
+                                        instance=tab.instance,
+                                        role=tab.role,
+                                        target=tab.target,
+                                        oneshot=true
+                                     }
+                                     ioncore.exec(tab.exe)
+                                  end)
+end
+
+function workspacer.rename_stuff(mp, str)
+   local ws = ioncore.find_manager(mp, "WGroupWS")
+   if ws then
+      local old = ws:name()
+      WRegion.set_name(ws, str)
+      workspacer.rename_frames(ws, old)
+   end
+end
+
+function workspacer.rename_frames(wantws, str)
+   -- rename WFrames on the wantws
+   l = ioncore.region_list("WFrame")
+   want_ws = wantws:name()
+   for _,x in ipairs(l) do
+      local ws = ioncore.find_manager(x, "WGroupWS")
+      if ws then
+         if ws:name() == want_ws then 
+            -- put the name of the current ws somewhere in the name of frame
+            rname = x:name()
+            if str then
+               rname = string.gsub(rname, str, want_ws)
+            end
+            if not string.find(rname, want_ws, 1, true) then
+               rname = want_ws.."--"..rname
+            end
+            WRegion.set_name(x, rname)
+         end
+      end
+   end
+end
+
+function workspacer.make_cwin_config(ws)
+      local function is_useful(cwin)
+         -- return the command line option to starting this program 
+         -- TODO: copy more stuff from oops.lua
+         name = cwin:name()
+         first, last, file, dir = string.find(name, "^(.-) %+?=? ?%((.+)%) %- G?VIM$")
+         if file and dir then return "xterm -e vim "..dir.."/"..file end
+         _,__,file=string.find(name, "^Xpdf: (.+)$")
+         if file then return "xpdf "..file end
+         if string.find(name, ".*Firefox$") then return "firefox" end
+         _, _, file = string.find(name, "^gv: (.+)$")
+         --maybe rebuild the location database and use locate to find filenames for gv?
+         if file then return "gv "..file end
+      end
+
+      local function autoprop(cwin, dest, cmd, ws_name)
+        if not (cmd and ws_name) then return end
+        local p={}
+        name=dest:name()
+        p.exe = cmd
+        p.class="*"
+        p.role="*"
+        p.instance="*"
+        p.target=name
+        p=table.join(cwin:get_ident(), p)
+        if p.target then
+           applist[ws_name][p.class..p.role..p.instance..p.target..p.exe]=p
+        end
+      end
+
+   -- make a good applist for this workspace
+   workspacer.rename_frames(ws)
+   local ws_name = ws:name()
+   applist[ws_name] = {}
+   -- make a winprop for the clientwindow if it's on this workspace and
+   for _, cw in pairs(ioncore.clientwin_list()) do
+      local in_ws = ioncore.find_manager(cw, "WGroupWS"):name()
+      if in_ws == ws_name then 
+         local exe = is_useful(cw)
+         autoprop(cw, cw:parent(), exe, ws_name)
+      end
+   end
+end
+
+function workspacer.print_all_names()
+   l = ioncore.region_list('WFrame')
+   for _, f in pairs(l) do 
+      mod_query.message(f, f:name())
+   end
+end
+
+
+From harningt+ion at gmail.com  Mon Jan 29 02:01:19 2007
+From: harningt+ion at gmail.com (Thomas Harning Jr.)
+Date: Sun, 28 Jan 2007 20:01:19 -0500
+Subject: Lua integration suggestions
+In-Reply-To: <e47324780701271923o7cb14f4cy49e37e2a202f5bfd@mail.gmail.com>
+References: <e47324780701271923o7cb14f4cy49e37e2a202f5bfd@mail.gmail.com>
+Message-ID: <e47324780701281701n5a3c0a88v99f9ec4dbea162bb@mail.gmail.com>
+
+I was looking through things in Ion-3 and noticed the usage of some
+structures that could be implemented using existing structures in Lua,
+one of the seemingly important elements of the WM.
+ 1) stringstore
+   This could take advantage Lua's string storage.  Perhaps using a
+table in the registry w/ a known index (ex: name).  Using a the
+LUA_ENVIRONINDEX would be useful, however from the look of it, this
+may not work.
+ 2) other rv_tree usage/map/ptrlist/
+  Lua's table structures could be a useful place to put the RB-trees.
+In writing this email and researching more into the code, it looks
+like the tree structure is used alot... so there could potentially be
+vast improvement, or a vast amt of wasted code-writing.
+
+However... if the direction of Ion is to use more Lua integration,
+changing the mechanisms could be another step in immersion.
+
+1)
+Pros:
+ * Any strings shared between Lua/Ion indirectly would use the same
+memory space.  The current Lua implementation prevents duplicate
+strings and even simple ptr comparison would prove data equality
+(however the Lua developers state that this is an implementation
+detail and should not be treated as 'standard' behavior).
+Cons:
+ * More work...
+ * Potentially less performant (I have not run benchmarks on Lua's
+tables vs the rb_trees... but I do know that the table implementation
+has been an object of optimization due to its importance)
+
+2)
+Pros:
+ * Mapping values would be simple
+ * Any lists/trees/maps exported to Lua may be usable as-is (if object
+setup is done at add-time, such as linking metatables to objects).
+Cons:
+ * Looks like plenty of work:
+   * The iteration functions would need to be converted to Lua-based ones:
+      * Mappings -> using 'next'
+      * Arrays/Lists -> using array-like indexing (however 1-based)
+ * Long lists would have array-like performance behavior if order is
+important, otherwise you could do a mapping like
+t[(lightweight)ptrOfValue] = value, depending on the type of object in
+the list.  Strings could just use t[string] = string.
+
+Any other ideas on this?
+....  I just started using Ion-3 a few months ago due to its Lua
+integration (great fan and user of) and then found the tiling
+behavior, responsiveness, and lightness to top out the Lua integration
+as a factor.
+
+--
+Thomas Harning Jr.
+
+
+From tuomov at iki.fi  Mon Jan 29 09:34:33 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 29 Jan 2007 08:34:33 +0000 (UTC)
+Subject: Lua integration suggestions
+References: <e47324780701271923o7cb14f4cy49e37e2a202f5bfd@mail.gmail.com>
+	<e47324780701281701n5a3c0a88v99f9ec4dbea162bb@mail.gmail.com>
+Message-ID: <slrnerrccp.j71.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-29, Thomas Harning Jr. <harningt+ion at gmail.com> wrote:
+> I was looking through things in Ion-3 and noticed the usage of some
+> structures that could be implemented using existing structures in Lua,
+> one of the seemingly important elements of the WM.
+
+I'm a bit divided on taking so much advantage of Lua, and keeping the
+core of Ion rather ignorant to the extension language used. 
+
+>  1) stringstore
+>    This could take advantage Lua's string storage.  
+
+Yeah, I've thought about this...
+
+> Perhaps using a  table in the registry w/ a known index (ex: name).  
+
+That's slow. The C-side references are already indices into the registry.
+You could simply directly use the registry, just like the ExtlTab and ExtlFn
+references use, but there is a tiny problem: you'd still need to do your 
+own reference counting. The ExtlTab and ExtlFn reference IDs are duplicated
+for each C-side reference, and so can not be compared. And being able
+to compare the strings with simple integer equality is crucial of
+stringstore. Lua also does so, by comparing the object pointers, but
+these are not available to user C code from the basic API -- and for
+a reason: the garbage collector doesn't know of client C code references.
+So you'd have to do the comparison as well through the Lua API, and that
+has a _lot_ of overhead. Especially as thanks to the extensive use of 
+longjmp by Lua, I have to wrap everything in lua_pcall...
+
+So it seems, that for stringstore Lua integration is not an option,
+at least not with the present API.
+
+>  2) other rv_tree usage/map/ptrlist/
+
+I actually used to use Lua tables for some uses of the red black trees,
+before I added the code to libtu. But then I needed a more efficient
+implementation for something (or maybe it was because working with
+tables or Objs alone is cumbersome, and I didn't want to extend libextl 
+to support arbitrary userdata). And once the code is there, it's better
+to use it.
+
+-- 
+Tuomo
+
+
+
+From alex at clusterfs.com  Wed Jan 31 20:29:48 2007
+From: alex at clusterfs.com (alex at clusterfs.com)
+Date: Wed, 31 Jan 2007 22:29:48 +0300
+Subject: Xinerama support
+In-Reply-To: <slrnera8te.1rm.tuomov@jolt.modeemi.cs.tut.fi> (Tuomo Valkonen's
+	message of "Mon\, 22 Jan 2007 20\:50\:54 +0000 \(UTC\)")
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5y7nw5n0j.fsf@de.uu.net>
+	<slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122063206.GE24156@suse.de>
+	<slrner8q7b.na5.tuomov@jolt.modeemi.cs.tut.fi>
+	<87y7nvmlbg.fsf@cenderis.demon.co.uk>
+	<slrner95v4.6q3.tuomov@jolt.modeemi.cs.tut.fi>
+	<874pqi7urc.fsf@cenderis.demon.co.uk>
+	<slrnera3av.oi0.tuomov@jolt.modeemi.cs.tut.fi>
+	<87sle26dnk.fsf@cenderis.demon.co.uk>
+	<slrnera8te.1rm.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <m3sldr570z.fsf@bzzz.home.net>
+
+
+just use right hardware ;) for example, hibernate and suspend to ram
+works fine on thinkpads.
+
+thanks, Alex
+
+>>>>> Tuomo Valkonen (TV) writes:
+
+ TV> [And speaking of heat and power consumption, the state of software
+ TV> suspend in Linux totally sucks, and yet it's one of the most important
+ TV> features I can think of. It sucks having to leave the computer
+ TV> on when you don't use it, because it's such a _chore_ to bring it 
+ TV> and all the programs up again, especially as session management support
+ TV> sucks too (and there's no protocol it for terminal programs). The 
+ TV> hardware suspend support of desktop mobos also tends to be poor, PSU fan
+ TV> still keeping humming and so on. (And I haven't heard of that good
+ TV> things of the Linux laptop support either.) That's one very good reason
+ TV> to use Windows: hibernate. Of course, even better would be if the computer
+ TV> could run on _really_ low power, shutting down all the fans, not using 
+ TV> the disks except very infrequently, and so on, but still react to ssh 
+ TV> connection attempts etc. ...). Well, at least with 'athcool' I managed
+ TV> to make the system run 10C cooler most of the time.]
+
+ TV> -- 
+ TV> Tuomo
+
+
+
+From tuomov at iki.fi  Wed Jan 31 21:22:36 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 31 Jan 2007 20:22:36 +0000 (UTC)
+Subject: Xinerama support
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneqv9r5.u7l.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5d558ln23.fsf@de.uu.net>
+	<slrner6lcj.b5p.tuomov@jolt.modeemi.cs.tut.fi>
+	<p5y7nw5n0j.fsf@de.uu.net>
+	<slrner7cm4.fgl.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070122063206.GE24156@suse.de>
+	<slrner8q7b.na5.tuomov@jolt.modeemi.cs.tut.fi>
+	<87y7nvmlbg.fsf@cenderis.demon.co.uk>
+	<slrner95v4.6q3.tuomov@jolt.modeemi.cs.tut.fi>
+	<874pqi7urc.fsf@cenderis.demon.co.uk>
+	<slrnera3av.oi0.tuomov@jolt.modeemi.cs.tut.fi>
+	<87sle26dnk.fsf@cenderis.demon.co.uk>
+	<slrnera8te.1rm.tuomov@jolt.modeemi.cs.tut.fi>
+	<m3sldr570z.fsf@bzzz.home.net>
+Message-ID: <slrnes1ukc.ocj.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-31, alex at clusterfs.com <alex at clusterfs.com> wrote:
+> just use right hardware ;) for example, hibernate and suspend to ram
+> works fine on thinkpads.
+
+Does it also spin down the couple of external hds? (Because the laptop 
+surely isn't going to have enough disks pace.) How about the box 
+providing a decent sound card? (I've yet to see a tolerable integrated
+chip that didn't completely distort the sound.)
+
+Laptops make quite lousy and expensive tabletop computers, what with
+an unnecessary screen and keyboard. (The foldable 17" computers aren't
+that good either. No, they're not laptops. More like dragtops.) Laptop
+keyboards are crap, just like tapping the table. And with the extra 
+keyboard on the way, the screen becomes unusable as well (in addition 
+to being already otherwise rather tiny for tabletop usage -- and too 
+big to be mobile, really [1]).
+
+---
+
+  [1] http://modeemi.fi/~tuomov/b/archives/2006/08/04/T21_13_29/
+
+-- 
+Tuomo
+
+
+
+From necui-iongen at nic-nac-project.net  Wed Jan 31 22:12:07 2007
+From: necui-iongen at nic-nac-project.net (Rafal Jedruszek)
+Date: Wed, 31 Jan 2007 22:12:07 +0100
+Subject: Compilation problem: "Using 'dlopen' in statically linked
+	applications (...)"
+References: <87vem34a7n.fsf@estera.homeip.net>
+	<slrnek9a2v.iqv.tuomov@jolt.modeemi.cs.tut.fi>
+	<87bqnutex8.fsf_-_@estera.homeip.net>
+Message-ID: <87lkjiq4t4.fsf@estera.homeip.net>
+
+Rafal Jedruszek
+<necui-iongen at nic-nac-project.net>
+writes:
+
+> Tuomo Valkonen <tuomov at iki.fi> writes:
+>
+>> On 2006-10-29, Rafal Jedruszek <necui-iongen at nic-nac-project.net> wrote:
+>>> I've recently updated ion3 and now the dock is able to get focus
+>>
+>> Maybe fixed. Can't be bothered to test...
+>
+> Thanks.  I will probably have to wait for new version in my
+> distribution's repository because I can't compile ion-3 by hand.
+>
+> This is the problem:
+> | gcc  ion-statusd.o exec.o extlrx.o exports.o  -g -Os  -L../../libmainloop -lmainloop -L../../libextl -lextl -L../../libtu -ltu -L/usr//lib -llua -ldl -lm -o ion-statusd
+> | /usr//lib/liblua.so: warning: Using 'dlopen' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+> | /usr//lib/libdl.a(dlopen.o): In function `dlopen':
+> | (.text+0x1b): undefined reference to `__dlopen'
+> | /usr//lib/libdl.a(dlclose.o): In function `dlclose':
+> | (.text+0x5): undefined reference to `__dlclose'
+> | /usr//lib/libdl.a(dlsym.o): In function `dlsym':
+> | (.text+0x1b): undefined reference to `__dlsym'
+> | /usr//lib/libdl.a(dlerror.o): In function `dlerror':
+> | (.text+0x5): undefined reference to `__dlerror'
+> | collect2: ld returned 1 exit status
+>
+> I have libdl.so and libdl.a in /usr/lib.
+>
+> Google says nothing so I don't know how to repair this problem.
+
+If someone is interested, I know what was wrong.  I have /usr as
+a symlink to another location and /usr/lib cannot be symlinked in
+any way.  I had similar problems with compiling something else
+and using `mount --bind' instead of a symlink resolved it.
+
+I found about this on gentoo bugzilla:
+http://bugs.gentoo.org/show_bug.cgi?id=112413
+
+
+-- 
+do you remember
+a sky of blue
+sun shining
+down on you
+
+
+
+From joseph at goncalves.id.au  Wed Jan 31 22:27:15 2007
+From: joseph at goncalves.id.au (Joseph Goncalves)
+Date: Thu, 1 Feb 2007 08:27:15 +1100
+Subject: Xinerama support
+In-Reply-To: <slrnera8te.1rm.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<87sle26dnk.fsf@cenderis.demon.co.uk>
+	<slrnera8te.1rm.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <200702010827.34495.joseph@goncalves.id.au>
+
+On Tuesday 23 January 2007 07:50, Tuomo Valkonen wrote:
+> On 2007-01-22, Bruce Stephens <bruce+ion at cenderis.demon.co.uk> wrote:
+> > (One of our concerns at work was heat from CRTs (perhaps bizarrely,
+> > given that we're in south west London, but we really had been in an
+> > office where heat was a significant problem, though we aren't,
+> > now).)
+>
+> [And speaking of heat and power consumption, the state of software
+> suspend in Linux totally sucks, and yet it's one of the most
+> important features I can think of. It sucks having to leave the
+> computer on when you don't use it, because it's such a _chore_ to
+> bring it and all the programs up again, especially as session
+> management support sucks too (and there's no protocol it for terminal
+> programs). The hardware suspend support of desktop mobos also tends
+> to be poor, PSU fan still keeping humming and so on. (And I haven't
+> heard of that good things of the Linux laptop support either.) That's
+> one very good reason to use Windows: hibernate. Of course, even
+> better would be if the computer could run on _really_ low power,
+> shutting down all the fans, not using the disks except very
+> infrequently, and so on, but still react to ssh connection attempts
+> etc. ...). Well, at least with 'athcool' I managed to make the system
+> run 10C cooler most of the time.]
+If it wasn't working on my laptop then I wouldn't of started using Linux 
+on my laptop. Luckily for me suspend2 works well on my laptops.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070201/db7f2ab7/attachment.pgp>
+

@@ -1,0 +1,36 @@
+From bogus@does.not.exist.com  Wed Mar 14 15:07:51 2012
+From: bogus@does.not.exist.com ()
+Date: Wed, 14 Mar 2012 14:07:51 -0000
+Subject: No subject
+Message-ID: <mailman.0.1331734074.3615.ion-general@lists.berlios.de>
+
+
+From bogus@does.not.exist.com  Wed Mar 14 15:07:51 2012
+From: bogus@does.not.exist.com ()
+Date: Wed, 14 Mar 2012 14:07:51 -0000
+Subject: No subject
+Message-ID: <mailman.1.1331734074.3615.ion-general@lists.berlios.de>
+
+
+From bogus@does.not.exist.com  Wed Mar 14 15:07:51 2012
+From: bogus@does.not.exist.com ()
+Date: Wed, 14 Mar 2012 14:07:51 -0000
+Subject: No subject
+Message-ID: <mailman.2.1331734076.3615.ion-general@lists.berlios.de>
+
+to view based on the package's 'main' binary, not the alias, which
+is good. But then you do too much work, when you could just let man
+do all the hard work, by passing it -M $implementation/man (which
+could be a configurable location, like doc-dir). Here the use of -M
+should be ok (cf. earlier posts on this thread), because we already
+know that the manual page we want should be under that directory.
+
+Of course, it would be nice to be able to view other manual pages
+within the package as well, but that probably demands a much greater
+overhaul of the man page and documentation systems...
+
+-- 
+Tuomo
+
+
+

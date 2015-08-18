@@ -1,0 +1,372 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Ion3 wishlist / a note about Ion4
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion3%20wishlist%20/%20a%20note%20about%20Ion4&In-Reply-To=%3C20080701201523.GA24146%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="001266.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Ion3 wishlist / a note about Ion4</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion3%20wishlist%20/%20a%20note%20about%20Ion4&In-Reply-To=%3C20080701201523.GA24146%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Ion3 wishlist / a note about Ion4">tuomov at iki.fi
+       </A><BR>
+    <I>Tue Jul  1 22:15:23 CEST 2008</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="001266.html">ion-statusd eating up 100% cpu
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1265">[ date ]</a>
+              <a href="thread.html#1265">[ thread ]</a>
+              <a href="subject.html#1265">[ subject ]</a>
+              <a href="author.html#1265">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-04-24 05:48 +0000, Tuomo Valkonen wrote:
+&gt;<i> There should actually also be a patch around somewhere, that adds
+</I>&gt;<i> support for some variant of double-clicking or something (I don't
+</I>&gt;<i> recall exactly what), that someone wrote for use on the N770 or so.
+</I>&gt;<i> But he never submitted it with darcs, so I couldn't be arsed to
+</I>&gt;<i> apply it, although would otherwise have included it.
+</I>
+I accidentally came across the attached longpress patch by 
+Olog Romashing; maybe that's what I meant. In case someone 
+to do what needs to be done to make it apply to the present
+source tree, and submit it via darcs, go ahead.
+
+-- 
+Tuomo
+-------------- next part --------------
+diff -ruN ion-3.orig/build/mkman.lua ion-3.new/build/mkman.lua
+--- ion-3.orig/build/mkman.lua	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/build/mkman.lua	2005-09-23 12:33:42.000000000 +0300
+@@ -113,6 +113,10 @@
+         return mact(&quot;mpress&quot;, buttonspec, cmd, guard)
+     end
+ 
++    function p.mlongpress(buttonspec, cmd, guard)
++        return mact(&quot;mlongpress&quot;, buttonspec, cmd, guard)
++    end
++
+     function p.mdrag(buttonspec, cmd, guard)
+         return mact(&quot;mdrag&quot;, buttonspec, cmd, guard)
+     end
+@@ -186,6 +190,7 @@
+ local function combine_bindings(v)    
+     local nact={
+         [&quot;mpress&quot;]=TR(&quot;press&quot;),
++	[&quot;mlongpress&quot;]=TR(&quot;longpress&quot;),
+         [&quot;mclick&quot;]=TR(&quot;click&quot;),
+         [&quot;mdrag&quot;]=TR(&quot;drag&quot;),
+         [&quot;mdblclick&quot;]=TR(&quot;double click&quot;),
+diff -ruN ion-3.orig/config.h ion-3.new/config.h
+--- ion-3.orig/config.h	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/config.h	2005-09-23 12:33:42.000000000 +0300
+@@ -18,6 +18,7 @@
+ /*#define CF_FALLBACK_FONT_NAME &quot;-*-helvetica-medium-r-normal-*-12-*-*-*-*-*-*-*&quot;*/
+ #define CF_DRAG_TRESHOLD 2
+ #define CF_DBLCLICK_DELAY 250
++#define CF_LONGPRESS_DELAY 1000
+ 
+ #define CF_MAX_MOVERES_STR_SIZE 32
+ 
+diff -ruN ion-3.orig/etc/cfg_ion.lua ion-3.new/etc/cfg_ion.lua
+--- ion-3.orig/etc/cfg_ion.lua	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/etc/cfg_ion.lua	2005-09-23 12:33:42.000000000 +0300
+@@ -16,6 +16,8 @@
+     -- Maximum delay between clicks in milliseconds to be considered a
+     -- double click.
+     dblclick_delay=250,
++    
++    longpress_delay=1000,
+ 
+     -- For keyboard resize, time (in milliseconds) to wait after latest
+     -- key press before automatically leaving resize mode (and doing
+diff -ruN ion-3.orig/ioncore/binding.c ion-3.new/ioncore/binding.c
+--- ion-3.orig/ioncore/binding.c	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/ioncore/binding.c	2005-09-23 12:33:43.000000000 +0300
+@@ -363,6 +363,7 @@
+     }
+     
+     if(binding-&gt;act!=BINDING_BUTTONPRESS &amp;&amp;
++       binding-&gt;act!=BINDING_BUTTONLONGPRESS &amp;&amp;
+        binding-&gt;act!=BINDING_BUTTONCLICK &amp;&amp;
+        binding-&gt;act!=BINDING_BUTTONDBLCLICK &amp;&amp;
+        binding-&gt;act!=BINDING_BUTTONMOTION)
+@@ -394,6 +395,7 @@
+     }
+     
+     if(binding-&gt;act!=BINDING_BUTTONPRESS &amp;&amp;
++       binding-&gt;act!=BINDING_BUTTONLONGPRESS &amp;&amp;
+        binding-&gt;act!=BINDING_BUTTONCLICK &amp;&amp;
+        binding-&gt;act!=BINDING_BUTTONDBLCLICK &amp;&amp;
+        binding-&gt;act!=BINDING_BUTTONMOTION)
+diff -ruN ion-3.orig/ioncore/binding.h ion-3.new/ioncore/binding.h
+--- ion-3.orig/ioncore/binding.h	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/ioncore/binding.h	2005-09-23 12:33:43.000000000 +0300
+@@ -25,8 +25,9 @@
+ #define BINDING_BUTTONMOTION    2
+ #define BINDING_BUTTONCLICK     3
+ #define BINDING_BUTTONDBLCLICK  4
++#define BINDING_BUTTONLONGPRESS 5
+ 
+-#define BINDMAP_INIT        {0, NULL, NULL, NULL, NULL}
++#define BINDMAP_INIT        {0, NULL, NULL, NULL, NULL, NULL}
+ 
+ #define FOR_ALL_BINDINGS(B, NODE, MAP) \
+         rb_traverse(NODE, MAP) if(((B)=(WBinding*)rb_val(NODE))!=NULL)
+diff -ruN ion-3.orig/ioncore/conf-bindings.c ion-3.new/ioncore/conf-bindings.c
+--- ion-3.orig/ioncore/conf-bindings.c	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/ioncore/conf-bindings.c	2005-09-23 12:33:43.000000000 +0300
+@@ -239,6 +239,7 @@
+     {&quot;mclick&quot;, BINDING_BUTTONCLICK},
+     {&quot;mdblclick&quot;, BINDING_BUTTONDBLCLICK},
+     {&quot;mdrag&quot;, BINDING_BUTTONMOTION},
++    {&quot;mlongpress&quot;, BINDING_BUTTONLONGPRESS},
+     {NULL, 0}
+ };
+ 
+diff -ruN ion-3.orig/ioncore/conf.c ion-3.new/ioncore/conf.c
+--- ion-3.orig/ioncore/conf.c	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/ioncore/conf.c	2005-09-23 12:33:43.000000000 +0300
+@@ -47,6 +47,7 @@
+  *  \var{frame_add_last} &amp; (boolean) Add new regions in frames last instead
+  *                        of after current region. \\
+  *  \var{dblclick_delay} &amp; (integer) Delay between clicks of a double click.\\
++ *  \var{longpress_delay} &amp; (integer) Delay between clicks of a double click.\\
+  *  \var{default_ws_type} &amp; (string) Default workspace type for operations
+  *                         that create a workspace.\\
+  *  \var{kbresize_delay} &amp; (integer) Delay in milliseconds for ending keyboard
+@@ -80,6 +81,8 @@
+     
+     if(extl_table_gets_i(tab, &quot;dblclick_delay&quot;, &amp;dd))
+         ioncore_g.dblclick_delay=maxof(0, dd);
++    if(extl_table_gets_i(tab, &quot;longpress_delay&quot;, &amp;dd))
++        ioncore_g.longpress_delay=maxof(0, dd);
+     if(extl_table_gets_s(tab, &quot;default_ws_type&quot;, &amp;wst)){
+         if(ioncore_default_ws_type!=NULL)
+             free(ioncore_default_ws_type);
+@@ -102,6 +105,7 @@
+     extl_table_sets_b(tab, &quot;warp&quot;, ioncore_g.warp_enabled);
+     extl_table_sets_b(tab, &quot;switchto&quot;, ioncore_g.switchto_new);
+     extl_table_sets_i(tab, &quot;dblclick_delay&quot;, ioncore_g.dblclick_delay);
++    extl_table_sets_i(tab, &quot;longpress_delay&quot;, ioncore_g.longpress_delay);
+     extl_table_sets_b(tab, &quot;screen_notify&quot;, ioncore_g.screen_notify);
+     extl_table_sets_s(tab, &quot;default_ws_type&quot;, ioncore_default_ws_type);
+     extl_table_sets_b(tab, &quot;frame_add_last&quot;, ioncore_g.frame_add_last);
+diff -ruN ion-3.orig/ioncore/global.h ion-3.new/ioncore/global.h
+--- ion-3.orig/ioncore/global.h	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/ioncore/global.h	2005-09-23 12:33:43.000000000 +0300
+@@ -72,6 +72,7 @@
+     int previous_protect;
+     
+     Time dblclick_delay;
++    Time longpress_delay;
+     int opaque_resize;
+     bool warp_enabled;
+     bool switchto_new;
+diff -ruN ion-3.orig/ioncore/ioncore_bindings.lua ion-3.new/ioncore/ioncore_bindings.lua
+--- ion-3.orig/ioncore/ioncore_bindings.lua	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/ioncore/ioncore_bindings.lua	2005-09-23 12:33:43.000000000 +0300
+@@ -157,6 +157,14 @@
+ end
+ 
+ --DOC
++-- Similar to \fnref{mlongpress} but for just pressing the mouse button.
++-- Also see section \ref{sec:bindings}.
++function ioncore.mlongpress(buttonspec, cmd, guard)
++    return mact(&quot;mlongpress&quot;, buttonspec, cmd, guard)
++end
++
++
++--DOC
+ -- Creates a binding description table for the action of moving the mouse
+ -- (or other pointing device) while the button given by \var{buttonspec}
+ -- is held pressed and the modifiers given by \var{buttonspec} were pressed
+diff -ruN ion-3.orig/ioncore/ioncore.c ion-3.new/ioncore/ioncore.c
+--- ion-3.orig/ioncore/ioncore.c	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/ioncore/ioncore.c	2005-09-23 12:33:43.000000000 +0300
+@@ -312,6 +312,7 @@
+     ioncore_g.opmode=IONCORE_OPMODE_INIT;
+     ioncore_g.previous_protect=0;
+     ioncore_g.dblclick_delay=CF_DBLCLICK_DELAY;
++    ioncore_g.longpress_delay=CF_LONGPRESS_DELAY;
+     ioncore_g.opaque_resize=0;
+     ioncore_g.warp_enabled=TRUE;
+     ioncore_g.switchto_new=TRUE;
+diff -ruN ion-3.orig/ioncore/ioncore_ext.lua ion-3.new/ioncore/ioncore_ext.lua
+--- ion-3.orig/ioncore/ioncore_ext.lua	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/ioncore/ioncore_ext.lua	2005-09-23 12:33:43.000000000 +0300
+@@ -35,6 +35,7 @@
+        &quot;kpress&quot;,
+        &quot;kpress_wait&quot;,
+        &quot;mpress&quot;,
++       &quot;mlongpress&quot;,
+        &quot;mclick&quot;,
+        &quot;mdblclick&quot;,
+        &quot;mdrag&quot;,
+diff -ruN ion-3.orig/ioncore/pointer.c ion-3.new/ioncore/pointer.c
+--- ion-3.orig/ioncore/pointer.c	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/ioncore/pointer.c	2005-09-23 12:33:43.000000000 +0300
+@@ -18,7 +18,7 @@
+ #include &quot;regbind.h&quot;
+ #include &quot;grab.h&quot;
+ #include &quot;xwindow.h&quot;
+-
++#include &lt;libmainloop/signal.h&gt;
+ 
+ /*{{{ Variables */
+ 
+@@ -30,6 +30,12 @@
+ static int p_clickcnt=0;
+ static Time p_time=0;
+ static int p_area=0;
++static WTimer *long_press_timer=NULL;
++static bool p_long_press = FALSE;
++static int long_press_delay = 1000;
++
++static XButtonEvent last_mbutton_event;
++
+ static enum{ST_NO, ST_INIT, ST_HELD} p_grabstate=ST_NO;
+ 
+ static WButtonHandler *p_motion_end_handler=NULL;
+@@ -46,7 +52,6 @@
+ 
+ /*}}}*/
+ 
+-
+ /*{{{ Handler setup */
+ 
+ 
+@@ -218,6 +223,49 @@
+     finish_pointer();
+ }
+ 
++static void tmr_end_long_press(WTimer *unused, void *a_ev)
++{
++    XButtonEvent *ev = &amp;last_mbutton_event;
++    WBinding *pressbind=NULL;
++    WRegion *reg=NULL;
++    WRegion *subreg=NULL;
++    uint button, state;
++    bool dblclick;
++
++    state=ev-&gt;state;
++    button=ev-&gt;button;
++    ev-&gt;type = ButtonPress;
++    pressbind=region_lookup_binding(p_reg, BINDING_BUTTONLONGPRESS, p_state,
++                                             p_button, p_area);
++    call_button(pressbind, ev);
++    p_long_press = FALSE;
++    return;
++}
++
++static bool setup_long_press_timer(void *ev)
++{
++    if(long_press_timer==NULL){
++        long_press_timer=create_timer();
++        if(long_press_timer==NULL)
++            return FALSE;
++    }
++    p_long_press = TRUE;
++    timer_set(long_press_timer, ioncore_g.longpress_delay,
++              (WTimerHandler*)tmr_end_long_press, ev);
++    return TRUE;
++}
++
++
++static void reset_long_press_timer()
++{
++    if(long_press_timer!=NULL){	
++        timer_reset(long_press_timer);
++        destroy_obj((Obj*)long_press_timer);
++        long_press_timer=NULL;
++    }
++    p_long_press = FALSE;
++}
++
+ 
+ bool ioncore_do_handle_buttonpress(XButtonEvent *ev)
+ {
+@@ -270,6 +321,13 @@
+     if(subreg!=NULL)
+         watch_setup(&amp;p_subregwatch, (Obj*)subreg, NULL);
+ 
++
++    if (!p_long_press)
++    {
++	last_mbutton_event = *ev;
++	setup_long_press_timer(NULL);
++    }
++
+     if(dblclick){
+         pressbind=region_lookup_binding(reg, BINDING_BUTTONDBLCLICK, state,
+                                              button, p_area);
+@@ -309,6 +367,7 @@
+     }
+     
+     ioncore_grab_remove(handle_key);
++    reset_long_press_timer();
+     finish_pointer();
+     
+     return TRUE;
+@@ -319,7 +378,12 @@
+ {
+     int dx, dy;
+     WBinding *binding=NULL;
+-    
++    if (p_long_press)
++    {
++	last_mbutton_event.x_root = ev-&gt;x_root;
++	last_mbutton_event.y_root = ev-&gt;y_root;
++	return;
++    }
+     if(p_reg==NULL)
+         return;
+     
+diff -ruN ion-3.orig/pwm/cfg_pwm.lua ion-3.new/pwm/cfg_pwm.lua
+--- ion-3.orig/pwm/cfg_pwm.lua	2005-09-23 12:35:00.000000000 +0300
++++ ion-3.new/pwm/cfg_pwm.lua	2005-09-23 12:33:42.000000000 +0300
+@@ -19,6 +19,8 @@
+     -- double click.
+     dblclick_delay=250,
+ 
++    longpress_delay=1000,
++
+     -- For keyboard resize, time (in milliseconds) to wait after latest
+     -- key press before automatically leaving resize mode (and doing
+     -- the resize in case of non-opaque move).
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="001266.html">ion-statusd eating up 100% cpu
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1265">[ date ]</a>
+              <a href="thread.html#1265">[ thread ]</a>
+              <a href="subject.html#1265">[ subject ]</a>
+              <a href="author.html#1265">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

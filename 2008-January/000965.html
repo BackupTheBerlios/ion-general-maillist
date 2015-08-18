@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [bryan.richter-Re5JQEeQqe8AvxtiuMwx3w at public.gmane.org: Fwd:	Compile error under cygwin]
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20%5Bbryan.richter-Re5JQEeQqe8AvxtiuMwx3w%40public.gmane.org%3A%20Fwd%3A%0A%09Compile%20error%20under%20cygwin%5D&In-Reply-To=%3Cslrnfnqkvr.fhi.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000964.html">
+   <LINK REL="Next"  HREF="000966.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[bryan.richter-Re5JQEeQqe8AvxtiuMwx3w at public.gmane.org: Fwd:	Compile error under cygwin]</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20%5Bbryan.richter-Re5JQEeQqe8AvxtiuMwx3w%40public.gmane.org%3A%20Fwd%3A%0A%09Compile%20error%20under%20cygwin%5D&In-Reply-To=%3Cslrnfnqkvr.fhi.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="[bryan.richter-Re5JQEeQqe8AvxtiuMwx3w at public.gmane.org: Fwd:	Compile error under cygwin]">tuomov at iki.fi
+       </A><BR>
+    <I>Thu Jan  3 22:30:35 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000964.html">[bryan.richter at gmail.com: Fwd: Compile error under cygwin]
+</A></li>
+        <LI>Next message: <A HREF="000966.html">[bryan.richter-Re5JQEeQqe8AvxtiuMwx3w-XMD5yJDbdMReXY1tMh2IBg at public.gmane.org:	Fwd: Compile error under cygwin]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#965">[ date ]</a>
+              <a href="thread.html#965">[ thread ]</a>
+              <a href="subject.html#965">[ subject ]</a>
+              <a href="author.html#965">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>(Bah, berlios or something is taking forever to send the mail back
+to me, although gmane already has it. But the nntp interface/slrn
+don't handle attachments well, so I'll just copy-paste quote.)
+
+&gt;<i> The two problems with compiling Ion are
+</I>&gt;<i> (1) Windows does not have getloadavg, and with the way
+</I>&gt;<i> libextl_mkexports works, the only quick way to avoid this problem is
+</I>&gt;<i> to obliterate all references to getloadavg. This means deleting (not
+</I>&gt;<i> commenting out!) a couple functions and the whole file
+</I>&gt;<i> utils/ion-statusd/statusd_load.lua.
+</I>
+There's no real need to alter statusd_load, but cfg_statusbar should
+perhaps be altered to not include the load meter. It gets a bit too
+complicated to to properly. The altogether too hacky loadavg export
+(some more general Lua lib should really provide all this!) can in
+any case be easily #ifdef'd out. (DEFINES += -DCF_NO_GETLOADAVG)
+
+&gt;<i> (2) Cygwin's gcc appends &quot;.exe&quot; to executables, which means Makefiles
+</I>&gt;<i> must be modified accordingly.
+</I>
+That's just utterly and totally brain-dead. If I say '-o ion3', 
+then that's where the output should go, even if the rest of the
+system can't handle the lack of a lame extension. I wonder if 
+they have a modified variant of install-sh or so, that can 
+handle the way they've fucked up gcc? The latest release actually
+introduced the INSTALLBIN variable to take care of passing
+the -s(trip) flag to install-sh nicely based on configuration.
+Maybe gmake provides some macros that could be used to redefine
+this to append the .exe idiocy to the source file.
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000964.html">[bryan.richter at gmail.com: Fwd: Compile error under cygwin]
+</A></li>
+	<LI>Next message: <A HREF="000966.html">[bryan.richter-Re5JQEeQqe8AvxtiuMwx3w-XMD5yJDbdMReXY1tMh2IBg at public.gmane.org:	Fwd: Compile error under cygwin]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#965">[ date ]</a>
+              <a href="thread.html#965">[ thread ]</a>
+              <a href="subject.html#965">[ subject ]</a>
+              <a href="author.html#965">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

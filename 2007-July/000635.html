@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Not all bindings are defined in cfg_ioncore.lua
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Not%20all%20bindings%20are%20defined%20in%20cfg_ioncore.lua&In-Reply-To=%3C20070731172847.GJ19633%40informatik.uni-tuebingen.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000634.html">
+   <LINK REL="Next"  HREF="000638.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Not all bindings are defined in cfg_ioncore.lua</H1>
+    <B>Andreas Bernauer</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Not%20all%20bindings%20are%20defined%20in%20cfg_ioncore.lua&In-Reply-To=%3C20070731172847.GJ19633%40informatik.uni-tuebingen.de%3E"
+       TITLE="Not all bindings are defined in cfg_ioncore.lua">andreas.bernauer at gmx.de
+       </A><BR>
+    <I>Tue Jul 31 19:28:47 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000634.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+        <LI>Next message: <A HREF="000638.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#635">[ date ]</a>
+              <a href="thread.html#635">[ thread ]</a>
+              <a href="subject.html#635">[ subject ]</a>
+              <a href="author.html#635">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Evgeny Kurbatov schrieb am Di, 31. Jul 2007 um 20:23 (+0400):
+&gt;<i> How to disable META..&quot;S&quot; binding (Split Vertically)?  I'd fix it but it
+</I>&gt;<i> does not defined in cfg_ioncore.lua so I don't know in which section I
+</I>&gt;<i> have to redefine it.
+</I>
+$ grep 'META..&quot;S&quot;' /usr/local/etc/ion3/cfg_*.lua
+/usr/local/etc/ion3/cfg_tiling.lua:    kpress(META..&quot;S&quot;, &quot;WTiling.split_at(_, _sub, 'bottom', true)&quot;),
+
+Copy /usr/local/etc/ion3/cfg_tiling to your ~/.ion3 and modify it.
+
+Andreas. 
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20070731/c101a345/attachment.pgp">https://lists.berlios.de/pipermail/ion-general/attachments/20070731/c101a345/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000634.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+	<LI>Next message: <A HREF="000638.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#635">[ date ]</a>
+              <a href="thread.html#635">[ thread ]</a>
+              <a href="subject.html#635">[ subject ]</a>
+              <a href="author.html#635">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

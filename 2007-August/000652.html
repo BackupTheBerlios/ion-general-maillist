@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Not all bindings are defined in cfg_ioncore.lua
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Not%20all%20bindings%20are%20defined%20in%20cfg_ioncore.lua&In-Reply-To=%3Cm2myx6np5b.fsf%40lifelogs.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000650.html">
+   <LINK REL="Next"  HREF="000653.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Not all bindings are defined in cfg_ioncore.lua</H1>
+    <B>Ted Zlatanov</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Not%20all%20bindings%20are%20defined%20in%20cfg_ioncore.lua&In-Reply-To=%3Cm2myx6np5b.fsf%40lifelogs.com%3E"
+       TITLE="Not all bindings are defined in cfg_ioncore.lua">tzz at lifelogs.com
+       </A><BR>
+    <I>Sun Aug  5 14:26:24 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000650.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+        <LI>Next message: <A HREF="000653.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#652">[ date ]</a>
+              <a href="thread.html#652">[ thread ]</a>
+              <a href="subject.html#652">[ subject ]</a>
+              <a href="author.html#652">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Sat, 4 Aug 2007 16:38:26 +0200 &quot;jurjen middendorp&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">jurjenm at stack.nl</A>&gt; wrote: 
+
+jm&gt; But the configuration files aren't that hard really, they're well documented, both
+jm&gt; in the manual and in the files themselves. They are very easy to edit by basically
+jm&gt; anyone who understands variable=setting, because this is what they are. They're
+jm&gt; hardly code, they're just function calls. And can easily be edited by just reading
+jm&gt; the comments and bdoc and then deciding to which button you want to have that
+jm&gt; feature, and then edit that to the button you want. You don't even have to understand
+jm&gt; lua or ion or code at all.
+
+jm&gt; And anyway, Lua was *designed* to be embedded in ways like this. That's also the
+jm&gt; reason alot of games use Lua for scripting and configuration.  If you know just a
+jm&gt; litle bit of lua and a litle bit ion you can really make ion much better then just
+jm&gt; the defaults by making small scripts/functions that do stuff. And the reason for
+jm&gt; this is that you can bind any lua (or even C) function you write to a key thanks
+jm&gt; to the easy-to-use-but-powerful-config files.  Taking this away would take alot
+jm&gt; of fun from ion.
+
+I am not saying the powerful Lua interface should be removed.  There
+should just be a way for novices to get started without the fear of
+breaking their configuration.  The tool I'm suggesting would only allow
+key binding to simple functions, nothing more.  Here are the functions I
+use most often, personally (I use tiled workspaces all the time):
+
+go to workspace 0..8
+split here H/V
+split at top level H/V
+switch tab next/previous
+navigate up/down in a V split
+navigate left/right in a H split
+tag
+attach tagged
+cycle windows
+close window
+key X = run command Y
+
+Does this list look complete for a beginner?
+
+Ted
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000650.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+	<LI>Next message: <A HREF="000653.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#652">[ date ]</a>
+              <a href="thread.html#652">[ thread ]</a>
+              <a href="subject.html#652">[ subject ]</a>
+              <a href="author.html#652">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

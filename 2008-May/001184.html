@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Ion3 wishlist / a note about Ion4
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion3%20wishlist%20/%20a%20note%20about%20Ion4&In-Reply-To=%3C20080502095004.GA23267%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001183.html">
+   <LINK REL="Next"  HREF="001185.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Ion3 wishlist / a note about Ion4</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion3%20wishlist%20/%20a%20note%20about%20Ion4&In-Reply-To=%3C20080502095004.GA23267%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Ion3 wishlist / a note about Ion4">tuomov at iki.fi
+       </A><BR>
+    <I>Fri May  2 11:50:04 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001183.html">Ion3 wishlist / a note about Ion4
+</A></li>
+        <LI>Next message: <A HREF="001185.html">New Ion User - Focus Question
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1184">[ date ]</a>
+              <a href="thread.html#1184">[ thread ]</a>
+              <a href="subject.html#1184">[ subject ]</a>
+              <a href="author.html#1184">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-04-30 21:34 +0400, Evgeny Kurbatov wrote:
+&gt;<i> Yes.  Such a behaviour I observed since first release if ion3 I used, it
+</I>&gt;<i> was far ago (I was too lasy to report this bug).  The bug looks like
+</I>&gt;<i> this.  The workspace list binded on Win+W combination and this list
+</I>&gt;<i> raised when I press Win+W or Win+Tse (Tse is russian symbol mapped onto
+</I>&gt;<i> W key in russian layout).  After list raised I can select something with
+</I>&gt;<i> mouse or cursor keys.  The mouse selection works independently on
+</I>&gt;<i> current keyboard layout but keyboard selection (i.e. when I press enter
+</I>&gt;<i> on needed item) works for default layout only, so if the russian layout
+</I>&gt;<i> set, pressing Enter do not lead to any action until I switch keyboard
+</I>&gt;<i> layout to default.  This is the bug.
+</I>
+Keys that are not available in the russian layout, clearly can not
+be bound then, because the binding mechanism is symbol-based instead
+of positional (standard X not offering positional information; that
+would demand the piece of crap known as XKb). You should use
+Mode_Switch for multiple keymaps (which can be either locking or
+or not). However, there also appears to be a bug in keymap refresh
+when the keymaps are changed: if I did 'setxkbmap -layout ru' and
+then returned to 'fi', some of the keys were gone for good in already
+existing frames. The attached patch should fix that.
+
+-- 
+Tuomo
+-------------- next part --------------
+Fri May  2 12:45:18 EEST 2008  Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt;
+  * Binding refresh fixes on keymap change
+diff -rN -u old-ion-3-work1.1/ioncore/binding.c new-ion-3-work1.1/ioncore/binding.c
+--- old-ion-3-work1.1/ioncore/binding.c	2008-05-02 12:45:58.828442190 +0300
++++ new-ion-3-work1.1/ioncore/binding.c	2008-05-02 12:45:58.836440838 +0300
+@@ -95,18 +95,13 @@
+ }
+ 
+ /* This is only used for searching AnyKey etc. */
+-static int compare_bindings_ksb(const WBinding *a, const WBinding *b)
++static int compare_bindings_any(const WBinding *a, const WBinding *b)
+ {
+-    int r=CVAL(a, b, act);
+-    if(r==0){
++    int r=compare_bindings(a, b);
++    
++    if(r==0)
+         r=CVAL(a, b, ksb);
+-        if(r==0){
+-            r=CVAL(a, b, state);
+-            if(r==0){
+-                r=CVAL(a, b, area);
+-            }
+-        }
+-    }
++    
+     return r;
+ }
+                     
+@@ -398,7 +393,7 @@
+ 
+ void binding_ungrab_on(const WBinding *binding, Window win)
+ {
+-    if(binding-&gt;act==BINDING_KEYPRESS){
++    if(binding-&gt;act==BINDING_KEYPRESS &amp;&amp; binding-&gt;kcb!=0){
+ #ifndef CF_HACK_IGNORE_EVIL_LOCKS
+         XUngrabKey(ioncore_g.dpy, binding-&gt;kcb, binding-&gt;state, win);
+ #else
+@@ -444,7 +439,7 @@
+ }
+ 
+ 
+-static WBinding *search_binding_ksb(WBindmap *bindmap, WBinding *binding)
++static WBinding *search_binding_any(WBindmap *bindmap, WBinding *binding)
+ {
+     Rb_node node;
+     int found=0;
+@@ -453,7 +448,7 @@
+         return NULL;
+     
+     node=rb_find_gkey_n(bindmap-&gt;bindings, binding,
+-                        (Rb_compfn*)compare_bindings_ksb, &amp;found);
++                        (Rb_compfn*)compare_bindings_any, &amp;found);
+     
+     if(found==0)
+         return NULL;
+@@ -494,13 +489,14 @@
+ 
+         if(binding==NULL){
+             tmp.state=state;
++            tmp.kcb=0;
+             tmp.ksb=(act==BINDING_KEYPRESS ? AnyKey : AnyButton);
+             
+-            binding=search_binding_ksb(bindmap, &amp;tmp);
++            binding=search_binding_any(bindmap, &amp;tmp);
+ 
+             if(binding==NULL){
+                 tmp.state=AnyModifier;
+-                binding=search_binding_ksb(bindmap, &amp;tmp);
++                binding=search_binding_any(bindmap, &amp;tmp);
+             }
+         }
+     }
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001183.html">Ion3 wishlist / a note about Ion4
+</A></li>
+	<LI>Next message: <A HREF="001185.html">New Ion User - Focus Question
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1184">[ date ]</a>
+              <a href="thread.html#1184">[ thread ]</a>
+              <a href="subject.html#1184">[ subject ]</a>
+              <a href="author.html#1184">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

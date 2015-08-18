@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> If it is still unclear to someone...
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20If%20it%20is%20still%20unclear%20to%20someone...&In-Reply-To=%3C20070320135142.GI23458%40marco.fz-rossendorf.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000289.html">
+   <LINK REL="Next"  HREF="000295.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>If it is still unclear to someone...</H1>
+    <B>Joerg van den Hoff</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20If%20it%20is%20still%20unclear%20to%20someone...&In-Reply-To=%3C20070320135142.GI23458%40marco.fz-rossendorf.de%3E"
+       TITLE="If it is still unclear to someone...">j.van_den_hoff at fzd.de
+       </A><BR>
+    <I>Tue Mar 20 14:51:42 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000289.html">If it is still unclear to someone...
+</A></li>
+        <LI>Next message: <A HREF="000295.html">If it is still unclear to someone...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#293">[ date ]</a>
+              <a href="thread.html#293">[ thread ]</a>
+              <a href="subject.html#293">[ subject ]</a>
+              <a href="author.html#293">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Tue, Mar 20, 2007 at 12:19:21PM +0000, Tuomo Valkonen wrote:
+&gt;<i> On 2007-03-20, Joerg van den Hoff &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">j.van_den_hoff at fzd.de</A>&gt; wrote:
+</I>&gt;<i> &gt; so, if the tutorial is called via some keybinding or menu it does'nt matter.
+</I>&gt;<i> &gt; if the user wants to view it from the command line it's of course inferior to
+</I>&gt;<i> &gt; `man' 
+</I>&gt;<i> 
+</I>&gt;<i> So, no, you can't make an 'ion3tutorial' man page if you use the 'ms' 
+</I>&gt;<i> package, which pretty much takes away the whole point of using the
+</I>&gt;<i> ancient *roff.
+</I>
+I don't agree with the conclusion (duck and cover...):
+
+a) `groff' is not ancient at all and still actively maintained (`groff' is
+actually more recent than TeX). If you mean the whole concept: old, yes but
+quite capable of achieving almost the same ps/pdf quality as with TeX. even the
+really ancient original `troff' which hangs around on commercial Unixes still would
+work OK for most things. it's _much_ smaller too (one to two orders of
+magnitude for the size of the distribution, probably...) and faster.
+the assessment that groff is &quot;the thing which formats manpages&quot; is a rather
+small fraction of the truth.
+
+b) `groff' is simply part of any Linux and xxxBSD distro (without it `man'
+would'nt work). that's a big difference relative to, say, TeX or some other
+markup stuff. one can rely on it being present.
+
+c) my main point right from the start was, that `groff' is probably the only
+formatter around which is capable of providing nicely formatted output in the
+terminal (see `man') including (bold/underlining margin adjustment etc.) in
+addition to allowing generation of a professional quality pdf version, say.
+my preference for browsing &quot;finite size&quot; manuals is `less', just like what
+I do with the manpages. I don't need no heavy intra-document 
+crosslinking (although it were possible with groff -Thtml). the terminal output
+of `groff' is _much_ more readable than some text dump.
+
+d) the difference between using `man' and using `groff -ms' is marginal:
+`man' is only providing the automatic lookup along MANPATH and 
+the construction of the `groff' call. if the tutorial were written with `ms'
+instead (which would scale much better to extending the thing in the future)
+one would have to bind the corresponding key to the correct groff call instead
+-- so what?  requiring to reach a tutorial via `man' in the shell manually --
+which I said is the only thing really sacrificed when switching to `-ms' -- I
+feel is not necessary.
+
+e) I think the decision between `groff -man' and `groff -ms' should be more
+dependent of whether the people contributing would go to the trouble of
+learning new macros (supposing they are fluent with `-man', which might not
+really be the case: then `-ms' probably is actually easier) and whether one
+wants to get more control over formatting layout in a way  which would allow
+to create a real manual, not only a manpage. I think it would'nt harm if one
+would not loose this option without better reasons than that the tutorial
+would simply not pop up via `man tutorial'.
+
+
+joerg
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000289.html">If it is still unclear to someone...
+</A></li>
+	<LI>Next message: <A HREF="000295.html">If it is still unclear to someone...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#293">[ date ]</a>
+              <a href="thread.html#293">[ thread ]</a>
+              <a href="subject.html#293">[ subject ]</a>
+              <a href="author.html#293">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

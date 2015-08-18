@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> confirm 852223f5c787b0857a42616c26c0a94208eae60a
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-May/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20confirm%20852223f5c787b0857a42616c26c0a94208eae60a&In-Reply-To=%3Cop.uuqtdkqsvocxtk%40tabole-debian%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001659.html">
+   <LINK REL="Next"  HREF="001660.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>confirm 852223f5c787b0857a42616c26c0a94208eae60a</H1>
+    <B>Ole J&#248;rgen Br&#248;nner</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20confirm%20852223f5c787b0857a42616c26c0a94208eae60a&In-Reply-To=%3Cop.uuqtdkqsvocxtk%40tabole-debian%3E"
+       TITLE="confirm 852223f5c787b0857a42616c26c0a94208eae60a">olejorgenb at yahoo.no
+       </A><BR>
+    <I>Sat May 30 14:37:58 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001659.html">confirm 852223f5c787b0857a42616c26c0a94208eae60a
+</A></li>
+        <LI>Next message: <A HREF="001660.html">VirtualBox seamless mode
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1661">[ date ]</a>
+              <a href="thread.html#1661">[ thread ]</a>
+              <a href="subject.html#1661">[ subject ]</a>
+              <a href="author.html#1661">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>&gt;<i> Hi,
+</I>&gt;<i> few more things I cannot find in the manual,
+</I>&gt;<i>
+</I>&gt;<i> 1. in the old pwm, you could set number of workspaces to use at start in  
+</I>&gt;<i> a
+</I>&gt;<i> config file. Currently ion3 patched starts in pwm mode with 1 workspace
+</I>&gt;<i> accessible under META..&quot;1&quot; More workspaces are created manually. The  
+</I>&gt;<i> wish is
+</I>&gt;<i> to always have 10.
+</I>I'm not sure how you can easily force the number to be exacly 10, but ion3
+will remember your layout, so if you create 10 workspaces manually they  
+should still be there after a restart.
+
+&gt;<i> 2. Now I understood, you could name some of the workspaces, e.g.
+</I>&gt;<i>
+</I>&gt;<i> defwinprop{
+</I>&gt;<i>     class = &quot;XTerm&quot;,
+</I>&gt;<i>     instance = &quot;sysmon&quot;,
+</I>&gt;<i>     target = &quot;terminals&quot;,
+</I>&gt;<i> }
+</I>&gt;<i>
+</I>&gt;<i> and by invocation of &quot;XTerm -name terminals&quot;
+</I>&gt;<i> the xterm should be started in a named workspace terminals.
+</I>&gt;<i> After renaming WS2
+</I>&gt;<i>
+</I>&gt;<i> mod_query.query_renameframe(_)
+</I>&gt;<i>
+</I>&gt;<i> to &quot;terminals&quot; and invoking the aforementioned command from WS1, the new
+</I>&gt;<i> frame stays on WS1 instead of being created in WS2 = terminals. ?
+</I>Almost. -name sets the instance atom, so you would do: 'xterm -name
+sysmon'. You should use mod_query.query_rename_workspace(_) (or META+m
+workspace/rename) if you want it to be started on a workspace and not a
+specific frame.
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001659.html">confirm 852223f5c787b0857a42616c26c0a94208eae60a
+</A></li>
+	<LI>Next message: <A HREF="001660.html">VirtualBox seamless mode
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1661">[ date ]</a>
+              <a href="thread.html#1661">[ thread ]</a>
+              <a href="subject.html#1661">[ subject ]</a>
+              <a href="author.html#1661">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

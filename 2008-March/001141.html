@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Wish item; workspace templates
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Wish%20item%3B%20workspace%20templates&In-Reply-To=%3Cslrnfslevc.3lm.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001140.html">
+   <LINK REL="Next"  HREF="001142.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Wish item; workspace templates</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Wish%20item%3B%20workspace%20templates&In-Reply-To=%3Cslrnfslevc.3lm.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Wish item; workspace templates">tuomov at iki.fi
+       </A><BR>
+    <I>Sun Mar  2 15:38:36 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001140.html">Wish item; workspace templates
+</A></li>
+        <LI>Next message: <A HREF="001142.html">a question about mod_query and the completor
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1141">[ date ]</a>
+              <a href="thread.html#1141">[ thread ]</a>
+              <a href="subject.html#1141">[ subject ]</a>
+              <a href="author.html#1141">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-03-01, Per Ekstr&#246;m &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">wertigon at gmail.com</A>&gt; wrote:
+&gt;<i> ------=_Part_14584_20378963.1204407188085
+</I>&gt;<i> Content-Type: text/plain; charset=ISO-8859-1
+</I>&gt;<i> Content-Transfer-Encoding: quoted-printable
+</I>&gt;<i> Content-Disposition: inline
+</I>&gt;<i>
+</I>&gt;<i> Hi!
+</I>&gt;<i>
+</I>&gt;<i> I like the concept of Ion, though I have yet to try it &quot;for real&quot; (I've onl=
+</I>&gt;<i> y
+</I>&gt;<i> been playing around in it so far). Kudos for such a nice WM. :)
+</I>&gt;<i>
+</I>&gt;<i> There's just one thing I miss, that I haven't found in any of the tiling WM=
+</I>&gt;<i> s
+</I>&gt;<i> so far; There's no way to set up templates to tell your apps where they
+</I>&gt;<i> should go. :(
+</I>
+As others have pointed out, there's &quot;winprops&quot; [1], that can be used to
+some extent. In particular the 'target' and 'new_group' properties are
+useful in this case. The former will specify an existing frame or so,
+and the latter the name of a stored layout for a new group to be created,
+if the 'target' didn't exist. You can copy-paste the configuration of
+a group you have created from the layout savefile (removing references
+to client windows), and pass it to ioncore.deflayout to give it a name.
+(Also see cfg_layout.lua for examples of layout definitions.) Give useful
+(unique) names to the frames within the layout, and you have a sort of 
+template system. It's a bit clumsy, but then apps don't exactly help us
+here, and haven't found myself wanting an improved version of the feature.
+You could do something better with Lua scripting, perhaps.
+
+  [1]: <A HREF="http://iki.fi/tuomov/ion-doc-3/ionconf/node4.html#SECTION00450000000000000000">http://iki.fi/tuomov/ion-doc-3/ionconf/node4.html#SECTION00450000000000000000</A>
+
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001140.html">Wish item; workspace templates
+</A></li>
+	<LI>Next message: <A HREF="001142.html">a question about mod_query and the completor
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1141">[ date ]</a>
+              <a href="thread.html#1141">[ thread ]</a>
+              <a href="subject.html#1141">[ subject ]</a>
+              <a href="author.html#1141">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,487 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Slightly-OT] On usability: managing usb devices &amp; network	profiles in a ion3 environment
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20%5BSlightly-OT%5D%20On%20usability%3A%20managing%20usb%20devices%20%26%20network%0A%09profiles%20in%20a%20ion3%20environment&In-Reply-To=%3C20090303224706.GA18973%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001574.html">
+   <LINK REL="Next"  HREF="001579.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Slightly-OT] On usability: managing usb devices &amp; network	profiles in a ion3 environment</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20%5BSlightly-OT%5D%20On%20usability%3A%20managing%20usb%20devices%20%26%20network%0A%09profiles%20in%20a%20ion3%20environment&In-Reply-To=%3C20090303224706.GA18973%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="[Slightly-OT] On usability: managing usb devices &amp; network	profiles in a ion3 environment">tuomov at iki.fi
+       </A><BR>
+    <I>Tue Mar  3 23:47:06 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001574.html">[Slightly-OT] On usability: managing usb devices &amp; network 	profiles in a ion3 environment
+</A></li>
+        <LI>Next message: <A HREF="001579.html">[Slightly-OT] On usability: managing usb devices &amp; network 	profiles in a ion3 environment
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1575">[ date ]</a>
+              <a href="thread.html#1575">[ thread ]</a>
+              <a href="subject.html#1575">[ subject ]</a>
+              <a href="author.html#1575">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2009-03-03 17:21 -0500, Antonio De Leon wrote:
+&gt;<i> On the question of detecting usb devices this tool can help on the
+</I>&gt;<i> detection part.
+</I>
+Here's my ls-removable script too. It's in Lua, and needs
+both luafilesystem and posix packages for Lua.
+
+There are two versions. The suffix-1 version worked with
+the old 2.6.18 or whateveritwas Etch. Suffix-2 is a
+conversion to work the modified /sys layout in *buntu 8.10,
+but it fails to work because pmount doesn't seem to have
+been upgraded to to reflect that. It, however, shouldn't be
+too difficult to create a suid-root counterpart based on my
+code, that just calls mount -- this time with sane FAT and
+NTFS mounting arguments.
+
+(*sigh*, even the ntfs-3g in 8.10 ubuntu is old, and does
+not seem to support .NTFS-3G/UserMapping. A lot of shit in
+it is _old_, and yet it has just half-a-year release
+cycles.)
+
+-- 
+&quot;[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months.&quot; -- Oscar Wilde
+&quot;The computer industry is the only industry that is more fashion-driven
+ than women's fashion.&quot; -- RMS
+
+
+-------------- next part --------------
+#!/usr/local/bin/lua
+--
+-- Copyright (c) Tuomo Valkonen 2008.
+--
+
+require('lfs')
+require('posix')
+
+local function filtered_dir(d) 
+    local f, s_, v_ = lfs.dir(d)
+    local function g(s, v)
+        while true do
+            local vn=f(s, v)
+            if vn~='.' and vn~='..' then
+                return vn
+            end
+        end
+    end
+    return g, s_, v_
+end
+
+local function readfile(d)
+    local f, err = io.open(d, 'r')
+    if f then
+        local s=f:read('*a')
+        f:close()
+        return s
+    end
+end
+
+local function simplify_string(s)
+    if s then
+        return string.gsub(s, &quot;\n$&quot;, &quot;&quot;)
+    end
+end
+
+local function readfile_simple(d)
+    return simplify_string(readfile(d))
+end
+
+local function removable(d)
+    return readfile_simple(d..&quot;/removable&quot;)==&quot;1&quot;;
+end
+
+local function removable_class(d)
+    -- Super-dirty hack
+    return d and string.match(d, &quot;/usb%d+/&quot;)
+end
+
+local function simplify_path(p)
+    local capts={}
+    local start=string.match(p, &quot;^(/)&quot;)
+    string.gsub(p, &quot;([^/]+)&quot;,
+                   function(e)
+                       if e==&quot;..&quot; and #capts &gt; 1 then
+                           capts[#capts]=nil
+                       elseif e~=&quot;.&quot; then
+                           table.insert(capts, e)
+                       end
+                    end) 
+    return (start or &quot;&quot;)..table.concat(capts, &quot;/&quot;)
+end
+
+local function get_device(d)
+    l=posix.readlink(d..&quot;/device&quot;)
+    if not l then
+        return nil
+    end
+    if string.match(l, &quot;^.&quot;) then
+        return simplify_path(d..&quot;/&quot;..l)
+    else
+        return simplify_path(l)
+    end
+end
+
+local function get_info(dev)
+    return {
+        vendor=readfile_simple(dev..&quot;/vendor&quot;),
+        model=readfile_simple(dev..&quot;/model&quot;),
+        serial=readfile_simple(dev..&quot;/serial&quot;)
+    }
+end
+
+local function get_info_usb(dev)
+    par=string.match(dev, &quot;(.*)/[^/]+&quot;)
+    if not par then
+        return {}
+    else
+        local m=readfile_simple(par..&quot;/manufacturer&quot;)
+        if not m then
+            return get_info_usb(par)
+        else
+            return {
+                vendor=m,
+                model=readfile_simple(par..&quot;/product&quot;),
+                serial=readfile_simple(par..&quot;/serial&quot;)
+            }
+        end
+    end
+end
+
+local function scan_volumes(bd, d)
+    local function g()
+        local found=false
+        for v in filtered_dir(bd..d) do
+            if string.match(v, &quot;^&quot;..d..&quot;%d+$&quot;) then
+                coroutine.yield(v)
+                found=true
+            end
+        end
+        if not found then
+            coroutine.yield(d)
+        end
+    end
+    
+    return coroutine.wrap(g)
+end
+
+
+
+local mounts={}
+--local mounts_=io.popen(&quot;mount&quot;):read('*a')
+--string.gsub(mounts_, &quot;[^\n]+&quot;, function(l) table.insert(mounts, l) end)
+local f=io.open(&quot;/etc/mtab&quot;)
+for l in f:lines() do
+    table.insert(mounts, l)
+end
+f:close()
+
+local function mounted(v)
+    for _, l in ipairs(mounts) do
+        local mp=string.match(l, &quot;^/dev/&quot;..v..&quot;%s+([^%s]+)&quot;)
+        if mp then
+            return mp
+        end
+    end
+    return false
+end
+
+local bd='/sys/block/'
+
+local volumes={}
+
+for d in filtered_dir(bd) do
+    local dev=get_device(bd..d)
+    if removable(bd..d) or removable_class(dev) then
+        local i1=get_info(dev)
+        local i2=get_info_usb(dev)
+        
+        if i2 and i2.vendor then
+            info=table.concat({i2.vendor, i2.model, i2.serial}, &quot; &quot;)
+        else
+            info=table.concat({i1.vendor, i1.model, i1.serial}, &quot; &quot;)
+        end
+        
+        for v in scan_volumes(bd, d) do
+            table.insert(volumes, {
+                kernel=v,
+                info=info,
+                mountpoint=mounted(v),
+            })
+        end
+    end
+end
+
+table.sort(volumes,
+           function(a, b) 
+               if a.mountpoint and not b.mountpoint then
+                   return false
+               elseif not a.mountpoint and b.mountpoint then
+                   return true
+               else
+                   return (a.kernel &lt; b.kernel)
+               end
+           end)
+
+
+for k, v in ipairs(volumes) do
+    if not v.mountpoint then
+        io.write(string.format(&quot;%d) %s (%s)\n&quot;,  k, v.kernel, v.info))
+    else
+        io.write(string.format(&quot;[ %d) %s (%s) %s ]\n&quot;,  k, v.kernel, v.info, v.mountpoint))
+    end
+end
+io.write(&quot;Choice (1): &quot;)
+local a=io.read()
+local i=((not a or a==&quot;&quot;) and 1) or tonumber(a)
+
+if i then
+    if volumes[i].mountpoint then
+        os.execute(&quot;pumount &quot;..volumes[i].mountpoint)
+    else
+        os.execute(&quot;pmount /dev/&quot;..volumes[i].kernel)
+    end
+end
+
+-------------- next part --------------
+#!/usr/bin/lua
+--
+-- Copyright (c) Tuomo Valkonen 2008.
+--
+
+require('lfs')
+require('posix')
+
+local function filtered_dir(d) 
+    local f, s_, v_ = lfs.dir(d)
+    local function g(s, v)
+        while true do
+            local vn=f(s, v)
+            if vn~='.' and vn~='..' then
+                return vn
+            end
+        end
+    end
+    return g, s_, v_
+end
+
+local function readfile(d)
+    local f, err = io.open(d, 'r')
+    if f then
+        local s=f:read('*a')
+        f:close()
+        return s
+    end
+end
+
+local function basename(d)
+    return string.gsub(d, &quot;^(.*)/[^/]*$&quot;, &quot;%1&quot;)
+end
+
+local function simplify_string(s)
+    if s then
+        return string.gsub(s, &quot;\n$&quot;, &quot;&quot;)
+    end
+end
+
+local function readfile_simple(d)
+    return simplify_string(readfile(d))
+end
+
+local function removable(d)
+    return readfile_simple(d..&quot;/removable&quot;)==&quot;1&quot;;
+end
+
+local function removable_class(d)
+    -- Super-dirty hack
+    return d and string.match(d, &quot;/usb%d+/&quot;)
+end
+
+local function simplify_path(p)
+    local capts={}
+    local start=string.match(p, &quot;^(/)&quot;)
+    string.gsub(p, &quot;([^/]+)&quot;,
+                   function(e)
+                       if e==&quot;..&quot; and #capts &gt; 1 then
+                           capts[#capts]=nil
+                       elseif e~=&quot;.&quot; then
+                           table.insert(capts, e)
+                       end
+                    end) 
+    return (start or &quot;&quot;)..table.concat(capts, &quot;/&quot;)
+end
+
+local function get_device(d)
+    --l=posix.readlink(d..&quot;/device&quot;)
+    l=posix.readlink(d)
+    if not l then
+        return nil
+    end
+    if string.match(l, &quot;^.&quot;) then
+        return simplify_path(basename(d)..&quot;/&quot;..l..&quot;/device&quot;)
+    else
+        return simplify_path(l..&quot;/device&quot;)
+    end
+end
+
+local function get_info(dev)
+    return {
+        vendor=readfile_simple(dev..&quot;/vendor&quot;),
+        model=readfile_simple(dev..&quot;/model&quot;),
+        serial=readfile_simple(dev..&quot;/serial&quot;)
+    }
+end
+
+local function get_info_usb(dev)
+    par=string.match(dev, &quot;(.*)/[^/]+&quot;)
+    if not par then
+        return {}
+    else
+        local m=readfile_simple(par..&quot;/manufacturer&quot;)
+        if not m then
+            return get_info_usb(par)
+        else
+            return {
+                vendor=m,
+                model=readfile_simple(par..&quot;/product&quot;),
+                serial=readfile_simple(par..&quot;/serial&quot;)
+            }
+        end
+    end
+end
+
+local function scan_volumes(bd, d)
+    local function g()
+        local found=false
+        for v in filtered_dir(bd..d) do
+            if string.match(v, &quot;^&quot;..d..&quot;%d+$&quot;) then
+                coroutine.yield(v)
+                found=true
+            end
+        end
+        if not found then
+            coroutine.yield(d)
+        end
+    end
+    
+    return coroutine.wrap(g)
+end
+
+
+
+local mounts={}
+--local mounts_=io.popen(&quot;mount&quot;):read('*a')
+--string.gsub(mounts_, &quot;[^\n]+&quot;, function(l) table.insert(mounts, l) end)
+local f=io.open(&quot;/etc/mtab&quot;)
+for l in f:lines() do
+    table.insert(mounts, l)
+end
+f:close()
+
+local function mounted(v)
+    for _, l in ipairs(mounts) do
+        local mp=string.match(l, &quot;^/dev/&quot;..v..&quot;%s+([^%s]+)&quot;)
+        if mp then
+            return mp
+        end
+    end
+    return false
+end
+
+local bd='/sys/block/'
+
+local volumes={}
+
+for d in filtered_dir(bd) do
+    local dev=get_device(bd..d)
+    if removable(bd..d) or removable_class(dev) then
+        local i1=get_info(dev)
+        local i2=get_info_usb(dev)
+        
+        if i2 and i2.vendor then
+            info=table.concat({i2.vendor, i2.model, i2.serial}, &quot; &quot;)
+        else
+            info=table.concat({i1.vendor, i1.model, i1.serial}, &quot; &quot;)
+        end
+        
+        for v in scan_volumes(bd, d) do
+            table.insert(volumes, {
+                kernel=v,
+                info=info,
+                mountpoint=mounted(v),
+            })
+        end
+    end
+end
+
+table.sort(volumes,
+           function(a, b) 
+               if a.mountpoint and not b.mountpoint then
+                   return false
+               elseif not a.mountpoint and b.mountpoint then
+                   return true
+               else
+                   return (a.kernel &lt; b.kernel)
+               end
+           end)
+
+
+for k, v in ipairs(volumes) do
+    if not v.mountpoint then
+        io.write(string.format(&quot;%d) %s (%s)\n&quot;,  k, v.kernel, v.info))
+    else
+        io.write(string.format(&quot;[ %d) %s (%s) %s ]\n&quot;,  k, v.kernel, v.info, v.mountpoint))
+    end
+end
+io.write(&quot;Choice (1): &quot;)
+local a=io.read()
+local i=((not a or a==&quot;&quot;) and 1) or tonumber(a)
+
+if i then
+    if volumes[i].mountpoint then
+        os.execute(&quot;pumount &quot;..volumes[i].mountpoint)
+    else
+        os.execute(&quot;pmount /dev/&quot;..volumes[i].kernel)
+    end
+end
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001574.html">[Slightly-OT] On usability: managing usb devices &amp; network 	profiles in a ion3 environment
+</A></li>
+	<LI>Next message: <A HREF="001579.html">[Slightly-OT] On usability: managing usb devices &amp; network 	profiles in a ion3 environment
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1575">[ date ]</a>
+              <a href="thread.html#1575">[ thread ]</a>
+              <a href="subject.html#1575">[ subject ]</a>
+              <a href="author.html#1575">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

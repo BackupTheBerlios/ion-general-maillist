@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> winprop.target and nested workspace
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20winprop.target%20and%20nested%20workspace&In-Reply-To=%3C7798eaa0809082041s79a42e8atf92dfbf471d4c08%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001348.html">
+   <LINK REL="Next"  HREF="001355.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>winprop.target and nested workspace</H1>
+    <B>Carlos Pita</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20winprop.target%20and%20nested%20workspace&In-Reply-To=%3C7798eaa0809082041s79a42e8atf92dfbf471d4c08%40mail.gmail.com%3E"
+       TITLE="winprop.target and nested workspace">carlosjosepita at gmail.com
+       </A><BR>
+    <I>Tue Sep  9 05:41:13 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001348.html">ion3-20080825 gentoo ebuild
+</A></li>
+        <LI>Next message: <A HREF="001355.html">winprop.target and nested workspace
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1354">[ date ]</a>
+              <a href="thread.html#1354">[ thread ]</a>
+              <a href="subject.html#1354">[ subject ]</a>
+              <a href="author.html#1354">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I have saved the following layout into my session:
+
+groupws1 - frame1 ------groupcw1 -- window1
+                                     |_ groupws2 -- frame2 -- groupcw2
+-- window2
+
+I also defined winprops with target = frame1 for app1 and target =
+frame2 for app2.
+
+The point is to have a workspace (groupws1) with a frame (frame1) than
+contains a window (window1) for app1 and a nested workspace (groupws2)
+with a frame (frame2) that contains a window (window2) for app2. This
+is how I see it when I save the session and this is how I want to see
+it when ion starts up again.
+
+But when I restart ion both app1 and app2 end up managed by the tiling
+of frame2. In terms of what I see they're siblings at the nested ws
+level (groupws2). If I manually attach app1 to frame1 the layout is in
+fact rearranged as I desire, so it seems that win.target = frame has a
+different semantic than frame:attach(win).
+
+Is this a bug or am I missing something? How can I achieve the desired result?
+
+Sorry for the plethora of questions, I can't wait to master ion :).
+
+Regards
+-Carlos
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001348.html">ion3-20080825 gentoo ebuild
+</A></li>
+	<LI>Next message: <A HREF="001355.html">winprop.target and nested workspace
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1354">[ date ]</a>
+              <a href="thread.html#1354">[ thread ]</a>
+              <a href="subject.html#1354">[ subject ]</a>
+              <a href="author.html#1354">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

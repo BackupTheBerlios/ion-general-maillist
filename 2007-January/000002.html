@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> workspace name
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20workspace%20name&In-Reply-To=%3C20070105095411.GA78002%40pcjas.obspm.fr%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000001.html">
+   <LINK REL="Next"  HREF="000003.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>workspace name</H1>
+    <B>Albert Shih</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20workspace%20name&In-Reply-To=%3C20070105095411.GA78002%40pcjas.obspm.fr%3E"
+       TITLE="workspace name">Albert.Shih at obspm.fr
+       </A><BR>
+    <I>Fri Jan  5 10:54:11 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000001.html">workspace name
+</A></li>
+        <LI>Next message: <A HREF="000003.html">Compilation problem: &quot;Using 'dlopen' in statically linked	applications (...)&quot; (was: dock getting focus)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2">[ date ]</a>
+              <a href="thread.html#2">[ thread ]</a>
+              <a href="subject.html#2">[ subject ]</a>
+              <a href="author.html#2">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE> Le 05/01/2007 &#224; 09:22:19+0000, Tuomo Valkonen a &#233;crit
+&gt;<i> On 2007-01-04, Albert Shih &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">Albert.Shih at obspm.fr</A>&gt; wrote:
+</I>&gt;<i> &gt; Now when I need something like WSFloat I'm using context-menu (MOD+M) and
+</I>&gt;<i> &gt; type new-empty-workspace. But I don't know how I can give a name for this new
+</I>&gt;<i> &gt; workspace. 
+</I>&gt;<i> 
+</I>&gt;<i> Yeah, it isn't there anymore for workspaces without the default layout.
+</I>&gt;<i> I wonder what would be the best way to go about this...
+</I>&gt;<i> 
+</I>&gt;<i> &gt; Other question : How can I modify the generic workspace configuration
+</I>&gt;<i> &gt; (create by F9) ?
+</I>&gt;<i> 
+</I>&gt;<i> See cfg_tiling.lua for how the default is set. (You could define an
+</I>&gt;<i> alternative somewhere else. At the end of cfg_ion.lua, for example.)
+</I>
+Lots of thanks.
+
+I find a way to do exactly what I want.
+
+I've modify the cfg_tiling.lua just like you say ...and I change 
+
+	bottom_last_close = true,
+
+to
+
+	bottom_last_close = false,
+
+And now I can create a workspace (using F9) with a name, destroy the tiling
+frame and I got a floating workspace with a name 
+
+Regards.
+
+--
+Albert SHIH
+Observatoire de Paris Meudon
+Heure local/Local time:
+Ven 5 jan 2007 10:53:55 CET
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000001.html">workspace name
+</A></li>
+	<LI>Next message: <A HREF="000003.html">Compilation problem: &quot;Using 'dlopen' in statically linked	applications (...)&quot; (was: dock getting focus)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2">[ date ]</a>
+              <a href="thread.html#2">[ thread ]</a>
+              <a href="subject.html#2">[ subject ]</a>
+              <a href="author.html#2">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

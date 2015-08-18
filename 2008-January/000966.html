@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [bryan.richter-Re5JQEeQqe8AvxtiuMwx3w-XMD5yJDbdMReXY1tMh2IBg at public.gmane.org:	Fwd: Compile error under cygwin]
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20%5Bbryan.richter-Re5JQEeQqe8AvxtiuMwx3w-XMD5yJDbdMReXY1tMh2IBg%40public.gmane.org%3A%0A%09Fwd%3A%20Compile%20error%20under%20cygwin%5D&In-Reply-To=%3Cslrnfnrrl9.ekk.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000965.html">
+   <LINK REL="Next"  HREF="000967.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[bryan.richter-Re5JQEeQqe8AvxtiuMwx3w-XMD5yJDbdMReXY1tMh2IBg at public.gmane.org:	Fwd: Compile error under cygwin]</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20%5Bbryan.richter-Re5JQEeQqe8AvxtiuMwx3w-XMD5yJDbdMReXY1tMh2IBg%40public.gmane.org%3A%0A%09Fwd%3A%20Compile%20error%20under%20cygwin%5D&In-Reply-To=%3Cslrnfnrrl9.ekk.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="[bryan.richter-Re5JQEeQqe8AvxtiuMwx3w-XMD5yJDbdMReXY1tMh2IBg at public.gmane.org:	Fwd: Compile error under cygwin]">tuomov at iki.fi
+       </A><BR>
+    <I>Fri Jan  4 09:30:33 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000965.html">[bryan.richter-Re5JQEeQqe8AvxtiuMwx3w at public.gmane.org: Fwd:	Compile error under cygwin]
+</A></li>
+        <LI>Next message: <A HREF="000967.html">tab's name question... (beginner)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#966">[ date ]</a>
+              <a href="thread.html#966">[ thread ]</a>
+              <a href="subject.html#966">[ subject ]</a>
+              <a href="author.html#966">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-01-03, Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt; wrote:
+&gt;<i> That's just utterly and totally brain-dead. If I say '-o ion3', 
+</I>&gt;<i> then that's where the output should go, even if the rest of the
+</I>&gt;<i> system can't handle the lack of a lame extension. I wonder if 
+</I>&gt;<i> they have a modified variant of install-sh or so, that can 
+</I>&gt;<i> handle the way they've fucked up gcc? 
+</I>
+By googling around a bit, I found this:
+
+&gt;<i> The Cygwin stat(), lstat() and readlink() functions make the .exe extension
+</I>&gt;<i> transparent by looking for foo.exe when you ask for foo (unless a foo also
+</I>&gt;<i> exists). Cygwin does not require a .exe extension, but gcc adds it
+</I>&gt;<i> automatically when building a program. However, when accessing an executable
+</I>&gt;<i> as a normal file (e.g., cp in a makefile) the .exe is not transparent. The
+</I>&gt;<i> install included with Cygwin automatically appends a .exe when necessary.
+</I>(<A HREF="http://www.ayni.com/perldoc/perl5.8.0/README.cygwin.html">http://www.ayni.com/perldoc/perl5.8.0/README.cygwin.html</A>)
+
+So it's not even cygwin itself that's brain-dead, but gcc itself (typical!)
+and, indeed, cygwin provides a hacked version of install. Just replacing the
+provided install-sh in the INSTALL setting with cygwin's install, should do
+the job. (The provided install-sh script instead of the system's install
+command is used by default, because there are incompatible versions of
+install.)
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000965.html">[bryan.richter-Re5JQEeQqe8AvxtiuMwx3w at public.gmane.org: Fwd:	Compile error under cygwin]
+</A></li>
+	<LI>Next message: <A HREF="000967.html">tab's name question... (beginner)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#966">[ date ]</a>
+              <a href="thread.html#966">[ thread ]</a>
+              <a href="subject.html#966">[ subject ]</a>
+              <a href="author.html#966">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

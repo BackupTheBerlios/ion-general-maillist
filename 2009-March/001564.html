@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Difficulties when running ion on place
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Difficulties%20when%20running%20ion%20on%20place&In-Reply-To=%3C58294.48221.qm%40web53210.mail.re2.yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001563.html">
+   <LINK REL="Next"  HREF="001565.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Difficulties when running ion on place</H1>
+    <B>Daniel Clemente</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Difficulties%20when%20running%20ion%20on%20place&In-Reply-To=%3C58294.48221.qm%40web53210.mail.re2.yahoo.com%3E"
+       TITLE="Difficulties when running ion on place">dcl441-bugs at yahoo.com
+       </A><BR>
+    <I>Mon Mar  2 02:18:42 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001563.html">Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window
+</A></li>
+        <LI>Next message: <A HREF="001565.html">Difficulties when running ion on place
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1564">[ date ]</a>
+              <a href="thread.html#1564">[ thread ]</a>
+              <a href="subject.html#1564">[ subject ]</a>
+              <a href="author.html#1564">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+ Hi, I tried to compile and run ion3 without installing it and I took apparently the painful way.
+ I ended up copying most .lua and configuration files to ~/.ion3/lib just because ion3 was looking for them there and otherwise couldn't find them. (Why can't it try also in the current directory?).
+
+ Then I found that ion started with a &#8222;segmentation fault&#8220; error (more info below). Much later I discovered the cause: there was a file I couldn't copy to ~/.ion3/lib because it wasn't in ion's source. It is look.lua and is created in the etc/Makefile as a symlink to look_newviolet.lua.
+
+ My request is: instead of creating a link to it at install time, can ion really have a look.lua file which refers (like in #include) look_newviolet.lua? In this way the file doesn't need a special installation step; it is just copied like the others.
+ If not, maybe the defaulting to look_newviolet.lua can be included in the C code, so that if it doesn't find look.lua at least it doesn't crash with a segmentation fault.
+ I would even find better if ion stopped with an useful error message when it can't find look.lua.
+
+
+-- Daniel
+backtrace:
+
+(gdb) run  
+Starting program: /Werkstatt/ion-3-20090110/ion/ion3 
+[Thread debugging using libthread_db enabled]
+[New Thread 0xb7d79a70 (LWP 13761)]
+&gt;&gt;<i> Unable to find 'look' on search path.
+</I>&gt;&gt;<i> drawing engines loaded, trying &quot;de&quot;.
+</I>&gt;&gt;<i> Unable to find brush for style 'frame-unknown'.
+</I>
+Program received signal SIGSEGV, Segmentation fault.
+[Switching to Thread 0xb7d79a70 (LWP 13761)]
+0x00000000 in ?? ()
+(gdb) bt
+#0  0x00000000 in ?? ()
+#1  0x0806e4a7 in grbrush_set_window_shape (brush=0x0, rough=1, n=0, rects=0x0) at gr.c:594
+
+
+
+      
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001563.html">Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window
+</A></li>
+	<LI>Next message: <A HREF="001565.html">Difficulties when running ion on place
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1564">[ date ]</a>
+              <a href="thread.html#1564">[ thread ]</a>
+              <a href="subject.html#1564">[ subject ]</a>
+              <a href="author.html#1564">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

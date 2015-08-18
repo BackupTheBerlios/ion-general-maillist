@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Problem with LC_CTYPE in ubuntu intrepid
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Problem%20with%20LC_CTYPE%20in%20ubuntu%20intrepid&In-Reply-To=%3C20090304102311.GB5660%40Hardy%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001576.html">
+   <LINK REL="Next"  HREF="001578.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Problem with LC_CTYPE in ubuntu intrepid</H1>
+    <B>urwithsughosh at gmail.com</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Problem%20with%20LC_CTYPE%20in%20ubuntu%20intrepid&In-Reply-To=%3C20090304102311.GB5660%40Hardy%3E"
+       TITLE="Problem with LC_CTYPE in ubuntu intrepid">urwithsughosh at gmail.com
+       </A><BR>
+    <I>Wed Mar  4 11:23:11 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001576.html">Problem with LC_CTYPE in ubuntu intrepid
+</A></li>
+        <LI>Next message: <A HREF="001578.html">Problem with LC_CTYPE in ubuntu intrepid
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1577">[ date ]</a>
+              <a href="thread.html#1577">[ thread ]</a>
+              <a href="subject.html#1577">[ subject ]</a>
+              <a href="author.html#1577">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Jasbir,
+
+On Wed Mar 04, 2009 at 03:02:55PM +0530, Jasbir Khehra wrote:
+&gt;<i> On Wed, Mar 4, 2009 at 11:57 AM,  &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">urwithsughosh at gmail.com</A>&gt; wrote:
+</I>&gt;<i> &gt; Hi,
+</I>&gt;<i> &gt; &#160;Upgraded my distribution to ubuntu 8.10 on my PC and laptop a few
+</I>&gt;<i> &gt; &#160;days back. Built and installed the latest version of ion. On doing
+</I>&gt;<i> &gt; &#160;so, i am not able to type in queries. This problem is notoriously
+</I>&gt;<i> &gt; &#160;similar to the one i faced a few months back on my laptop running
+</I>&gt;<i> &gt; &#160;8.04. But back then changing the locale to en_US.utf8 had got it
+</I>&gt;<i> &gt; &#160;working. This time around, i am not so lucky. The errors reported in
+</I>&gt;<i> &gt; &#160;.xsession-errors are a bit different now.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt;
+</I>&gt;<i> I am using Ubuntu 8.10 on my work PC with  Ion3 from the Ubuntu repos
+</I>&gt;<i> (ver 20080411-1).
+</I>&gt;<i> I had to change LANG in /etc/default/locale to &quot;en_IN.UTF-8&quot; and
+</I>&gt;<i> reboot , that fixed the problem of typing in queries.
+</I>&gt;<i> Output -&gt;
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">jasbir at jasbir-desktop</A>:~$ cat /etc/default/locale
+</I>&gt;<i> LANG=&quot;en_IN.UTF-8&quot;
+</I>&gt;<i> <A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">jasbir at jasbir-desktop</A>:~$ locale
+</I>&gt;<i> LANG=en_IN.UTF-8
+</I>&gt;<i> LC_CTYPE=&quot;en_IN.UTF-8&quot;
+</I>&gt;<i> LC_NUMERIC=&quot;en_IN.UTF-8&quot;
+</I>&gt;<i> LC_TIME=&quot;en_IN.UTF-8&quot;
+</I>&gt;<i> LC_COLLATE=&quot;en_IN.UTF-8&quot;
+</I>&gt;<i> LC_MONETARY=&quot;en_IN.UTF-8&quot;
+</I>&gt;<i> LC_MESSAGES=&quot;en_IN.UTF-8&quot;
+</I>&gt;<i> LC_PAPER=&quot;en_IN.UTF-8&quot;
+</I>&gt;<i> LC_NAME=&quot;en_IN.UTF-8&quot;
+</I>&gt;<i> LC_ADDRESS=&quot;en_IN.UTF-8&quot;
+</I>&gt;<i> LC_TELEPHONE=&quot;en_IN.UTF-8&quot;
+</I>&gt;<i> LC_MEASUREMENT=&quot;en_IN.UTF-8&quot;
+</I>&gt;<i> LC_IDENTIFICATION=&quot;en_IN.UTF-8&quot;
+</I>&gt;<i> LC_ALL=
+</I>
+
+  Whoa! Thanks a million. This got it up and running indeed. Not being
+  able to type in queries was turning out to be quite a
+  inconvenience.
+
+-- 
+sughosh
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001576.html">Problem with LC_CTYPE in ubuntu intrepid
+</A></li>
+	<LI>Next message: <A HREF="001578.html">Problem with LC_CTYPE in ubuntu intrepid
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1577">[ date ]</a>
+              <a href="thread.html#1577">[ thread ]</a>
+              <a href="subject.html#1577">[ subject ]</a>
+              <a href="author.html#1577">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Riot
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Riot&In-Reply-To=%3C478F80D6.9060307%40severinghaus.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001011.html">
+   <LINK REL="Next"  HREF="001013.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Riot</H1>
+    <B>Steven N. Severinghaus</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Riot&In-Reply-To=%3C478F80D6.9060307%40severinghaus.org%3E"
+       TITLE="Riot">sns at severinghaus.org
+       </A><BR>
+    <I>Thu Jan 17 17:22:46 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001011.html">Riot
+</A></li>
+        <LI>Next message: <A HREF="001013.html">Riot
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1012">[ date ]</a>
+              <a href="thread.html#1012">[ thread ]</a>
+              <a href="subject.html#1012">[ subject ]</a>
+              <a href="author.html#1012">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Tuomo Valkonen said the following on 2008-01-17 09:59:
+&gt;<i> Hmm.. maybe vim supports providing this information on the command
+</I>&gt;<i> line too? In that case all you'd have to do is set VISUAL for Riot
+</I>&gt;<i> to something with the parameter set.
+</I>
+Something along these lines:
+
+export VISUAL=&quot;vim +'set filetype=twiki'&quot;
+
+&gt;<i> Or maybe you can configure vim to match against /tmp/riot-* for
+</I>&gt;<i> twiki syntax?
+</I>
+Something like this in your ~/.vimrc could work:
+
+autocmd BufRead,BufNewFile /tmp/riot-* setfiletype twiki
+
+Hope that helps,
+-Steve
+
+-- 
+Steven N. Severinghaus
+<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">sns at severinghaus.org</A>
+<A HREF="http://severinghaus.org/">http://severinghaus.org/</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001011.html">Riot
+</A></li>
+	<LI>Next message: <A HREF="001013.html">Riot
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1012">[ date ]</a>
+              <a href="thread.html#1012">[ thread ]</a>
+              <a href="subject.html#1012">[ subject ]</a>
+              <a href="author.html#1012">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

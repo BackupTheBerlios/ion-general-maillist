@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> If it is still unclear to someone...
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20If%20it%20is%20still%20unclear%20to%20someone...&In-Reply-To=%3C20070320155752.GJ23458%40marco.fz-rossendorf.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000295.html">
+   <LINK REL="Next"  HREF="000297.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>If it is still unclear to someone...</H1>
+    <B>Joerg van den Hoff</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20If%20it%20is%20still%20unclear%20to%20someone...&In-Reply-To=%3C20070320155752.GJ23458%40marco.fz-rossendorf.de%3E"
+       TITLE="If it is still unclear to someone...">j.van_den_hoff at fzd.de
+       </A><BR>
+    <I>Tue Mar 20 16:57:52 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000295.html">If it is still unclear to someone...
+</A></li>
+        <LI>Next message: <A HREF="000297.html">If it is still unclear to someone...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#296">[ date ]</a>
+              <a href="thread.html#296">[ thread ]</a>
+              <a href="subject.html#296">[ subject ]</a>
+              <a href="author.html#296">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Tue, Mar 20, 2007 at 02:34:26PM +0000, Tuomo Valkonen wrote:
+&gt;<i> On 2007-03-20, Joerg van den Hoff &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">j.van_den_hoff at fzd.de</A>&gt; wrote:
+</I>&gt;<i> &gt; a) `groff' is not ancient at all and still actively maintained (`groff' is
+</I>&gt;<i> &gt; actually more recent than TeX). 
+</I>&gt;<i> 
+</I>&gt;<i> The command set and syntax are from the 1950s or something, when you 
+</I>make that the 1970ies, a bit newer than C than...
+&gt;<i> had  to to write it all on a punchcard. You can't make heads or tails of
+</I>and make that a pdp11, I think
+&gt;<i> it just by looking at the file; you have to look at the documentation.
+</I>what file? the markupped text? I don't think that `ms' markup is harder (or 
+easier) to understand than latex markup. for the macro definitions themselves:
+yeah, that's sort of crazy (but probably the low level TeX stuff does not look
+better). looking at the documentation as a prerequisite of generating a
+sensible document: would you say that is different from latex???
+
+&gt;<i> That doesn't lend to random contributors improving the documentation.
+</I>tell me: where is the difference between `-ms' and `-man' markup in terms
+of your points (random contributors don't understand it, 'old', etc)?
+&gt;<i> LaTeX, on the other hand, has commands that are understandable when
+</I>&gt;<i> you look at the document, even if you didn't know how to write a LaTeX
+</I>&gt;<i> document from scratch. Too bad LaTeX documents are hardly understandable
+</I>&gt;<i> by other programs, them being programs themselves.
+</I>same thing with groff (being a program), of course.
+so: you know how to use latex, I know how to use groff. that seems the basic
+difference.
+concerning &quot;understanding&quot; the latex source: I will give you that latex markup
+is much more verbose (which I don't like: I have to type it or make lots of 
+vi shortcuts or what else) and therefore one could easier guess that
+
+\begin{paragraph}
+
+is just that, than that
+
+.LP
+
+(for left adjusted paragraph) does just the same in `groff -ms'. but the 10 odd
+pages I sent around concering use of `ms' seem to compare rather favourably to
+the length of the average latex guide...
+
+&gt;<i> 
+</I>&gt;<i> &gt; I think it would'nt harm if one
+</I>&gt;<i> &gt; would not loose this option without better reasons than that the tutorial
+</I>&gt;<i> &gt; would simply not pop up via `man tutorial'.
+</I>&gt;<i> 
+</I>&gt;<i> I still think that using such arcane formats as *roff is pointless, 
+</I>&gt;<i> unless you're writing a man page.
+</I>&gt;<i> 
+</I>I still think you are wrong but will leave it at that. but hey, guys, why not,
+at least put this in a file `tutorial.txt`:
+
+.\&quot;----------------------------------------------------------------------------
+.TL
+ion3 tutorial
+.AU
+some_guy
+.AI
+some_institution
+.NH
+Introduction
+.LP
+is going  here
+.NH
+keybindings
+.LP
+can be found here in a nice table:
+.\&quot;-------------------------------
+.TS
+box center tab(;);
+l l.
+key;action
+_
+F1;access manpages
+F2;xterm
+.TE
+.\&quot;-------------------------------
+.NH
+customizing your statusbar
+.LP
+can be tough.
+.NH 2
+statusbar: the basic layout
+.LP
+is here
+.NH 2
+statusbar: extensions
+.LP
+are here
+.\&quot;----------------------------------------------------------------------------
+things to memorize to 'read' the above: 
+
+`.\&quot;' -- is the admittedly strange start_of_comment .
+`.TL' -- title
+`.AU' -- author
+`.AI' -- author's institution
+`.NH' -- starts new numbered section header (trailing number is section level) 
+`.LP' -- starts new leftjustified paragraph, 
+`.TS/.TE' --  brackets tables ('table start', 'table end') 
+
+now issue :
+
+1. `groff -t -ms tutorial.txt &gt; tutorial.ps; gv tutorial.ps'
+2. `groff -t -ms -TX100 tutorial.txt'
+3. `nroff -t -ms tutorial.txt'
+
+and look (and compare with what you need to achieve approx. the same with `-man' or
+`latex' (where latex is not an option if one wants to maintain formatting into
+the terminal)).
+
+my vote:
+best solution: use `ms'
+second best solution: use `man'
+
+joerg
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000295.html">If it is still unclear to someone...
+</A></li>
+	<LI>Next message: <A HREF="000297.html">If it is still unclear to someone...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#296">[ date ]</a>
+              <a href="thread.html#296">[ thread ]</a>
+              <a href="subject.html#296">[ subject ]</a>
+              <a href="author.html#296">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

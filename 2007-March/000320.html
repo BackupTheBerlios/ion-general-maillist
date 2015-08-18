@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> ion-3ds-20070318
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion-3ds-20070318&In-Reply-To=%3Cslrnf0duj7.nvg.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000319.html">
+   <LINK REL="Next"  HREF="000274.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>ion-3ds-20070318</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion-3ds-20070318&In-Reply-To=%3Cslrnf0duj7.nvg.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="ion-3ds-20070318">tuomov at iki.fi
+       </A><BR>
+    <I>Mon Mar 26 00:40:39 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000319.html">ion-3ds-20070318
+</A></li>
+        <LI>Next message: <A HREF="000274.html">Ion translations
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#320">[ date ]</a>
+              <a href="thread.html#320">[ thread ]</a>
+              <a href="subject.html#320">[ subject ]</a>
+              <a href="author.html#320">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2007-03-25, Ben Hutchings &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">ben at decadent.org.uk</A>&gt; wrote:
+&gt;<i> - Context menus for frames now affect the current object.  Previously
+</I>&gt;<i>   (certainly in 20061223; I'm not sure about 20070203) they would
+</I>&gt;<i>   affect the tab that the context menu was opened on.  This change
+</I>&gt;<i>   doesn't seem to have been documented, but I've noted it in
+</I>&gt;<i>   NEWS.Debian.  Was it an intentional change?
+</I>
+No. The config changed to pass _chld instead of _sub, but the pointer
+event code doesn't do anything sane with it. But, _chld is needed
+to get the context of the active client window or so. (_sub is 
+a WGroupCW on a client window tab, whereas _chld should be a 
+WClientWin... it's just not anything corresponding to the tab...)
+
+PS. I really don't like the _chld/_sub distinction, that was added
+when client windows were changed to be contained in their own 
+groups (workspaces) etc. It might be possible to remove _sub with
+WRegion.groupleader_of(), as _sub is mainly needed to operate on 
+a group within an mplex but it would make the config a little bit
+more complicated.
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000319.html">ion-3ds-20070318
+</A></li>
+	<LI>Next message: <A HREF="000274.html">Ion translations
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#320">[ date ]</a>
+              <a href="thread.html#320">[ thread ]</a>
+              <a href="subject.html#320">[ subject ]</a>
+              <a href="author.html#320">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

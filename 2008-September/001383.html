@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> inc/dec workspace
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20inc/dec%20workspace&In-Reply-To=%3Cslrngdch8a.hbp.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001381.html">
+   <LINK REL="Next"  HREF="001382.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>inc/dec workspace</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20inc/dec%20workspace&In-Reply-To=%3Cslrngdch8a.hbp.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="inc/dec workspace">tuomov at iki.fi
+       </A><BR>
+    <I>Sun Sep 21 14:58:51 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001381.html">inc/dec workspace
+</A></li>
+        <LI>Next message: <A HREF="001382.html">mod_xinerama
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1383">[ date ]</a>
+              <a href="thread.html#1383">[ thread ]</a>
+              <a href="subject.html#1383">[ subject ]</a>
+              <a href="author.html#1383">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-09-21, Timandahaf &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">timandahaf+dev at gmail.com</A>&gt; wrote:
+&gt;<i> -ioncore.get_hook(&quot;region_notify_hook&quot;):add(update_workspace)
+</I>&gt;<i> +local function update_workspace_wrap(reg, how)
+</I>&gt;<i> +    if how ~= &quot;name&quot; then
+</I>&gt;<i> +        return
+</I>&gt;<i> +    end
+</I>
+It would be advisable to check that 'reg' is actually a &quot;workspace&quot;,
+i.e. managed by a WScreen, to further optimise the calls to update.
+(Actually, the iteration using mx_nth in the update is also very 
+inefficient. What mx_nth does is scan a list from the beginning to
+find the n:th entry. mx_i does iteration over the list.)
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001381.html">inc/dec workspace
+</A></li>
+	<LI>Next message: <A HREF="001382.html">mod_xinerama
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1383">[ date ]</a>
+              <a href="thread.html#1383">[ thread ]</a>
+              <a href="subject.html#1383">[ subject ]</a>
+              <a href="author.html#1383">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Saving/restore session
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2010-December/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Saving/restore%20session&In-Reply-To=%3C153753.31173.qm%40web130101.mail.mud.yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001942.html">
+   <LINK REL="Next"  HREF="001944.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Saving/restore session</H1>
+    <B>&#163;ukasz</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Saving/restore%20session&In-Reply-To=%3C153753.31173.qm%40web130101.mail.mud.yahoo.com%3E"
+       TITLE="Saving/restore session">blurrpp at yahoo.com
+       </A><BR>
+    <I>Wed Dec 22 09:52:30 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001942.html">Saving/restore session
+</A></li>
+        <LI>Next message: <A HREF="001944.html">Saving/restore session
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1943">[ date ]</a>
+              <a href="thread.html#1943">[ thread ]</a>
+              <a href="subject.html#1943">[ subject ]</a>
+              <a href="author.html#1943">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+&gt;<i> Both versions save workspaces' layouts to lua files, when
+</I>&gt;<i> doing clean exits.
+</I>&gt;<i> IIRC both provide with a menu option to save / load
+</I>&gt;<i> workspaces in that file.
+</I>&gt;<i> 
+</I>&gt;<i> ~/.ion2/default-session/workspaces.lua
+</I>&gt;<i> ~/.ion3/default-session--0/saved_layout.lua
+</I>&gt;<i> 
+</I>&gt;<i> What I did was saving the layouts I like then removing
+</I>&gt;<i> write
+</I>&gt;<i> authorizations on that file with chmod so it wouldn't get
+</I>&gt;<i> overriden on
+</I>&gt;<i> exit.
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I> You right, but there is no information about programs opened in thise windows, as an example my latest workspaces.lua
+
+initialise_screen_id(0, {
+    type = &quot;WScreen&quot;,
+    name = &quot;WScreen&quot;,
+    subs = {
+        {
+            type = &quot;WFloatWS&quot;,
+            name = &quot;main&quot;,
+            managed = {
+                {
+                    type = &quot;WFloatFrame&quot;,
+                    name = &quot;WFloatFrame&quot;,
+                    flags = 24,
+                    saved_y = 0, saved_h = 337,
+                    saved_x = 0, saved_w = 488,
+                    subs = {
+                        {
+                            type = &quot;WClientWin&quot;,
+                            windowid = 12582927,
+                            checkcode = 1,
+                            switchto = true,
+                        },
+                        {
+                            type = &quot;WClientWin&quot;,
+                            windowid = 27262991,
+                            checkcode = 2,
+                        },
+                    },
+                    geom = { x = 0, y = 0, w = 1022, h = 766},
+                },
+                {
+                    type = &quot;WFloatFrame&quot;,
+                    name = &quot;WFloatFrame&lt;4&gt;&quot;,
+                    flags = 24,
+                    saved_y = 0, saved_h = 337,
+                    saved_x = 1023, saved_w = 488,
+                    subs = {
+                        {
+                            type = &quot;WClientWin&quot;,
+                            windowid = 25165839,
+                            checkcode = 3,
+                            switchto = true,
+                        },
+                    },
+                    geom = { x = 1023, y = 0, w = 1022, h = 766},
+                },
+            },
+        },
+        {
+            type = &quot;WFloatWS&quot;,
+            name = &quot;WFloatWS&quot;,
+            managed = {
+                {
+                    type = &quot;WFloatFrame&quot;,
+                    name = &quot;WFloatFrame&lt;1&gt;&quot;,
+                    flags = 16,
+                    saved_x = 2, saved_w = 1022,
+                    subs = {
+                        {
+                            type = &quot;WClientWin&quot;,
+                            windowid = 14680115,
+                            checkcode = 4,
+                            switchto = true,
+                        },
+                    },
+                    geom = { x = 3, y = 0, w = 1023, h = 768},
+                },
+                {
+                    type = &quot;WFloatFrame&quot;,
+                    name = &quot;WFloatFrame&lt;2&gt;&quot;,
+                    flags = 24,
+                    saved_y = 0, saved_h = 337,
+                    saved_x = 1025, saved_w = 488,
+                    subs = {
+                        {
+                            type = &quot;WClientWin&quot;,
+                            windowid = 16777231,
+                            checkcode = 5,
+                            switchto = true,
+                        },
+                    },
+                    geom = { x = 1025, y = 0, w = 1016, h = 766},
+                },
+            },
+            switchto = true,
+        },
+        {
+            type = &quot;WFloatWS&quot;,
+            name = &quot;WFloatWS&lt;1&gt;&quot;,
+            managed = {
+            },
+        },
+        {
+            type = &quot;WFloatWS&quot;,
+            name = &quot;WFloatWS&lt;2&gt;&quot;,
+            managed = {
+            },
+        },
+    },
+})
+
+Lukas
+
+
+
+      
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001942.html">Saving/restore session
+</A></li>
+	<LI>Next message: <A HREF="001944.html">Saving/restore session
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1943">[ date ]</a>
+              <a href="thread.html#1943">[ thread ]</a>
+              <a href="subject.html#1943">[ subject ]</a>
+              <a href="author.html#1943">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

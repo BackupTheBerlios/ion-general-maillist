@@ -1,0 +1,281 @@
+From tuomo.valkonen at iki.fi  Sun Oct 10 20:23:34 2010
+From: tuomo.valkonen at iki.fi (Tuomo Valkonen)
+Date: Sun, 10 Oct 2010 20:23:34 +0200
+Subject: Archives
+Message-ID: <op.vkdhdjkrfouyte@noi2>
+
+
+In case someone still cares, an archive of all the code
+and stuff is online at http://iki.fi/tuomov/software/ .
+
+
+From ion at benizi.com  Mon Oct 11 20:52:01 2010
+From: ion at benizi.com (Benjamin R. Haskell)
+Date: Mon, 11 Oct 2010 14:52:01 -0400 (EDT)
+Subject: Archives
+In-Reply-To: <op.vkdhdjkrfouyte@noi2>
+References: <op.vkdhdjkrfouyte@noi2>
+Message-ID: <alpine.LNX.2.01.1010111437430.21068@hp>
+
+On Sun, 10 Oct 2010, Tuomo Valkonen wrote:
+
+>
+> In case someone still cares, an archive of all the code and stuff is 
+> online at http://iki.fi/tuomov/software/ .
+
+Do you have your "Not a Blog" archived online anywhere?  Just the other 
+day, I sent someone a link to your UTF-8 Monoculturists page, but had to 
+resort to using web.archive.org[1], which is probably an incomplete 
+collection.
+
+-- 
+Best,
+Ben
+
+[1] http://web.archive.org/web/20070213204402/modeemi.fi/~tuomov/b/archives/2006/08/26/T20_16_06/
+
+
+From deryni at unreliablesource.net  Tue Oct 12 01:21:19 2010
+From: deryni at unreliablesource.net (Etan S. C. Reisner)
+Date: Mon, 11 Oct 2010 19:21:19 -0400
+Subject: Archives
+In-Reply-To: <op.vkdhdjkrfouyte@noi2>
+References: <op.vkdhdjkrfouyte@noi2>
+Message-ID: <20101011232119.GA1878@aran>
+
+Thank you.
+
+Do you also happen to have your decairo-3 repo lying around anywhere?
+
+    -Etan
+
+
+From tuomo.valkonen at iki.fi  Wed Oct 27 23:32:44 2010
+From: tuomo.valkonen at iki.fi (Tuomo Valkonen)
+Date: Wed, 27 Oct 2010 23:32:44 +0200
+Subject: Not a blog; Windows 7 vs. Ion; displays, laptops, etc.
+Message-ID: <AANLkTikxxwTbAYnmuDOMW93vKoUdpyBM_gMgNE0ihNXB@mail.gmail.com>
+
+Since I put up a new site with an archive of my software, a few have
+asked me to return the non-blog online as well. I don't think that
+will happen. I can't be arsed to start blogging again; it's a waste of
+time. I shortly entertained the idea of combining the good/essential
+material into a longer ?Goodbuy, suckers!? anthology, but... even
+pissing on Linux (desktop *nix) is a waste
+of time. Ignorance is a bliss, and I'm much happier ignoring it all
+and sticking to Windows. Windows 7 is, in fact, not that bad at all.
+
+Yeah, I have been using Windows 7 for some weeks now. It's
+surprisingly good, far more keyboard-usable than previous releases of
+Windows.. let alone popular Linux DEs, which have always been inferior
+to Windows. Of course, I'm looking at everything through the
+Trackpoint-glasses; I probably would find W7 far less usable if I only
+had a normal mouse or, *shudder*, or had to rely on the shotgun err..
+touchpad.
+
+One reason for the improved keyboard-usability is the integration of
+search into Windows 7. No more browsing of endless menu and dialog
+hierarchies (esp. control panel and startmenu), just search. No need
+for third-party launchers, which never worked very well on XP; just
+hit the Windows key and start typing. In a way, this is a partial
+return to the command line interface. Maybe there's still a trace of
+sanity left in the world.
+
+Windows 7 even supports proto-tabbing and proto-tiling. By "pinning"
+an application/shortcut to the taskbar, you can use Win+number to
+cycle through instances of that application. (The visual indication of
+the chosen instance when cycling is too weak, though; the currently
+focussed instance is much more strongly indicated.) And with
+Win+left/right arrow, you can
+throw a window to the left or right side of the screen, which is
+almost the only layout I ever used in Ion, aside from full-screen (and
+Ion4, if I had started working on it, would have been more based on
+restricted layouts like this). I just wish you could adjust (maybe you
+can) the widths of windows thrown this way, as in the "split-float"
+tiling mode of Ion, where frames could partially overlap each other.
+On a small laptop display, most windows are simply too narrow without
+some degree of overlapping. In any case, the ideas introduced in PWM
+and Ion seem to be catching on, at least in diluted forms.
+
+My first gripe is that it still doesn't have a sensible "safely
+remove" feature. Still a fly-crap-sized system tray icon... which is
+even hidden by default, an otherwise excellent feature for all that
+annoying crap that everyone wants to put there. That or opening
+explorer (which is the only way by default to even mount anything on
+the POS OpenSUSE at the office...) And even with all the other
+improvements on keyboard-usability (after you enable the display of
+accelerator keys, which is idiotically disabled by default) the fact
+remains that the choice of keybindings suck, a lot of things depending
+on poorly-accessible cursor keys etc., instead of something closer to
+the typing position.
+
+Fonts... difficult to say, because the display on the
+Thinkpad X201 is so awful -- the worst I've ever come
+across -- that the constant shifting of everything on the display in
+reaction to minute movements of the head is more annoying than the
+blurring that W7 almost insists upon. (You need to do a lot of work to
+replace the semi-hard-coded Segoe UI everywhere, to get rid of the
+blurring.) That said, the blurring on W7 seems better than on any
+other OS... depending on the font of course, and the fact that the
+display has so crappy contrast. I should try to get around to trying
+it on a semi-decent display. But all desktop displays have so horrible
+DPI that any kind of blurring immediately induces uncontrollable
+vomiting. It really sucks that there are no decent displays these
+days: desktop  displays have shitty DPI, although you can get IPS, and
+laptop displays are too shallow and generally el cheapo
+TN-film crap, although the DPI is somewhat more reasonable. (But most
+smartphones have even better DPI... and have higher-quality displays
+too, with far better viewing angles than laptops.)
+
+Yeah... I finally gave up on trying to run Modern Bloatware(tm) on the
+aging T43 (with its splendid although a bit dim IPS panel), and got a
+new laptop. I'd have preferred a desktop computer with an IPS panel,
+but since a desktop display is difficult to lug when moving around the
+world, that's presently no option for me. And the low DPI would make
+my eyes bleed anyway. I was also not going to buy a big laptop with a
+shallow display, so a netbook or an ultraportable was the only option.
+Preferrably a cheap netbook, as I wouldn't want to pay much for the
+crap that you get as laptop displays. But netbooks are not
+significantly more powerful than the T43... so  X20[01] it was, as I
+need the pointing stick. Fortunately you can get a little-used demo
+machine on Ebay for a somewhat more reasonable price than the list
+price. For idling use - random web surfing, etc. - even the 12"
+shallowscreen dimensions suffice, but viewing PDFs is painful as
+expected due to the lacking vertical dimensions of the screen. And no
+photo-editing, etc., can be done thanks to the piss-poor quality of
+the display. At least my ears love the computer with its SSD, when my
+eyes don't...
+
+
+(Well, ok, that turned out to be some kind of substitute
+for a new non-blog entry, and a waste of time. Just to show you
+suckers that I'm sticking to Windows.)
+
+
+From EvgenyKurbatov at yandex.ru  Thu Oct 28 09:37:43 2010
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Thu, 28 Oct 2010 11:37:43 +0400
+Subject: Not a blog; Windows 7 vs. Ion; displays, laptops, etc.
+In-Reply-To: <AANLkTikxxwTbAYnmuDOMW93vKoUdpyBM_gMgNE0ihNXB@mail.gmail.com>
+References: <AANLkTikxxwTbAYnmuDOMW93vKoUdpyBM_gMgNE0ihNXB@mail.gmail.com>
+Message-ID: <20101028113743.6437257a@hnum.inasan.ru>
+
+Hi Tuomo,
+
+Man, I'm happy if you are happy.  I just spent about 5 minutes to
+read your message and I didn't find any kind of information in it.  Do
+you understand that you had stolen these 5 minutes?  I could... I don't
+know... write a poem till that time or create a physical theory but it
+has gone forever!
+
+Man, just do it.  Just make Ion4.
+
+Well, I propose you to write Ion4 under ChromiumOS (because once
+Google will buy MS, then Apple, or it will just choke it, so Google
+will be everywhere).  Call it ChromIon!
+
+Best witches,
+Evgeny
+
+
+
+On Wed, 27 Oct 2010 23:32:44 +0200
+Tuomo Valkonen <tuomo.valkonen at iki.fi> wrote:
+
+> Since I put up a new site with an archive of my software, a few have
+> asked me to return the non-blog online as well. I don't think that
+> will happen. I can't be arsed to start blogging again; it's a waste of
+> time. I shortly entertained the idea of combining the good/essential
+> material into a longer ?Goodbuy, suckers!? anthology, but... even
+> pissing on Linux (desktop *nix) is a waste
+> of time. Ignorance is a bliss, and I'm much happier ignoring it all
+> and sticking to Windows. Windows 7 is, in fact, not that bad at all.
+> 
+> Yeah, I have been using Windows 7 for some weeks now. It's
+> surprisingly good, far more keyboard-usable than previous releases of
+> Windows.. let alone popular Linux DEs, which have always been inferior
+> to Windows. Of course, I'm looking at everything through the
+> Trackpoint-glasses; I probably would find W7 far less usable if I only
+> had a normal mouse or, *shudder*, or had to rely on the shotgun err..
+> touchpad.
+> 
+> One reason for the improved keyboard-usability is the integration of
+> search into Windows 7. No more browsing of endless menu and dialog
+> hierarchies (esp. control panel and startmenu), just search. No need
+> for third-party launchers, which never worked very well on XP; just
+> hit the Windows key and start typing. In a way, this is a partial
+> return to the command line interface. Maybe there's still a trace of
+> sanity left in the world.
+> 
+> Windows 7 even supports proto-tabbing and proto-tiling. By "pinning"
+> an application/shortcut to the taskbar, you can use Win+number to
+> cycle through instances of that application. (The visual indication of
+> the chosen instance when cycling is too weak, though; the currently
+> focussed instance is much more strongly indicated.) And with
+> Win+left/right arrow, you can
+> throw a window to the left or right side of the screen, which is
+> almost the only layout I ever used in Ion, aside from full-screen (and
+> Ion4, if I had started working on it, would have been more based on
+> restricted layouts like this). I just wish you could adjust (maybe you
+> can) the widths of windows thrown this way, as in the "split-float"
+> tiling mode of Ion, where frames could partially overlap each other.
+> On a small laptop display, most windows are simply too narrow without
+> some degree of overlapping. In any case, the ideas introduced in PWM
+> and Ion seem to be catching on, at least in diluted forms.
+> 
+> My first gripe is that it still doesn't have a sensible "safely
+> remove" feature. Still a fly-crap-sized system tray icon... which is
+> even hidden by default, an otherwise excellent feature for all that
+> annoying crap that everyone wants to put there. That or opening
+> explorer (which is the only way by default to even mount anything on
+> the POS OpenSUSE at the office...) And even with all the other
+> improvements on keyboard-usability (after you enable the display of
+> accelerator keys, which is idiotically disabled by default) the fact
+> remains that the choice of keybindings suck, a lot of things depending
+> on poorly-accessible cursor keys etc., instead of something closer to
+> the typing position.
+> 
+> Fonts... difficult to say, because the display on the
+> Thinkpad X201 is so awful -- the worst I've ever come
+> across -- that the constant shifting of everything on the display in
+> reaction to minute movements of the head is more annoying than the
+> blurring that W7 almost insists upon. (You need to do a lot of work to
+> replace the semi-hard-coded Segoe UI everywhere, to get rid of the
+> blurring.) That said, the blurring on W7 seems better than on any
+> other OS... depending on the font of course, and the fact that the
+> display has so crappy contrast. I should try to get around to trying
+> it on a semi-decent display. But all desktop displays have so horrible
+> DPI that any kind of blurring immediately induces uncontrollable
+> vomiting. It really sucks that there are no decent displays these
+> days: desktop  displays have shitty DPI, although you can get IPS, and
+> laptop displays are too shallow and generally el cheapo
+> TN-film crap, although the DPI is somewhat more reasonable. (But most
+> smartphones have even better DPI... and have higher-quality displays
+> too, with far better viewing angles than laptops.)
+> 
+> Yeah... I finally gave up on trying to run Modern Bloatware(tm) on the
+> aging T43 (with its splendid although a bit dim IPS panel), and got a
+> new laptop. I'd have preferred a desktop computer with an IPS panel,
+> but since a desktop display is difficult to lug when moving around the
+> world, that's presently no option for me. And the low DPI would make
+> my eyes bleed anyway. I was also not going to buy a big laptop with a
+> shallow display, so a netbook or an ultraportable was the only option.
+> Preferrably a cheap netbook, as I wouldn't want to pay much for the
+> crap that you get as laptop displays. But netbooks are not
+> significantly more powerful than the T43... so  X20[01] it was, as I
+> need the pointing stick. Fortunately you can get a little-used demo
+> machine on Ebay for a somewhat more reasonable price than the list
+> price. For idling use - random web surfing, etc. - even the 12"
+> shallowscreen dimensions suffice, but viewing PDFs is painful as
+> expected due to the lacking vertical dimensions of the screen. And no
+> photo-editing, etc., can be done thanks to the piss-poor quality of
+> the display. At least my ears love the computer with its SSD, when my
+> eyes don't...
+> 
+> 
+> (Well, ok, that turned out to be some kind of substitute
+> for a new non-blog entry, and a waste of time. Just to show you
+> suckers that I'm sticking to Windows.)
+> 
+
+

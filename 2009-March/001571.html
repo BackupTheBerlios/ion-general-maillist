@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Slightly-OT] On usability: managing usb devices &amp; network	profiles in a ion3 environment
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20%5BSlightly-OT%5D%20On%20usability%3A%20managing%20usb%20devices%20%26%20network%0A%09profiles%20in%20a%20ion3%20environment&In-Reply-To=%3C20090303083548.GA3543%40fl%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001570.html">
+   <LINK REL="Next"  HREF="001573.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Slightly-OT] On usability: managing usb devices &amp; network	profiles in a ion3 environment</H1>
+    <B>Vladimir Skuratovich</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20%5BSlightly-OT%5D%20On%20usability%3A%20managing%20usb%20devices%20%26%20network%0A%09profiles%20in%20a%20ion3%20environment&In-Reply-To=%3C20090303083548.GA3543%40fl%3E"
+       TITLE="[Slightly-OT] On usability: managing usb devices &amp; network	profiles in a ion3 environment">skuratovich at gmail.com
+       </A><BR>
+    <I>Tue Mar  3 09:35:48 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001570.html">[Slightly-OT] On usability: managing usb devices &amp; network	profiles in a ion3 environment
+</A></li>
+        <LI>Next message: <A HREF="001573.html">[Slightly-OT] On usability: managing usb devices &amp; network	profiles in a ion3 environment
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1571">[ date ]</a>
+              <a href="thread.html#1571">[ thread ]</a>
+              <a href="subject.html#1571">[ subject ]</a>
+              <a href="author.html#1571">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+It seems that with USB sticks the only option you have (apart from
+finding and mounting them manually) is HAL-based automounting, for
+example, HAL + ivman + pmount. Then you can add some nice tricks with
+mod_ionflux, for example, create a menu with all mounted drives and
+commands to unmount &amp; eject them.
+
+With network profiles you actually have a lot of options, starting from
+ifupdown scripts in Debian, where you can specify a profile manually,
+through 'divine', a nice small program that is able to send ARP requests
+to specified hosts to check if they are on the network and then
+configure the interface, to 'guessnet' - a plug-in for ifupdown, which
+can do the same things as 'divine' and some more.
+
+While the last configuration (ifupdown + guessnet) is quite complex to
+set up, it offers you the most flexibility - for example. your laptop
+can select network profiles based on the ESSID of the Wi-Fi access point
+you are connected to, or on the presence of specific hosts on the wired
+network, and you can always override the selection manually.
+
+
+On Tue, Mar 03, 2009 at 12:29:06AM -0500, Mico Fil&#243;s wrote:
+&gt;<i> Hi,
+</I>&gt;<i> 
+</I>&gt;<i> I am just curious to know what do ion3 users do to manage painlessly
+</I>&gt;<i> usb devices and network profiles.
+</I>&gt;<i> 
+</I>&gt;<i> I've done my tinkering with udev to configure my usb gadgets, but when
+</I>&gt;<i> I have to read others' pendrives I simply spend an embarassingly long
+</I>&gt;<i> time trying to figure out what node the device is attached to (plus
+</I>&gt;<i> additional time spent on mount points &amp; permissions issues). I've
+</I>&gt;<i> heard that graphical environments like gnome or kde do that quite
+</I>&gt;<i> automatically, but I don't see why a non-graphical environment could
+</I>&gt;<i> not do the same thing.
+</I>&gt;<i> 
+</I>&gt;<i> The same goes for managing network profiles in a laptop. Gnome has
+</I>&gt;<i> network-manager, a graphical tool that seems to do a good job. Again,
+</I>&gt;<i> there is no need to rely on a widget to do this kind of task, but I
+</I>&gt;<i> haven't found yet a convincing non-graphical solution.
+</I>&gt;<i> 
+</I>&gt;<i> Any ideas?
+</I>&gt;<i> 
+</I>&gt;<i> Best
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001570.html">[Slightly-OT] On usability: managing usb devices &amp; network	profiles in a ion3 environment
+</A></li>
+	<LI>Next message: <A HREF="001573.html">[Slightly-OT] On usability: managing usb devices &amp; network	profiles in a ion3 environment
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1571">[ date ]</a>
+              <a href="thread.html#1571">[ thread ]</a>
+              <a href="subject.html#1571">[ subject ]</a>
+              <a href="author.html#1571">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

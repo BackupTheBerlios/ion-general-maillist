@@ -1,0 +1,1721 @@
+From andreas.bernauer at gmx.de  Thu Aug  2 08:37:21 2007
+From: andreas.bernauer at gmx.de (Andreas Bernauer)
+Date: Thu, 2 Aug 2007 08:37:21 +0200
+Subject: Not all bindings are defined in cfg_ioncore.lua
+In-Reply-To: <20070731175835.GR8631@aran>
+References: <46AF61EB.7000906@yandex.ru>
+	<20070731172847.GJ19633@informatik.uni-tuebingen.de>
+	<20070731175835.GR8631@aran>
+Message-ID: <20070802063721.GO19633@informatik.uni-tuebingen.de>
+
+Etan Reisner schrieb am Di, 31. Jul 2007 um 13:58 (-0400):
+> > Copy /usr/local/etc/ion3/cfg_tiling to your ~/.ion3 and modify it.
+> 
+> No, do not copy random system files into ~/.ion3 only copy cfg_ion.lua,
+> cfg_statusbar.lua, and cfg_dock.lua. Leave the rest in the system
+> locations and override the bindings in cfg_ion.lua or in any other file
+> you want as long as you dopath("") it from cfg_ion.lua.
+
+Could you give me any special reasons for your suggestion, just out of
+curiosity?
+
+Andreas.
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070802/9e8fc280/attachment.pgp>
+
+From deryni at unreliablesource.net  Thu Aug  2 17:42:35 2007
+From: deryni at unreliablesource.net (Etan Reisner)
+Date: Thu, 2 Aug 2007 11:42:35 -0400
+Subject: Not all bindings are defined in cfg_ioncore.lua
+In-Reply-To: <20070802063721.GO19633@informatik.uni-tuebingen.de>
+References: <46AF61EB.7000906@yandex.ru>
+	<20070731172847.GJ19633@informatik.uni-tuebingen.de>
+	<20070731175835.GR8631@aran>
+	<20070802063721.GO19633@informatik.uni-tuebingen.de>
+Message-ID: <20070802154235.GT8631@aran>
+
+On Thu, Aug 02, 2007 at 08:37:21AM +0200, Andreas Bernauer wrote:
+> Etan Reisner schrieb am Di, 31. Jul 2007 um 13:58 (-0400):
+> > > Copy /usr/local/etc/ion3/cfg_tiling to your ~/.ion3 and modify it.
+> >
+> > No, do not copy random system files into ~/.ion3 only copy cfg_ion.lua,
+> > cfg_statusbar.lua, and cfg_dock.lua. Leave the rest in the system
+> > locations and override the bindings in cfg_ion.lua or in any other file
+> > you want as long as you dopath("") it from cfg_ion.lua.
+>
+> Could you give me any special reasons for your suggestion, just out of
+> curiosity?
+>
+> Andreas.
+
+Short version: Easier to maintain across upstream changes.
+
+Long version If you copy the entire cfg_tiling.lua into .ion3 and then a
+function name changes your carefully copied and modified version will be
+broken. And you will have no idea why. Essentially you become forced to
+watch the changelog very carefully and diff your version against the
+system version after each new release. If, on the other hand, all you do
+is create secondary config file (e.g. cfg_my.lua or my_tiling.lua) then
+when versions change you only need to worry about changes to the bindings
+you have actually customized (and perhaps any newly added system bindings
+that take precedence over yours, but that is much easier to notice and
+fix). Unless you intend to change the majority of the existing bindings it
+is, as far as I have ever been concerned, a net loss to copy the system
+files in.
+
+	-Etan
+
+
+From deryni at unreliablesource.net  Thu Aug  2 22:28:59 2007
+From: deryni at unreliablesource.net (Etan Reisner)
+Date: Thu, 2 Aug 2007 16:28:59 -0400
+Subject: Not all bindings are defined in cfg_ioncore.lua
+In-Reply-To: <m23az1y8ve.fsf@lifelogs.com>
+References: <46AF61EB.7000906@yandex.ru>
+	<20070731172847.GJ19633@informatik.uni-tuebingen.de>
+	<20070731175835.GR8631@aran>
+	<20070802063721.GO19633@informatik.uni-tuebingen.de>
+	<20070802154235.GT8631@aran> <m23az1y8ve.fsf@lifelogs.com>
+Message-ID: <20070802202859.GU8631@aran>
+
+On Thu, Aug 02, 2007 at 04:33:25PM -0400, Ted Zlatanov wrote:
+<snip>
+> I'd just like to point out that this is exactly why the Ion
+> configuration should not be in Lua and subject to change any time an
+> update comes down IMO.
+>
+> Something like this:
+>
+> META.."S" = split_here_horizontal
+> META.."V" = split_here_vertical
+>
+> Is all 99% of end users need.  Wouldn't this be easier for everyone?
+> Maybe it could be a module...
+
+You could certainly write a simplified binding script to translated from
+'known' keywords to the right functions, but that just moves where the
+translation has to happen and if upstream changes the known name you
+have the same difficulty. You would of course argue that the known names
+shouldn't change but they are just an API, and APIs are only frozen when
+it is reasonable to do so, the ion API or the known names API would both
+change when needed.
+
+> Ted
+
+	-Etan
+
+
+From tzz at lifelogs.com  Thu Aug  2 22:33:25 2007
+From: tzz at lifelogs.com (Ted Zlatanov)
+Date: Thu, 02 Aug 2007 16:33:25 -0400
+Subject: Not all bindings are defined in cfg_ioncore.lua
+In-Reply-To: <20070802154235.GT8631@aran> (Etan Reisner's message of "Thu, 2
+	Aug 2007 11:42:35 -0400")
+References: <46AF61EB.7000906@yandex.ru>
+	<20070731172847.GJ19633@informatik.uni-tuebingen.de>
+	<20070731175835.GR8631@aran>
+	<20070802063721.GO19633@informatik.uni-tuebingen.de>
+	<20070802154235.GT8631@aran>
+Message-ID: <m23az1y8ve.fsf@lifelogs.com>
+
+On Thu, 2 Aug 2007 11:42:35 -0400 Etan Reisner <deryni at unreliablesource.net> wrote: 
+
+ER> On Thu, Aug 02, 2007 at 08:37:21AM +0200, Andreas Bernauer wrote:
+>> Etan Reisner schrieb am Di, 31. Jul 2007 um 13:58 (-0400):
+>> > > Copy /usr/local/etc/ion3/cfg_tiling to your ~/.ion3 and modify it.
+>> >
+>> > No, do not copy random system files into ~/.ion3 only copy cfg_ion.lua,
+>> > cfg_statusbar.lua, and cfg_dock.lua. Leave the rest in the system
+>> > locations and override the bindings in cfg_ion.lua or in any other file
+>> > you want as long as you dopath("") it from cfg_ion.lua.
+>> 
+>> Could you give me any special reasons for your suggestion, just out of
+>> curiosity?
+>> 
+>> Andreas.
+
+ER> Short version: Easier to maintain across upstream changes.
+
+ER> Long version If you copy the entire cfg_tiling.lua into .ion3 and then a
+ER> function name changes your carefully copied and modified version will be
+ER> broken. And you will have no idea why. Essentially you become forced to
+ER> watch the changelog very carefully and diff your version against the
+ER> system version after each new release. If, on the other hand, all you do
+ER> is create secondary config file (e.g. cfg_my.lua or my_tiling.lua) then
+ER> when versions change you only need to worry about changes to the bindings
+ER> you have actually customized (and perhaps any newly added system bindings
+ER> that take precedence over yours, but that is much easier to notice and
+ER> fix). Unless you intend to change the majority of the existing bindings it
+ER> is, as far as I have ever been concerned, a net loss to copy the system
+ER> files in.
+
+I'd just like to point out that this is exactly why the Ion
+configuration should not be in Lua and subject to change any time an
+update comes down IMO.
+
+Something like this:
+
+META.."S" = split_here_horizontal
+META.."V" = split_here_vertical
+
+Is all 99% of end users need.  Wouldn't this be easier for everyone?
+Maybe it could be a module...
+
+Ted
+
+
+From tzz at lifelogs.com  Thu Aug  2 22:57:30 2007
+From: tzz at lifelogs.com (Ted Zlatanov)
+Date: Thu, 02 Aug 2007 16:57:30 -0400
+Subject: Not all bindings are defined in cfg_ioncore.lua
+In-Reply-To: <20070802202859.GU8631@aran> (Etan Reisner's message of "Thu, 2
+	Aug 2007 16:28:59 -0400")
+References: <46AF61EB.7000906@yandex.ru>
+	<20070731172847.GJ19633@informatik.uni-tuebingen.de>
+	<20070731175835.GR8631@aran>
+	<20070802063721.GO19633@informatik.uni-tuebingen.de>
+	<20070802154235.GT8631@aran> <m23az1y8ve.fsf@lifelogs.com>
+	<20070802202859.GU8631@aran>
+Message-ID: <m2myx9wt6t.fsf@lifelogs.com>
+
+On Thu, 2 Aug 2007 16:28:59 -0400 Etan Reisner <deryni at unreliablesource.net> wrote: 
+
+ER> On Thu, Aug 02, 2007 at 04:33:25PM -0400, Ted Zlatanov wrote:
+ER> <snip>
+>> I'd just like to point out that this is exactly why the Ion
+>> configuration should not be in Lua and subject to change any time an
+>> update comes down IMO.
+>> 
+>> Something like this:
+>> 
+>> META.."S" = split_here_horizontal
+>> META.."V" = split_here_vertical
+>> 
+>> Is all 99% of end users need.  Wouldn't this be easier for everyone?
+>> Maybe it could be a module...
+
+ER> You could certainly write a simplified binding script to translated from
+ER> 'known' keywords to the right functions, but that just moves where the
+ER> translation has to happen and if upstream changes the known name you
+ER> have the same difficulty. You would of course argue that the known names
+ER> shouldn't change but they are just an API, and APIs are only frozen when
+ER> it is reasonable to do so, the ion API or the known names API would both
+ER> change when needed.
+
+Do you really think that a user would rather edit Lua when a new release
+comes down than the format I showed?  I've worked with many users and
+editing code is very low on their TODO list.
+
+The *basic* Ion operations haven't changed much since Ion3 was
+released.  I've had to rewrite my Lua config several times, though,
+because of small changes to the objects.
+
+Anyhow, it's a moot point if Tuomo disagrees, and he has in the past :)
+
+Ted
+
+
+From deryni at unreliablesource.net  Thu Aug  2 22:57:08 2007
+From: deryni at unreliablesource.net (Etan Reisner)
+Date: Thu, 2 Aug 2007 16:57:08 -0400
+Subject: Not all bindings are defined in cfg_ioncore.lua
+In-Reply-To: <m2myx9wt6t.fsf@lifelogs.com>
+References: <46AF61EB.7000906@yandex.ru>
+	<20070731172847.GJ19633@informatik.uni-tuebingen.de>
+	<20070731175835.GR8631@aran>
+	<20070802063721.GO19633@informatik.uni-tuebingen.de>
+	<20070802154235.GT8631@aran> <m23az1y8ve.fsf@lifelogs.com>
+	<20070802202859.GU8631@aran> <m2myx9wt6t.fsf@lifelogs.com>
+Message-ID: <20070802205708.GV8631@aran>
+
+On Thu, Aug 02, 2007 at 04:57:30PM -0400, Ted Zlatanov wrote:
+<snip>
+> Do you really think that a user would rather edit Lua when a new release
+> comes down than the format I showed?  I've worked with many users and
+> editing code is very low on their TODO list.
+
+I never said that at all actually. But that's ok. Also, the fact that the
+bindings are in lua is unrelated to the difficulty in editing them for
+normal people, lua is designed to be used for configuration services and
+as such can be made to look rather config-file-like. The ion config system
+doesn't do that much, but that's ok.
+
+> The *basic* Ion operations haven't changed much since Ion3 was
+> released.  I've had to rewrite my Lua config several times, though,
+> because of small changes to the objects.
+
+Actually the basic operations have changed quite a bit since ion3 started,
+in a couple places. And like I said you just move the failure point, and
+like I also said a translation script is not at all hard to handle.
+
+> Anyhow, it's a moot point if Tuomo disagrees, and he has in the past :)
+
+Actually this doesn't need to touch Tuomo at all it can be entirely with a
+runtime script which reads your simplified binding file and makes the
+right lua calls.
+
+> Ted
+
+	-Etan
+
+
+From csant at csant.info  Thu Aug  2 23:10:16 2007
+From: csant at csant.info (csant)
+Date: Thu, 02 Aug 2007 23:10:16 +0200
+Subject: Not all bindings are defined in cfg_ioncore.lua
+In-Reply-To: <m2myx9wt6t.fsf@lifelogs.com>
+References: <46AF61EB.7000906@yandex.ru>
+	<20070731172847.GJ19633@informatik.uni-tuebingen.de>
+	<20070731175835.GR8631@aran>
+	<20070802063721.GO19633@informatik.uni-tuebingen.de>
+	<20070802154235.GT8631@aran> <m23az1y8ve.fsf@lifelogs.com>
+	<20070802202859.GU8631@aran> <m2myx9wt6t.fsf@lifelogs.com>
+Message-ID: <op.twgafenfd84skq@fiore.malebolge>
+
+On Thu, 02 Aug 2007 22:57:30 +0200, Ted Zlatanov <tzz at lifelogs.com> wrote:
+
+> The *basic* Ion operations haven't changed much since Ion3 was
+> released.  I've had to rewrite my Lua config several times, though,
+> because of small changes to the objects.
+
+If this is a problem, then maybe development versions of software aren't  
+for you, then?
+/c
+
+
+From tzz at lifelogs.com  Thu Aug  2 23:28:05 2007
+From: tzz at lifelogs.com (Ted Zlatanov)
+Date: Thu, 02 Aug 2007 17:28:05 -0400
+Subject: Not all bindings are defined in cfg_ioncore.lua
+In-Reply-To: <20070802205708.GV8631@aran> (Etan Reisner's message of "Thu, 2
+	Aug 2007 16:57:08 -0400")
+References: <46AF61EB.7000906@yandex.ru>
+	<20070731172847.GJ19633@informatik.uni-tuebingen.de>
+	<20070731175835.GR8631@aran>
+	<20070802063721.GO19633@informatik.uni-tuebingen.de>
+	<20070802154235.GT8631@aran> <m23az1y8ve.fsf@lifelogs.com>
+	<20070802202859.GU8631@aran> <m2myx9wt6t.fsf@lifelogs.com>
+	<20070802205708.GV8631@aran>
+Message-ID: <m2d4y5wrru.fsf@lifelogs.com>
+
+On Thu, 2 Aug 2007 16:57:08 -0400 Etan Reisner <deryni at unreliablesource.net> wrote: 
+
+ER> Also, the fact that the bindings are in lua is unrelated to the
+ER> difficulty in editing them for normal people, lua is designed to be
+ER> used for configuration services and as such can be made to look
+ER> rather config-file-like. 
+
+IMO Lua is not a good configuration language no matter what.  Neither
+are Perl, shell, etc.  When the author punts the software configurations
+to code, either the users learn to code that language, or they walk
+away.  If you have a better Lua syntax, that's great, but remember it
+has to be better than a regular configuration file too, because that's
+what end users expect.
+
+ER> Actually this doesn't need to touch Tuomo at all it can be entirely with a
+ER> runtime script which reads your simplified binding file and makes the
+ER> right lua calls.
+
+To be widely useful, this syntax should be part of the Ion3 release and
+supported.  Unofficial is OK by me but end users will not find it by
+default, and they are the ones that need this functionality the most.
+So I'd rather write something Tuomo will include in Ion3.  If you
+disagree, feel free to write and support the script, I am perfectly OK
+with that.
+
+Ted
+
+
+From tzz at lifelogs.com  Thu Aug  2 23:34:20 2007
+From: tzz at lifelogs.com (Ted Zlatanov)
+Date: Thu, 02 Aug 2007 17:34:20 -0400
+Subject: Not all bindings are defined in cfg_ioncore.lua
+In-Reply-To: <op.twgafenfd84skq@fiore.malebolge> (csant@csant.info's message
+	of "Thu, 02 Aug 2007 23:10:16 +0200")
+References: <46AF61EB.7000906@yandex.ru>
+	<20070731172847.GJ19633@informatik.uni-tuebingen.de>
+	<20070731175835.GR8631@aran>
+	<20070802063721.GO19633@informatik.uni-tuebingen.de>
+	<20070802154235.GT8631@aran> <m23az1y8ve.fsf@lifelogs.com>
+	<20070802202859.GU8631@aran> <m2myx9wt6t.fsf@lifelogs.com>
+	<op.twgafenfd84skq@fiore.malebolge>
+Message-ID: <m27iodwrhf.fsf@lifelogs.com>
+
+On Thu, 02 Aug 2007 23:10:16 +0200 csant <csant at csant.info> wrote: 
+
+c> On Thu, 02 Aug 2007 22:57:30 +0200, Ted Zlatanov <tzz at lifelogs.com> wrote:
+>> The *basic* Ion operations haven't changed much since Ion3 was
+>> released.  I've had to rewrite my Lua config several times, though,
+>> because of small changes to the objects.
+
+c> If this is a problem, then maybe development versions of software
+c> aren't for you, then?
+
+Thanks, I can handle code just fine.  I think you've missed my point: I
+wasn't complaining, I was saying that the basic functionality hasn't
+changed that much and can be abstracted to a simple configuration.
+
+Ted
+
+
+From deryni at unreliablesource.net  Fri Aug  3 03:50:24 2007
+From: deryni at unreliablesource.net (Etan Reisner)
+Date: Thu, 2 Aug 2007 21:50:24 -0400
+Subject: Not all bindings are defined in cfg_ioncore.lua
+In-Reply-To: <m2d4y5wrru.fsf@lifelogs.com>
+References: <46AF61EB.7000906@yandex.ru>
+	<20070731172847.GJ19633@informatik.uni-tuebingen.de>
+	<20070731175835.GR8631@aran>
+	<20070802063721.GO19633@informatik.uni-tuebingen.de>
+	<20070802154235.GT8631@aran> <m23az1y8ve.fsf@lifelogs.com>
+	<20070802202859.GU8631@aran> <m2myx9wt6t.fsf@lifelogs.com>
+	<20070802205708.GV8631@aran> <m2d4y5wrru.fsf@lifelogs.com>
+Message-ID: <20070803015024.GW8631@aran>
+
+On Thu, Aug 02, 2007 at 05:28:05PM -0400, Ted Zlatanov wrote:
+> On Thu, 2 Aug 2007 16:57:08 -0400 Etan Reisner <deryni at unreliablesource.net> wrote:
+>
+> ER> Also, the fact that the bindings are in lua is unrelated to the
+> ER> difficulty in editing them for normal people, lua is designed to be
+> ER> used for configuration services and as such can be made to look
+> ER> rather config-file-like.
+>
+> IMO Lua is not a good configuration language no matter what.  Neither
+> are Perl, shell, etc.  When the author punts the software configurations
+> to code, either the users learn to code that language, or they walk
+> away.  If you have a better Lua syntax, that's great, but remember it
+> has to be better than a regular configuration file too, because that's
+> what end users expect.
+
+What is a 'regular configuration file'? INI syntax? resolv.conf syntax?
+xorg.conf syntax? xml? What 'standard' configuration files do users deal
+with at this point? (Or really ever?)
+
+And I should point out that lua can handle 'standard':
+
+    variable = value
+    variable = value
+
+syntax just fine. So you wouldn't even need to know it was lua in the simple case.
+
+> ER> Actually this doesn't need to touch Tuomo at all it can be entirely with a
+> ER> runtime script which reads your simplified binding file and makes the
+> ER> right lua calls.
+>
+> To be widely useful, this syntax should be part of the Ion3 release and
+> supported.  Unofficial is OK by me but end users will not find it by
+> default, and they are the ones that need this functionality the most.
+> So I'd rather write something Tuomo will include in Ion3.  If you
+> disagree, feel free to write and support the script, I am perfectly OK
+> with that.
+
+I think you seriously overestimate the appeal of something like ion3 with
+the sort of people who would need such a simplified config file syntax.
+
+And I might very well consider attempting a simplified syntax parsing
+script. Though seeing as how I have been comfortably using the lua
+configuration stuff for a long time now I am not at all sure I am going to
+be able to come up with useful 'names' for things people want to do.
+
+> Ted
+
+	-Etan
+
+
+From tzz at lifelogs.com  Fri Aug  3 19:07:52 2007
+From: tzz at lifelogs.com (Ted Zlatanov)
+Date: Fri, 03 Aug 2007 13:07:52 -0400
+Subject: Not all bindings are defined in cfg_ioncore.lua
+In-Reply-To: <20070803015024.GW8631@aran> (Etan Reisner's message of "Thu, 2
+	Aug 2007 21:50:24 -0400")
+References: <46AF61EB.7000906@yandex.ru>
+	<20070731172847.GJ19633@informatik.uni-tuebingen.de>
+	<20070731175835.GR8631@aran>
+	<20070802063721.GO19633@informatik.uni-tuebingen.de>
+	<20070802154235.GT8631@aran> <m23az1y8ve.fsf@lifelogs.com>
+	<20070802202859.GU8631@aran> <m2myx9wt6t.fsf@lifelogs.com>
+	<20070802205708.GV8631@aran> <m2d4y5wrru.fsf@lifelogs.com>
+	<20070803015024.GW8631@aran>
+Message-ID: <m2r6mksg0n.fsf@lifelogs.com>
+
+On Thu, 2 Aug 2007 21:50:24 -0400 Etan Reisner <deryni at unreliablesource.net> wrote: 
+
+ER> On Thu, Aug 02, 2007 at 05:28:05PM -0400, Ted Zlatanov wrote:
+>> On Thu, 2 Aug 2007 16:57:08 -0400 Etan Reisner <deryni at unreliablesource.net> wrote:
+>> 
+ER> Also, the fact that the bindings are in lua is unrelated to the
+ER> difficulty in editing them for normal people, lua is designed to be
+ER> used for configuration services and as such can be made to look
+ER> rather config-file-like.
+>> 
+>> IMO Lua is not a good configuration language no matter what.  Neither
+>> are Perl, shell, etc.  When the author punts the software configurations
+>> to code, either the users learn to code that language, or they walk
+>> away.  If you have a better Lua syntax, that's great, but remember it
+>> has to be better than a regular configuration file too, because that's
+>> what end users expect.
+
+ER> What is a 'regular configuration file'? INI syntax? resolv.conf syntax?
+ER> xorg.conf syntax? xml? What 'standard' configuration files do users deal
+ER> with at this point? (Or really ever?)
+
+Excellent question :)
+
+Unix users expect readable configurations without code.  sendmail.cf is
+horrible.  /etc/passwd is nice.  /etc/hosts is beautifully simple.
+
+The exact format depends on the purpose.  Configuring X resources is
+very different from configuring host names.  So there's no single
+"perfect" format, although I personally like YAML because it's flexible
+enough to handle any reasonable data structure.
+
+ER> And I should point out that lua can handle 'standard':
+
+ER>     variable = value
+ER>     variable = value
+
+ER> syntax just fine. So you wouldn't even need to know it was lua in
+ER> the simple case.
+
+That would be great!  Unfortunately it's not the case today...
+
+ER> I think you seriously overestimate the appeal of something like ion3 with
+ER> the sort of people who would need such a simplified config file
+ER> syntax.
+
+Maybe I do.  I personally know 2 people that liked my tiling Ion3 setup
+that were turned off by the Lua configurations.  That's a small sample
+size for sure.  But I have written an article on Ion3 for IBM
+developerWorks and the main complaint I got from readers was about the
+configuration syntax (8 e-mails).
+
+ER> And I might very well consider attempting a simplified syntax parsing
+ER> script. Though seeing as how I have been comfortably using the lua
+ER> configuration stuff for a long time now I am not at all sure I am going to
+ER> be able to come up with useful 'names' for things people want to do.
+
+Cool, I'll be glad to help any way I can.
+
+Ted
+
+
+From jurjenm at stack.nl  Sat Aug  4 16:38:26 2007
+From: jurjenm at stack.nl (jurjen middendorp)
+Date: Sat, 4 Aug 2007 16:38:26 +0200
+Subject: Not all bindings are defined in cfg_ioncore.lua
+In-Reply-To: <m23az1y8ve.fsf@lifelogs.com>
+References: <46AF61EB.7000906@yandex.ru>
+	<20070731172847.GJ19633@informatik.uni-tuebingen.de>
+	<20070731175835.GR8631@aran>
+	<20070802063721.GO19633@informatik.uni-tuebingen.de>
+	<20070802154235.GT8631@aran> <m23az1y8ve.fsf@lifelogs.com>
+Message-ID: <20070804143826.GA1631@jurjen.lan>
+
+On Thu, Aug 02, 2007 at 04:33:25PM -0400, Ted Zlatanov wrote:
+>I'd just like to point out that this is exactly why the Ion
+>configuration should not be in Lua and subject to change any time an
+>update comes down IMO.
+>
+>Something like this:
+>
+>META.."S" = split_here_horizontal
+>META.."V" = split_here_vertical
+>
+>Is all 99% of end users need.  Wouldn't this be easier for everyone?
+
+I think it will be difficult to specify which objects button presses work on, it
+would be hard to have submaps and define menus and so on with a simple variable =
+setting scheme. As you said... the exact format depends on the purpose.
+
+But the configuration files aren't that hard really, they're well documented, both
+in the manual and in the files themselves. They are very easy to edit by basically
+anyone who understands variable=setting, because this is what they are. They're
+hardly code, they're just function calls. And can easily be edited by just reading
+the comments and bdoc and then deciding to which button you want to have that
+feature, and then edit that to the button you want. You don't even have to understand
+lua or ion or code at all.
+
+And anyway, Lua was *designed* to be embedded in ways like this. That's also the
+reason alot of games use Lua for scripting and configuration.  If you know just a
+litle bit of lua and a litle bit ion you can really make ion much better then just
+the defaults by making small scripts/functions that do stuff. And the reason for
+this is that you can bind any lua (or even C) function you write to a key thanks
+to the easy-to-use-but-powerful-config files.  Taking this away would take alot
+of fun from ion.
+
+-jurjen
+
+ps. maybe the real problem is people in online articles claiming lua is complicated
+and difficult -or even needed to understand- and so scaring new users :P
+
+
+From reddaly at stanford.edu  Sun Aug  5 09:14:40 2007
+From: reddaly at stanford.edu (Red Daly)
+Date: Sun, 05 Aug 2007 00:14:40 -0700
+Subject: configuration files not respected on ubuntu?
+Message-ID: <46B578E0.2000605@stanford.edu>
+
+I have recently installed ion3 and am trying to use the windows key 
+rather than the alt key for META.  xmodmap shows the windows key is 
+Mod4, so I made the following edit to cfg_ion.lua in my ~/.ion3/ directory:
+
+-- Set default modifiers. Alt should usually be mapped to Mod1 on
+-- XFree86-based systems. The flying window keys are probably Mod3
+-- or Mod4; see the output of 'xmodmap'.
+META="Mod4+"
+--ALTMETA=""
+
+from
+
+-- Set default modifiers. Alt should usually be mapped to Mod1 on
+-- XFree86-based systems. The flying window keys are probably Mod3
+-- or Mod4; see the output of 'xmodmap'.
+-- META="Mod1+"
+--ALTMETA=""
+
+I restarted the session and nothing doing.  I restarted my computer and 
+still windows does nothing.
+
+I then made a different edit which had no effect.  I commented line 237 
+in ~/.ion3/cfg_ioncore.lua  so that Meta-P's default behavior is 
+disabled.  I again restarted my computer and witnessed no effect.
+
+What am I doing wrong?
+
+I might also take this time to ask what the best way is to test 
+configuration changes.  I have been logging in and out.  Is there a 
+better/faster way?
+
+Thanks,
+Red
+
+p.s.  I am running the ion3 that I apt-got with my ubuntu feisty machine.
+> $ ion3 -V
+> 3ds-20061029
+
+
+
+From tzz at lifelogs.com  Sun Aug  5 14:26:24 2007
+From: tzz at lifelogs.com (Ted Zlatanov)
+Date: Sun, 05 Aug 2007 07:26:24 -0500
+Subject: Not all bindings are defined in cfg_ioncore.lua
+In-Reply-To: <20070804143826.GA1631@jurjen.lan> (jurjen middendorp's message
+	of "Sat, 4 Aug 2007 16:38:26 +0200")
+References: <46AF61EB.7000906@yandex.ru>
+	<20070731172847.GJ19633@informatik.uni-tuebingen.de>
+	<20070731175835.GR8631@aran>
+	<20070802063721.GO19633@informatik.uni-tuebingen.de>
+	<20070802154235.GT8631@aran> <m23az1y8ve.fsf@lifelogs.com>
+	<20070804143826.GA1631@jurjen.lan>
+Message-ID: <m2myx6np5b.fsf@lifelogs.com>
+
+On Sat, 4 Aug 2007 16:38:26 +0200 "jurjen middendorp" <jurjenm at stack.nl> wrote: 
+
+jm> But the configuration files aren't that hard really, they're well documented, both
+jm> in the manual and in the files themselves. They are very easy to edit by basically
+jm> anyone who understands variable=setting, because this is what they are. They're
+jm> hardly code, they're just function calls. And can easily be edited by just reading
+jm> the comments and bdoc and then deciding to which button you want to have that
+jm> feature, and then edit that to the button you want. You don't even have to understand
+jm> lua or ion or code at all.
+
+jm> And anyway, Lua was *designed* to be embedded in ways like this. That's also the
+jm> reason alot of games use Lua for scripting and configuration.  If you know just a
+jm> litle bit of lua and a litle bit ion you can really make ion much better then just
+jm> the defaults by making small scripts/functions that do stuff. And the reason for
+jm> this is that you can bind any lua (or even C) function you write to a key thanks
+jm> to the easy-to-use-but-powerful-config files.  Taking this away would take alot
+jm> of fun from ion.
+
+I am not saying the powerful Lua interface should be removed.  There
+should just be a way for novices to get started without the fear of
+breaking their configuration.  The tool I'm suggesting would only allow
+key binding to simple functions, nothing more.  Here are the functions I
+use most often, personally (I use tiled workspaces all the time):
+
+go to workspace 0..8
+split here H/V
+split at top level H/V
+switch tab next/previous
+navigate up/down in a V split
+navigate left/right in a H split
+tag
+attach tagged
+cycle windows
+close window
+key X = run command Y
+
+Does this list look complete for a beginner?
+
+Ted
+
+
+From tuomov at iki.fi  Sun Aug  5 18:08:54 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 5 Aug 2007 16:08:54 +0000 (UTC)
+Subject: Not all bindings are defined in cfg_ioncore.lua
+References: <46AF61EB.7000906@yandex.ru>
+	<20070731172847.GJ19633@informatik.uni-tuebingen.de>
+	<20070731175835.GR8631@aran>
+	<20070802063721.GO19633@informatik.uni-tuebingen.de>
+	<20070802154235.GT8631@aran> <m23az1y8ve.fsf@lifelogs.com>
+	<20070804143826.GA1631@jurjen.lan>
+Message-ID: <slrnfbbtgm.qdc.tuomov@jolt.modeemi.cs.tut.fi>
+
+
+My take on the use scripting languages for configuration may be read
+in [1,2]. In summary: I'm not too happy about using scripting languages
+for configuration, and would rather have separate somewhat _standard_
+config system for basic configuration (integrated with Vis [3], possibly
+providing access through the FS, and maybe providing _rudimentary_
+command-level scripting as well) [1]. Support for real scripting should
+be provided by a general exported API usable through any language being
+able to access some ___simplistic___ common language runtime 
+infrastructure [2]. However, since decent versions of neither of these
+systems exist, using an easily embeddable scripting language like Lua
+is the path of least effort. And since Ion is "research code" (although
+in Ion2 and especially Ion3 it has recently strayed too far into becoming
+a proper software development project, which I don't like), I'm not going
+to spend too much time polishing it to be a flashy luser-compatible 
+product. I rather concentrate on the ideas.
+
+---
+
+  [1]: http://iki.fi/tuomov/b/archives/2007/01/20/T11_58_29/
+
+  [2]: http://iki.fi/tuomov/b/archives/2007/02/02/T18_49_51/
+
+  [3]: http://iki.fi/tuomov/vis/
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sun Aug  5 18:10:23 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 5 Aug 2007 16:10:23 +0000 (UTC)
+Subject: configuration files not respected on ubuntu?
+References: <46B578E0.2000605@stanford.edu>
+Message-ID: <slrnfbbtjf.qdc.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-08-05, Red Daly <reddaly at stanford.edu> wrote:
+> p.s.  I am running the ion3 that I apt-got with my ubuntu feisty machine.
+>> $ ion3 -V
+>> 3ds-20061029
+
+... and you dare to come here asking for help? 
+
+-- 
+Tuomo
+
+
+
+From nickmurdoch at gmail.com  Sun Aug  5 18:39:06 2007
+From: nickmurdoch at gmail.com (Nick Murdoch)
+Date: Sun, 05 Aug 2007 17:39:06 +0100
+Subject: configuration files not respected on ubuntu?
+In-Reply-To: <46B578E0.2000605@stanford.edu>
+References: <46B578E0.2000605@stanford.edu>
+Message-ID: <46B5FD2A.8060306@gmail.com>
+
+Red Daly wrote:
+> p.s.  I am running the ion3 that I apt-got with my ubuntu feisty machine.
+>> $ ion3 -V
+>> 3ds-20061029
+
+Ubuntu are shipping software that old?! Even Debian (sid) has
+3rc-20070708 at the moment. Are you sure you haven't forgotten to
+apt-get update first?
+
+Hint: download and build from source. I managed it with ion2 on Solaris
+a couple of years ago; if I can do that you can manage it fine on Ubuntu.
+
+Oh, and read the FAQ
+http://modeemi.fi/~tuomov/ion/faq/entries/Reporting_bugs.html :)
+Removing all Gnome software on a Ubuntu box should be fun. Presumably
+installing xdm (how do you feel about kdm, Tuomo?) and writing a simple
+.xsession (mine has one line: "ion2") is good enough to eliminate any
+side effects of Gnome just for testing that the bug is real?
+
+Nick
+
+
+From ben at decadent.org.uk  Sun Aug  5 17:27:01 2007
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Sun, 05 Aug 2007 16:27:01 +0100
+Subject: configuration files not respected on ubuntu?
+In-Reply-To: <46B578E0.2000605@stanford.edu>
+References: <46B578E0.2000605@stanford.edu>
+Message-ID: <1186327621.25168.138.camel@deadeye.i.decadent.org.uk>
+
+I am not responsible for the Ubuntu package, but it is based on the
+Debian package that I now maintain.
+
+On Sun, 2007-08-05 at 00:14 -0700, Red Daly wrote:
+> I have recently installed ion3 and am trying to use the windows key 
+> rather than the alt key for META.  xmodmap shows the windows key is 
+> Mod4, so I made the following edit to cfg_ion.lua in my ~/.ion3/ directory:
+>
+> -- Set default modifiers. Alt should usually be mapped to Mod1 on
+> -- XFree86-based systems. The flying window keys are probably Mod3
+> -- or Mod4; see the output of 'xmodmap'.
+> META="Mod4+"
+> --ALTMETA=""
+> 
+> from
+> 
+> -- Set default modifiers. Alt should usually be mapped to Mod1 on
+> -- XFree86-based systems. The flying window keys are probably Mod3
+> -- or Mod4; see the output of 'xmodmap'.
+> -- META="Mod1+"
+> --ALTMETA=""
+> 
+> I restarted the session and nothing doing.  I restarted my computer and 
+> still windows does nothing.
+
+META and ALTMETA are set in /etc/default/ion3 so that they are easy to
+change on a system-wide basis without modifying the default
+configuration files.  There is a comment about this in cfg_ion.lua
+though it is possibly not as obviously as it should be.
+
+<snip>
+> p.s.  I am running the ion3 that I apt-got with my ubuntu feisty machine.
+> > $ ion3 -V
+> > 3ds-20061029
+
+Please be aware that this is quite outdated and will not be supported by
+the author (and probably not by Ubuntu either).  You should be able to
+build the current version from the Debian source package
+<http://ftp.debian.org/debian/pool/non-free/i/ion3/ion3_20070720-1.dsc>
+(<http://www.debian.org/doc/FAQ/ch-pkg_basics.en.html#s-sourcepkgs>
+explains how to do this) or from the original tarball
+<http://modeemi.fi/~tuomov/ion/download.html>.
+
+Ben.
+
+-- 
+Ben Hutchings
+[W]e found...that it wasn't as easy to get programs right as we had thought.
+... I realized that a large part of my life from then on was going to be spent
+in finding mistakes in my own programs. - Maurice Wilkes, 1949
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070805/0fc793b1/attachment.pgp>
+
+From reddaly at stanford.edu  Sun Aug  5 23:54:03 2007
+From: reddaly at stanford.edu (Red Daly)
+Date: Sun, 05 Aug 2007 14:54:03 -0700
+Subject: configuration files not respected on ubuntu?
+In-Reply-To: <46B5FD2A.8060306@gmail.com>
+References: <46B578E0.2000605@stanford.edu> <46B5FD2A.8060306@gmail.com>
+Message-ID: <46B646FB.608@stanford.edu>
+
+I removed the ubuntu package and manually installed from the ion3 
+tarball.  My configuration changes now seem to work correctly from the 
+~/.ion3 directory.  It is a shame that the Ubuntu package is so out of 
+date, though :(
+
+The only tricky part was adding a new file to start ion3 from GDM:
+$ cat /usr/share/gdm/BuiltInSessions/ion3.desktop
+[Desktop Entry]
+Encoding=UTF-8
+Name=Ion3
+Comment=A tiling tabbed window manager designed with keyboard users in mind.
+Exec=ion3
+TryExec=ion3
+# no icon yet, only the top three are currently used
+Icon=
+Type=Application
+
+
+thanks for your help!
+
+Red
+
+Nick Murdoch wrote:
+> Red Daly wrote:
+>   
+>> p.s.  I am running the ion3 that I apt-got with my ubuntu feisty machine.
+>>     
+>>> $ ion3 -V
+>>> 3ds-20061029
+>>>       
+>
+> Ubuntu are shipping software that old?! Even Debian (sid) has
+> 3rc-20070708 at the moment. Are you sure you haven't forgotten to
+> apt-get update first?
+>
+> Hint: download and build from source. I managed it with ion2 on Solaris
+> a couple of years ago; if I can do that you can manage it fine on Ubuntu.
+> l
+> Oh, and read the FAQ
+> http://modeemi.fi/~tuomov/ion/faq/entries/Reporting_bugs.html :)
+> Removing all Gnome software on a Ubuntu box should be fun. Presumably
+> installing xdm (how do you feel about kdm, Tuomo?) and writing a simple
+> .xsession (mine has one line: "ion2") is good enough to eliminate any
+> side effects of Gnome just for testing that the bug is real?
+>
+> Nick
+>   
+
+
+From ben at decadent.org.uk  Tue Aug  7 03:25:20 2007
+From: ben at decadent.org.uk (Ben Hutchings)
+Date: Tue, 07 Aug 2007 02:25:20 +0100
+Subject: configuration files not respected on ubuntu?
+In-Reply-To: <46B646FB.608@stanford.edu>
+References: <46B578E0.2000605@stanford.edu> <46B5FD2A.8060306@gmail.com>
+	<46B646FB.608@stanford.edu>
+Message-ID: <1186449920.15460.5.camel@deadeye.i.decadent.org.uk>
+
+On Sun, 2007-08-05 at 14:54 -0700, Red Daly wrote:
+> I removed the ubuntu package and manually installed from the ion3 
+> tarball.  My configuration changes now seem to work correctly from the 
+> ~/.ion3 directory.  It is a shame that the Ubuntu package is so out of 
+> date, though :(
+> 
+> The only tricky part was adding a new file to start ion3 from GDM:
+<snip>
+
+That's not really necessary (at least it isn't on Debian).  I just put
+ion3 in ~/.xsession and use GDM's "Default System Session".
+
+Ben.
+
+-- 
+Ben Hutchings
+Reality is just a crutch for people who can't handle science fiction.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070807/35d61e04/attachment.pgp>
+
+From andreas.bernauer at gmx.de  Tue Aug  7 10:33:46 2007
+From: andreas.bernauer at gmx.de (Andreas Bernauer)
+Date: Tue, 7 Aug 2007 10:33:46 +0200
+Subject: Not all bindings are defined in cfg_ioncore.lua
+In-Reply-To: <20070802154235.GT8631@aran>
+References: <46AF61EB.7000906@yandex.ru>
+	<20070731172847.GJ19633@informatik.uni-tuebingen.de>
+	<20070731175835.GR8631@aran>
+	<20070802063721.GO19633@informatik.uni-tuebingen.de>
+	<20070802154235.GT8631@aran>
+Message-ID: <20070807083346.GF11027@informatik.uni-tuebingen.de>
+
+Etan Reisner schrieb am Do, 02. Aug 2007 um 11:42 (-0400):
+> > > No, do not copy random system files into ~/.ion3 
+> >
+> > Could you give me any special reasons for your suggestion, just out of
+> > curiosity?
+> 
+> Short version: Easier to maintain across upstream changes.
+
+Thank you for your answer.  So, as long as I just stay with my current
+version of ion (with which I am happy), just copying the entire file
+seems easier to me.  When I upgrade I have to rewrite my whole config
+anyways (which is the reason I don't upgrade because I have better
+things to do).
+
+> Long version If you copy the entire cfg_tiling.lua into .ion3 and then a
+> function name changes your carefully copied and modified version will be
+> broken. And you will have no idea why. 
+
+This is where diff and patch come in handy, don't they?
+
+Andreas.
+
+-- 
+http://www.lysium.de/blog
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070807/ac244d0b/attachment.pgp>
+
+From tzz at lifelogs.com  Tue Aug  7 18:02:01 2007
+From: tzz at lifelogs.com (Ted Zlatanov)
+Date: Tue, 07 Aug 2007 11:02:01 -0500
+Subject: Not all bindings are defined in cfg_ioncore.lua
+In-Reply-To: <20070806215515.GH8631@aran> (Etan Reisner's message of "Mon, 6
+	Aug 2007 17:55:15 -0400")
+References: <20070731175835.GR8631@aran>
+	<20070802063721.GO19633@informatik.uni-tuebingen.de>
+	<20070802154235.GT8631@aran> <m23az1y8ve.fsf@lifelogs.com>
+	<20070802202859.GU8631@aran> <m2myx9wt6t.fsf@lifelogs.com>
+	<20070802205708.GV8631@aran> <m2d4y5wrru.fsf@lifelogs.com>
+	<20070803015024.GW8631@aran> <m2r6mksg0n.fsf@lifelogs.com>
+	<20070806215515.GH8631@aran>
+Message-ID: <m2zm13l4ee.fsf@lifelogs.com>
+
+On Mon, 6 Aug 2007 17:55:15 -0400 Etan Reisner <pidgin at unreliablesource.net> wrote: 
+
+ER> I say again, there is no reason a simplified binding can't exist and
+ER> if people think it would be worth it would be more than happy to
+ER> help design (and probably help write) such a system. That being said
+ER> I, personally, don't think there is much to be gained from such a
+ER> system.
+
+Then you may not be the right person to write it.  So far I'm the only
+one that's provided something useful in this discussion (a list of Ion
+functions I commonly use).  If you have more functions, add them.  If
+you want to write code to implement a configuration tool for those
+functions, go ahead.  If not, say so and I'll do the work.  I've waited
+for you out of courtesy so I don't duplicate code.  I find it easier to
+write tools I think will be useful than to plan their appeal in advance.
+
+Ted
+
+
+From tzz at lifelogs.com  Tue Aug  7 18:04:53 2007
+From: tzz at lifelogs.com (Ted Zlatanov)
+Date: Tue, 07 Aug 2007 11:04:53 -0500
+Subject: Not all bindings are defined in cfg_ioncore.lua
+In-Reply-To: <slrnfbbtgm.qdc.tuomov@jolt.modeemi.cs.tut.fi> (Tuomo Valkonen's
+	message of "Sun, 5 Aug 2007 16:08:54 +0000 (UTC)")
+References: <46AF61EB.7000906@yandex.ru>
+	<20070731172847.GJ19633@informatik.uni-tuebingen.de>
+	<20070731175835.GR8631@aran>
+	<20070802063721.GO19633@informatik.uni-tuebingen.de>
+	<20070802154235.GT8631@aran> <m23az1y8ve.fsf@lifelogs.com>
+	<20070804143826.GA1631@jurjen.lan>
+	<slrnfbbtgm.qdc.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <m2vebrl49m.fsf@lifelogs.com>
+
+On Sun, 5 Aug 2007 16:08:54 +0000 (UTC) Tuomo Valkonen <tuomov at iki.fi> wrote: 
+
+TV> My take on the use scripting languages for configuration may be read
+TV> in [1,2]. In summary: I'm not too happy about using scripting languages
+TV> for configuration, and would rather have separate somewhat _standard_
+TV> config system for basic configuration (integrated with Vis [3], possibly
+TV> providing access through the FS, and maybe providing _rudimentary_
+TV> command-level scripting as well) [1]. Support for real scripting should
+TV> be provided by a general exported API usable through any language being
+TV> able to access some ___simplistic___ common language runtime 
+TV> infrastructure [2]. However, since decent versions of neither of these
+TV> systems exist, using an easily embeddable scripting language like Lua
+TV> is the path of least effort. And since Ion is "research code" (although
+TV> in Ion2 and especially Ion3 it has recently strayed too far into becoming
+TV> a proper software development project, which I don't like), I'm not going
+TV> to spend too much time polishing it to be a flashy luser-compatible 
+TV> product. I rather concentrate on the ideas.
+
+In that case I think a luser -> lua -> Ion tool makes sense as a project
+outside Ion itself, which is what Ethan and I have discussed.
+
+Ted
+
+
+From EvgenyKurbatov at yandex.ru  Wed Aug  8 13:03:14 2007
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Wed, 08 Aug 2007 15:03:14 +0400
+Subject: To switch between WMPlex-ed WTiling-s
+Message-ID: <46B9A2F2.8080800@yandex.ru>
+
+Hello!
+
+Excuse me for my laziness (but I read mans however), I created two
+objects of type WTiling with commands
+	WMPlex.attach_new(_, {type="WTiling"})
+and adjusted them into one line as the tabs.  Next I tried to switch
+between them by
+	WMPlex.switch_next(_)
+but nothing happened.  Actually, this is the question. :)
+And one more question, can I rename that WTilings?
+
+Best witches,
+Evgeny
+
+
+From rblists at gmail.com  Thu Aug  9 09:28:31 2007
+From: rblists at gmail.com (Raphael Bauduin)
+Date: Thu, 9 Aug 2007 09:28:31 +0200
+Subject: keep one window focused
+Message-ID: <f5227160708090028w24a7d078j5fe3c291a4364bbe@mail.gmail.com>
+
+Hi,
+
+For a setup of a computer, I have my workspace spilt in two
+vertically. In the left frame I have my application window. When the
+application in the left frame opens a window it opens in the right
+frame, and focus stays in the left frame. This is all configured with
+winprops.
+
+Now I want to be sure that the focus never leaves the left frame,
+whatever the user does. Is this somehow configurable or should I write
+a Lua script? In the latter case, I could use some indications about
+how to do it .
+
+Thanks in advance
+
+Raph
+-- 
+Web database: http://www.myowndb.com
+Free Software Developers Meeting: http://www.fosdem.org
+
+
+From EvgenyKurbatov at yandex.ru  Thu Aug  9 09:41:47 2007
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Thu, 09 Aug 2007 11:41:47 +0400
+Subject: keep one window focused
+In-Reply-To: <f5227160708090028w24a7d078j5fe3c291a4364bbe@mail.gmail.com>
+References: <f5227160708090028w24a7d078j5fe3c291a4364bbe@mail.gmail.com>
+Message-ID: <46BAC53B.70904@yandex.ru>
+
+Hi, Raphael!
+
+Ion3 has the sloppy focus policy only.  So you just have to cut your
+mouse off and disable all keyboard bindings related to switching between
+frames.  Maybe you want use 'switch_bindings.lua' script from
+http://modeemi.cs.tut.fi/~tuomov/repos/ion-scripts-3/ to get this
+feature as an option.
+
+Best witches,
+Evgeny
+
+Raphael Bauduin wrote:
+> Hi,
+> 
+> For a setup of a computer, I have my workspace spilt in two
+> vertically. In the left frame I have my application window. When the
+> application in the left frame opens a window it opens in the right
+> frame, and focus stays in the left frame. This is all configured with
+> winprops.
+> 
+> Now I want to be sure that the focus never leaves the left frame,
+> whatever the user does. Is this somehow configurable or should I write
+> a Lua script? In the latter case, I could use some indications about
+> how to do it .
+> 
+> Thanks in advance
+> 
+> Raph
+
+
+From janj+ion at wenf.org  Sat Aug 11 09:07:44 2007
+From: janj+ion at wenf.org (Jan Johansson)
+Date: Sat, 11 Aug 2007 09:07:44 +0200
+Subject: Send client to another workspace.
+Message-ID: <20070811070744.GA2152@tuvok.wenf.org>
+
+Hello.
+
+I am trying to create a keybinding that will send the current client to
+a named workspace.
+
+In the scripts collection there is a "send_to_ws.lua" but it uses a
+WMPlex.lnth() method that does not exist in 3rc-20070720 and I can't
+find when it dissapeard or what it was renamed to.
+
+The best result I got was with
+
+defbindings("WMPlex",
+    {
+	submap(PREFIX,
+	    {
+		kpress("H", "WGroup.attach(ioncore.lookup_region('Hidden'), _sub)"),
+	    }
+	),
+    }
+)
+
+where Hidden is the name of a "WGroupWS". I also tried looking in the
+saved_layout.lua file and tried all the names there (like WGroupCW<1>)
+but even though the client is sent it never attaches cleanly in the
+frame.
+
+As I don't quite understand the object model in ion/lua I am certain I
+am doing some simple error but what?
+
+Jan J
+
+
+
+From tuomov at iki.fi  Sat Aug 11 18:22:32 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 11 Aug 2007 16:22:32 +0000 (UTC)
+Subject: Not all bindings are defined in cfg_ioncore.lua
+References: <46AF61EB.7000906@yandex.ru>
+	<20070731172847.GJ19633@informatik.uni-tuebingen.de>
+	<20070731175835.GR8631@aran>
+	<20070802063721.GO19633@informatik.uni-tuebingen.de>
+	<20070802154235.GT8631@aran> <m23az1y8ve.fsf@lifelogs.com>
+	<20070804143826.GA1631@jurjen.lan>
+	<slrnfbbtgm.qdc.tuomov@jolt.modeemi.cs.tut.fi>
+	<m2vebrl49m.fsf@lifelogs.com>
+Message-ID: <slrnfbroi8.g08.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-08-07, Ted Zlatanov <tzz at lifelogs.com> wrote:
+> In that case I think a luser -> lua -> Ion tool makes sense as a project
+> outside Ion itself, which is what Ethan and I have discussed.
+
+Perhaps. Although I'd prefer that decent config system/proto-Vis, and
+using that in Ion3plus (the plan for a wiki/community branch/further
+development of Ion3, that I will merely be the moderator/editor of...
+while still on a system with the necessary tools)....
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sat Aug 11 18:27:07 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 11 Aug 2007 16:27:07 +0000 (UTC)
+Subject: Send client to another workspace.
+References: <20070811070744.GA2152@tuvok.wenf.org>
+Message-ID: <slrnfbroqr.g08.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-08-11, Jan Johansson <janj+ion at wenf.org> wrote:
+> I am trying to create a keybinding that will send the current client to
+> a named workspace.
+
+I think there are some closely-related scripts in the scripts repository
+<http://iki.fi/tuomov/repos/ion-scripts-3/>.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sat Aug 11 18:25:52 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 11 Aug 2007 16:25:52 +0000 (UTC)
+Subject: To switch between WMPlex-ed WTiling-s
+References: <46B9A2F2.8080800@yandex.ru>
+Message-ID: <slrnfbroog.g08.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-08-08, Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+> Excuse me for my laziness (but I read mans however), I created two
+> objects of type WTiling with commands
+> 	WMPlex.attach_new(_, {type="WTiling"})
+
+You don't want to do that. You want to put the tiling in a group
+(as the 'bottom' of the group) for it to appear as a workspace. 
+Then you also get a rename (Mod1+M) menu entry for the group.
+
+-- 
+Tuomo
+
+
+
+From j.van_den_hoff at fzd.de  Mon Aug 13 11:40:04 2007
+From: j.van_den_hoff at fzd.de (Joerg van den Hoff)
+Date: Mon, 13 Aug 2007 11:40:04 +0200
+Subject: problem with "attach tagged"
+Message-ID: <20070813094004.GB12051@marco.fz-rossendorf.de>
+
+ 
+I'm using 3rc-20070608 with MacOS and have encountered a problem with
+the above mentioned release which was not present before:
+
+tagging windows (either via `MOD1+T' or the "toggle tag" menu entry)
+apparently works (the checkbox in the title bar appears), but a
+subsequent `attach tagged' command is ignored (from the "attach tagged"
+menu entry as well as via `MOD1+K+A').
+
+on the other hand, attaching a window via `MOD1+A' by selecting its
+name still works OK.
+
+I observe this behaviour on two different machines.
+
+what is going on here?
+
+can somebody confirm the above described failure of attaching tagged
+windows, at least under MacOS?
+
+thanks,
+
+joerg
+
+
+
+From tuomov at iki.fi  Mon Aug 13 11:59:14 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 13 Aug 2007 09:59:14 +0000 (UTC)
+Subject: problem with "attach tagged"
+References: <20070813094004.GB12051@marco.fz-rossendorf.de>
+Message-ID: <slrnfc0ari.i12.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-08-13, Joerg van den Hoff <j.van_den_hoff at fzd.de> wrote:
+> I'm using 3rc-20070608 with MacOS and have encountered a problem with
+> the above mentioned release which was not present before:
+
+Update your bindings maybe?
+
+-- 
+Tuomo
+
+
+
+From j.van_den_hoff at fzd.de  Mon Aug 13 13:29:28 2007
+From: j.van_den_hoff at fzd.de (Joerg van den Hoff)
+Date: Mon, 13 Aug 2007 13:29:28 +0200
+Subject: problem with "attach tagged"
+In-Reply-To: <slrnfc0ari.i12.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070813094004.GB12051@marco.fz-rossendorf.de>
+	<slrnfc0ari.i12.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070813112928.GD12051@marco.fz-rossendorf.de>
+
+On Mon, Aug 13, 2007 at 09:59:14AM +0000, Tuomo Valkonen wrote:
+> On 2007-08-13, Joerg van den Hoff <j.van_den_hoff at fzd.de> wrote:
+> > I'm using 3rc-20070608 with MacOS and have encountered a problem with
+> > the above mentioned release which was not present before:
+> 
+> Update your bindings maybe?
+> 
+ah. oh. yes, thanks. 
+
+keep forgetting, that the config files are mutating by and then and the
+customized local copies consequently tend to corrode. obviously I, too,
+should think about better isolation of my customizations from the
+standard scripts.
+
+joerg
+
+
+From deryni at unreliablesource.net  Wed Aug 15 15:13:40 2007
+From: deryni at unreliablesource.net (Etan Reisner)
+Date: Wed, 15 Aug 2007 09:13:40 -0400
+Subject: Not all bindings are defined in cfg_ioncore.lua
+In-Reply-To: <m2zm13l4ee.fsf@lifelogs.com>
+References: <20070802154235.GT8631@aran> <m23az1y8ve.fsf@lifelogs.com>
+	<20070802202859.GU8631@aran> <m2myx9wt6t.fsf@lifelogs.com>
+	<20070802205708.GV8631@aran> <m2d4y5wrru.fsf@lifelogs.com>
+	<20070803015024.GW8631@aran> <m2r6mksg0n.fsf@lifelogs.com>
+	<20070806215515.GH8631@aran> <m2zm13l4ee.fsf@lifelogs.com>
+Message-ID: <20070815131340.GU8631@aran>
+
+On Tue, Aug 07, 2007 at 11:02:01AM -0500, Ted Zlatanov wrote:
+> On Mon, 6 Aug 2007 17:55:15 -0400 Etan Reisner <pidgin at unreliablesource.net> wrote:
+>
+> ER> I say again, there is no reason a simplified binding can't exist and
+> ER> if people think it would be worth it would be more than happy to
+> ER> help design (and probably help write) such a system. That being said
+> ER> I, personally, don't think there is much to be gained from such a
+> ER> system.
+>
+> Then you may not be the right person to write it.  So far I'm the only
+> one that's provided something useful in this discussion (a list of Ion
+> functions I commonly use).  If you have more functions, add them.  If
+> you want to write code to implement a configuration tool for those
+> functions, go ahead.  If not, say so and I'll do the work.  I've waited
+> for you out of courtesy so I don't duplicate code.  I find it easier to
+> write tools I think will be useful than to plan their appeal in advance.
+>
+> Ted
+
+I was a bit bored last night and set to writing a simple script for this,
+it works, accepts lines in the format, command = "keystr", so lines are
+like:
+
+go_to_workspace1 = "M-S-1"
+xterm = "M-b"
+
+I'm going to clean it up a tad and maybe try writing a simple graphical
+binding tool later. I'll publish the script once I clean it up.
+
+	-Etan
+
+
+From EvgenyKurbatov at yandex.ru  Wed Aug 15 17:09:12 2007
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Wed, 15 Aug 2007 19:09:12 +0400
+Subject: To switch between WMPlex-ed WTiling-s
+In-Reply-To: <slrnfbroog.g08.tuomov@jolt.modeemi.cs.tut.fi>
+References: <46B9A2F2.8080800@yandex.ru>
+	<slrnfbroog.g08.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <46C31718.3000202@yandex.ru>
+
+
+Tuomo Valkonen wrote:
+> On 2007-08-08, Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+>> Excuse me for my laziness (but I read mans however), I created two
+>> objects of type WTiling with commands
+>> 	WMPlex.attach_new(_, {type="WTiling"})
+> 
+> You don't want to do that. You want to put the tiling in a group
+> (as the 'bottom' of the group) for it to appear as a workspace. 
+> Then you also get a rename (Mod1+M) menu entry for the group.
+
+Oh, yes.  You are absolutely right.  I do want it.  So I'd be very
+grateful to you if you'd give a more detailed howto or a piece of code
+which will make me happy!
+
+Best witches,
+Evgeny
+
+
+From tuomov at iki.fi  Wed Aug 15 20:41:43 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 15 Aug 2007 18:41:43 +0000 (UTC)
+Subject: To switch between WMPlex-ed WTiling-s
+References: <46B9A2F2.8080800@yandex.ru>
+	<slrnfbroog.g08.tuomov@jolt.modeemi.cs.tut.fi>
+	<46C31718.3000202@yandex.ru>
+Message-ID: <slrnfc6i77.au1.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-08-15, Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+> Oh, yes.  You are absolutely right.  I do want it.  So I'd be very
+> grateful to you if you'd give a more detailed howto or a piece of code
+> which will make me happy!
+
+Create a WGroupWS with managed = { { ... the tiling ..., bottom = true } }
+
+-- 
+Tuomo
+
+
+
+From janj+ion at wenf.org  Fri Aug 17 11:55:16 2007
+From: janj+ion at wenf.org (Jan Johansson)
+Date: Fri, 17 Aug 2007 11:55:16 +0200
+Subject: Send client to another workspace.
+In-Reply-To: <20070814161201.GS8631@aran>
+References: <20070811070744.GA2152@tuvok.wenf.org> <20070814161201.GS8631@aran>
+Message-ID: <20070817095516.GA5696@tuvok.wenf.org>
+
+Etan Reisner <pidgin at unreliablesource.net> wrote:
+> What do you mean it never attaches cleanly in the frame? What
+> happens exactly?
+
+The workspace that I was testing with has a layout like this.
+
+WRootWin
+    WGroupWS
+	WTiling
+	    WFrame
+
+I could get the client to attach in WGroupWS and WTiling but I
+did not know how to find the WFrame object.
+
+Now I have a working solution but to understand I think a little
+more info is needed.
+
+The theory I am trying out is based on three workspaces Split,
+Fullscreen and Hidden.
+
+Split is the normal workspace with two frames. Fullscreen is for
+when the frame on Split is not enough like badly written
+webpages. Hidden is for the windows that are not needed at the
+moment like the media player.
+
+Keybindings for sending clients to fullscreen and hidden.
+
+defbindings("WMPlex",
+    {
+        submap(PREFIX,
+            {
+                submap("S",
+                    {
+                        kpress("F", "fh_toggle('Fullscreen', _chld)"),
+                        kpress("H", "fh_toggle('Hidden', _chld)"),
+                        kpress("S", "fh_toggle('Split', _chld)"),
+                    }
+                ),
+            }
+        ),
+    }
+)
+
+Then I have two functions. "locations" is used for storing Frame
+name when sending clients from Split to Fullscreen or Hidden this
+is later used to return the client to the previous frame on
+Split.
+
+locations = {}
+
+function fh_toggle(dest, cwin)
+    local current_ws = ioncore.find_manager(cwin, "WGroupWS")
+    local dest_ws = ioncore.lookup_region(dest)
+
+    local fullscreen_ws = ioncore.lookup_region("Fullscreen")
+    local hidden_ws = ioncore.lookup_region("Hidden")
+    local split_ws = ioncore.lookup_region("Split")
+
+    local xid = WClientWin.xid(cwin)
+
+    if current_ws == split_ws then
+        local current_frame = WRegion.name(ioncore.find_manager(cwin, "WFrame"))
+        locations[xid] = current_frame
+    end
+
+    if dest_ws == split_ws then
+        local dest_frame_name = locations[xid]
+        local dest_frame = ioncore.lookup_region(dest_frame_name)
+
+        WMPlex.attach(dest_frame, cwin)
+        WRegion.goto(cwin)
+    end
+
+    if dest_ws == fullscreen_ws then
+        send_to_ws(dest_ws, cwin, true)
+    end
+
+    if dest_ws == hidden_ws then
+        send_to_ws(dest_ws, cwin, false)
+    end
+end
+
+function send_to_ws(ws, cwin, goto)
+    ioncore.region_i(
+        function (frame) 
+            if ws==ioncore.find_manager(frame, "WGroupWS") then
+                ioncore.defer(
+                    function ()
+                        WMPlex.attach(frame, cwin)
+                        if goto then
+                            WRegion.goto(cwin)
+                        end
+                    end
+                )
+                return false
+            else
+                return true
+            end
+        end
+        , "WFrame"
+    )
+end
+
+So far the theory works quite nicely for me.
+
+
+
+From tuomov at iki.fi  Sat Aug 18 10:04:03 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 18 Aug 2007 08:04:03 +0000 (UTC)
+Subject: Send client to another workspace.
+References: <20070811070744.GA2152@tuvok.wenf.org> <20070814161201.GS8631@aran>
+	<20070817095516.GA5696@tuvok.wenf.org>
+Message-ID: <slrnfcd9vj.28n.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-08-17, Jan Johansson <janj+ion at wenf.org> wrote:
+> Then I have two functions. "locations" is used for storing Frame
+> name when sending clients from Split to Fullscreen or Hidden this
+> is later used to return the client to the previous frame on
+> Split.
+
+Hmm.. Ion does have these "return placeholders", you know, that
+are used when things are put in full screen mode or detached. I
+think you'd want to use them. Too bad they're not exported to Lua
+side.
+
+-- 
+Tuomo
+
+
+
+From janj+ion at wenf.org  Tue Aug 21 20:03:04 2007
+From: janj+ion at wenf.org (Jan Johansson)
+Date: Tue, 21 Aug 2007 20:03:04 +0200
+Subject: Send client to another workspace.
+In-Reply-To: <slrnfcd9vj.28n.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070811070744.GA2152@tuvok.wenf.org> <20070814161201.GS8631@aran>
+	<20070817095516.GA5696@tuvok.wenf.org>
+	<slrnfcd9vj.28n.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070821180304.GA5478@tuvok.wenf.org>
+
+Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2007-08-17, Jan Johansson <janj+ion at wenf.org> wrote:
+> > Then I have two functions. "locations" is used for storing
+> > Frame name when sending clients from Split to Fullscreen or
+> > Hidden this is later used to return the client to the
+> > previous frame on Split.
+> 
+> Hmm.. Ion does have these "return placeholders", you know, that
+> are used when things are put in full screen mode or detached. I
+> think you'd want to use them. Too bad they're not exported to
+> Lua side.
+
+I think it would need more than just the "return placholders" as
+I don't want to record it on all window movements.
+
+My current method is working quite well.
+
+Its just amazing what this window manager can do when you get a
+hang of it. :-)
+
+
+
+From rblists at gmail.com  Wed Aug 22 10:58:58 2007
+From: rblists at gmail.com (Raphael Bauduin)
+Date: Wed, 22 Aug 2007 10:58:58 +0200
+Subject: howto: webcamrecorder with vlc,ruby and ion
+Message-ID: <f5227160708220158n4b9e5ad2i452faa4c2a47ddb2@mail.gmail.com>
+
+Hi,
+
+I've been a Ion user for years now, and it not only enables me to work
+fast, it was also the best solution to hack together a webcam recorder
+to be used at a party so that people can leave video messages. I've
+described what I did on my blog at
+http://blog.raphinou.com/2007/08/building-webcam-recorder-with-vlc-ion.html
+
+I thought I'd share this usage of Ion with the list.
+
+Cheers
+
+Raph
+
+-- 
+Web database: http://www.myowndb.com
+Free Software Developers Meeting: http://www.fosdem.org
+
+
+From jamesstanley at bluebottle.com  Thu Aug 23 11:50:19 2007
+From: jamesstanley at bluebottle.com (James Stanley)
+Date: Thu, 23 Aug 2007 10:50:19 +0100
+Subject: Statusbar hides text
+Message-ID: <200708231050.19816.jamesstanley@bluebottle.com>
+
+Hello,
+I am new to ion, and am using version 3rc-20070720, which I found in the 
+Debian Stable apt repos. I read and understood the message that it may not be 
+supported, but I'll ask anyway.
+
+I downloaded the statusd_exec.lua script and used it to get a date that 
+updates every second. My problem is that no matter how many arguments I give 
+to date (even if it just needs to output one number), the output is 
+truncated. There is plenty of room left on the statusbar. This happens 
+wherever the statusbar is positioned.
+
+Is it possible to use the built-in date monitor to update every second?
+If not, is it possible to stop the output from statusd_exec from being 
+truncated?
+
+Thanks,
+James Stanley
+
+----------------------------------------------------------------------
+Finally - A spam blocker that actually works.
+http://www.bluebottle.com/tag/4
+
+
+
+From tuomov at iki.fi  Thu Aug 23 13:00:46 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 23 Aug 2007 11:00:46 +0000 (UTC)
+Subject: Statusbar hides text
+References: <200708231050.19816.jamesstanley@bluebottle.com>
+Message-ID: <slrnfcqq6u.1hc.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-08-23, James Stanley <jamesstanley at bluebottle.com> wrote:
+> I downloaded the statusd_exec.lua script and used it to get a date that 
+> updates every second. 
+
+That's insane: spawning a program every second.
+
+> Is it possible to use the built-in date monitor to update every second?
+
+No. The resolution of Lua's os.date is only one second, which makes syncing
+updates to the second impossible. And I can't be arsed to export more high
+resolution functions from the C side, because clocks that update every 
+second are an idiotic distraction that will draw your attention all the
+time.
+
+> If not, is it possible to stop the output from statusd_exec from being 
+> truncated?
+
+The statusbar only truncates things if a template has been set, to 
+match the width of this template. Check your settings and the script.
+
+-- 
+Tuomo
+
+
+
+From michael at cadilhac.name  Thu Aug 23 14:38:41 2007
+From: michael at cadilhac.name (=?iso-8859-1?Q?Micha=EBl?= Cadilhac)
+Date: Thu, 23 Aug 2007 14:38:41 +0200
+Subject: Statusbar hides text
+References: <200708231050.19816.jamesstanley@bluebottle.com>
+Message-ID: <87fy2a4e9a.fsf@cadilhac.name>
+
+James Stanley <jamesstanley at bluebottle.com>
+writes:
+
+> Is it possible to use the built-in date monitor to update every second?
+
+You can do something like that?:
+
+------------------------------------------------------------------------
+   ...
+   template="[%hour]"
+   ...
+
+local hour_timer = nil
+local function update_hour()
+   mod_statusbar.inform("hour", os.date("%H:%M:%S"))
+   mod_statusbar.update()
+   hour_timer:set(1000, update_hour)
+end
+
+hour_timer = ioncore.create_timer()
+update_hour()
+------------------------------------------------------------------------
+
+-- 
+ |   Micha?l `Micha' Cadilhac       |       One user is enough.              |
+ |   http://michael.cadilhac.name   |    People suck.                        |
+ |   JID/MSN:                       |                                        |
+ `----  michael.cadilhac at gmail.com  |          -- Tuomo Valkonen        -  --'
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 188 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070823/74498ec2/attachment.pgp>
+
+From tuomov at iki.fi  Fri Aug 24 12:13:17 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 24 Aug 2007 10:13:17 +0000 (UTC)
+Subject: Statusbar hides text
+References: <200708231050.19816.jamesstanley@bluebottle.com>
+	<87fy2a4e9a.fsf@cadilhac.name>
+Message-ID: <slrnfctbpt.tu.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-08-23, Micha?l Cadilhac <michael at cadilhac.name> wrote:
+> You can do something like that=A0:
+
+Which will update in the middle of the second, not at the second change.
+You could of course make the timer run every 10ms or so to get more exact
+changes, but that's just "timed busylooping".
+
+-- 
+Tuomo
+
+
+
+From jamesstanley at bluebottle.com  Fri Aug 24 12:44:00 2007
+From: jamesstanley at bluebottle.com (James Stanley)
+Date: Fri, 24 Aug 2007 11:44:00 +0100
+Subject: Statusbar hides text
+Message-ID: <200708241144.01205.jamesstanley@bluebottle.com>
+
+OK, Thanks.
+I'll use the built-in system to update the time.
+Thanks!
+
+----------------------------------------------------------------------
+Finally - A spam blocker that actually works.
+http://www.bluebottle.com/tag/4
+
+
+

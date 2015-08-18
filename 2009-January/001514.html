@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Toggle horizontal/vertical maximize behaviour
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Toggle%20horizontal/vertical%20maximize%20behaviour&In-Reply-To=%3Cgjtro1%249oh%241%40ger.gmane.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001513.html">
+   <LINK REL="Next"  HREF="001518.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Toggle horizontal/vertical maximize behaviour</H1>
+    <B>Chris Burkhardt</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Toggle%20horizontal/vertical%20maximize%20behaviour&In-Reply-To=%3Cgjtro1%249oh%241%40ger.gmane.org%3E"
+       TITLE="Toggle horizontal/vertical maximize behaviour">chris at mretc.net
+       </A><BR>
+    <I>Mon Jan  5 21:49:02 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001513.html">Toggle horizontal/vertical maximize behaviour
+</A></li>
+        <LI>Next message: <A HREF="001518.html">Toggle horizontal/vertical maximize behaviour
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1514">[ date ]</a>
+              <a href="thread.html#1514">[ thread ]</a>
+              <a href="subject.html#1514">[ subject ]</a>
+              <a href="author.html#1514">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Tuomo Valkonen wrote:
+&gt;<i> On 2009-01-02, Chris Burkhardt &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">chris at mretc.net</A>&gt; wrote:
+</I>&gt;&gt;<i> 4) Again in the top frame do a 'Mod1-K S' to do a horizontal split.
+</I>&gt;&gt;<i> 5) In one of the top frames do a 'Mod1-K V' to collapse the bottom frame. Then
+</I>&gt;&gt;<i> 'Mod1-TAB' to the other top frame and 'Mod1-K V'... the bottom frame
+</I>&gt;&gt;<i> unexpectedly stays at 0!
+</I>&gt;<i> 
+</I>&gt;<i> Ah... well I'd classify that as an (unintentional) feature then. 
+</I>&gt;<i> Maximise is completely unaware of tiling/layout, it just works on
+</I>&gt;<i> a per-frame basis.
+</I>
+Ah, I see. But what I think is still a bug is that after performing a 'Mod1-K V'
+in the other top frame (as in step 5 in my example), then the originally
+maximized frame forgets its original height. 'Mod1-TAB'ing to it and trying to
+un-maximize it with 'Mod1-K V' has no effect, although even with the intended
+per-frame maximize I would expect it to (right?). Also, resizing ('Mod1-R') in
+the bottom frame has no effect at this point, it is stuck at 0 height.
+
+&gt;<i> It should be done somewhat differently (snapshotting
+</I>&gt;<i> entire layout instead of just saving the size of a single frame) for 
+</I>&gt;<i> what you want to work.
+</I>
+Yes, that's what I really want. Hopefully it will annoy me enough that I'll
+finally take a little time to learn enough of the Ion3plus code that I can turn
+out a patch that's at least good enough for my purposes.
+
+Thanks for everything, I hope your PhD defense/preparations went (are going)
+well for you.
+
+- Chris Burkhardt
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001513.html">Toggle horizontal/vertical maximize behaviour
+</A></li>
+	<LI>Next message: <A HREF="001518.html">Toggle horizontal/vertical maximize behaviour
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1514">[ date ]</a>
+              <a href="thread.html#1514">[ thread ]</a>
+              <a href="subject.html#1514">[ subject ]</a>
+              <a href="author.html#1514">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

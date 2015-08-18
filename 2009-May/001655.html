@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> confirm 852223f5c787b0857a42616c26c0a94208eae60a
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-May/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20confirm%20852223f5c787b0857a42616c26c0a94208eae60a&In-Reply-To=%3C1243460341-sup-9180%40cabinet%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001654.html">
+   <LINK REL="Next"  HREF="001656.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>confirm 852223f5c787b0857a42616c26c0a94208eae60a</H1>
+    <B>Marc Hartstein</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20confirm%20852223f5c787b0857a42616c26c0a94208eae60a&In-Reply-To=%3C1243460341-sup-9180%40cabinet%3E"
+       TITLE="confirm 852223f5c787b0857a42616c26c0a94208eae60a">marc.hartstein at alum.vassar.edu
+       </A><BR>
+    <I>Wed May 27 23:47:29 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001654.html">confirm 852223f5c787b0857a42616c26c0a94208eae60a
+</A></li>
+        <LI>Next message: <A HREF="001656.html">confirm 852223f5c787b0857a42616c26c0a94208eae60a
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1655">[ date ]</a>
+              <a href="thread.html#1655">[ thread ]</a>
+              <a href="subject.html#1655">[ subject ]</a>
+              <a href="author.html#1655">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Excerpts from mosi's message of Wed May 27 17:06:36 -0400 2009:
+&gt;<i> Any idea, how could I reproduce the keyboard shortcuts for ion2 or ion3 to
+</I>&gt;<i> behave in the same way as the old pwm?
+</I>
+Editing the bindings isn't too hard, especially as it looks like much of
+what you want to do is already bound to *something*.  You'll want to
+look in /etc/X11/ion3/cfg_*.lua
+
+To change the configuration, copy a file from there into ~/.ion3/ and
+edit your local copy.  Just replace the current key symbol with the one
+you want.  Most of them will probably be in cfg_ioncore.lua
+
+&gt;<i> Mod1+Enter for &quot;start resizing/moving window mode, unless Enter is pressed
+</I>&gt;<i> again&quot;
+</I>
+You may need to remove whatever current binding exists for Mod1+Enter,
+then find &quot;Begin move/resize mode.&quot; in cfg_ioncore.lua and replace the
+keybinding.  Pressing Return again should end move/resize mode
+already...or are you looking for a different behavior there?  (You could
+change that, it's defined in the WMoveresMode bindings)
+
+That should get you started.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 198 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20090527/719ece2c/attachment.pgp">https://lists.berlios.de/pipermail/ion-general/attachments/20090527/719ece2c/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001654.html">confirm 852223f5c787b0857a42616c26c0a94208eae60a
+</A></li>
+	<LI>Next message: <A HREF="001656.html">confirm 852223f5c787b0857a42616c26c0a94208eae60a
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1655">[ date ]</a>
+              <a href="thread.html#1655">[ thread ]</a>
+              <a href="subject.html#1655">[ subject ]</a>
+              <a href="author.html#1655">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

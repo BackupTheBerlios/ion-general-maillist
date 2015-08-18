@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Youtube fullscreen not working
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-December/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Youtube%20fullscreen%20not%20working&In-Reply-To=%3C249287510912141227x7748098fo534bac8d0a7424cc%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001781.html">
+   <LINK REL="Next"  HREF="001783.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Youtube fullscreen not working</H1>
+    <B>Tony Emma</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Youtube%20fullscreen%20not%20working&In-Reply-To=%3C249287510912141227x7748098fo534bac8d0a7424cc%40mail.gmail.com%3E"
+       TITLE="Youtube fullscreen not working">tony.emma62 at gmail.com
+       </A><BR>
+    <I>Mon Dec 14 21:27:47 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001781.html">Youtube fullscreen not working
+</A></li>
+        <LI>Next message: <A HREF="001783.html">Youtube fullscreen not working
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1782">[ date ]</a>
+              <a href="thread.html#1782">[ thread ]</a>
+              <a href="subject.html#1782">[ subject ]</a>
+              <a href="author.html#1782">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello ebik.
+
+So the problem with the file windowinfos is due to configuration. I must add
+in file cfg_kludges.lua:
+
+dopath(&quot;cfg_kludge_flash.lua&quot;)
+
+Now i have a file. See the content:
+-- Ce fichier a &#233;t&#233; g&#233;n&#233;r&#233; par Ion, Ne pas &#233;diter.
+return {
+    [&quot;instance&quot;] = &quot;xterm&quot;,
+    [&quot;class&quot;] = &quot;UXTerm&quot;,
+}
+
+I create a block in my file cfg_kludge_flash.lua
+
+defwinprop {
+    class = 'UXTerm',
+    instance = 'xterm',
+    --match = function(prop, cwin, id)
+
+    --          local geom = cwin:geom()
+    --          return is_fullscreen(cwin) and geom.w == 200 and geom.h ==
+200
+    --      end,
+
+    match = function(prop, cwin, id) return is_fullscreen(cwin); end,
+    switchto = false,
+    flash_fullscreen = true,
+}
+
+The fullscreen mode doesn't work. :(
+
+I try this:
+defwinprop {
+    class = 'UXTerm',
+    instance = 'xterm',
+
+    match = function(prop, cwin, id)
+              local geom = cwin:geom()
+              return is_fullscreen(cwin) and geom.w == 200 and geom.h == 200
+          end,
+
+    --match = function(prop, cwin, id) return is_fullscreen(cwin); end,
+    switchto = false,
+    flash_fullscreen = true,
+}
+
+The fullscreen mode stay few seconds then it disappear
+
+Have you any ideas?
+
+Tony
+
+2009/12/14 ebik &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">ebik at drak.ucw.cz</A>&gt;
+
+&gt;<i>
+</I>&gt;<i> I think you were looking  for windowinfos.lua in wrong directory.
+</I>&gt;<i> It is not saved into .ion3/ itself, but in .ion3/default-session-0/
+</I>&gt;<i> (if you did not changed your ion session directory).
+</I>&gt;<i>
+</I>&gt;<i> &gt;     class = 'Firefox-bin',
+</I>&gt;<i> &gt;     instance = 'Firefox-bin',
+</I>&gt;<i>
+</I>&gt;<i> Here I think that instance should be lowercase, but I'm not sure.
+</I>&gt;<i> First try to omit instance.
+</I>&gt;<i>
+</I>&gt;<i> Also the script may not work in specific circumstances. I have two
+</I>&gt;<i> computers, but only on one is the solution working reliably. (The
+</I>&gt;<i> other computer is old, some plugins in iceweasel installed etc.)
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i>                                 Tom&#225;&#353; 'eb&#237;k' Ebenlendr
+</I>&gt;<i>                                 PF 2009.95150459792
+</I>&gt;<i>
+</I>&gt;<i>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20091214/b28c9185/attachment.html">https://lists.berlios.de/pipermail/ion-general/attachments/20091214/b28c9185/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001781.html">Youtube fullscreen not working
+</A></li>
+	<LI>Next message: <A HREF="001783.html">Youtube fullscreen not working
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1782">[ date ]</a>
+              <a href="thread.html#1782">[ thread ]</a>
+              <a href="subject.html#1782">[ subject ]</a>
+              <a href="author.html#1782">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

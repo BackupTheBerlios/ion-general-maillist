@@ -1,0 +1,843 @@
+From mawize at gmail.com  Wed Aug  5 17:33:14 2009
+From: mawize at gmail.com (Maximilian W. Zeller)
+Date: Wed, 5 Aug 2009 17:33:14 +0200
+Subject: window titlebar
+Message-ID: <b2f21c20908050833x60462608j47e42e06e52d256c@mail.gmail.com>
+
+hi
+
+1. i was wondering if it is possible to remove the window titlebar of
+a specific floating window? maybe with defwinprop?
+
+2. or maybe is it possible to make the titlebar of a floating window
+fit its width?
+
+any ideas?
+
+
+greets from germany
+max
+
+
+From tuomov at iki.fi  Wed Aug  5 18:00:07 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 5 Aug 2009 16:00:07 +0000 (UTC)
+Subject: window titlebar
+References: <b2f21c20908050833x60462608j47e42e06e52d256c@mail.gmail.com>
+Message-ID: <slrnh7jb47.jtj.tuomov@beer.modeemi.cs.tut.fi>
+
+On 2009-08-05, Maximilian W. Zeller <mawize at gmail.com> wrote:
+> 1. i was wondering if it is possible to remove the window titlebar of
+> a specific floating window? maybe with defwinprop?
+
+It can only be removed dynamically; _:set_mode('floating-alt')...
+maybe... I don't remember if the titlebar is disabled for
+the floating-alt style, and am not running X ATM; they've
+managed to make Cygwin X crash constantly.
+
+> 2. or maybe is it possible to make the titlebar of a floating window
+> fit its width?
+
+There's a patch that alters the way the width is calculated at
+http://modeemi.fi/~tuomov/ion/patches.html . Not sure if it's
+what you want.
+
+-- 
+Off the dope since 2009;
+  http://iki.fi/tuomov/b/archives/2009/07/21/T17_26_09/
+
+
+
+From jfharrigan at fedex.com  Wed Aug  5 17:48:01 2009
+From: jfharrigan at fedex.com (John Harrigan)
+Date: Wed, 05 Aug 2009 09:48:01 -0600
+Subject: window titlebar
+In-Reply-To: <b2f21c20908050833x60462608j47e42e06e52d256c@mail.gmail.com>
+References: <b2f21c20908050833x60462608j47e42e06e52d256c@mail.gmail.com>
+Message-ID: <20090805154801.GA14199@nc8430.rmtc.fedex.com>
+
+* mawize at gmail.com (Aug 05, 2009 @ 17:33+0200):
+> 1. i was wondering if it is possible to remove the window titlebar of
+> a specific floating window? maybe with defwinprop?
+> 
+> 2. or maybe is it possible to make the titlebar of a floating window
+> fit its width?
+
+I acheive #2 by adding:
+   bar = "inside"
+
+to the frame-floating style in my look.lua file.
+
+My specific setup:
+
+   de.defstyle("frame-floating", {
+      based_on = "frame",
+      bar = "inside",
+      padding_pixels = 0,
+      highlight_pixels = 1,
+      shadow_pixels = 1,
+      spacing = 0,
+   })
+
+
+From Matthieu.Moy at imag.fr  Wed Aug  5 17:49:14 2009
+From: Matthieu.Moy at imag.fr (Matthieu Moy)
+Date: Wed, 05 Aug 2009 17:49:14 +0200
+Subject: window titlebar
+In-Reply-To: <b2f21c20908050833x60462608j47e42e06e52d256c@mail.gmail.com>
+	(Maximilian W. Zeller's message of "Wed\,
+	5 Aug 2009 17\:33\:14 +0200")
+References: <b2f21c20908050833x60462608j47e42e06e52d256c@mail.gmail.com>
+Message-ID: <vpq3a866z2d.fsf@bauges.imag.fr>
+
+"Maximilian W. Zeller" <mawize at gmail.com> writes:
+
+> hi
+>
+> 1. i was wondering if it is possible to remove the window titlebar of
+> a specific floating window? maybe with defwinprop?
+
+defbindings("WMPlex.toplevel", {
+               kpress(META.."Escape", "toggle_tab(_)"),
+            })
+
+and I can show/hide the titlebar with meta+escape.
+
+-- 
+Matthieu
+
+
+From mawize at gmail.com  Wed Aug  5 19:56:31 2009
+From: mawize at gmail.com (Maximilian W. Zeller)
+Date: Wed, 5 Aug 2009 19:56:31 +0200
+Subject: window titlebar
+In-Reply-To: <vpq3a866z2d.fsf@bauges.imag.fr>
+References: <b2f21c20908050833x60462608j47e42e06e52d256c@mail.gmail.com>
+	<vpq3a866z2d.fsf@bauges.imag.fr>
+Message-ID: <b2f21c20908051056s44ff71eeg550cf82ed53742ed@mail.gmail.com>
+
+thank you all ... these things helped a lot
+
+i have another question though: Is there a possibility to set absolute
+position for floating windows through defwinprop?
+
+thanks in advance
+max
+
+On Wed, Aug 5, 2009 at 5:49 PM, Matthieu Moy<Matthieu.Moy at imag.fr> wrote:
+> "Maximilian W. Zeller" <mawize at gmail.com> writes:
+>
+>> hi
+>>
+>> 1. i was wondering if it is possible to remove the window titlebar of
+>> a specific floating window? maybe with defwinprop?
+>
+> defbindings("WMPlex.toplevel", {
+> ? ? ? ? ? ? ? kpress(META.."Escape", "toggle_tab(_)"),
+> ? ? ? ? ? ?})
+>
+> and I can show/hide the titlebar with meta+escape.
+>
+> --
+> Matthieub
+>
+
+>> 2. or maybe is it possible to make the titlebar of a floating window
+>> fit its width?
+>
+>I acheive #2 by adding:
+>  bar = "inside"
+>
+>to the frame-floating style in my look.lua file.
+>
+>My specific setup:
+>
+>  de.defstyle("frame-floating", {
+>     based_on = "frame",
+>     bar = "inside",
+>     padding_pixels = 0,
+>     highlight_pixels = 1,
+>     shadow_pixels = 1,
+>     spacing = 0,
+>  })
+
+
+From mason at f2s.com  Wed Aug  5 19:30:21 2009
+From: mason at f2s.com (Sam Mason)
+Date: Wed, 5 Aug 2009 18:30:21 +0100
+Subject: window titlebar
+In-Reply-To: <slrnh7jb47.jtj.tuomov@beer.modeemi.cs.tut.fi>
+References: <b2f21c20908050833x60462608j47e42e06e52d256c@mail.gmail.com>
+	<slrnh7jb47.jtj.tuomov@beer.modeemi.cs.tut.fi>
+Message-ID: <20090805173021.GR5407@samason.me.uk>
+
+On Wed, Aug 05, 2009 at 04:00:07PM +0000, Tuomo Valkonen wrote:
+> am not running X ATM; they've managed to make Cygwin X crash
+> constantly.
+
+That's what you get for not using a proper operating system! :)
+
+-- 
+  Sam  http://samason.me.uk/
+
+
+From olejorgenb at yahoo.no  Wed Aug  5 20:27:54 2009
+From: olejorgenb at yahoo.no (=?utf-8?Q?Ole_J=C3=B8rgen_Br=C3=B8nner?=)
+Date: Wed, 05 Aug 2009 20:27:54 +0200
+Subject: window titlebar
+In-Reply-To: <b2f21c20908051056s44ff71eeg550cf82ed53742ed@mail.gmail.com>
+References: <b2f21c20908050833x60462608j47e42e06e52d256c@mail.gmail.com>
+	<vpq3a866z2d.fsf@bauges.imag.fr>
+	<b2f21c20908051056s44ff71eeg550cf82ed53742ed@mail.gmail.com>
+Message-ID: <op.ux7b8sagvocxtk@tabole-debian>
+
+http://modeemi.fi/~tuomov/ion-doc-3/ionconf/node4.html#SECTION00451000000000000000  
+might work (haven't tried it myself)?
+
+On Wed, 05 Aug 2009 19:56:31 +0200, Maximilian W. Zeller  
+<mawize at gmail.com> wrote:
+
+> thank you all ... these things helped a lot
+>
+> i have another question though: Is there a possibility to set absolute
+> position for floating windows through defwinprop?
+>
+> thanks in advance
+> max
+
+
+
+From tuomov at iki.fi  Thu Aug  6 13:19:14 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 6 Aug 2009 11:19:14 +0000 (UTC)
+Subject: window titlebar
+References: <b2f21c20908050833x60462608j47e42e06e52d256c@mail.gmail.com>
+	<slrnh7jb47.jtj.tuomov@beer.modeemi.cs.tut.fi>
+	<20090805173021.GR5407@samason.me.uk>
+Message-ID: <slrnh7lf1i.vc.tuomov@beer.modeemi.cs.tut.fi>
+
+On 2009-08-05, Sam Mason <mason at f2s.com> wrote:
+> That's what you get for not using a proper operating system! :)
+
+Yes, on a proper operating system (instead of a half of one
+running on another proper one), I'd be stuck to the 80x25
+VGA console.
+
+Random Cygwin brokenness (1.7 betas) is just the familiar 
+situation from Linux, where you're also stuck to using
+unstable/experimental distributions, because the stable
+megadistros provide too old non-core software and do not
+run the newest third-party software without massive library
+recompilation efforts. At least on Windows there's a stable
+proper _core_ operating system underneath, running all the
+latest software.
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+
+From mawize at gmail.com  Thu Aug  6 13:31:42 2009
+From: mawize at gmail.com (Maximilian W. Zeller)
+Date: Thu, 6 Aug 2009 13:31:42 +0200
+Subject: window titlebar
+In-Reply-To: <op.ux7b8sagvocxtk@tabole-debian>
+References: <b2f21c20908050833x60462608j47e42e06e52d256c@mail.gmail.com>
+	<vpq3a866z2d.fsf@bauges.imag.fr>
+	<b2f21c20908051056s44ff71eeg550cf82ed53742ed@mail.gmail.com>
+	<op.ux7b8sagvocxtk@tabole-debian>
+Message-ID: <b2f21c20908060431j407e3a31ha0452b6b5809b4b@mail.gmail.com>
+
+i dont't quite get how to give absolute x/y position?!
+
+i am looking for something like
+position = { x = 100, y = 100 }
+
+what i read in the documentation is how to manipulate size but
+couldn't find anything to manipulate the position.
+
+
+
+2009/8/5 Ole J?rgen Br?nner <olejorgenb at yahoo.no>:
+> http://modeemi.fi/~tuomov/ion-doc-3/ionconf/node4.html#SECTION00451000000000000000
+> might work (haven't tried it myself)?
+>
+> On Wed, 05 Aug 2009 19:56:31 +0200, Maximilian W. Zeller <mawize at gmail.com>
+> wrote:
+>
+>> thank you all ... these things helped a lot
+>>
+>> i have another question though: Is there a possibility to set absolute
+>> position for floating windows through defwinprop?
+>>
+>> thanks in advance
+>> max
+>
+>
+
+
+From tuomov at iki.fi  Thu Aug  6 18:38:34 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 6 Aug 2009 16:38:34 +0000 (UTC)
+Subject: window titlebar
+References: <b2f21c20908050833x60462608j47e42e06e52d256c@mail.gmail.com>
+	<vpq3a866z2d.fsf@bauges.imag.fr>
+	<b2f21c20908051056s44ff71eeg550cf82ed53742ed@mail.gmail.com>
+	<op.ux7b8sagvocxtk@tabole-debian>
+	<b2f21c20908060431j407e3a31ha0452b6b5809b4b@mail.gmail.com>
+Message-ID: <slrnh7m1oa.a1m.tuomov@beer.modeemi.cs.tut.fi>
+
+On 2009-08-06, Maximilian W. Zeller <mawize at gmail.com> wrote:
+> i dont't quite get how to give absolute x/y position?!
+>
+> i am looking for something like
+> position = { x = 100, y = 100 }
+
+There isn't one in Ion3. I did add a winprop to ion3plus,
+but all the documentation is the changelog entry.
+(See also WGroup.attach docs.)
+
+Fri Oct 24 20:25:20 FLE Daylight Time 2008  Tuomo Valkonen <tuomov at iki.fi>
+  * * Added attach_params winprop and auto_placement option.
+    The first, attach_params, is a table containing the same parameters that can
+    be passed to WGroup.attach. It is applied when a new frame would normally be
+    created for the window, as attach parameters of the frame. The parameters are
+    thus not applied when attaching a new window to an existing (tiled) frame, or
+    for attaching the window within the newly created frame.
+
+    The second, auto_placement, is a boolean option in the attach parameters,
+    and can be used to control whether application-supplied position is used,
+    or whether Ion should itself calculate a position for the window.
+
+-- 
+Stop Gnomes and other pests! Purchase Windows today!
+  http://iki.fi/tuomov/b/archives/2009/07/21/T17_26_09/
+
+
+
+
+From olejorgenb at yahoo.no  Thu Aug  6 22:11:24 2009
+From: olejorgenb at yahoo.no (=?utf-8?Q?Ole_J=C3=B8rgen_Br=C3=B8nner?=)
+Date: Thu, 06 Aug 2009 22:11:24 +0200
+Subject: window titlebar
+In-Reply-To: <b2f21c20908060431j407e3a31ha0452b6b5809b4b@mail.gmail.com>
+References: <b2f21c20908050833x60462608j47e42e06e52d256c@mail.gmail.com>
+	<vpq3a866z2d.fsf@bauges.imag.fr>
+	<b2f21c20908051056s44ff71eeg550cf82ed53742ed@mail.gmail.com>
+	<op.ux7b8sagvocxtk@tabole-debian>
+	<b2f21c20908060431j407e3a31ha0452b6b5809b4b@mail.gmail.com>
+Message-ID: <op.ux9bpa2cvocxtk@tabole-debian>
+
+Sorry, I miss-read the userpos part in the docs.
+
+You can always do something like this with hooks (clientwin_do_manage_alt)
+but it's not as clean.
+
+(After reading tuomov's mail, I guess you should try ion3plus)
+
+On Thu, 06 Aug 2009 13:31:42 +0200, Maximilian W. Zeller
+<mawize at gmail.com> wrote:
+
+> i dont't quite get how to give absolute x/y position?!
+>
+> i am looking for something like
+> position = { x = 100, y = 100 }
+>
+> what i read in the documentation is how to manipulate size but
+> couldn't find anything to manipulate the position.
+>
+>
+>
+> 2009/8/5 Ole J?rgen Br?nner <olejorgenb at yahoo.no>:
+>> http://modeemi.fi/~tuomov/ion-doc-3/ionconf/node4.html#SECTION00451000000000000000
+>> might work (haven't tried it myself)?
+>>
+>> On Wed, 05 Aug 2009 19:56:31 +0200, Maximilian W. Zeller  
+>> <mawize at gmail.com>
+>> wrote:
+>>
+>>> thank you all ... these things helped a lot
+>>>
+>>> i have another question though: Is there a possibility to set absolute
+>>> position for floating windows through defwinprop?
+>>>
+>>> thanks in advance
+>>> max
+>>
+
+
+
+From mawize at gmail.com  Sat Aug  8 15:05:17 2009
+From: mawize at gmail.com (Maximilian W. Zeller)
+Date: Sat, 8 Aug 2009 15:05:17 +0200
+Subject: scripting winprop extension
+Message-ID: <b2f21c20908080605q695c63b8y7afd07865eea3808@mail.gmail.com>
+
+hi again
+
+i am not quite familiar with lua but think it must be something like
+the following to extend winprop by the option position. I don't know
+how to make ion3 use this file. Is it enough to just put it in the
+~/.ion3 folder? And as i said i don't know if this is how its done. I
+got these functions from the documentation but i am not sure if i used
+them right.
+
+-- usage:
+-- defwinprop {
+--    class = "something"
+--    instance = "anything"
+--    float = true
+--    position = { x = 100, y = 100 }
+-- }
+
+windowpos = {}
+
+function windowpos.set (cwin, tab) {
+
+        local prop = ioncore.get_winprop(cwin)
+        if prop and prop.float and prop.position then
+
+                local horizmul = prop.position.x
+                local vertmul = prop.position.y
+
+                WFloatFrame.begin_resize(cwin)
+                WFloatFrame.do_move(cwin, horizmul, vertmul)
+                WFloatFrame.end_resize(cwin)
+
+                return true
+
+        end
+
+        return false
+}
+
+ioncore.get_hook("clientwin_do_manage_alt"):add(windowpos.set)
+
+
+From olejorgenb at yahoo.no  Sat Aug  8 18:00:31 2009
+From: olejorgenb at yahoo.no (olejorgenb at yahoo.no)
+Date: Sat, 08 Aug 2009 18:00:31 +0200
+Subject: scripting winprop extension
+References: <b2f21c20908080605q695c63b8y7afd07865eea3808@mail.gmail.com>
+Message-ID: <557085.95038.bm@omp103.mail.re3.yahoo.com>
+
+Yes, something like that, but I'm not sure if you can define arbitrary
+winprops. Also You can simpy do cwin:rqgeom({x=prop.position.x,  
+y=prop.position.y})
+
+- Ole J?rgen Br?nner
+
+On Sat, 08 Aug 2009 15:05:17 +0200, Maximilian W. Zeller
+<mawize at gmail.com> wrote:
+
+> hi again
+>
+> i am not quite familiar with lua but think it must be something like
+> the following to extend winprop by the option position. I don't know
+> how to make ion3 use this file. Is it enough to just put it in the
+> ~/.ion3 folder? And as i said i don't know if this is how its done. I
+> got these functions from the documentation but i am not sure if i used
+> them right.
+>
+> -- usage:
+> -- defwinprop {
+> --    class = "something"
+> --    instance = "anything"
+> --    float = true
+> --    position = { x = 100, y = 100 }
+> -- }
+>
+> windowpos = {}
+>
+> function windowpos.set (cwin, tab) {
+>
+>         local prop = ioncore.get_winprop(cwin)
+>         if prop and prop.float and prop.position then
+>
+>                 local horizmul = prop.position.x
+>                 local vertmul = prop.position.y
+>
+>                 WFloatFrame.begin_resize(cwin)
+>                 WFloatFrame.do_move(cwin, horizmul, vertmul)
+>                 WFloatFrame.end_resize(cwin)
+>
+>                 return true
+>
+>         end
+>
+>         return false
+> }
+>
+> ioncore.get_hook("clientwin_do_manage_alt"):add(windowpos.set)
+
+
+
+From tuomov at iki.fi  Sun Aug  9 23:43:06 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 9 Aug 2009 21:43:06 +0000 (UTC)
+Subject: scripting winprop extension
+References: <b2f21c20908080605q695c63b8y7afd07865eea3808@mail.gmail.com>
+Message-ID: <slrnh7ugna.rt3.tuomov@beer.modeemi.cs.tut.fi>
+
+On 2009-08-08, Maximilian W. Zeller <mawize at gmail.com> wrote:
+> hi again
+>
+> i am not quite familiar with lua but think it must be something like
+> the following to extend winprop by the option position. I don't know
+> how to make ion3 use this file. Is it enough to just put it in the
+> ~/.ion3 folder? And as i said i don't know if this is how its done. I
+> got these functions from the documentation but i am not sure if i used
+> them right.
+
+It won't work that easily. clientwin_do_manage_alt is a very
+low-level hook, and it should go through all the trouble of
+finding the workspaces to place the window on, and do all the
+attaching of the window there, etc. 
+
+Also, as already mentioned, rqgeom is the correct function 
+for requesting a change in geometry, instead of the ones 
+that are meant to control an interactive session. *However*
+in this case the requested geometry should be simply passed
+to the appropriate 'attach' routine, as the window has not
+yet been attached anywhere in this hook.
+
+-- 
+Stop Gnomes and other pests! Purchase Windows today!
+  http://iki.fi/tuomov/b/archives/2009/07/21/T17_26_09/
+
+
+
+From jerojasro at devnull.li  Fri Aug 14 09:11:25 2009
+From: jerojasro at devnull.li (Javier Rojas)
+Date: Fri, 14 Aug 2009 02:11:25 -0500
+Subject: close frame when empty
+Message-ID: <20090814071125.GA12671@fenchurch>
+
+I'd like Ion to close all the empty frames automatically. I've checked
+the list, and found this thread
+https://lists.berlios.de/pipermail/ion-general/2009-June/002452.html in
+which I found how to do it (add a call to the close method of the frame
+in a hook, and close only when the client count is zero)
+
+However, now I have one issue: if the frame is the last one in the
+workspace, the workspace is also closed.
+
+I think is possible to avoid such behaviour by checking the tiling
+(or the ws) to close the frame only when there are more frames in the
+tiling. But I don't know how to ask Ion about how many frames are in a
+tiling (or in a workspace). Any suggestions?
+
+Thanks
+
+-- 
+Javier Rojas
+
+GPG Key ID: 0x24E00D68
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20090814/a6759d87/attachment.pgp>
+
+From tuomov at iki.fi  Fri Aug 14 10:00:40 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 14 Aug 2009 08:00:40 +0000 (UTC)
+Subject: close frame when empty
+References: <20090814071125.GA12671@fenchurch>
+Message-ID: <slrnh8a6d8.upa.tuomov@beer.modeemi.cs.tut.fi>
+
+On 2009-08-14, Javier Rojas <jerojasro at devnull.li> wrote:
+> I think is possible to avoid such behaviour by checking the tiling
+> (or the ws) to close the frame only when there are more frames in the
+> tiling. But I don't know how to ask Ion about how many frames are in a
+> tiling (or in a workspace). Any suggestions?
+
+One possibility is using WTiling.managed_i to go through
+the list of objects managed by the tiling. RTFM on details,
+but, e.g., the following snippet in Mod1+F3 prints the names
+of everything (except the somewhat transient stdisp) managed
+by the tiling:
+
+_:manager():managed_i(function(x)
+                          print(x:name())
+                          return true
+                      end)
+
+_ is the frame in which Mod1+F3 is opened, _:manager() is
+typically the tiling object on tiled workspaces, etc. The
+function must return true to continue iteration, false 
+(or nil) to stop iteration. Just replace the print with
+something that sets a (local) variable outside the iterated 
+function to frame count, and stop iteration if this has 
+become at least two.
+
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and the cycle paths 
+have been replaced with polluted motorways.
+
+
+
+From jerojasro at devnull.li  Fri Aug 14 22:05:34 2009
+From: jerojasro at devnull.li (Javier Rojas)
+Date: Fri, 14 Aug 2009 22:05:34 +0200
+Subject: close frame when empty
+In-Reply-To: <slrnh8a6d8.upa.tuomov@beer.modeemi.cs.tut.fi>
+References: <20090814071125.GA12671@fenchurch>
+	<slrnh8a6d8.upa.tuomov@beer.modeemi.cs.tut.fi>
+Message-ID: <20090814200534.GJ2489@sulaco>
+
+On Fri, Aug 14, 2009 at 08:00:40AM +0000, Tuomo Valkonen wrote:
+> One possibility is using WTiling.managed_i to go through
+> the list of objects managed by the tiling. RTFM on details,
+> but, e.g., the following snippet in Mod1+F3 prints the names
+> of everything (except the somewhat transient stdisp) managed
+> by the tiling:
+> 
+> _:manager():managed_i(function(x)
+>                           print(x:name())
+>                           return true
+>                       end)
+> 
+
+I ended up using that to count the number of frames in the tiling. The
+resulting code follows. Thanks for your help
+
+local nframes
+local function close_frame(p)
+   m = p.reg:manager()
+   if not m then return end
+   local nframes = 0
+   m:managed_i(function(x) nframes = nframes + 1 return true end)
+   if nframes > 1 and p.reg:mx_count() == 0 then
+      ioncore.defer(function() p.reg:rqclose()  end)
+   end
+end
+ioncore.get_hook("frame_managed_changed_hook"):add(close_frame)
+
+
+--
+Javier
+
+
+From x.piter at gmail.com  Thu Aug 27 15:39:57 2009
+From: x.piter at gmail.com (Piter_)
+Date: Thu, 27 Aug 2009 16:39:57 +0300
+Subject: "command line" ?
+Message-ID: <6f4f96030908270639g2aa87e63rd508795b4f8e69a0@mail.gmail.com>
+
+Hi all.
+There is "command line" opened by F3 button.
+I wonder if its possible to move it up from the bottom of the screen.
+Thanks.
+Petro
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20090827/79014352/attachment.html>
+
+From tuomov at iki.fi  Thu Aug 27 19:44:21 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 27 Aug 2009 17:44:21 +0000 (UTC)
+Subject: "command line" ?
+References: <6f4f96030908270639g2aa87e63rd508795b4f8e69a0@mail.gmail.com>
+Message-ID: <slrnh9dhfl.tnj.tuomov@beer.modeemi.cs.tut.fi>
+
+On 2009-08-27, Piter_ <x.piter at gmail.com> wrote:
+> There is "command line" opened by F3 button.
+> I wonder if its possible to move it up from the bottom of the screen.
+> Thanks.
+> Petro
+
+No, unless you write the necessary code.
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+
+
+
+From olejorgenb at yahoo.no  Thu Aug 27 23:45:23 2009
+From: olejorgenb at yahoo.no (=?utf-8?Q?Ole_J=C3=B8rgen_Br=C3=B8nner?=)
+Date: Thu, 27 Aug 2009 23:45:23 +0200
+Subject: "command line" ?
+In-Reply-To: <slrnh9dhfl.tnj.tuomov@beer.modeemi.cs.tut.fi>
+References: <6f4f96030908270639g2aa87e63rd508795b4f8e69a0@mail.gmail.com>
+	<slrnh9dhfl.tnj.tuomov@beer.modeemi.cs.tut.fi>
+Message-ID: <op.uzcb1xvivocxtk@tabole-debian>
+
+Turns out this is quite easy to do.
+
+I just changed line 49 in mod_query/query.c from
+
+par.szplcy=SIZEPOLICY_FULL_BOUNDS;
+par.level=STACKING_LEVEL_MODAL1+2;
+
+to
+
+par.szplcy=SIZEPOLICY_STRETCH_TOP;
+par.level=STACKING_LEVEL_MODAL1+2;
+
+Not sure why SIZEPOLICY_FULL_BOUNDS is used in place of  
+SIZEPOLICY_STRETCH_BOTTOM originally. I guess that could mean that the TOP  
+solution will have som bugs.
+
+I did this in ion3plus.
+
+On Thu, 27 Aug 2009 19:44:21 +0200, Tuomo Valkonen <tuomov at iki.fi> wrote:
+
+> On 2009-08-27, Piter_ <x.piter at gmail.com> wrote:
+>> There is "command line" opened by F3 button.
+>> I wonder if its possible to move it up from the bottom of the screen.
+>> Thanks.
+>> Petro
+>
+> No, unless you write the necessary code.
+>
+
+
+
+-- 
+mvh.
+Ole J?rgen Br?nner
+
+
+
+From tuomov at iki.fi  Fri Aug 28 09:06:54 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 28 Aug 2009 07:06:54 +0000 (UTC)
+Subject: "command line" ?
+References: <6f4f96030908270639g2aa87e63rd508795b4f8e69a0@mail.gmail.com>
+	<slrnh9dhfl.tnj.tuomov@beer.modeemi.cs.tut.fi>
+	<op.uzcb1xvivocxtk@tabole-debian>
+Message-ID: <slrnh9f0ge.6kd.tuomov@beer.modeemi.cs.tut.fi>
+
+On 2009-08-27, Ole J?rgen Br?nner <olejorgenb at yahoo.no> wrote:
+> Not sure why SIZEPOLICY_FULL_BOUNDS is used in place of  
+> SIZEPOLICY_STRETCH_BOTTOM originally. I guess that could mean that the TOP  
+> solution will have som bugs.
+
+Do completions still work? The reason for FULL_BOUNDS is that
+the query boxes do their own size calculations, instead of
+letting the WMPlex completely manage their sizes. It shouldn't
+be so, but I never got around to cleaning this part up after
+adding the size policy stuff.
+
+-- 
+If I can't choose the music, it's not my revolution.
+
+
+
+From olejorgenb at yahoo.no  Fri Aug 28 12:44:34 2009
+From: olejorgenb at yahoo.no (=?utf-8?Q?Ole_J=C3=B8rgen_Br=C3=B8nner?=)
+Date: Fri, 28 Aug 2009 12:44:34 +0200
+Subject: "command line" ?
+In-Reply-To: <slrnh9f0ge.6kd.tuomov@beer.modeemi.cs.tut.fi>
+References: <6f4f96030908270639g2aa87e63rd508795b4f8e69a0@mail.gmail.com>
+	<slrnh9dhfl.tnj.tuomov@beer.modeemi.cs.tut.fi>
+	<op.uzcb1xvivocxtk@tabole-debian>
+	<slrnh9f0ge.6kd.tuomov@beer.modeemi.cs.tut.fi>
+Message-ID: <op.uzdb4kg6vocxtk@tabole-debian>
+
+No, you're right, they don't.
+
+On Fri, 28 Aug 2009 09:06:54 +0200, Tuomo Valkonen <tuomov at iki.fi> wrote:
+
+> On 2009-08-27, Ole J?rgen Br?nner <olejorgenb at yahoo.no> wrote:
+>> Not sure why SIZEPOLICY_FULL_BOUNDS is used in place of
+>> SIZEPOLICY_STRETCH_BOTTOM originally. I guess that could mean that the  
+>> TOP
+>> solution will have som bugs.
+>
+> Do completions still work? The reason for FULL_BOUNDS is that
+> the query boxes do their own size calculations, instead of
+> letting the WMPlex completely manage their sizes. It shouldn't
+> be so, but I never got around to cleaning this part up after
+> adding the size policy stuff.
+
+
+
+From tuomov at iki.fi  Fri Aug 28 14:15:31 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 28 Aug 2009 12:15:31 +0000 (UTC)
+Subject: "command line" ?
+References: <6f4f96030908270639g2aa87e63rd508795b4f8e69a0@mail.gmail.com>
+	<slrnh9dhfl.tnj.tuomov@beer.modeemi.cs.tut.fi>
+	<op.uzcb1xvivocxtk@tabole-debian>
+	<slrnh9f0ge.6kd.tuomov@beer.modeemi.cs.tut.fi>
+	<op.uzdb4kg6vocxtk@tabole-debian>
+Message-ID: <slrnh9fij3.3qb.tuomov@beer.modeemi.cs.tut.fi>
+
+On 2009-08-28, Ole J?rgen Br?nner <olejorgenb at yahoo.no> wrote:
+> No, you're right, they don't.
+
+If someone wants to work on this, here's what I after
+a very quick glance over the code (that it's been ages
+since I last looked into), think might be the plan:
+
+- In input_do_refit, we have to rqgeom instead of window_do_fitrep. 
+The crux is that with FULL_BOUNDS we know the available space. 
+With the size policy set to something else, we only know the 
+area the managing WMPlex (or other region) is willing to give us
+per the size policy. So we have to ask for as much as we'd like
+to have with rqgeom... but to calculate the wanted height for our
+requests, we have to assume that the width stays fixed. 
+Thus, input_calc_size has to be modified to support calculations
+with infinite max_geom.h (virtually; INT_MAX or so).
+
+- We can no longer use the modified input_refit in input_fitrep 
+(that gets alled by the managing object to do the resizing),
+instead an updated version of the current code has to be used
+there. (It's just a couple of lines.)
+
+- It should be possible to get rid of the last_fp field, modifying
+all code involving it, as we no longer make requests using the
+last known available space.
+
+- Of course, for nicer top-aligned queries, the completions
+should expand downwards, and this demands a bit of extra work,
+figuring out whether we're actually attached to a WMPlex,
+and asking for the effective size policy to see if it is a
+top-aligned one.
+
+Probably I'm missing something, but that should get anyone
+interested in this started. I have better things to do...
+actually haven't been able to use Ion lately, because Cygwin
+X has been in a "crash every 5 minutes" state for nearly a
+couple of months now. Typical FOSScrap.
+
+-- 
+Off the dope since 2009;
+  http://iki.fi/tuomov/b/archives/2009/07/21/T17_26_09/
+
+
+
+From timandahaf+dev at gmail.com  Fri Aug 28 18:25:16 2009
+From: timandahaf+dev at gmail.com (Timandahaf)
+Date: Fri, 28 Aug 2009 12:25:16 -0400 (EDT)
+Subject: Ion on Mac -- status?
+Message-ID: <alpine.LNX.2.00.0908281218380.22649@india.ece.cmu.edu>
+
+What is the status of ion3 on Mac? I don't know much about Macs, but I
+have a friend who wants to install ion on their Mac, and it'd be nice to
+point them to an easy way to do it. I don't see any recent messages that
+talk about this.
+
+Specifically, these are my questions:
+
+1. Is there a simple, easy, and straightforward way to install ion3 on
+the Mac? If not, is there some nicely written documentation somewhere on
+the steps required for a Mac install?
+
+2. Is there a way a user could run ion on their Mac in conjunction with
+Aqua or whatever Mac's window manager is? I assume one could always run
+an additional X session with ion -- is this right, and is it as
+straightforward as it is on Linux? Also, is there a way to run ion under
+the same X session in conjunction with Aqua?
+
+Any pointers much appreciated. Thanks!
+
+

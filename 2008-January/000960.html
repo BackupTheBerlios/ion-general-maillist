@@ -1,0 +1,335 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> I'm very sad...
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20I%27m%20very%20sad...&In-Reply-To=%3C20080102162602.GG12120%40marco.fz-rossendorf.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000959.html">
+   <LINK REL="Next"  HREF="000961.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>I'm very sad...</H1>
+    <B>Joerg van den Hoff</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20I%27m%20very%20sad...&In-Reply-To=%3C20080102162602.GG12120%40marco.fz-rossendorf.de%3E"
+       TITLE="I'm very sad...">j.van_den_hoff at fzd.de
+       </A><BR>
+    <I>Wed Jan  2 17:26:02 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000959.html">I'm very sad...
+</A></li>
+        <LI>Next message: <A HREF="000961.html">I'm very sad...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#960">[ date ]</a>
+              <a href="thread.html#960">[ thread ]</a>
+              <a href="subject.html#960">[ subject ]</a>
+              <a href="author.html#960">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Wed, Jan 02, 2008 at 05:01:38PM +0200, Tuomo Valkonen wrote:
+&gt;<i> On 2008-01-02 14:28 +0100, Joerg van den Hoff wrote:
+</I>&gt;<i> &gt; tuomo:   you  know  that  I  don't  like  this  scenario  of
+</I>&gt;<i> &gt; &quot;everybody compiles from scratch on  his  own&quot;   (it  simply
+</I>&gt;<i> &gt; burns  time  again  and again) and I know you probably won't
+</I>&gt;<i> &gt; alter your attitude. so, maybe you could  start  to  provide
+</I>&gt;<i> &gt; alternate  `system.mk' versions or at least the patch files?
+</I>&gt;<i> &gt; this one could be called, e.g.
+</I>&gt;<i> 
+</I>&gt;<i> I have suggested using the scripts repo for all the build files
+</I>&gt;<i> needed on different platforms. Please submit those patches to
+</I>&gt;<i> it (via darcs, if you can, or send on the ML and maybe someone
+</I>
+darcs: I installed it once, but don't really know how to use
+it. if I find time, I'll give it a try. otherwise I'd prefer
+the ML. but such patches to system.mk rapidly go out of sync
+with the actual state of  affairs,  i.e.  they  are  version
+dependent, obviously. so, if they really make sense (to you,
+that is), why not inlcude them  (even  &quot;post-release&quot;  time)
+with  sensible  names  in the tarball together with a README
+addendum? actually, this is of  course  what  the  different
+distros do, when they include a package. one will not get it
+100% watertight but sure it will help to reduce the  pain  a
+bit.
+
+
+&gt;<i> else will submit).
+</I>&gt;<i> 
+</I>&gt;<i> I have also added some documentation to system.mk, which should 
+</I>&gt;<i> make it a bit easier to modify to your needs. (This also means
+</I>&gt;<i> that your patch may no longer apply. The full old system.mk
+</I>&gt;<i> should work, though.) It is attached. Comments?
+</I>&gt;<i> 
+</I>&gt;<i> -- 
+</I>&gt;<i> Tuomo
+</I>
+adding  more  documentation sure is a good thing to do. some
+coments see below.
+
+&gt;<i> ##
+</I>&gt;<i> ## System settings
+</I>&gt;<i> ##
+</I>&gt;<i> 
+</I>&gt;<i> ##
+</I>&gt;<i> ## Installation paths
+</I>&gt;<i> ##
+</I>&gt;<i> 
+</I>&gt;<i> # Installation path prefix. Unless you know what you're doing, the default
+</I>&gt;<i> # of /usr/local is likely the correct choice.
+</I>
+what is DIST:? above comment and actual PREFIX value are out
+of sync.  I would think the phrase  'unless  you  know  what
+you're doing' can be omitted altogether...
+
+&gt;<i> #DIST: PREFIX=/usr/local
+</I>&gt;<i> PREFIX=/usr/local/ion-3
+</I>&gt;<i> 
+</I>&gt;<i> # Unless you are creating a package conforming to some OS's standards, you
+</I>&gt;<i> # probably do not want to modify the following directories:
+</I>&gt;<i> 
+</I>&gt;<i> # Main binaries
+</I>&gt;<i> BINDIR=$(PREFIX)/bin
+</I>&gt;<i> # Configuration .lua files
+</I>&gt;<i> ETCDIR=$(PREFIX)/etc/ion3
+</I>&gt;<i> # Some .lua files and ion-* shell scripts
+</I>&gt;<i> SHAREDIR=$(PREFIX)/share/ion3
+</I>&gt;<i> # Manual pages
+</I>&gt;<i> MANDIR=$(PREFIX)/share/man
+</I>&gt;<i> # Some documents
+</I>&gt;<i> DOCDIR=$(PREFIX)/share/doc/ion3
+</I>&gt;<i> # Nothing at the moment
+</I>&gt;<i> INCDIR=$(PREFIX)/include/ion3
+</I>&gt;<i> # Nothing at the moment
+</I>&gt;<i> LIBDIR=$(PREFIX)/lib
+</I>&gt;<i> # Modules
+</I>&gt;<i> MODULEDIR=$(LIBDIR)/ion3/mod
+</I>&gt;<i> # Compiled Lua source code
+</I>&gt;<i> LCDIR=$(LIBDIR)/ion3/lc
+</I>&gt;<i> # ion-completefile (does not belong in SHAREDIR being a binary file)
+</I>&gt;<i> EXTRABINDIR=$(LIBDIR)/ion3/bin
+</I>&gt;<i> # For ion-completeman system-wide cache
+</I>&gt;<i> VARDIR=/var/cache/ion3
+</I>&gt;<i> # Message catalogs
+</I>&gt;<i> LOCALEDIR=$(PREFIX)/share/locale
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> ##
+</I>&gt;<i> ## Modules
+</I>&gt;<i> ##
+</I>&gt;<i> 
+</I>&gt;<i> # Set PRELOAD_MODULES=1 if your system does not support dynamically loaded
+</I>&gt;<i> # modules through 'libdl' or has non-standard naming conventions.
+</I>&gt;<i> # You will likely need this option on e.g. Cygwin and Mac OS X.
+</I>&gt;<i> #PRELOAD_MODULES=1
+</I>&gt;<i> 
+</I>&gt;<i> # Flags to link with libdl. Even if PRELOAD_MODULES=1, you may need this
+</I>&gt;<i> # setting (for e.g. Lua, when not instructed by pkg-config).
+</I>&gt;<i> DL_LIBS=-ldl
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> ##
+</I>&gt;<i> ## Lua
+</I>&gt;<i> ##
+</I>&gt;<i> 
+</I>&gt;<i> # If you have installed Lua 5.1 from the official tarball without changing
+</I>&gt;<i> # paths, this should do it.
+</I>&gt;<i> LUA_DIR=/usr/local
+</I>&gt;<i> LUA_LIBS = -L$(LUA_DIR)/lib -llua
+</I>&gt;<i> LUA_INCLUDES = -I$(LUA_DIR)/include
+</I>&gt;<i> LUA=$(LUA_DIR)/bin/lua
+</I>&gt;<i> LUAC=$(LUA_DIR)/bin/luac
+</I>&gt;<i> 
+</I>&gt;<i> # If you are using the Debian packages, the following settings should be
+</I>&gt;<i> # what you want.
+</I>&gt;<i> #LUA_LIBS=`pkg-config --libs lua5.1`
+</I>&gt;<i> #LUA_INCLUDES=`pkg-config --cflags lua5.1`
+</I>&gt;<i> #LUA=/usr/bin/lua5.1
+</I>&gt;<i> #LUAC=/usr/bin/luac5.1
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> ##
+</I>&gt;<i> ## X libraries, includes and options
+</I>&gt;<i> ##
+</I>&gt;<i> 
+</I>&gt;<i> # Paths
+</I>&gt;<i> X11_PREFIX=/usr/X11R6
+</I>&gt;<i> # SunOS/Solaris
+</I>&gt;<i> #X11_PREFIX=/usr/openwin
+</I>&gt;<i> 
+</I>&gt;<i> X11_LIBS=-L$(X11_PREFIX)/lib -lX11 -lXext
+</I>&gt;<i> X11_INCLUDES=-I$(X11_PREFIX)/include
+</I>&gt;<i> 
+</I>&gt;<i> # XFree86 libraries up to 4.3.0 have a bug that can cause a segfault.
+</I>&gt;<i> # The following setting  should  work around that situation.
+</I>&gt;<i> DEFINES += -DCF_XFREE86_TEXTPROP_BUG_WORKAROUND
+</I>&gt;<i> 
+</I>&gt;<i> # Use the Xutf8 routines (XFree86 extension) instead of the Xmb routines
+</I>&gt;<i> # in an UTF-8 locale. (No, you don't need this in UTF-8 locales, and 
+</I>&gt;<i> # most likely don't even want. It's only there because both Xmb and 
+</I>&gt;<i> # Xutf8 routines are broken, in different ways.)
+</I>&gt;<i> #DEFINES += -DCF_DE_USE_XUTF8
+</I>&gt;<i> 
+</I>&gt;<i> # Remap F11 key to SunF36 and F12 to SunF37? You may want to set this
+</I>&gt;<i> # on SunOS.
+</I>&gt;<i> #DEFINES += -DCF_SUN_F1X_REMAP
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> ##
+</I>&gt;<i> ## Localisation
+</I>&gt;<i> ##
+</I>&gt;<i> 
+</I>&gt;<i> # If you're on an archaic system (such as relatively recent *BSD releases)
+</I>&gt;<i> # without even dummy multibyte/widechar and localisation support, you may 
+</I>&gt;<i> # have to uncomment the following line:
+</I>&gt;<i> #DEFINES += -DCF_NO_LOCALE -DCF_NO_GETTEXT
+</I>&gt;<i> 
+</I>&gt;<i> # On some other systems you may need to explicitly link against libintl.
+</I>&gt;<i> #EXTRA_LIBS += -lintl
+</I>&gt;<i> # You may also need to give the location of its headers. The following
+</I>&gt;<i> # should work on Mac OS X (which needs the above option as well).
+</I>
+--add:
+# presuming you otherwise use `macports' for installing additional software
+
+&gt;<i> #EXTRA_INCLUDES += -I/opt/local/include
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> ##
+</I>&gt;<i> ## libc
+</I>&gt;<i> ##
+</I>&gt;<i> 
+</I>&gt;<i> # You may uncomment this if you know that your system C libary provides
+</I>&gt;<i> # asprintf and  vasprintf. (GNU libc does.) If HAS_SYSTEM_ASPRINTF is not
+</I>&gt;<i> # defined, an implementation provided in libtu/sprintf_2.2/ is used. 
+</I>&gt;<i> #HAS_SYSTEM_ASPRINTF=1
+</I>&gt;<i> 
+</I>&gt;<i> # The following setting is needed with GNU libc for clock_gettime and the
+</I>&gt;<i> # monotonic clock. Other systems may not need it, or may not provide a
+</I>&gt;<i> # monotonic clock at all (which Ion can live with, and usually detect).
+</I>&gt;<i> EXTRA_LIBS += -lrt
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> #
+</I>&gt;<i> # If you're using/have gcc, it is unlikely that you need to modify
+</I>&gt;<i> # any of the settings below this line.
+</I>&gt;<i> #
+</I>&gt;<i> #####################################################################
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> ##
+</I>&gt;<i> ## C compiler. 
+</I>&gt;<i> ##
+</I>&gt;<i> 
+</I>&gt;<i> CC=gcc
+</I>&gt;<i> 
+</I>&gt;<i> # Same as '-Wall -pedantic' without '-Wunused' as callbacks often
+</I>&gt;<i> # have unused variables.
+</I>&gt;<i> WARN=	-W -Wimplicit -Wreturn-type -Wswitch -Wcomment \
+</I>&gt;<i> 	-Wtrigraphs -Wformat -Wchar-subscripts \
+</I>&gt;<i> 	-Wparentheses -pedantic -Wuninitialized
+</I>&gt;<i> 
+</I>&gt;<i> CFLAGS=-Os $(WARN) $(DEFINES) $(INCLUDES) $(EXTRA_INCLUDES)
+</I>&gt;<i> LDFLAGS=$(LIBS) $(EXTRA_LIBS)
+</I>
+--add two lines:
+#under Mac OS X (using macports) you'll need
+LDFLAGS=-L/opt/local/lib $(LIBS) $(EXTRA_LIBS)
+
+&gt;<i> EXPORT_DYNAMIC=-Xlinker --export-dynamic
+</I>&gt;<i> 
+</I>&gt;<i> # The following options are mainly for development use and can be used
+</I>&gt;<i> # to check that the code seems to conform to some standards. Depending
+</I>&gt;<i> # on the version and vendor of you libc, the options may or may not have
+</I>&gt;<i> # expected results. If you define one of C99_SOURCE or XOPEN_SOURCE, you
+</I>&gt;<i> # may also have to define the other. 
+</I>&gt;<i> 
+</I>&gt;<i> #C89_SOURCE=-ansi
+</I>&gt;<i> 
+</I>&gt;<i> #POSIX_SOURCE=-D_POSIX_C_SOURCE=200112L
+</I>&gt;<i> 
+</I>&gt;<i> # Most systems
+</I>&gt;<i> #XOPEN_SOURCE=-D_XOPEN_SOURCE -D_XOPEN_SOURCE_EXTENDED
+</I>&gt;<i> # SunOS, (Irix)
+</I>&gt;<i> #XOPEN_SOURCE=-D__EXTENSIONS__
+</I>&gt;<i> 
+</I>&gt;<i> #C99_SOURCE=-std=c99 -DCF_HAS_VA_COPY
+</I>&gt;<i> 
+</I>&gt;<i> # The -DCF_HAS_VA_COPY option should allow for some optimisations, and 
+</I>&gt;<i> # in some cases simply defining
+</I>&gt;<i> #C99_SOURCE=-DCF_HAS_VA_COPY
+</I>&gt;<i> # might allow for those optimisations to be taken without any  special
+</I>&gt;<i> # libc or compiler options.
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> ##
+</I>&gt;<i> ## make depend
+</I>&gt;<i> ##
+</I>&gt;<i> 
+</I>&gt;<i> DEPEND_FILE=.depend
+</I>&gt;<i> DO_MAKE_DEPEND=$(CC) -MM $(DEFINES) $(INCLUDES) $(EXTRA_INCLUDES)
+</I>&gt;<i> MAKE_DEPEND=$(DO_MAKE_DEPEND) $(SOURCES) &gt; $(DEPEND_FILE)
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> ##
+</I>&gt;<i> ## AR
+</I>&gt;<i> ##
+</I>&gt;<i> 
+</I>&gt;<i> AR=ar
+</I>&gt;<i> ARFLAGS=cr
+</I>&gt;<i> RANLIB=ranlib
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> ##
+</I>&gt;<i> ## Install &amp; strip
+</I>&gt;<i> ##
+</I>&gt;<i> 
+</I>&gt;<i> INSTALL=sh $(TOPDIR)/install-sh -c
+</I>&gt;<i> INSTALL_STRIP=-s
+</I>&gt;<i> INSTALLDIR=mkdir -p
+</I>&gt;<i> 
+</I>&gt;<i> BIN_MODE=755
+</I>&gt;<i> DATA_MODE=644
+</I>&gt;<i> 
+</I>&gt;<i> RM=rm
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> ##
+</I>&gt;<i> ## Debugging
+</I>&gt;<i> ##
+</I>&gt;<i> 
+</I>&gt;<i> #INSTALL_STRIP =
+</I>&gt;<i> #CFLAGS += -g
+</I>&gt;<i> 
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000959.html">I'm very sad...
+</A></li>
+	<LI>Next message: <A HREF="000961.html">I'm very sad...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#960">[ date ]</a>
+              <a href="thread.html#960">[ thread ]</a>
+              <a href="subject.html#960">[ subject ]</a>
+              <a href="author.html#960">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

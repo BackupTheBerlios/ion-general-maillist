@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Dodgy function pointer casts
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Dodgy%20function%20pointer%20casts&In-Reply-To=%3C1177541553.15681.127.camel%40deadeye.i.decadent.org.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000375.html">
+   <LINK REL="Next"  HREF="000376.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Dodgy function pointer casts</H1>
+    <B>Ben Hutchings</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Dodgy%20function%20pointer%20casts&In-Reply-To=%3C1177541553.15681.127.camel%40deadeye.i.decadent.org.uk%3E"
+       TITLE="Dodgy function pointer casts">ben at decadent.org.uk
+       </A><BR>
+    <I>Thu Apr 26 00:52:33 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000375.html">Font rendering oddity in status bar
+</A></li>
+        <LI>Next message: <A HREF="000376.html">Dodgy function pointer casts
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#374">[ date ]</a>
+              <a href="thread.html#374">[ thread ]</a>
+              <a href="subject.html#374">[ subject ]</a>
+              <a href="author.html#374">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>When checking over the Debian package of mod_xinerama, I noticed that
+the code was casting a pointer to a callback function because the
+function's argument types didn't quite match those expected for the
+callback.  When I objected to this, the package's maintainer pointed out
+that there were similar casts throughout Ion3, which is indeed true.
+While this obviously works on most platforms, calling through a function
+pointer that doesn't match the type of the function it points to has
+undefined behaviour.  I would like to clear this up by adding wrapper
+functions and changing function parameter types so that only data
+pointer casts are needed.
+
+Is this change likely to be acceptable, Tuomo?
+
+Ben.
+
+-- 
+Ben Hutchings
+All extremists should be taken out and shot.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20070425/f6336006/attachment.pgp">https://lists.berlios.de/pipermail/ion-general/attachments/20070425/f6336006/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000375.html">Font rendering oddity in status bar
+</A></li>
+	<LI>Next message: <A HREF="000376.html">Dodgy function pointer casts
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#374">[ date ]</a>
+              <a href="thread.html#374">[ thread ]</a>
+              <a href="subject.html#374">[ subject ]</a>
+              <a href="author.html#374">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

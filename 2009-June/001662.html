@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Scripting problem
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-June/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Scripting%20problem&In-Reply-To=%3Ch00o33%24o2t%241%40ger.gmane.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="001663.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Scripting problem</H1>
+    <B>Seb Haezebrouck</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Scripting%20problem&In-Reply-To=%3Ch00o33%24o2t%241%40ger.gmane.org%3E"
+       TITLE="Scripting problem">seb at borriglion.fr
+       </A><BR>
+    <I>Mon Jun  1 16:20:19 CEST 2009</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="001663.html">Scripting problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1662">[ date ]</a>
+              <a href="thread.html#1662">[ thread ]</a>
+              <a href="subject.html#1662">[ subject ]</a>
+              <a href="author.html#1662">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+Since I do not like having empty frames on my screen, I figured I'll try and 
+write a small function that would close the frame if I close the last client 
+in a frame. This is the (wrong) code I came up with. Could not find a better 
+way than this io.write thing to debug what was going on.
+
+function close_test(wmp)
+    local c = WMPlex.mx_count(wmp)
+    io.output(&quot;/tmp/dbg.ionscript&quot;)
+    io.write(&quot;Number of children: &quot;, c, &quot;.\n&quot;)
+    if WRegion.rqclose_propagate(wmp, _sub) then
+        io.write(&quot;Closed one child.\n&quot;)
+        if c == 1 then
+            while WMPlex.mx_count(wmp) == 1 do
+                io.write(&quot;Still one child seen.\n&quot;)
+            end
+            WRegion.rqclose(wmp)
+        end
+    end
+end
+
+... and as I half expected - this goes into an infinite loop when I try and 
+use it on a frame in which there is only one client (and the client is not 
+destroyed).
+
+I am sure Ion3 can do what I want... but could someone tell me what is wrong 
+with my script, and what is the proper way, if any to make this function not 
+blocking?
+
+Looks like a hook (deinit ?) is probably what I really need, but I am afraid 
+I might run into the same type of issue. And all my feebles attempts to 
+implement hooks so far miserably failed.
+
+Thanks,
+
+Seb
+
+PS: I am using ion3-20090110. 
+
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="001663.html">Scripting problem
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1662">[ date ]</a>
+              <a href="thread.html#1662">[ thread ]</a>
+              <a href="subject.html#1662">[ subject ]</a>
+              <a href="author.html#1662">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Tutorial vs. help screen
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Tutorial%20vs.%20help%20screen&In-Reply-To=%3C87lkhqfn4a.fsf%40wasp.nowan.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000309.html">
+   <LINK REL="Next"  HREF="000311.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Tutorial vs. help screen</H1>
+    <B>Jeremy Hankins</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Tutorial%20vs.%20help%20screen&In-Reply-To=%3C87lkhqfn4a.fsf%40wasp.nowan.org%3E"
+       TITLE="Tutorial vs. help screen">nowan at nowan.org
+       </A><BR>
+    <I>Wed Mar 21 19:49:25 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000309.html">Tutorial vs. help screen
+</A></li>
+        <LI>Next message: <A HREF="000311.html">Tutorial vs. help screen
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#310">[ date ]</a>
+              <a href="thread.html#310">[ thread ]</a>
+              <a href="subject.html#310">[ subject ]</a>
+              <a href="author.html#310">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I said:
+
+&gt;<i> Tuomo suggested one way of doing this (using bdoc), another might be to use a
+</I>&gt;<i> menu structure to represent commonly used commands and set up a
+</I>&gt;<i> helper-function that would call a particular menu entry, which would then be
+</I>&gt;<i> bound rather than the lua code itself.
+</I>
+Actually, a better solution would probably be to simply create a table
+consisting of command names and strings of lua code implementing them.  The
+helper function would simply evaluate to the lua string, which would get
+bound.  No real need to get it messed up with the menu structures.  If
+desired there could be a lookup table of documentation for the commands as
+well.
+
+The slightly tricky bit would be to account for the different sorts of
+options passed in the binding (_, _sub, etc.).  Simplest would be to make
+different ways of calling the lua function different commands, where
+necessary.
+
+-- 
+Jeremy Hankins &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">nowan at nowan.org</A>&gt;
+PGP fingerprint: 748F 4D16 538E 75D6 8333  9E10 D212 B5ED 37D0 0A03
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000309.html">Tutorial vs. help screen
+</A></li>
+	<LI>Next message: <A HREF="000311.html">Tutorial vs. help screen
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#310">[ date ]</a>
+              <a href="thread.html#310">[ thread ]</a>
+              <a href="subject.html#310">[ subject ]</a>
+              <a href="author.html#310">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

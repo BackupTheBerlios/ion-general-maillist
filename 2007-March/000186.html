@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Hierarchical tag structure in SetFS
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Hierarchical%20tag%20structure%20in%20SetFS&In-Reply-To=%3C20070301161246.GS13216%40samason.me.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000187.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Hierarchical tag structure in SetFS</H1>
+    <B>Sam Mason</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Hierarchical%20tag%20structure%20in%20SetFS&In-Reply-To=%3C20070301161246.GS13216%40samason.me.uk%3E"
+       TITLE="Hierarchical tag structure in SetFS">mason at f2s.com
+       </A><BR>
+    <I>Thu Mar  1 17:12:46 CET 2007</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000187.html">Hierarchical tag structure in SetFS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#186">[ date ]</a>
+              <a href="thread.html#186">[ thread ]</a>
+              <a href="subject.html#186">[ subject ]</a>
+              <a href="author.html#186">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Tue, Feb 27, 2007 at 09:53:51PM +0000, Tuomo Valkonen wrote:
+&gt;<i> One related thing that I've thought about (a little but not enough)
+</I>&gt;<i> is typed tags or meta-tags. So e.g. the tag 'ion' could have the 
+</I>&gt;<i> meta-tag 'project'. The path component #project would then filter
+</I>&gt;<i> out everything that doesn't have a 'project' meta-tagged tag. 
+</I>&gt;<i> Furthermore creating an object with tags ion.project/foo/bar, would 
+</I>&gt;<i> fail if 'ion' isn't meta-tagged 'project', and if the ion tag doesn't
+</I>&gt;<i> exist, meta-tag it a project. 
+</I>
+If you take this a little further and have the tags in a hierarchy I
+think you could solve quite a few of the problems.  If you view the
+directories in a traditional file system as tags and the files being
+allowed being allowed to appear, several times, in any directory (think
+hardlinks) then you're pretty much there already.  What would be nice
+would be to tag a file as being associated with a directory but without
+actually being in it and therefore needing a unique name within it.  It
+would also be nice to be able to do the translation back again from file
+to find out what names it appears under in the file system.
+
+If we view it as Haskell code, we have a set of Tags that can either be
+the root of a hierarchy or appear below another tag with a name,
+
+&gt;<i> data Tag = Root | Tag String Tag
+</I>
+and a set of Objects.
+
+&gt;<i> data Object = Object
+</I>
+Once we have these, we can implement the standard Unix calls:
+
+&gt;<i> readdir :: Tag -&gt; [Object]
+</I>&gt;<i> open :: Tag -&gt; String -&gt; Object
+</I>&gt;<i> link :: Tag -&gt; Object -&gt; String -&gt; ()
+</I>&gt;<i> unlink :: Tag -&gt; String -&gt; ()
+</I>
+Plus the more interesting ones specific to this file system
+
+&gt;<i> tag :: Tag -&gt; Object -&gt; ()
+</I>&gt;<i> untag :: Tag -&gt; Object -&gt; ()
+</I>&gt;<i> bindings :: Object -&gt; [(Tag, Maybe String)]
+</I>
+Rather than just the intersection of tags, how about using a finite
+state automaton (similar to a regexp, but over the names in the tag
+hierarchy rather than characters) for searching.  It's the first
+formalisation I could come up that seemed as though it would be
+generally useful.  The purpose is to allow you to express things like:
+
+  Show me all the files that are tagged with both &quot;projects/sysfs&quot; and
+  &quot;people/sam_mason&quot;.
+
+  Show me all the files that are tagged with either &quot;people/sam_mason&quot;
+  or &quot;people/tuomo_valkonen&quot;.
+
+  Show me all the files that are &quot;bound with a name&quot; in a tag that ends
+  with &quot;bin&quot; or &quot;sbin&quot;.
+
+Here is my best attempt at a grammar (of the syntax) for specifying this
+sort of thing, it's mainly based on a grammar for regular expressions.
+Specifying this sort of thing at the level of characters is a bit cheesy
+but seems to be reasonably standard practice.
+
+&gt;<i> Conjunction ::= Disjunction | Disjunction '&amp;' Conjunction
+</I>&gt;<i> 
+</I>&gt;<i> Disjunction ::= Sequence | Sequence '|' Disjunction
+</I>&gt;<i> 
+</I>&gt;<i> Sequence ::= Term | Sequence '/' Term
+</I>&gt;<i> 
+</I>&gt;<i> Term ::= Assertion | Atom | Atom Quantifier
+</I>&gt;<i> 
+</I>&gt;<i> Assertion ::= Root | Leaf
+</I>&gt;<i> 
+</I>&gt;<i> Root ::= '^'
+</I>&gt;<i> Leaf ::= '$'
+</I>&gt;<i> 
+</I>&gt;<i> Quantifier ::=  '*' | '+' | '?'
+</I>&gt;<i>   | '{' DecimalDigits '}'
+</I>&gt;<i>   | '{' DecimalDigits ',' '}'
+</I>&gt;<i>   | '{' DecimalDigits ',' DecimalDigits '}'
+</I>&gt;<i> 
+</I>&gt;<i> DecimalDigits ::= DecimalDigit | DecimalDigits DecimalDigit
+</I>&gt;<i> DecimalDigit ::= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
+</I>&gt;<i> 
+</I>&gt;<i> Atom ::= NameMatchComp | '(' Disjunction ')'
+</I>&gt;<i> 
+</I>&gt;<i> NameMatchComp ::= NameMatch | '^' NameMatch
+</I>&gt;<i> 
+</I>&gt;<i> NameMatch ::= AnyTag | TagName | Tagged | Bound
+</I>&gt;<i> 
+</I>&gt;<i> AnyTag  ::= '\\' 'a'
+</I>&gt;<i> TagName ::= {- something like [a-z]+ -}
+</I>&gt;<i> Tagged  ::= '\\' 't'
+</I>&gt;<i> Bound   ::= '\\' 'b'
+</I>
+This would allow you to specify the above examples as:
+
+  projects/sysfs&amp;people/sam_mason
+
+  people/sam_mason|people/tuomo_valkonen
+
+  (bin|sbin)$
+
+It would be possible to use '/' for either the Root or Leaf, but if
+people accidentally put an extra '/' into the string it would do
+strange things.  It's for this reason that I've left the root and leaf
+identifiers the same a regular expressions.
+
+Comments?
+
+
+  Sam
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000187.html">Hierarchical tag structure in SetFS
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#186">[ date ]</a>
+              <a href="thread.html#186">[ thread ]</a>
+              <a href="subject.html#186">[ subject ]</a>
+              <a href="author.html#186">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

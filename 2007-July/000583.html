@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> ZeroInstall &amp; Package systems [Was: Re: Dock padding_pixels	suggestion]
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ZeroInstall%20%26%20Package%20systems%20%5BWas%3A%20Re%3A%20Dock%20padding_pixels%0A%09suggestion%5D&In-Reply-To=%3Cslrnf97t5m.g9k.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000600.html">
+   <LINK REL="Next"  HREF="000588.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>ZeroInstall &amp; Package systems [Was: Re: Dock padding_pixels	suggestion]</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ZeroInstall%20%26%20Package%20systems%20%5BWas%3A%20Re%3A%20Dock%20padding_pixels%0A%09suggestion%5D&In-Reply-To=%3Cslrnf97t5m.g9k.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="ZeroInstall &amp; Package systems [Was: Re: Dock padding_pixels	suggestion]">tuomov at iki.fi
+       </A><BR>
+    <I>Tue Jul 10 23:05:58 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000600.html">Dock padding_pixels suggestion
+</A></li>
+        <LI>Next message: <A HREF="000588.html">ZeroInstall &amp; Package systems [Was: Re: Dock padding_pixels	suggestion]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#583">[ date ]</a>
+              <a href="thread.html#583">[ thread ]</a>
+              <a href="subject.html#583">[ subject ]</a>
+              <a href="author.html#583">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2007-07-10, Thomas Leonard &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">talex5 at gmail.com</A>&gt; wrote:
+&gt;<i> I used to have exactly the same problems with ROX-Filer, but now I just
+</I>&gt;<i> provide a Zero Install[2] feed for it. On most modern Linux distributions
+</I>&gt;<i> (including Ubuntu and Fedora), any user can just do:
+</I>&gt;<i>
+</I>&gt;<i> $ 0alias rox <A HREF="http://rox.sourceforge.net/2005/interfaces/ROX-Filer">http://rox.sourceforge.net/2005/interfaces/ROX-Filer</A>
+</I>&gt;<i>
+</I>&gt;<i> Then they can run it with the command 'rox'. It gets the latest binary
+</I>&gt;<i> version from my site, checks the signature using my GPG key and installs
+</I>&gt;<i> it. It also checks for updates from time-to-time. Have you thought of
+</I>&gt;<i> providing Ion that way?
+</I>
+No, I was not even aware of zeroinstall, and from quick glance, can  
+spot a few real or potential problems:
+
+  * Package creation seems to be a choice between WIMPshit and XMLshit, 
+    judging from the packaging tutorial. No thanks.
+
+  * How about dependencies? That's where these decentralised 
+    packaging systems tend to fail compared to distros.
+   
+On the positive side, it seems to use URLs and local aliases
+(that apply to binaries too!), instead of relying on a fully 
+centralised naming scheme. It's not fully decentralised, though,
+because DNS is centralised.
+
+I've actually been thinking lately a bit about decentralised
+packaging systems, and have been meaning to write about it
+in the non-blog in more detail. In summary, the key 
+features/principles would, however be:
+
+  * Uses application directories (with relocatable binaries, so
+    can be installed anywhere). That's absolutely necessary for
+    decentralised packaging.
+
+  * The package would not be the unit of dependency, but various
+    capabilities, that packages (which are merely archive files 
+    found in any way whatsoever) can claim to provide -- and any
+    number of them. Some capabilities would correspond to individual
+    programs (&quot;Ion3&quot;), and some would be more abstract and could 
+    have multiple packages providing them (&quot;libfoo API 1.2&quot;).
+    How each capability is supposed to be provided is up to the
+    capability author, and packages could be required to include
+    a file specifying how it provides the capability (the library
+    file name, executable name, anything)
+
+  * &quot;Cryptographically unique&quot; capability names. The name would 
+    e.g. be the public key signed with the private key of a keypair.
+    Perhaps this would be the author's key, followed by a path,
+    essentially creating a decentralised DNS (something I've also
+    written about). 
+
+  * Packages would use these cryptographic names (possibly locally
+    aliased in some file to something more manageable) to refer to 
+    their dependencies. They might also recommend a particular
+    package implementing the capability. When some installed package
+    already claims to provide a capability, but another package
+    recommends something else, the user would be asked about it.
+
+  * The same keypair can be used to prove that a package provides
+    a capability by signing the package with the private key of
+    the capability. Alternatively the capability author could
+    provide a signed test suite that can be used to verify that
+    a package provides the claimed capability.
+
+  * The package system would be integrated with the build system.
+    Presently there's a _lot_ of redudancy between distributions'
+    package descriptions and autocrap. But a decent build system
+    would include all the dependency information in an easily
+    accessible format [1].
+
+  * The package system itself does not specify how packages are
+    found, but as single-click-install is too complex, and
+    single-command-fetch-and-install is the way to go, presumably
+    install tools could use some kind of search engine (google
+    is the new DNS!) tailored for finding such package files
+    directly, and let the user choose among the results. When
+    the capability identifier is used to search, there should
+    often be only one result, and even more often only one
+    result that provably provides the capability, so the
+    interaction needs should be minimal when installing 
+    dependencies or upgrading known packages. 
+
+    When the cryptographic identifier is not known, some
+    method of scoring the (text/name search) results is needed. 
+    Perhaps good old PageRank suffices. Additionally some
+    instance that people trust could sign capability keys
+    to correspond to some customary name for the capability.
+
+Hmm... this was meant to be a summary... :) Well, there are
+still some blurry details.
+
+  [1]: <A HREF="http://iki.fi/tuomov/b/archives/2006/07/04/T21_20_46/">http://iki.fi/tuomov/b/archives/2006/07/04/T21_20_46/</A>
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000600.html">Dock padding_pixels suggestion
+</A></li>
+	<LI>Next message: <A HREF="000588.html">ZeroInstall &amp; Package systems [Was: Re: Dock padding_pixels	suggestion]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#583">[ date ]</a>
+              <a href="thread.html#583">[ thread ]</a>
+              <a href="subject.html#583">[ subject ]</a>
+              <a href="author.html#583">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> 2.7 (=~e)
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%202.7%20%28%3D%7Ee%29&In-Reply-To=%3Cslrnfqo05p.ofd.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001065.html">
+   <LINK REL="Next"  HREF="001070.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>2.7 (=~e)</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%202.7%20%28%3D%7Ee%29&In-Reply-To=%3Cslrnfqo05p.ofd.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="2.7 (=~e)">tuomov at iki.fi
+       </A><BR>
+    <I>Fri Feb  8 08:11:53 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001065.html">2.7 (=~e)
+</A></li>
+        <LI>Next message: <A HREF="001070.html">2.7 (=~e)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1068">[ date ]</a>
+              <a href="thread.html#1068">[ thread ]</a>
+              <a href="subject.html#1068">[ subject ]</a>
+              <a href="author.html#1068">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-02-07, Bryan Richter &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">bryan.richter at gmail.com</A>&gt; wrote:
+&gt;<i> Here's an honest question: what language do people think the next
+</I>&gt;<i> operating system, the one that Ion users are most likely to write, will be
+</I>&gt;<i> written in? C is the default choice, but I wouldn't be surprised if it was
+</I>&gt;<i> something else...
+</I>
+C.. and then some.
+
+There's just no way around it: for any serious work you want C.
+Or maybe some other relatively simple language close to the 
+hardware, with better safety... and tagged unions. (What was 
+this one C derivative?) But the benefits of such an alternative
+(except for tagged unions) are not so great, because you only
+want to write relatively simple things in C/it. You don't want
+to write much abstractions in C. You do low level gruntwork of 
+core libraries in C, provide a very simple API, and use whatever
+language you want with better abstractions and better safety 
+(hence typically no dynamically-typed scripting languages, but 
+rather e.g. Haskell), to access the services provided by the C 
+core libraries. This is easy because the API is simple (instead 
+of OO bloat).
+
+Non-performance critical libraries could also be written in 
+other languages (such as Haskell), and they could provide a
+simple C API, but conflicting runtimes present a problem. Many
+languages (including Haskell, java, etc.) want to be operating
+systems themselves these days. 
+
+Instead of using the operating system's namespace to locate their
+libraries, they want to impose their own module and package 
+namespaces and hierarchies.
+
+Instead of exposing the operating system's libraries and services,
+and letting the program author choose either some real platform 
+or a compatibility layer (platform), they want you to use their 
+own compatibility layer. Megalomania pure and simple. And in 
+exchange cross-language compatibility is reduced. For that you
+either you either have to write for the &quot;C runtime&quot; (i.e. the OS),
+or you need something like CLR (common language runtime). 
+
+I think the C option could promote better API practises instead
+of OO-bloat. You _do_ often want to write higher-level APIs suited
+to the practises and mechanisms of any particular language, instead
+of enforcing an uniform one. Those exposing a simple easy wrappable
+API not dependent on the idiosyncracies of any particular language
+or design methodology (such as OO-bloat), should work best.
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001065.html">2.7 (=~e)
+</A></li>
+	<LI>Next message: <A HREF="001070.html">2.7 (=~e)
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1068">[ date ]</a>
+              <a href="thread.html#1068">[ thread ]</a>
+              <a href="subject.html#1068">[ subject ]</a>
+              <a href="author.html#1068">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

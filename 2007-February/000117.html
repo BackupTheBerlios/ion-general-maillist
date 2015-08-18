@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Are title-bars/tabs necessary? 
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Are%20title-bars/tabs%20necessary%3F%20&In-Reply-To=%3C20070215222351.82068509AD%40scorn.csh.rit.edu%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000116.html">
+   <LINK REL="Next"  HREF="000118.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Are title-bars/tabs necessary? </H1>
+    <B>Jordan Sissel</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Are%20title-bars/tabs%20necessary%3F%20&In-Reply-To=%3C20070215222351.82068509AD%40scorn.csh.rit.edu%3E"
+       TITLE="Are title-bars/tabs necessary? ">psionic at csh.rit.edu
+       </A><BR>
+    <I>Thu Feb 15 23:23:51 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000116.html">Are title-bars/tabs necessary?
+</A></li>
+        <LI>Next message: <A HREF="000118.html">settings
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#117">[ date ]</a>
+              <a href="thread.html#117">[ thread ]</a>
+              <a href="subject.html#117">[ subject ]</a>
+              <a href="author.html#117">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 15 February 2007 at 22:39, joerg van den hoff &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">j.van_den_hoff at fzd.de</A>&gt; wrote:
+&gt;<i> On Thu, Feb 15, 2007 at 01:45:18PM -0500, Jeremy Maitin-Shepard wrote:
+</I>&gt;<i> well, in case someone is not aware of it: for xterm and the like
+</I>&gt;<i> (and every 'sufficiently standard' terminal emulator (say, `rxvt')
+</I>&gt;<i> there is at least always the possibility to use some escape
+</I>&gt;<i> sequences to directly write into the title bar and use=20
+</I>&gt;<i> this facility within some aliases to get meaningful headings.
+</I>&gt;<i> so, one does not need specific shells to do this.
+</I>&gt;<i> 
+</I>&gt;<i> e.g., I use tcsh and have set the following in `.cshrc`
+</I>&gt;<i> (would be rather similar with bash and `.profile')
+</I>&gt;<i> 
+</I>&gt;<i> alias label   'echo -n &quot;=1B]2;\!*=07&quot;'
+</I>&gt;<i> alias cd      'cd \!*;label &quot;$hostbasename&quot;:$PWD'
+</I>&gt;<i> 
+</I>
+tcsh has 'precmd' and 'postcmd' aliases so you can do that kind of thing.
+
+alias precmd echo &quot;pre&quot;
+alias postcmd echo &quot;post&quot;
+
+&gt;<i> echo &quot;hi&quot;
+</I>post
+hi
+pre
+
+
+-Jordan
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000116.html">Are title-bars/tabs necessary?
+</A></li>
+	<LI>Next message: <A HREF="000118.html">settings
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#117">[ date ]</a>
+              <a href="thread.html#117">[ thread ]</a>
+              <a href="subject.html#117">[ subject ]</a>
+              <a href="author.html#117">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Full screen
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-September/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Full%20screen&In-Reply-To=%3C20070911081045.GA51775%40pcjas.obspm.fr%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000702.html">
+   <LINK REL="Next"  HREF="000704.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Full screen</H1>
+    <B>Albert Shih</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Full%20screen&In-Reply-To=%3C20070911081045.GA51775%40pcjas.obspm.fr%3E"
+       TITLE="Full screen">Albert.Shih at obspm.fr
+       </A><BR>
+    <I>Tue Sep 11 10:10:45 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000702.html">Full screen
+</A></li>
+        <LI>Next message: <A HREF="000704.html">kpdf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#703">[ date ]</a>
+              <a href="thread.html#703">[ thread ]</a>
+              <a href="subject.html#703">[ subject ]</a>
+              <a href="author.html#703">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE> Le 10/09/2007 &#224; 16:34:02-0400, Etan Reisner a &#233;crit
+&gt;<i> On Mon, Sep 10, 2007 at 01:19:09PM -0400, Jordan Sissel wrote:
+</I>&gt;<i> &lt;snip&gt;
+</I>&gt;<i> &gt; Any time I've run into this, it is because I installed a new version of
+</I>&gt;<i> &gt; ion3 but my ~/.ion3/ had configs for the older version. The solution
+</I>&gt;<i> &gt; (for me) has always been to copy in the new configs that come with ion3
+</I>&gt;<i> &gt; and reapply any changes I'd made previously.
+</I>&gt;<i> 
+</I>&gt;<i> As I've said on this list and in #ion any number of times, I *strongly*
+</I>&gt;<i> recommend *not* copying the system configuration files into ~/.ion3 for
+</I>&gt;<i> reasons exactly like this. There are only three ion config files you
+</I>&gt;<i> should copy or need to copy and they are cfg_ion.lua, cfg_dock.lua, and
+</I>&gt;<i> cfg_statusbar.lua and you obviously only need those latter two if you
+</I>&gt;<i> actually use the dock/statusbar. For all other configuration you can use
+</I>&gt;<i> cfg_ion.lua or other files of your own naming that you dopath() in
+</I>&gt;<i> cfg_ion.lua.
+</I>
+OK. But well during long time I use ... a old config file because it's very
+complicate for a not power user to follow the change in the config file.
+
+Now I try from the cfg_ioncore.lua to make a new file for my own config.
+And it's not work. Anyone can help me 
+
+Thanks.
+
+Regards.
+
+
+
+Here is the file
+
+*******************************
+* I wan to use Crtl + Up/ Crtl+ down to switch screen
+* and I want switch F1 and F9 to using F1 to go/or create a workspace.
+*******************************
+
+SECOND_META=&quot;Control+&quot;
+defbindings(&quot;WScreen&quot;, {
+    bdoc(&quot;Switch to next/previous object within current screen.&quot;),
+    kpress(SECOND_META..&quot;Up&quot;, &quot;WScreen.switch_prev(_)&quot;),
+    kpress(SECOND_META..&quot;Down&quot;, &quot;WScreen.switch_next(_)&quot;),
+
+    bdoc(&quot;Create a new workspace of chosen default type.&quot;),
+    kpress(META..&quot;F1&quot;, &quot;ioncore.create_ws(_)&quot;),
+})
+
+*********************************
+
+*********************************
+* easy to understand what I'm want to do.
+*********************************
+
+-- Frames for transient windows ignore this bindmap
+
+defbindings(&quot;WMPlex.toplevel&quot;, {
+
+    bdoc(&quot;Run a small font terminal emulator.&quot;),
+    kpress(META..&quot;F2&quot;, &quot;ioncore.exec_on(_, 'xterm -fn -adobe-courier-medium-r-normal--12-120-75-75-m-70-iso8859-15')&quot;),
+    bdoc(&quot;Run a terminal emulator.&quot;),
+    kpress(ALTMETA..&quot;F4&quot;, &quot;ioncore.exec_on(_, 'Eterm -v -8 -F -adobe-courier-medium-r-normal--20-140-100-100-m-110-iso8859-15 --select-line --scrollbar-floating --name Shell')&quot;),
+
+    bdoc(&quot;Run a small font terminal emulator.&quot;),
+    kpress(META..&quot;F4&quot;, &quot;ioncore.exec_on(_, 'Eterm -v -8 -F -adobe-courier-medium-r-normal--12-120-75-75-m-70-iso8859-15 --select-line --scrollbar-floating --name Shell')&quot;),
+
+    bdoc(&quot;Query for file to edit.&quot;),
+    kpress(ALTMETA..&quot;F5&quot;, 
+		&quot;WRegion.rqclose_propagate(_, _sub)&quot;),
+
+    bdoc(&quot;Query for workspace to go to or create a new one.&quot;),
+    kpress(&quot;F1&quot;, &quot;mod_query.query_workspace(_)&quot;),
+})
+
+*****************************************************
+* and crtl+left/right to go frame
+*****************************************************
+    
+defbindings(&quot;WFrame.toplevel&quot;, {
+        bdoc(&quot;Switch to next/previous object within the frame.&quot;),
+        kpress(SECOND_META..&quot;Right&quot;, &quot;WFrame.switch_next(_)&quot;),
+        kpress(SECOND_META..&quot;Left&quot;, &quot;WFrame.switch_prev(_)&quot;),
+})
+--
+Albert SHIH
+Observatoire de Paris Meudon
+SIO batiment 15
+Heure local/Local time:
+Mar 11 sep 2007 10:06:05 CEST
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000702.html">Full screen
+</A></li>
+	<LI>Next message: <A HREF="000704.html">kpdf
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#703">[ date ]</a>
+              <a href="thread.html#703">[ thread ]</a>
+              <a href="subject.html#703">[ subject ]</a>
+              <a href="author.html#703">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

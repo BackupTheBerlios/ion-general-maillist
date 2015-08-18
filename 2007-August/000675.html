@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Send client to another workspace.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Send%20client%20to%20another%20workspace.&In-Reply-To=%3C20070817095516.GA5696%40tuvok.wenf.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000671.html">
+   <LINK REL="Next"  HREF="000676.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Send client to another workspace.</H1>
+    <B>Jan Johansson</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Send%20client%20to%20another%20workspace.&In-Reply-To=%3C20070817095516.GA5696%40tuvok.wenf.org%3E"
+       TITLE="Send client to another workspace.">janj+ion at wenf.org
+       </A><BR>
+    <I>Fri Aug 17 11:55:16 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000671.html">problem with &quot;attach tagged&quot;
+</A></li>
+        <LI>Next message: <A HREF="000676.html">Send client to another workspace.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#675">[ date ]</a>
+              <a href="thread.html#675">[ thread ]</a>
+              <a href="subject.html#675">[ subject ]</a>
+              <a href="author.html#675">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Etan Reisner &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">pidgin at unreliablesource.net</A>&gt; wrote:
+&gt;<i> What do you mean it never attaches cleanly in the frame? What
+</I>&gt;<i> happens exactly?
+</I>
+The workspace that I was testing with has a layout like this.
+
+WRootWin
+    WGroupWS
+	WTiling
+	    WFrame
+
+I could get the client to attach in WGroupWS and WTiling but I
+did not know how to find the WFrame object.
+
+Now I have a working solution but to understand I think a little
+more info is needed.
+
+The theory I am trying out is based on three workspaces Split,
+Fullscreen and Hidden.
+
+Split is the normal workspace with two frames. Fullscreen is for
+when the frame on Split is not enough like badly written
+webpages. Hidden is for the windows that are not needed at the
+moment like the media player.
+
+Keybindings for sending clients to fullscreen and hidden.
+
+defbindings(&quot;WMPlex&quot;,
+    {
+        submap(PREFIX,
+            {
+                submap(&quot;S&quot;,
+                    {
+                        kpress(&quot;F&quot;, &quot;fh_toggle('Fullscreen', _chld)&quot;),
+                        kpress(&quot;H&quot;, &quot;fh_toggle('Hidden', _chld)&quot;),
+                        kpress(&quot;S&quot;, &quot;fh_toggle('Split', _chld)&quot;),
+                    }
+                ),
+            }
+        ),
+    }
+)
+
+Then I have two functions. &quot;locations&quot; is used for storing Frame
+name when sending clients from Split to Fullscreen or Hidden this
+is later used to return the client to the previous frame on
+Split.
+
+locations = {}
+
+function fh_toggle(dest, cwin)
+    local current_ws = ioncore.find_manager(cwin, &quot;WGroupWS&quot;)
+    local dest_ws = ioncore.lookup_region(dest)
+
+    local fullscreen_ws = ioncore.lookup_region(&quot;Fullscreen&quot;)
+    local hidden_ws = ioncore.lookup_region(&quot;Hidden&quot;)
+    local split_ws = ioncore.lookup_region(&quot;Split&quot;)
+
+    local xid = WClientWin.xid(cwin)
+
+    if current_ws == split_ws then
+        local current_frame = WRegion.name(ioncore.find_manager(cwin, &quot;WFrame&quot;))
+        locations[xid] = current_frame
+    end
+
+    if dest_ws == split_ws then
+        local dest_frame_name = locations[xid]
+        local dest_frame = ioncore.lookup_region(dest_frame_name)
+
+        WMPlex.attach(dest_frame, cwin)
+        WRegion.goto(cwin)
+    end
+
+    if dest_ws == fullscreen_ws then
+        send_to_ws(dest_ws, cwin, true)
+    end
+
+    if dest_ws == hidden_ws then
+        send_to_ws(dest_ws, cwin, false)
+    end
+end
+
+function send_to_ws(ws, cwin, goto)
+    ioncore.region_i(
+        function (frame) 
+            if ws==ioncore.find_manager(frame, &quot;WGroupWS&quot;) then
+                ioncore.defer(
+                    function ()
+                        WMPlex.attach(frame, cwin)
+                        if goto then
+                            WRegion.goto(cwin)
+                        end
+                    end
+                )
+                return false
+            else
+                return true
+            end
+        end
+        , &quot;WFrame&quot;
+    )
+end
+
+So far the theory works quite nicely for me.
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000671.html">problem with &quot;attach tagged&quot;
+</A></li>
+	<LI>Next message: <A HREF="000676.html">Send client to another workspace.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#675">[ date ]</a>
+              <a href="thread.html#675">[ thread ]</a>
+              <a href="subject.html#675">[ subject ]</a>
+              <a href="author.html#675">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

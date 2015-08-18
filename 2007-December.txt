@@ -1,0 +1,3821 @@
+From ivan at selidor.net  Sat Dec  1 00:32:50 2007
+From: ivan at selidor.net (Ivan Vilata i Balaguer)
+Date: Sat, 1 Dec 2007 00:32:50 +0100
+Subject: ion-3rc-20071130
+In-Reply-To: <slrnfl0kg5.8q2.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnfl0kg5.8q2.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20071130233250.GD8650@tardis.terramar.selidor.net>
+
+Tuomo Valkonen (el 2007-11-30 a les 18:10:13 +0000) va dir::
+
+> This RC features various minor fixes, and some clarifications and
+> simplifications to the license, which people seem to have had trouble
+> understanding.
+
+I've checked that this release fixes the problem of floating windows
+tagged with ``switchto = false`` taking focus when they pop under the
+mouse pointer (see thread "Forbiding focus to floating window" of
+November 19th).  Great!  Thanks for the good work.
+
+::
+
+  Ivan Vilata i Balaguer   @ Welcome to the European Banana Republic! @
+  http://www.selidor.net/  @     http://www.nosoftwarepatents.com/    @
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 307 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20071201/8eaba66e/attachment.pgp>
+
+From olleg_s at mail.ru  Tue Dec  4 02:21:28 2007
+From: olleg_s at mail.ru (Olleg Samoylov)
+Date: Tue, 04 Dec 2007 04:21:28 +0300
+Subject: tabnum
+Message-ID: <4754AB98.2010606@mail.ru>
+
+Hi all.
+
+Here is from docs:
+
+Synopsis:
+     ioncore.tabnum.show(frame, delay)
+Description:
+     Show tab numbers on frame, clearing them when submap grab is 
+released the next time. If delay is given, in milliseconds, the numbers 
+are not actually displayed until this time has passed.
+
+Is there any trick to show tabnum always, not only in submap?
+
+-- 
+Olleg Samoylov
+
+
+From tuomov at iki.fi  Tue Dec  4 08:08:13 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 4 Dec 2007 07:08:13 +0000 (UTC)
+Subject: tabnum
+References: <4754AB98.2010606@mail.ru>
+Message-ID: <slrnfl9v6t.m3u.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-04, Olleg Samoylov <olleg_s at mail.ru> wrote:
+> Is there any trick to show tabnum always, not only in submap?
+
+The display of tab numbers is controlled by a drawing engine attribute.
+To toggle them, enter in Mod1+F3:
+
+    _:set_grattr('numbered', 'toggle')
+
+Also disable the tabnum binding to not have the attribute cleared.
+If you want it automatically set, maybe some hook (e.g. the notify
+one) is of help.
+
+-- 
+Tuomo
+
+
+
+From raj at csub.edu  Wed Dec  5 22:07:10 2007
+From: raj at csub.edu (Russell Jackson)
+Date: Wed, 05 Dec 2007 13:07:10 -0800
+Subject: SIGSEGV on screen_deinit()
+Message-ID: <475712FE.7040701@csub.edu>
+
+I didn't have this problem under FreeBSD 6.2. Could this be due to gcc 4.2?
+
+Xorg last reports:
+
+Object destroyed while deferred actions are still pending.
+
+gdb bt:
+
+#0  0x0805f25f in screen_deinit ()
+#1  0x08086621 in destroy_obj ()
+#2  0x0806010e in ioncore_deinit ()
+#3  0x0805b970 in ioncore_do_exit ()
+#4  0x0807a2be in l2chnd_v__ ()
+#5  0x08080deb in extl_l1_call_handler2 ()
+#6  0x0808b205 in luaD_precall ()
+#7  0x0808b623 in luaD_call ()
+#8  0x08088e83 in f_call ()
+#9  0x0808ae1e in luaD_rawrunprotected ()
+#10 0x0808ae75 in luaD_pcall ()
+#11 0x08088d03 in lua_pcall ()
+#12 0x0807fc5d in extl_l1_call_handler ()
+#13 0x0808b205 in luaD_precall ()
+#14 0x08092ea4 in luaV_execute ()
+#15 0x0808b65e in luaD_call ()
+#16 0x08088e83 in f_call ()
+#17 0x0808ae1e in luaD_rawrunprotected ()
+#18 0x0808ae75 in luaD_pcall ()
+#19 0x08088d03 in lua_pcall ()
+#20 0x0807f74b in extl_do_collect_errors ()
+#21 0x0808b205 in luaD_precall ()
+#22 0x0808b623 in luaD_call ()
+#23 0x08088e83 in f_call ()
+#24 0x0808ae1e in luaD_rawrunprotected ()
+#25 0x0808ae75 in luaD_pcall ()
+#26 0x08088d03 in lua_pcall ()
+#27 0x0808239e in extl_collect_errors ()
+#28 0x0808b205 in luaD_precall ()
+#29 0x08092ea4 in luaV_execute ()
+#30 0x0808b65e in luaD_call ()
+#31 0x08088e83 in f_call ()
+#32 0x0808ae1e in luaD_rawrunprotected ()
+#33 0x0808ae75 in luaD_pcall ()
+#34 0x08088d03 in lua_pcall ()
+#35 0x08080a2f in extl_do_call_vararg ()
+#36 0x0807f0eb in extl_docpcall ()
+#37 0x0808b205 in luaD_precall ()
+#38 0x0808b623 in luaD_call ()
+#39 0x08088e5b in f_Ccall ()
+#40 0x0808ae1e in luaD_rawrunprotected ()
+#41 0x0808ae75 in luaD_pcall ()
+#42 0x08088cb0 in lua_cpcall ()
+#43 0x0807ea58 in extl_cpcall ()
+#44 0x0807f870 in extl_call_vararg ()
+#45 0x0808160a in extl_call ()
+#46 0x2851e272 in wedln_do_finish () from /usr/local/lib/ion3/mod/mod_query.so
+#47 0x0807c2aa in mainloop_execute_deferred_on_list ()
+#48 0x0807c302 in mainloop_execute_deferred ()
+#49 0x0805b6b4 in ioncore_mainloop ()
+#50 0x08059906 in main ()
+
+ion3 -version:
+
+3rc-20071130
+
+lua-5.1 -v:
+
+Lua 5.1.1  Copyright (C) 1994-2006 Lua.org, PUC-Rio
+
+Xorg -version:
+
+X.Org X Server 1.4.0
+Release Date: 5 September 2007
+X Protocol Version 11, Revision 0
+Build Operating System: FreeBSD 7.0-BETA3 i386
+Current Operating System: FreeBSD cserv65.csub.edu 7.0-BETA4 FreeBSD 7.0-BETA4 #2: Wed Dec
+ 5 11:52:27 PST 2007     raj at cserv65.csub.edu:/usr/obj/usr/src/sys/CSERV65 i386
+Build Date: 05 December 2007  11:31:41AM
+
+uname -a:
+
+FreeBSD cserv65.csub.edu 7.0-BETA4 FreeBSD 7.0-BETA4 #2: Wed Dec  5 11:52:27 PST 2007
+raj at cserv65.csub.edu:/usr/obj/usr/src/sys/CSERV65  i386
+
+gcc -v:
+
+Using built-in specs.
+Target: i386-undermydesk-freebsd
+Configured with: FreeBSD/i386 system compiler
+Thread model: posix
+gcc version 4.2.1 20070719  [FreeBSD]
+
+Thanks,
+-- 
+Russell A. Jackson <raj at csub.edu>
+Network Analyst
+California State University, Bakersfield
+
+Time sharing: The use of many people by the computer.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: smime.p7s
+Type: application/x-pkcs7-signature
+Size: 4291 bytes
+Desc: S/MIME Cryptographic Signature
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20071205/bf7880bb/attachment.bin>
+
+From tuomov at iki.fi  Wed Dec  5 23:07:11 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 5 Dec 2007 22:07:11 +0000 (UTC)
+Subject: SIGSEGV on screen_deinit()
+References: <475712FE.7040701@csub.edu>
+Message-ID: <slrnfle88f.qld.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-05, Russell Jackson <raj at csub.edu> wrote:
+> gdb bt:
+
+Please recompile and obtain 'bt full' with debugging information 
+enabled (gcc -g).
+
+-- 
+Tuomo
+
+
+
+From raj at csub.edu  Wed Dec  5 23:51:05 2007
+From: raj at csub.edu (Russell Jackson)
+Date: Wed, 05 Dec 2007 14:51:05 -0800
+Subject: SIGSEGV on screen_deinit()
+In-Reply-To: <slrnfle88f.qld.tuomov@jolt.modeemi.cs.tut.fi>
+References: <475712FE.7040701@csub.edu>
+	<slrnfle88f.qld.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <47572B59.3030803@csub.edu>
+
+Tuomo Valkonen wrote:
+> On 2007-12-05, Russell Jackson <raj at csub.edu> wrote:
+>> gdb bt:
+> 
+> Please recompile and obtain 'bt full' with debugging information 
+> enabled (gcc -g).
+> 
+
+Bah! It was mod_xinerama. Sorry about the noise.
+
+-- 
+Russell A. Jackson <raj at csub.edu>
+Network Analyst
+California State University, Bakersfield
+
+The most important early product on the way
+to developing a good product is an imperfect version.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: smime.p7s
+Type: application/x-pkcs7-signature
+Size: 4291 bytes
+Desc: S/MIME Cryptographic Signature
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20071205/7758195f/attachment.bin>
+
+From tuomov at iki.fi  Thu Dec  6 00:19:10 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 5 Dec 2007 23:19:10 +0000 (UTC)
+Subject: SIGSEGV on screen_deinit()
+References: <475712FE.7040701@csub.edu>
+	<slrnfle88f.qld.tuomov@jolt.modeemi.cs.tut.fi>
+	<47572B59.3030803@csub.edu>
+Message-ID: <slrnflecfe.pv.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-05, Russell Jackson <raj at csub.edu> wrote:
+> Bah! It was mod_xinerama. Sorry about the noise.
+
+As far as I know, it's rather passive in the background after
+the initial setup. So if it doesn't do any strange low-level
+pointer management hacks, which it shouldn't need to, this
+shouldn't be directly caused by that module. But check it
+first and report back again, with a full backtrace.
+
+-- 
+Tuomo
+
+
+
+From raj at csub.edu  Thu Dec  6 01:52:48 2007
+From: raj at csub.edu (Russell Jackson)
+Date: Wed, 05 Dec 2007 16:52:48 -0800
+Subject: SIGSEGV on screen_deinit()
+In-Reply-To: <slrnflecfe.pv.tuomov@jolt.modeemi.cs.tut.fi>
+References: <475712FE.7040701@csub.edu>	<slrnfle88f.qld.tuomov@jolt.modeemi.cs.tut.fi>	<47572B59.3030803@csub.edu>
+	<slrnflecfe.pv.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <475747E0.3070503@csub.edu>
+
+Tuomo Valkonen wrote:
+> On 2007-12-05, Russell Jackson <raj at csub.edu> wrote:
+>> Bah! It was mod_xinerama. Sorry about the noise.
+> 
+> As far as I know, it's rather passive in the background after
+> the initial setup. So if it doesn't do any strange low-level
+> pointer management hacks, which it shouldn't need to, this
+> shouldn't be directly caused by that module. But check it
+> first and report back again, with a full backtrace.
+> 
+
+I wasn't expecting you to want to have anything to do with said module ;-). I'll have to
+get around to this tomorrow.
+
+Thanks again,
+-- 
+Russell A. Jackson <raj at csub.edu>
+Network Analyst
+California State University, Bakersfield
+
+The most important early product on the way
+to developing a good product is an imperfect version.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: smime.p7s
+Type: application/x-pkcs7-signature
+Size: 4291 bytes
+Desc: S/MIME Cryptographic Signature
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20071205/b2413bcf/attachment.bin>
+
+From tuomov at iki.fi  Thu Dec  6 03:12:13 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 6 Dec 2007 02:12:13 +0000 (UTC)
+Subject: SIGSEGV on screen_deinit()
+References: <475712FE.7040701@csub.edu>
+	<slrnfle88f.qld.tuomov@jolt.modeemi.cs.tut.fi>
+	<47572B59.3030803@csub.edu>
+	<slrnflecfe.pv.tuomov@jolt.modeemi.cs.tut.fi>
+	<475747E0.3070503@csub.edu>
+Message-ID: <slrnflemjt.h6f.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-06, Russell Jackson <raj at csub.edu> wrote:
+> I wasn't expecting you to want to have anything to do with said module ;-). 
+
+Segfaults are fixed no matter what triggers them -- even Gnome, if you
+check the FAQ [1] -- unless, of course, the trigger itself has corrupted
+Ion's data structures or so, which should be checked in case of modules
+that have access to Ion's memory space.
+
+  [1]: http://iki.fi/tuomov/ion/faq/entries/Reporting_bugs.html
+
+-- 
+Tuomo
+
+
+
+From EvgenyKurbatov at yandex.ru  Thu Dec  6 22:19:49 2007
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Fri, 07 Dec 2007 00:19:49 +0300
+Subject: Annoying title in the WS list
+Message-ID: <47586775.7090004@yandex.ru>
+
+HELO!
+
+I can see line *scratchws* in the list of workspaces, meantime I don't
+want to see it because I know that it exists.  Can I remove this line
+from list?  I do not redefine any default settings of mod_sp, but the
+line annoying me for a two or three last releases.  I tried to remove
+all contents of ~/.ion3/default-session--0 and to start from scratch,
+but the problem arose again.  BTW, when I upgraded ion3, I always just
+install the new version without removing old one.  It sounds stupid, but
+can it be the reason for configs to collide?
+
+Best witches,
+Evgeny
+
+
+From mark at nirv.net  Fri Dec  7 09:54:48 2007
+From: mark at nirv.net (Mark Tran)
+Date: Fri, 7 Dec 2007 03:54:48 -0500
+Subject: Shading doesn't work on certain tab-bar styles
+Message-ID: <100c84810712070054p14c441e4u51d0b7cd138c770f@mail.gmail.com>
+
+Hi,
+
+Whenever I set the tab-bar style for my floating frames to
+
+bar = "inside" or bar = "outside"
+
+instead of shading, the float reduces in height and does not fully
+collapse. Toggling shading again does not restore its original height.
+
+This occurs on all windows though the Pidgin Buddy List seems to
+toggle shading correctly, but not the conversation windows. It works
+fine on all of my floats if I use the "shaped" bar style.
+
+Also, what's the difference between the inside and outstyle bar styles?
+
+
+From tuomov at iki.fi  Fri Dec  7 11:27:19 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 7 Dec 2007 10:27:19 +0000 (UTC)
+Subject: Shading doesn't work on certain tab-bar styles
+References: <100c84810712070054p14c441e4u51d0b7cd138c770f@mail.gmail.com>
+Message-ID: <slrnfli807.mbt.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-07, Mark Tran <mark at nirv.net> wrote:
+> instead of shading, the float reduces in height and does not fully
+> collapse. Toggling shading again does not restore its original height.
+
+Fixed (for next and hopefully final RC).
+
+> Also, what's the difference between the inside and outstyle bar styles?
+
+Whether the tab-bar is inside the border, or outside it. Whether you see
+much of a difference depends on whether you have set a border.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Fri Dec  7 11:32:07 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 7 Dec 2007 10:32:07 +0000 (UTC)
+Subject: Annoying title in the WS list
+References: <47586775.7090004@yandex.ru>
+Message-ID: <slrnfli897.mbt.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-06, Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+> I can see line *scratchws* in the list of workspaces, meantime I don't
+> want to see it because I know that it exists.  
+
+> Can I remove this line from list?
+
+No. The mod_sp.set_shown_on depends on those names.
+You could write a custom F9 (I guess?) completor that
+doesn't show it, but what's the big deal?
+
+> BTW, when I upgraded ion3, I always just
+> install the new version without removing old one.  It sounds stupid, but
+> can it be the reason for configs to collide?
+
+You should always start from a blank slate with development snapshots.
+At the present RC stage thing should not (considerably) break, and at
+the stable stage not at all (at least if the configs don't exploit some
+bug...).
+
+-- 
+Tuomo
+
+
+
+From EvgenyKurbatov at yandex.ru  Fri Dec  7 21:41:45 2007
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Fri, 07 Dec 2007 23:41:45 +0300
+Subject: Annoying title in the WS list
+In-Reply-To: <slrnfli897.mbt.tuomov@jolt.modeemi.cs.tut.fi>
+References: <47586775.7090004@yandex.ru>
+	<slrnfli897.mbt.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <4759B009.7040207@yandex.ru>
+
+Hi,Tuomo!
+
+>> Can I remove this line from list?
+> 
+> No. The mod_sp.set_shown_on depends on those names.
+> You could write a custom F9 (I guess?) completor that
+> doesn't show it, but what's the big deal?
+
+Nevermind yet, just an aesthetical whim. :)
+This situation happens on my laptop, but on the desktop with (almost)
+the same history of upgrading of ion3 and fully identical configs, the
+*scratchws* line does not appears in the WS list.  The history of
+upgrading on the desktop is more ancient.  Upgrade from previous release
+(it named DS, am I right?) was not clean, as I wrote, but was done over
+it.  Maybe some artifacts from last release or some other methaphysics
+contaminated my ion's karma and it became doing things well, in my own
+mean.  Maybe something like an even number of errors... :)
+
+Best witches,
+Evgeny
+
+
+From tuomov at iki.fi  Fri Dec  7 22:34:28 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 7 Dec 2007 21:34:28 +0000 (UTC)
+Subject: Annoying title in the WS list
+References: <47586775.7090004@yandex.ru>
+	<slrnfli897.mbt.tuomov@jolt.modeemi.cs.tut.fi>
+	<4759B009.7040207@yandex.ru>
+Message-ID: <slrnfljf34.l7a.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-07, Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+> This situation happens on my laptop, but on the desktop with (almost)
+> the same history of upgrading of ion3 and fully identical configs, the
+> *scratchws* line does not appears in the WS list.  
+
+The scratchpad wasn't in its own group/ws earlier, but at some point
+this was added for transient detach etc. However, old configs are not
+modified until you destroy the existing scratchpad (by closing the
+frame)) and toggle has to create a new one to display it.
+
+-- 
+Tuomo
+
+
+
+From Albert.Shih at obspm.fr  Fri Dec 14 00:58:25 2007
+From: Albert.Shih at obspm.fr (Albert Shih)
+Date: Fri, 14 Dec 2007 00:58:25 +0100
+Subject: I'm very sad...
+Message-ID: <20071213235825.GB25558@pcjas.obspm.fr>
+
+Hi all
+
+This may just say I'm very very sad to see the ion-3 ports disapear from
+FreeBSD ports tree because some licence problem.
+
+I don't want blame anyone. I don't understand this law problem...I'just
+want to say I'm very regret that.
+
+Now I need to find something don't exist : another wm such good as ion3.
+
+Regards.
+
+
+--
+Albert SHIH
+Observatoire de Paris Meudon
+SIO batiment 15
+Heure local/Local time:
+Ven 14 d?c 2007 00:56:22 CET
+
+
+From tuomov at iki.fi  Fri Dec 14 01:37:48 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 14 Dec 2007 00:37:48 +0000 (UTC)
+Subject: I'm very sad...
+References: <20071213235825.GB25558@pcjas.obspm.fr>
+Message-ID: <slrnfm3k2s.u45.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-13, Albert Shih <Albert.Shih at obspm.fr> wrote:
+> This may just say I'm very very sad to see the ion-3 ports disapear from
+> FreeBSD ports tree because some licence problem.
+
+The only problem is some people wanting to interpret it the worst
+possible way, although it would be trivial to comply with it.
+Just a few small notices.. Of course, most people don't bother
+to actually read the license before complaining and spreading
+misinformation.
+
+> Now I need to find something don't exist : another wm such good as ion3.
+
+Just compile from source. It's not that difficult.
+
+If there's demand, I could provide a relocatable binary as well...
+Presently no ZeroInstall feed, though, because I can't build its
+dependencies in Frisbee. But ZI is just a convenient way to install
+a tarball with a relocatable binary.
+
+-- 
+Tuomo
+
+
+
+From Albert.Shih at obspm.fr  Fri Dec 14 01:55:15 2007
+From: Albert.Shih at obspm.fr (Albert Shih)
+Date: Fri, 14 Dec 2007 01:55:15 +0100
+Subject: I'm very sad...
+In-Reply-To: <slrnfm3k2s.u45.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071213235825.GB25558@pcjas.obspm.fr>
+	<slrnfm3k2s.u45.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20071214005515.GC25748@pcjas.obspm.fr>
+
+ Le 14/12/2007 ? 00:37:48+0000, Tuomo Valkonen a ?crit
+> On 2007-12-13, Albert Shih <Albert.Shih at obspm.fr> wrote:
+> > This may just say I'm very very sad to see the ion-3 ports disapear from
+> > FreeBSD ports tree because some licence problem.
+> 
+> The only problem is some people wanting to interpret it the worst
+> possible way, although it would be trivial to comply with it.
+> Just a few small notices.. Of course, most people don't bother
+> to actually read the license before complaining and spreading
+> misinformation.
+
+Just like I said, I don't want blame anyone, maybe you right, maybe you
+wrong, maybe FreeBSD ports manager right/wrong, I don't known. 
+
+I'm not a developper (the more complex software I ever write is ?hello
+world?), I'm not a ports maintener.
+
+What I just want to say is I'm very regret there are no agreement between
+you and FreeBSD ports Team.
+
+> 
+> > Now I need to find something don't exist : another wm such good as ion3.
+> 
+> Just compile from source. It's not that difficult.
+> 
+
+Of course It's what I'm going to do (try), but the ports collection make all
+dependency, and it's very fine technics. 
+
+But the problem for me it's I'm not a programmer, I'm just a sysadmin, and
+I think in some year when there lots of modification in all software I'm
+not sure I can compile that. 
+
+I'm just look in the old ports collection and there are very few patch in
+the ion-3 ports, but maybe in few year they need more. I can only make very
+few modifications.
+
+> If there's demand, I could provide a relocatable binary as well...
+> Presently no ZeroInstall feed, though, because I can't build its
+> dependencies in Frisbee. But ZI is just a convenient way to install
+> a tarball with a relocatable binary.
+
+I can answer that question, IMHO ion-3 is the best wm I ever seen (in
+almost 20 years of unix). But all new users use some KDE/Gnome, this kind
+of software let you have 3 finger very big by using the mouse.
+
+Event I can't using ion-3 because I can build it I just want thanks you for
+all this year with you software.
+
+Regards.
+
+--
+Albert SHIH
+Observatoire de Paris Meudon
+SIO batiment 15
+T?l?phone : 01 45 07 76 26
+Heure local/Local time:
+Ven 14 d?c 2007 01:54:04 CET
+
+
+From tuomov at iki.fi  Fri Dec 14 02:36:41 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 14 Dec 2007 03:36:41 +0200
+Subject: I'm very sad...
+In-Reply-To: <20071214005515.GC25748@pcjas.obspm.fr>
+References: <20071213235825.GB25558@pcjas.obspm.fr>
+	<slrnfm3k2s.u45.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071214005515.GC25748@pcjas.obspm.fr>
+Message-ID: <20071214013641.GA4020@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-14 01:55 +0100, Albert Shih wrote:
+> Of course It's what I'm going to do (try), but the ports collection make all
+> dependency, and it's very fine technics. 
+
+Ion doesn't have many non-standard dependencies. Most systems have X11R6
+libraries installed, of which no particular version is needed (aside from
+bugs in some versions, in particular in relation to XGetTextProperty...).
+Some libc related aspects need to be configured in system.mk (some systems
+have some components sanely as separate, and others have monolithic libc),
+but aside from that, the only non-standard dependency that needs
+installation, is Lua. Lua is also quite easy to install: it has ANSI C
+as its only dependency. (However, some versions of Lua's Makefiles set
+broken permissions... But installing from ports or so may fix them.)
+
+-- 
+Tuomo
+
+
+From j.van_den_hoff at fzd.de  Fri Dec 14 14:29:15 2007
+From: j.van_den_hoff at fzd.de (Joerg van den Hoff)
+Date: Fri, 14 Dec 2007 14:29:15 +0100
+Subject: I'm very sad...
+In-Reply-To: <20071214005515.GC25748@pcjas.obspm.fr>
+References: <20071213235825.GB25558@pcjas.obspm.fr>
+	<slrnfm3k2s.u45.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071214005515.GC25748@pcjas.obspm.fr>
+Message-ID: <20071214132915.GE25919@marco.fz-rossendorf.de>
+
+On Fri, Dec 14, 2007 at 01:55:15AM +0100, Albert Shih wrote:
+>  Le 14/12/2007 ? 00:37:48+0000, Tuomo Valkonen a ?crit
+> > On 2007-12-13, Albert Shih <Albert.Shih at obspm.fr> wrote:
+> > > This may just say I'm very very sad to see the ion-3 ports disapear from
+> > > FreeBSD ports tree because some licence problem.
+
+hi, 
+
+accidentally, I just set up my first FreeBSD 
+on a 500 MHz pentium III a few days ago (nice system, e.g. the short boot time
+(booting was necessary quite some times before I got it right...). so I'm really
+no freebsd expert. but I installed ion3 with
+
+pkg_add -r ion-3ds
+
+from the 6-stable/Latest branch:
+
+Fetching
+ftp://ftp3.de.freebsd.org/pub/FreeBSD/ports/i386/packages-6-stable/Latest/ion-3ds.tbz...
+
+that's an old ion version (end of 2006) and tuomo probably will hate to see that
+but better than nothing.
+
+
+> > 
+> > The only problem is some people wanting to interpret it the worst
+> > possible way, although it would be trivial to comply with it.
+> > Just a few small notices.. Of course, most people don't bother
+> > to actually read the license before complaining and spreading
+> > misinformation.
+> 
+> Just like I said, I don't want blame anyone, maybe you right, maybe you
+> wrong, maybe FreeBSD ports manager right/wrong, I don't known. 
+> 
+> I'm not a developper (the more complex software I ever write is ?hello
+> world?), I'm not a ports maintener.
+> 
+> What I just want to say is I'm very regret there are no agreement between
+> you and FreeBSD ports Team.
+> 
+> > 
+> > > Now I need to find something don't exist : another wm such good as ion3.
+> > 
+> > Just compile from source. It's not that difficult.
+> > 
+> 
+> Of course It's what I'm going to do (try), but the ports collection make all
+> dependency, and it's very fine technics. 
+> 
+> But the problem for me it's I'm not a programmer, I'm just a sysadmin, and
+> I think in some year when there lots of modification in all software I'm
+> not sure I can compile that. 
+> 
+> I'm just look in the old ports collection and there are very few patch in
+> the ion-3 ports, but maybe in few year they need more. I can only make very
+> few modifications.
+> 
+> > If there's demand, I could provide a relocatable binary as well...
+> > Presently no ZeroInstall feed, though, because I can't build its
+> > dependencies in Frisbee. But ZI is just a convenient way to install
+> > a tarball with a relocatable binary.
+> 
+> I can answer that question, IMHO ion-3 is the best wm I ever seen (in
+> almost 20 years of unix). But all new users use some KDE/Gnome, this kind
+> of software let you have 3 finger very big by using the mouse.
+> 
+> Event I can't using ion-3 because I can build it I just want thanks you for
+> all this year with you software.
+> 
+> Regards.
+> 
+> --
+> Albert SHIH
+> Observatoire de Paris Meudon
+> SIO batiment 15
+> T?l?phone : 01 45 07 76 26
+> Heure local/Local time:
+> Ven 14 d?c 2007 01:54:04 CET
+
+
+From tuomov at iki.fi  Fri Dec 14 14:59:43 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 14 Dec 2007 13:59:43 +0000 (UTC)
+Subject: I'm very sad...
+References: <20071213235825.GB25558@pcjas.obspm.fr>
+	<slrnfm3k2s.u45.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071214005515.GC25748@pcjas.obspm.fr>
+	<20071214132915.GE25919@marco.fz-rossendorf.de>
+Message-ID: <slrnfm532f.vog.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-14, Joerg van den Hoff <j.van_den_hoff at fzd.de> wrote:
+> that's an old ion version (end of 2006) and tuomo probably will hate to see that
+> but better than nothing.
+
+It's totally broken. Stay away.
+
+-- 
+Tuomo
+
+
+
+From dirkarlt at gmail.com  Fri Dec 14 21:14:54 2007
+From: dirkarlt at gmail.com (Dirk Arlt)
+Date: Fri, 14 Dec 2007 21:14:54 +0100
+Subject: I'm very sad...
+In-Reply-To: <slrnfm532f.vog.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071213235825.GB25558@pcjas.obspm.fr>
+	<slrnfm3k2s.u45.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071214005515.GC25748@pcjas.obspm.fr>
+	<20071214132915.GE25919@marco.fz-rossendorf.de>
+	<slrnfm532f.vog.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20071214211454.68d7aa03.dirkarlt@gmail.com>
+
+* Tuomo Valkonen <tuomov at iki.fi> wrote:
+
+> On 2007-12-14, Joerg van den Hoff <j.van_den_hoff at fzd.de> wrote:
+> > that's an old ion version (end of 2006) and tuomo probably will hate to see that
+> > but better than nothing.
+> 
+> It's totally broken. Stay away.
+> 
+> -- 
+> Tuomo
+> 
+
+I am no Maintainer of Ports, but that [1] works for me. I removed
+Xinerama and updated to 20071130.
+
+[1] http://mjhp.net/files/ion/ion-3.tar.gz
+
+Dirk
+
+
+From tuomov at iki.fi  Fri Dec 14 21:33:29 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 14 Dec 2007 20:33:29 +0000 (UTC)
+Subject: I'm very sad...
+References: <20071213235825.GB25558@pcjas.obspm.fr>
+	<slrnfm3k2s.u45.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071214005515.GC25748@pcjas.obspm.fr>
+	<20071214132915.GE25919@marco.fz-rossendorf.de>
+	<slrnfm532f.vog.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071214211454.68d7aa03.dirkarlt@gmail.com>
+Message-ID: <slrnfm5q4p.4me.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-14, Dirk Arlt <dirkarlt at gmail.com> wrote:
+> I am no Maintainer of Ports, but that [1] works for me. I removed
+> Xinerama and updated to 20071130.
+>
+> [1] http://mjhp.net/files/ion/ion-3.tar.gz
+
+Hmm.. The Ion scripts repository might be one, in some way appropriate,
+way to publish make scripts for various distros... Users would need
+darcs or some custom scripts to download them, though. Unfortunately
+there are no directory listings, so wget doesn't work from my site.
+An index.html should take care of that, though.
+
+-- 
+Tuomo
+
+
+
+From j.van_den_hoff at fzd.de  Mon Dec 17 17:04:33 2007
+From: j.van_den_hoff at fzd.de (Joerg van den Hoff)
+Date: Mon, 17 Dec 2007 17:04:33 +0100
+Subject: ion3 license
+Message-ID: <20071217160433.GH595@marco.fz-rossendorf.de>
+
+tuomo,
+
+I today learned 2 things:
+
+a) ion3 has been removed from `macports' which is the MacOSX
+package management system. in terms of  installed  base,  if
+one  can  believe  available  statistics,  macos x is _much_
+larger than all  the  other  *ixes  and  *uxes  together  --
+actually  the  only  OS  besides  windows with a significant
+number of installations (sure, how many mac  users  actually
+install  x11-wms  -  or  other open source software for that
+matter - is a different question). it's in this respect  not
+a peripheral platform.
+
+b)  debian  seems to distribute now ion3 under some nonsense
+name (particelMan?)  in order to adhere to your  licence  (I
+was'nt aware of this naming aspect, actually).
+
+you sure, that that's what you want for `ion3'. some kind of
+name aliasing tricks for the only reason that  your  license
+calls  for  such  things?  which  does prevent exactly what?
+which does have exactly what benfits?
+
+I  think  it really would be a wise and nice thing to do and
+draw a line at demanding some unambigous info in the package
+that  it's none of your buiseness if an old version does not
+work  as  expected.  enforcing  "under   cover"   names   is
+ridiculous.
+
+otherwise  this  seems  a sure strategy to finish `ion3' off
+outside of a _very_ small group. I'm sure you would'nt  care
+but need you enforce such a thing?
+
+joerg
+
+
+
+From tuomov at iki.fi  Mon Dec 17 17:25:50 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 17 Dec 2007 16:25:50 +0000 (UTC)
+Subject: ion3 license
+References: <20071217160433.GH595@marco.fz-rossendorf.de>
+Message-ID: <slrnfmd8oe.5fq.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-17, Joerg van den Hoff <j.van_den_hoff at fzd.de> wrote:
+> a) ion3 has been removed from `macports' which is the MacOSX
+> package management system. 
+
+Good. 
+
+> I  think  it really would be a wise and nice thing to do and
+> draw a line at demanding some unambigous info in the package
+> that  it's none of your buiseness if an old version does not
+> work  as  expected.  enforcing  "under   cover"   names   is
+> ridiculous.
+
+This distros are mostly composed of ridiculuous fuckwits and 
+dickheads -- ex school bullies who can only package and corrupt
+others' software -- if even that -- and not actually write new
+software, let alone something that wouldn't be a clone (the whole
+FOSS movement is incapable of that). They consider it "unreasonable"
+and impossible to add prominent notices that I will have nothing 
+to do with their obsolete and modified shit. Renaming is the 
+alternative to that.
+
+> otherwise  this  seems  a sure strategy to finish `ion3' off
+> outside of a _very_ small group. I'm sure you would'nt  care
+> but need you enforce such a thing?
+
+I don't want to have anything to do with the typical specimen of 
+the FOSS herd. I rather deal with a handful of nice and intelligent
+people. 
+
+-- 
+Tuomo
+
+
+
+From quentinhuys at gmail.com  Mon Dec 17 18:37:21 2007
+From: quentinhuys at gmail.com (Quentin Huys)
+Date: Mon, 17 Dec 2007 12:37:21 -0500
+Subject: ion3 license
+In-Reply-To: <20071217160433.GH595@marco.fz-rossendorf.de>
+References: <20071217160433.GH595@marco.fz-rossendorf.de>
+Message-ID: <b85d58c40712170937s46ea8a41ha4c0be16af1dbf74@mail.gmail.com>
+
+Dear Tuomo, Dear Joerg
+
+Yes, may I just express exactly the same. Over the past few months I have
+installed ion3 without even the slightest of minimal hassles on quite a
+number of mac os x's using macports. Now, it's gone and I already am having
+trouble, having to go through dependencies etc.
+
+Ion is an extremely useful tool, and me and several in my lab now use it
+effectively. However, we don't want to have to spend a day or more every
+time we want to reinstall it on some new machine, hunting for dependencies
+etc. In particular, that'll make sure we *NEVER* update to a newer version
+if we have a working one... in fact, that's what happened to me before... I
+stuck with ion1 for ages just because I got all kinds of silly problems
+compiling it.
+
+Thus, from my view and people like me, ion not being available on
+repositories like macports will just make sure we stick with an even older
+version than what we would if we were to stick with the ones on the
+repositories... so seems very counterproductive...
+
+Best wishes,
+Quentin
+
+PS: and as we're here: This is what I get when trying to compile:
+
+ql:~/Desktop/ion-3rc-20071130% make
+set -e; for i in libtu libextl libmainloop mod_tiling mod_query mod_menu
+mod_dock mod_sp mod_sm mod_statusbar de ioncore ion pwm etc utils man po ;
+do make -C $i; done
+gcc -Os -W -Wimplicit -Wreturn-type -Wswitch -Wcomment -Wtrigraphs -Wformat
+-Wchar-subscripts -Wparentheses -pedantic -Wuninitialized
+-DCF_XFREE86_TEXTPROP_BUG_WORKAROUND -DHAVE_SNPRINTF      -c output.c -o
+output.o
+In file included from output.c:23:
+private.h:15:21: error: libintl.h: No such file or directory
+output.c: In function 'fallback_warn':
+output.c:116: warning: implicit declaration of function 'dgettext'
+output.c:116: warning: incompatible implicit declaration of built-in
+function 'dgettext'
+make[1]: *** [output.o] Error 1
+make: *** [subdirs] Error 2
+
+... Thank you for any help...
+
+On Dec 17, 2007 11:04 AM, Joerg van den Hoff <j.van_den_hoff at fzd.de> wrote:
+
+> tuomo,
+>
+> I today learned 2 things:
+>
+> a) ion3 has been removed from `macports' which is the MacOSX
+> package management system. in terms of  installed  base,  if
+> one  can  believe  available  statistics,  macos x is _much_
+> larger than all  the  other  *ixes  and  *uxes  together  --
+> actually  the  only  OS  besides  windows with a significant
+> number of installations (sure, how many mac  users  actually
+> install  x11-wms  -  or  other open source software for that
+> matter - is a different question). it's in this respect  not
+> a peripheral platform.
+>
+> b)  debian  seems to distribute now ion3 under some nonsense
+> name (particelMan?)  in order to adhere to your  licence  (I
+> was'nt aware of this naming aspect, actually).
+>
+> you sure, that that's what you want for `ion3'. some kind of
+> name aliasing tricks for the only reason that  your  license
+> calls  for  such  things?  which  does prevent exactly what?
+> which does have exactly what benfits?
+>
+> I  think  it really would be a wise and nice thing to do and
+> draw a line at demanding some unambigous info in the package
+> that  it's none of your buiseness if an old version does not
+> work  as  expected.  enforcing  "under   cover"   names   is
+> ridiculous.
+>
+> otherwise  this  seems  a sure strategy to finish `ion3' off
+> outside of a _very_ small group. I'm sure you would'nt  care
+> but need you enforce such a thing?
+>
+> joerg
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20071217/f06f236a/attachment.html>
+
+From udvzsolt at gmail.com  Mon Dec 17 18:55:27 2007
+From: udvzsolt at gmail.com (Zsolt Udvari)
+Date: Mon, 17 Dec 2007 18:55:27 +0100
+Subject: ion3 license
+In-Reply-To: <760ece280712170955j746008a7qed6316ab42374f14@mail.gmail.com>
+References: <20071217160433.GH595@marco.fz-rossendorf.de>
+	<b85d58c40712170937s46ea8a41ha4c0be16af1dbf74@mail.gmail.com>
+	<760ece280712170955j746008a7qed6316ab42374f14@mail.gmail.com>
+Message-ID: <760ece280712170955u4f120ca3u96fbb804d82ba06d@mail.gmail.com>
+
+> private.h:15:21: error: libintl.h: No such file or directory
+This file belongs to the glibc (or libc and I don't know its name in
+different distros), so try install glibc-devel (or similar).
+
+
+From marplatense at ubuntu.com  Mon Dec 17 18:57:16 2007
+From: marplatense at ubuntu.com (Mariano Mara)
+Date: Mon, 17 Dec 2007 14:57:16 -0300
+Subject: ion3 license
+In-Reply-To: <b85d58c40712170937s46ea8a41ha4c0be16af1dbf74@mail.gmail.com>
+References: <20071217160433.GH595@marco.fz-rossendorf.de>
+	<b85d58c40712170937s46ea8a41ha4c0be16af1dbf74@mail.gmail.com>
+Message-ID: <4766B87C.9050402@ubuntu.com>
+
+Quentin Huys wrote:
+> 
+> PS: and as we're here: This is what I get when trying to compile:
+> 
+> ql:~/Desktop/ion-3rc-20071130% make
+> set -e; for i in libtu libextl libmainloop mod_tiling mod_query mod_menu 
+> mod_dock mod_sp mod_sm mod_statusbar de ioncore ion pwm etc utils man po 
+> ; do make -C $i; done
+> gcc -Os -W -Wimplicit -Wreturn-type -Wswitch -Wcomment -Wtrigraphs 
+> -Wformat -Wchar-subscripts -Wparentheses -pedantic -Wuninitialized 
+> -DCF_XFREE86_TEXTPROP_BUG_WORKAROUND -DHAVE_SNPRINTF      -c output.c -o 
+> output.o
+> In file included from output.c:23:
+> private.h:15:21: error: libintl.h: No such file or directory
+> output.c: In function 'fallback_warn':
+> output.c:116: warning: implicit declaration of function 'dgettext'
+> output.c:116: warning: incompatible implicit declaration of built-in 
+> function 'dgettext'
+> make[1]: *** [output.o] Error 1
+> make: *** [subdirs] Error 2
+> 
+
+At least in linux, libintl.c is in libc6-dev. Install that package and 
+that error should go away.
+
+I installed ion3 from the official RC on an ubuntu server I use in my 
+notebook (so that I didnt have to deal with gnome from the start) and 
+when compiling it, I found a lot of missing dependencies and errors, 
+however they were not hard to track and fix.
+I guess if you guys wanna give it a try from the source, if you face 
+errors you can post them here. At least I don't mind helping out with them.
+
+Saludos.
+
+
+
+From tuomov at iki.fi  Mon Dec 17 19:20:32 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 17 Dec 2007 18:20:32 +0000 (UTC)
+Subject: ion3 license
+References: <20071217160433.GH595@marco.fz-rossendorf.de>
+	<b85d58c40712170937s46ea8a41ha4c0be16af1dbf74@mail.gmail.com>
+Message-ID: <slrnfmdffg.h6v.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-17, Quentin Huys <quentinhuys at gmail.com> wrote:
+> private.h:15:21: error: libintl.h: No such file or directory
+
+Some systems may need a separate libintl package installed, as it
+cleanly isn't part of a single monolith. In that case, also enable
+the EXTRA_LIBS += -lintl line from system.mk .
+
+Note that system.mk has been quite stable for very long, so it is
+recommended that you store it for future use. Then you only have
+to copy it over when upgrading.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Mon Dec 17 22:38:52 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 17 Dec 2007 21:38:52 +0000 (UTC)
+Subject: ion3 license
+References: <20071217160433.GH595@marco.fz-rossendorf.de>
+	<slrnfmd8oe.5fq.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnfmdr3c.49o.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-17, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> This distros are mostly composed of ridiculuous fuckwits and 
+> dickheads
+
+Not to say that the Ion package maintainers (in the cases
+that the term can be applied) are among this crowd. But they,
+like Ion users, are in a minority that is not large enough to 
+set policy. The herd, many among which would happily see choice
+like Ion disappear from the face of the planet, can do so.
+
+-- 
+Tuomo
+
+
+
+From lobzang at free.fr  Tue Dec 18 09:28:24 2007
+From: lobzang at free.fr (lobzang at free.fr)
+Date: Tue, 18 Dec 2007 09:28:24 +0100
+Subject: ion3 license
+In-Reply-To: <b85d58c40712170937s46ea8a41ha4c0be16af1dbf74@mail.gmail.com>
+References: <20071217160433.GH595@marco.fz-rossendorf.de>
+	<b85d58c40712170937s46ea8a41ha4c0be16af1dbf74@mail.gmail.com>
+Message-ID: <1197966504.476784a82a821@imp.free.fr>
+
+Quoting Quentin Huys <quentinhuys at gmail.com>:
+
+
+> private.h:15:21: error: libintl.h: No such file or directory
+
+on my fedora, this is part of glibc-headers...
+
+
+Lobzang
+
+
+From jrobson at cachelogic.com  Tue Dec 18 09:29:00 2007
+From: jrobson at cachelogic.com (John Robson)
+Date: Tue, 18 Dec 2007 08:29:00 -0000
+Subject: ion3 license
+In-Reply-To: <slrnfmd8oe.5fq.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071217160433.GH595@marco.fz-rossendorf.de>
+	<slrnfmd8oe.5fq.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <op.t3iu6mkc5yfyku@telephus.cachelogic.com>
+
+On Mon, 17 Dec 2007 16:25:50 -0000, Tuomo Valkonen <tuomov at iki.fi> wrote:
+
+> On 2007-12-17, Joerg van den Hoff <j.van_den_hoff at fzd.de> wrote:
+>> a) ion3 has been removed from `macports' which is the MacOSX
+>> package management system.
+>
+> Good.
+
+Really - You think that's good?
+I really do question your sanity at times, more recently than ever before.  
+You have written, and published, a pretty decent WM, but don't seem to  
+want anyone to benefit from it.
+
+Simply adding the message you want to the top of the ion man page, and  
+that "informational" window that you get first time you run ion really  
+ought to be enough to say "this package may not be the latest available -  
+check tuomo's site". TBH - I'd not care if that popped up every time I ran  
+ion (once every 6 months or so, whenever I have a power cut).
+
+
+>> I  think  it really would be a wise and nice thing to do and
+>> draw a line at demanding some unambigous info in the package
+>> that  it's none of your buiseness if an old version does not
+>> work  as  expected.  enforcing  "under   cover"   names   is
+>> ridiculous.
+>
+> This distros are mostly composed of ridiculuous fuckwits and
+> dickheads -- ex school bullies who can only package and corrupt
+> others' software -- if even that -- and not actually write new
+> software, let alone something that wouldn't be a clone (the whole
+> FOSS movement is incapable of that). They consider it "unreasonable"
+> and impossible to add prominent notices that I will have nothing
+> to do with their obsolete and modified shit. Renaming is the
+> alternative to that.
+
+So anyone who doesn't spend all their time recompiling software for what  
+is, for most people, a tool and nothing more, is an idiot according to you.
+Well, I almost exclusively use binary packages - because they make my life  
+easier.  And yes I expect them ALL to behave the same way. If you're  
+writing a distro then that level of consistency in your package management  
+is important. Adding prominent messages to ion (the program, not a special  
+case in the package handler) is much easier.  People who hate it strongly  
+enough can simply compile it out if they want (or you could add a config  
+option) - package maintainers won't bother.
+
+>> otherwise  this  seems  a sure strategy to finish `ion3' off
+>> outside of a _very_ small group. I'm sure you would'nt  care
+>> but need you enforce such a thing?
+>
+> I don't want to have anything to do with the typical specimen of
+> the FOSS herd. I rather deal with a handful of nice and intelligent
+> people.
+
+You'd rather deal with yourself and only yourself - you've demonstrated  
+this arrogance before, and will do again.  It's a shame that I don't have  
+the time to write a tiling WM myself, because I actually think that a  
+couple of us here could do a very good job of it.
+
+John
+
+-- 
+John Robson
+
+
+From tuomov at iki.fi  Tue Dec 18 10:07:55 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 18 Dec 2007 09:07:55 +0000 (UTC)
+Subject: ion3 license
+References: <20071217160433.GH595@marco.fz-rossendorf.de>
+	<slrnfmd8oe.5fq.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3iu6mkc5yfyku@telephus.cachelogic.com>
+Message-ID: <slrnfmf3fb.43p.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-18, John Robson <jrobson at cachelogic.com> wrote:
+> Simply adding the message you want to the top of the ion man page
+
+People read manual pages? Those people that install Ion from a distro
+without checking whether it is obsolete?
+
+> that "informational" window that you get first time you run ion really  
+> ought to be enough to say "this package may not be the latest available -  
+> check tuomo's site". 
+
+Bah, the distros conduct is the problem, so they should fix it.
+
+And besides, then I'd have to forbid the distros from removing that -- 
+and again they would moan that "it's not free". (The FSF is actually 
+among the saner end of the FOSS movement, what with GFDL including 
+invariant sections, and GPLv3 containing provisions for requiring 
+modified versions to be renamed or so. The real zealots are centered
+around the distros, and only consider those licenses "free" that give
+distros the most power at the expense of authors.)
+
+It's funny, actually: FOSS is supposed to be developed in a bazaar, 
+but the typical FOSS licenses are only suited for cathedral mode of 
+development: release when it is ready and stable as a rock. For 
+otherwise you'll have to suffer from distros distributing obsolete
+development snapshots.
+
+> So anyone who doesn't spend all their time recompiling software for what  
+> is, for most people, a tool and nothing more, is an idiot according to you.
+
+These are not end-users with other specialities, but rather the lower
+strata of developers.
+
+> Well, I almost exclusively use binary packages - because they make my life  
+> easier.  
+
+I provide one too -- for a few platforms. Most authors provide them on 
+Windows. But generally binary packages for FOSS operating systems are only
+available from The Party. 
+
+> You'd rather deal with yourself and only yourself - you've demonstrated  
+> this arrogance before, and will do again.  
+
+I've had enough of the FOSS herd, and how it's destroying everything I
+once thought could be great. I really am universes distant from them. 
+
+> It's a shame that I don't have  
+> the time to write a tiling WM myself, because I actually think that a  
+> couple of us here could do a very good job of it.
+
+Yep, the typical FOSS attitude: write a clone for petty reasons of 
+ideology, rather than fixing far bigger issues with the shoddy quality
+of FOSS crap, the monoculturist practises prevalent in the movement,
+ridding yourself of the love of The Party, and so on.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue Dec 18 11:35:47 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 18 Dec 2007 12:35:47 +0200
+Subject: ion3 license
+In-Reply-To: <op.t3izfylk5yfyku@telephus.cachelogic.com>
+References: <20071217160433.GH595@marco.fz-rossendorf.de>
+	<slrnfmd8oe.5fq.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3iu6mkc5yfyku@telephus.cachelogic.com>
+	<slrnfmf3fb.43p.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3izfylk5yfyku@telephus.cachelogic.com>
+Message-ID: <20071218103546.GA12584@jolt.modeemi.cs.tut.fi>
+
+> Probably not until they have aproblem, 
+
+You're too optimist.
+
+> No - The fix , as with all fixes, should be applied in the fewest number  
+> of places.
+
+No, the fix should be at the root of the problem.
+
+> No - they just wouldn't bother.  Package maintainers aren't out to screw  
+> you - they are out to make others lives easier
+
+Bullshit. They e.g. include patches and modules I will not have anything
+to do with, in the Ion package itself, instead of separately. That's not
+just "making life easier", it's being a dickhead. Removing a startup message
+could be seen as "making life easier", although it really is a dickhead
+action.
+
+> Most development should be cathedral style, with a bazzar as "unstable".   
+
+The distros take the bazaar unstable snapshots of software, and fraudulently
+provide them as "stable" in their megafrozen cathedrals.
+
+> My work machine must "just work"(TM) I don't have time to fiddle with it
+
+The distros don't deliver. FOSS doesn't deliver. I don't have the time
+to fix fonts on every upgrade, and yet FOSS keeps becoming more and more
+AA/XML-fascist. I don't have the time for configuring udev brain damage
+to my needs. And I don't have the time to compile software when distros
+provide old and broken versions, instead of recent ones.
+
+> Yes - because "The Party" is the best placed to package them in a  
+> consistent manner for their users.  
+
+And this purported "consistency" comes at an expense of forming a few
+powerful central parties that oppress authors -- and soon users too. 
+There can not be that many distros with considerable package collections.
+Consequently power is centralised in their hands. They become the
+gatekeepers of software available to users. Microsoft has less power 
+over the software users use on Windows, than the biggest distros over 
+the software people use on Linux.
+
+"They" were right about the comm^Wcollectivist nature of FOSS, although
+on wrong grounds.
+
+Copyright was originally purportedly created to protect authors from
+publishers -- the filty capitalists. In practise the publishers use
+it against both users and authors, who have to hand over the copyright
+to get access to the publishing channels they control.
+
+Copyleft was purportedly created to, well, protect software from those
+filthy capitalists. In practise copyleft licenses just hand over power
+from authors to another set of publishers -- the free software Party.
+
+That's (copy)right and (copy)left for you. Two faces of the same coin.
+
+> >I've had enough of the FOSS herd, and how it's destroying everything I
+> >once thought could be great. I really am universes distant from them.
+> Not really, you just regard yourself as the "one true way".
+
+If flexible dynamically extensible and non-monoculturist software is 
+the "one true way", then so be it. For the FOSS herd, Party control,
+huge monoliths, anti-aliasing, udev, UTF-8, WIMP, etc. are the one 
+true way.
+
+> I'd also love to see a WM that encouragees it's users to contribute back,  
+
+Ion is modular. But the moronic FOSS herd does not like modular code:
+it wants the original author to maintain their shoddy patches that he
+does not care about. That is, once again they want the authors to be
+their slave, just like the distros do.
+
+-- 
+Tuomo
+
+
+From j.van_den_hoff at fzd.de  Tue Dec 18 11:37:20 2007
+From: j.van_den_hoff at fzd.de (Joerg van den Hoff)
+Date: Tue, 18 Dec 2007 11:37:20 +0100
+Subject: ion3 license
+In-Reply-To: <slrnfmf3fb.43p.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071217160433.GH595@marco.fz-rossendorf.de>
+	<slrnfmd8oe.5fq.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3iu6mkc5yfyku@telephus.cachelogic.com>
+	<slrnfmf3fb.43p.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20071218103719.GA18307@marco.fz-rossendorf.de>
+
+On Tue, Dec 18, 2007 at 09:07:55AM +0000, Tuomo Valkonen wrote:
+> On 2007-12-18, John Robson <jrobson at cachelogic.com> wrote:
+> > Simply adding the message you want to the top of the ion man page
+> 
+> People read manual pages? Those people that install Ion from a distro
+> without checking whether it is obsolete?
+
+> 
+> > that "informational" window that you get first time you run ion really  
+> > ought to be enough to say "this package may not be the latest available -  
+> > check tuomo's site". 
+> 
+> Bah, the distros conduct is the problem, so they should fix it.
+> 
+> And besides, then I'd have to forbid the distros from removing that -- 
+> and again they would moan that "it's not free". (The FSF is actually 
+> among the saner end of the FOSS movement, what with GFDL including 
+> invariant sections, and GPLv3 containing provisions for requiring 
+> modified versions to be renamed or so. The real zealots are centered
+> around the distros, and only consider those licenses "free" that give
+> distros the most power at the expense of authors.)
+> 
+> It's funny, actually: FOSS is supposed to be developed in a bazaar, 
+> but the typical FOSS licenses are only suited for cathedral mode of 
+> development: release when it is ready and stable as a rock. For 
+> otherwise you'll have to suffer from distros distributing obsolete
+> development snapshots.
+> 
+> > So anyone who doesn't spend all their time recompiling software for what  
+> > is, for most people, a tool and nothing more, is an idiot according to you.
+> 
+> These are not end-users with other specialities, but rather the lower
+> strata of developers.
+> 
+> > Well, I almost exclusively use binary packages - because they make my life  
+> > easier.  
+> 
+> I provide one too -- for a few platforms. Most authors provide them on 
+> Windows. But generally binary packages for FOSS operating systems are only
+> available from The Party. 
+> 
+> > You'd rather deal with yourself and only yourself - you've demonstrated  
+> > this arrogance before, and will do again.  
+> 
+> I've had enough of the FOSS herd, and how it's destroying everything I
+> once thought could be great. I really am universes distant from them. 
+> 
+> > It's a shame that I don't have  
+> > the time to write a tiling WM myself, because I actually think that a  
+> > couple of us here could do a very good job of it.
+> 
+> Yep, the typical FOSS attitude: write a clone for petty reasons of 
+> ideology, rather than fixing far bigger issues with the shoddy quality
+> of FOSS crap, the monoculturist practises prevalent in the movement,
+> ridding yourself of the love of The Party, and so on.
+> 
+> -- 
+> Tuomo
+> 
+
+tuomo,
+
+everything  has (again) be said often enough, but I try it a
+last time.  up to now I gave you  the  credit  of  having  a
+(minor)  point  and  thus a bit of justification for causing
+this trouble. but stepping back a bit and trying to  analyse
+your reasoning shows that it's altogether off-the-wall.
+
+the  problem  is  that  you  WANT  something  and then argue
+backwards  to  construct  reasons  for   your   intransigent
+attitude.  and  excessive  albeit  sometimes creative use of
+four letter words is  nothing  but  replacing  arguments  by
+shouting.
+
+so,  yes:  people  do  read  manpages. and john is of course
+right, that such a modification to the manpage or  something
+similar  would suffice to make your sole point: tuomo (if no
+one else) considers anything older  than  4  weeks  obsolete
+crab.
+
+regularly,  at  this point, you twist it along the same line
+of "reasoning": users  too  dumb/lazy  to  understand  this,
+therefore  I need more'. tell you what, you'll never achieve
+a state where 100% of the people get the message. but  maybe
+90%     would   really   be  enough.  moreover,  your  whole
+supposition that users will complain in large numbers  seems
+wrong  to me. how much traffic is there on the mailing list?
+what if you ignore mails which violate  your  high  standard
+("current version or nothing")?
+
+but  that  does  not  satisfy  you.  somehow you need "them"
+crawling in the dust. so this "fight"  is  not  about  users
+coming  to  you  (how  do  they  do this? I only know of the
+mailing list -- it's  that  difficult  _not_  to  answer  if
+someone asks for help with a 12 month old ion3 version?) and
+demanding help (nobody _demands_ it), it's about  some  kind
+of  crusade  (the  historic as well as the contemporary ones
+have been notoriously successful endeavours).
+
+the  only  thing  you  achieve  is  the annihilation of time
+resources all over the place, your own included  (by  futile
+mail  discussions,  by  the  trouble in the repositories, by
+problems with compiling it yourself).
+
+and  defining  the  distros as the evil empire -- yeah sure,
+they have the bomb, too.
+
+so  I think you are addressing more or less only 2 different
+points:
+
+1. users thick as a brick. therefore must enforce my message
+with draconic measures.
+
+2. distros evil. therefore must fight them.
+
+after   the   fight:  nothing  works  any  longer.   mission
+accomplished.
+
+and,  finally,  after  reading the last posts: it seems that
+ion3 has quite some dependencies which still  cause  trouble
+in  the  build  process.  I  only  know of a single wm which
+really compiles out of the box without _any_  trouble:  dwm.
+I  don't  think  the  much larger/complexer ion3 can achieve
+this -- that's why all the distros  are  there  and  do  the
+patching and tweaking. and so on and so on.
+
+so, altogether, I think your goals for ion3 are ill-defined:
+make up your  mind  if  you  want  that  it  is  used  in  a
+significant  number  of  installations.  if  so, accept that
+`ion3' might be mutating a bit in some distros (mostly  this
+won't  happen  at  all)  or  that it will exist in different
+versions concurrently. no problem at all, except if you have
+a  weird  sense  of property and are a control freak. or has
+ion3 become simply a means of fighting the evil  empire  for
+you?
+
+without  the  fighting the situation would be as it has been
+for some years: ion3 available and usable. everybody  happy.
+nobody corrupting your work in any real way.
+
+if  you  don't  want  that  it's used, burn it, for heaven's
+sake. this would be at least a quicker  and  more  efficient
+procedure in comparison to what's going on right now.
+
+joerg
+
+
+From tuomov at iki.fi  Tue Dec 18 12:01:56 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 18 Dec 2007 11:01:56 +0000 (UTC)
+Subject: ion3 license
+References: <20071217160433.GH595@marco.fz-rossendorf.de>
+	<slrnfmd8oe.5fq.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3iu6mkc5yfyku@telephus.cachelogic.com>
+	<slrnfmf3fb.43p.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071218103719.GA18307@marco.fz-rossendorf.de>
+Message-ID: <slrnfmfa54.egd.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-18, Joerg van den Hoff <j.van_den_hoff at fzd.de> wrote:
+> the  problem  is  that  you  WANT  something  
+
+I want something and that increasingly appers to be the polar
+opposite of what the FOSS herd wants -- and not only wrt. the
+distribution of Ion.
+
+> such a modification to the manpage or  something
+> similar  would suffice to make your sole point
+
+It doesn't. It has to be slammed on the users' faces. Maybe
+that way 90% will get the message. Without it, maybe 10% gets
+it.
+
+> it's about  some  kind
+> of  crusade  (the  historic as well as the contemporary ones
+> have been notoriously successful endeavours).
+
+Well, the FOSS herd is on a crusade against software they don't
+consider "free", and don't care if choice and quality in software
+disappears in the process of world domination by software with 
+licenses acceptable to them.
+
+> after   the   fight:  nothing  works  any  longer.   mission
+> accomplished.
+
+Nothing works ATM or in the past either. Distro release quality
+control is a fucking joke. They just throw development snapshots
+of marginal software in, and freeze them, expecting the authors
+to deal with that.
+
+> so, altogether, I think your goals for ion3 are ill-defined:
+> make up your  mind  if  you  want  that  it  is  used  in  a
+> significant  number  of  installations.  
+
+I don't want to have anything to do with the FOSS herd and where
+it's heading with its cherished software. That's why I'm switching
+to Windows when it's time to upgrade.
+
+> without  the  fighting the situation would be as it has been
+> for some years: ion3 available and usable. 
+
+Hardly. Most likely corrupted to use Xft, and thus not offering
+usable fonts.
+
+-- 
+Tuomo
+
+
+
+From jrobson at cachelogic.com  Tue Dec 18 12:12:21 2007
+From: jrobson at cachelogic.com (John Robson)
+Date: Tue, 18 Dec 2007 11:12:21 -0000
+Subject: ion3 license
+In-Reply-To: <20071218103546.GA12584@jolt.modeemi.cs.tut.fi>
+References: <20071217160433.GH595@marco.fz-rossendorf.de>
+	<slrnfmd8oe.5fq.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3iu6mkc5yfyku@telephus.cachelogic.com>
+	<slrnfmf3fb.43p.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3izfylk5yfyku@telephus.cachelogic.com>
+	<20071218103546.GA12584@jolt.modeemi.cs.tut.fi>
+Message-ID: <op.t3i2qvrj5yfyku@telephus.cachelogic.com>
+
+On Tue, 18 Dec 2007 10:35:47 -0000, Tuomo Valkonen <tuomov at iki.fi> wrote:
+
+>> Probably not until they have aproblem,
+> You're too optimist.
+You're too cynical...
+
+>> No - The fix , as with all fixes, should be applied in the fewest number
+>> of places.
+> No, the fix should be at the root of the problem.
+i.e. your licence?
+Seriously, the right place to put a "don't cry if you aren't bleeding  
+edge" message is in the code - nowhere else will do the job nearly as well.
+
+>> No - they just wouldn't bother.  Package maintainers aren't out to screw
+>> you - they are out to make others lives easier
+>
+> Bullshit. They e.g. include patches and modules I will not have anything
+> to do with
+Are you talking about Xinerama support here? - the mod which works fine,  
+doesn't cause probles on non Xineramra desktops but you have some bizarre  
+notion is amoral on some grounds I've never quite grasped?
+
+>> Most development should be cathedral style, with a bazzar as "unstable".
+> The distros take the bazaar unstable snapshots of software, and  
+> fraudulently provide them as "stable" in their megafrozen cathedrals.
+Not in my experience with ion on various distros, obscure bugs will always  
+exist - and unless you provide stable branches what is a maintainer meant  
+to to? The path of least resistance is to take the latest release and test  
+it for a while, then release it if it's stable on their box(es).  As you  
+don't maintain a "stable" branch they can't rely on you to fix a bug  
+without introducing more in line with some shiny new feature that you're  
+preparing for.
+So the correct solution here is for you to maintain two branches - Stable  
+and devel. Fix bugs in stable and make a new stable branch every so often  
+when there is a feature set you're happy to release (and consider feature  
+complete and stable). Then abandon the old stable.
+How hard can a single integrate be when a bug is found? Then the cathedral  
+engineers can be confident in what they are using, and you get a limited  
+set of code to support, which was your original complaint IIRC.
+
+>> My work machine must "just work"(TM) I don't have time to fiddle with it
+> The distros don't deliver.
+Then try another one - I haven't had any problems recently.
+
+> FOSS doesn't deliver. I don't have the time
+> to fix fonts on every upgrade, and yet FOSS keeps becoming more and more
+> AA/XML-fascist. I don't have the time for configuring udev brain damage
+> to my needs. And I don't have the time to compile software when distros
+> provide old and broken versions, instead of recent ones.
+I really don't know what your problem is with AA or udev: Correctly done  
+AA actually helps text (although it's not always available), udev doesn't  
+exactly kick up a stink.  My machine "just works" (TM).
+I only check the version of running software when I'm looking for a  
+particular feature, or about to go and search online docs / ask for advice.
+
+>> Yes - because "The Party" is the best placed to package them in a
+>> consistent manner for their users.
+> And this purported "consistency" comes at an expense of forming a few
+> powerful central parties that oppress authors
+Ah - you're feeling opressed.  Then again you seem to feel victimised by  
+most walks of life if your blog is anything to go by. I think that's  
+mostly how you view the world.
+
+>> >I've had enough of the FOSS herd, and how it's destroying everything I
+>> >once thought could be great. I really am universes distant from them.
+>> Not really, you just regard yourself as the "one true way".
+> If flexible dynamically extensible and non-monoculturist software is
+> the "one true way", then so be it. For the FOSS herd, Party control,
+> huge monoliths, anti-aliasing, udev, UTF-8, WIMP, etc. are the one
+> true way.
+non-monoculturist? So you'll support xinerama, anti aliasing, udev now  
+will you? Rather than declaring them all to be anti-tuomo.
+
+
+>> I'd also love to see a WM that encouragees it's users to contribute  
+>> back,
+> Ion is modular. But the moronic FOSS herd does not like modular code:
+> it wants the original author to maintain their shoddy patches that he
+> does not care about. That is, once again they want the authors to be
+> their slave, just like the distros do.
+So you're unable to take a shoddy patch and apply the correct fix to your  
+own code? That seems pretty feeble
+
+
+-- 
+John Robson
+
+
+From jrobson at cachelogic.com  Tue Dec 18 12:16:13 2007
+From: jrobson at cachelogic.com (John Robson)
+Date: Tue, 18 Dec 2007 11:16:13 -0000
+Subject: ion3 license
+In-Reply-To: <slrnfmfa54.egd.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071217160433.GH595@marco.fz-rossendorf.de>
+	<slrnfmd8oe.5fq.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3iu6mkc5yfyku@telephus.cachelogic.com>
+	<slrnfmf3fb.43p.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071218103719.GA18307@marco.fz-rossendorf.de>
+	<slrnfmfa54.egd.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <op.t3i2xbdk5yfyku@telephus.cachelogic.com>
+
+>> such a modification to the manpage or  something
+>> similar  would suffice to make your sole point
+> It doesn't. It has to be slammed on the users' faces. Maybe
+> that way 90% will get the message. Without it, maybe 10% gets
+> it.
+So how much off list mail do you get regarding old ion3 versions?
+
+
+> I don't want to have anything to do with the FOSS herd and where
+> it's heading with its cherished software. That's why I'm switching
+> to Windows when it's time to upgrade.
+Because you get so much choice there :)
+I'll just develop anopther wm, Oh no - can't dseperate that at all.
+
+>> without  the  fighting the situation would be as it has been
+>> for some years: ion3 available and usable.
+> Hardly. Most likely corrupted to use Xft, and thus not offering
+> usable fonts.
+Now you're talking gibberish - just because *you* don't like them doesn't  
+make them unusable...
+
+-- 
+John Robson
+
+
+From tuomov at iki.fi  Tue Dec 18 12:29:31 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 18 Dec 2007 11:29:31 +0000 (UTC)
+Subject: ion3 license
+References: <20071217160433.GH595@marco.fz-rossendorf.de>
+	<slrnfmd8oe.5fq.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3iu6mkc5yfyku@telephus.cachelogic.com>
+	<slrnfmf3fb.43p.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3izfylk5yfyku@telephus.cachelogic.com>
+	<20071218103546.GA12584@jolt.modeemi.cs.tut.fi>
+	<op.t3i2qvrj5yfyku@telephus.cachelogic.com>
+Message-ID: <slrnfmfbor.hg5.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-18, John Robson <jrobson at cachelogic.com> wrote:
+>> No, the fix should be at the root of the problem.
+> i.e. your licence?
+
+The distros' practises.
+
+> Are you talking about Xinerama support here? - the mod which works fine,  
+> doesn't cause probles on non Xineramra desktops 
+
+It doesn't work fine. It can't.
+
+> but you have some bizarre  
+> notion is amoral on some grounds I've never quite grasped?
+
+Morality is bullshit. Religion in disguise.
+
+> As you don't maintain a "stable" branch 
+
+Utter and total BULLSHIT. Ion2 is the stable branch. But the idiots
+behind the distros think they know better than the author, which
+releases are stable -- meaning bug-free, not "static" as the distros
+apply the term.
+
+> I really don't know what your problem is with AA or udev: Correctly done  
+> AA actually helps text
+
+AA makes text ugly, blurry, and unreadable, compared to decent unblurred
+screen fonts. It only helps with shoddy printer fonts--which are no good
+without hinting on present poor screen resolutions. But the herd just
+loves anti-aliasing and all other new/modern shine, and expects everyone
+else to do so too, and crams it down their eyes.
+
+> udev doesn't exactly kick up a stink.  
+
+Try adjusting device permissions, symlink names, anything. It's pain
+compared to just chmod/chown/ln -s. The cryptic config files also
+change all the time in the distros, and it takes ages at boot. 
+(Its designed hac a complete lack of understanding of the fundamentals 
+of computer science, doing a linear search for the correct rules by 
+executing 10000 lines of shell scripts, instead of constructing 
+appropriate search trees.)
+
+> Ah - you're feeling opressed.  Then again you seem to feel victimised by  
+> most walks of life if your blog is anything to go by. I think that's  
+> mostly how you view the world.
+
+Modern technology mostly sucks.
+
+> non-monoculturist? So you'll support xinerama, anti aliasing, udev now  
+> will you? Rather than declaring them all to be anti-tuomo.
+
+No, I provide (preferrably abstract) mechanisms for others to support 
+them.
+
+> So you're unable to take a shoddy patch and apply the correct fix to your  
+> own code? That seems pretty feeble
+
+It's more work for me to maintain all that code. The FOSS herd has not
+yet grasped the two fundamental principles of maintainable software:
+modularity and abstraction (cf. abstract wchar_t and locale encoding
+vs. hard-coded UTF-8.)
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue Dec 18 12:33:14 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 18 Dec 2007 11:33:14 +0000 (UTC)
+Subject: ion3 license
+References: <20071217160433.GH595@marco.fz-rossendorf.de>
+	<slrnfmd8oe.5fq.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3iu6mkc5yfyku@telephus.cachelogic.com>
+	<slrnfmf3fb.43p.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071218103719.GA18307@marco.fz-rossendorf.de>
+	<slrnfmfa54.egd.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3i2xbdk5yfyku@telephus.cachelogic.com>
+Message-ID: <slrnfmfbvq.hg5.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-18, John Robson <jrobson at cachelogic.com> wrote:
+> So how much off list mail do you get regarding old ion3 versions?
+
+Not so much anymore... The 2005-something snapsnot in the previous
+static Debian was generating a lot of traffic.
+
+For the yet earlier "static", IIRC the maintainer actually cared
+to ask whether I think the development version of Ion should go in
+there, but after that stopped doing that. They've become too big 
+and powerful, and obviously all courtesy has gone down the drain
+along with that.
+
+> Now you're talking gibberish - just because *you* don't like them doesn't  
+> make them unusable...
+
+There it is: usable means: the herd likes it. That's not monoculturist?
+
+-- 
+Tuomo
+
+
+
+From cptsalek at gmail.com  Tue Dec 18 13:53:56 2007
+From: cptsalek at gmail.com (Christian Walther)
+Date: Tue, 18 Dec 2007 13:53:56 +0100
+Subject: ion3 license
+In-Reply-To: <slrnfmfbvq.hg5.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071217160433.GH595@marco.fz-rossendorf.de>
+	<slrnfmd8oe.5fq.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3iu6mkc5yfyku@telephus.cachelogic.com>
+	<slrnfmf3fb.43p.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071218103719.GA18307@marco.fz-rossendorf.de>
+	<slrnfmfa54.egd.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3i2xbdk5yfyku@telephus.cachelogic.com>
+	<slrnfmfbvq.hg5.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <14989d6e0712180453n7bcebf40qf903b767283109fd@mail.gmail.com>
+
+Hi there,
+
+guys, I don't think that this discussion will lead anywhere.
+A few days ago, when ion3 was removed from the FreeBSDs ports system I
+was quite angry and looking for an alternative.  There are several
+tiling WMs available, but none of them is a good replacement for ion3.
+So I'll stay with ion3 and continue reading this mailing list.
+
+On the freebsd-ports mailing list I stated that I can understand some
+of Tuomos opinions, and I'm ready to give more details: I started
+using Linux back in the days as the 486 systems slowly where replaced
+with the first generation of pentiums. Back in these days
+installations where done with CDs and Diskettes were still widely in
+use. Packaging was done by extracting tarballs in the root directory.
+In these days people dreamed about replacing Windows. They were happy
+that their Linux installation was smaller than any Windows setup.
+
+Several years later things changed dramatically: Most Linux
+installations are bigger than everything Microsoft installs. Instead
+of designing something good and new people started to copy Windows
+just make it more easy for non Linux-users to migrate.
+You can select between Gnome, KDE and Xcfe, and all try to do the
+same. Users want applications that help them solving a problem. But
+now you have  KDE-App that is better than everything found in Gnome
+and vice versa. So you'll end up having all Libs and dependancies
+installed anyway. Great...
+
+When someone is using an Unix for the first time he/she complains that
+things are different than on Linux. I'm beyond the point to discuss
+such stupidity, I just want to slap them in the face. Most people
+don't even want to know why things are handled differently and just
+states that "Linux is better" - without even knowing the technical
+background of a solution.
+
+So Linux created some kind of standard because people started to
+develop _for Linux_ and not Open Source in general. This led to
+strange effects where Unices are said to behave wrongly or are even
+buggy due to their own implenentation of a library/function
+call/whatever. Libiconv is a nice example for this.
+So when you open a problem record for a tool because you've problems
+on Solaris for example you find your problem being closed without
+solution because the problem is the target OS. Nice.
+On the other hand if there is something wrong with a program users are
+being told to fix it themselves because they have the code. What a
+chizophrenia! Most users aren't developers, and most developers aren't
+even good at what they are doing. I wouldn't want any user with
+limited coding abilities to fidle around with some source code.
+But exactly those users is being told that it is save to switch over
+to Linux instead of Mac OS X. Yeah, I see...
+
+So yes, "Modern technology mostly sucks." puts it in good terms. This
+is correct for most Hardware related things, too. Look at USB, the
+protocol just sucks because of it's overhead. But you find it
+everywhere.
+
+I dropped Linux two years ago after many annoyances with the kernel
+and related software. If you're not on the mainstream road but like
+something else (PowerPC, for example), you're doomed. Patches are
+blocked upstream or even removed after it's clear they break something
+x86-related. Which is just possible because something is broken in x86
+anway. But instead of fixing the x86 parts the PowerPC patches were
+removed. Great...
+BTW: Linus Torvalds said a few month ago that Linux drivers are
+working "good enough". What the hell does this mean? It means in the
+end that these drivers don't work in 100% of all possible
+configurations. And this means that some users have to play with
+something else.
+
+This had side effects on all distributions, of course. If you want to
+make it easy for all users to work with Linux, you have to take
+everything into account. So it doesn't matter if a workstation needs
+20 seconds to boot up, or 120.
+
+Package maintainers have to deal with every single of these issues.
+They have to take care of dependencies, versions and stuff. This is
+why I have some sympathy with them and wouldn't label them as
+"dickheads". I'm happy when I've a package at hand that I can use. The
+FreeBSD ports system was exactly what I was looking for. I dropped
+Debian because of issues with their ports system, and Gentoos emerge
+was just too slow, and fiddling around with masked packages is awfull.
+I guess that every package systems has its pros and cons, because it
+has to be compromise between the package and the distribution. You
+can't just include every newest version of a piece of software as long
+as you don't know the consequences. On the other hand some packages
+have too many changes/patches applied (found this on Debian where
+several packages have nothing in common with the default).
+
+Yes, there is a "FOSS herd", and most of the time it makes me want to
+cry. For me switching over to Windows is not an option, most windows
+users are even less educated than OSS users.
+
+BTW: Some people state that AntiAliasing is bad for the eyes since the
+font appears to be blurred it's stressfull to look at since the eyes
+try to get it properly focused. At least it adds up to the fact why
+eyes are getting tired infront of the screen...
+
+Christian
+
+
+From jrobson at cachelogic.com  Tue Dec 18 14:31:16 2007
+From: jrobson at cachelogic.com (John Robson)
+Date: Tue, 18 Dec 2007 13:31:16 -0000
+Subject: ion3 license
+In-Reply-To: <slrnfmfbvq.hg5.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071217160433.GH595@marco.fz-rossendorf.de>
+	<slrnfmd8oe.5fq.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3iu6mkc5yfyku@telephus.cachelogic.com>
+	<slrnfmf3fb.43p.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071218103719.GA18307@marco.fz-rossendorf.de>
+	<slrnfmfa54.egd.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3i2xbdk5yfyku@telephus.cachelogic.com>
+	<slrnfmfbvq.hg5.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <op.t3i86ees5yfyku@telephus.cachelogic.com>
+
+On Tue, 18 Dec 2007 11:33:14 -0000, Tuomo Valkonen <tuomov at iki.fi> wrote:
+
+> On 2007-12-18, John Robson <jrobson at cachelogic.com> wrote:
+>> So how much off list mail do you get regarding old ion3 versions?
+>
+> Not so much anymore... The 2005-something snapsnot in the previous
+> static Debian was generating a lot of traffic.
+So where's the problem - it appears to have gone away.  Of course you also  
+have a morbid fear of forums, which are what the majority of "new" users  
+seem to expect/want to see.
+
+>> Now you're talking gibberish - just because *you* don't like them  
+>> doesn't make them unusable...
+> There it is: usable means: the herd likes it. That's not monoculturist?
+That's not what I said, at least it's not what I thought I'd said.
+
+You're attitude to most things that you don't like is to be rude, AA has  
+been subject to your wrath for a while now. Xinerama was subject your  
+wrath - until you lost the plot and ripped support out entirely.
+
+
+-- 
+John Robson
+
+
+From jrobson at cachelogic.com  Tue Dec 18 14:31:03 2007
+From: jrobson at cachelogic.com (John Robson)
+Date: Tue, 18 Dec 2007 13:31:03 -0000
+Subject: ion3 license
+In-Reply-To: <slrnfmfbor.hg5.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071217160433.GH595@marco.fz-rossendorf.de>
+	<slrnfmd8oe.5fq.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3iu6mkc5yfyku@telephus.cachelogic.com>
+	<slrnfmf3fb.43p.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3izfylk5yfyku@telephus.cachelogic.com>
+	<20071218103546.GA12584@jolt.modeemi.cs.tut.fi>
+	<op.t3i2qvrj5yfyku@telephus.cachelogic.com>
+	<slrnfmfbor.hg5.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <op.t3i851y55yfyku@telephus.cachelogic.com>
+
+
+>>> No, the fix should be at the root of the problem.
+>> i.e. your licence?
+> The distros' practises.
+Because tuomo is always right (tm)
+
+>> Are you talking about Xinerama support here? - the mod which works fine,
+>> doesn't cause probles on non Xineramra desktops
+> It doesn't work fine. It can't.
+Oh - then how come I've never had any problems with it?
+
+>> but you have some bizarre
+>> notion is amoral on some grounds I've never quite grasped?
+> Morality is bullshit. Religion in disguise.
+I'm sorry I thought I was talking to a rational individual.  Morality is,  
+at worst, a societal decree of acceptable behaviour, and at best a clear  
+definition of correct behaviour provided by the designer of a system.
+I'm guessing you're agnostic since you seem to detest religion so much.
+
+>> As you don't maintain a "stable" branch
+> Utter and total BULLSHIT. Ion2 is the stable branch. But the idiots
+> behind the distros think they know better than the author, which
+> releases are stable -- meaning bug-free, not "static" as the distros
+> apply the term.
+>
+>> I really don't know what your problem is with AA or udev: Correctly done
+>> AA actually helps text
+> AA makes text ugly, blurry, and unreadable, compared to decent unblurred
+> screen fonts. It only helps with shoddy printer fonts--which are no good
+> without hinting on present poor screen resolutions. But the herd just
+> loves anti-aliasing and all other new/modern shine, and expects everyone
+> else to do so too, and crams it down their eyes.
+ugly - subjective
+blurry - subjective and dependant on the antialiasing used
+unreadable - subjective
+You (as admitted below) just hate anything new.
+
+>> udev doesn't exactly kick up a stink.
+> Try adjusting device permissions, symlink names, anything. It's pain
+> compared to just chmod/chown/ln -s. The cryptic config files also
+> change all the time in the distros, and it takes ages at boot.
+Never causes me any issues - on personal machines or any of the servers  
+(both in office servers and the ~hundred public facing servers we run).
+Cryptic config is a pain wherever it is, but it's not as if the ion config  
+file is stable in syntax.
+
+>> Ah - you're feeling opressed.  Then again you seem to feel victimised by
+>> most walks of life if your blog is anything to go by. I think that's
+>> mostly how you view the world.
+> Modern technology mostly sucks.
+Except vacuum cleaners I presume.
+
+> It's more work for me to maintain all that code.
+Not if it's correctly implemented when you integrate it.
+
+
+-- 
+John Robson
+
+
+From tuomov at iki.fi  Tue Dec 18 14:47:36 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 18 Dec 2007 13:47:36 +0000 (UTC)
+Subject: ion3 license
+References: <20071217160433.GH595@marco.fz-rossendorf.de>
+	<slrnfmd8oe.5fq.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3iu6mkc5yfyku@telephus.cachelogic.com>
+	<slrnfmf3fb.43p.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071218103719.GA18307@marco.fz-rossendorf.de>
+	<slrnfmfa54.egd.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3i2xbdk5yfyku@telephus.cachelogic.com>
+	<slrnfmfbvq.hg5.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3i86ees5yfyku@telephus.cachelogic.com>
+Message-ID: <slrnfmfjro.uha.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-18, John Robson <jrobson at cachelogic.com> wrote:
+> So where's the problem - it appears to have gone away.  
+
+... because the distros no longer carry Ion.
+
+> You're attitude to most things that you don't like is to be rude, AA has  
+> been subject to your wrath for a while now. Xinerama was subject your  
+> wrath - until you lost the plot and ripped support out entirely.
+
+Before I removed the support (and a while after it), there were people very
+frequently complaining how focus in Xinerama is broken, how positioning of
+floating frames is broken, and so on. I have better things to use my time
+on than explaining things to those planet-wrecking conspicious consumers,
+or trying to fix a feature I'd have hard time testing. (I _do_ have my
+hypothetical 20-year-old telly[*] as a second screen in X, but none of 
+this Xinerama crap, and switching to Xinerama and maintaining a second 
+configuration is too much trouble.)
+
+---
+
+[*] Soon the computer -- or rather, $torrent-tracker-of-choice -- will be 
+its only image source, as the planet-wrecking government and TV companies 
+will be shutting down analogue transmissions on cable too. I have on plans
+of getting additional unusable (to the power of n) electronic junk to convert
+a digital signal to analogue. The DigiTV transition in Finland is an ecological 
+and usability disaster. Forcing people (who want to watch that crap on TV)
+to buy _temporary_ electronic junk before their old TVs die of age, and 
+they'd get new ones with in-built digital receivers... not to even speak
+of the brain damage of not going straight with HDTV. DigiTV was originally
+a plan for a centralised poor man's internet, but those plans of long ago
+been abandoned, and now they're just sending the same old signal in digital
+form.. and luring people into pay-tv. Now, for terrestrial transmissions 
+there may be very good reasons for freeing up the bandwidth, but in cable 
+there's plenty to share.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue Dec 18 15:01:27 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 18 Dec 2007 14:01:27 +0000 (UTC)
+Subject: ion3 license
+References: <20071217160433.GH595@marco.fz-rossendorf.de>
+	<slrnfmd8oe.5fq.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3iu6mkc5yfyku@telephus.cachelogic.com>
+	<slrnfmf3fb.43p.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3izfylk5yfyku@telephus.cachelogic.com>
+	<20071218103546.GA12584@jolt.modeemi.cs.tut.fi>
+	<op.t3i2qvrj5yfyku@telephus.cachelogic.com>
+	<slrnfmfbor.hg5.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3i851y55yfyku@telephus.cachelogic.com>
+Message-ID: <slrnfmfkln.uha.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-18, John Robson <jrobson at cachelogic.com> wrote:
+>>> i.e. your licence?
+>> The distros' practises.
+> Because tuomo is always right (tm)
+
+I _am_ the author.
+
+> Oh - then how come I've never had any problems with it?
+
+Maybe you've stuck to a few well-behaved applications in tiled 
+mode.
+
+>> Morality is bullshit. Religion in disguise.
+> I'm sorry I thought I was talking to a rational individual.
+
+If we get philosophical, rationality is bullshit too.
+
+> I'm guessing you're agnostic since you seem to detest religion so much.
+
+I'm just godless. (Good you didn't think of me as an atheist.)
+
+Speaking of which, I recently watched the latest diatribe by Richard
+Dawkins and, well, that guy chants "Science and Reason" more frequently
+and with more fervor than US propaganda goes on about "Freedom and
+Democracy".
+
+> ugly - subjective
+> blurry - subjective and dependant on the antialiasing used
+> unreadable - subjective
+> You (as admitted below) just hate anything new.
+
+Subjectivity is the key. But the practises of the FOSS herd do not
+support subjective tastes.
+
+> Cryptic config is a pain wherever it is, but it's not as if the ion config  
+> file is stable in syntax.
+
+You're talking about software in development stage. Now, of course, the 
+distros where it changes are also in development, which brings as back to
+topic: the software in the megafrozen ("stable") is too old and too broken
+to be of much use, so you have to use their even more broken development
+versions. (Which, from what I call, even the "stable" releases of many
+more frequently-snapshotted distros are.)
+
+>>> Ah - you're feeling opressed.  Then again you seem to feel victimised by
+>>> most walks of life if your blog is anything to go by. I think that's
+>>> mostly how you view the world.
+>> Modern technology mostly sucks.
+> Except vacuum cleaners I presume.
+
+They have the unfortunate tendency to blow.
+
+>> It's more work for me to maintain all that code.
+> Not if it's correctly implemented when you integrate it.
+
+Which means: a separate module, so I don't have to care about it. I don't
+like having to wait weeks when trying to make a release, to see if the 
+contributors have gone AWOL, will have time upgrading their (such as
+autocrap), and so on. And I'm not going to start upgrading/fixing 
+features I don't care for.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue Dec 18 15:16:23 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 18 Dec 2007 14:16:23 +0000 (UTC)
+Subject: ion3 license
+References: <20071217160433.GH595@marco.fz-rossendorf.de>
+	<slrnfmd8oe.5fq.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3iu6mkc5yfyku@telephus.cachelogic.com>
+	<slrnfmf3fb.43p.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071218103719.GA18307@marco.fz-rossendorf.de>
+	<slrnfmfa54.egd.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3i2xbdk5yfyku@telephus.cachelogic.com>
+	<slrnfmfbvq.hg5.tuomov@jolt.modeemi.cs.tut.fi>
+	<14989d6e0712180453n7bcebf40qf903b767283109fd@mail.gmail.com>
+Message-ID: <slrnfmflhn.uha.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-18, Christian Walther <cptsalek at gmail.com> wrote:
+> On the freebsd-ports mailing list I stated that I can understand some
+> of Tuomos opinions, 
+
+Wow. There's at least one person.
+
+> Packaging was done by extracting tarballs in the root directory.
+> In these days people dreamed about replacing Windows. They were happy
+> that their Linux installation was smaller than any Windows setup.
+
+Back in the DOS days, packages were installed by extracting software 
+in their own directories, where ever you wanted it, and removed by
+deleting that directory. Simple, modular, and efficient. Even the
+old days' Linux package management was a huge degradation compared
+to that.
+
+Of course, there were little in the way of dependencies in the DOS
+world (and still in the Windows world, although not completely 
+non-existent). Fortunately, there are now some packaging systems
+based on relocatable binaries and application directories (such as
+ZeroInstall), but these are still far from being widely used and
+accepted, and still do need some work.
+
+> Package maintainers have to deal with every single of these issues.
+> They have to take care of dependencies, versions and stuff. This is
+> why I have some sympathy with them and wouldn't label them as
+> "dickheads". 
+
+It seems very easy to cross the line of simply packaging software, 
+into working on a silent fork.
+
+> You can't just include every newest version of a piece of software as long
+> as you don't know the consequences. 
+
+You is known, I do provide a <http://iki.fi/tuomov/dl/ion-3-latest.tar.gz>
+redirection, that distros could easily provide, to keep up-to-date. 
+It is true that there are some problems, such as the set of files 
+installed being modified, but these could be solved if the distros
+more cooperative (and build systems better, so e.g. package management
+programs obtain information by a structural build file). But presently
+the distros are totally onconstructive. They don't want to give in an
+inch from their position of power and control.
+
+> Yes, there is a "FOSS herd", and most of the time it makes me want to
+> cry. For me switching over to Windows is not an option, most windows
+> users are even less educated than OSS users.
+
+Someone who knows they don't know is, however, less likely to be 
+arrogant and hold Views, and therefore more easy for someone with
+Views to work with, than someone with opposite Views. 
+
+-- 
+Tuomo
+
+
+
+From jrobson at cachelogic.com  Tue Dec 18 15:43:34 2007
+From: jrobson at cachelogic.com (John Robson)
+Date: Tue, 18 Dec 2007 14:43:34 -0000
+Subject: ion3 license
+In-Reply-To: <slrnfmfkln.uha.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071217160433.GH595@marco.fz-rossendorf.de>
+	<slrnfmd8oe.5fq.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3iu6mkc5yfyku@telephus.cachelogic.com>
+	<slrnfmf3fb.43p.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3izfylk5yfyku@telephus.cachelogic.com>
+	<20071218103546.GA12584@jolt.modeemi.cs.tut.fi>
+	<op.t3i2qvrj5yfyku@telephus.cachelogic.com>
+	<slrnfmfbor.hg5.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3i851y55yfyku@telephus.cachelogic.com>
+	<slrnfmfkln.uha.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <op.t3jciwvw5yfyku@telephus.cachelogic.com>
+
+On Tue, 18 Dec 2007 14:01:27 -0000, Tuomo Valkonen <tuomov at iki.fi> wrote:
+
+>> Oh - then how come I've never had any problems with it?
+> Maybe you've stuck to a few well-behaved applications in tiled
+> mode.
+Yes I feel that floating windows are rather counter to the concept of ion  
+- but even so, that's quite different from "it can't work".
+Although my applications are anything but well behaved.  Fortunately  
+vncviewer (the worst culprit in my mind) finds it hard to jump across the  
+screens (even under xinerama) so stays jumping to the last selected frame  
+on the one screen, allowing me to work on this one :)
+
+>> I'm guessing you're agnostic since you seem to detest religion so much.
+> I'm just godless. (Good you didn't think of me as an atheist.)
+Atheism is a faith position - you seemed to eschew that vehemently, but at  
+least you're consistent. (even if you are wrong ;-p )
+
+> Speaking of which, I recently watched the latest diatribe by Richard
+> Dawkins and, well, that guy chants "Science and Reason" more frequently
+> and with more fervor than US propaganda goes on about "Freedom and
+> Democracy".
+Ah - the athiest who claims he has no faith. He chants most things more  
+frequently than anyone - he's probably figured out that he is in a faith  
+position and can't work out how to back down... </off topic>
+
+> Subjectivity is the key. But the practises of the FOSS herd do not
+> support subjective tastes.
+Of course not - though shalt be clones.
+Seriously - I agree with you, but as the whole thing doesn't support  
+abstractions of context from presentation we have to work with what we  
+have (unless you want to fork/reimplement the whole shooting match) That's  
+one of the problems with any long project.  Abstraction is easy in short  
+term tightly defined projects.
+Or with hindsight.
+But by then it's expensive.
+
+>> Cryptic config is a pain wherever it is, but it's not as if the ion  
+>> config file is stable in syntax.
+> You're talking about software in development stage.
+Yep - if the last "stable" release you made was over three years ago.
+There is a balance to be had between stability and frequency.  I've never  
+installed ion2, because I'd never actually seen it.  I spotted ion3 on a  
+colleagues screen and asked what it was.
+I've not gone back, because ion3 is actually pretty stable - for  
+everything I do. I can't imagine there are many situations where it's  
+horribly unstable/unusable, and for those ion2 may well cater.
+You then get the opportunity for more testing and feedback on potential  
+useful features.
+
+>>> Modern technology mostly sucks.
+>> Except vacuum cleaners I presume.
+> They have the unfortunate tendency to blow.
+See - you do have a sense of humour :) I knew it was there somewhere! :-D
+
+John
+
+-- 
+John Robson
+
+
+From psionic at csh.rit.edu  Tue Dec 18 17:52:26 2007
+From: psionic at csh.rit.edu (Jordan Sissel)
+Date: Tue, 18 Dec 2007 11:52:26 -0500
+Subject: ion3 license 
+In-Reply-To: <20071218103546.GA12584@jolt.modeemi.cs.tut.fi> 
+References: <20071217160433.GH595@marco.fz-rossendorf.de>
+	<slrnfmd8oe.5fq.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3iu6mkc5yfyku@telephus.cachelogic.com>
+	<slrnfmf3fb.43p.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3izfylk5yfyku@telephus.cachelogic.com>
+	<20071218103546.GA12584@jolt.modeemi.cs.tut.fi>
+Message-ID: <20071218165226.57D4E50860@scorn.csh.rit.edu>
+
+On 18 December 2007 at 12:35, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> > I'd also love to see a WM that encouragees it's users to contribute back,  
+> 
+> Ion is modular. But the moronic FOSS herd does not like modular code:
+> it wants the original author to maintain their shoddy patches that he
+> does not care about. That is, once again they want the authors to be
+> their slave, just like the distros do.
+> 
+
+Or, you could just tell these users to fuck off and not provide support.
+Seems like a better choice than putting up a license no one can accept
+which will just make your software less accessible to everyone.
+
+I understand the point of what you're doing, but the insanity if what
+you've done outweighs any real wins for the users. If you don't want
+people to have access to your software, 'rm' is pretty simple. A
+retarded license is not.
+
+Why put years of work into software only to close development and attach
+an outrageous license? Do you really hate people that much? Do you hate
+yourself that much?
+
+If your goal is to thin out the size of the ion user pool, then you'll
+achieve it through this license. Don't mistake this email for me trying
+to change your mind, because that's a waste of time.
+
+-Jordan
+
+
+From tuomov at iki.fi  Tue Dec 18 18:57:08 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 18 Dec 2007 17:57:08 +0000 (UTC)
+Subject: ion3 license
+References: <20071217160433.GH595@marco.fz-rossendorf.de>
+	<slrnfmd8oe.5fq.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3iu6mkc5yfyku@telephus.cachelogic.com>
+	<slrnfmf3fb.43p.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3izfylk5yfyku@telephus.cachelogic.com>
+	<20071218103546.GA12584@jolt.modeemi.cs.tut.fi>
+	<op.t3i2qvrj5yfyku@telephus.cachelogic.com>
+	<slrnfmfbor.hg5.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3i851y55yfyku@telephus.cachelogic.com>
+	<slrnfmfkln.uha.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3jciwvw5yfyku@telephus.cachelogic.com>
+Message-ID: <slrnfmg2fk.la3.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-18, John Robson <jrobson at cachelogic.com> wrote:
+> Yes I feel that floating windows are rather counter to the concept of ion  
+
+However useful in some cases...
+
+> Seriously - I agree with you, but as the whole thing doesn't support  
+> abstractions of context from presentation we have to work with what we  
+> have (unless you want to fork/reimplement the whole shooting match) That's  
+> one of the problems with any long project.  Abstraction is easy in short  
+> term tightly defined projects.
+> Or with hindsight.
+> But by then it's expensive.
+
+That's the FOSS herd's cherished worse-is-better fallacy for 
+you. Once the shoddy quick&dirty solution is popular, it is 
+difficult/expensive to fix it. If people only would stop to
+think and ask for input before embarking on writing crap.
+
+Don't get me wrong, worse-is-better is quite ok for some
+projects, mostly marginal ones, and to which it is feasible
+write many alternatives to. Ion development pretty much follows
+that approach, and Ion is not particular beautiful code, although
+there are some aspects I like. But essential core software, of 
+which There Can Be Only One (in practise), demands different 
+standards -- far higher standards.
+
+> Yep - if the last "stable" release you made was over three years ago.
+
+Sorry I don't have infinite amounts of time for working on Ion,
+unlike the paid developers of the more popular projects that are
+turning Linux/FOSS into a steamping shitpile.
+
+> I've not gone back, because ion3 is actually pretty stable - for  
+> everything I do. 
+
+There are some pretty bad bugs/omissions even in the latest 
+release. Comes from working on the code very intermittently.
+
+>>> Except vacuum cleaners I presume.
+>> They have the unfortunate tendency to blow.
+> See - you do have a sense of humour :) I knew it was there somewhere! :-D
+
+I thought I only had bad humour. Well, one does occasionally make 
+mistakes.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue Dec 18 19:01:01 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 18 Dec 2007 18:01:01 +0000 (UTC)
+Subject: ion3 license
+References: <20071217160433.GH595@marco.fz-rossendorf.de>
+	<slrnfmd8oe.5fq.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3iu6mkc5yfyku@telephus.cachelogic.com>
+	<slrnfmf3fb.43p.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.t3izfylk5yfyku@telephus.cachelogic.com>
+	<20071218103546.GA12584@jolt.modeemi.cs.tut.fi>
+	<20071218165226.57D4E50860@scorn.csh.rit.edu>
+Message-ID: <slrnfmg2mt.la3.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-18, Jordan Sissel <psionic at csh.rit.edu> wrote:
+> Or, you could just tell these users to fuck off and not provide support.
+
+I'd rather have the distros do the work for me.
+
+> I understand the point of what you're doing, but the insanity if what
+> you've done outweighs any real wins for the users. 
+
+Blame the inflexible and unconstructive distros.
+
+> Do you really hate people that much? 
+
+Most people suck.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Thu Dec 20 20:02:36 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 20 Dec 2007 19:02:36 +0000 (UTC)
+Subject: ion-3rc-20071220
+Message-ID: <slrnfmlf2c.ged.tuomov@jolt.modeemi.cs.tut.fi>
+
+There are a few minor fixes in this RC, plus a major one related to layout
+restore under a session manager.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Thu Dec 20 22:22:18 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 20 Dec 2007 23:22:18 +0200
+Subject: Scripts repo & package files [Was: Re: I'm very sad...]
+In-Reply-To: <slrnfm5q4p.4me.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071213235825.GB25558@pcjas.obspm.fr>
+	<slrnfm3k2s.u45.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071214005515.GC25748@pcjas.obspm.fr>
+	<20071214132915.GE25919@marco.fz-rossendorf.de>
+	<slrnfm532f.vog.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071214211454.68d7aa03.dirkarlt@gmail.com>
+	<slrnfm5q4p.4me.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20071220212217.GA29609@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-14 20:33 +0000, Tuomo Valkonen wrote:
+> Hmm.. The Ion scripts repository might be one, in some way appropriate,
+> way to publish make scripts for various distros... 
+
+So, is there any interest in providing the files this way?
+If there is, then create, say, build/$OS directory, with a 
+suitable index.html listing the files (so e.g. wget works),
+and maybe containing instructions. Then use darcs to send 
+the stuff.
+
+-- 
+Tuomo
+
+
+From j.van_den_hoff at fzd.de  Fri Dec 21 17:24:22 2007
+From: j.van_den_hoff at fzd.de (Joerg van den Hoff)
+Date: Fri, 21 Dec 2007 17:24:22 +0100
+Subject: I'm very sad...
+In-Reply-To: <20071214013641.GA4020@jolt.modeemi.cs.tut.fi>
+References: <20071213235825.GB25558@pcjas.obspm.fr>
+	<slrnfm3k2s.u45.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071214005515.GC25748@pcjas.obspm.fr>
+	<20071214013641.GA4020@jolt.modeemi.cs.tut.fi>
+Message-ID: <20071221162422.GA8111@marco.fz-rossendorf.de>
+
+On Fri, Dec 14, 2007 at 03:36:41AM +0200, Tuomo Valkonen wrote:
+> On 2007-12-14 01:55 +0100, Albert Shih wrote:
+> > Of course It's what I'm going to do (try), but the ports collection make all
+> > dependency, and it's very fine technics. 
+> 
+> Ion doesn't have many non-standard dependencies. Most systems have X11R6
+> libraries installed, of which no particular version is needed (aside from
+> bugs in some versions, in particular in relation to XGetTextProperty...).
+> Some libc related aspects need to be configured in system.mk (some systems
+> have some components sanely as separate, and others have monolithic libc),
+> but aside from that, the only non-standard dependency that needs
+> installation, is Lua. Lua is also quite easy to install: it has ANSI C
+> as its only dependency. (However, some versions of Lua's Makefiles set
+> broken permissions... But installing from ports or so may fix them.)
+> 
+> -- 
+> Tuomo
+> 
+
+if  you  say  so... maybe right w.r.t. dependencies on libs.
+otherwise:
+
+I  tried it again with yesterday's version and I should have
+known better: trying to compile ion3 "manually" under MacOSX
+is  a  nightmare  for  anybody  not  up  to his waist in the
+internals of gcc and differences introduced by apple.
+
+is  there  *anbody*  out  there  able  to  compile  it under
+macos???
+
+I gave up (again...). problems (to the extent that they have
+surfaced) are related to several gcc/ld flags not  available
+under MacOS:
+
+-shared
+-whole-archive
+-export-dynamic
+
+and  librt:  is  that  supposedly  a  standard lib? it's not
+there.
+
+tuomo,  man, get a hold of yourself (or, rather, the licence
+text), so that it is again sufficient that _one_ guy  solves
+it  _once_  and  puts in back in the repository. it can't be
+that much fun to see users suffer. or can it? I,  at  least,
+am fed up with trying. that's no longer a manageble average-
+user task.
+
+and,  of  course,  if  in  the  end it were possible to find
+makefiles and/or system.mk  versions  on  your  side,  it'll
+help.  but  I'm  at  least  obviously  not  in a position to
+contribute  these  for  MacOSX.  (and  it  only   seems   an
+unnecessary  complication  in comparison to having it in the
+repositories. but I suspect your attitude is uncorrectable.)
+
+joerg
+
+
+From tuomov at iki.fi  Fri Dec 21 17:45:36 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 21 Dec 2007 16:45:36 +0000 (UTC)
+Subject: I'm very sad...
+References: <20071213235825.GB25558@pcjas.obspm.fr>
+	<slrnfm3k2s.u45.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071214005515.GC25748@pcjas.obspm.fr>
+	<20071214013641.GA4020@jolt.modeemi.cs.tut.fi>
+	<20071221162422.GA8111@marco.fz-rossendorf.de>
+Message-ID: <slrnfmnrdg.iv1.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-21, Joerg van den Hoff <j.van_den_hoff at fzd.de> wrote:
+> -shared
+> -whole-archive
+> -export-dynamic
+
+system.mk:
+
+# Set PRELOAD_MODULES=1 if your system does not support dynamically loaded
+# modules through 'libdl' or has non-standard naming conventions.
+#PRELOAD_MODULES=1
+
+That one option takes care of all that.
+
+> and  librt:  is  that  supposedly  a  standard lib? it's not
+> there.
+
+# clock_gettime for monotonic time
+EXTRA_LIBS += -lrt
+
+(I suppose this could be better explained..)
+
+Disable that, and if the MacOS X isn't totally brain-damaged,
+things should work (aside from setting the system clock confusing
+Ion's timers, if the POSIX monotonic clock isn't available through
+libc directly or so. But that's just an annoyance that was only
+recently fixed with support for the monotonic clock, where
+available).
+
+...
+
+See, it's not so difficult, once you get rid of the autocrap
+mindset. Of course, I'd also prefer not having to edit a file
+to compile a program, but this is still better than the autocrap
+solution.
+
+Also, if people reported more complex settings required for 
+particular systems back upstream, instead of just working on
+their silent forks, things would be easier. But in the Distro
+Code Of Conduct, it's forbidden to have any contact with
+authors.
+
+> but I suspect your attitude is uncorrectable.)
+
+It seems to be me, that the distros' and the FOSS herd's attitude
+is uncorrectable. And their present attitude is incompatible with
+me.
+
+-- 
+Tuomo
+
+
+
+From lanek at novenine.com  Sat Dec 22 01:15:42 2007
+From: lanek at novenine.com (Roy Lanek)
+Date: Sat, 22 Dec 2007 07:15:42 +0700
+Subject: I'm very sad...
+Message-ID: <20071222001541.GA11854@sirih>
+
+> > but I suspect your attitude is uncorrectable.)
+
+> It seems to be me, that the distros' and the FOSS herd's attitude
+> is uncorrectable. And their present attitude is incompatible with
+> me.
+
+And it looks to me as Tuomo is being vindicated :)
+
+Kidding aside, it goes beyond the "FOSS herd's attitude."
+
+Shall I, more generally, recommend reading the book--among those fundamentals
+ones to have opened once in life--and classic, How to Solve It, by George
+Polya?
+
+If you are keen to improve your problem solving skills, and don't know the
+book yet, this is a HIGHLY suggested reading.
+
+George Polya has been a professor in Mathematics but don't fear.
+
+Similarly to Karl Marx, who [correctly, eventually ... and in a sense--Marx
+was humorously exaggerating a bit of course] has remarked that even a child
+would be able to understand and follow the logic of his *Das Kapital*, a work,
+nota bene, among the most important achievements of humanity [Louis Althusser:
+das Kapital has opened to mankind the *continent* of the SCIENTIFIC study of
+history and related disciplines nothing less], George Polya could have stated
+that no other mathematical knowledge beyond an elementary one is required to
+understand How to Solve It. (Well, maybe Polya has said that too.)
+
+In short, the book, How to Solve It, is focused on understanding problems,
+devising and carrying out plans, checking the answers. And the strategies
+practiced in it could even help you in--example--ordering pizza in New York,
+eventually. (Ordering pizza more effectively, I mean.)
+
+Anyway: please, please, PLEASE ... Tuomo, stick with system.mk!
+
+Cheers,
+
+/Roy Lanek
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   dimana tak da lang, aku lah lang, kata
+SSSSS . s l a c k w a r e  SSSSSS   belalang--where there are no eagles, I am
+SSSSS +------------ linux  SSSSSS   the one, said the grasshopper [where's no
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   top dogs, underdogs will be seen as one]
+
+
+From tuomov at iki.fi  Sat Dec 22 13:28:41 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 22 Dec 2007 12:28:41 +0000 (UTC)
+Subject: I'm very sad...
+References: <20071213235825.GB25558@pcjas.obspm.fr>
+	<slrnfm3k2s.u45.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071214005515.GC25748@pcjas.obspm.fr>
+	<20071214013641.GA4020@jolt.modeemi.cs.tut.fi>
+	<20071221162422.GA8111@marco.fz-rossendorf.de>
+	<slrnfmnrdg.iv1.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnfmq0np.69d.tuomov@jolt.modeemi.cs.tut.fi>
+
+(Retry... something seems broken again.)
+
+On 2007-12-21, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> But in the Distro Code Of Conduct, it's forbidden to have any contact with
+> authors.
+
+Speaking of which, I find the fracas Debian made about Ubuntu etc.
+not reporting things back, ironic.
+
+-- 
+Tuomo
+
+
+
+From marplatense at ubuntu.com  Mon Dec 24 02:58:09 2007
+From: marplatense at ubuntu.com (Mariano Mara)
+Date: Sun, 23 Dec 2007 22:58:09 -0300
+Subject: ion-3rc-20071220
+In-Reply-To: <slrnfmlf2c.ged.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnfmlf2c.ged.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <476F1231.1000903@ubuntu.com>
+
+Tuomo Valkonen escribi?:
+> There are a few minor fixes in this RC, plus a major one related to layout
+> restore under a session manager.
+> 
+Hi everyone,
+I downloaded the diff file and successfully patched ion-3rc-20071130 dir.
+However when I run "make" I get a few errors.
+I list here the tail:
+
+gcc -Xlinker --export-dynamic ion.o  -Wl,-whole-archive 
+../ioncore/ioncore.a -Wl,-no-whole-archive -Os -lrt -L/usr/X11R6/lib 
+-lX11 -lXext -Wl,-whole-archive -L../libmainloop -lmainloop -L../libextl 
+-lextl -L../libtu -ltu -Wl,-no-whole-archive `pkg-config --libs lua5.1` 
+-ldl -lm -o ion3
+../ioncore/ioncore.a(groupedpholder.o): In function 
+`groupedpholder_do_root':
+groupedpholder.c:(.text+0x52): undefined reference to `pholder_root'
+../ioncore/ioncore.a(groupedpholder.o):(.data+0x38): undefined reference 
+to `pholder_do_root'
+collect2: ld returned 1 exit status
+make[1]: *** [ion3] Error 1
+make[1]: Leaving directory `/home/mariano/Ion3-Sc/ion-3rc-20071130/ion'
+make: *** [subdirs] Error 2
+
+If someone can suggest how to fix this, I'll appreciate it.
+
+TIA,
+Mariano.
+
+
+
+
+From Albert.Shih at obspm.fr  Tue Dec 25 11:57:49 2007
+From: Albert.Shih at obspm.fr (Albert Shih)
+Date: Tue, 25 Dec 2007 11:57:49 +0100
+Subject: scratchws
+Message-ID: <20071225105749.GA48911@pcjas.obspm.fr>
+
+Hi all
+
+One question (not for the license) about ion.
+
+When I press ?F1? and ?TAB? to have the list of my workspace I've got
+*scratchws*. 
+
+How can I exclude *scratchw* from this list ? I don't say I don't want this
+but I use it with ?Alt+space? and don't need it in F1. 
+
+Thanks.
+
+NB:If this is a bug and don't exist in <28 day version, just tell me. Don't
+need a thread for that.
+
+--
+Albert SHIH
+Observatoire de Paris Meudon
+SIO batiment 15
+Heure local/Local time:
+Mar 25 d?c 2007 11:54:21 CET
+
+
+From sns at severinghaus.org  Tue Dec 25 23:38:45 2007
+From: sns at severinghaus.org (Steven N. Severinghaus)
+Date: Tue, 25 Dec 2007 16:38:45 -0600
+Subject: scratchws
+In-Reply-To: <20071225105749.GA48911@pcjas.obspm.fr>
+References: <20071225105749.GA48911@pcjas.obspm.fr>
+Message-ID: <47718675.5030105@severinghaus.org>
+
+Albert Shih said the following on 12/25/2007 04:57 AM:
+> How can I exclude *scratchw* from this list ? I don't say I don't want this
+> but I use it with ?Alt+space? and don't need it in F1. 
+
+There was a thread about three weeks ago titled "Annoying title in the WS
+list" on the same topic. The response was:
+
+Tuomo Valkonen said the following on 12/07/2007 04:32 AM:
+> On 2007-12-06, Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+>> Can I remove this line from list?
+> 
+> No. The mod_sp.set_shown_on depends on those names.
+> You could write a custom F9 (I guess?) completor that
+> doesn't show it, but what's the big deal?
+
+Cheers,
+-Steve
+
+-- 
+Steven N. Severinghaus
+sns at severinghaus.org
+http://severinghaus.org/
+
+
+From bryan.richter at gmail.com  Tue Dec 25 23:10:55 2007
+From: bryan.richter at gmail.com (Bryan Richter)
+Date: Tue, 25 Dec 2007 22:10:55 +0000
+Subject: Can't type into queries
+Message-ID: <20071225221055.GA21478@localhost>
+
+Hey, I'm just going to throw this out here to see if I have any fellow
+sufferers, and to hopefully get some tips on efficiently debugging the problem.
+
+I am running Debian unstable on a Thinkpad R51. Debian is updated and upgraded.
+Ion is 3rc-20071220. However, I also had this problem on Debian testing and some
+unknown ion snapshot. And before that, I had it with Debian's packaged ion3, but
+now we're getting into ancient history. The point is, this problem has persisted
+over multiple versions and a couple fresh installs of operating systems. (But
+always on the same laptop. I installed ion3 on Cygwin[1] and it works fine, iirc.)
+
+The problem is that I can't type into queries. Well, let me refine that. First,
+I can open queries with F3, F4, etc. no problem. Further, tab works. Arrow keys
+work. Backspace even works! But alphanumerics do not.
+
+Like I said, I'm just throwing this out there. I haven't done any debugging at
+all. I just wanted to see if I suffer alone.
+
+-Bryan
+aka chreekat
+
+
+From tuomov at iki.fi  Wed Dec 26 15:04:01 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 26 Dec 2007 14:04:01 +0000 (UTC)
+Subject: ion-3rc-20071220
+References: <slrnfmlf2c.ged.tuomov@jolt.modeemi.cs.tut.fi>
+	<476F1231.1000903@ubuntu.com>
+Message-ID: <slrnfn4nqh.mau.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-24, Mariano Mara <marplatense at ubuntu.com> wrote:
+> I downloaded the diff file and successfully patched ion-3rc-20071130 dir.
+> However when I run "make" I get a few errors.
+
+> ../ioncore/ioncore.a(groupedpholder.o): In function 
+
+You messed something up. There's no groupedpholder at all anymore.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Wed Dec 26 15:06:15 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 26 Dec 2007 14:06:15 +0000 (UTC)
+Subject: scratchws
+References: <20071225105749.GA48911@pcjas.obspm.fr>
+Message-ID: <slrnfn4nun.mau.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-25, Albert Shih <Albert.Shih at obspm.fr> wrote:
+> How can I exclude *scratchw* from this list ? I don't say I don't want this
+> but I use it with ?Alt+space? and don't need it in F1. 
+
+You can also switch to other workspaces with Mod1+1..0. By that logic,
+they should not be in F9 either?
+
+No, there's no simple way to filter it out, and there won't be (aside
+from any custom scripts you or someone writes). It's a workspace/group
+just like any other, and demands no special case handling.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Wed Dec 26 15:09:45 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 26 Dec 2007 14:09:45 +0000 (UTC)
+Subject: Can't type into queries
+References: <20071225221055.GA21478@localhost>
+Message-ID: <slrnfn4o59.mau.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-25, Bryan Richter <bryan.richter at gmail.com> wrote:
+> Like I said, I'm just throwing this out there. I haven't done any debugging at
+> all. I just wanted to see if I suffer alone.
+
+This is a mystery problem that people now and then complain about, but
+nobody can provide hard evidence. Maybe it's some X locale support 
+fuckup, with XmbLookupString failing to translate keystrokes into
+strings. Or maybe it's libc locale fuckup, causing the control character
+filter to fail. Try messing with insstr in ioncore/key.c, to see what 
+happens. Try to see what xev prints.
+
+-- 
+Tuomo
+
+
+
+From lanek at novenine.com  Thu Dec 27 08:15:52 2007
+From: lanek at novenine.com (Roy Lanek)
+Date: Thu, 27 Dec 2007 14:15:52 +0700
+Subject: "BAD signature"
+Message-ID: <20071227071552.GA15766@sirih>
+
+gpg --verify ion-doc-3rc-20071220.tar.gz.asc
+gpg: Signature made Fri Dec 21 01:50:17 2007 WIT using DSA key
+ID C004251B
+gpg: BAD signature from "Tuomo Valkonen <tuomov at iki.fi>"
+
+while
+
+gpg --verify ion-doc-3rc-20071130.tar.gz.asc
+gpg: Signature made Sat Dec  1 00:29:57 2007 WIT using DSA key
+ID C004251B
+gpg: Good signature from "Tuomo Valkonen <tuomov at iki.fi>"
+gpg: WARNING: This key is not certified with a trusted
+signature!
+gpg:          There is no indication that the signature belongs
+to the owner.
+Primary key fingerprint: [etc]
+
+I have tried to re-download ion-doc-3rc-20071220.tar.gz.asc
+after a copule of days--with no changes noticed.
+
+Cheers,
+
+
+/Roy Lanek
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  berakit-rakit ke hulu, berenang-renang ke
+SSSSS . s l a c k w a r e  SSSSSS  tepian; bersakit-sakit dahulu, bersenang-senang
+SSSSS +------------ linux  SSSSSS  kemudian--rafting up the stream, swimming to
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  its edge; getting pains first, having fun next
+
+
+From alexander.shishckin at gmail.com  Thu Dec 27 09:32:18 2007
+From: alexander.shishckin at gmail.com (Alexander Shishkin)
+Date: Thu, 27 Dec 2007 11:32:18 +0300
+Subject: "BAD signature"
+In-Reply-To: <20071227071552.GA15766@sirih>
+References: <20071227071552.GA15766@sirih>
+Message-ID: <71a0d6ff0712270032p18324146r3f91584ae3650dc8@mail.gmail.com>
+
+On Dec 27, 2007 10:15 AM, Roy Lanek <lanek at novenine.com> wrote:
+> gpg --verify ion-doc-3rc-20071220.tar.gz.asc
+> gpg: Signature made Fri Dec 21 01:50:17 2007 WIT using DSA key
+> ID C004251B
+> gpg: BAD signature from "Tuomo Valkonen <tuomov at iki.fi>"
+Somebody must have put in a tarball with distribution of ion3 that Tuomo
+
+******* DOES NOT SUPPORT!!!!!11 *******
+
+;)
+
+-- 
+wit beyond measure is man's greatest treasure
+
+
+From tuomov at iki.fi  Thu Dec 27 11:51:55 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 27 Dec 2007 10:51:55 +0000 (UTC)
+Subject: "BAD signature"
+References: <20071227071552.GA15766@sirih>
+Message-ID: <slrnfn70ub.btn.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-27, Roy Lanek <lanek at novenine.com> wrote:
+> gpg --verify ion-doc-3rc-20071220.tar.gz.asc
+> gpg: Signature made Fri Dec 21 01:50:17 2007 WIT using DSA key
+> ID C004251B
+> gpg: BAD signature from "Tuomo Valkonen <tuomov at iki.fi>"
+
+Should be ok now. Must've made the signature while the tarball was still
+being generated or something...
+
+-- 
+Tuomo
+
+
+
+From bryan.richter at gmail.com  Fri Dec 28 17:45:11 2007
+From: bryan.richter at gmail.com (Bryan Richter)
+Date: Fri, 28 Dec 2007 16:45:11 +0000
+Subject: Compile error under cygwin
+Message-ID: <20071228164511.GB25009@localhost>
+
+I've attached my system.mk and make's output. I can get around this
+error by taking out gettext, but it would be cool to figure it out.
+
+I have no clue, personally. The libtu.a compiles just fine, and -lintl
+is clearly in the gcc command line, in front of -llibtu.
+
+-Bryan
+aka chreekat
+-------------- next part --------------
+##
+## System settings
+##
+
+##
+## Installation paths
+##
+
+PREFIX=/usr/local
+
+# For relocatable build, use the following, and start with absolute path.
+# RELOCATABLE=1
+# PREFIX=
+
+# Unless you are creating a package conforming to some OS's standards, you
+# probably do not want to modify the following directories:
+
+# Main binaries
+BINDIR=$(PREFIX)/bin
+# Configuration .lua files
+ETCDIR=$(PREFIX)/etc/ion3
+# Some .lua files and ion-* shell scripts
+SHAREDIR=$(PREFIX)/share/ion3
+# Manual pages
+MANDIR=$(PREFIX)/share/man
+# Some documents
+DOCDIR=$(PREFIX)/share/doc/ion3
+# Nothing at the moment
+INCDIR=$(PREFIX)/include/ion3
+# Nothing at the moment
+LIBDIR=$(PREFIX)/lib
+# Modules
+MODULEDIR=$(LIBDIR)/ion3/mod
+# Compiled Lua source code
+LCDIR=$(LIBDIR)/ion3/lc
+# ion-completefile (does not belong in SHAREDIR being a binary file)
+EXTRABINDIR=$(LIBDIR)/ion3/bin
+# For ion-completeman system-wide cache
+VARDIR=/var/cache/ion3
+# Message catalogs
+LOCALEDIR=$(PREFIX)/share/locale
+
+
+##
+## Modules
+##
+
+# Set PRELOAD_MODULES=1 if your system does not support dynamically loaded
+# modules through 'libdl' or has non-standard naming conventions.
+PRELOAD_MODULES=1
+
+# Flags to link with libdl.
+DL_LIBS=-ldl
+
+
+##
+## Lua
+##
+
+# If you have installed Lua 5.1 from the official tarball without changing
+# paths, this should do it.
+LUA_DIR=/usr/local
+LUA_LIBS = -L$(LUA_DIR)/lib -llua
+LUA_INCLUDES = -I$(LUA_DIR)/include
+LUA=$(LUA_DIR)/bin/lua
+LUAC=$(LUA_DIR)/bin/luac
+
+# If you are using the Debian packages, the following settings should be
+# what you want.
+#LUA_LIBS=`pkg-config --libs lua5.1`
+#LUA_INCLUDES=`pkg-config --cflags lua5.1`
+#LUA=/usr/bin/lua5.1
+#LUAC=/usr/bin/luac5.1
+
+
+##
+## X libraries, includes and options
+##
+
+X11_PREFIX=/usr/X11R6
+# SunOS/Solaris
+#X11_PREFIX=/usr/openwin
+
+X11_LIBS=-L$(X11_PREFIX)/lib -lX11 -lXext
+X11_INCLUDES=-I$(X11_PREFIX)/include
+
+# XFree86 libraries up to 4.3.0 have a bug that can cause a segfault.
+# The following setting  should  work around that situation.
+#DEFINES += -DCF_XFREE86_TEXTPROP_BUG_WORKAROUND
+
+# Use the Xutf8 routines (XFree86 extension) instead of the Xmb routines
+# in an UTF-8 locale. (No, you don't need this in UTF-8 locales, and 
+# most likely don't even want. It's only there because both Xmb and 
+# Xutf8 routines are broken, in different ways.)
+#DEFINES += -DCF_DE_USE_XUTF8
+
+# Remap F11 key to SunF36 and F12 to SunF37? You may want to set this
+# on SunOS.
+#DEFINES += -DCF_SUN_F1X_REMAP
+
+
+##
+## libc
+##
+
+# You may uncomment this if you know your system has
+# asprintf and vasprintf in the c library. (gnu libc has.)
+# If HAS_SYSTEM_ASPRINTF is not defined, an implementation
+# in sprintf_2.2/ is used.
+HAS_SYSTEM_ASPRINTF=1
+
+# If you're on an archaic system (such as relatively recent *BSD releases)
+# without even dummy multibyte/widechar and localisation support, you may 
+# have to uncomment the following line:
+#DEFINES += -DCF_NO_LOCALE -DCF_NO_GETTEXT
+
+# On some other systems you may something like this:
+EXTRA_LIBS += -lintl
+#EXTRA_INCLUDES +=
+
+# clock_gettime for monotonic time
+# Not available in standard cygwin
+#EXTRA_LIBS += -lrt
+
+
+##
+## C compiler
+##
+
+CC=gcc
+
+# Same as '-Wall -pedantic' without '-Wunused' as callbacks often
+# have unused variables.
+WARN=	-W -Wimplicit -Wreturn-type -Wswitch -Wcomment \
+	-Wtrigraphs -Wformat -Wchar-subscripts \
+	-Wparentheses -pedantic -Wuninitialized
+
+CFLAGS=-Os $(WARN) $(DEFINES) $(EXTRA_INCLUDES) $(INCLUDES)
+LDFLAGS=-Os $(EXTRA_LIBS) $(LIBS)
+EXPORT_DYNAMIC=-Xlinker --export-dynamic
+
+# The following options are mainly for development use and can be used
+# to check that the code seems to conform to some standards. Depending
+# on the version and vendor of you libc, the options may or may not have
+# expected results. If you define one of C99_SOURCE or XOPEN_SOURCE, you
+# may also have to define the other. 
+
+#C89_SOURCE=-ansi
+
+#POSIX_SOURCE=-D_POSIX_C_SOURCE=200112L
+
+# Most systems
+#XOPEN_SOURCE=-D_XOPEN_SOURCE -D_XOPEN_SOURCE_EXTENDED
+# SunOS, (Irix)
+#XOPEN_SOURCE=-D__EXTENSIONS__
+
+#C99_SOURCE=-std=c99 -DCF_HAS_VA_COPY
+
+# The -DCF_HAS_VA_COPY option should allow for some optimisations, and 
+# in some cases simply defining
+#C99_SOURCE=-DCF_HAS_VA_COPY
+# might allow for those optimisations to be taken without any  special
+# libc or compiler options.
+
+
+##
+## make depend
+##
+
+DEPEND_FILE=.depend
+DO_MAKE_DEPEND=$(CC) -MM $(DEFINES) $(EXTRA_INCLUDES) $(INCLUDES)
+MAKE_DEPEND=$(DO_MAKE_DEPEND) $(SOURCES) > $(DEPEND_FILE)
+
+##
+## AR
+##
+
+AR=ar
+ARFLAGS=cr
+RANLIB=ranlib
+
+
+##
+## Install & strip
+##
+
+INSTALL=sh $(TOPDIR)/install-sh -c
+INSTALLDIR=mkdir -p
+
+BIN_MODE=755
+DATA_MODE=644
+
+STRIP=strip
+
+RM=rm
+-------------- next part --------------
+gcc  ion.o preload.o    ../mod_tiling/mod_tiling.a  ../mod_query/mod_query.a  ../mod_menu/mod_menu.a  ../mod_dock/mod_dock.a  ../mod_sp/mod_sp.a  ../mod_sm/mod_sm.a  ../mod_statusbar/mod_statusbar.a  ../de/de.a ../ioncore/ioncore.a  -Os -lintl -L/usr/X11R6/lib -lX11 -lXext  -L../libmainloop -lmainloop -L../libextl -lextl -L../libtu -ltu  -L/usr/local/lib -llua -ldl -lm -lSM -lICE -o ion3
+../libtu/libtu.a(output.o):output.c:(.text+0xef): undefined reference to `_libintl_dgettext'
+../libtu/libtu.a(optparser.o):optparser.c:(.text+0x46b): undefined reference to `_libintl_dgettext'
+../libtu/libtu.a(optparser.o):optparser.c:(.text+0x48a): undefined reference to `_libintl_dgettext'
+../libtu/libtu.a(optparser.o):optparser.c:(.text+0x4a9): undefined reference to `_libintl_dgettext'
+collect2: ld returned 1 exit status
+make: *** [ion3] Error 1
+
+From tuomov at iki.fi  Sat Dec 29 09:46:32 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 29 Dec 2007 08:46:32 +0000 (UTC)
+Subject: Compile error under cygwin
+References: <20071228164511.GB25009@localhost>
+Message-ID: <slrnfnc2b8.gqb.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-28, Bryan Richter <bryan.richter at gmail.com> wrote:
+> I have no clue, personally. The libtu.a compiles just fine, and -lintl
+> is clearly in the gcc command line, in front of -llibtu.
+
+This is the standard GCC/*nix linker brain damage: you have to have
+the libs meticulouslu ordered on the command line. It wants -lintl
+after -ltu. Trying to arrange for that is pain. gcc/ld sucks.
+
+> gcc  ion.o preload.o    ../mod_tiling/mod_tiling.a
+> ../mod_query/mod_query.a ../mod_menu/mod_menu.a ../mod_dock/mod_dock.a
+> ../mod_sp/mod_sp.a ../mod_sm/mod_sm.a ../mod_statusbar/mod_statusbar.a
+> ../de/de.a ../ioncore/ioncore.a -Os -lintl -L/usr/X11R6/lib -lX11 -lXext
+> -L../libmainloop -lmainloop -L../libextl -lextl -L../libtu -ltu
+> -L/usr/local/lib -llua -ldl -lm -lSM -lICE -o ion3
+
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sat Dec 29 11:06:43 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 29 Dec 2007 10:06:43 +0000 (UTC)
+Subject: Compile error under cygwin
+References: <20071228164511.GB25009@localhost>
+	<slrnfnc2b8.gqb.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnfnc71j.okg.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-29, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> This is the standard GCC/*nix linker brain damage: you have to have
+> the libs meticulouslu ordered on the command line. It wants -lintl
+> after -ltu. Trying to arrange for that is pain. gcc/ld sucks.
+
+It may help to change the order of LIBS and EXTRA_LIBS in LDFLAGS in
+system.mk. But it may break something else.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sat Dec 29 16:25:46 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 29 Dec 2007 17:25:46 +0200
+Subject: Nagware version
+Message-ID: <20071229152546.GA22341@jolt.modeemi.cs.tut.fi>
+
+I've been considering releasing (as a patch) a separate nagware version
+of Ion, which would have a license without the 28-day clause. The patch 
+is included as a draft (without any accompanied permission yet to treat
+it as an insignificant change). Presently it checks the latest release
+redirection [1] every 28 days. An annoying call-home feature, I know,
+which would not be featured in the standard release (including my
+ZeroInstall feed). As is apparent from the README changes, the patch
+requires luacurl [2]. Discuss it if you want. I however doubt that the
+unconstructive distros motivated by ideology and maintaining their own
+power, would accept even that, although the resulting license should be
+"free" (and would be GPLv3 compatible, if based on it intead of LGPLv2.1).
+And yet, the package management system is the right place for this kind 
+of features, not programs themselves (reinventing a half-assed package 
+management system).
+
+  [1]: http://modeemi.fi/~tuomov/ion-3-latest.tar.gz
+
+  [2]: http://luaforge.net/projects/luacurl/
+
+-- 
+Tuomo
+-------------- next part --------------
+Sat Dec 29 17:14:55 EET 2007  Tuomo Valkonen <tuomov at iki.fi>
+  * README and LICENSE updates
+Sat Dec 29 15:31:29 EET 2007  Tuomo Valkonen <tuomov at iki.fi>
+  * Oops
+Sat Dec 29 14:23:30 EET 2007  Tuomo Valkonen <tuomov at iki.fi>
+  * Handle updates better in version check
+Sat Dec 29 14:14:09 EET 2007  Tuomo Valkonen <tuomov at iki.fi>
+  * Only http-check version once every 28 days
+Sat Dec 29 13:50:38 EET 2007  Tuomo Valkonen <tuomov at iki.fi>
+  * Version check hack with luacurl
+diff -rN -u old-ion-3-curl/LICENSE new-ion-3-curl/LICENSE
+--- old-ion-3-curl/LICENSE	2007-12-29 17:15:04.546539787 +0200
++++ new-ion-3-curl/LICENSE	2007-12-29 17:15:04.590531981 +0200
+@@ -11,11 +11,6 @@
+     - A version that does not significantly differ from one of the
+       copyright holder's releases, must be provided by default.
+ 
+-    - Versions not based on the copyright holder's latest release (on 
+-      the corresponding "branch", such as Ion3(tm)), must within 28 days
+-      of this release, be prominently marked as (potentially) obsolete
+-      and unsupported.
+-
+     - Significantly altered versions may be provided only if the user
+       explicitly requests for those modifications to be applied, and 
+       is prominently notified that the software is no longer considered 
+@@ -60,17 +55,6 @@
+ standard behaviour, are insignificant. Everything else is significant, 
+ unless expressly declared otherwise by the copyright holder. 
+ 
+-Distributions: For example, suppose an aggregate distribution of software
+-provides an `installpkg` command for installing packages. Then the action
+-`installpkg ion3` (resp. `installpkg ion`) should provide the latest release
+-of Ion3 (resp. the latest stable release) 28 days from release date at the
+-latest, or prominently notify the user that the provided version is (likely
+-to be) obsolete and unsupported. The latest release being provided by
+-default, or prominently appearing in a listing, constitutes prominent
+-marking of earlier releases as obsolete. Specific versions (including
+-modified versions) may be provided if the user explicitly requests for
+-those, within the constraints set above.
+-
+ The intent of these terms is to curb the power that "distributions", as
+ the primary sources of software for many users, have in defining what
+ is perceived as Ion. By providing significantly modified versions and
+diff -rN -u old-ion-3-curl/README new-ion-3-curl/README
+--- old-ion-3-curl/README	2007-12-29 17:15:04.546539787 +0200
++++ new-ion-3-curl/README	2007-12-29 17:15:04.594531272 +0200
+@@ -16,8 +16,9 @@
+    with, of course, standard X11 and libc stuff).
+ 
+     * GNU make <http://www.gnu.org/software/make/>
+-    * Lua 5.1 <http://www.lua.org/>
+     * gettext <http://www.gnu.org/software/gettext/>
++    * Lua 5.1 <http://www.lua.org/>
++    * luacurl <http://luaforge.net/projects/luacurl/>
+ 
+ 2. Edit `system.mk` to suit your system. Most GNU/Linux users should
+    need very few changes.
+diff -rN -u old-ion-3-curl/ioncore/ioncore_ext.lua new-ion-3-curl/ioncore/ioncore_ext.lua
+--- old-ion-3-curl/ioncore/ioncore_ext.lua	2007-12-29 17:15:04.550539077 +0200
++++ new-ion-3-curl/ioncore/ioncore_ext.lua	2007-12-29 17:15:04.570535529 +0200
+@@ -93,3 +93,103 @@
+     TR("Context menu:")
+     TR("Main menu:")
+ end
++
++--
++-- Version check
++--
++
++
++local msgwins={}
++
++local function disp(msg)
++    local binding=META.."Escape"
++    
++    local scrs={}
++    local function ds(scr)
++        scrs[scr]=true
++        return true
++    end
++    ioncore.region_i(ds, "WScreen")
++    
++    for scr, _ in pairs(scrs) do
++        local foo=scr:attach_new{
++            type="WInfoWin",
++            sizepolicy="southeast",
++            unnumbered=true,
++            level=10,
++            passive=true,
++        }
++        -- Hack: attach_new doesn't get geometries right if we pass msg 
++        -- directly to it.
++        foo:set_text(msg.." ["..binding.."]", scr:geom().w)
++        msgwins[foo]=true
++    end
++    
++    local function hide()
++        for msgwin, _ in pairs(msgwins) do
++            msgwin:rqclose()
++        end
++        ioncore.defbindings("WScreen", {kpress(binding, nil)})
++    end
++    
++    ioncore.defbindings("WScreen", {kpress(binding, hide)})
++end
++
++----
++
++local vinfo=ioncore.read_savefile('vcheck')
++local version=ioncore.version()
++
++----
++
++local curlok, err = pcall(function() return require('curl') end)
++
++if not curlok then
++    ioncore.warn(err)
++end
++
++local function do_vcheck()
++    vinfo=nil
++    if curl then
++        local latest
++        
++        local function procheader(s, l)
++            --local v=string.match(s, "^Location:.*/ion%-3.?.?%-(%d%d%d%d%d%d%d%d)%.")
++            local v=string.match(s, "^Location:.*/ion%-([^.]*)")
++            if v then
++                latest=v
++            end
++            return l, nil
++        end
++
++        c=curl.easy_init()
++        c:setopt(curl.OPT_URL, 'http://modeemi.fi/~tuomov/dl/ion-3-latest.tar.gz')
++        --c:setopt(curl.OPT_URL,'http://iki.fi/tuomov/dl/ion-3-latest.tar.gz')
++        c:setopt(curl.OPT_HEADERFUNCTION, procheader)
++        c:setopt(curl.OPT_NOBODY, 1)
++        c:perform()
++
++        if latest then
++            vinfo={time=os.time(), latest=latest, version=version}
++            ioncore.write_savefile('vcheck', vinfo)
++        end
++    end
++end
++
++----
++
++local VCHECK_SECS=28*24*60*60 -- 28 days
++local dt=os.difftime(os.time(), vinfo.time)
++
++local vinfo_ok=(vinfo and vinfo.time and vinfo.latest and vinfo.version==version)
++
++if (not vinfo_ok) or dt > VCHECK_SECS or dt < 0 then
++    do_vcheck()
++end
++
++if not vinfo then
++    disp(TR("Unable to check version. This version of Ion3 may be obsolete and unsupported."))
++elseif vinfo.latest~=version --[[and version~="(snapshot)"]] then
++    disp(TR("Latest version is %s. This version of Ion3 is obsolete and unsupported.", 
++            vinfo.latest))
++end
+
+
+From eichin-ion at thok.org  Sat Dec 29 19:02:11 2007
+From: eichin-ion at thok.org (Mark Eichin)
+Date: Sat, 29 Dec 2007 13:02:11 -0500
+Subject: Nagware version
+In-Reply-To: <20071229152546.GA22341@jolt.modeemi.cs.tut.fi> (Tuomo Valkonen's
+	message of "Sat, 29 Dec 2007 17:25:46 +0200")
+References: <20071229152546.GA22341@jolt.modeemi.cs.tut.fi>
+Message-ID: <87fxxlnzvg.fsf@curl-up-paw-under-nose.thok.org>
+
+Tuomo Valkonen <tuomov at iki.fi> writes:
+
+> I've been considering releasing (as a patch) a separate nagware version
+> of Ion, which would have a license without the 28-day clause. The patch 
+> is included as a draft (without any accompanied permission yet to treat
+> it as an insignificant change). Presently it checks the latest release
+> redirection [1] every 28 days. An annoying call-home feature, I know,
+> which would not be featured in the standard release (including my
+> ZeroInstall feed). As is apparent from the README changes, the patch
+> requires luacurl [2]. Discuss it if you want. I however doubt that the
+> unconstructive distros motivated by ideology and maintaining their own
+> power, would accept even that, although the resulting license should be
+> "free" (and would be GPLv3 compatible, if based on it intead of LGPLv2.1).
+
+Given GPLv3, any distro could take it out too, so you'd be relying on
+the cooperation of maintainers (whom you already consider
+uncooperative or you wouldn't be trying this, right?) Or am I missing
+some licensing language (that wouldn't meet the DFSG, if it
+*prevented* people from removing the code, rather than merely asking...)
+
+> And yet, the package management system is the right place for this kind 
+> of features, not programs themselves (reinventing a half-assed package 
+> management system).
+
+Hmm, what would that look like as a package management feature? just
+"new version available" (like synaptic does - if you provided your own
+repository you'd have that now) or do you mean just complaining to the
+end user that "these packages are stale"?
+
+
+From tuomov at iki.fi  Sat Dec 29 20:02:18 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 29 Dec 2007 19:02:18 +0000 (UTC)
+Subject: Nagware version
+References: <20071229152546.GA22341@jolt.modeemi.cs.tut.fi>
+	<87fxxlnzvg.fsf@curl-up-paw-under-nose.thok.org>
+Message-ID: <slrnfnd6dq.9n9.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-29, Mark Eichin <eichin-ion at thok.org> wrote:
+> Given GPLv3, any distro could take it out too, so you'd be relying on
+> the cooperation of maintainers (whom you already consider
+> uncooperative or you wouldn't be trying this, right?) Or am I missing
+> some licensing language (that wouldn't meet the DFSG, if it
+> *prevented* people from removing the code, rather than merely asking...)
+
+GPLv3 includes provisions for additional terms that may require modified
+versions to be renamed, etc. [1, Section 7, c & e]. Programs covered by 
+such additional terms (as listed in Section 7) and GPLv3 remain compatible
+with other GPLv3 software (which may also contain additional terms as
+listed in Section 7), while those additional terms become viral. 
+
+That's my IANAL reading of it anyway. If to not keep a limited set
+of additional terms compatible with GPLv3 codebase, why include such
+provisions at all in the license?
+
+Actually GPLv3, does already in Section 5 state that "The work must carry
+prominent notices stating that you modified it, and giving a relevant
+date", which might even be enough, but is up to interpretation. GPLv2
+idiotically only required source files to carry notices, but few end
+users ever see them.
+
+> Hmm, what would that look like as a package management feature? just
+> "new version available" (like synaptic does - if you provided your own
+> repository you'd have that now) or do you mean just complaining to the
+> end user that "these packages are stale"?
+
+In the case of distros not keeping up-to-date, just complaining to 
+the user trying to install or upgrade a package, that the version 
+available is not in sync with author, and author may not support it.
+This would be a very useful service for all software, not just for
+complying with the Ion license. 
+
+But more generally, of course, a package management system could
+automatically keep watch on packages being updated, and notify the
+user.
+
+  [1]: http://www.gnu.org/licenses/gpl-3.0.html
+
+-- 
+Tuomo
+
+
+
+From quentinhuys at gmail.com  Sun Dec 30 18:12:20 2007
+From: quentinhuys at gmail.com (Quentin Huys)
+Date: Sun, 30 Dec 2007 12:12:20 -0500
+Subject: I'm very sad...
+In-Reply-To: <20071221162422.GA8111@marco.fz-rossendorf.de>
+References: <20071213235825.GB25558@pcjas.obspm.fr>
+	<slrnfm3k2s.u45.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071214005515.GC25748@pcjas.obspm.fr>
+	<20071214013641.GA4020@jolt.modeemi.cs.tut.fi>
+	<20071221162422.GA8111@marco.fz-rossendorf.de>
+Message-ID: <b85d58c40712300912t3165dd0did83fe9b999dd2a69@mail.gmail.com>
+
+Sorry for the repeat posting--I seem to have lost the thread, so am replying
+to this one.
+
+I'm also trying to compile ion on macosx, and not managing. As Joerg, I'd
+really like there to be some repository where I can get it as a binary...
+
+Anyway, while that' s not looking likely I'm enjoying running after
+dependencies. When I run make, I get the following:
+
+set -e; for i in libtu libextl libmainloop mod_tiling mod_query mod_menu
+mod_dock mod_sp mod_sm mod_statusbar de ioncore ion pwm etc utils man po ;
+do make -C $i; done
+gcc -Os -W -Wimplicit -Wreturn-type -Wswitch -Wcomment -Wtrigraphs -Wformat
+-Wchar-subscripts -Wparentheses -pedantic -Wuninitialized
+-DCF_XFREE86_TEXTPROP_BUG_WORKAROUND -DHAVE_SNPRINTF      -c output.c -o
+output.o
+In file included from output.c:23:
+private.h:15:21: error: libintl.h: No such file or directory
+output.c: In function 'fallback_warn':
+output.c:116: warning: implicit declaration of function 'dgettext'
+output.c:116: warning: incompatible implicit declaration of built-in
+function 'dgettext'
+make[1]: *** [output.o] Error 1
+make: *** [subdirs] Error 2
+
+I don't really understand why it doesn't find libintl.h. When I run locate
+libintl.h I get:
+
+/opt/local/include/libintl.h
+/opt/local/var/macports/build/_opt_local_var_macports_sources_rsync.macports.org_release_ports_cross_avr-gcc/work/build/intl/libintl.h
+/opt/local/var/macports/software/gettext/0.17_2/opt/local/include/libintl.h
+/sw/include/libintl.h
+
+In the system.mk file, I've set
+
+PREFIX=/opt/local
+
+and
+
+LUA_DIR=/opt/local
+
+which is where things are on macosx when installing from macports...
+
+Any chance you might be able to help me out? I've been trying all kinds of
+things but can't get it to work...
+
+Thanks a lot
+Quentin
+
+
+
+On Dec 21, 2007 11:24 AM, Joerg van den Hoff <j.van_den_hoff at fzd.de> wrote:
+
+> On Fri, Dec 14, 2007 at 03:36:41AM +0200, Tuomo Valkonen wrote:
+> > On 2007-12-14 01:55 +0100, Albert Shih wrote:
+> > > Of course It's what I'm going to do (try), but the ports collection
+> make all
+> > > dependency, and it's very fine technics.
+> >
+> > Ion doesn't have many non-standard dependencies. Most systems have X11R6
+> > libraries installed, of which no particular version is needed (aside
+> from
+> > bugs in some versions, in particular in relation to
+> XGetTextProperty...).
+> > Some libc related aspects need to be configured in system.mk (some
+> systems
+> > have some components sanely as separate, and others have monolithic
+> libc),
+> > but aside from that, the only non-standard dependency that needs
+> > installation, is Lua. Lua is also quite easy to install: it has ANSI C
+> > as its only dependency. (However, some versions of Lua's Makefiles set
+> > broken permissions... But installing from ports or so may fix them.)
+> >
+> > --
+> > Tuomo
+> >
+>
+> if  you  say  so... maybe right w.r.t. dependencies on libs.
+> otherwise:
+>
+> I  tried it again with yesterday's version and I should have
+> known better: trying to compile ion3 "manually" under MacOSX
+> is  a  nightmare  for  anybody  not  up  to his waist in the
+> internals of gcc and differences introduced by apple.
+>
+> is  there  *anbody*  out  there  able  to  compile  it under
+> macos???
+>
+> I gave up (again...). problems (to the extent that they have
+> surfaced) are related to several gcc/ld flags not  available
+> under MacOS:
+>
+> -shared
+> -whole-archive
+> -export-dynamic
+>
+> and  librt:  is  that  supposedly  a  standard lib? it's not
+> there.
+>
+> tuomo,  man, get a hold of yourself (or, rather, the licence
+> text), so that it is again sufficient that _one_ guy  solves
+> it  _once_  and  puts in back in the repository. it can't be
+> that much fun to see users suffer. or can it? I,  at  least,
+> am fed up with trying. that's no longer a manageble average-
+> user task.
+>
+> and,  of  course,  if  in  the  end it were possible to find
+> makefiles and/or system.mk  versions  on  your  side,  it'll
+> help.  but  I'm  at  least  obviously  not  in a position to
+> contribute  these  for  MacOSX.  (and  it  only   seems   an
+> unnecessary  complication  in comparison to having it in the
+> repositories. but I suspect your attitude is uncorrectable.)
+>
+> joerg
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20071230/a03c7303/attachment.html>
+
+From udvzsolt at gmail.com  Sun Dec 30 18:33:55 2007
+From: udvzsolt at gmail.com (Zsolt Udvari)
+Date: Sun, 30 Dec 2007 18:33:55 +0100
+Subject: I'm very sad...
+In-Reply-To: <b85d58c40712300912t3165dd0did83fe9b999dd2a69@mail.gmail.com>
+References: <20071213235825.GB25558@pcjas.obspm.fr>
+	<slrnfm3k2s.u45.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071214005515.GC25748@pcjas.obspm.fr>
+	<20071214013641.GA4020@jolt.modeemi.cs.tut.fi>
+	<20071221162422.GA8111@marco.fz-rossendorf.de>
+	<b85d58c40712300912t3165dd0did83fe9b999dd2a69@mail.gmail.com>
+Message-ID: <760ece280712300933m1d1fdbb4m6fbd0028bb29de7@mail.gmail.com>
+
+> private.h:15:21: error: libintl.h: No such file or directory
+> output.c: In function 'fallback_warn':
+> output.c:116: warning: implicit declaration of function 'dgettext'
+> output.c :116: warning: incompatible implicit declaration of built-in
+> function 'dgettext'
+> make[1]: *** [output.o] Error 1
+> make: *** [subdirs] Error 2
+>
+> I don't really understand why it doesn't find libintl.h. When I run locate
+> libintl.h I get:
+>
+> /opt/local/include/libintl.h
+Add to the CFLAGS:
+-I/opt/local/include
+(in system.mk, 137th line)
+
+Zsolt
+
+
+From tuomov at iki.fi  Sun Dec 30 18:35:52 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 30 Dec 2007 17:35:52 +0000 (UTC)
+Subject: I'm very sad...
+References: <20071213235825.GB25558@pcjas.obspm.fr>
+	<slrnfm3k2s.u45.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071214005515.GC25748@pcjas.obspm.fr>
+	<20071214013641.GA4020@jolt.modeemi.cs.tut.fi>
+	<20071221162422.GA8111@marco.fz-rossendorf.de>
+	<b85d58c40712300912t3165dd0did83fe9b999dd2a69@mail.gmail.com>
+Message-ID: <slrnfnflno.juj.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-30, Quentin Huys <quentinhuys at gmail.com> wrote:
+> gcc -Os -W -Wimplicit -Wreturn-type -Wswitch -Wcomment -Wtrigraphs -Wformat
+> -Wchar-subscripts -Wparentheses -pedantic -Wuninitialized
+> -DCF_XFREE86_TEXTPROP_BUG_WORKAROUND -DHAVE_SNPRINTF      -c output.c -o
+> output.o
+> In file included from output.c:23:
+> private.h:15:21: error: libintl.h: No such file or directory
+...
+> I don't really understand why it doesn't find libintl.h. When I run locate
+> libintl.h I get:
+> /opt/local/include/libintl.h
+
+As you can see from above, there's no -I/opt/local/include/ on the gcc
+command line. PREFIX/include is not added to it automatically, and as
+we're compiling libtu there, it doesn't get there through LUA_DIR either.
+You should add it to EXTRA_INCLUDES.
+
+Why don't you have a look at the port Makefile of whatever they had
+(I'm sure it's still around somewhere), and see the changes they had
+to make, and never bothered reporting back/on the list/or so?
+
+-- 
+Tuomo
+
+
+
+From prankish at gmail.com  Mon Dec 31 12:13:45 2007
+From: prankish at gmail.com (Dmitry)
+Date: Mon, 31 Dec 2007 14:13:45 +0300
+Subject: Happy New Year
+Message-ID: <e66209d30712310313x4ee78c1bw360e2103351a4024@mail.gmail.com>
+
+Hi, guys! Happy New Year, from Russia with love! :)
+I wish good luck to Ion, its author and all its users next year!
+
+
+From csant at csant.info  Mon Dec 31 16:52:52 2007
+From: csant at csant.info (csant)
+Date: Mon, 31 Dec 2007 16:52:52 +0100
+Subject: Happy New Year
+In-Reply-To: <e66209d30712310313x4ee78c1bw360e2103351a4024@mail.gmail.com>
+References: <e66209d30712310313x4ee78c1bw360e2103351a4024@mail.gmail.com>
+Message-ID: <op.t37ieeshd84skq@fiore.malebolge>
+
+> Hi, guys! Happy New Year, from Russia with love! :)
+
+And Happy New Year from Norway.  Thanks for all the effort and  
+development, Tuomo!
+
+/c :)
+
+
+
+From lanek at novenine.com  Mon Dec 31 17:42:51 2007
+From: lanek at novenine.com (Roy Lanek)
+Date: Mon, 31 Dec 2007 23:42:51 +0700
+Subject: Happy New Year
+In-Reply-To: <e66209d30712310313x4ee78c1bw360e2103351a4024@mail.gmail.com>
+References: <e66209d30712310313x4ee78c1bw360e2103351a4024@mail.gmail.com>
+Message-ID: <20071231164251.GA4083@sirih>
+
+
+> Hi, guys! Happy New Year, from Russia with love! :)
+
+And *selamat tahun baru* from Indonesia. (Minus 15' here.)
+
+
+/Roy
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   gajah bertarung lawan gajah,
+SSSSS . s l a c k w a r e  SSSSSS   pelanduk mati di tengah-tengah
+SSSSS +------------ linux  SSSSSS   elephants wage war against elephants,
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   deers die in the midst
+
+
+From shardz4217 at gmail.com  Mon Dec 31 18:44:17 2007
+From: shardz4217 at gmail.com (Samuel Baldwin)
+Date: Mon, 31 Dec 2007 13:44:17 -0400
+Subject: Happy New Year
+In-Reply-To: <20071231164251.GA4083@sirih>
+References: <e66209d30712310313x4ee78c1bw360e2103351a4024@mail.gmail.com>
+	<20071231164251.GA4083@sirih>
+Message-ID: <975fd1710712310944j37c8494bjb3d94f5c68fc6cbb@mail.gmail.com>
+
+Happy new years!
+
+Thanks for the kickass wm.
+-- 
+Samuel 'Shardz' Baldwin
+
+Shardz's Igloo: shardz.homelinux.net
+
+Registered Linux User #410639
+
+

@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> I'm very sad...
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20I%27m%20very%20sad...&In-Reply-To=%3C20071221162422.GA8111%40marco.fz-rossendorf.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000895.html">
+   <LINK REL="Next"  HREF="000930.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>I'm very sad...</H1>
+    <B>Joerg van den Hoff</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20I%27m%20very%20sad...&In-Reply-To=%3C20071221162422.GA8111%40marco.fz-rossendorf.de%3E"
+       TITLE="I'm very sad...">j.van_den_hoff at fzd.de
+       </A><BR>
+    <I>Fri Dec 21 17:24:22 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000895.html">I'm very sad...
+</A></li>
+        <LI>Next message: <A HREF="000930.html">I'm very sad...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#929">[ date ]</a>
+              <a href="thread.html#929">[ thread ]</a>
+              <a href="subject.html#929">[ subject ]</a>
+              <a href="author.html#929">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Fri, Dec 14, 2007 at 03:36:41AM +0200, Tuomo Valkonen wrote:
+&gt;<i> On 2007-12-14 01:55 +0100, Albert Shih wrote:
+</I>&gt;<i> &gt; Of course It's what I'm going to do (try), but the ports collection make all
+</I>&gt;<i> &gt; dependency, and it's very fine technics. 
+</I>&gt;<i> 
+</I>&gt;<i> Ion doesn't have many non-standard dependencies. Most systems have X11R6
+</I>&gt;<i> libraries installed, of which no particular version is needed (aside from
+</I>&gt;<i> bugs in some versions, in particular in relation to XGetTextProperty...).
+</I>&gt;<i> Some libc related aspects need to be configured in system.mk (some systems
+</I>&gt;<i> have some components sanely as separate, and others have monolithic libc),
+</I>&gt;<i> but aside from that, the only non-standard dependency that needs
+</I>&gt;<i> installation, is Lua. Lua is also quite easy to install: it has ANSI C
+</I>&gt;<i> as its only dependency. (However, some versions of Lua's Makefiles set
+</I>&gt;<i> broken permissions... But installing from ports or so may fix them.)
+</I>&gt;<i> 
+</I>&gt;<i> -- 
+</I>&gt;<i> Tuomo
+</I>&gt;<i> 
+</I>
+if  you  say  so... maybe right w.r.t. dependencies on libs.
+otherwise:
+
+I  tried it again with yesterday's version and I should have
+known better: trying to compile ion3 &quot;manually&quot; under MacOSX
+is  a  nightmare  for  anybody  not  up  to his waist in the
+internals of gcc and differences introduced by apple.
+
+is  there  *anbody*  out  there  able  to  compile  it under
+macos???
+
+I gave up (again...). problems (to the extent that they have
+surfaced) are related to several gcc/ld flags not  available
+under MacOS:
+
+-shared
+-whole-archive
+-export-dynamic
+
+and  librt:  is  that  supposedly  a  standard lib? it's not
+there.
+
+tuomo,  man, get a hold of yourself (or, rather, the licence
+text), so that it is again sufficient that _one_ guy  solves
+it  _once_  and  puts in back in the repository. it can't be
+that much fun to see users suffer. or can it? I,  at  least,
+am fed up with trying. that's no longer a manageble average-
+user task.
+
+and,  of  course,  if  in  the  end it were possible to find
+makefiles and/or system.mk  versions  on  your  side,  it'll
+help.  but  I'm  at  least  obviously  not  in a position to
+contribute  these  for  MacOSX.  (and  it  only   seems   an
+unnecessary  complication  in comparison to having it in the
+repositories. but I suspect your attitude is uncorrectable.)
+
+joerg
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000895.html">I'm very sad...
+</A></li>
+	<LI>Next message: <A HREF="000930.html">I'm very sad...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#929">[ date ]</a>
+              <a href="thread.html#929">[ thread ]</a>
+              <a href="subject.html#929">[ subject ]</a>
+              <a href="author.html#929">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

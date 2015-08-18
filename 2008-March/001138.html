@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Wish item; workspace templates
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Wish%20item%3B%20workspace%20templates&In-Reply-To=%3C16726be0803011333h33d48d07k747ba4172176d492%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001137.html">
+   <LINK REL="Next"  HREF="001139.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Wish item; workspace templates</H1>
+    <B>Per Ekstr&#246;m</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Wish%20item%3B%20workspace%20templates&In-Reply-To=%3C16726be0803011333h33d48d07k747ba4172176d492%40mail.gmail.com%3E"
+       TITLE="Wish item; workspace templates">wertigon at gmail.com
+       </A><BR>
+    <I>Sat Mar  1 22:33:08 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001137.html">how to remove some windows from the focuslist?
+</A></li>
+        <LI>Next message: <A HREF="001139.html">Wish item; workspace templates
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1138">[ date ]</a>
+              <a href="thread.html#1138">[ thread ]</a>
+              <a href="subject.html#1138">[ subject ]</a>
+              <a href="author.html#1138">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi!
+
+I like the concept of Ion, though I have yet to try it &quot;for real&quot; (I've only
+been playing around in it so far). Kudos for such a nice WM. :)
+
+There's just one thing I miss, that I haven't found in any of the tiling WMs
+so far; There's no way to set up templates to tell your apps where they
+should go. :(
+
+What I mean, is this; Say that I have a few workspaces.  I use one for
+internet things (web, IM, chat), one for multimedia and handling my files,
+one for the GIMP, and one for developing stuff.
+
+My internet workspace has the contact list and RSS feed in two areas to the
+right, a bar at the bottom is for chat stuff (IM and IRC), and in the space
+left is my browser.  Browser has perhaps  80%*80% of the workspace.
+
+My GIMP workspace has the toolbars to the right, and everything else is
+floating on top of the grid, with the toolbars being on top of course (for
+easy access).
+
+My multimedia/file window, meanwhile, has a media player in a narrow strip
+at the bottom and a file manager with commander-like structure at the top.
+About a 60/40 ratio. If I play, say, a movie, I want it to appear as a
+floating window on top of this.
+
+Finally, my developer workspace, has a terminal at the bottom, and Emacs at
+the top, 75/25 ratio with Emacs taking up the upper part of the screen.
+
+Now, I hope most persons here are mature enough to see that this is not
+ideal for everyone; it sucks on a small resolution for one thing. But I like
+it this way. Only problem is, it doesn't get saved when I have to reboot
+(damn kernel devs can't design a proper secure kernel... ;)). So I have to
+spend 10-20 minutes on getting everything up-to-speed again.
+
+So, I'd like to see what I call &quot;Workspace Templates&quot; - You basicly define
+which programs open where (per default that is). This would require a small
+configuration change. Below is an example of such a file (modify it as you
+see fit);
+
+[Workspace 1]
+name=Internet
+
+[area]
+workspace=Internet
+dimensions=80 80           // In percentage
+location=left top
+name=browsers
+
+[area]
+workspace=Internet
+dimensions=20 50           // In percentage
+location=right top
+name=rss
+
+[area]
+workspace=Internet
+dimensions=20 50           // In percentage
+location=right  bottom
+name=contacts
+
+[area]
+workspace=Internet
+dimensions=40 20           // In percentage
+location=left  bottom
+name=irc
+
+[area]
+workspace=Internet
+dimensions=40 20           // In percentage
+location=left top
+name=imchat
+
+[programs]
+item=firefox browser
+item=akregator rss
+item=pidgin contacts
+item=pidgin-chat imchat
+item=xchat irc
+
+There's only one thing missing for this puzzle; how to handle child windows
+from applications? Otherwise I think it should be pretty straightforward to
+develop. Though, I am not really a developer, so I might be wrong.
+
+Thoughts? Comments?
+
+Regards,
+- Per Ekstr&#246;m
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20080301/c6579e4b/attachment.html">https://lists.berlios.de/pipermail/ion-general/attachments/20080301/c6579e4b/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001137.html">how to remove some windows from the focuslist?
+</A></li>
+	<LI>Next message: <A HREF="001139.html">Wish item; workspace templates
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1138">[ date ]</a>
+              <a href="thread.html#1138">[ thread ]</a>
+              <a href="subject.html#1138">[ subject ]</a>
+              <a href="author.html#1138">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

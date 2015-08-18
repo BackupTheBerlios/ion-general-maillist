@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> On continuing Ion development [+footnote on fonts on 5800xm]
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-September/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20On%20continuing%20Ion%20development%20%5B%2Bfootnote%20on%20fonts%20on%205800xm%5D&In-Reply-To=%3Cslrnhb45b7.pi0.tuomov%40beer.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001741.html">
+   <LINK REL="Next"  HREF="001743.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>On continuing Ion development [+footnote on fonts on 5800xm]</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20On%20continuing%20Ion%20development%20%5B%2Bfootnote%20on%20fonts%20on%205800xm%5D&In-Reply-To=%3Cslrnhb45b7.pi0.tuomov%40beer.modeemi.cs.tut.fi%3E"
+       TITLE="On continuing Ion development [+footnote on fonts on 5800xm]">tuomov at iki.fi
+       </A><BR>
+    <I>Thu Sep 17 12:54:31 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001741.html">how to put a background image
+</A></li>
+        <LI>Next message: <A HREF="001743.html">ion windows manager on FreeBSD
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1742">[ date ]</a>
+              <a href="thread.html#1742">[ thread ]</a>
+              <a href="subject.html#1742">[ subject ]</a>
+              <a href="author.html#1742">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Since I've been asked a few times whether it's possible for
+someone to adopt or continue the development of Ion, now that
+I'm unlikely to work on it, I thought I should post my thoughts
+here on the list.
+
+First of all, as it always has been, it is, of course, possible 
+for people to fork a _renamed_ project, and develop it into
+whatever direction. But, for various reasons, such complete 
+forks are not entirely desirable, and it would be better if
+any new developments that fit under the banner &quot;Ion&quot; could
+keep using this name.
+
+I always intended Ion3plus as a sort of &quot;wiki branch&quot;, where
+most patches fitting some loose guidelines are welcome, and
+that still remains the case.. but I won't waste time applying
+them to the repositories (darcs and my scripts being broken on
+Cygwin, etc.), anyone taking over its maintenance would have 
+to host it. These guidelines are there to keep the project
+true to the name Ion, and therefore include
+
+  * Quality code
+  * A veto for me for major changes that do not simply enhance
+    existing features. XFascistType and Shitorama have snowball's
+    chance in hell of getting into Ion. Ion runs on pure X11, not
+    fugly complex extensions.
+
+It's all, of course, a bit vague, as it should be; strict 
+catch-all terms and licenses suck anyway, and more should 
+be based on case-by-case negotations. Therefore, initially,
+I would have to review all changes to see that whoever takes
+over, can produce good code (or filter out bad code from 
+others)... take it as a job negotation, or trial period. If
+I'm satisfied with the results, then there shall be more 
+free hands but, still, attempts at the scale of adding
+Shitorama or XFuglyType should be passed through me (to 
+be rejected). 
+
+As for development after Ion3plus, which shouldn't 
+_fundamentally_ stray too far from Ion3, I have some new
+ideas to try for Ion4, that I'd still like to see implemented.
+I just doubt I'm going to do it myself... I'd really like
+to move to the management department already, and have
+someone else do the gruntwork. I'm not yet ready to just
+give up the ideas, for various reasons, but if there's 
+good work on Ion3plus... or other arrangements are reached
+that ensure that they're implemented in Ion instead of 
+a clone... I will consider that. I would also require
+at that point that Ion be ported to Windows and, why not, 
+OS X at. Not necessarily as a full WM, but rather as an
+&quot;IDE&quot; managing some nicely behaving embeddable applications. 
+If I magically found the time and interest to actually do 
+the gruntwork on Ion4, it would most likely be a Windows 
+program in any case. (Unless Apple somehow decided to add 
+a Trackpoint on their laptops and support unblurred fonts 
+- or screen resolutions quadrupled[1] - and my T43 died 
+so I had to buy current shallowscreen crap.)
+
+---
+
+[1] To replace my 5 year old phone with dying battery, and 6 year
+old mp3 player, I recently got a Nokia 5800 XpressMusic, as it 
+was the only sub-300e touchscreen phone with standard USB and 
+headphone sockets. (Easily loseable adapters suck. On the 
+downside, no charging off USB, which some competitors' more
+expensive models would have. But you can get two two of these
+for the price of an iTrendClown &amp; co.)
+
+I like the touchscreen. With hand-writing recognition (which
+could admittedly perform even better), it makes the device 
+vastly more usable than T9 or even a mini-keyboard. But 
+that is not the topic of this footnote, so no more on that.
+
+The device blurry fonts. Perhaps surprisingly, they're not actually
+that bad in the &#229;main interface. Partly this can be attributed to 
+the &quot;graphical&quot; interface style, partly to usage, partly to choice
+of font, but mostly to the 230dpi screen, which makes sub-100dpi 
+desktop displays and even ~120dpi laptop displays pale in comparison.
+By usage I mean that you don't read text for extended lengths 
+on the phone, as on the computer. By choice of font I mean that
+the font in the interface is simple and thick, so the proportion
+of blurred pixels is small. It's not so great for reading texts, 
+and the thinner font in the browser handles the blurring much 
+more poorly. But, still, it's vastly more tolerable than on 
+soddy computer displays resolutions, which are still the
+technological equivalent of the PC beeper, which could not
+play real music tolerably, only music designed for it.
+
+Still, despite the blurring being more tolerable on the phone
+than I expected, it confirms that 200dpi is not enough resolution
+in serious use and with a wide range of fonts, for blurring not 
+to annoy. And, yet, OS makers keep pushing on the blur-fascist 
+front.
+
+-- 
+Windows may blow, but Linux sucks the crap in the wind.
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001741.html">how to put a background image
+</A></li>
+	<LI>Next message: <A HREF="001743.html">ion windows manager on FreeBSD
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1742">[ date ]</a>
+              <a href="thread.html#1742">[ thread ]</a>
+              <a href="subject.html#1742">[ subject ]</a>
+              <a href="author.html#1742">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

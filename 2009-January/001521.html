@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> path, alias with F3
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20path%2C%20alias%20with%20F3&In-Reply-To=%3C20090107205852.GA5117%40cartade%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001520.html">
+   <LINK REL="Next"  HREF="001522.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>path, alias with F3</H1>
+    <B>Colin Cartade</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20path%2C%20alias%20with%20F3&In-Reply-To=%3C20090107205852.GA5117%40cartade%3E"
+       TITLE="path, alias with F3">colin.cartade at ens-cachan.fr
+       </A><BR>
+    <I>Wed Jan  7 21:58:52 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001520.html">path, alias with F3
+</A></li>
+        <LI>Next message: <A HREF="001522.html">path, alias with F3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1521">[ date ]</a>
+              <a href="thread.html#1521">[ thread ]</a>
+              <a href="subject.html#1521">[ subject ]</a>
+              <a href="author.html#1521">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 19:39  07-01, Tuomo Valkonen wrote:
+&gt;<i> &gt; I tried
+</I>&gt;<i> &gt;     mod_query.message(_, os.get_env('PATH'))
+</I>&gt;<i> &gt; but I got an error :
+</I>&gt;<i> &gt;     attempt to call field 'get_env' (a nil value)
+</I>&gt;<i> 
+</I>&gt;<i> It's getenv. (There's also a shorter way to display values
+</I>&gt;<i> from queries, as the Lua print function is overridden in them:
+</I>&gt;<i> print(os.getenv(&quot;PATH&quot;)) )
+</I>&gt;<i> 
+</I>&gt;<i> &gt; I launch ion with exec ion3 in my .xsession and gdm.
+</I>&gt;<i> 
+</I>&gt;<i> Then set PATH in your .xsession before launching Ion.
+</I>&gt;<i> setenv is also provided by the Lua posix module, but
+</I>&gt;<i> it's better to set the PATH by loading some .bashenv or
+</I>&gt;<i> something from .xsession. 
+</I>&gt;<i> 
+</I>&gt;<i> (Actually, it's all a big mess, because the crappy display 
+</I>&gt;<i> managers don't load the shells' environment from anywhere, 
+</I>&gt;<i> but you should do redundant work by defining the stuff in 
+</I>&gt;<i> .xsession again. But .xsession is also sometimes loaded by
+</I>&gt;<i> stock xinitrc these days, and in that case then you shouldn't 
+</I>&gt;<i> load the environment definitions again.)
+</I>
+Thanks, it works very well. If there's a better way than using gdm, I am
+interested (I don't like gnome very much).
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001520.html">path, alias with F3
+</A></li>
+	<LI>Next message: <A HREF="001522.html">path, alias with F3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1521">[ date ]</a>
+              <a href="thread.html#1521">[ thread ]</a>
+              <a href="subject.html#1521">[ subject ]</a>
+              <a href="author.html#1521">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

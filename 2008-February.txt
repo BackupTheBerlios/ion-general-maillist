@@ -1,0 +1,2933 @@
+From timandahaf+dev at gmail.com  Sun Feb  3 05:08:28 2008
+From: timandahaf+dev at gmail.com (Timandahaf)
+Date: Sat, 2 Feb 2008 23:08:28 -0500
+Subject: winprop across multiple screens not working?
+Message-ID: <Pine.LNX.4.64.0802022300090.2222@localhost.localdomain>
+
+I have a jumpto winprop for GQview that looks like this:
+
+defwinprop{
+   class     = "GQview",
+   instance  = "gqview",
+   jumpto    = true,
+}
+
+I have a multi-head setup using mod_xinerama (sorry, Tuomo, I'll understand if
+you don't respond!).
+
+The jumpto winprop doesn't seem to work across screens. As in, if I start
+gqview from screen 1, and gqview is setup to open on screen 0. Or vice versa.
+
+It works perfectly okay (and so does a float winprop for the same
+class/instance) on single screen setups, or if the terminal I start gqview
+from is on the same screen as the one gqview is setup to open in.
+
+I have similar problems with skype chat windows.
+
+Any ideas?
+
+Thanks!
+
+
+
+From tuomov at iki.fi  Mon Feb  4 08:28:12 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 4 Feb 2008 07:28:12 +0000 (UTC)
+Subject: winprop across multiple screens not working?
+References: <Pine.LNX.4.64.0802022300090.2222@localhost.localdomain>
+Message-ID: <slrnfqdfkc.ain.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-03, Timandahaf <timandahaf+dev at gmail.com> wrote:
+> The jumpto winprop doesn't seem to work across screens. 
+
+That seems to be a general conflict with the anti- pointer focus
+stealing hack..
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Thu Feb  7 07:34:01 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 7 Feb 2008 08:34:01 +0200
+Subject: ion-3-20080207
+Message-ID: <20080207063400.GA15896@jolt.modeemi.cs.tut.fi>
+
+.
+
+-- 
+Tuomo
+
+
+From tuomov at iki.fi  Thu Feb  7 07:40:07 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 7 Feb 2008 06:40:07 +0000 (UTC)
+Subject: 2.7 (=~e)
+Message-ID: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+
+2002-02-07 - Last release of Ion1 (it never had ds/rc/stable) 
+2004-02-07 - First "stable" release of Ion2
+2008-02-07 - First "stable" release of Ion3
+2016-02-07 - ?  
+
+(Well, I doubt there's a semi-usable non-fascist platform left
+by then. So much does the present state of FOSS and the course
+it is taking suck. Although, with enough manpower, it might be
+possible to write a full OS in eight years. So who's signing up?-)
+
+-- 
+Tuomo
+
+
+
+From bryan.richter at gmail.com  Wed Feb  6 23:42:22 2008
+From: bryan.richter at gmail.com (Bryan Richter)
+Date: Wed, 6 Feb 2008 14:42:22 -0800
+Subject: ion-3-20080207
+In-Reply-To: <20080207063400.GA15896@jolt.modeemi.cs.tut.fi>
+References: <20080207063400.GA15896@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080206224222.GD6692@localhost>
+
+On Thu, Feb 07, 2008 at 08:34:01AM +0200, Tuomo Valkonen wrote:
+> .
+
+..
+
+
+From csant at csant.info  Thu Feb  7 08:14:27 2008
+From: csant at csant.info (csant)
+Date: Thu, 07 Feb 2008 08:14:27 +0100
+Subject: ion-3-20080207
+In-Reply-To: <20080206224222.GD6692@localhost>
+References: <20080207063400.GA15896@jolt.modeemi.cs.tut.fi>
+	<20080206224222.GD6692@localhost>
+Message-ID: <op.t547qdjdd84skq@fiore.malebolge>
+
+>> .
+> ..
+...
+
+
+From EvgenyKurbatov at yandex.ru  Thu Feb  7 09:05:24 2008
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Thu, 07 Feb 2008 11:05:24 +0300
+Subject: ion-3-20080207
+In-Reply-To: <op.t547qdjdd84skq@fiore.malebolge>
+References: <20080207063400.GA15896@jolt.modeemi.cs.tut.fi>
+	<20080206224222.GD6692@localhost>
+	<op.t547qdjdd84skq@fiore.malebolge>
+Message-ID: <47AABBC4.90601@yandex.ru>
+
+>>> .
+>> ..
+> ...
+> 
+... --- ...
+
+
+From sylvain.abelard at gmail.com  Thu Feb  7 09:55:36 2008
+From: sylvain.abelard at gmail.com (=?ISO-8859-1?Q?Sylvain_Ab=E9lard?=)
+Date: Thu, 7 Feb 2008 09:55:36 +0100
+Subject: ion-3-20080207
+In-Reply-To: <47AABBC4.90601@yandex.ru>
+References: <20080207063400.GA15896@jolt.modeemi.cs.tut.fi>
+	<20080206224222.GD6692@localhost> <op.t547qdjdd84skq@fiore.malebolge>
+	<47AABBC4.90601@yandex.ru>
+Message-ID: <9c6605e40802070055l300373e5lc6580215382eb842@mail.gmail.com>
+
+> >>> .
+> >> ..
+> > ...
+> ... --- ...
+
+--/-....-/-..- --/---/.-./..././-....-/.-././--./../---/-. ..--..
+
+-- 
+Sylvain Ab?lard
+"J'ai d?cid? d'?tre heureux, c'est meilleur pour la sant?." -Voltaire
+
+
+From ivan at selidor.net  Thu Feb  7 10:17:50 2008
+From: ivan at selidor.net (Ivan Vilata i Balaguer)
+Date: Thu, 7 Feb 2008 10:17:50 +0100
+Subject: 2.7 (=~e)
+In-Reply-To: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080207091750.GA28341@tardis.terramar.selidor.net>
+
+Tuomo Valkonen (el 2008-02-07 a les 06:40:07 +0000) va dir::
+
+> 2002-02-07 - Last release of Ion1 (it never had ds/rc/stable) 
+> 2004-02-07 - First "stable" release of Ion2
+> 2008-02-07 - First "stable" release of Ion3
+> 2016-02-07 - ?  
+
+What can I say... congratulations! :)
+
+::
+
+  Ivan Vilata i Balaguer   @ Welcome to the European Banana Republic! @
+  http://www.selidor.net/  @     http://www.nosoftwarepatents.com/    @
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 307 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080207/1da13b0b/attachment.pgp>
+
+From lanek at novenine.com  Thu Feb  7 11:39:51 2008
+From: lanek at novenine.com (Roy Lanek)
+Date: Thu, 7 Feb 2008 17:39:51 +0700
+Subject: 2.7 (=~e)
+In-Reply-To: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080207103951.GA26429@sirih>
+
+> 2002-02-07 - Last release of Ion1 (it never had ds/rc/stable) 
+> 2004-02-07 - First "stable" release of Ion2
+> 2008-02-07 - First "stable" release of Ion3
+> 2016-02-07 - ?  
+
+Well-well, Euler aside it's entertaining to see that this stable release of
+Ion occurs simultaneously with the begin of the year of the ... rat [mouse] :)
+
+See the Lunar Chinese Calendar.
+
+Cheers,
+
+/Roy
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+SSSSS . s l a c k w a r e  SSSSSS   air tenang menghanyutkan
+SSSSS +------------ linux  SSSSSS    still water runs deep
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS 
+
+
+From cptsalek at gmail.com  Thu Feb  7 12:58:25 2008
+From: cptsalek at gmail.com (Christian Walther)
+Date: Thu, 7 Feb 2008 12:58:25 +0100
+Subject: ion-3-20080207
+In-Reply-To: <9c6605e40802070055l300373e5lc6580215382eb842@mail.gmail.com>
+References: <20080207063400.GA15896@jolt.modeemi.cs.tut.fi>
+	<20080206224222.GD6692@localhost> <op.t547qdjdd84skq@fiore.malebolge>
+	<47AABBC4.90601@yandex.ru>
+	<9c6605e40802070055l300373e5lc6580215382eb842@mail.gmail.com>
+Message-ID: <14989d6e0802070358n76c92737g411be5826ab9b26e@mail.gmail.com>
+
+On 07/02/2008, Sylvain Ab?lard <sylvain.abelard at gmail.com> wrote:
+> > >>> .
+> > >> ..
+> > > ...
+> > ... --- ...
+>
+> --/-....-/-..- --/---/.-./..././-....-/.-././--./../---/-. ..--..
+>
+
+At least you people seem to know what you are talking about. ;-)))
+
+
+From tuomov at iki.fi  Thu Feb  7 13:03:11 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 7 Feb 2008 12:03:11 +0000 (UTC)
+Subject: ion-3-20080207
+References: <20080207063400.GA15896@jolt.modeemi.cs.tut.fi>
+	<20080206224222.GD6692@localhost>
+	<op.t547qdjdd84skq@fiore.malebolge> <47AABBC4.90601@yandex.ru>
+	<9c6605e40802070055l300373e5lc6580215382eb842@mail.gmail.com>
+	<14989d6e0802070358n76c92737g411be5826ab9b26e@mail.gmail.com>
+Message-ID: <slrnfqlsrv.enb.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-07, Christian Walther <cptsalek at gmail.com> wrote:
+> At least you people seem to know what you are talking about. ;-)))
+
+I guess you haven't seen the Rube Goldberg-esque IRC sessions...
+
+-- 
+Tuomo
+
+
+
+From cptsalek at gmail.com  Thu Feb  7 13:07:40 2008
+From: cptsalek at gmail.com (Christian Walther)
+Date: Thu, 7 Feb 2008 13:07:40 +0100
+Subject: ion-3-20080207
+In-Reply-To: <slrnfqlsrv.enb.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20080207063400.GA15896@jolt.modeemi.cs.tut.fi>
+	<20080206224222.GD6692@localhost> <op.t547qdjdd84skq@fiore.malebolge>
+	<47AABBC4.90601@yandex.ru>
+	<9c6605e40802070055l300373e5lc6580215382eb842@mail.gmail.com>
+	<14989d6e0802070358n76c92737g411be5826ab9b26e@mail.gmail.com>
+	<slrnfqlsrv.enb.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <14989d6e0802070407h333100d8vae7d00760ba36462@mail.gmail.com>
+
+On 07/02/2008, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2008-02-07, Christian Walther <cptsalek at gmail.com> wrote:
+> > At least you people seem to know what you are talking about. ;-)))
+>
+> I guess you haven't seen the Rube Goldberg-esque IRC sessions...
+
+No, I haven't. It seems I've quite missed a bit. :-)
+
+
+From sylvain.abelard at gmail.com  Thu Feb  7 14:09:57 2008
+From: sylvain.abelard at gmail.com (=?ISO-8859-1?Q?Sylvain_Ab=E9lard?=)
+Date: Thu, 7 Feb 2008 14:09:57 +0100
+Subject: ion-3-20080207
+In-Reply-To: <14989d6e0802070358n76c92737g411be5826ab9b26e@mail.gmail.com>
+References: <20080207063400.GA15896@jolt.modeemi.cs.tut.fi>
+	<20080206224222.GD6692@localhost> <op.t547qdjdd84skq@fiore.malebolge>
+	<47AABBC4.90601@yandex.ru>
+	<9c6605e40802070055l300373e5lc6580215382eb842@mail.gmail.com>
+	<14989d6e0802070358n76c92737g411be5826ab9b26e@mail.gmail.com>
+Message-ID: <9c6605e40802070509u278425bbtc0685a71e68b1b23@mail.gmail.com>
+
+> > --/-....-/-..- --/---/.-./..././-....-/.-././--./../---/-. ..--..
+> At least you people seem to know what you are talking about. ;-)))
+
+Please, don't tell me you're using The One True WindowManager and are
+not using The One True Editor :)
+http://xkcd.com/378/
+
+(sorry for this geekiness)
+
+-- 
+Sylvain Ab?lard
+"J'ai d?cid? d'?tre heureux, c'est meilleur pour la sant?." -Voltaire
+
+
+From EvgenyKurbatov at yandex.ru  Thu Feb  7 14:54:40 2008
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Thu, 07 Feb 2008 16:54:40 +0300
+Subject: ion-3-20080207
+In-Reply-To: <9c6605e40802070509u278425bbtc0685a71e68b1b23@mail.gmail.com>
+References: <20080207063400.GA15896@jolt.modeemi.cs.tut.fi>
+	<20080206224222.GD6692@localhost>
+	<op.t547qdjdd84skq@fiore.malebolge> <47AABBC4.90601@yandex.ru>
+	<9c6605e40802070055l300373e5lc6580215382eb842@mail.gmail.com>
+	<14989d6e0802070358n76c92737g411be5826ab9b26e@mail.gmail.com>
+	<9c6605e40802070509u278425bbtc0685a71e68b1b23@mail.gmail.com>
+Message-ID: <47AB0DA0.8090205@yandex.ru>
+
+
+>>> --/-....-/-..- --/---/.-./..././-....-/.-././--./../---/-. ..--..
+>> At least you people seem to know what you are talking about. ;-)))
+> 
+> Please, don't tell me you're using The One True WindowManager and are
+> not using The One True Editor :)
+> http://xkcd.com/378/
+
+Hey, all the real men use Emacs, right?
+They start eterm, run telnet in it then establish SMTP connection and
+make post into this maillist.
+
+
+From cptsalek at gmail.com  Thu Feb  7 15:00:33 2008
+From: cptsalek at gmail.com (Christian Walther)
+Date: Thu, 7 Feb 2008 15:00:33 +0100
+Subject: ion-3-20080207
+In-Reply-To: <9c6605e40802070509u278425bbtc0685a71e68b1b23@mail.gmail.com>
+References: <20080207063400.GA15896@jolt.modeemi.cs.tut.fi>
+	<20080206224222.GD6692@localhost> <op.t547qdjdd84skq@fiore.malebolge>
+	<47AABBC4.90601@yandex.ru>
+	<9c6605e40802070055l300373e5lc6580215382eb842@mail.gmail.com>
+	<14989d6e0802070358n76c92737g411be5826ab9b26e@mail.gmail.com>
+	<9c6605e40802070509u278425bbtc0685a71e68b1b23@mail.gmail.com>
+Message-ID: <14989d6e0802070600j68bf702dl4b81faf5cbe81a7d@mail.gmail.com>
+
+On 07/02/2008, Sylvain Ab?lard <sylvain.abelard at gmail.com> wrote:
+> > > --/-....-/-..- --/---/.-./..././-....-/.-././--./../---/-. ..--..
+> > At least you people seem to know what you are talking about. ;-)))
+>
+> Please, don't tell me you're using The One True WindowManager and are
+> not using The One True Editor :)
+
+Honestly? No, I'm not. :-)
+I'm using the other editor and I don't need to say anything about the
+WM I use. ;-)
+
+> http://xkcd.com/378/
+Thanks for link. I didn't knew this comic. Great stuff.  :-)
+
+
+From sylvain.abelard at gmail.com  Thu Feb  7 15:14:08 2008
+From: sylvain.abelard at gmail.com (=?ISO-8859-1?Q?Sylvain_Ab=E9lard?=)
+Date: Thu, 7 Feb 2008 15:14:08 +0100
+Subject: ion-3-20080207
+In-Reply-To: <14989d6e0802070600j68bf702dl4b81faf5cbe81a7d@mail.gmail.com>
+References: <20080207063400.GA15896@jolt.modeemi.cs.tut.fi>
+	<20080206224222.GD6692@localhost> <op.t547qdjdd84skq@fiore.malebolge>
+	<47AABBC4.90601@yandex.ru>
+	<9c6605e40802070055l300373e5lc6580215382eb842@mail.gmail.com>
+	<14989d6e0802070358n76c92737g411be5826ab9b26e@mail.gmail.com>
+	<9c6605e40802070509u278425bbtc0685a71e68b1b23@mail.gmail.com>
+	<14989d6e0802070600j68bf702dl4b81faf5cbe81a7d@mail.gmail.com>
+Message-ID: <9c6605e40802070614q7aef0431n2f80c7c654998b16@mail.gmail.com>
+
+> I'm using the other editor
+
+I wouldn't want to start a flame here (especially since I started it)
+so I'll just respect that ;)
+
+> > http://xkcd.com/378/
+> Thanks for link. I didn't knew this comic. Great stuff.  :-)
+
+This comic is really impressive and loads of fun for geeks.
+Once you've browsed everything, you may be interested in reading
+http://en.wikipedia.org/wiki/Xkcd#Life_imitates_xkcd
+http://blag.xkcd.com/2007/11/19/growing-up/
+http://blag.xkcd.com/2007/10/01/the-meetup/
+
+just to be convinced this guy must be a mage of some kind.
+
+-- 
+Sylvain Ab?lard
+"J'ai d?cid? d'?tre heureux, c'est meilleur pour la sant?." -Voltaire
+
+
+From tuomov at iki.fi  Thu Feb  7 15:08:13 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 7 Feb 2008 14:08:13 +0000 (UTC)
+Subject: ion-3-20080207
+References: <20080207063400.GA15896@jolt.modeemi.cs.tut.fi>
+	<20080206224222.GD6692@localhost>
+	<op.t547qdjdd84skq@fiore.malebolge> <47AABBC4.90601@yandex.ru>
+	<9c6605e40802070055l300373e5lc6580215382eb842@mail.gmail.com>
+	<14989d6e0802070358n76c92737g411be5826ab9b26e@mail.gmail.com>
+	<9c6605e40802070509u278425bbtc0685a71e68b1b23@mail.gmail.com>
+	<47AB0DA0.8090205@yandex.ru>
+Message-ID: <slrnfqm46d.ppm.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-07, Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+>
+>>>> --/-....-/-..- --/---/.-./..././-....-/.-././--./../---/-. ..--..
+>>> At least you people seem to know what you are talking about. ;-)))
+>> 
+>> Please, don't tell me you're using The One True WindowManager and are
+>> not using The One True Editor :)
+>> http://xkcd.com/378/
+>
+> Hey, all the real men use Emacs, right?
+
+Real men think emacs are electrically powered trucks, or something, dude.
+
+Trendy men fathom that emacs is the plural of eMac.
+
+Geeks think emacs is a text editor.
+
+?ber-geeks know that it is an operating system... albeit a very clunky one.
+
+
+PS. I use joe <http://joe-editor.sf.net/>.
+
+
+-- 
+Tuomo
+
+
+
+From samer.abdallah at elec.qmul.ac.uk  Thu Feb  7 17:52:13 2008
+From: samer.abdallah at elec.qmul.ac.uk (Samer Abdallah)
+Date: Thu, 7 Feb 2008 16:52:13 +0000
+Subject: ion-3-20080207
+In-Reply-To: <47AB0DA0.8090205@yandex.ru>
+References: <20080207063400.GA15896@jolt.modeemi.cs.tut.fi>
+	<20080206224222.GD6692@localhost>
+	<op.t547qdjdd84skq@fiore.malebolge> <47AABBC4.90601@yandex.ru>
+	<9c6605e40802070055l300373e5lc6580215382eb842@mail.gmail.com>
+	<14989d6e0802070358n76c92737g411be5826ab9b26e@mail.gmail.com>
+	<9c6605e40802070509u278425bbtc0685a71e68b1b23@mail.gmail.com>
+	<47AB0DA0.8090205@yandex.ru>
+Message-ID: <6700F534-FEB3-42B2-A944-DCFB27774DD6@elec.qmul.ac.uk>
+
+real men use so many nested instances of screen on different
+machines that we forget how many times to press Ctrl-A
+to get to the start of the line.
+
+On 7 Feb 2008, at 13:54, Evgeny Kurbatov wrote:
+
+>
+>>>> --/-....-/-..- --/---/.-./..././-....-/.-././--./../---/-. ..--..
+>>> At least you people seem to know what you are talking about. ;-)))
+>>
+>> Please, don't tell me you're using The One True WindowManager and are
+>> not using The One True Editor :)
+>> http://xkcd.com/378/
+>
+> Hey, all the real men use Emacs, right?
+> They start eterm, run telnet in it then establish SMTP connection and
+> make post into this maillist.
+
+
+
+From tibor.simko at cern.ch  Thu Feb  7 18:53:29 2008
+From: tibor.simko at cern.ch (Tibor Simko)
+Date: Thu, 7 Feb 2008 18:53:29 +0100
+Subject: ion-3-20080207
+In-Reply-To: <6700F534-FEB3-42B2-A944-DCFB27774DD6@elec.qmul.ac.uk> (Samer
+	Abdallah's message of "Thu, 7 Feb 2008 16:52:13 +0000")
+References: <20080207063400.GA15896@jolt.modeemi.cs.tut.fi>
+	<20080206224222.GD6692@localhost> <op.t547qdjdd84skq@fiore.malebolge>
+	<47AABBC4.90601@yandex.ru>
+	<9c6605e40802070055l300373e5lc6580215382eb842@mail.gmail.com>
+	<14989d6e0802070358n76c92737g411be5826ab9b26e@mail.gmail.com>
+	<9c6605e40802070509u278425bbtc0685a71e68b1b23@mail.gmail.com>
+	<47AB0DA0.8090205@yandex.ru>
+	<6700F534-FEB3-42B2-A944-DCFB27774DD6@elec.qmul.ac.uk>
+Message-ID: <87tzkkac12.fsf@pcuds17.cern.ch>
+
+Hello:
+
+On Thu, 07 Feb 2008, Samer Abdallah wrote:
+
+> real men use so many nested instances of screen on different
+> machines that we forget how many times to press Ctrl-A
+> to get to the start of the line.
+
+So what about configuring your screen to use Ctrl-G instead:
+
+$ cat ~/.screenrc
+escape ^G^G
+termcapinfo xterm 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
+termcapinfo rxvt 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
+hardstatus string "%H [screen %n%?: %t%?] %h"
+
+Best regards
+-- 
+Tibor Simko
+
+
+From jorge.gajon at gmail.com  Thu Feb  7 19:13:35 2008
+From: jorge.gajon at gmail.com (Jorge Gajon)
+Date: Thu, 7 Feb 2008 12:13:35 -0600
+Subject: 2.7 (=~e)
+In-Reply-To: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <3661995d0802071013p301145ffpdfb43c7305fc3e59@mail.gmail.com>
+
+On Thu, Feb 7, 2008 at 12:40 AM, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> 2002-02-07 - Last release of Ion1 (it never had ds/rc/stable)
+>  2004-02-07 - First "stable" release of Ion2
+>  2008-02-07 - First "stable" release of Ion3
+>  2016-02-07 - ?
+>
+>  (Well, I doubt there's a semi-usable non-fascist platform left
+>  by then. So much does the present state of FOSS and the course
+>  it is taking suck. Although, with enough manpower, it might be
+>  possible to write a full OS in eight years. So who's signing up?-)
+>
+
+Thank you Tuomo,
+
+I've just finished compiling and installing the stable release and
+nothing broke ;)
+
+I'll wait patiently for the 2016 release. Thanks again.
+
+Regards,
+- Jorge
+
+
+From tuomov at iki.fi  Thu Feb  7 19:27:29 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 7 Feb 2008 18:27:29 +0000 (UTC)
+Subject: 2.7 (=~e)
+References: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080207103951.GA26429@sirih>
+Message-ID: <slrnfqmjch.j13.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-07, Roy Lanek <lanek at novenine.com> wrote:
+>> 2002-02-07 - Last release of Ion1 (it never had ds/rc/stable) 
+>> 2004-02-07 - First "stable" release of Ion2
+>> 2008-02-07 - First "stable" release of Ion3
+>> 2016-02-07 - ?  
+>
+> Well-well, Euler aside it's entertaining to see that this stable release of
+> Ion occurs simultaneously with the begin of the year of the ... rat [mouse] :)
+
+Other coincidences include the death of one empire and the birth of
+another <http://en.wikipedia.org/wiki/February_7>
+
+1990-02-07 - Collapse of the Soviet Union: The Central Committee of the Soviet
+             Communist Party agrees to give up its monopoly on power.
+
+1992-02-07 - The Maastricht Treaty is signed, leading to the creation of the
+             European Union.
+
+-- 
+Tuomo
+
+
+
+From EvgenyKurbatov at yandex.ru  Thu Feb  7 19:23:17 2008
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Thu, 07 Feb 2008 21:23:17 +0300
+Subject: ion-3-20080207
+In-Reply-To: <87tzkkac12.fsf@pcuds17.cern.ch>
+References: <20080207063400.GA15896@jolt.modeemi.cs.tut.fi>
+	<20080206224222.GD6692@localhost>
+	<op.t547qdjdd84skq@fiore.malebolge> <47AABBC4.90601@yandex.ru>
+	<9c6605e40802070055l300373e5lc6580215382eb842@mail.gmail.com>
+	<14989d6e0802070358n76c92737g411be5826ab9b26e@mail.gmail.com>
+	<9c6605e40802070509u278425bbtc0685a71e68b1b23@mail.gmail.com>
+	<47AB0DA0.8090205@yandex.ru>
+	<6700F534-FEB3-42B2-A944-DCFB27774DD6@elec.qmul.ac.uk>
+	<87tzkkac12.fsf@pcuds17.cern.ch>
+Message-ID: <47AB4C95.6010108@yandex.ru>
+
+>> real men use so many nested instances of screen on different
+>> machines that we forget how many times to press Ctrl-A
+>> to get to the start of the line.
+> 
+> So what about configuring your screen to use Ctrl-G instead:
+> 
+> $ cat ~/.screenrc
+> escape ^G^G
+> termcapinfo xterm 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
+> termcapinfo rxvt 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
+> hardstatus string "%H [screen %n%?: %t%?] %h"
+
+It's not the true kosher way, real men can not fall so much...
+
+
+
+From lanek at novenine.com  Thu Feb  7 21:08:29 2008
+From: lanek at novenine.com (Roy Lanek)
+Date: Fri, 8 Feb 2008 03:08:29 +0700
+Subject: 2.7 (=~e)
+In-Reply-To: <slrnfqmjch.j13.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080207103951.GA26429@sirih>
+	<slrnfqmjch.j13.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080207200829.GA23925@sirih>
+
+> >> 2002-02-07 - Last release of Ion1 (it never had ds/rc/stable) 
+> >> 2004-02-07 - First "stable" release of Ion2
+> >> 2008-02-07 - First "stable" release of Ion3
+> >> 2016-02-07 - ?  
+> >
+> > Well-well, Euler aside it's entertaining to see that this stable release of
+> > Ion occurs simultaneously with the begin of the year of the ... rat [mouse] :)
+> 
+> Other coincidences include the death of one empire and the birth of
+> another <http://en.wikipedia.org/wiki/February_7>
+> 
+> 1990-02-07 - Collapse of the Soviet Union: The Central Committee of the Soviet
+>              Communist Party agrees to give up its monopoly on power.
+> 
+> 1992-02-07 - The Maastricht Treaty is signed, leading to the creation of the
+>              European Union.
+>
+
+It's not the same kind of coincidences. The Chinese new year doesn't occur at
+the same date modulo one year ... examples:
+
+     Chinese new year dates                                        
+                                                                                                
+     2005 - Feb. 9                                                 
+     2006 - Jan. 29                                                
+     2007 - Feb. 18                                                
+     2008 - Feb. 7                                                 
+     2009 - Jan. 26                                                
+     2010 - Feb. 14                                                
+     2011 - Feb. 3                                                 
+     2012 - Jan. 23
+
+while on both 1990-02-07 and 1992-02-07 there was no Ion yet.
+
+By the way, to use wikipedia.org on geopolitics in general, and on the former
+Soviet Union in particular, is like to use the Vatican as reference for
+telling on ...?! the 'position of the lotus'; Microsoft on Ion; and Wander
+[Switzerland] of the chocolate beverage Ovomaltine on the Russian vodka
+Stolichnaya.
+
+Moreover: good luck--but hey: good riddance--to call the *creation* of the EU
+[perhaps incorporated Europe?] the "birth of an empire."
+
+Cheers,
+
+/Roy
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   anjing menggonggong, kafilah tetap berlalu
+SSSSS . s l a c k w a r e  SSSSSS   the dogs are barking, the caravan moves on
+SSSSS +------------ linux  SSSSSS   [illustrates useless protest, critic, or
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   sarcasm]
+
+
+From tuomov at iki.fi  Thu Feb  7 21:32:46 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 7 Feb 2008 20:32:46 +0000 (UTC)
+Subject: 2.7 (=~e)
+References: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080207103951.GA26429@sirih>
+	<slrnfqmjch.j13.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080207200829.GA23925@sirih>
+Message-ID: <slrnfqmqne.uju.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-07, Roy Lanek <lanek at novenine.com> wrote:
+> By the way, to use wikipedia.org on geopolitics in general, and on the former
+> Soviet Union in particular, is like to use the Vatican as reference for
+> telling on ...?! the 'position of the lotus'; Microsoft on Ion; and Wander
+> [Switzerland] of the chocolate beverage Ovomaltine on the Russian vodka
+> Stolichnaya.
+
+Trusting the actual content of wikipedia... *shudder*. But there's 
+some hope that they can get the date of an actual event correct. 
+(At least the Wikipedia pages on those subjects agreed with the 
+February_7 listing, which is better than things often are.)
+
+> Moreover: good luck--but hey: good riddance--to call the *creation* of the EU
+> [perhaps incorporated Europe?] the "birth of an empire."
+
+Much lesser things are called empires.
+
+-- 
+Tuomo
+
+
+
+From shardz4217 at gmail.com  Thu Feb  7 22:26:43 2008
+From: shardz4217 at gmail.com (Samuel Baldwin)
+Date: Thu, 7 Feb 2008 16:26:43 -0500
+Subject: 2.7 (=~e)
+In-Reply-To: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <975fd1710802071326kbb6e306wcebe27bb3bcbabe3@mail.gmail.com>
+
+2008/2/7, Tuomo Valkonen <tuomov at iki.fi>:
+> (Well, I doubt there's a semi-usable non-fascist platform left
+> by then. So much does the present state of FOSS and the course
+> it is taking suck. Although, with enough manpower, it might be
+> possible to write a full OS in eight years. So who's signing up?-)
+
+I say we start with Plan 9 From Bell Labs and work from there.
+
+
+-- 
+Samuel 'Shardz' Baldwin
+Shardz's Igloo: shardz.homelinux.net // Down at the moment
+Registered GNU/Linux User #410639
+
+
+From tuomov at iki.fi  Thu Feb  7 23:06:12 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 7 Feb 2008 22:06:12 +0000 (UTC)
+Subject: 2.7 (=~e)
+References: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+	<975fd1710802071326kbb6e306wcebe27bb3bcbabe3@mail.gmail.com>
+Message-ID: <slrnfqn06k.63n.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-07, Samuel Baldwin <shardz4217 at gmail.com> wrote:
+> I say we start with Plan 9 From Bell Labs and work from there.
+
+They have some useful ideas, but the system stinks too much
+of obsolete and unix... and rats.
+
+Everything's a file... great, but could we move past text files
+with a proprietary syntax, and having to parse them with quick
+and dirty hacks? How about a more efficient standard structural
+_binary_ format? For all the pipes too? And the shell, kind of 
+like Microsoft PowerShell, but better? (Instead of piping objects
+with a display routine among other things, piping structural data
+with specified stylesheet for display kind of like XML files, but
+without the inefficient text encoding of XML.)
+
+As for the kernel... how about an exokernel? (Or at least what
+I've understood it to be: basically the kernel provides only 
+memory management, with disk pages handled analoguously like 
+memory pages, abstracting away the actual devices. Even a lot
+of the memory management is on user-side, with the kernel just
+verifying claims, or so.) As for security, how about an object
+capability system (see: EROS, Coytos, CapROS) in user space 
+outside the exokernel? 
+
+And the user interface beyond the command line? Vis. 
+
+And so on. I have and there must be more ideas along similar 
+lines, and if one really started spending time thinking about 
+it and unifying them, one might be able to come up with a 
+very nice, clean and flexible design, intead of a random 
+clusterfuck.
+
+-- 
+Tuomo
+
+
+
+From michael at cadilhac.name  Thu Feb  7 23:13:39 2008
+From: michael at cadilhac.name (=?iso-8859-1?Q?Micha=EBl?= Cadilhac)
+Date: Thu, 07 Feb 2008 17:13:39 -0500
+Subject: Some help to create a screen ruler.
+Message-ID: <873as4pg8c.fsf@cadilhac.name>
+
+Hi there?!
+
+I'm a lousy programmer when graphical things are concerned?; but heck, I
+more than often need to measure the distance between two points on my
+screen.  I think it's not worth learning the (huge) basics of Qt just to
+be able to make a screen ruler, so I was wondering if there's a simple
+way to do that within Ion itself.
+
+The simplest way would probably be to assign a key to "The current
+position of the cursor is point A", then upon re-hit "The curr.. point
+B" and print the result (|A-B|) somewhere.
+
+Any idea??  TIA!
+
+-- 
+ |   Micha?l `Micha' Cadilhac       |  Un certain Blaise Pascal              |
+ |   http://michael.cadilhac.name   |    etc... etc...                       |
+ |   JID/MSN:                       |  -- Pr?vert (Les paris stupides)       |
+ `----  michael.cadilhac at gmail.com  |                                   -  --'
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 188 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080207/d4320b72/attachment.pgp>
+
+From tuomov at iki.fi  Thu Feb  7 23:17:19 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 7 Feb 2008 22:17:19 +0000 (UTC)
+Subject: Some help to create a screen ruler.
+References: <873as4pg8c.fsf@cadilhac.name>
+Message-ID: <slrnfqn0rf.94p.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-07, Micha?l Cadilhac <michael at cadilhac.name> wrote:
+> Any idea=A0?  TIA!
+
+See the recent post about luatcc, and man XQueryPointer.
+Or just use XQueryPointer in a custom program.
+Maybe there already is one.
+
+-- 
+Tuomo
+
+
+
+From shardz4217 at gmail.com  Thu Feb  7 23:21:06 2008
+From: shardz4217 at gmail.com (Samuel Baldwin)
+Date: Thu, 7 Feb 2008 17:21:06 -0500
+Subject: 2.7 (=~e)
+In-Reply-To: <slrnfqn06k.63n.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+	<975fd1710802071326kbb6e306wcebe27bb3bcbabe3@mail.gmail.com>
+	<slrnfqn06k.63n.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <975fd1710802071421q1ecea2d4h1ac2464b7f7011d9@mail.gmail.com>
+
+2008/2/7, Tuomo Valkonen <tuomov at iki.fi>:
+> They have some useful ideas, but the system stinks too much
+> of obsolete and unix... and rats.
+
+The stench most of us live in. But very true.
+
+> Everything's a file... great, but could we move past text files
+> with a proprietary syntax, and having to parse them with quick
+> and dirty hacks? How about a more efficient standard structural
+> _binary_ format? For all the pipes too? And the shell, kind of
+> like Microsoft PowerShell, but better? (Instead of piping objects
+> with a display routine among other things, piping structural data
+> with specified stylesheet for display kind of like XML files, but
+> without the inefficient text encoding of XML.)
+
+A very interesting idea.. Can't say I've touched powershell. I think
+idea of a XML like stylesheet for output is a good one. I'd be very
+interesting to see this shell.
+
+> As for the kernel... how about an exokernel? (Or at least what
+> I've understood it to be: basically the kernel provides only
+> memory management, with disk pages handled analoguously like
+> memory pages, abstracting away the actual devices. Even a lot
+> of the memory management is on user-side, with the kernel just
+> verifying claims, or so.) As for security, how about an object
+> capability system (see: EROS, Coytos, CapROS) in user space
+> outside the exokernel?
+
+What about the other kernel tasks? Just handled by other processes in
+userspace? That'd be very interesting and very cool. Abstraction is
+very very good. I wouldn't imagine writing an OS that wouldn't include
+device abstraction (for drives, at the very least).
+
+> And the user interface beyond the command line? Vis.
+
+Of course we'd probably need much better user input devices. Something
+like a dataglove would be fantastic.
+
+> And so on. I have and there must be more ideas along similar
+> lines, and if one really started spending time thinking about
+> it and unifying them, one might be able to come up with a
+> very nice, clean and flexible design, intead of a random
+> clusterfuck.
+
+Well, you can't NOT have a random clusterfuck with most OSS shit. (/me
+points at PHP).  Not that I don't like OSS, actually, but still.
+
+-- 
+Samuel 'Shardz' Baldwin
+Shardz's Igloo: shardz.homelinux.net // Down at the moment
+Registered GNU/Linux User #410639
+
+
+From tuomov at iki.fi  Fri Feb  8 00:03:14 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 7 Feb 2008 23:03:14 +0000 (UTC)
+Subject: 2.7 (=~e)
+References: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+	<975fd1710802071326kbb6e306wcebe27bb3bcbabe3@mail.gmail.com>
+	<slrnfqn06k.63n.tuomov@jolt.modeemi.cs.tut.fi>
+	<975fd1710802071421q1ecea2d4h1ac2464b7f7011d9@mail.gmail.com>
+Message-ID: <slrnfqn3hi.c8j.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-07, Samuel Baldwin <shardz4217 at gmail.com> wrote:
+> What about the other kernel tasks? Just handled by other processes in
+> userspace? 
+
+Mostly, yes. Scheduler may need to be in the kernel. Dunno how it
+is in existing exokernels, but they do not e.g. include message-
+passing as microkernels too. That's handled by user side through
+the kernel-provided memory management. File systems are obviously
+in user space.. and programs can simply directly allocate disk
+pages from the kernel, if they don't care to use a file system 
+service. (Over reboots they somehow have to remember their
+root pages, however. This is actually related to the orthogonal
+persistence of EROS.)
+
+> That'd be very interesting and very cool. Abstraction is
+> very very good. I wouldn't imagine writing an OS that wouldn't include
+> device abstraction (for drives, at the very least).
+
+Actually, I see the lightweight exokernel as a somewhat of a 
+return to the golden age of DOS. Device drivers can be abstracted
+as libraries too, when the device doesn't have to be shared, and
+any program can use the library. The kernel just takes care that 
+no two processes use the device's memory space simultaneously. 
+Now, obviously a sound server that mixes multiple streams is a 
+useful one, as is a display multiplexer, but you don't particularly
+need a specific low-level driver service, but rather drivers within
+such much higher level services. Basically a bit like the X server
+presently is actually, but hopefully without its reliability 
+problems.. (also to consider how to do DRI shit nicely while not
+giving any bloated and unreliable program full control of such 
+a critical resource).
+
+-- 
+Tuomo
+
+
+
+From deryni at unreliablesource.net  Fri Feb  8 01:15:48 2008
+From: deryni at unreliablesource.net (Etan S. C. Reisner)
+Date: Thu, 7 Feb 2008 19:15:48 -0500
+Subject: Some help to create a screen ruler.
+In-Reply-To: <873as4pg8c.fsf@cadilhac.name>
+References: <873as4pg8c.fsf@cadilhac.name>
+Message-ID: <20080208001548.GB11492@aran>
+
+On Thu, Feb 07, 2008 at 05:13:39PM -0500, Micha?l Cadilhac wrote:
+<snip>
+> The simplest way would probably be to assign a key to "The current
+> position of the cursor is point A", then upon re-hit "The curr.. point
+> B" and print the result (|A-B|) somewhere.
+>
+> Any idea??  TIA!
+
+As mentioned on this list previously there is a set of tools called
+xautomation, one of those tools is the xmousepos tool which,
+unsurprisingly, gets and sets the location of the mouse cursor. That
+should give you what you need for your 'simplest' case.
+
+I don't know about other distributions but debian has it packaged as
+'xautomation' if yours doesn't the homepage is
+http://hoopajoo.net/projects/xautomation.html .
+
+    -Etan
+
+P.S. I'm curious why you need to measure the distance between two points
+on your screen with such regularity.
+
+
+From bryan.richter at gmail.com  Thu Feb  7 22:15:06 2008
+From: bryan.richter at gmail.com (Bryan Richter)
+Date: Thu, 7 Feb 2008 13:15:06 -0800
+Subject: 2.7 (=~e)
+In-Reply-To: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080207211506.GE6692@localhost>
+
+On Thu, Feb 07, 2008 at 06:40:07AM +0000, Tuomo Valkonen wrote:
+> 2002-02-07 - Last release of Ion1 (it never had ds/rc/stable) 
+> 2004-02-07 - First "stable" release of Ion2
+> 2008-02-07 - First "stable" release of Ion3
+> 2016-02-07 - ?  
+> 
+> (Well, I doubt there's a semi-usable non-fascist platform left
+> by then. So much does the present state of FOSS and the course
+> it is taking suck. Although, with enough manpower, it might be
+> possible to write a full OS in eight years. So who's signing up?-)
+
+
+Here's an honest question: what language do people think the next operating
+system, the one that Ion users are most likely to write, will be written in? C
+is the default choice, but I wouldn't be surprised if it was something else...
+
+I don't have a guess, myself. I have no experience yet. What I would like to
+see, however, is a new language designed for the new task of writing a modern
+operating system. But even then, what features would this language have?
+
+If only I was wealthy, or could magically procure grants for myself. I'd love to
+research these questions.
+
+-- 
+Bryan Richter
+aka chreekat
+
+
+From michael at cadilhac.name  Fri Feb  8 06:37:26 2008
+From: michael at cadilhac.name (=?iso-8859-1?Q?Micha=EBl?= Cadilhac)
+Date: Fri, 08 Feb 2008 00:37:26 -0500
+Subject: Some help to create a screen ruler.
+References: <873as4pg8c.fsf@cadilhac.name> <20080208001548.GB11492@aran>
+Message-ID: <87prv8nh49.fsf@cadilhac.name>
+
+Etan S. C. Reisner writes:
+
+> As mentioned on this list previously there is a set of tools called
+> xautomation
+
+Thank you for repeating that, then?:-)
+
+Gentoo has a package called `xautomation', but it dates back to 2004?; I
+wonder why.  At that time, I suppose the package didn't include the
+xmousepos binary.
+
+> P.S. I'm curious why you need to measure the distance between two points
+> on your screen with such regularity.
+
+I use a lot of maps?:-) If they're on a website (for instance google
+maps), I usually screenshot the page and open it in the Gimp.
+
+Thanks again.
+
+-- 
+ |   Micha?l `Micha' Cadilhac       |    Le copillage-collage                |
+ |   http://michael.cadilhac.name   |       tue le programmeur.              |
+ |   JID/MSN:                       |           -- Dictons LRDE              |
+ `----  michael.cadilhac at gmail.com  |                                   -  --'
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 188 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080208/46608ddd/attachment.pgp>
+
+From michael at cadilhac.name  Fri Feb  8 06:40:29 2008
+From: michael at cadilhac.name (=?iso-8859-1?Q?Micha=EBl?= Cadilhac)
+Date: Fri, 08 Feb 2008 00:40:29 -0500
+Subject: Some help to create a screen ruler.
+References: <873as4pg8c.fsf@cadilhac.name>
+	<slrnfqn0rf.94p.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <87lk5wngz6.fsf@cadilhac.name>
+
+Tuomo Valkonen writes:
+
+> On 2008-02-07, Micha?l Cadilhac <michael-0Y5htV5oSMuLwutG50LtGA at public.gmane.org> wrote:
+>> Any idea=A0?  TIA!
+>
+> See the recent post about luatcc, and man XQueryPointer.
+> Or just use XQueryPointer in a custom program.
+> Maybe there already is one.
+
+Thank you very much, Tuomo, especially for your unfailing promptness.
+What I was coding was pretty much the same as xmousepos(1), so I'll use
+that.
+
+Happy hacking.
+
+-- 
+ |   Micha?l `Micha' Cadilhac       |    This .sig has been generated        |
+ |   http://michael.cadilhac.name   |         by Outlook Express 98          |
+ |   JID/MSN:                       |    and triple-checked on               |
+ `----  michael.cadilhac at gmail.com  |         Windows Mail Vista.       -  --'
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 188 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080208/ee048c8f/attachment.pgp>
+
+From tuomov at iki.fi  Fri Feb  8 08:11:53 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 8 Feb 2008 07:11:53 +0000 (UTC)
+Subject: 2.7 (=~e)
+References: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080207211506.GE6692@localhost>
+Message-ID: <slrnfqo05p.ofd.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-07, Bryan Richter <bryan.richter at gmail.com> wrote:
+> Here's an honest question: what language do people think the next
+> operating system, the one that Ion users are most likely to write, will be
+> written in? C is the default choice, but I wouldn't be surprised if it was
+> something else...
+
+C.. and then some.
+
+There's just no way around it: for any serious work you want C.
+Or maybe some other relatively simple language close to the 
+hardware, with better safety... and tagged unions. (What was 
+this one C derivative?) But the benefits of such an alternative
+(except for tagged unions) are not so great, because you only
+want to write relatively simple things in C/it. You don't want
+to write much abstractions in C. You do low level gruntwork of 
+core libraries in C, provide a very simple API, and use whatever
+language you want with better abstractions and better safety 
+(hence typically no dynamically-typed scripting languages, but 
+rather e.g. Haskell), to access the services provided by the C 
+core libraries. This is easy because the API is simple (instead 
+of OO bloat).
+
+Non-performance critical libraries could also be written in 
+other languages (such as Haskell), and they could provide a
+simple C API, but conflicting runtimes present a problem. Many
+languages (including Haskell, java, etc.) want to be operating
+systems themselves these days. 
+
+Instead of using the operating system's namespace to locate their
+libraries, they want to impose their own module and package 
+namespaces and hierarchies.
+
+Instead of exposing the operating system's libraries and services,
+and letting the program author choose either some real platform 
+or a compatibility layer (platform), they want you to use their 
+own compatibility layer. Megalomania pure and simple. And in 
+exchange cross-language compatibility is reduced. For that you
+either you either have to write for the "C runtime" (i.e. the OS),
+or you need something like CLR (common language runtime). 
+
+I think the C option could promote better API practises instead
+of OO-bloat. You _do_ often want to write higher-level APIs suited
+to the practises and mechanisms of any particular language, instead
+of enforcing an uniform one. Those exposing a simple easy wrappable
+API not dependent on the idiosyncracies of any particular language
+or design methodology (such as OO-bloat), should work best.
+
+-- 
+Tuomo
+
+
+
+From lanek at novenine.com  Fri Feb  8 08:18:18 2008
+From: lanek at novenine.com (Roy Lanek)
+Date: Fri, 8 Feb 2008 14:18:18 +0700
+Subject: 2.7 (=~e)
+In-Reply-To: <20080207211506.GE6692@localhost>
+References: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080207211506.GE6692@localhost>
+Message-ID: <20080208071818.GA2351@sirih>
+
+> > (Well, I doubt there's a semi-usable non-fascist platform left
+> > by then. So much does the present state of FOSS and the course
+> > it is taking suck. Although, with enough manpower, it might be
+> > possible to write a full OS in eight years. So who's signing up?-)
+> 
+> 
+> Here's an honest question: what language do people think the next operating
+> system, the one that Ion users are most likely to write, will be written in? C
+> is the default choice, but I wouldn't be surprised if it was something else...
+
+It has been done already--in (significantly) less than eight years, an by
+mainly just two people only: Niklaus Wirth and Juerg Gutknecht, from the Swiss
+Federal Institute of Technology in Zuerich [ETHZ]. It's the Oberon OS, and
+it's written in Oberon [the homonym programming language].
+
+I would prefer Modula-3 ... among the nicest programming languages I know:
+based on Modula-2 minus its problematic features, VERY NICE, tiny, yet
+POWERFUL, SIMPLE, EFFICIENT and FAST, supporting interfaces, objects,
+generics, lightweight threads, isolation of unsafe code, garbage collection,
+exceptions and subtyping.
+
+The fact is [I think] that Modula-3 has been a DEC [Digital Equipment] and
+Olivetti project, not an ETHZ one, and that Modula-3 has outclassed the
+original Oberon by far. [Wirth has not been/is ?! not an easy man.]
+
+So do things go, unfortunately: a gem of a programming language-Modula-3--who
+has been unjustly [or maybe actively?] *forgotten* or *marginalized* with the
+exception of Canada, perhaps. (As another example, the winner of Ada [83] has
+also not been the most promising project.) And a programming language which is
+still unsurpassed today, under many perspectives, and *modern*. One galaxy or
+two aside, compared with C, in any case. [Python's Guido van Rossum claims to
+have been inspired by Modula-3, to let us understand.]
+
+With Ada [tasking, among other things] and Eiffel [design by contract],
+both contemporary to Modula-3, the job of truly innovating in the domain of
+programming languages has reached its zenith, likely.
+
+Anyway, there are *free* implementations of Modula-3 though.
+
+Then I know that an experimental OS has been written in Ada[83],
+and that the OS has been said to be slow. (I would not chose
+Ada.)
+
+I would stay away from C++.
+
+Cheers,
+
+/Roy
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   tak ada rotan, akar pun jadi
+SSSSS . s l a c k w a r e  SSSSSS   no rattans, roots will do [if you are
+SSSSS +------------ linux  SSSSSS   desperate, you must not be choosy]
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+
+
+From tuomov at iki.fi  Fri Feb  8 08:29:41 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 8 Feb 2008 07:29:41 +0000 (UTC)
+Subject: 2.7 (=~e)
+References: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080207211506.GE6692@localhost>
+	<slrnfqo05p.ofd.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnfqo175.stf.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-08, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> exokernel..
+
+> C.. 
+
+To summarise:
+
+        Return the low-level.
+        Remove the mid-level.
+        Add the high-level.
+
+-- 
+Tuomo
+
+
+
+From EvgenyKurbatov at yandex.ru  Fri Feb  8 09:21:35 2008
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Fri, 08 Feb 2008 11:21:35 +0300
+Subject: 2.7 (=~e)
+In-Reply-To: <slrnfqo175.stf.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080207211506.GE6692@localhost>
+	<slrnfqo05p.ofd.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrnfqo175.stf.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <47AC110F.2070601@yandex.ru>
+
+
+> To summarise:
+> 
+>         Return the low-level.
+>         Remove the mid-level.
+>         Add the high-level.
+> 
+
+I think it is impossible to avoid the mid-level because in the near
+future there will be a lot of platforms which are differs on a hardware
+level (e.g. mobiles, desktops, computing nets, brain chips etc), and a
+lot of low-level OSes on it.  We need a kind of an API-buffer like .NET
+for portability of a software.  So the point of application of kernel
+development will shift to development of a kernel of that API-buffer, IMHO.
+
+
+From tuomov at iki.fi  Fri Feb  8 10:09:50 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 8 Feb 2008 09:09:50 +0000 (UTC)
+Subject: 2.7 (=~e)
+References: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080207211506.GE6692@localhost>
+	<slrnfqo05p.ofd.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrnfqo175.stf.tuomov@jolt.modeemi.cs.tut.fi>
+	<47AC110F.2070601@yandex.ru>
+Message-ID: <slrnfqo72u.62g.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-08, Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+> I think it is impossible to avoid the mid-level because in the near
+> future there will be a lot of platforms which are differs on a hardware
+> level (e.g. mobiles, desktops, computing nets, brain chips etc), and a
+> lot of low-level OSes on it.  We need a kind of an API-buffer like .NET
+> for portability of a software.  So the point of application of kernel
+> development will shift to development of a kernel of that API-buffer, IMHO.
+
+Low-level doesn't mean completely unportable/hardware-level. Just very low
+abstraction level, just like C. High level by contrast is very high
+abstraction level.
+
+hardware or ultra-low-level 
+           = asm / port-poking / "use the source"
+low-level  = C / exokernel / decent config files
+mid-level  = C++ / linux megamonolith / wimpshit
+high-level = Haskell 
+             / high level services on top
+               of a low-level or mid-level kernel ... or Haskell :)
+             / just doing the right thing
+
+Or something like that. Obviously the level depends on the 
+perspective.
+
+-- 
+Tuomo
+
+
+
+From deryni at unreliablesource.net  Fri Feb  8 13:59:32 2008
+From: deryni at unreliablesource.net (Etan S. C. Reisner)
+Date: Fri, 8 Feb 2008 07:59:32 -0500
+Subject: Some help to create a screen ruler.
+In-Reply-To: <87prv8nh49.fsf@cadilhac.name>
+References: <873as4pg8c.fsf@cadilhac.name> <20080208001548.GB11492@aran>
+	<87prv8nh49.fsf@cadilhac.name>
+Message-ID: <20080208125932.GC11492@aran>
+
+On Fri, Feb 08, 2008 at 12:37:26AM -0500, Micha?l Cadilhac wrote:
+<snip>
+> Gentoo has a package called `xautomation', but it dates back to 2004?; I
+> wonder why.  At that time, I suppose the package didn't include the
+> xmousepos binary.
+
+<snip>
+
+The gentoo package looks newer to me than that.
+http://packages.gentoo.org/package/x11-misc/xautomation?full_cat
+
+    -Etan
+
+
+From tuomov at iki.fi  Fri Feb  8 17:27:58 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 8 Feb 2008 16:27:58 +0000 (UTC)
+Subject: Announcing Ion3+
+Message-ID: <slrnfqp0od.gpe.tuomov@jolt.modeemi.cs.tut.fi>
+
+Ion3+ is the new development branch of Ion. It is not actively developed by
+me, but contributions (sent with darcs send) fitting in the Ion vision are
+accepted after review. For more information, see the download page [1].
+
+  [1]: http://iki.fi/tuomov/ion/download.html
+
+-- 
+Tuomo
+
+
+
+From lanek at novenine.com  Fri Feb  8 22:29:03 2008
+From: lanek at novenine.com (Roy Lanek)
+Date: Sat, 9 Feb 2008 04:29:03 +0700
+Subject: xhkeys
+Message-ID: <20080208212903.GA26981@sirih>
+
+Who knows xhkeys^1?
+
+I have just [a couple of days ago] discovered xhkeys ... and sorry if everyone
+already knew of it. It works like a beauty both with my BenQ notebook and
+Ion. I have mapped those horror windows keys on the left and on the right of
+the spacebar, the 'application key' [just on the right of the right windows
+key] .., have now all the <windows + tab, windows + whatever, ...>, <shift +
+windows + ...>, ... series of keys available; have even mapped the 'Internet
+hotkey' and the 'email hotkey'.
+
+It works great. Beautiful!
+
+Cheers,
+
+/Roy
+
+     1. xhkeys
+http://wmalms.tripod.com/#XHKEYS
+
+"[x]hkeys is designed to suit any keyboard that has some extra keys that
+otherwise make no use with X: "Menu" key on a 105 key keyboard, extra keys on
+some keyboard models, or laptops."
+
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   seperti pinang dibelah dua--like a halved
+SSSSS . s l a c k w a r e  SSSSSS   pinang [means: two things that are quite
+SSSSS +------------ linux  SSSSSS   different!, because you can never halve a
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   pinang tree with an axe neatly]
+
+
+From sunwayforever at gmail.com  Mon Feb 11 13:10:09 2008
+From: sunwayforever at gmail.com (sunway)
+Date: Mon, 11 Feb 2008 20:10:09 +0800
+Subject: statusbar got frozen?
+Message-ID: <20080211121009.GA17138@sunway>
+
+i am using ion3 version 3-20080207, when having both statusd_netmon and
+statusd_mpd shown on the statusbar, the statusbar got frozen after a few seconds,anything wrong?
+
+-- 
+_________________________________________
+sunway
+Broad Network Research Center
+Beijing University of Posts and Telecommunications
+
+
+From tuomov at iki.fi  Mon Feb 11 13:13:34 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 11 Feb 2008 12:13:34 +0000 (UTC)
+Subject: statusbar got frozen?
+References: <20080211121009.GA17138@sunway>
+Message-ID: <slrnfr0eve.vtr.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-11, sunway <sunwayforever at gmail.com> wrote:
+> i am using ion3 version 3-20080207, when having both statusd_netmon and
+> statusd_mpd shown on the statusbar, the statusbar got frozen after a few seconds,anything wrong?
+
+Those scripts are probably broken and hang the statusd.
+
+-- 
+Tuomo
+
+
+
+From sunwayforever at gmail.com  Tue Feb 12 06:27:35 2008
+From: sunwayforever at gmail.com (sunway)
+Date: Tue, 12 Feb 2008 13:27:35 +0800
+Subject: statusbar got frozen?
+In-Reply-To: <20080211121009.GA17138@sunway>
+References: <20080211121009.GA17138@sunway>
+Message-ID: <20080212052735.GA13945@sunway>
+
+I have noticed that after 13 times calling of "echo ..|nc localhost
+6600" in get_mpd_status(), `ps aux|grep nc`  shows that "sh -c echo ..|nc localhost 6600"
+sleeping forever, so I use "mpc" instead of "echo|nc" to get mpd info, it
+seems work quite well
+
+On Mon, Feb 11, 2008 at 08:10:09PM +0800, sunway wrote:
+>i am using ion3 version 3-20080207, when having both statusd_netmon and
+>statusd_mpd shown on the statusbar, the statusbar got frozen after a few seconds,anything wrong?
+>
+>-- 
+>_________________________________________
+>sunway
+>Broad Network Research Center
+>Beijing University of Posts and Telecommunications
+
+-- 
+sunway
+Broad Network Research Center
+Beijing University of Posts and Telecommunications
+-------------- next part --------------
+--orignal author: delirium at hackish.org
+--modified by: sunwayforever at gmail dot com
+--mpc is required
+local defaults={
+   update_interval=1000,
+   address="localhost",
+   port=6600,
+}
+
+local settings=table.join(statusd.get_config("mpd"), defaults)
+local function get_mpd_status()
+   local mpd = io.popen("mpc 2>/dev/null", "r")
+   local data1 = mpd:read('*line')
+   local data2 = mpd:read('*line')
+   mpd:close()
+   if data1 == nil then 
+      return "mpd not running"
+   end
+   local s,_= string.find(data1, "volume.*")
+   if s == 1 then
+      return "Stopped"
+   end
+   local _,_,state,perc= string.find(data2, "%[(.*)].*%((.*)%)")
+   return state.." "..perc.." "..data1
+end
+
+local mpd_timer
+local function update_mpd()
+   local mpd_st = get_mpd_status()
+   statusd.inform("mpd", mpd_st)
+   mpd_timer:set(settings.update_interval, update_mpd)
+end
+
+mpd_timer=statusd.create_timer()
+update_mpd()
+
+
+From tuomov at iki.fi  Tue Feb 12 07:39:38 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 12 Feb 2008 06:39:38 +0000 (UTC)
+Subject: statusbar got frozen?
+References: <20080211121009.GA17138@sunway> <20080212052735.GA13945@sunway>
+Message-ID: <slrnfr2fpa.7jq.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-12, sunway <sunwayforever at gmail.com> wrote:
+> I have noticed that after 13 times calling of "echo ..|nc localhost
+> 6600" in get_mpd_status(), `ps aux|grep nc`  shows that "sh -c echo ..|nc localhost 6600"
+> sleeping forever, so I use "mpc" instead of "echo|nc" to get mpd info, it
+> seems work quite well
+
+One should just use luasocket, to avoid executing programs 
+all the time. And ioncore.popen_bgread instead io.popen
+stops one monitor listening to a hung program from hanging
+the whole statusd.
+
+Of course, I also recommend moc(p), which doesn't demand
+a bloated redundant playlist library, but provides good
+support for your existing filing system -- the directory
+hierarchy.
+
+-- 
+Tuomo
+
+
+
+From lanek at novenine.com  Wed Feb 13 11:54:55 2008
+From: lanek at novenine.com (Roy Lanek)
+Date: Wed, 13 Feb 2008 17:54:55 +0700
+Subject: Option clash for package hyperref
+Message-ID: <20080213105455.GA26659@sirih>
+
+I am trying to build the doc for ion-3 [ion-doc-3-20080207] and get:
+
+make all
+rubber ionconf
+compiling ionconf.tex...
+making font metrics for ecrm1095...
+making font ecrm1095...
+macros.tex:23: Option clash for package hyperref.
+macros.tex:23: leading text: \fi
+ioncore.exports:2: Something's wrong--perhaps a missing \item.
+ioncore.exports:2: leading text:
+...fn:ioncore.TR}\synopsis{ioncore.TR(s, ...)}
+ioncore.exports:2: Something's wrong--perhaps a missing \item.
+ioncore.exports:2: leading text:
+...fn:ioncore.TR}\synopsis{ioncore.TR(s, ...)}
+ioncore.exports:2: Something's wrong--perhaps a missing \item.
+ioncore.exports:2: leading text:
+...fn:ioncore.TR}\synopsis{ioncore.TR(s, ...)}
+ioncore.exports:2: Something's wrong--perhaps a missing \item.
+ioncore.exports:2: leading text: ...ynopsis{ioncore.TR(s,
+...)}\begin{funcdesc}
+ioncore.exports:2: Something's wrong--perhaps a missing \item.
+ioncore.exports:2: leading text: ...ynopsis{ioncore.TR(s,
+...)}\begin{funcdesc}
+ioncore.exports:2: Something's wrong--perhaps a missing \item.
+ioncore.exports:2: leading text: ...ynopsis{ioncore.TR(s,
+...)}\begin{funcdesc}
+ioncore.exports:5: Something's wrong--perhaps a missing \item.
+ioncore.exports:5: leading text: \end{function}
+ioncore.exports:8: Something's wrong--perhaps a missing \item.
+ioncore.exports:8: leading text:
+...:ioncore.bdoc}\synopsis{ioncore.bdoc(text)}
+ioncore.exports:8: Something's wrong--perhaps a missing \item.
+ioncore.exports:8: leading text:
+...:ioncore.bdoc}\synopsis{ioncore.bdoc(text)}
+make: *** [ionconf-dvi] Error 1
+
+
+I am the only one seeing this, do I have messed up with my TeX/etc.
+environment?
+
+I am using rubber-1.1, a stock Slackware [current] tetex-3.0-i486-5,
+latex2html-2002-2-1, and a non-stock xpdf-3.02.sec-patched.
+
+Cheers,
+
+/Roy
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+SSSSS . s l a c k w a r e  SSSSSS   dimana ada kemauan, di situ ada jalan
+SSSSS +------------ linux  SSSSSS   where there is a will, there is a way
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+
+
+From tuomov at iki.fi  Wed Feb 13 12:44:47 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 13 Feb 2008 11:44:47 +0000 (UTC)
+Subject: Option clash for package hyperref
+References: <20080213105455.GA26659@sirih>
+Message-ID: <slrnfr5m1f.odd.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-13, Roy Lanek <lanek at novenine.com> wrote:
+> I am the only one seeing this, do I have messed up with my TeX/etc.
+> environment?
+
+Works for me at home, not at work. (La)TeX is a messed up POS anyway,
+but unfortunately there's nothing better. Note that there's no need
+for you to build the documents, the package contains prebuilt ones.
+
+-- 
+Tuomo
+
+
+
+From sunwayforever at gmail.com  Thu Feb 14 12:33:24 2008
+From: sunwayforever at gmail.com (sunway)
+Date: Thu, 14 Feb 2008 19:33:24 +0800
+Subject: why isn't mc(midnight commander) full screen occasionly?
+Message-ID: <20080214113324.GA10341@sunway>
+
+    menuentry("mc",       "ioncore.exec_on(_, 'mlterm -e mc')"),
+
+    when using "mc" from the ion menu, sometimes mc will be started in full
+    screen, sometimes not, why?
+
+-- 
+sunway
+Broad Network Research Center
+Beijing University of Posts and Telecommunications
+
+
+From tuomov at iki.fi  Thu Feb 14 14:05:20 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 14 Feb 2008 13:05:20 +0000 (UTC)
+Subject: why isn't mc(midnight commander) full screen occasionly?
+References: <20080214113324.GA10341@sunway>
+Message-ID: <slrnfr8f4g.cpv.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-14, sunway <sunwayforever at gmail.com> wrote:
+>     when using "mc" from the ion menu, sometimes mc will be started in full
+>     screen, sometimes not, why?
+
+Are you in full screen mode when the window opens? How about different
+terminal emulator? Ion version?
+
+-- 
+Tuomo
+
+
+
+From deryni at unreliablesource.net  Fri Feb 15 19:02:57 2008
+From: deryni at unreliablesource.net (Etan S. C. Reisner)
+Date: Fri, 15 Feb 2008 13:02:57 -0500
+Subject: Interfacing random C functions from Lua scripts
+In-Reply-To: <20080120192305.GA6980@jolt.modeemi.cs.tut.fi>
+References: <20080120192305.GA6980@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080215180257.GR11492@aran>
+
+On Sun, Jan 20, 2008 at 09:23:05PM +0200, Tuomo Valkonen wrote:
+> Every now and then, people ask for access to random C functions
+> from Lua. Providing access to all of them through Ion is the
+> wrong approach that would make Ion itself bloated. But the set
+> of Lua libraries isn't that big either (but be sure to check
+> the LuaForge [1]).
+>
+> So the way to do it in that case, is to provide your own C
+> bindings. Unfortunately, that's a bit cumbersome, if you have
+> to write an extra Lua or Ion module in addition to your script.
+> Fortunately, LuaTCC [2] provides support for inline C code in your
+> Lua scripts. It is dependent on the Tiny C Compiler (TCC) [3].
+> As have attached to this email, the example of the oft-requested
+> 'setenv'.
+
+<snip>
+
+> --
+> Tuomo
+
+For the record there is also C/Invoke (http://www.nongnu.org/cinvoke/)
+which has lua bindings as well as the newer (just released) Alien
+(http://alien.luaforge.net/) both of which give lua ffi to C libraries
+directly.
+
+    -Etan
+
+
+From tuomov at iki.fi  Fri Feb 15 20:13:15 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 15 Feb 2008 19:13:15 +0000 (UTC)
+Subject: Interfacing random C functions from Lua scripts
+References: <20080120192305.GA6980@jolt.modeemi.cs.tut.fi>
+	<20080215180257.GR11492@aran>
+Message-ID: <slrnfrbp2b.kl4.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-15, Etan S. C. Reisner <deryni at unreliablesource.net> wrote:
+> For the record there is also C/Invoke (http://www.nongnu.org/cinvoke/)
+> which has lua bindings as well as the newer (just released) Alien
+> (http://alien.luaforge.net/) both of which give lua ffi to C libraries
+> directly.
+
+Yeah, those seem even better... unless you need the constants,
+in which case TCC seems simpler than parsing them with some
+scripts included in alien or so.
+
+-- 
+Tuomo
+
+
+
+From edipretoro at gmail.com  Sat Feb 16 13:48:46 2008
+From: edipretoro at gmail.com (Emmanuel Di Pretoro)
+Date: Sat, 16 Feb 2008 13:48:46 +0100
+Subject: mod_sp doesn't work anymore?!
+Message-ID: <2df5ce20802160448p6461aa24h5317d4634949c057@mail.gmail.com>
+
+Hi,
+I have a strange behavior on my ASUS EeePC under debian. I've installed ion3
+since a while, and today, when I try to have a scratchpad, nothing happens.
+I've checked my configuration, but I didn't find anything, I have a
+dopath("mod_sp") in my cfr_defaults.lua. I've tried to change the shortcut,
+but nothing happens. I cannot remember if I've do anything to cause that
+behavior ;( And even with the stupid 'uninstall/reinstall' thing, I haven't
+solve my problem
+
+Any idea?
+
+Thanks in advance,
+
+Manu
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080216/93005807/attachment.html>
+
+From tuomov at iki.fi  Sun Feb 17 18:34:02 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 17 Feb 2008 17:34:02 +0000 (UTC)
+Subject: mod_sp doesn't work anymore?!
+References: <2df5ce20802160448p6461aa24h5317d4634949c057@mail.gmail.com>
+Message-ID: <slrnfrgs0a.ua0.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-16, Emmanuel Di Pretoro <edipretoro at gmail.com> wrote:
+> I have a strange behavior on my ASUS EeePC under debian. I've installed ion3
+> since a while, 
+
+Version and type of package?
+
+> I've checked my configuration, but I didn't find anything, I have a
+> dopath("mod_sp") in my cfr_defaults.lua. 
+
+There's no cfr_defaults.lua, and I strongly suggest you don't touch 
+cfg_defaults.lua. It is meant to provide the default settings (if
+nothign else is loaded from cfg_ion.lua), not to be modified by users.
+cfg_ion.lua is to be modified by users.
+
+-- 
+Tuomo
+
+
+
+From EvgenyKurbatov at yandex.ru  Mon Feb 18 09:38:37 2008
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Mon, 18 Feb 2008 11:38:37 +0300
+Subject: the workspacelist like the focuslist
+Message-ID: <47B9440D.7040108@yandex.ru>
+
+Hello!
+
+I have a zillion applications running on more than ten workspaces so the
+focuslist became unusable.  But focuslist has a nice feature, it sorted
+by activity flag.  I wanted it for workspacelist and first I wrote this
+hack into my cfg_local.lua just to try whether this way works or not:
+
+function workspacelist_unsrt()
+   local entries={}
+   local iter_=addto(entries)
+
+   local function addto(list)
+      return function(tgt, attr)
+		local e=menuentry(tgt:name(), function() tgt:goto() end)
+		e.attr=attr;
+		table.insert(list, e)
+		return true
+	     end
+   end
+
+   local function iter(obj)
+      return (not obj_is(obj, "WGroupWS") or iter_(obj))
+   end
+
+   ioncore.region_i(iter)
+
+   return entries
+end
+
+
+defbindings("WScreen", {
+kpress(META.."Q", "mod_menu.menu(_, _sub, 'workspacelist_unsrt')"),
+})
+
+
+So, it didn't.  Nothing happend at all.  A hoped to see a menu with
+unsorted list of workspaces.  What did I wrong?
+
+Well, I'll be nice if someone promts me how to do a list of workspaces
+recently used.
+
+
+Best witches,
+Evgeny
+
+
+From tuomov at iki.fi  Mon Feb 18 10:25:49 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 18 Feb 2008 09:25:49 +0000 (UTC)
+Subject: the workspacelist like the focuslist
+References: <47B9440D.7040108@yandex.ru>
+Message-ID: <slrnfrijot.oje.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-18, Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+> So, it didn't.  Nothing happend at all.  A hoped to see a menu with
+> unsorted list of workspaces.  What did I wrong?
+
+Version?
+
+-- 
+Tuomo
+
+
+
+From EvgenyKurbatov at yandex.ru  Mon Feb 18 10:33:04 2008
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Mon, 18 Feb 2008 12:33:04 +0300
+Subject: the workspacelist like the focuslist
+In-Reply-To: <slrnfrijot.oje.tuomov@jolt.modeemi.cs.tut.fi>
+References: <47B9440D.7040108@yandex.ru>
+	<slrnfrijot.oje.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <47B950D0.4090708@yandex.ru>
+
+
+> On 2008-02-18, Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+>> So, it didn't.  Nothing happend at all.  A hoped to see a menu with
+>> unsorted list of workspaces.  What did I wrong?
+> 
+> Version?
+
+ion-3rc-20071109
+
+
+From tuomov at iki.fi  Mon Feb 18 10:53:49 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 18 Feb 2008 09:53:49 +0000 (UTC)
+Subject: the workspacelist like the focuslist
+References: <47B9440D.7040108@yandex.ru>
+	<slrnfrijot.oje.tuomov@jolt.modeemi.cs.tut.fi>
+	<47B950D0.4090708@yandex.ru>
+Message-ID: <slrnfrildd.s3a.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-18, Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+> ion-3rc-20071109
+
+Installed how? (I suggest upgrading..)
+
+-- 
+Tuomo
+
+
+
+From EvgenyKurbatov at yandex.ru  Mon Feb 18 11:02:59 2008
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Mon, 18 Feb 2008 13:02:59 +0300
+Subject: the workspacelist like the focuslist
+In-Reply-To: <slrnfrildd.s3a.tuomov@jolt.modeemi.cs.tut.fi>
+References: <47B9440D.7040108@yandex.ru>
+	<slrnfrijot.oje.tuomov@jolt.modeemi.cs.tut.fi>
+	<47B950D0.4090708@yandex.ru>
+	<slrnfrildd.s3a.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <47B957D3.5080301@yandex.ru>
+
+Tuomo Valkonen wrote:
+> On 2008-02-18, Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+>> ion-3rc-20071109
+> 
+> Installed how? (I suggest upgrading..)
+
+Well, yes.  Upgrading previous version, and previous too.. :)
+Ok, I'll try to remove everything of ion3 from /usr/local and install
+stable verion today.
+
+Bye,
+Evgeny
+
+
+From tuomov at iki.fi  Mon Feb 18 12:07:58 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 18 Feb 2008 11:07:58 +0000 (UTC)
+Subject: the workspacelist like the focuslist
+References: <47B9440D.7040108@yandex.ru>
+	<slrnfrijot.oje.tuomov@jolt.modeemi.cs.tut.fi>
+	<47B950D0.4090708@yandex.ru>
+	<slrnfrildd.s3a.tuomov@jolt.modeemi.cs.tut.fi>
+	<47B957D3.5080301@yandex.ru>
+Message-ID: <slrnfripoe.3cv.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-18, Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+>> Installed how? (I suggest upgrading..)
+>
+> Well, yes.  Upgrading previous version, and previous too.. :)
+
+I mean, official tarball, distro shit, ..? (The version number as
+such is good enough wrt. this problem.)
+
+-- 
+Tuomo
+
+
+
+From EvgenyKurbatov at yandex.ru  Mon Feb 18 13:32:44 2008
+From: EvgenyKurbatov at yandex.ru (Evgeny Kurbatov)
+Date: Mon, 18 Feb 2008 15:32:44 +0300
+Subject: the workspacelist like the focuslist
+In-Reply-To: <slrnfripoe.3cv.tuomov@jolt.modeemi.cs.tut.fi>
+References: <47B9440D.7040108@yandex.ru>
+	<slrnfrijot.oje.tuomov@jolt.modeemi.cs.tut.fi>
+	<47B950D0.4090708@yandex.ru>
+	<slrnfrildd.s3a.tuomov@jolt.modeemi.cs.tut.fi>
+	<47B957D3.5080301@yandex.ru>
+	<slrnfripoe.3cv.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <47B97AEC.1060601@yandex.ru>
+
+
+> On 2008-02-18, Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+>>> Installed how? (I suggest upgrading..)
+>> Well, yes.  Upgrading previous version, and previous too.. :)
+> 
+> I mean, official tarball, distro shit, ..? (The version number as
+> such is good enough wrt. this problem.)
+
+This is the Debian and lua5.1 was installed from distro, but ion3 was an
+officiallest tarball installed into /usr/local.
+
+
+From sunwayforever at gmail.com  Mon Feb 18 13:43:53 2008
+From: sunwayforever at gmail.com (sunway)
+Date: Mon, 18 Feb 2008 20:43:53 +0800
+Subject: what about target="www" winprop  if workspace "www" is not created
+	before
+Message-ID: <20080218124353.GA17975@sunway>
+
+
+defwinprop{
+    class = "foo",
+    target = "www",
+    new_group = "full",
+    jumpto = true,
+}
+
+i have found that if workspace "www" is not created before, program of
+class "foo" will not be placed in a newly created workspace
+named "www",instead the newly created workspace is named  WGroupWS<1>
+
+-- 
+sunway
+
+
+From tuomov at iki.fi  Mon Feb 18 13:53:41 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 18 Feb 2008 12:53:41 +0000 (UTC)
+Subject: the workspacelist like the focuslist
+References: <47B9440D.7040108@yandex.ru>
+	<slrnfrijot.oje.tuomov@jolt.modeemi.cs.tut.fi>
+	<47B950D0.4090708@yandex.ru>
+	<slrnfrildd.s3a.tuomov@jolt.modeemi.cs.tut.fi>
+	<47B957D3.5080301@yandex.ru>
+	<slrnfripoe.3cv.tuomov@jolt.modeemi.cs.tut.fi>
+	<47B97AEC.1060601@yandex.ru>
+Message-ID: <slrnfrivul.dk4.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-18, Evgeny Kurbatov <EvgenyKurbatov at yandex.ru> wrote:
+> This is the Debian and lua5.1 was installed from distro, but ion3 was an
+> officiallest tarball installed into /usr/local.
+
+
+Ok...
+
+The menu system doesn't know about your menu generator.
+You're missing a defmenu. 
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Mon Feb 18 13:57:41 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 18 Feb 2008 12:57:41 +0000 (UTC)
+Subject: what about target="www" winprop if workspace "www" is not created
+	before
+References: <20080218124353.GA17975@sunway>
+Message-ID: <slrnfrj065.dk4.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-18, sunway <sunwayforever at gmail.com> wrote:
+> i have found that if workspace "www" is not created before, program of
+> class "foo" will not be placed in a newly created workspace
+> named "www",instead the newly created workspace is named  WGroupWS<1>
+
+Dunno what you're using, if you expect such behaviour. In Ion, 
+as I have defined it, you have to explicitly set the name in 
+the layout: the 'target' could refer to a frame or such thing
+within the group.
+
+-- 
+Tuomo
+
+
+
+From sunwayforever at gmail.com  Tue Feb 19 07:08:29 2008
+From: sunwayforever at gmail.com (sunway)
+Date: Tue, 19 Feb 2008 14:08:29 +0800
+Subject: how to get/set the atime of a file?
+Message-ID: <20080219060829.GA1326@sunway>
+
+mutt use atime/ctime to determine whether there is new mail, however,
+statusd_mail will change the actime periodly, that cause mutt always think there is no new mail.
+
+i want to let statusd_mail keep the atime of the mbox files, howto?
+
+
+-- 
+sunway
+
+
+From tuomov at iki.fi  Tue Feb 19 07:19:42 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 19 Feb 2008 06:19:42 +0000 (UTC)
+Subject: how to get/set the atime of a file?
+References: <20080219060829.GA1326@sunway>
+Message-ID: <slrnfrkt7u.gc0.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-19, sunway <sunwayforever at gmail.com> wrote:
+> mutt use atime/ctime to determine whether there is new mail, however,
+> statusd_mail will change the actime periodly, that cause mutt always think there is no new mail.
+
+Mutt is lame, if uses atime. It should use just ctime.
+
+(It is possible to *lie* about the atime by setting it to
+another value with the utimes syscall. I consider such
+very bad behaviour rid with race conditions, that should
+be avoided in normal circumstances.)
+
+-- 
+Tuomo
+
+
+
+From sunwayforever at gmail.com  Wed Feb 20 03:47:49 2008
+From: sunwayforever at gmail.com (sunway)
+Date: Wed, 20 Feb 2008 10:47:49 +0800
+Subject: defctxmenu problem
+Message-ID: <20080220024749.GA27276@sunway>
+
+defctxmenu("WFrame", "Frame", {
+        menuentry("Close", "WRegion.rqclose_propagate(_, _sub)"), 
+})
+
+i want to defctxmenu according to the WClientWin.get_ident.class, i.e.
+if the class name of the WClientWin is "VBox", menu item "Close" will do
+somthing else other than "WRegion.rqclose_propagate", i have write codes
+as below:
+
+function my_close(reg)
+    if --class is VBox then
+    ...
+    --but i can't get the class name because WClientWin.get_ident() need
+    --a WClientWin as parameter
+    else
+        WRegion.rqclose_propagate(reg)") 
+    end
+end
+defctxmenu("WFrame", "Frame", {
+                   menuentry("Close", "my_close(_)"),
+})
+
+
+that is, how could my_close() takes two parameters, WRegion and
+WClientWin
+-- 
+sunway
+
+
+From tuomov at iki.fi  Wed Feb 20 11:06:22 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 20 Feb 2008 10:06:22 +0000 (UTC)
+Subject: defctxmenu problem
+References: <20080220024749.GA27276@sunway>
+Message-ID: <slrnfrnusu.dkd.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-20, sunway <sunwayforever at gmail.com> wrote:
+> that is, how could my_close() takes two parameters, WRegion and
+> WClientWin
+
+If you want operations on WClientWins, you should use the corresponding
+context; cf. the Kill operation in default settings. (Perhaps it would
+be better to implement rqclose_propagate too by binding Mod1+C and Close
+in multiple places... but that's equally ugly really.)
+
+-- 
+Tuomo
+
+
+
+From sunwayforever at gmail.com  Wed Feb 20 14:33:28 2008
+From: sunwayforever at gmail.com (sunway)
+Date: Wed, 20 Feb 2008 21:33:28 +0800
+Subject: defctxmenu problem
+In-Reply-To: <slrnfrnusu.dkd.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20080220024749.GA27276@sunway>
+	<slrnfrnusu.dkd.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080220133328.GA8313@sunway>
+
+I have found a function WClientWin.rqclose(), which isn't described in the
+document,satisfies my need.
+
+On Wed, Feb 20, 2008 at 10:06:22AM +0000, Tuomo Valkonen wrote:
+>On 2008-02-20, sunway <sunwayforever at gmail.com> wrote:
+>> that is, how could my_close() takes two parameters, WRegion and
+>> WClientWin
+>
+>If you want operations on WClientWins, you should use the corresponding
+>context; cf. the Kill operation in default settings. (Perhaps it would
+>be better to implement rqclose_propagate too by binding Mod1+C and Close
+>in multiple places... but that's equally ugly really.)
+>
+>-- 
+>Tuomo
+
+-- 
+sunway
+
+
+From sunwayforever at gmail.com  Thu Feb 21 06:03:13 2008
+From: sunwayforever at gmail.com (sunway)
+Date: Thu, 21 Feb 2008 13:03:13 +0800
+Subject: how to use other functions like ioncore.xxx in statusd_xx.lua?
+Message-ID: <20080221050313.GA4993@sunway>
+
+I want to use ioncore.exec() in my own statusd_appt.lua to exec some
+shell command, but error report that ioncore is a 'nil' value.
+
+-- 
+sunway
+
+
+From sunwayforever at gmail.com  Thu Feb 21 13:06:23 2008
+From: sunwayforever at gmail.com (sunway)
+Date: Thu, 21 Feb 2008 20:06:23 +0800
+Subject: Failed to start ion-statusd.
+Message-ID: <20080221120623.GA32131@sunway>
+
+ Ion startup error log:
+ >> Failed to start ion-statusd.
+
+sometimes ion-statusd start successfully, sometimes not, how
+to obtain more detailed debug infomation about the error? 
+-- 
+sunway
+
+
+From tuomov at iki.fi  Thu Feb 21 13:26:14 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 21 Feb 2008 12:26:14 +0000 (UTC)
+Subject: how to use other functions like ioncore.xxx in statusd_xx.lua?
+References: <20080221050313.GA4993@sunway>
+Message-ID: <slrnfrqrf6.c93.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-21, sunway <sunwayforever at gmail.com> wrote:
+> I want to use ioncore.exec() in my own statusd_appt.lua to exec some
+> shell command, but error report that ioncore is a 'nil' value.
+
+Try statusd.exec.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Thu Feb 21 13:26:59 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 21 Feb 2008 12:26:59 +0000 (UTC)
+Subject: Failed to start ion-statusd.
+References: <20080221120623.GA32131@sunway>
+Message-ID: <slrnfrqrgj.c93.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-21, sunway <sunwayforever at gmail.com> wrote:
+>  Ion startup error log:
+> >> Failed to start ion-statusd.
+>
+> sometimes ion-statusd start successfully, sometimes not, how
+> to obtain more detailed debug infomation about the error? 
+
+It could be caused by broken scripts. Otherwise, this is a mystery
+problem that I've never met, and nobody has been able to provide 
+any solid evidence about. 
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Thu Feb 21 18:35:27 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 21 Feb 2008 17:35:27 +0000 (UTC)
+Subject: defctxmenu problem
+References: <20080220024749.GA27276@sunway>
+	<slrnfrnusu.dkd.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080220133328.GA8313@sunway>
+Message-ID: <slrnfrrdiv.9hi.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-20, sunway <sunwayforever at gmail.com> wrote:
+> I have found a function WClientWin.rqclose(), which isn't described in the
+> document,satisfies my need.
+
+http://iki.fi/tuomov/ion-doc-3/ionconf/node7.html#fn:WRegion.rqclose
+
+-- 
+Tuomo
+
+
+
+From sunwayforever at gmail.com  Sat Feb 23 08:30:07 2008
+From: sunwayforever at gmail.com (sunway)
+Date: Sat, 23 Feb 2008 15:30:07 +0800
+Subject: could msg from mod_query.message  disappear automatically after a
+	while?
+Message-ID: <20080223073007.GA10321@sunway>
+
+
+by default, i need to press ESC to close the msg displayed by
+mod_query.msg, could the msg be closed automatically after a while?
+what's more, is there a mechanism of mod_query timeout?
+
+
+-- 
+sunway
+
+
+From alex.barinov at gmail.com  Sat Feb 23 08:31:41 2008
+From: alex.barinov at gmail.com (Alte)
+Date: Sat, 23 Feb 2008 10:31:41 +0300
+Subject: attach_new problems
+Message-ID: <940ef3c00802222331oeac0661t1262ee52ed0d45e0@mail.gmail.com>
+
+Hi Tuomo,
+
+I'm running ion3-20080207 on Debian, installed from native debian
+package ion3-20080207-1.
+
+Since I upgraded to this package, the code, that was working
+flawlessly before, started to trow errors.  Here is the snippet of
+offending code:
+
+        local tf = ioncore.lookup_region("WFrameSS", "WFrame")
+        local wg = tf:attach_new({type = "WGroupCW", switchto = t.switchto})
+        local opt = {type = "WTiling", name = c, dir = "horizontal",
+switchto = t.switchto, bottom = true,
+            split_tree = {type = "WSplitSplit", dir = "horizontal",
+tls = 1, brs = 1,
+            tl = {type = "WSplitRegion", regparams = {type = "WFrame",
+name = c.."-left"}},
+            br = {type = "WSplitRegion", regparams = {type = "WFrame",
+name = c.."-right"}}}}
+        local ws = wg:attach_new(opt)
+
+And now it says (refferring to the last line of the of the snippet):
+
+ion3: /home/alte/etc/.ion3/mod_smallscreen.lua:124: attempt to index
+local 'wg' (a nil value)
+
+As I understand this, 'attach_new' call returns 'nil' in this version
+of ion3 for the reasons not very clear to me.
+
+Could you please comment on how to update the code to make it work in
+new version of ion?
+
+Thanks in advance,
+
+Alexander
+
+
+From tuomov at iki.fi  Sat Feb 23 08:34:55 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 23 Feb 2008 07:34:55 +0000 (UTC)
+Subject: could msg from mod_query.message disappear automatically after a
+	while?
+References: <20080223073007.GA10321@sunway>
+Message-ID: <slrnfrvj4v.ccp.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-23, sunway <sunwayforever at gmail.com> wrote:
+> by default, i need to press ESC to close the msg displayed by
+> mod_query.msg, could the msg be closed automatically after a while?
+> what's more, is there a mechanism of mod_query timeout?
+
+It's possible to write a script.. (^G and ^C also work for closing
+the queries and messages, btw.)
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sat Feb 23 08:41:43 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 23 Feb 2008 07:41:43 +0000 (UTC)
+Subject: attach_new problems
+References: <940ef3c00802222331oeac0661t1262ee52ed0d45e0@mail.gmail.com>
+Message-ID: <slrnfrvjhn.ccp.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-23, Alte <alex.barinov at gmail.com> wrote:
+>         local wg = tf:attach_new({type = "WGroupCW", switchto = t.switchto})
+>         local opt = {type = "WTiling", name = c, dir = "horizontal",
+...
+>         local ws = wg:attach_new(opt)
+
+You can not create empty WGroupCWs. (Consider loading a saved layout
+without the old client windows (CQW) to be found. These types of 
+groups have been tuned for groups as client window containers.) 
+What you probably want is WGroupWS (groups tuned for workspace 
+usage). Also, you're doing things the clumsy way by repeated
+attach_new. You can simply include the second layout in the
+first attach_new: managed = { opt }.
+
+-- 
+Tuomo
+
+
+
+From alex.barinov at gmail.com  Sun Feb 24 07:10:00 2008
+From: alex.barinov at gmail.com (Alte)
+Date: Sun, 24 Feb 2008 09:10:00 +0300
+Subject: attach_new problems
+In-Reply-To: <slrnfrvjhn.ccp.tuomov@jolt.modeemi.cs.tut.fi>
+References: <940ef3c00802222331oeac0661t1262ee52ed0d45e0@mail.gmail.com>
+	<slrnfrvjhn.ccp.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <940ef3c00802232210h72d1b6e8o285c01474ba6dc17@mail.gmail.com>
+
+Thanks a lot for the hint!  Creating non-empty WGroupCW (btw, I really
+wanted WGroupCW and not WGroupWS) works flawlessly.  However, the next
+bit of code, that used to work under previous ion3 version, started to
+fail.  The code now looks as follows (I'm simplifying it a bit for the
+sake of readability, but you'll get the idea):
+
+local tf = ioncore.lookup_region("WFrameSS", "WFrame")
+local opt = {type = "WTiling", name = c, dir = "horizontal", switchto
+= t.switchto, bottom = true,
+   split_tree = {type = "WSplitSplit", dir = "horizontal", tls = 1, brs = 1,
+   tl = {type = "WSplitRegion", regparams = {type = "WFrame", name =
+c.."-left"}},
+   br = {type = "WSplitRegion", regparams = {type = "WFrame", name =
+c.."-right"}}}}
+local wg = tf:attach_new({type = "WGroupCW", switchto = t.switchto,
+managed = { opt }})
+fr = wg:bottom():split_tree():br():reg()
+fr:set_mode("tiled-alt")
+fr:attach_new({type = "WGroupCW", switchto = t.switchto, managed =
+{{reg = cwin, bottom = true}}})
+
+This gives no errors, but cwin gets attached to WFrame named
+"WFrameSS" (a top one), and not to a newly created "Gimp-right"
+WFrame.  Once again, I have no idea at all how this happens, the code
+worked just fine under previous versions of ion3.
+
+--
+Alexander
+
+On Sat, Feb 23, 2008 at 10:41 AM, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2008-02-23, Alte <alex.barinov at gmail.com> wrote:
+>  >         local wg = tf:attach_new({type = "WGroupCW", switchto = t.switchto})
+>  >         local opt = {type = "WTiling", name = c, dir = "horizontal",
+>  ...
+>
+> >         local ws = wg:attach_new(opt)
+>
+>  You can not create empty WGroupCWs. (Consider loading a saved layout
+>  without the old client windows (CQW) to be found. These types of
+>  groups have been tuned for groups as client window containers.)
+>  What you probably want is WGroupWS (groups tuned for workspace
+>  usage). Also, you're doing things the clumsy way by repeated
+>  attach_new. You can simply include the second layout in the
+>  first attach_new: managed = { opt }.
+>
+>  --
+>  Tuomo
+
+
+From tuomov at iki.fi  Sun Feb 24 16:51:22 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 24 Feb 2008 15:51:22 +0000 (UTC)
+Subject: attach_new problems
+References: <940ef3c00802222331oeac0661t1262ee52ed0d45e0@mail.gmail.com>
+	<slrnfrvjhn.ccp.tuomov@jolt.modeemi.cs.tut.fi>
+	<940ef3c00802232210h72d1b6e8o285c01474ba6dc17@mail.gmail.com>
+Message-ID: <slrnfs34jq.4k3.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-24, Alte <alex.barinov at gmail.com> wrote:
+> fr:set_mode("tiled-alt")
+> fr:attach_new({type = "WGroupCW", switchto = t.switchto, managed =
+> {{reg = cwin, bottom = true}}})
+>
+> This gives no errors, but cwin gets attached to WFrame named
+> "WFrameSS" (a top one), and not to a newly created "Gimp-right"
+> WFrame.  Once again, I have no idea at all how this happens, the code
+> worked just fine under previous versions of ion3.
+
+It should work. Does set_mode operate on the correct frame?
+
+-- 
+Tuomo
+
+
+
+From alex.barinov at gmail.com  Sun Feb 24 18:13:22 2008
+From: alex.barinov at gmail.com (Alexander Barinov)
+Date: Sun, 24 Feb 2008 20:13:22 +0300
+Subject: attach_new problems
+In-Reply-To: <slrnfs34jq.4k3.tuomov@jolt.modeemi.cs.tut.fi>
+References: <940ef3c00802222331oeac0661t1262ee52ed0d45e0@mail.gmail.com>
+	<slrnfrvjhn.ccp.tuomov@jolt.modeemi.cs.tut.fi>
+	<940ef3c00802232210h72d1b6e8o285c01474ba6dc17@mail.gmail.com>
+	<slrnfs34jq.4k3.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <1203873202.3431.12.camel@twin>
+
+Yes, 'set_mode' operates as expected, modifying the right frame.
+
+A couple of hints that can help you to track down the issue:
+
+First, this code operates inside 'clientwin_do_manage_alt' hook.  Inside
+another 'clientwin_do_manage_alt' hook doing absolutely different thing
+I have the same problem - the window is not added to a newly created
+WGroupCW.
+
+Second, attaching WClientWin to the same frame in ioncore.defer works
+just fine.  This could be a solution, but I cannot create an empty
+WGroupCW and later attach WClientWin in ioncore.defer instead of
+'clientwin_do_manage_alt' hook.
+
+On Sun, 2008-02-24 at 15:51 +0000, Tuomo Valkonen wrote:
+> On 2008-02-24, Alte <alex.barinov at gmail.com> wrote:
+> > fr:set_mode("tiled-alt")
+> > fr:attach_new({type = "WGroupCW", switchto = t.switchto, managed =
+> > {{reg = cwin, bottom = true}}})
+> >
+> > This gives no errors, but cwin gets attached to WFrame named
+> > "WFrameSS" (a top one), and not to a newly created "Gimp-right"
+> > WFrame.  Once again, I have no idea at all how this happens, the code
+> > worked just fine under previous versions of ion3.
+> 
+> It should work. Does set_mode operate on the correct frame?
+
+
+
+From tuomov at iki.fi  Sun Feb 24 18:22:51 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 24 Feb 2008 17:22:51 +0000 (UTC)
+Subject: attach_new problems
+References: <940ef3c00802222331oeac0661t1262ee52ed0d45e0@mail.gmail.com>
+	<slrnfrvjhn.ccp.tuomov@jolt.modeemi.cs.tut.fi>
+	<940ef3c00802232210h72d1b6e8o285c01474ba6dc17@mail.gmail.com>
+	<slrnfs34jq.4k3.tuomov@jolt.modeemi.cs.tut.fi>
+	<1203873202.3431.12.camel@twin>
+Message-ID: <slrnfs39vb.dne.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-24, Alexander Barinov <alex.barinov at gmail.com> wrote:
+> First, this code operates inside 'clientwin_do_manage_alt' hook.  Inside
+> another 'clientwin_do_manage_alt' hook doing absolutely different thing
+> I have the same problem - the window is not added to a newly created
+> WGroupCW.
+
+You do return 'true' from your hook handler?
+
+-- 
+Tuomo
+
+
+
+From alex.barinov at gmail.com  Sun Feb 24 18:28:24 2008
+From: alex.barinov at gmail.com (Alexander Barinov)
+Date: Sun, 24 Feb 2008 20:28:24 +0300
+Subject: attach_new problems
+In-Reply-To: <slrnfs39vb.dne.tuomov@jolt.modeemi.cs.tut.fi>
+References: <940ef3c00802222331oeac0661t1262ee52ed0d45e0@mail.gmail.com>
+	<slrnfrvjhn.ccp.tuomov@jolt.modeemi.cs.tut.fi>
+	<940ef3c00802232210h72d1b6e8o285c01474ba6dc17@mail.gmail.com>
+	<slrnfs34jq.4k3.tuomov@jolt.modeemi.cs.tut.fi>
+	<1203873202.3431.12.camel@twin>
+	<slrnfs39vb.dne.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <1203874104.3431.15.camel@twin>
+
+Sure.  Otherwise the hook would fall miserably.
+
+On Sun, 2008-02-24 at 17:22 +0000, Tuomo Valkonen wrote:
+> On 2008-02-24, Alexander Barinov <alex.barinov at gmail.com> wrote:
+> > First, this code operates inside 'clientwin_do_manage_alt' hook.  Inside
+> > another 'clientwin_do_manage_alt' hook doing absolutely different thing
+> > I have the same problem - the window is not added to a newly created
+> > WGroupCW.
+> 
+> You do return 'true' from your hook handler?
+> 
+
+
+
+From tuomov at iki.fi  Sun Feb 24 19:09:26 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 24 Feb 2008 18:09:26 +0000 (UTC)
+Subject: attach_new problems
+References: <940ef3c00802222331oeac0661t1262ee52ed0d45e0@mail.gmail.com>
+	<slrnfrvjhn.ccp.tuomov@jolt.modeemi.cs.tut.fi>
+	<940ef3c00802232210h72d1b6e8o285c01474ba6dc17@mail.gmail.com>
+	<slrnfs34jq.4k3.tuomov@jolt.modeemi.cs.tut.fi>
+	<1203873202.3431.12.camel@twin>
+	<slrnfs39vb.dne.tuomov@jolt.modeemi.cs.tut.fi>
+	<1203874104.3431.15.camel@twin>
+Message-ID: <slrnfs3cmm.hkf.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-24, Alexander Barinov <alex.barinov at gmail.com> wrote:
+> Sure.  Otherwise the hook would fall miserably.
+
+Have you checked that your hook handler finishes without failing?
+Have you checked (by adding debugging code to your script), where
+the window is attached after return from the attach call (and not
+just after all the management code)?
+
+Does the panel.lua script from the repository work for you?
+
+-- 
+Tuomo
+
+
+
+From alex.barinov at gmail.com  Sun Feb 24 20:05:27 2008
+From: alex.barinov at gmail.com (Alexander Barinov)
+Date: Sun, 24 Feb 2008 22:05:27 +0300
+Subject: attach_new problems
+In-Reply-To: <slrnfs3cmm.hkf.tuomov@jolt.modeemi.cs.tut.fi>
+References: <940ef3c00802222331oeac0661t1262ee52ed0d45e0@mail.gmail.com>
+	<slrnfrvjhn.ccp.tuomov@jolt.modeemi.cs.tut.fi>
+	<940ef3c00802232210h72d1b6e8o285c01474ba6dc17@mail.gmail.com>
+	<slrnfs34jq.4k3.tuomov@jolt.modeemi.cs.tut.fi>
+	<1203873202.3431.12.camel@twin>
+	<slrnfs39vb.dne.tuomov@jolt.modeemi.cs.tut.fi>
+	<1203874104.3431.15.camel@twin>
+	<slrnfs3cmm.hkf.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <1203879927.6319.8.camel@twin>
+
+The hook finishes ok.  Checking cwin after the return from attach_new()
+gives a very clear picture: cwin does not get reparented, cwin:manager()
+returns nil.
+
+Panel.lua does not make much sense in my case - I run almost all the
+windows fullscreen, no panels or anything.
+
+On Sun, 2008-02-24 at 18:09 +0000, Tuomo Valkonen wrote:
+> On 2008-02-24, Alexander Barinov <alex.barinov at gmail.com> wrote:
+> > Sure.  Otherwise the hook would fall miserably.
+> 
+> Have you checked that your hook handler finishes without failing?
+> Have you checked (by adding debugging code to your script), where
+> the window is attached after return from the attach call (and not
+> just after all the management code)?
+> 
+> Does the panel.lua script from the repository work for you?
+
+
+
+From tuomov at iki.fi  Sun Feb 24 20:17:17 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 24 Feb 2008 19:17:17 +0000 (UTC)
+Subject: attach_new problems
+References: <940ef3c00802222331oeac0661t1262ee52ed0d45e0@mail.gmail.com>
+	<slrnfrvjhn.ccp.tuomov@jolt.modeemi.cs.tut.fi>
+	<940ef3c00802232210h72d1b6e8o285c01474ba6dc17@mail.gmail.com>
+	<slrnfs34jq.4k3.tuomov@jolt.modeemi.cs.tut.fi>
+	<1203873202.3431.12.camel@twin>
+	<slrnfs39vb.dne.tuomov@jolt.modeemi.cs.tut.fi>
+	<1203874104.3431.15.camel@twin>
+	<slrnfs3cmm.hkf.tuomov@jolt.modeemi.cs.tut.fi>
+	<1203879927.6319.8.camel@twin>
+Message-ID: <slrnfs3glt.nni.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-24, Alexander Barinov <alex.barinov at gmail.com> wrote:
+> The hook finishes ok.  Checking cwin after the return from attach_new()
+> gives a very clear picture: cwin does not get reparented, cwin:manager()
+> returns nil.
+
+Do you get anything in stderr? What does the attach call itself return?
+Is the group created? Are you sure cwin points to the correct object?
+
+-- 
+Tuomo
+
+
+
+From alex.barinov at gmail.com  Sun Feb 24 20:46:01 2008
+From: alex.barinov at gmail.com (Alexander Barinov)
+Date: Sun, 24 Feb 2008 22:46:01 +0300
+Subject: attach_new problems
+In-Reply-To: <slrnfs3glt.nni.tuomov@jolt.modeemi.cs.tut.fi>
+References: <940ef3c00802222331oeac0661t1262ee52ed0d45e0@mail.gmail.com>
+	<slrnfrvjhn.ccp.tuomov@jolt.modeemi.cs.tut.fi>
+	<940ef3c00802232210h72d1b6e8o285c01474ba6dc17@mail.gmail.com>
+	<slrnfs34jq.4k3.tuomov@jolt.modeemi.cs.tut.fi>
+	<1203873202.3431.12.camel@twin>
+	<slrnfs39vb.dne.tuomov@jolt.modeemi.cs.tut.fi>
+	<1203874104.3431.15.camel@twin>
+	<slrnfs3cmm.hkf.tuomov@jolt.modeemi.cs.tut.fi>
+	<1203879927.6319.8.camel@twin>
+	<slrnfs3glt.nni.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <1203882362.7141.8.camel@twin>
+
+On Sun, 2008-02-24 at 19:17 +0000, Tuomo Valkonen wrote:
+> Do you get anything in stderr?
+No
+
+> What does the attach call itself return?
+nil.  My understanding is it should return WRegion.  Thus, I quote the
+call again:
+
+local t = ft:attach_new({type = "WGroupCW", switchto = t.switchto,
+managed = {{reg = cwin, bottom = true}}})
+
+t in nil after that.  ft is non-nil.
+
+> Is the group created?
+Yes.  It appears alongside the mapped window.  As I said, ft is pointing
+at correct WFrame.
+
+> Are you sure cwin points to the correct object?
+Judging by cwin:name(), it does.
+
+
+
+From adam.ian.duck at gmail.com  Wed Feb 27 10:14:14 2008
+From: adam.ian.duck at gmail.com (Adam Duck)
+Date: Wed, 27 Feb 2008 10:14:14 +0100
+Subject: frame without borders
+In-Reply-To: <87oda3aggj.fsf@informatik.uni-frankfurt.de> (Adam Duck's message
+	of "Tue, 26 Feb 2008 16:24:28 +0100")
+References: <87oda3aggj.fsf@informatik.uni-frankfurt.de>
+Message-ID: <87oda2oj6h.fsf@gmail.com>
+
+Hello list,
+
+I've got a small question: how do I remove all window decorations around
+a specific client window?  I'd like to have my Audacious without any
+decorations...
+
+cu, Adam.
+
+
+From tuomov at iki.fi  Wed Feb 27 18:19:13 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 27 Feb 2008 17:19:13 +0000 (UTC)
+Subject: frame without borders
+References: <87oda3aggj.fsf@informatik.uni-frankfurt.de>
+	<87oda2oj6h.fsf@gmail.com>
+Message-ID: <slrnfsb6sh.6pv.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-27, Adam Duck <adam.ian.duck at gmail.com> wrote:
+> I've got a small question: how do I remove all window decorations around
+> a specific client window?  I'd like to have my Audacious without any
+> decorations...
+
+Basically, you can't. It's very intentional.
+
+In case of tiled frames, you can in principle define the tiled-alt
+style to have no decorations. (By default it has no tab-bar.) But
+the borders between frames are typically formed from the decorations
+of frames on both sides of the border.
+
+-- 
+Tuomo
+
+
+
+From tzz at lifelogs.com  Wed Feb 27 19:37:40 2008
+From: tzz at lifelogs.com (Ted Zlatanov)
+Date: Wed, 27 Feb 2008 12:37:40 -0600
+Subject: 2.7 (=~e)
+In-Reply-To: <slrnfqo05p.ofd.tuomov@jolt.modeemi.cs.tut.fi> (Tuomo Valkonen's
+	message of "Fri, 8 Feb 2008 07:11:53 +0000 (UTC)")
+References: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080207211506.GE6692@localhost>
+	<slrnfqo05p.ofd.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <86pruis0sr.fsf@lifelogs.com>
+
+On Fri, 8 Feb 2008 07:11:53 +0000 (UTC) Tuomo Valkonen <tuomov at iki.fi> wrote: 
+
+TV> C.. and then some.
+
+TV> There's just no way around it: for any serious work you want C.
+
+Everyone knows the next great OS will be written in Javascript :)
+
+Ted
+
+
+From sylvain.abelard at gmail.com  Wed Feb 27 19:42:08 2008
+From: sylvain.abelard at gmail.com (=?ISO-8859-1?Q?Sylvain_Ab=E9lard?=)
+Date: Wed, 27 Feb 2008 19:42:08 +0100
+Subject: 2.7 (=~e)
+In-Reply-To: <86pruis0sr.fsf@lifelogs.com>
+References: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080207211506.GE6692@localhost>
+	<slrnfqo05p.ofd.tuomov@jolt.modeemi.cs.tut.fi>
+	<86pruis0sr.fsf@lifelogs.com>
+Message-ID: <9c6605e40802271042v7542c925v578a8ffb608e5c38@mail.gmail.com>
+
+>  Everyone knows the next great OS will be written in Javascript :)
+
+The One True OS is just a new name for The One True Editor.
+And as everyone knows, it's in Lisp ^^
+
+Happy trolling :D
+
+-- 
+Sylvain Ab?lard
+"J'ai d?cid? d'?tre heureux, c'est meilleur pour la sant?." -Voltaire
+
+
+From tuomov at iki.fi  Wed Feb 27 19:52:46 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 27 Feb 2008 18:52:46 +0000 (UTC)
+Subject: 2.7 (=~e)
+References: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080207211506.GE6692@localhost>
+	<slrnfqo05p.ofd.tuomov@jolt.modeemi.cs.tut.fi>
+	<86pruis0sr.fsf@lifelogs.com>
+Message-ID: <slrnfsbcbu.ffi.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-27, Ted Zlatanov <tzz at lifelogs.com> wrote:
+> Everyone knows the next great OS will be written in Javascript :)
+
+I'm not sure how "great" it will be, but very likely it the next
+popular OS will be written in broken javascript on top of a stinking
+pile of C, C++, shell scripts, python, perl, mono, and other flaky
+hacks. Otherwise known as webshit-on-gnomefox-on-linux.
+
+-- 
+Tuomo
+
+
+
+From tzz at lifelogs.com  Wed Feb 27 19:26:55 2008
+From: tzz at lifelogs.com (Ted Zlatanov)
+Date: Wed, 27 Feb 2008 12:26:55 -0600
+Subject: Some help to create a screen ruler.
+In-Reply-To: <87prv8nh49.fsf@cadilhac.name> (=?iso-8859-1?Q?=22Micha=EBl?=
+	Cadilhac"'s message of "Fri, 08 Feb 2008 00:37:26 -0500")
+References: <873as4pg8c.fsf@cadilhac.name> <20080208001548.GB11492@aran>
+	<87prv8nh49.fsf@cadilhac.name>
+Message-ID: <86tzjus1ao.fsf@lifelogs.com>
+
+On Fri, 08 Feb 2008 00:37:26 -0500 michael at cadilhac.name (Micha?l Cadilhac) wrote: 
+
+MC> Etan S. C. Reisner writes:
+
+>> P.S. I'm curious why you need to measure the distance between two points
+>> on your screen with such regularity.
+
+MC> I use a lot of maps?:-) If they're on a website (for instance google
+MC> maps), I usually screenshot the page and open it in the Gimp.
+
+Install the Firefox Web Developer toolbar.  Miscellaneous->Show Ruler.
+You can also find the size of a particular image or any other screen
+element with Information -> Display Element Information (Ctrl-Shift-F).
+
+The Firefox Firebug extension also has measurements, easily accessible
+in the context menu Inspect Element -> Layout tab on the right.  It does
+many things the Web Developer toolbar doesn't, so I always install both.
+
+Ted
+
+
+From tuomov at iki.fi  Wed Feb 27 20:00:15 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 27 Feb 2008 19:00:15 +0000 (UTC)
+Subject: 2.7 (=~e)
+References: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080207211506.GE6692@localhost>
+	<slrnfqo05p.ofd.tuomov@jolt.modeemi.cs.tut.fi>
+	<86pruis0sr.fsf@lifelogs.com>
+	<9c6605e40802271042v7542c925v578a8ffb608e5c38@mail.gmail.com>
+Message-ID: <slrnfsbcpv.ffi.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-27, Sylvain Ab?lard <sylvain.abelard at gmail.com> wrote:
+> Happy trolling :D
+
+Could be more fun than sitting in front of the computer and typing
+crap, but the lakes are frozen.. finally.. and yet not well enough
+to be safe for jigging. This "winter" sucks.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Wed Feb 27 20:05:31 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 27 Feb 2008 19:05:31 +0000 (UTC)
+Subject: 2.7 (=~e)
+References: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+	<20080207211506.GE6692@localhost>
+	<slrnfqo05p.ofd.tuomov@jolt.modeemi.cs.tut.fi>
+	<86pruis0sr.fsf@lifelogs.com>
+	<9c6605e40802271042v7542c925v578a8ffb608e5c38@mail.gmail.com>
+	<slrnfsbcpv.ffi.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnfsbd3r.gl5.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-27, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> Could be more fun than sitting in front of the computer and typing
+> crap, but the lakes are frozen.. finally.. and yet not well enough
+> to be safe for jigging. This "winter" sucks.
+
+(Actually my dictionary is probably wrong -- they often are -- 
+claiming "jigging" is  "pilkkiminen", and it's really just 
+"ice fishing".)
+
+-- 
+Tuomo
+
+
+
+From alexander.shishckin at gmail.com  Wed Feb 27 22:10:31 2008
+From: alexander.shishckin at gmail.com (Alexander Shishkin)
+Date: Thu, 28 Feb 2008 00:10:31 +0300
+Subject: 2.7 (=~e)
+In-Reply-To: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <71a0d6ff0802271310q6358e5c9j3e8a58b247000b80@mail.gmail.com>
+
+On Thu, Feb 7, 2008 at 9:40 AM, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> 2002-02-07 - Last release of Ion1 (it never had ds/rc/stable)
+>  2004-02-07 - First "stable" release of Ion2
+>  2008-02-07 - First "stable" release of Ion3
+>  2016-02-07 - ?
+I can't fully blame myself for missing this post in the first place
+(being in a hospital and not owning a bluetooth-enabled cellphone),
+but it's congratulations nevertheless!
+Despite of the disagreements I might have posted against you, I still
+think I owe you some beer (not having a chance to meet in person back
+a while ago when I used to live in Finland). :)
+
+>  (Well, I doubt there's a semi-usable non-fascist platform left
+>  by then. So much does the present state of FOSS and the course
+>  it is taking suck. Although, with enough manpower, it might be
+>  possible to write a full OS in eight years. So who's signing up?-)
+I'm kinda on it for a while now, although not nearly as ready for
+anything yet. Still, this post gives me sort of an ass kick, therefore
+I'd like to continue this conversation more subject-wise, like
+collecting ideas and opinions and with a higher seriousness than that
+of "hey, I'm writing a new operating system, it'll be mostly like
+linux, except for I'm the author" approach that I can possibly call
+for. Thanks for bringing this up.
+
+-- 
+wit beyond measure is man's greatest treasure
+
+
+From tuomov at iki.fi  Thu Feb 28 09:46:29 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 28 Feb 2008 08:46:29 +0000 (UTC)
+Subject: 2.7 (=~e)
+References: <slrnfql9u7.fmm.tuomov@jolt.modeemi.cs.tut.fi>
+	<71a0d6ff0802271310q6358e5c9j3e8a58b247000b80@mail.gmail.com>
+Message-ID: <slrnfsct75.s8g.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-27, Alexander Shishkin <alexander.shishckin at gmail.com> wrote:
+> I'd like to continue this conversation more subject-wise, like
+> collecting ideas and opinions and with a higher seriousness than that
+> of "hey, I'm writing a new operating system, it'll be mostly like
+> linux, except for I'm the author" approach that I can possibly call
+> for. Thanks for bringing this up.
+
+Yeah, I think it is lame to (seriously) work on clone software with 
+just minor tweaking (Yet Another Distro/WM/whatever). Instead one 
+should take an entirely new approach, or at least turn a research
+project into more practical software. In large scale systems, such
+as an entire OS, that does seem to require too long an attention 
+span for the modern culture, however. Not that it wouldn't be possible
+to get to the desired end result with incremental improvement, but
+first one has to be able to define that, to not end up with a 
+complete clusterfuck.
+
+Anyway, I'm all for a simple low-level core system (such as an 
+exokernel) with capability-based security and various high-level
+abstractions on top of it (typed pipes/shells, a decent config 
+system abstract to applications, decent decentralised package 
+management, vis, etc., just to throw some ideas around).
+
+-- 
+Tuomo
+
+
+
+From sunwayforever at gmail.com  Thu Feb 28 18:50:51 2008
+From: sunwayforever at gmail.com (sunway)
+Date: Fri, 29 Feb 2008 01:50:51 +0800
+Subject: how to disable systray?
+Message-ID: <20080228175051.GA3254@sunway>
+
+i have set  systray=false in cfg_statusbar.lua, but although the tray icon isn't
+display on the status bar, a single window is displayed for the tray icon, how
+to totally disable it?
+
+
+-- 
+sunway
+
+
+From tuomov at iki.fi  Thu Feb 28 19:00:42 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 28 Feb 2008 18:00:42 +0000 (UTC)
+Subject: how to disable systray?
+References: <20080228175051.GA3254@sunway>
+Message-ID: <slrnfsdtma.oei.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-28, sunway <sunwayforever at gmail.com> wrote:
+> i have set  systray=false in cfg_statusbar.lua, but although the tray icon isn't
+> display on the status bar, a single window is displayed for the tray icon, how
+> to totally disable it?
+
+You can't disable it, because the app asks it to be mapped. 
+You can, however, e.g. load the dock module, have the dock
+manage the window, and keep the dock hidden.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Fri Feb 29 08:44:39 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 29 Feb 2008 07:44:39 +0000 (UTC)
+Subject: frame without borders
+References: <87oda3aggj.fsf@informatik.uni-frankfurt.de>
+	<87oda2oj6h.fsf@gmail.com>
+	<slrnfsb6sh.6pv.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnfsfdv7.75c.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-02-27, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2008-02-27, Adam Duck <adam.ian.duck at gmail.com> wrote:
+>> I've got a small question: how do I remove all window decorations around
+>> a specific client window?  I'd like to havea my Audacious without any
+>> decorations...
+>
+> Basically, you can't. It's very intentional.
+>
+> In case of tiled frames, you can in principle define the tiled-alt
+
+Actually, now that I recall it, I _did_ add floating-alt (transient-alt,
+etc.) modes as well. And by default he floating-alt style also has no
+tab-bar.
+
+-- 
+Tuomo
+
+
+
+From tmudku at gmail.com  Fri Feb 29 21:53:20 2008
+From: tmudku at gmail.com (tmudku at gmail.com)
+Date: Fri, 29 Feb 2008 22:53:20 +0200
+Subject: thinkpad x31 keys
+Message-ID: <000901c87b15$212df9d0$4001a8c0@bigfish>
+
+Hello, I have an ibm thinkpad x31. it has two ?special? keys near the cursor
+keys. They are used as ?next? and ?previous? on firefox. Can I use these
+?special? buttons instead of the alt-k-n and alt-k-p?thanks
+
+
+No virus found in this outgoing message.
+Checked by AVG Free Edition. 
+Version: 7.5.516 / Virus Database: 269.21.2/1304 - Release Date: 2/29/2008
+8:18 AM
+ 
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080229/22ed7eaa/attachment.html>
+

@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Rezise window to fixed size.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2010-December/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Rezise%20window%20to%20fixed%20size.&In-Reply-To=%3C946241.91105.qm%40web130101.mail.mud.yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001947.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Rezise window to fixed size.</H1>
+    <B>&#163;ukasz</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Rezise%20window%20to%20fixed%20size.&In-Reply-To=%3C946241.91105.qm%40web130101.mail.mud.yahoo.com%3E"
+       TITLE="Rezise window to fixed size.">blurrpp at yahoo.com
+       </A><BR>
+    <I>Fri Dec 31 16:09:22 CET 2010</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001947.html">Saving/restore session
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1948">[ date ]</a>
+              <a href="thread.html#1948">[ thread ]</a>
+              <a href="subject.html#1948">[ subject ]</a>
+              <a href="author.html#1948">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+--- On Thu, 12/30/10, ebik &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">ebik at drak.ucw.cz</A>&gt; wrote:
+
+&gt;<i> From: ebik &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">ebik at drak.ucw.cz</A>&gt;
+</I>&gt;<i> Subject: Re: Saving/restore session
+</I>&gt;<i> To: <A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">ion-general at lists.berlios.de</A>
+</I>&gt;<i> Date: Thursday, December 30, 2010, 8:20 PM
+</I>&gt;<i> On Thu, 30 Dec 2010 07:55:43 -0800
+</I>&gt;<i> (PST)
+</I>&gt;<i> &#163;ukasz &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">blurrpp at yahoo.com</A>&gt;
+</I>&gt;<i> wrote:
+</I>&gt;<i> 
+</I>&gt;<i> &gt; But i have another question. I'm using ion2/pwm2 and i
+</I>&gt;<i> want to resize
+</I>&gt;<i> &gt; actual window to some fixed sizes (maximize_vert and
+</I>&gt;<i> &gt; maximize_horiz_works only as they explicit say
+</I>&gt;<i> MAXIMALY ) i used
+</I>&gt;<i> &gt; request_geom(WRegion,size_table) but i have probelm
+</I>&gt;<i> with gettin
+</I>&gt;<i> &gt; current WRegion ( i read cerfully all manual and
+</I>&gt;<i> couldnt find
+</I>&gt;<i> &gt; function like WRegion WRegion.current() which would
+</I>&gt;<i> gave me handle to
+</I>&gt;<i> &gt; current region),s ohow to get it and maybe there is
+</I>&gt;<i> another way to
+</I>&gt;<i> &gt; fixed resize .
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; Regards Lukas
+</I>&gt;<i> 
+</I>&gt;<i> You should use correct binding (i.e., binding for WFrame or
+</I>&gt;<i> something
+</I>&gt;<i> like that, I have no ion manual here), then the variable
+</I>&gt;<i> '_'
+</I>&gt;<i> should contain the object, which was the binding triggered
+</I>&gt;<i> for. See
+</I>&gt;<i> the part of manual that describes bindings.
+</I>
+Thanx, u are talking about ion3 not ion2 but any wy i just moved to ion3 and i have the same problem. Trying to set key to rezise windowes to fixed size, so ok i use WMoveresMode functions 
+
+defbindings(&quot;WMoveresMode&quot;, {
+   ...
+   ...
+   ...
+   kpress(META..&quot;R&quot;,     &quot;WMoveresMode.rqgeom(_,{10,10,100,100})&quot;),
+})
+
+Let say that META+&quot;R&quot; switches to 'resize' mode. So now pressing META+&quot;R&quot; than &quot;R&quot; shold rezise window ... buy nothing happen, other functions like WMoveresMode.resize(_,...)  works ok. So where is mistake in this example.
+
+Lukasz
+
+
+      
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001947.html">Saving/restore session
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1948">[ date ]</a>
+              <a href="thread.html#1948">[ thread ]</a>
+              <a href="subject.html#1948">[ subject ]</a>
+              <a href="author.html#1948">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

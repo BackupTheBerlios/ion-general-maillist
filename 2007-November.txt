@@ -1,0 +1,2126 @@
+From neobiusnet at gmail.com  Sat Nov  3 16:40:53 2007
+From: neobiusnet at gmail.com (Neobius)
+Date: Sat, 3 Nov 2007 16:40:53 +0100
+Subject: transparent_background doesn't work
+Message-ID: <8b028fb10711030840i10dc81d5m817f3d1e6befb381@mail.gmail.com>
+
+Hello, I've recently installed ion3 in ubuntu feisty and I'm also using a
+look file downloaded from the ion3's web,
+look_alex.lua<http://modeemi.fi/%7Etuomov/repos/ion-scripts-3/styles/look_alex.lua>.
+I want to have transparent backgrounds, I edit the look_alex.lua file and
+delete de "--" that appear at start of the line 24: "--
+transparent_background = true", then I configured gnome-terminal for have
+transparent background and works perfectly in gnome, back in ion3 not, it
+appear a black background no my wallpaper.
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20071103/1567185c/attachment.html>
+
+From neobiusnet at gmail.com  Sat Nov  3 16:45:17 2007
+From: neobiusnet at gmail.com (Neobius)
+Date: Sat, 3 Nov 2007 16:45:17 +0100
+Subject: transparent_background doesn't work
+In-Reply-To: <8b028fb10711030840i10dc81d5m817f3d1e6befb381@mail.gmail.com>
+References: <8b028fb10711030840i10dc81d5m817f3d1e6befb381@mail.gmail.com>
+Message-ID: <8b028fb10711030845w30e05738r9b9aa0a73dd731b6@mail.gmail.com>
+
+Excuse me, I press send before finish my message. I also test with other
+terminal, xfce4-terminal, thinking that could be a problem of my terminal
+not of ion3, but not work. If I haven't any window I can see my wallpaper,
+but with the terminal configured for be transparent y can't see it. What is
+the problem?
+
+PS: Sorry for my english I'm spanish.
+
+2007/11/3, Neobius <neobiusnet at gmail.com>:
+>
+> Hello, I've recently installed ion3 in ubuntu feisty and I'm also using a
+> look file downloaded from the ion3's web, look_alex.lua<http://modeemi.fi/%7Etuomov/repos/ion-scripts-3/styles/look_alex.lua>. I want to have transparent backgrounds, I edit the look_alex.lua file and
+> delete de "--" that appear at start of the line 24: "--
+> transparent_background = true", then I configured gnome-terminal for have
+> transparent background and works perfectly in gnome, back in ion3 not, it
+> appear a black background no my wallpaper.
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20071103/66c546e3/attachment.html>
+
+From udvzsolt at gmail.com  Sat Nov  3 17:34:02 2007
+From: udvzsolt at gmail.com (Zsolt Udvari)
+Date: Sat, 3 Nov 2007 17:34:02 +0100
+Subject: transparent_background doesn't work
+In-Reply-To: <8b028fb10711030840i10dc81d5m817f3d1e6befb381@mail.gmail.com>
+References: <8b028fb10711030840i10dc81d5m817f3d1e6befb381@mail.gmail.com>
+Message-ID: <760ece280711030934j33cbce82k8f4f907beaa949d2@mail.gmail.com>
+
+Try mrxvt!
+http://materm.sourceforge.net/wiki/
+
+
+From tuomov at iki.fi  Sat Nov  3 17:58:32 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 3 Nov 2007 16:58:32 +0000 (UTC)
+Subject: transparent_background doesn't work
+References: <8b028fb10711030840i10dc81d5m817f3d1e6befb381@mail.gmail.com>
+Message-ID: <slrnfipa5o.c0k.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-11-03, Neobius <neobiusnet at gmail.com> wrote:
+> I want to have transparent backgrounds, 
+
+RTFM. And besides, transparency is a stupid distraction, and 
+the pseudo-transparency that you're probably referring to, an
+ugly kludge that doesn't quite work. If you're part of the "oooh! 
+shiny!" herd that absolutely wants such anti-readability effects,
+I recommend Eterm, or something else that lets you have a terminal
+background image (possibly using the root window background image
+set with Esetroot), instead of touching crap that uses the
+pseudo-transparency kludge with a kilometre long stick.
+
+-- 
+Tuomo
+
+
+
+From shardz4217 at gmail.com  Sat Nov  3 18:07:04 2007
+From: shardz4217 at gmail.com (Samuel Baldwin)
+Date: Sat, 3 Nov 2007 14:07:04 -0300
+Subject: transparent_background doesn't work
+In-Reply-To: <slrnfipa5o.c0k.tuomov@jolt.modeemi.cs.tut.fi>
+References: <8b028fb10711030840i10dc81d5m817f3d1e6befb381@mail.gmail.com>
+	<slrnfipa5o.c0k.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <975fd1710711031007j7b4118dfia8fda1c96bc839d5@mail.gmail.com>
+
+On 11/3/07, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> RTFM. And besides, transparency is a stupid distraction, and
+> the pseudo-transparency that you're probably referring to, an
+> ugly kludge that doesn't quite work. If you're part of the "oooh!
+> shiny!" herd that absolutely wants such anti-readability effects,
+> I recommend Eterm, or something else that lets you have a terminal
+> background image (possibly using the root window background image
+> set with Esetroot), instead of touching crap that uses the
+> pseudo-transparency kludge with a kilometre long stick.
+
+Indeed-- most backgrounds don't provide good readability unless you
+tint them. Backgrounds are mostly just eyecandy and a waste of time.
+
+However, whenever I feel an urge to have eyecandy (this generally
+wears off in a day), I run "urxvt -tr -fg gray +sb". That's the
+pseudo-transparency kludge though. Generally "xterm -fg gray -bg
+black" is as shiny as you should get.
+
+-- 
+Samuel 'Shardz' Baldwin
+
+Shardz's Igloo: shardz.homelinux.net
+
+Registered Linux User #410639
+
+
+From tuomov at iki.fi  Sat Nov  3 18:24:35 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 3 Nov 2007 17:24:35 +0000 (UTC)
+Subject: transparent_background doesn't work
+References: <8b028fb10711030840i10dc81d5m817f3d1e6befb381@mail.gmail.com>
+	<slrnfipa5o.c0k.tuomov@jolt.modeemi.cs.tut.fi>
+	<975fd1710711031007j7b4118dfia8fda1c96bc839d5@mail.gmail.com>
+Message-ID: <slrnfipbmj.lhm.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-11-03, Samuel Baldwin <shardz4217 at gmail.com> wrote:
+> Indeed-- most backgrounds don't provide good readability unless you
+> tint them. Backgrounds are mostly just eyecandy and a waste of time.
+
+I find that even tinting doesn't resurrect readability, not until
+you have tinted all contrast away -- or at least well below the
+colour resolution of a 16bpp (5-5-6 rgb) display. Anything that
+you can see without trying hard, is there to distract from the
+actual content.
+
+-- 
+Tuomo
+
+
+
+From neobiusnet at gmail.com  Sat Nov  3 19:20:37 2007
+From: neobiusnet at gmail.com (Neobius)
+Date: Sat, 3 Nov 2007 19:20:37 +0100
+Subject: transparent_background doesn't work
+In-Reply-To: <slrnfipbmj.lhm.tuomov@jolt.modeemi.cs.tut.fi>
+References: <8b028fb10711030840i10dc81d5m817f3d1e6befb381@mail.gmail.com>
+	<slrnfipa5o.c0k.tuomov@jolt.modeemi.cs.tut.fi>
+	<975fd1710711031007j7b4118dfia8fda1c96bc839d5@mail.gmail.com>
+	<slrnfipbmj.lhm.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <8b028fb10711031120y24bcfd01hdc47bcfc0b9e8be2@mail.gmail.com>
+
+Hi all,
+
+I have read the manual, I've searched in google, I've tried differents
+configuration, but I can't do that, then I've send this message to the list.
+Please tell me solutions, I have read the manual.
+
+About the discussion of is recommendable use transparent backgrounds...
+maybe someone will have another opinion, but I want that, I have configured
+other PC with ion3 months ago with the same configuration that I want now.
+That PC had ubuntu edgy and works fine, it was easy to read text. I want the
+same thing in the laptop that I'm using now, but I can't.
+
+Someone know what's is the problem?
+
+2007/11/3, Tuomo Valkonen <tuomov at iki.fi>:
+>
+> On 2007-11-03, Samuel Baldwin <shardz4217 at gmail.com> wrote:
+> > Indeed-- most backgrounds don't provide good readability unless you
+> > tint them. Backgrounds are mostly just eyecandy and a waste of time.
+>
+> I find that even tinting doesn't resurrect readability, not until
+> you have tinted all contrast away -- or at least well below the
+> colour resolution of a 16bpp (5-5-6 rgb) display. Anything that
+> you can see without trying hard, is there to distract from the
+> actual content.
+>
+> --
+> Tuomo
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20071103/03f3eefb/attachment.html>
+
+From tuomov at iki.fi  Sat Nov  3 20:53:36 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 3 Nov 2007 19:53:36 +0000 (UTC)
+Subject: transparent_background doesn't work
+References: <8b028fb10711030840i10dc81d5m817f3d1e6befb381@mail.gmail.com>
+	<slrnfipa5o.c0k.tuomov@jolt.modeemi.cs.tut.fi>
+	<975fd1710711031007j7b4118dfia8fda1c96bc839d5@mail.gmail.com>
+	<slrnfipbmj.lhm.tuomov@jolt.modeemi.cs.tut.fi>
+	<8b028fb10711031120y24bcfd01hdc47bcfc0b9e8be2@mail.gmail.com>
+Message-ID: <slrnfipke0.ed4.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-11-03, Neobius <neobiusnet at gmail.com> wrote:
+> I have read the manual, I've searched in google, I've tried differents
+> configuration, but I can't do that, then I've send this message to the list.
+> Please tell me solutions, I have read the manual.
+
+The drawing engine configuration property only applies to empty
+frames. Now RTFM again. Although, the typical crapware that uses
+the X pseudo-transparency kludge typically shouldn't need any
+configuration to get its pseudo-transparency, since it goes
+_fucking_ with the WM's windows without the WM knowing about
+this. The configuration in question is only needed to tell Ion
+about dickheadware.
+
+-- 
+Tuomo
+
+
+
+From alex.barinov at gmail.com  Mon Nov  5 09:41:01 2007
+From: alex.barinov at gmail.com (Alte)
+Date: Mon, 5 Nov 2007 11:41:01 +0300
+Subject: Hook to know about transient window size change?
+Message-ID: <940ef3c00711050041r7b7eb147lae235763182ba532@mail.gmail.com>
+
+Hi,
+
+Is there any way to get a hook that will be called on transient size
+change?  I am setting initial positions of the transients in
+clientwin_mapped_hook, but way too many of them immediately resize
+themselves after showing up.
+
+At the moment I use an ugly timer hack:
+
+function position_windows()
+    ioncore.clientwin_i(function(i)
+        if obj_typename(i:manager()) == "WFrame" then
+            ioncore.defer(function()
+                set_position(i)
+            end)
+        end
+        return true
+    end)
+    pos_timer:set(1000, position_windows)
+end
+
+Thanks,
+
+-- Sasha
+
+
+From prankish at gmail.com  Mon Nov  5 14:57:51 2007
+From: prankish at gmail.com (Dmitry)
+Date: Mon, 5 Nov 2007 19:57:51 +0600
+Subject: "?" instead of meters
+Message-ID: <e66209d30711050557g210b1f64of086461368c0d458@mail.gmail.com>
+
+Hello!
+After extreme rebooting with Reset button all statusbar meters are
+shown as "?" signs. ioncore.restart(), rebooting X or rebooting
+computer didn't work. What to do?
+
+
+From tuomov at iki.fi  Mon Nov  5 15:07:18 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 5 Nov 2007 14:07:18 +0000 (UTC)
+Subject: "?" instead of meters
+References: <e66209d30711050557g210b1f64of086461368c0d458@mail.gmail.com>
+Message-ID: <slrnfiu8sm.hqa.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-11-05, Dmitry <prankish at gmail.com> wrote:
+> After extreme rebooting with Reset button all statusbar meters are
+> shown as "?" signs. ioncore.restart(), rebooting X or rebooting
+> computer didn't work. What to do?
+
+RTFstderr. (console or .xsession-errors, if it took too long for the
+errors to appear to end up in the xmessage Ion should show on startup.)
+Sounds like some file system corruption, though. (Smart kids stay away 
+from XFS, no matter what the cool kids claim.)
+
+-- 
+Tuomo
+
+
+
+From prankish at gmail.com  Mon Nov  5 16:58:13 2007
+From: prankish at gmail.com (Dmitry)
+Date: Mon, 5 Nov 2007 21:58:13 +0600
+Subject: "?" instead of meters
+Message-ID: <e66209d30711050758l1da048aeibc7a7210d6e34b69@mail.gmail.com>
+
+Oh, sorry for the private message -- just an accident.
+
+---------------------------------
+On 11/5/07, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2007-11-05, Dmitry <prankish at gmail.com> wrote:
+> > After extreme rebooting with Reset button all statusbar meters are
+> > shown as "?" signs. ioncore.restart(), rebooting X or rebooting
+> > computer didn't work. What to do?
+>
+> RTFstderr. (console or .xsession-errors, if it took too long for the
+> errors to appear to end up in the xmessage Ion should show on startup.)
+> Sounds like some file system corruption, though. (Smart kids stay away
+> from XFS, no matter what the cool kids claim.)
+>
+> --
+> Tuomo
+>
+>
+
+Not all kids are born to be smart :)
+Here is my .xsession-errors:
+
+=====================
+(process:2921): Gtk-WARNING **: This process is currently running
+setuid or setgid.
+This is not a supported use of GTK+. You must create a helper
+program instead. For further details, see:
+
+   http://www.gtk.org/setuid.html
+
+Refusing to initialize GTK+.
+
+(process:2925): Gtk-WARNING **: This process is currently running
+setuid or setgid.
+This is not a supported use of GTK+. You must create a helper
+program instead. For further details, see:
+
+   http://www.gtk.org/setuid.html
+
+Refusing to initialize GTK+.
+/etc/gdm/Xsession: Beginning session setup...
+can't lock memory: Cannot allocate memoryWARNING: not using secure
+memory for passwords
+/usr/bin/ion3: ion-statusd timed out.
+/usr/bin/ion3: ion-statusd quit.
+=====================
+
+So, ion-statusd has not been loaded, but what does that "timed out"
+mean and what should I do with it?
+
+
+From tuomov at iki.fi  Mon Nov  5 16:53:58 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 5 Nov 2007 17:53:58 +0200
+Subject: "?" instead of meters
+In-Reply-To: <e66209d30711050724w537df7ceie087884fec9b6cac@mail.gmail.com>
+References: <e66209d30711050557g210b1f64of086461368c0d458@mail.gmail.com>
+	<slrnfiu8sm.hqa.tuomov@jolt.modeemi.cs.tut.fi>
+	<e66209d30711050724w537df7ceie087884fec9b6cac@mail.gmail.com>
+Message-ID: <20071105155358.GA23783@jolt.modeemi.cs.tut.fi>
+
+On 2007-11-05 21:24 +0600, Dmitry wrote:
+> /usr/bin/ion3: ion-statusd timed out.
+> /usr/bin/ion3: ion-statusd quit.
+> =====================
+> 
+> So, ion-statusd has not been loaded, but what does that "timed out"
+> mean and what should I do with it?
+
+Nothing else? Timeout means that mod_statusbar didn't get enough
+responses from ion-statusd within 3 seconds of its launch. That
+itself is not fatal; the timeout is there merely to calculate a
+useful initial statusbar size before workspaces are created etc.
+Ion can cope without that, but it can result in annoying extra
+resizes after the statusbar has finally managed to start up.
+It, however, seems that statusd just quit without doing anything,
+not even complaining. That should not happen.
+
+Try running ion-statusd outside Ion (it's in $PREFIX/lib/ion3/bin/
+normally), with and without parameters (such as -q -m scriptname).
+If that works, try figuring out the parameters Ion is running it
+with, and check your configuration, including any custom scripts 
+that might call os.exit() or something.
+
+-- 
+Tuomo
+
+
+From prankish at gmail.com  Tue Nov  6 01:23:52 2007
+From: prankish at gmail.com (Dmitry)
+Date: Tue, 6 Nov 2007 06:23:52 +0600
+Subject: "?" instead of meters
+Message-ID: <e66209d30711051623r675fc827j71943e8cc3e0f2a5@mail.gmail.com>
+
+> Nothing else? Timeout means that mod_statusbar didn't get enough
+> responses from ion-statusd within 3 seconds of its launch. That
+> itself is not fatal; the timeout is there merely to calculate a
+> useful initial statusbar size before workspaces are created etc.
+> Ion can cope without that, but it can result in annoying extra
+> resizes after the statusbar has finally managed to start up.
+> It, however, seems that statusd just quit without doing anything,
+> not even complaining. That should not happen.
+>
+> Try running ion-statusd outside Ion (it's in $PREFIX/lib/ion3/bin/
+> normally), with and without parameters (such as -q -m scriptname).
+> If that works, try figuring out the parameters Ion is running it
+> with, and check your configuration, including any custom scripts
+> that might call os.exit() or something.
+>
+> --
+> Tuomo
+>
+
+Hm... It seems statusd_amarok was guilty. Don't know how and why it
+used to  work before. But when I disabled this script all returned to
+normal behavior.
+
+
+From tuomov at iki.fi  Fri Nov  9 16:15:53 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 9 Nov 2007 15:15:53 +0000 (UTC)
+Subject: ion-3rc-20071109
+Message-ID: <slrnfj8ud9.fre.tuomov@jolt.modeemi.cs.tut.fi>
+
+It seems people are a bit slow, or only scaring them with a final
+release makes them report issues. So, still no stable release but
+a candidate, with many minor fixes and improvements wrt. important
+omissions. The most important changes are better behaviour of the
+unsplit operation, better handling of main window being closed
+before a transient, and use of the workspace's working directory
+for run query file name completion.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Fri Nov  9 16:27:07 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 9 Nov 2007 15:27:07 +0000 (UTC)
+Subject: Experimental ZeroInstall feed [Was: ion-3rc-20071109]
+References: <slrnfj8ud9.fre.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnfj8v2b.fre.tuomov@jolt.modeemi.cs.tut.fi>
+
+There's also now an experimental ZeroInstall [1] feed for Ion. To use 
+it, just put
+
+    0launch http://iki.fi/tuomov/dl/Ion3.xml
+
+directly in your `.xsession`, assuming you have all the libaries it wants,
+and compatible hardware and OS (built on Linux 2.6/i386). Alternatively,
+create an alias
+
+    0alias ion3 http://iki.fi/tuomov/dl/Ion3.xml
+
+and use that.
+
+Presently the library requirements appear to be:
+
+    $ ldd bin/ion3 |cut -f 1 -d ' '
+        linux-gate.so.1
+        librt.so.1
+        libX11.so.6
+        libXext.so.6
+        libdl.so.2
+        libm.so.6
+        libc.so.6
+        libpthread.so.0
+        /lib/ld-linux.so.2
+        libXau.so.6
+        libXdmcp.so.6
+
+and I don't think I can express these in ZeroInstall in any way, there
+being no packages for them to my knowledge. It's rather standard stuff,
+however, so most Linux folks shouldn't have a problem. I wanted to create
+a static binary, but apparently GNU libc is just utter and total crap 
+these days, and it can not be linked against statically, with libc.a
+(as installable on etch) depending on dynamically loaded modules. 
+Sigh. A megatonne monolith with pretensions of dynamics.
+
+The binary does not appear to entirely work in FreeBSD, statusd in
+particular having some timing troubles and even encountering illegal
+instructions or so. I thought of adding a native Frisbee binary, but
+as my previous experience from years ago suggests, source and 
+autocrap-based packaging systems and the all-in-one-basket unix
+file system hierarchy are hopeless crap, and I was unable to build
+ZeroInstall, so would be unable to fully test it. 
+
+...
+
+Some things are broken, such as display of Ion's own man page, and
+paths within it. There's no good way around that, because there's
+no easy and portable way to display a particular _file_ with `man`.
+
+
+  [1]: http://0install.net/
+
+-- 
+Tuomo
+
+
+
+From j.van_den_hoff at fzd.de  Mon Nov 12 12:06:52 2007
+From: j.van_den_hoff at fzd.de (Joerg van den Hoff)
+Date: Mon, 12 Nov 2007 12:06:52 +0100
+Subject: Experimental ZeroInstall feed [Was: ion-3rc-20071109]
+In-Reply-To: <slrnfj8v2b.fre.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnfj8ud9.fre.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrnfj8v2b.fre.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20071112110652.GA13380@marco.fz-rossendorf.de>
+
+On Fri, Nov 09, 2007 at 03:27:07PM +0000, Tuomo Valkonen wrote:
+> There's also now an experimental ZeroInstall [1] feed for Ion. To use 
+> it, just put
+> 
+>     0launch http://iki.fi/tuomov/dl/Ion3.xml
+> 
+> directly in your `.xsession`, assuming you have all the libaries it wants,
+> and compatible hardware and OS (built on Linux 2.6/i386). Alternatively,
+> create an alias
+> 
+>     0alias ion3 http://iki.fi/tuomov/dl/Ion3.xml
+> 
+> and use that.
+> 
+> Presently the library requirements appear to be:
+> 
+>     $ ldd bin/ion3 |cut -f 1 -d ' '
+>         linux-gate.so.1
+>         librt.so.1
+>         libX11.so.6
+>         libXext.so.6
+>         libdl.so.2
+>         libm.so.6
+>         libc.so.6
+>         libpthread.so.0
+>         /lib/ld-linux.so.2
+>         libXau.so.6
+>         libXdmcp.so.6
+> 
+> and I don't think I can express these in ZeroInstall in any way, there
+> being no packages for them to my knowledge. It's rather standard stuff,
+> however, so most Linux folks shouldn't have a problem. I wanted to create
+> a static binary, but apparently GNU libc is just utter and total crap 
+> these days, and it can not be linked against statically, with libc.a
+> (as installable on etch) depending on dynamically loaded modules. 
+> Sigh. A megatonne monolith with pretensions of dynamics.
+> 
+> The binary does not appear to entirely work in FreeBSD, statusd in
+> particular having some timing troubles and even encountering illegal
+> instructions or so. I thought of adding a native Frisbee binary, but
+> as my previous experience from years ago suggests, source and 
+> autocrap-based packaging systems and the all-in-one-basket unix
+> file system hierarchy are hopeless crap, and I was unable to build
+> ZeroInstall, so would be unable to fully test it. 
+> 
+> ...
+> 
+> Some things are broken, such as display of Ion's own man page, and
+> paths within it. There's no good way around that, because there's
+> no easy and portable way to display a particular _file_ with `man`.
+
+
+don't  know  if it helps, but `man -d ion3' shows the actual
+command which is executed when you call `man ion3':
+
+ (cd /opt/local/share/man && /usr/bin/gunzip -c '/opt/local/share/man/man1/ion3.1.gz' | /usr/bin/tbl | /usr/bin/groff -Wall -mtty-char -Tascii -mandoc -c | less -fR)
+
+is'nt this sufficient for your  purpose? 
+
+joerg
+
+> 
+> 
+>   [1]: http://0install.net/
+> 
+> -- 
+> Tuomo
+> 
+
+
+From tuomov at iki.fi  Mon Nov 12 12:47:45 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 12 Nov 2007 11:47:45 +0000 (UTC)
+Subject: Experimental ZeroInstall feed [Was: ion-3rc-20071109]
+References: <slrnfj8ud9.fre.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrnfj8v2b.fre.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071112110652.GA13380@marco.fz-rossendorf.de>
+Message-ID: <slrnfjgfb1.8du.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-11-12, Joerg van den Hoff <j.van_den_hoff at fzd.de> wrote:
+> don't  know  if it helps, but `man -d ion3' shows the actual
+> command which is executed when you call `man ion3':
+>
+>  (cd /opt/local/share/man && /usr/bin/gunzip -c
+>  '/opt/local/share/man/man1/ion3.1.gz' | /usr/bin/tbl | /usr/bin/groff
+>  -Wall -mtty-char -Tascii -mandoc -c | less -fR)
+>
+> is'nt this sufficient for your  purpose? 
+
+Seems rather complicated to make any use of that, as the command line
+could be anything, Ion's man pages arent't gzipped by default, and so on.
+On the FC4 system at work I get for `man ls`
+
+  (cd /usr/share/man && (echo ".ll 8.1i"; echo ".nr LL 8.1i"; echo ".pl
+  1100i"; /usr/bin/gunzip -c '/usr/share/man/man1/ls.1.gz'; echo ".\\\"";
+  echo ".pl \n(nlu+10") | /usr/bin/gtbl | /usr/bin/nroff -c --legacy
+  ISO-8859-1 -mandoc 2>/dev/null | /usr/bin/less -is)
+
+which is quite a bit more complicated.
+
+And anyway, in the end it's not really what I'm after: `man ion3` should
+work directly, at least in the environment that Ion is running in. Ben 
+Hutchings already suggested that -M has been around quite long (although
+it probably also isn't standard). However, the problem is that it overrides
+all of manpath, and there's no portable way to get the standard manual path
+to append to. Of course, the ZeroInstall build is unfortunately just for 
+Linux ATM, where the `mathpath` command is quite standard (and in fact the
+man page completion feature uses it, if available and MANPATH isn't set).
+But I'd still like to have a cleaner solution..
+
+It's unfortunate that ZeroInstall doesn't AFAIK let you set/append 
+environment variables based on the location of the package in question, 
+only dependencies. This way it could just handle all those crummy details,
+and use a sane default setting. Likewise, programs wouldn't have to use $0
+to figure out their location, but could take it from the environment.
+Of course, setting a complete MANPATH sucks when there's `manpath`, and
+`man` should really support extra paths or databases instead of total
+overrides... An extra 0man wrapper (aliased to man in the shell) could
+of course do stuff like that. But it's again not something that Ion
+should provide.
+
+-- 
+Tuomo
+
+
+
+From lanek at novenine.com  Tue Nov 13 14:00:38 2007
+From: lanek at novenine.com (Roy Lanek)
+Date: Tue, 13 Nov 2007 20:00:38 +0700
+Subject: off-topic
+Message-ID: <20071113130038.GA10503@sirih>
+
+
+     HELSINKI, Nov. 7 (Xinhua) -- [A] student who killed eight
+     people on Wednesday in a school shooting in southern Finland
+     and turned the gun on himself died at the hospital on the
+     evening of the same day, the Finnish media reported. [...]
+
+     [A]ccording to a recent study, Finland has one of the
+     world's highest gun ownership rates, ranking third behind
+     the United States and Yemen. Most of the registered weapons
+     in Finland are hunting riffles.^1
+
+Can't believe that--the last paragraph above--at least not the
+ranking number, or then, not in what is meant as "registered
+weapons."
+
+*Mini* intro:
+
+Switzerland (I am Swiss) has an obligatory--for men--military
+service. (The service is voluntary for women.) Differently from
+Italy, or France, Swiss conscripts are obliged, at intervals
+in the O(years), to service for 2-3 decades after their basic
+instruction has been accomplished, basic instruction which
+typically begins when a fellow reaches age 19-20-21 and lasts a
+few months. Officers service longer.
+
+There is just a very limited *professional army* [instructors,
+career officers, patrol pilots, barracks-, fortress-,
+machine-shops staff] in Switzerland.
+
+Only VERY special cases--serious health problems, dwarfs, blind,
+deaf, extremely obese, ... you have got the idea--are discarded
+from active service.
+
+That is, virtually EVERY Swiss man aged twenty and up is,
+volens nolens, a member of the Swiss Army (with very limited
+exceptions); and has, unless he leaves *legally* the country for
+enough long time, his own weapon--an automatic 9mm assault rifle
+or, it depends, a pistol from the army--at home ... inclusive the
+rest of the equipment - plus, when I have been in Switzerland
+still, more than a decade ago, a set of rounds to fill a loader
+(24x for the assault rifle). I believe they are reconsidering
+that--ammunition at home--after a couple of shootings involving
+military weapons have occurred in Switzerland in the last years.
+
+The weapon one receives is personal, and is "registered" of course.
+
+When a fellow, later in life [around forty for a simple soldier]
+becomes discharged from the active service, he can keep his gun
+if he likes--MOST DO.
+
+End intro.
+
+Summa summarum ... pigeonhole principle ... virtually every
+Swiss household has one "registered weapon" as the minimum.
+Hence I don't believe that Finland is "ranking third behind the
+United States and Yemen." (By the way, where is Israel? Pro
+memoria: Israel has a military service a' la Switzerland, with
+the difference being that women are obliged to service too, no
+just volunteers.)
+
+Cheers,
+
+/Roy Lanek
+
+
+     1. Finnish school killer dies at hospital
+www.chinaview.cn 2007-11-08 07:12:19,
+http://news.xinhuanet.com/english/2007-11/08/content_7029965.htm
+
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   anjing menggonggong, kafilah tetap berlalu
+SSSSS . s l a c k w a r e  SSSSSS   the dogs are barking, the caravan moves on
+SSSSS +------------ linux  SSSSSS   [illustrates useless protest, critic, or
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   sarcasm]
+
+
+From tuomov at iki.fi  Tue Nov 13 14:23:30 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 13 Nov 2007 13:23:30 +0000 (UTC)
+Subject: off-topic
+References: <20071113130038.GA10503@sirih>
+Message-ID: <slrnfjj9ai.in1.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-11-13, Roy Lanek <lanek at novenine.com> wrote:
+> Summa summarum ... pigeonhole principle ... virtually every
+> Swiss household has one "registered weapon" as the minimum.
+> Hence I don't believe that Finland is "ranking third behind the
+> United States and Yemen." (By the way, where is Israel? Pro
+> memoria: Israel has a military service a' la Switzerland, with
+> the difference being that women are obliged to service too, no
+> just volunteers.)
+
+Maybe they don't count the Swiss' guns as personal weapons, but
+rather military? Or the journalist is misreading statistics.
+
+-- 
+Tuomo
+
+
+
+From wich at stack.nl  Tue Nov 13 15:23:22 2007
+From: wich at stack.nl (Remko van der Vossen)
+Date: Tue, 13 Nov 2007 15:23:22 +0100
+Subject: off-topic
+In-Reply-To: <20071113130038.GA10503@sirih>
+References: <20071113130038.GA10503@sirih>
+Message-ID: <20071113142322.GK6135@wichetael.dyndns.org>
+
+On Tue, Nov 13, 2007 at 08:00:38PM +0700, Roy Lanek wrote:
+> Summa summarum ... pigeonhole principle ... virtually every
+> Swiss household has one "registered weapon" as the minimum.
+> Hence I don't believe that Finland is "ranking third behind the
+> United States and Yemen." (By the way, where is Israel? Pro
+> memoria: Israel has a military service a' la Switzerland, with
+> the difference being that women are obliged to service too, no
+> just volunteers.)
+
+The top 10 according to the Small Arms Survey 2007:
+http://www.smallarmssurvey.org/files/sas/publications/year_b_pdf/2007/CH2%20Stockpiles.pdf
+
+Country		guns per 100 residents
+United States	90
+Yemen		61
+Finland		56
+Switzerland	46
+Iraq		39
+Serbia		37.5
+France		32
+Canada		31.5
+Sweden		31.5
+Austria		31
+
+This is civilian owned firearms, not military owned firearms, btw
+civilian owned firearms count for roughly 75% of all firearms.
+
+That 46 per 100 residents fits pretty well with the scenario that you
+have explained.
+
+
+Remko van der Vossen.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: smime.p7s
+Type: application/x-pkcs7-signature
+Size: 2265 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20071113/248f2efa/attachment.bin>
+
+From talex5 at gmail.com  Sat Nov 17 20:11:28 2007
+From: talex5 at gmail.com (Thomas Leonard)
+Date: Sat, 17 Nov 2007 19:11:28 +0000 (UTC)
+Subject: Experimental ZeroInstall feed [Was: ion-3rc-20071109]
+References: <slrnfj8ud9.fre.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrnfj8v2b.fre.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071112110652.GA13380@marco.fz-rossendorf.de>
+	<slrnfjgfb1.8du.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <pan.2007.11.17.19.11.28@gmail.com>
+
+On Mon, 12 Nov 2007 11:47:45 +0000, Tuomo Valkonen wrote:
+[...]
+> It's unfortunate that ZeroInstall doesn't AFAIK let you set/append
+> environment variables based on the location of the package in question,
+> only dependencies.
+
+The svn version supports this (since 2007-09-18). I'll make a 0.31 
+release soon.
+
+Note that you can hack around this in older versions by depending on 
+yourself!
+
+> This way it could just handle all those crummy details, and use a sane
+> default setting. Likewise, programs wouldn't have to use $0 to figure
+> out their location, but could take it from the environment. Of course, 
+> setting a complete MANPATH sucks when there's `manpath`, and `man` 
+> should really support extra paths or databases instead of total 
+> overrides... An extra 0man wrapper (aliased to man in the shell) could 
+> of course do stuff like that. But it's again not something that Ion
+> should provide.
+
+Since 0.28 you can do:
+
+$ alias man='0alias --manpage'
+
+Then e.g.
+
+$ 0alias svn http://0install.net/2007/3rd-party/Subversion.xml
+$ man svn
+
+works. Note that the argument to man is the name of the alias you created.
+
+BTW, the XML file currently lists the download location as "SITE", so it 
+doesn't work:
+
+    <archive extract="ion-3rc-20071109-bin-i386-linux"
+      href="http://SITE/ion-3rc-20071109-bin-i386-linux.tar.gz" 
+      size="901857" type="application/x-compressed-tar"/>
+
+You can check the feed like this:
+
+$ 0launch http://0install.net/2007/interfaces/FeedLint.xml \
+          http://iki.fi/tuomov/dl/Ion3.xml
+
+
+-- 
+Dr Thomas Leonard		http://rox.sourceforge.net
+GPG: 9242 9807 C985 3C07 44A6  8B9A AE07 8280 59A5 3CC1
+
+
+
+From tuomov at iki.fi  Sat Nov 17 20:43:32 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 17 Nov 2007 19:43:32 +0000 (UTC)
+Subject: Experimental ZeroInstall feed [Was: ion-3rc-20071109]
+References: <slrnfj8ud9.fre.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrnfj8v2b.fre.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071112110652.GA13380@marco.fz-rossendorf.de>
+	<slrnfjgfb1.8du.tuomov@jolt.modeemi.cs.tut.fi>
+	<pan.2007.11.17.19.11.28@gmail.com>
+Message-ID: <slrnfjuh34.dsq.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-11-17, Thomas Leonard <talex5 at gmail.com> wrote:
+> The svn version supports this (since 2007-09-18). I'll make a 0.31 
+> release soon.
+
+Nice.
+
+> Since 0.28 you can do:
+>
+> $ alias man='0alias --manpage'
+
+Ah, but it doesn't quite work. I have ion3-zi alias for the Ion3
+ZeroInstall feed, and I get the Finnish man page in any locale.
+I suppose it uses some unreliable heuristic to find manpages within
+the packages? I saw a doc-dir option in the feed description, but 
+no man-page option. Shouldn't there be a similar option for the 
+man page? 
+
+> BTW, the XML file currently lists the download location as "SITE", so it 
+> doesn't work:
+
+Works for me (0.29 from etch).
+
+> You can check the feed like this:
+>
+> $ 0launch http://0install.net/2007/interfaces/FeedLint.xml \
+>           http://iki.fi/tuomov/dl/Ion3.xml
+
+Feedlint fails for me:
+
+~$ 0launch http://0install.net/2007/interfaces/FeedLint.xml http://iki.fi/tuomov/dl/Ion3.xml
+Checking http://iki.fi/tuomov/dl/Ion3.xml
+  Checking key http://iki.fi/tuomov/dl/D00CA21EC004251B.gpg       [ OK ]
+  Checking archive http://SITE/ion-3rc-20071109-bin-i386-linux.tar.gzTraceback (most recent call last):
+  File "/home/tuomov/.cache/0install.net/implementations/sha1new=e6731132594dd536ecee432b116e88f549eb1303/feedlint", line 199, in ?
+    check_source(source)
+  File "/home/tuomov/.cache/0install.net/implementations/sha1new=e6731132594dd536ecee432b116e88f549eb1303/feedlint", line 128, in check_source
+    actual_size = get_size(source.url)
+  File "/home/tuomov/.cache/0install.net/implementations/sha1new=e6731132594dd536ecee432b116e88f549eb1303/feedlint", line 119, in get_size
+    return get_http_size(url)
+  File "/home/tuomov/.cache/0install.net/implementations/sha1new=e6731132594dd536ecee432b116e88f549eb1303/feedlint", line 79, in get_http_size
+    http = httplib.HTTPConnection(address.netloc, address.port or 80)
+AttributeError: 'tuple' object has no attribute 'netloc'
+
+-- 
+Tuomo
+
+
+
+From digitalme2 at gmail.com  Sun Nov 18 06:19:51 2007
+From: digitalme2 at gmail.com (William Scales)
+Date: Sat, 17 Nov 2007 22:19:51 -0700
+Subject: Ion3 does not start
+Message-ID: <473FCB77.5030301@gmail.com>
+
+When I start Ion3 I get the following error:
+
+ >> /usr/local/lib/ion3/lc/ioncore_ext.lc: bad header in precompiled chunk
+ >> Unable to find 'ioncore_ext' on search path.
+ >> Refusing to start due to encountered errors.
+
+I have tried everything I can think of, from recompiling lua, to using 
+old versions of Ion3, etc...
+
+I am running Fedora 8 x86_64.
+
+-- 
+William Scales
+<digitalme2 at gmail.com>
+
+
+From tuomov at iki.fi  Sun Nov 18 09:56:56 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 18 Nov 2007 08:56:56 +0000 (UTC)
+Subject: Ion3 does not start
+References: <473FCB77.5030301@gmail.com>
+Message-ID: <slrnfjvvio.of0.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-11-18, William Scales <digitalme2 at gmail.com> wrote:
+> >> /usr/local/lib/ion3/lc/ioncore_ext.lc: bad header in precompiled chunk
+> >> Unable to find 'ioncore_ext' on search path.
+> >> Refusing to start due to encountered errors.
+>
+> I am running Fedora 8 x86_64.
+
+The .lc files are architecture-dependent. I wonder if you've somehow
+managed to compile them for x86, somehow messed to versions of Lua
+(typical with the all-in-one-basket mess that the unix file system
+hierarchy is), or so.
+
+Do you have multiple versions of the Lua binary or liblua.a lying
+around? What do the following commands do for you?
+
+    ~$ lua -v
+    Lua 5.1  Copyright (C) 1994-2006 Lua.org, PUC-Rio
+    ~$ lua /usr/local/lib/ion3/lc/ioncore_ext.lc
+    lua: ioncore_ext.lua:19: attempt to index global 'ioncore' (a nil value)
+    stack traceback:
+        ioncore_ext.lua:19: in main chunk
+        [C]: ?
+
+Note that as a final measure if everything else fails, copying the
+corresponding .lua source file in, say, /usr/local/share/ion3/, 
+should have Ion load that instead; the precompiled .lcs are mostly
+just for the sake of efficiency.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sun Nov 18 10:06:52 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 18 Nov 2007 09:06:52 +0000 (UTC)
+Subject: Ion3 does not start
+References: <473FCB77.5030301@gmail.com>
+	<slrnfjvvio.of0.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnfk005c.q5f.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-11-18, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> Note that as a final measure if everything else fails, copying the
+> corresponding .lua source file in, say, /usr/local/share/ion3/, 
+> should have Ion load that instead; the precompiled .lcs are mostly
+> just for the sake of efficiency.
+
+I should warn you that if you end up doing this, you'll have to
+remember to do it on every update, or remove the files. Otherwise
+Ion will load the old versions left there.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sun Nov 18 10:12:40 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 18 Nov 2007 09:12:40 +0000 (UTC)
+Subject: Ion3 does not start
+References: <473FCB77.5030301@gmail.com>
+	<slrnfjvvio.of0.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrnfk005c.q5f.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnfk00g8.qk1.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-11-18, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2007-11-18, Tuomo Valkonen <tuomov at iki.fi> wrote:
+>> Note that as a final measure if everything else fails, copying the
+>> corresponding .lua source file in, say, /usr/local/share/ion3/, 
+>
+> I should warn you that if you end up doing this, you'll have to
+> remember to do it on every update, or remove the files. Otherwise
+> Ion will load the old versions left there.
+
+And, bah, morning. share is actually after lc in the default search
+path (which can be appended at the front with -s). ~/.ion3/lib, however,
+is before.
+
+luac --version might also be useful. And are these the same that
+you have used in system.mk?
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sun Nov 18 21:15:34 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 18 Nov 2007 22:15:34 +0200
+Subject: Ion3 does not start
+In-Reply-To: <474094A7.60805@earthlink.net>
+References: <473FCB77.5030301@gmail.com>
+	<slrnfjvvio.of0.tuomov@jolt.modeemi.cs.tut.fi>
+	<474094A7.60805@earthlink.net>
+Message-ID: <20071118201534.GA25054@jolt.modeemi.cs.tut.fi>
+
+On 2007-11-18 12:38 -0700, William Scales wrote:
+> 	~$ lua /usr/local/lib/ion3/lc/ioncore_ext.lc
+> 	lua: ioncore_ext.lua:19: attempt to index global 'ioncore' (a 
+>	nil value)
+
+> 	~$ /usr/bin/lua	/usr/local/lib/ion3/lc/ioncore_ext.lc
+> 	/usr/bin/lua: /usr/local/lib/ion3/lc/ioncore_ext.lc: bad header  
+> 	in precompiled chunk
+
+There's the problem: those two versions are apparently incompatible.
+I presume you have tried to built Ion using the manually compiled
+version. However, gcc/ld in its _infinite_ wisdom has decided to
+link Ion against the version in /usr/lib. This might also be because
+the version in /usr/local has broken permissions: the Lua 'make
+install' often does that. Check the permissions. For all of the
+files installed by Lua. If that doesn't help, remove one of the 
+versions.
+
+> As I can't find any mod_sp lua files, I'm at a loss as for what to do next.
+
+Ah, the Ion build process actually directly turns such simple stub
+loaders into .lcs without creating a .lua file. The contents of that
+file are simply: ioncore.load_module('mod_sp')
+
+-- 
+Tuomo
+
+
+From ivan at selidor.net  Mon Nov 19 17:43:58 2007
+From: ivan at selidor.net (Ivan Vilata i Balaguer)
+Date: Mon, 19 Nov 2007 17:43:58 +0100
+Subject: Forbiding focus to floating window
+Message-ID: <20071119164358.GB25754@tardis.terramar.selidor.net>
+
+Hi all,
+
+I recently tuned Ion3 to float XWrits windows so that they are annoying
+enough for me to take them seriously. ;)  I included the following in
+``cfg_kludges.lua``::
+
+    defwinprop {
+    	class = "XWrits",
+    	instance = "xwrits",
+    	float = true,
+    	switchto = false,
+    }
+
+It works as expected, but sometimes the Xwrits window pops under the
+location of the mouse cursor, so the window takes focus and I loose some
+keypresses, which is more annoying than I expected.
+
+So there goes a simple question: Is there any way that I can flag XWrits
+windows to *never* take focus?
+
+(Alternative configurations for using with XWrits are also welcome.)
+
+Thanks!
+
+::
+
+  Ivan Vilata i Balaguer   @ Welcome to the European Banana Republic! @
+  http://www.selidor.net/  @     http://www.nosoftwarepatents.com/    @
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 307 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20071119/bef4ac2f/attachment.pgp>
+
+From tuomov at iki.fi  Mon Nov 19 19:32:50 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 19 Nov 2007 18:32:50 +0000 (UTC)
+Subject: Forbiding focus to floating window
+References: <20071119164358.GB25754@tardis.terramar.selidor.net>
+Message-ID: <slrnfk3lmi.q47.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-11-19, Ivan Vilata i Balaguer <ivan at selidor.net> wrote:
+> So there goes a simple question: Is there any way that I can flag XWrits
+> windows to *never* take focus?
+
+It's doable but rather complicated. I'll leave the details of something
+more convenient to you, but supposing you already have a frame floating,
+you can use the following snippet (in the Mod1+F3 Lua code query) to 
+reattach it in 'passive' mode:
+
+_:screen_of():attach(_, {passive=true, unnumbered=true, sizepolicy='free'})
+
+Plus perhaps some other options to better retain geometries etc.
+
+WMPlexes perhaps should export a lot more stuff to allow dynamic
+manipulation of things (rather than having to reattach), but I 
+haven't reached a decision on that so I haven't bothered doing it...
+Or perhaps attach should try to retain existing settings in case 
+of reattach. 
+
+Patches to make all this smoother would be welcome (for Ion3plus),
+as well as scripts when doable that way. 
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue Nov 20 16:14:17 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 20 Nov 2007 15:14:17 +0000 (UTC)
+Subject: A devious little hack...
+Message-ID: <slrnfk5ue9.egj.tuomov@jolt.modeemi.cs.tut.fi>
+
+... or how to make them obey me while still keeping Ion DFSG-"free" /
+satisfy the "Open Source" definition.
+
+It seems that ideologist distros aren't going for the rather reasonable
+28-day clause in the present license, so I've been considering simplifying
+the license. It could simply forbid distributing non-renamed versions.
+But it could also be just:
+
+> You may use, modify, and redistribute this software under the LGPL,
+> version 2.1, reproduced below, extended with the following terms:
+>
+>  * Unless explicitly permitted by the copyright holder, redistribution
+>    of modified versions is only allowed if they are and any executables
+>    and library files installed by them, are renamed to not be associated
+>    with the Ion(tm) project, and neither the copyright holder nor the
+>    Ion(tm) project are pointed to for support.
+>
+>  (Plus some standard stuff about how these conditions may not be
+>  altered, how I retain the right to use your modifications, etc.)
+
+This kind of terms are permitted under these definitions [1,2]
+(or at least requiring name change, which _should_ by any reasonable
+interpretation include renaming executables with non-generic names,
+etc.)
+
+Now, behold, GPLv3! From my reading of it [3], it actually allows
+adding this kind of terms while remaining compatible with other GPLv3
+(and "GPLv2 or later") works; cf. Section 7. The 28-day clause 
+unfortunately does not seem to fit under the terms therein.
+
+
+But such a simple extra term alone doesn't really do much with regard
+to bastard distributors carrying ancient versions. Now comes the hack:
+you'd have to patch/modify the source code to actually build something
+worth using. It shouldn't be much extra effort for users building from
+orignal source: just a simple './modify' script. And yet you couldn't 
+distribute the result under the name Ion anymore -- unless explicitly
+permitted by me, outside the license, in which case I'd just show them
+the terms of the present license. MUAHHAHAHAHAHHAAA }:-> 
+
+
+Not sure I'll go for this, but it's a devious little "use their own
+rules agains them" hack I came up with, which would simplify the license
+considerably. It should also work better for Ion3plus from which I
+have no intention of making releases, or responding to support requests
+of random lusers who probably couldn't install it from the repository
+anyway.
+
+
+  [1]: http://www.debian.org/social_contract
+  
+  [2]: http://www.opensource.org/docs/definition.php
+
+  [3]: http://www.gnu.org/licenses/gpl-3.0.html
+
+-- 
+Tuomo
+
+
+
+From talex5 at gmail.com  Tue Nov 20 20:25:01 2007
+From: talex5 at gmail.com (Thomas Leonard)
+Date: Tue, 20 Nov 2007 19:25:01 +0000 (UTC)
+Subject: Experimental ZeroInstall feed [Was: ion-3rc-20071109]
+References: <slrnfj8ud9.fre.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrnfj8v2b.fre.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071112110652.GA13380@marco.fz-rossendorf.de>
+	<slrnfjgfb1.8du.tuomov@jolt.modeemi.cs.tut.fi>
+	<pan.2007.11.17.19.11.28@gmail.com>
+	<slrnfjuh34.dsq.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <pan.2007.11.20.19.25.01@gmail.com>
+
+On Sat, 17 Nov 2007 19:43:32 +0000, Tuomo Valkonen wrote:
+
+> On 2007-11-17, Thomas Leonard
+> <talex5 at gmail.com> wrote:
+>> The svn version supports this (since 2007-09-18). I'll make a 0.31
+>> release soon.
+> 
+> Nice.
+
+Done now, but it'll take the usual 6 months or so to make it into the 
+distributions...
+
+>> Since 0.28 you can do:
+>>
+>> $ alias man='0alias --manpage'
+> 
+> Ah, but it doesn't quite work. I have ion3-zi alias for the Ion3
+> ZeroInstall feed, and I get the Finnish man page in any locale. I
+> suppose it uses some unreliable heuristic to find manpages within the
+> packages?
+
+Yes. I'll have a look at the Ion package and try to come up with 
+something more robust.
+
+>> You can check the feed like this:
+>>
+>> $ 0launch http://0install.net/2007/interfaces/FeedLint.xml \
+>>           http://iki.fi/tuomov/dl/Ion3.xml
+> 
+> Feedlint fails for me:
+> 
+> ~$ 0launch http://0install.net/2007/interfaces/FeedLint.xml
+> AttributeError: 'tuple' object has no attribute 'netloc'
+
+Oops. It doesn't work with Python 2.4. The new version (0.4) should fix 
+that:
+
+$ 0launch --not-before=0.4 \
+    http://0install.net/2007/interfaces/FeedLint.xml \
+    http://iki.fi/tuomov/dl/Ion3.xml
+
+Anyway, the Ion3 feed seems to be working now.
+
+
+-- 
+Dr Thomas Leonard		http://rox.sourceforge.net
+GPG: 9242 9807 C985 3C07 44A6  8B9A AE07 8280 59A5 3CC1
+
+
+
+From tuomov at iki.fi  Wed Nov 21 00:29:52 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 20 Nov 2007 23:29:52 +0000 (UTC)
+Subject: Experimental ZeroInstall feed [Was: ion-3rc-20071109]
+References: <slrnfj8ud9.fre.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrnfj8v2b.fre.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071112110652.GA13380@marco.fz-rossendorf.de>
+	<slrnfjgfb1.8du.tuomov@jolt.modeemi.cs.tut.fi>
+	<pan.2007.11.17.19.11.28@gmail.com>
+	<slrnfjuh34.dsq.tuomov@jolt.modeemi.cs.tut.fi>
+	<pan.2007.11.20.19.25.01@gmail.com>
+Message-ID: <slrnfk6rfg.v1a.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-11-20, Thomas Leonard <talex5 at gmail.com> wrote:
+> Done now, but it'll take the usual 6 months or so to make it into the 
+> distributions...
+
+More like two years in some cases... if even then someone can be
+bothered.
+
+> Yes. I'll have a look at the Ion package and try to come up with 
+> something more robust.
+
+
+From jbms at cmu.edu  Wed Nov 21 09:47:01 2007
+From: jbms at cmu.edu (Jeremy Maitin-Shepard)
+Date: Wed, 21 Nov 2007 03:47:01 -0500
+Subject: A devious little hack...
+In-Reply-To: <slrnfk5ue9.egj.tuomov@jolt.modeemi.cs.tut.fi> (Tuomo Valkonen's
+	message of "Tue\, 20 Nov 2007 15\:14\:17 +0000 \(UTC\)")
+References: <slrnfk5ue9.egj.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <87ve7wugsa.fsf@jbms.ath.cx>
+
+Perhaps there is a simpler, less radical way you can achieve what you
+want.
+
+It seems that you want Ion to be a great piece of software for you to
+use yourself and also for others to use.  Us users are all very
+appreciative that you have made Ion available.  (Certainly you could
+decide not to make any new releases of Ion publicly available anymore at
+all, but I imagine that you, like myself and other free software
+developers, enjoy seeing others benefiting from your work.)
+
+Certainly users cannot have any expectation of support from you, even if
+they are using the latest version; clearly they are better off getting
+the Ion source code from you without support than not getting Ion at
+all.
+
+If you decide you are willing to provide support for the latest
+unmodified version, that is, of course, an added bonus.
+
+It seems that your primary motivations for the recent
+licensing/trademark/distribution changes are twofold:
+
+1. You do not want the reputation of Ion (and your work) to be hurt due
+to distributions associating the name Ion with old or patched (and
+therefore possibly worse) versions of Ion.
+
+2. You do not want to have to deal with support requests for old or
+modified versions of Ion.
+
+In addition, you might also want to ensure that everyone using Ion is
+using the best possible version (which you assume to be the current,
+unmodified version), and therefore would like to make sure that the
+current version is the one most readily available/convenient for all
+users.  (Therefore, you'd like to ensure that if distributions make Ion
+available as a package (thus more convenient than downloading it from
+the Ion web page directly), the current version is the one that will be
+available.)
+
+I'll address the first two objectives below, but I'll explain first why
+this last objective does not need to be considered: I think that it
+really is reasonable for distributions to decide what version of Ion to
+provide users; it doesn't make sense to try to force users of some
+"stable" distribution, like Debian stable, to use the very latest
+version of Ion.  One significant reason users pick a distribution is
+because they _want_ to follow the judgment of the distribution packagers
+in selecting particular versions of packages and particular patches to
+apply.  You might not agree with the decisions made by the distribution
+packagers, but except to the extent that it relates to the first two
+objectives, I don't think you should be concerned about users being
+given convenient access to "sub-standard" versions of Ion.
+
+As far as the first objective, it is common knowledge that distributions
+often make significant patches to the packages they distribute, and
+sometimes those patches can change the behavior of the package in
+certain ways, or in the worst case introduce bugs.  It is also common
+knowledge that distributions typically don't always distribute the
+latest version of a package.  Distributions typically will still call
+the package by its original name, but users should know that the program
+they receive from the distribution package is not exactly the same as
+the latest version of the original package.  More importantly, though,
+you can ensure that this fact is very clear by requesting that
+distributions include a very prominent message in any packages of Ion
+that are modified or not current.  The message can state very clearly
+that the distribution-created package provides a modified version of Ion
+that may have additional bugs or missing features compared to the
+current official version.  This message can be displayed both during
+installation, and also perhaps upon the first launch after an upgrade
+and upon the very first launch after a new installation.  I think this
+simple request should suffice for satisfying the first objective.
+
+As far as the second objective, the problem seems to come down to
+eliminating what you would consider to be effectively junk e-mails
+(support requests for old/modified Ion versions) from the Ion mailing
+list.  I think this can be achieved by requesting that distributions add
+a notice to packages for old/modified versions of Ion that users should
+not spam the Ion mailing list with support requests, but rather should
+send the request to the distribution package maintainer.  Furthermore,
+you could include a message by all places that list the address for the
+Ion mailing list that you are willing to provide support for the current
+official Ion version, but you don't have time to provide support for old
+or modified versions of Ion, and therefore support questions regarding
+old or modified versions of Ion should not be sent to the list.  You can
+request, also, that any support request should explicitly state at the
+beginning of the message what version of Ion is used, such that you can
+easily filter an inappropriate support requests.
+
+I think distributions should certainly try to respect your wishes
+regarding the packaging of Ion, regardless of whether you find a way to
+legally enforce that; as I see it, laws govern the interactions of
+enemies, not the interactions of friends, and I'd like to think that
+there can be a friendly relationship between distribution package
+maintainers, users, and free software developers.  Trying to impose
+these various additional license/trademark restrictions will only create
+additional hassle for everyone, while providing little real gain for
+you; in the end, fewer people will be able to benefit from your work,
+either because they don't bother to try Ion because it is not included
+in their distribution (even if such a user would eventually build Ion
+from source, someone merely looking to "check out" Ion is less likely to
+do so if it requires manually obtaining the source code, building it,
+and installing it), or because they would like to incorporate some code
+from Ion into another project, but because of the license restrictions,
+cannot do this.
+
+-- 
+Jeremy Maitin-Shepard
+
+
+From tuomov at iki.fi  Wed Nov 21 10:58:05 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 21 Nov 2007 09:58:05 +0000 (UTC)
+Subject: A devious little hack...
+References: <slrnfk5ue9.egj.tuomov@jolt.modeemi.cs.tut.fi>
+	<87ve7wugsa.fsf@jbms.ath.cx>
+Message-ID: <slrnfk809d.q8r.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-11-21, Jeremy Maitin-Shepard <jbms at cmu.edu> wrote:
+> 1. You do not want the reputation of Ion (and your work) to be hurt due
+> to distributions associating the name Ion with old or patched (and
+> therefore possibly worse) versions of Ion.
+>
+> 2. You do not want to have to deal with support requests for old or
+> modified versions of Ion.
+
+Mostly right.
+
+> In addition, you might also want to ensure that everyone using Ion is
+> using the best possible version (which you assume to be the current,
+> unmodified version), 
+
+No, just that people wouldn't install old versions when a newer one is
+already available (on a particular branch, i.e. Ion1, Ion2, Ion3, ...),
+unless they really know what they're doing. If they're already using an
+old version that works for them, fine, just don't come asking for help
+before upgrading.
+
+> I'll address the first two objectives below, but I'll explain first why
+> this last objective does not need to be considered: I think that it
+> really is reasonable for distributions to decide what version of Ion to
+> provide users; it doesn't make sense to try to force users of some
+> "stable" distribution, like Debian stable, to use the very latest
+> version of Ion.  
+
+Ion3 is not "stable"; it should not be in "stable" (read: "static") 
+distributions. So you forbid distribution of development snapshots? 
+The herd would still cry that it's "not free", and these same distros
+even refuse to fix bugs in "stable" software. They don't trust authors,
+and authors can't trust distros.
+
+> One significant reason users pick a distribution is
+> because they _want_ to follow the judgment of the distribution packagers
+> in selecting particular versions of packages and particular patches to
+> apply.
+
+If they use their own judgement, they should take full responsibility
+of supporting the package. That means making sure their users are
+aware that the package no longer has anything to do with me.
+
+> I don't think you should be concerned about users being
+> given convenient access to "sub-standard" versions of Ion.
+
+I should, when The Party, i.e. the big distros, have de facto central
+control on convenient access. Closed source operating systems are more
+decentralised in this area.
+
+> As far as the first objective, it is common knowledge that distributions
+> often make significant patches to the packages they distribute, and
+> sometimes those patches can change the behavior of the package in
+> certain ways, or in the worst case introduce bugs.  It is also common
+> knowledge that distributions typically don't always distribute the
+> latest version of a package.  
+
+It is not common enough knowledge. Maybe among old-time users, but not
+the flood of newbies. And certainly it is not common enough knowledge
+that upstream will have nothing to do with the distros' corrupted and
+ancient versions. The distros don't even bother to properly indicate
+the development snapshot status of the software they distribute.
+
+> More importantly, though,
+> you can ensure that this fact is very clear by requesting that
+> distributions include a very prominent message in any packages of Ion
+> that are modified or not current.  
+
+They're not going for that. The "new version in 28-days" clause in the
+present license has that as an alternative, but the FOSS/distro herd
+considers such simple reasonable requests "unreasonable" and the
+software "non-free". So why have such a clause when nobody acts by it?
+
+> As far as the second objective, the problem seems to come down to
+> eliminating what you would consider to be effectively junk e-mails
+> (support requests for old/modified Ion versions) from the Ion mailing
+> list.  
+
+The mailing list is not the only contact address you know.
+
+> Ion mailing list that you are willing to provide support for the current
+> official Ion version, but you don't have time to provide support for old
+> or modified versions of Ion, 
+
+The current "stable" branch is also somewhat supported despite newer
+developments.
+
+> I think distributions should certainly try to respect your wishes
+> regarding the packaging of Ion
+
+They don't. They've become a powerful central Party that just uses 
+authors as workhorses for their own ends.
+
+> I'd like to think that
+> there can be a friendly relationship between distribution package
+> maintainers, users, and free software developers.  
+
+Dream on. That is unlikely to be possible until the middle-man has been
+removed and authors have regained control of the primary distribution
+chain; until distributions have been reduced into providing base systems
+and customised versions of select software for their audience, from their
+present position of central control over conveniently installable software.
+Distros are the record/film companies and their lobby groups of FOSS!
+
+> someone merely looking to "check out" Ion is less likely to
+> do so if it requires manually obtaining the source code, building it,
+> and installing it)
+
+And with distros doing whatever they will, someone just checking out
+Ion will get crap not representative of the project's present state,
+or the project at all.
+
+-- 
+Tuomo
+
+
+
+From ivan at selidor.net  Wed Nov 21 10:52:14 2007
+From: ivan at selidor.net (Ivan Vilata i Balaguer)
+Date: Wed, 21 Nov 2007 10:52:14 +0100
+Subject: Forbiding focus to floating window
+In-Reply-To: <slrnfk3lmi.q47.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071119164358.GB25754@tardis.terramar.selidor.net>
+	<slrnfk3lmi.q47.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20071121095214.GA10349@tardis.terramar.selidor.net>
+
+Tuomo Valkonen (el 2007-11-19 a les 18:32:50 +0000) va dir::
+
+> On 2007-11-19, Ivan Vilata i Balaguer <ivan at selidor.net> wrote:
+> > So there goes a simple question: Is there any way that I can flag XWrits
+> > windows to *never* take focus?
+> 
+> It's doable but rather complicated. I'll leave the details of something
+> more convenient to you, but supposing you already have a frame floating,
+> you can use the following snippet (in the Mod1+F3 Lua code query) to 
+> reattach it in 'passive' mode:
+> 
+> _:screen_of():attach(_, {passive=true, unnumbered=true, sizepolicy='free'})
+>[...]
+
+Umm, running that makes the floating window disappear!  It can be
+reattached to normal frames using Mod1+A, though.  Other windows of the
+same kind which appear later behave as normal.
+
+I wonder if the following would be useful: define a new winprop so that:
+
+ a. Floating windows with that flag do not take focus when they are
+    mapped to the screen, even if they happen to pop under the current
+    location of the mouse cursor.
+
+ b. Framed windows with that flag pop into the current frame, but they
+    just aren't shown: the current window is undisturbed (i.e. they pop
+    "under" the current window, so to say, maybe with an urgent flag).
+
+Windows with that flag may be activated later normally.
+
+The behaviour may be useful for onoxious apps which open windows without
+warning (e.g. the download manager of Firefox, some chat windows from
+Gaim/Pidgin... you may imagine the most perverse name for the winprop).
+Or maybe the proposal is too bizarre indeed. ;)
+
+Thanks anyway for the suggestion,
+
+::
+
+  Ivan Vilata i Balaguer   @ Welcome to the European Banana Republic! @
+  http://www.selidor.net/  @     http://www.nosoftwarepatents.com/    @
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 307 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20071121/049aa8b9/attachment.pgp>
+
+From tuomov at iki.fi  Wed Nov 21 11:09:58 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 21 Nov 2007 10:09:58 +0000 (UTC)
+Subject: Forbiding focus to floating window
+References: <20071119164358.GB25754@tardis.terramar.selidor.net>
+	<slrnfk3lmi.q47.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071121095214.GA10349@tardis.terramar.selidor.net>
+Message-ID: <slrnfk80vm.tf4.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-11-21, Ivan Vilata i Balaguer <ivan at selidor.net> wrote:
+> Umm, running that makes the floating window disappear!  
+
+Ion version? Setup? Does setting the 'geom' field/table to something useful
+help? (See the docs for WMPlex.attach.)
+
+>  a. Floating windows with that flag do not take focus when they are
+>     mapped to the screen, even if they happen to pop under the current
+>     location of the mouse cursor.
+
+switchto=false might work (for the initial focus), but I'm not 100% sure.
+
+>  b. Framed windows with that flag pop into the current frame, but they
+>     just aren't shown: the current window is undisturbed (i.e. they pop
+>     "under" the current window, so to say, maybe with an urgent flag).
+
+switchto=false.
+
+-- 
+Tuomo
+
+
+
+From ivan at selidor.net  Wed Nov 21 14:03:30 2007
+From: ivan at selidor.net (Ivan Vilata i Balaguer)
+Date: Wed, 21 Nov 2007 14:03:30 +0100
+Subject: Forbiding focus to floating window
+In-Reply-To: <slrnfk80vm.tf4.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071119164358.GB25754@tardis.terramar.selidor.net>
+	<slrnfk3lmi.q47.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071121095214.GA10349@tardis.terramar.selidor.net>
+	<slrnfk80vm.tf4.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20071121130330.GA12716@tardis.terramar.selidor.net>
+
+Tuomo Valkonen (el 2007-11-21 a les 10:09:58 +0000) va dir::
+
+> On 2007-11-21, Ivan Vilata i Balaguer <ivan at selidor.net> wrote:
+> > Umm, running that makes the floating window disappear!  
+> 
+> Ion version? Setup? Does setting the 'geom' field/table to something useful
+> help? (See the docs for WMPlex.attach.)
+
+Right!  Providing a geometry keeps the window visible and it is no
+longer active or focusable unless attached to a frame.  I guess this is
+closer to the solution. :)
+
+(BTW, latest Ion 3rc-20071109, only the aforementioned winprops
+affecting XWrits windows.)
+
+> >  a. Floating windows with that flag do not take focus when they are
+> >     mapped to the screen, even if they happen to pop under the current
+> >     location of the mouse cursor.
+> 
+> switchto=false might work (for the initial focus), but I'm not 100% sure.
+
+Yes, it works OK, except when the window happens to pop under the mouse
+cursor.  In that case it takes focus.  Maybe this is too difficult to
+avoid without complicating the sloppy focus code...
+
+> >  b. Framed windows with that flag pop into the current frame, but they
+> >     just aren't shown: the current window is undisturbed (i.e. they pop
+> >     "under" the current window, so to say, maybe with an urgent flag).
+> 
+> switchto=false.
+
+Of course!  It seems that I was too obfuscated with the floating
+problem! :P  Thanks!
+
+::
+
+  Ivan Vilata i Balaguer   @ Welcome to the European Banana Republic! @
+  http://www.selidor.net/  @     http://www.nosoftwarepatents.com/    @
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 307 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20071121/fc174b52/attachment.pgp>
+
+From alex.barinov at gmail.com  Thu Nov 22 08:55:54 2007
+From: alex.barinov at gmail.com (Alte)
+Date: Thu, 22 Nov 2007 10:55:54 +0300
+Subject: Problems with winprops
+Message-ID: <940ef3c00711212355g23e95878ta73a42c50e75f44d@mail.gmail.com>
+
+Hi!,
+
+For all the time using ion I have been using kludges to work with
+gimp. Something like:
+
+defwinprop{
+    name = "GIMP",
+    class = "Gimp-2,4",
+    role = "gimp-toolbox",
+    instance = "gimp-2.4",
+    target = "gimp-left",
+}
+defwinprop{
+    class = "Gimp-2.4",
+    instance = "gimp-2.4",
+    target = "gimp-right",
+}
+
+However, recently ALL gimp windows started to go to "gimp-right". I
+cannot tell exactly, what "recently" means as I have not been using
+gimp for several months, but on latest ion this does not work. To
+restore expected behaviur I had co comment out 'class = "Gimp-2,4"'
+line. Window information shows that this class name is right, but
+adding it to winprop makes it fail.
+
+I am not sure whether it is a bug report or I have missed some changes
+in winprop internals, so I will be glad to receive any ideas.
+
+Regards,
+
+-- 
+Sasha
+
+
+From tuomov at iki.fi  Thu Nov 22 09:10:47 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 22 Nov 2007 08:10:47 +0000 (UTC)
+Subject: Problems with winprops
+References: <940ef3c00711212355g23e95878ta73a42c50e75f44d@mail.gmail.com>
+Message-ID: <slrnfkaec7.skb.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-11-22, Alte <alex.barinov at gmail.com> wrote:
+>     class = "Gimp-2,4",
+                     ^  
+,?
+
+-- 
+Tuomo
+
+
+
+From udvzsolt at gmail.com  Thu Nov 22 09:50:41 2007
+From: udvzsolt at gmail.com (Zsolt Udvari)
+Date: Thu, 22 Nov 2007 09:50:41 +0100
+Subject: Problems with winprops
+In-Reply-To: <940ef3c00711212355g23e95878ta73a42c50e75f44d@mail.gmail.com>
+References: <940ef3c00711212355g23e95878ta73a42c50e75f44d@mail.gmail.com>
+Message-ID: <760ece280711220050t6fea655cxab5b4f3ac8e729c@mail.gmail.com>
+
+> defwinprop{
+>     name = "GIMP",
+>     class = "Gimp-2,4",
+>     role = "gimp-toolbox",
+>     instance = "gimp-2.4",
+>     target = "gimp-left",
+> }
+> defwinprop{
+>     class = "Gimp-2.4",
+>     instance = "gimp-2.4",
+>     target = "gimp-right",
+> }
+The first defwinprop is subset of second defwinprop. Change the
+defwinprops' order and imho it will be OK.
+
+
+From tuomov at iki.fi  Fri Nov 23 19:05:35 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 23 Nov 2007 18:05:35 +0000 (UTC)
+Subject: Forbiding focus to floating window
+References: <20071119164358.GB25754@tardis.terramar.selidor.net>
+	<slrnfk3lmi.q47.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071121095214.GA10349@tardis.terramar.selidor.net>
+	<slrnfk80vm.tf4.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071121130330.GA12716@tardis.terramar.selidor.net>
+Message-ID: <slrnfke5jf.tek.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-11-21, Ivan Vilata i Balaguer <ivan at selidor.net> wrote:
+> Yes, it works OK, except when the window happens to pop under the mouse
+> cursor.  In that case it takes focus.  Maybe this is too difficult to
+> avoid without complicating the sloppy focus code...
+
+There's already an ugly region_pointer_focus_hack() method needed to
+avoid windows being unmapped messing with the focus. It was quite
+trivial to add it in other places to (attempt to) avoid pointer 
+EnterWindow event triggered focus change when switchto is false.
+
+Thus the next RC should work differently. (It is likely to be 
+released in the beginning of December; maybe next weekend.)
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sun Nov 25 13:28:06 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 25 Nov 2007 14:28:06 +0200
+Subject: License clarifications [Was: A devious little hack...]
+In-Reply-To: <slrnfk809d.q8r.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnfk5ue9.egj.tuomov@jolt.modeemi.cs.tut.fi>
+	<87ve7wugsa.fsf@jbms.ath.cx>
+	<slrnfk809d.q8r.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20071125122806.GA19821@jolt.modeemi.cs.tut.fi>
+
+I'm unlikely to yet go for the devious little hack featured in the
+earlier post, but I've tried clarifying and simplifying the license
+a bit (attachment), because people seem to be too illiterate to
+understand the original. As a side effect it would, however, be turned
+into a form suitable for use with the devious little hack by just one
+simple removal (and even more if using GPLv3). Also it can be easily
+be modified to not even be based on LGPL for a yet simpler license
+(also attached).
+
+Questions, comments?
+
+-- 
+Tuomo
+-------------- next part --------------
+
+*** DRAFT ***
+
+Copyright (c) Tuomo Valkonen 1999-2007.
+
+Unless otherwise indicated in components taken from elsewhere, this software
+is licensed under the GNU Lesser General Public License, version 2.1 ("LGPL",
+reproduced below), extended and modified with the following terms:
+
+  If the name Ion(tm) or other names that can be associated with the Ion
+  project are used to distribute this software, then:
+
+    - A version that does not significantly differ from one of the
+      copyright holder's releases, must be provided by default.
+
+    - Versions not based on the copyright holder's latest release (on 
+      the corresponding "branch", such as Ion3(tm)), must within 28 days
+      of this release, be prominently marked as (potentially) obsolete
+      and unsupported.
+
+    - Significantly altered versions may be provided only if the user
+      explicitly requests for those modifications to be applied, and 
+      is prominently notified that the software is no longer considered 
+      the standard version, and is not supported by the copyright holder.
+      The version string displayed by the program must describe these
+      modifications and the "support void" status.
+
+  Versions for which the above conditions are not satisfied, must be
+  renamed so that they can not be associated with the Ion project, their
+  executables must be given names that do not conflict with the copyright
+  holder's version, and neither the copyright holder nor the Ion project
+  may be referred to for support.
+
+  In the text of sections 0-2, 4-12, and 14-16 of the LGPL, "this License" 
+  is to be understood to refer to the LGPL extended with these terms and,
+  where applicable, possible similar terms related to the names of other
+  works forming a whole. Sections 3 and 13 of the LGPL are void. Where
+  contradictory, these additional terms are primary to the LGPL.
+
+End of terms.
+
+
+Explanations
+
+Trademarks: With the terms above primarily appealing to copyright law,
+should any of the indicated trademarks be found invalid, does not excuse
+you from the conditions imposed by those terms. The use of these names
+in contexts other than redistribution of this software and modifications,
+is outside the scope of the terms above, and governed by applicable
+trademark or other laws. 
+
+  With regard to modules and other extensions to Ion(tm), the permission
+  is hereby granted to use "Ion" as part of the name, provided that it
+  occurs in a form suggesting that the work is supported by neither the
+  copyright nor the Ion project: "Foo for Ion" instead of "Ion Foo", etc.
+
+Significant change: Bug fixes are a priori insignificant as additions. 
+Basic changes that are needed to install or run the software on a target
+platform are a priori insignificant. Additionally, basic configuration
+changes to better integrate the software with the target platform, 
+without obstructing the standard behaviour, are a priori insignificant.
+Everything else is significant. The copyright holder reserves the right 
+to refine the definition of significant changes on a per-case basis. 
+Please consult when in doubt. 
+
+Distributions: For example, suppose an aggregate distribution of software
+provides an `installpkg` command for installing packages. Then the action
+`installpkg ion3` (resp. `installpkg ion`) should after 28 days provide the
+latest release of Ion3 (resp. the latest stable release), or prominently 
+notify the user that the provided version is (likely to be) obsolete and
+unsupported. Specific versions (including modified versions) may be provided
+if the user explicitly requests for those, within the constraints set above.
+The latest release being provided by default, or prominently appearing in
+a listing, constitutes prominent marking of earlier releases as obsolete.
+
+The intent of these terms is to curb the power that "distributions", as
+the primary sources of software for many users, have in defining what
+is perceived as Ion. By providing significantly modified versions and
+out-dated development snapshots without prominently mentioning this fact,
+they do not present the work in a light that the author can agree with,
+and create a burden of dealing with (new) users seeking for support for
+such versions.
+
+-------------- next part --------------
+
+*** DRAFT ***
+
+Copyright (c) Tuomo Valkonen 1999-2007.
+
+Unless otherwise indicated in components taken from elsewhere, it is
+permitted to redistribute this software, in both source code and binary
+forms, provided that the following conditions are met:
+
+  If the name Ion(tm) or other names that can be associated with the Ion
+  project are used to distribute this software, then:
+
+    - A version that does not significantly differ from one of the
+      copyright holder's releases, must be provided by default.
+
+    - Versions not based on the copyright holder's latest release (on 
+      the corresponding "branch", such as Ion3(tm)), must within 28 days
+      of this release, be prominently marked as (potentially) obsolete 
+      and unsupported.
+
+    - Significantly altered versions may be provided only if the user
+      explicitly requests for those modifications to be applied, and 
+      is prominently notified that the software is no longer considered 
+      the standard version, and is not supported by the copyright holder.
+      The version string displayed by the program must describe these
+      modifications and the "support void" status.
+
+  Versions for which the above conditions are not satisfied, must be
+  renamed so that they can not be associated with the Ion project, their
+  executables must be given names that do not conflict with the copyright
+  holder's version, and neither the copyright holder nor the Ion project
+  may be referred to for support.
+
+  You must keep intact this license and all the notices referring to it,
+  and distribute a copy of this license along with the documentation or
+  other materials provided with the distribution.
+
+  The copyright holder and the Ion project are granted similar rights to
+  your modifications, as this license grants you. This requirement does 
+  not apply to independent works merely using this software as an easily
+  replaceable component.
+
+No restrictions are placed on the use this software, apart from acts of
+redistribution.
+
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDER ``AS IS'' AND FREE OF
+CHARGE. TO THE EXTENT PERMITTED BY APPLICABLE LAW, ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, ARE DISCLAIMED.
+IN NO EVENT, TO THE EXTENT PERMITTED BY APPLICABLE LAW, SHALL THE COPYRIGHT
+HOLDER BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
+OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+THE POSSIBILITY OF SUCH DAMAGE.
+
+End of terms.
+
+
+Explanations
+
+Trademarks: With the terms above primarily appealing to copyright law,
+should any of the indicated trademarks be found invalid, does not excuse
+you from the conditions imposed by those terms. The use of these names
+in contexts other than redistribution of this software and modifications,
+is outside the scope of the terms above, and governed by applicable
+trademark or other laws. 
+
+  With regard to modules and other extensions to Ion, the permission
+  is hereby granted to use "Ion" as part of the name, provided that it
+  occurs in a form suggesting that the work is supported by neither
+  the copyright nor the Ion(tm) project: "Foo for Ion" instead of
+  "Ion Foo", etc.
+
+Significant change: Bug fixes are a priori insignificant as additions. 
+Basic changes that are needed to install or run the software on a target
+platform are a priori insignificant. Additionally, basic configuration
+changes to better integrate the software with the target platform, 
+without obstructing the standard behaviour, are a priori insignificant.
+Everything else is significant. The copyright holder reserves the right 
+to refine the definition of significant changes on a per-case basis. 
+Please consult when in doubt. 
+
+Distributions: For example, suppose an aggregate distribution of software
+provides an `installpkg` command for installing packages. Then the action
+`installpkg ion3` (resp. `installpkg ion`) should after 28 days provide the
+latest release of Ion3 (resp. the latest stable release), or prominently 
+notify the user that the provided version is (likely to be) obsolete and
+unsupported. Specific versions (including modified versions) may be provided
+if the user explicitly requests for those, within the constraints set above.
+The latest release being provided by default, or prominently appearing in
+a listing, constitutes prominent marking of earlier releases as obsolete.
+
+The intent of these terms is to curb the power that "distributions", as
+the primary sources of software for many users, have in defining what
+is perceived as Ion. By providing significantly modified versions and
+out-dated development snapshots without prominently mentioning this fact,
+they do not present the work in a light that the author can agree with,
+and create a burden of dealing with (new) users seeking for support for
+such versions.
+
+
+
+From tuomov at iki.fi  Thu Nov 29 16:30:21 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 29 Nov 2007 17:30:21 +0200
+Subject: License clarifications [Was: A devious little hack...]
+In-Reply-To: <20071125122806.GA19821@jolt.modeemi.cs.tut.fi>
+References: <slrnfk5ue9.egj.tuomov@jolt.modeemi.cs.tut.fi>
+	<87ve7wugsa.fsf@jbms.ath.cx>
+	<slrnfk809d.q8r.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071125122806.GA19821@jolt.modeemi.cs.tut.fi>
+Message-ID: <20071129153021.GA15969@jolt.modeemi.cs.tut.fi>
+
+On 2007-11-25 14:28 +0200, Tuomo Valkonen wrote:
+> Questions, comments?
+
+I take it everyone is happy with the clarified version...
+
+-- 
+Tuomo
+
+
+From shardz4217 at gmail.com  Thu Nov 29 16:47:40 2007
+From: shardz4217 at gmail.com (Samuel Baldwin)
+Date: Thu, 29 Nov 2007 11:47:40 -0400
+Subject: License clarifications [Was: A devious little hack...]
+In-Reply-To: <20071129153021.GA15969@jolt.modeemi.cs.tut.fi>
+References: <slrnfk5ue9.egj.tuomov@jolt.modeemi.cs.tut.fi>
+	<87ve7wugsa.fsf@jbms.ath.cx>
+	<slrnfk809d.q8r.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071125122806.GA19821@jolt.modeemi.cs.tut.fi>
+	<20071129153021.GA15969@jolt.modeemi.cs.tut.fi>
+Message-ID: <975fd1710711290747h584a3382ofe4b6cc09e4fcd5b@mail.gmail.com>
+
+> I take it everyone is happy with the clarified version...
+
+<unnecessary acknowledgement> aye.
+
+-- 
+Samuel 'Shardz' Baldwin
+
+Shardz's Igloo: shardz.homelinux.net
+
+Registered Linux User #410639
+
+
+From j.van_den_hoff at fzd.de  Thu Nov 29 18:21:35 2007
+From: j.van_den_hoff at fzd.de (Joerg van den Hoff)
+Date: Thu, 29 Nov 2007 18:21:35 +0100
+Subject: License clarifications [Was: A devious little hack...]
+In-Reply-To: <20071129153021.GA15969@jolt.modeemi.cs.tut.fi>
+References: <slrnfk5ue9.egj.tuomov@jolt.modeemi.cs.tut.fi>
+	<87ve7wugsa.fsf@jbms.ath.cx>
+	<slrnfk809d.q8r.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071125122806.GA19821@jolt.modeemi.cs.tut.fi>
+	<20071129153021.GA15969@jolt.modeemi.cs.tut.fi>
+Message-ID: <20071129172135.GC21407@marco.fz-rossendorf.de>
+
+On Thu, Nov 29, 2007 at 05:30:21PM +0200, Tuomo Valkonen wrote:
+> On 2007-11-25 14:28 +0200, Tuomo Valkonen wrote:
+> > Questions, comments?
+> 
+> I take it everyone is happy with the clarified version...
+> 
+
+mh,  is  the "happiness-level" of the list members really of
+relevance here :-) ?
+
+I  would  vote for relaxing the tight deadline of 28 days. I
+more or less understand what's getting  on  your  nerves  in
+principle,  but demanding explicit notifications in this way
+will probably only lead to something  like:  "the  developer
+demands   that   we   notify   you   that   28   days  after
+{insert_some_date_here} this version is no longer considered
+up-to-date etc. etc.
+
+I  think  ion3  is  now  in the "asymptotic range": the core
+functionality is more or less frozen and changes are  mostly
+in  the  periphery.  and  the  guys  adopting  ion3  to  the
+different distros might not always have time to react within
+28  days  (hey, they even might get on holidays sometimes!).
+
+so make that time limit 12 weeks, 3  months,  or  a  hundred
+days, whichever you like most...
+
+joerg
+
+> -- 
+> Tuomo
+
+
+From tuomov at iki.fi  Thu Nov 29 18:59:37 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 29 Nov 2007 17:59:37 +0000 (UTC)
+Subject: License clarifications [Was: A devious little hack...]
+References: <slrnfk5ue9.egj.tuomov@jolt.modeemi.cs.tut.fi>
+	<87ve7wugsa.fsf@jbms.ath.cx>
+	<slrnfk809d.q8r.tuomov@jolt.modeemi.cs.tut.fi>
+	<20071125122806.GA19821@jolt.modeemi.cs.tut.fi>
+	<20071129153021.GA15969@jolt.modeemi.cs.tut.fi>
+	<20071129172135.GC21407@marco.fz-rossendorf.de>
+Message-ID: <slrnfktvg9.sgf.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-11-29, Joerg van den Hoff <j.van_den_hoff at fzd.de> wrote:
+> mh,  is  the "happiness-level" of the list members really of
+> relevance here :-) ?
+
+Ion is not a fucking democracy (*shudder*), but even dictators
+don't make decisions all by themselves.
+
+> 28  days  (hey, they even might get on holidays sometimes!).
+
+Umm.. holidays is when most less sucky software, is written.
+And 28 days should be ample time in any case. If they go away
+for longer, they're as good as missing in action, and the
+distro or they should have done something about that.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Fri Nov 30 19:10:13 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 30 Nov 2007 18:10:13 +0000 (UTC)
+Subject: ion-3rc-20071130
+Message-ID: <slrnfl0kg5.8q2.tuomov@jolt.modeemi.cs.tut.fi>
+
+
+This RC features various minor fixes, and some clarifications and
+simplifications to the license, which people seem to have had trouble
+understanding.
+
+-- 
+Tuomo
+
+
+

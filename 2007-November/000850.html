@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Experimental ZeroInstall feed [Was: ion-3rc-20071109]
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Experimental%20ZeroInstall%20feed%20%5BWas%3A%20ion-3rc-20071109%5D&In-Reply-To=%3Cslrnfjuh34.dsq.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000849.html">
+   <LINK REL="Next"  HREF="000859.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Experimental ZeroInstall feed [Was: ion-3rc-20071109]</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Experimental%20ZeroInstall%20feed%20%5BWas%3A%20ion-3rc-20071109%5D&In-Reply-To=%3Cslrnfjuh34.dsq.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Experimental ZeroInstall feed [Was: ion-3rc-20071109]">tuomov at iki.fi
+       </A><BR>
+    <I>Sat Nov 17 20:43:32 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000849.html">Experimental ZeroInstall feed [Was: ion-3rc-20071109]
+</A></li>
+        <LI>Next message: <A HREF="000859.html">Experimental ZeroInstall feed [Was: ion-3rc-20071109]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#850">[ date ]</a>
+              <a href="thread.html#850">[ thread ]</a>
+              <a href="subject.html#850">[ subject ]</a>
+              <a href="author.html#850">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2007-11-17, Thomas Leonard &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">talex5 at gmail.com</A>&gt; wrote:
+&gt;<i> The svn version supports this (since 2007-09-18). I'll make a 0.31 
+</I>&gt;<i> release soon.
+</I>
+Nice.
+
+&gt;<i> Since 0.28 you can do:
+</I>&gt;<i>
+</I>&gt;<i> $ alias man='0alias --manpage'
+</I>
+Ah, but it doesn't quite work. I have ion3-zi alias for the Ion3
+ZeroInstall feed, and I get the Finnish man page in any locale.
+I suppose it uses some unreliable heuristic to find manpages within
+the packages? I saw a doc-dir option in the feed description, but 
+no man-page option. Shouldn't there be a similar option for the 
+man page? 
+
+&gt;<i> BTW, the XML file currently lists the download location as &quot;SITE&quot;, so it 
+</I>&gt;<i> doesn't work:
+</I>
+Works for me (0.29 from etch).
+
+&gt;<i> You can check the feed like this:
+</I>&gt;<i>
+</I>&gt;<i> $ 0launch <A HREF="http://0install.net/2007/interfaces/FeedLint.xml">http://0install.net/2007/interfaces/FeedLint.xml</A> \
+</I>&gt;<i>           <A HREF="http://iki.fi/tuomov/dl/Ion3.xml">http://iki.fi/tuomov/dl/Ion3.xml</A>
+</I>
+Feedlint fails for me:
+
+~$ 0launch <A HREF="http://0install.net/2007/interfaces/FeedLint.xml">http://0install.net/2007/interfaces/FeedLint.xml</A> <A HREF="http://iki.fi/tuomov/dl/Ion3.xml">http://iki.fi/tuomov/dl/Ion3.xml</A>
+Checking <A HREF="http://iki.fi/tuomov/dl/Ion3.xml">http://iki.fi/tuomov/dl/Ion3.xml</A>
+  Checking key <A HREF="http://iki.fi/tuomov/dl/D00CA21EC004251B.gpg">http://iki.fi/tuomov/dl/D00CA21EC004251B.gpg</A>       [ OK ]
+  Checking archive <A HREF="http://SITE/ion-3rc-20071109-bin-i386-linux.tar.gzTraceback">http://SITE/ion-3rc-20071109-bin-i386-linux.tar.gzTraceback</A> (most recent call last):
+  File &quot;/home/tuomov/.cache/0install.net/implementations/sha1new=e6731132594dd536ecee432b116e88f549eb1303/feedlint&quot;, line 199, in ?
+    check_source(source)
+  File &quot;/home/tuomov/.cache/0install.net/implementations/sha1new=e6731132594dd536ecee432b116e88f549eb1303/feedlint&quot;, line 128, in check_source
+    actual_size = get_size(source.url)
+  File &quot;/home/tuomov/.cache/0install.net/implementations/sha1new=e6731132594dd536ecee432b116e88f549eb1303/feedlint&quot;, line 119, in get_size
+    return get_http_size(url)
+  File &quot;/home/tuomov/.cache/0install.net/implementations/sha1new=e6731132594dd536ecee432b116e88f549eb1303/feedlint&quot;, line 79, in get_http_size
+    http = httplib.HTTPConnection(address.netloc, address.port or 80)
+AttributeError: 'tuple' object has no attribute 'netloc'
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000849.html">Experimental ZeroInstall feed [Was: ion-3rc-20071109]
+</A></li>
+	<LI>Next message: <A HREF="000859.html">Experimental ZeroInstall feed [Was: ion-3rc-20071109]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#850">[ date ]</a>
+              <a href="thread.html#850">[ thread ]</a>
+              <a href="subject.html#850">[ subject ]</a>
+              <a href="author.html#850">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> statusd_mpd-socket.lua
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-November/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20statusd_mpd-socket.lua&In-Reply-To=%3C1227109440-sup-4343%40cabinet%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001493.html">
+   <LINK REL="Next"  HREF="001495.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>statusd_mpd-socket.lua</H1>
+    <B>Marc Hartstein</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20statusd_mpd-socket.lua&In-Reply-To=%3C1227109440-sup-4343%40cabinet%3E"
+       TITLE="statusd_mpd-socket.lua">marc.hartstein at alum.vassar.edu
+       </A><BR>
+    <I>Wed Nov 19 17:01:18 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001493.html">statusd_mpd-socket.lua
+</A></li>
+        <LI>Next message: <A HREF="001495.html">statusd_mpd-socket.lua
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1494">[ date ]</a>
+              <a href="thread.html#1494">[ thread ]</a>
+              <a href="subject.html#1494">[ subject ]</a>
+              <a href="author.html#1494">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Excerpts from Tuomo Valkonen's message of Wed Nov 19 02:44:38 -0500 2008:
+&gt;<i> I suggest sending it to the scripts repository for easy availability.
+</I>
+Will do, thanks.
+
+&gt;<i> Also, on a cursory glance, it appeared to be a timer hack. If it's
+</I>
+Yeah, the getting out of the way so statusbar can finish setting itself
+up before attempting to open a connection is a timer hack. After that,
+well, mpd doesn't push, so we have to pull. Although an event handler
+could be useful there too to let us get out of the way of other monitors
+if for some strange reason mpd is slow to respond (across a network?)
+
+I'll look into the event stuff in ion3 the next time I get a bit of time
+I want to spend on this.  Maybe I should switch over to ion3-plus?
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20081119/95a6f776/attachment.pgp">https://lists.berlios.de/pipermail/ion-general/attachments/20081119/95a6f776/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001493.html">statusd_mpd-socket.lua
+</A></li>
+	<LI>Next message: <A HREF="001495.html">statusd_mpd-socket.lua
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1494">[ date ]</a>
+              <a href="thread.html#1494">[ thread ]</a>
+              <a href="subject.html#1494">[ subject ]</a>
+              <a href="author.html#1494">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> upgrade problems
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20upgrade%20problems&In-Reply-To=%3C20070127133546.GI17121%40a5.repetae.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000080.html">
+   <LINK REL="Next"  HREF="000085.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>upgrade problems</H1>
+    <B>Frederik Eaton</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20upgrade%20problems&In-Reply-To=%3C20070127133546.GI17121%40a5.repetae.net%3E"
+       TITLE="upgrade problems">frederik at a5.repetae.net
+       </A><BR>
+    <I>Sat Jan 27 14:35:46 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000080.html">upgrade problems
+</A></li>
+        <LI>Next message: <A HREF="000085.html">Lua integration suggestions
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#81">[ date ]</a>
+              <a href="thread.html#81">[ thread ]</a>
+              <a href="subject.html#81">[ subject ]</a>
+              <a href="author.html#81">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Sat, Jan 27, 2007 at 01:20:55PM +0100, csant wrote:
+&gt;<i> On Sat, 27 Jan 2007 01:32:49 +0100, Frederik Eaton &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">frederik at ofb.net</A>&gt; wrote:
+</I>&gt;<i> &gt;These questions have been answered on IRC. thanks
+</I>&gt;<i> It would be nice if you could in any case post them to the list as well - so others will have an easier way to find the 
+</I>&gt;<i> answers (and they do not have to be repeated once again on IRC).
+</I>&gt;<i> 
+</I>&gt;<i> Thanks,
+</I>&gt;<i> /c :)
+</I>
+Summary: &quot;mod_ionws has been renamed to mod_tiling&quot;
+&quot;Maybe one or two keybindings need fixing as well.&quot;
+
+22:19 &lt; _frederik_&gt; hello, i've upgraded ion and now it isn't working again
+22:19 &lt; _frederik_&gt; do i have to change something about my configuration?
+22:19 &lt; _frederik_&gt; version is 3ds-20061223
+22:20 &lt; _frederik_&gt; there are no tabs at the top of the screen
+22:50 &lt; urs&gt; _frederik_: what version did you upgrade from? pre-october?
+22:57 &lt; waawaamilk&gt; _frederik_: what happens if you create a new workspace? do things work there?
+23:07 &lt; _frederik_&gt; urs: yes, certainly
+23:07 &lt; _frederik_&gt; waawaamilk: if i create a new workspace, it comes up floating
+23:11 &lt; waawaamilk&gt; can you not get a query for one?
+23:11 &lt; _frederik_&gt; query?
+23:11 &lt; waawaamilk&gt; F9
+23:11 &lt; urs&gt; _frederik_: the most important config-change from pre-december versions is that mod_ionws has been renamed to
+             mod_tiling
+23:12 &lt; _frederik_&gt; urs: oh
+23:12 &lt; _frederik_&gt; urs: perhaps that's the issue
+23:12 &lt; urs&gt; So you'll need to fix that in your config
+23:12 &lt; urs&gt; Maybe one or two keybindings need fixing as well.
+23:12 &lt; _frederik_&gt; why are there so many incompatible changes?
+23:12 &lt; urs&gt; Because the internal architecture has been overhauled an (imho) beautified.
+23:13 &lt; _frederik_&gt; sure, but renaming things isn't important enough to be a reason to break compatibility
+23:13 &lt; urs&gt; The new code doesn't differentiate between tiling and frame workspaces anymore, you can mix them freely.
+23:13 &lt; urs&gt; Well, ion has always been a development playground. If you want stability, stick with ion2. :)
+
+Here's a description of the changes I made, using the above hints:
+
+$ diff -u .ion3/cfg_ion.lua{.orig,} 
+--- .ion3/cfg_ion.lua.orig      2007-01-26 22:36:33.000000000 +0000
++++ .ion3/cfg_ion.lua   2007-01-26 23:29:57.000000000 +0000
+@@ -30,7 +30,7 @@
+     warp=true,
+     
+     -- Default workspace type.
+-    default_ws_type=&quot;WIonWS&quot;,
++    default_ws_type=&quot;WTiling&quot;,
+ }
+ 
+ 
+@@ -41,9 +41,9 @@
+ -- Load some modules.
+ dopath(&quot;mod_query&quot;)
+ dopath(&quot;mod_menu&quot;)
+-dopath(&quot;mod_ionws&quot;)
+-dopath(&quot;mod_floatws&quot;)
+-dopath(&quot;mod_panews&quot;)
++dopath(&quot;mod_tiling&quot;)
++--dopath(&quot;mod_floatws&quot;)
++--dopath(&quot;mod_panews&quot;)
+ --dopath(&quot;mod_statusbar&quot;)
+ dopath(&quot;mod_dock&quot;)
+ --dopath(&quot;mod_sp&quot;)
+
+Also, I had to change .ion3/cfg_bindings.lua, inserting the following
+blocks (taken from the new /etc/X11/ion3/cfg_bindings.lua) and
+removing the corresponding bindings from their old locations:
+
+----------------------------------------------------------------
+-- Client window bindings
+--
+-- These bindings affect client windows directly.
+
+defbindings(&quot;WClientWin&quot;, {
+    bdoc(&quot;Nudge the client window. This might help with some &quot;..
+         &quot;programs' resizing problems.&quot;),
+    kpress_wait(META..&quot;L&quot;, &quot;WClientWin.nudge(_)&quot;),
+    
+    submap(META..&quot;T&quot;, {
+       bdoc(&quot;Kill client owning the client window.&quot;),
+       kpress(&quot;C&quot;, &quot;WClientWin.kill(_)&quot;),
+       
+       bdoc(&quot;Send next key press to the client window. &quot;..
+            &quot;Some programs may not allow this by default.&quot;),
+       kpress(&quot;Q&quot;, &quot;WClientWin.quote_next(_)&quot;),
+    }),
+})
+
+
+-- Client window group bindings
+
+defbindings(&quot;WGroupCW&quot;, {
+    bdoc(&quot;Toggle client window group full-screen mode&quot;),
+    kpress_wait(META..&quot;Return&quot;,
+                &quot;WClientWin.set_fullscreen(_:bottom(), 'toggle')&quot;),
+})
+----------------------------------------------------------------
+
+Best,
+
+Frederik
+
+-- 
+<A HREF="http://ofb.net/~frederik/">http://ofb.net/~frederik/</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000080.html">upgrade problems
+</A></li>
+	<LI>Next message: <A HREF="000085.html">Lua integration suggestions
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#81">[ date ]</a>
+              <a href="thread.html#81">[ thread ]</a>
+              <a href="subject.html#81">[ subject ]</a>
+              <a href="author.html#81">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> extended window manager hints
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20extended%20window%20manager%20hints&In-Reply-To=%3C5ad23a300805300854r2a0f30b9hca277d1a84d1d17c%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001225.html">
+   <LINK REL="Next"  HREF="001236.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>extended window manager hints</H1>
+    <B>Jordan Sissel</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20extended%20window%20manager%20hints&In-Reply-To=%3C5ad23a300805300854r2a0f30b9hca277d1a84d1d17c%40mail.gmail.com%3E"
+       TITLE="extended window manager hints">psionic at gmail.com
+       </A><BR>
+    <I>Fri May 30 17:54:12 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001225.html">is it possible to restrict the mouse to the current window?
+</A></li>
+        <LI>Next message: <A HREF="001236.html">extended window manager hints
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1235">[ date ]</a>
+              <a href="thread.html#1235">[ thread ]</a>
+              <a href="subject.html#1235">[ subject ]</a>
+              <a href="author.html#1235">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Howdy folks,
+
+Does ion-3 support any of the documented ways of expressing the number
+of available desktops (workspaces, whatever you want to call them)?
+
+I've tried _NET_NUMBER_OF_DESKTOPS and _NET_VIRTUAL_ROOTS. Neither
+return any data in ion. I'm not totally versed in ICCCM or the
+extended wm hints spec, but it seems like ion claims that
+_NET_VIRTUAL_ROOTS is supported. 'xprop' on the root window while
+running ion says:
+
+_NET_SUPPORTED(ATOM) = _NET_WM_NAME, _NET_WM_STATE,
+_NET_WM_STATE_FULLSCREEN, _NET_SUPPORTING_WM_CHECK,
+_NET_VIRTUAL_ROOTS, _NET_ACTIVE_WINDOW
+
+It's totally possible I've misread the wm spec (from freedesktop). Am
+I wrong in assuming _NET_VIRTUAL_ROOTS should return me a list of
+workspace window parents in ion? It's also possible that ion doesn't
+use virtual roots for workspaces, but briefly looking at the screen
+code in ion shows it creates them.
+
+xprop(1) shows:
+_ION_WORKSPACE(STRING) = &quot;WGroupWS&lt;1&gt;&quot;
+
+Should I be walking the window tree for a window with that title? I
+have some code that tried that, but failed to find any with 'WGroupWS'
+in the title.
+
+-Jordan
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001225.html">is it possible to restrict the mouse to the current window?
+</A></li>
+	<LI>Next message: <A HREF="001236.html">extended window manager hints
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1235">[ date ]</a>
+              <a href="thread.html#1235">[ thread ]</a>
+              <a href="subject.html#1235">[ subject ]</a>
+              <a href="author.html#1235">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

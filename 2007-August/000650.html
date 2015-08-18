@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Not all bindings are defined in cfg_ioncore.lua
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Not%20all%20bindings%20are%20defined%20in%20cfg_ioncore.lua&In-Reply-To=%3C20070804143826.GA1631%40jurjen.lan%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000642.html">
+   <LINK REL="Next"  HREF="000652.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Not all bindings are defined in cfg_ioncore.lua</H1>
+    <B>jurjen middendorp</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Not%20all%20bindings%20are%20defined%20in%20cfg_ioncore.lua&In-Reply-To=%3C20070804143826.GA1631%40jurjen.lan%3E"
+       TITLE="Not all bindings are defined in cfg_ioncore.lua">jurjenm at stack.nl
+       </A><BR>
+    <I>Sat Aug  4 16:38:26 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000642.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+        <LI>Next message: <A HREF="000652.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#650">[ date ]</a>
+              <a href="thread.html#650">[ thread ]</a>
+              <a href="subject.html#650">[ subject ]</a>
+              <a href="author.html#650">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Thu, Aug 02, 2007 at 04:33:25PM -0400, Ted Zlatanov wrote:
+&gt;<i>I'd just like to point out that this is exactly why the Ion
+</I>&gt;<i>configuration should not be in Lua and subject to change any time an
+</I>&gt;<i>update comes down IMO.
+</I>&gt;<i>
+</I>&gt;<i>Something like this:
+</I>&gt;<i>
+</I>&gt;<i>META..&quot;S&quot; = split_here_horizontal
+</I>&gt;<i>META..&quot;V&quot; = split_here_vertical
+</I>&gt;<i>
+</I>&gt;<i>Is all 99% of end users need.  Wouldn't this be easier for everyone?
+</I>
+I think it will be difficult to specify which objects button presses work on, it
+would be hard to have submaps and define menus and so on with a simple variable =
+setting scheme. As you said... the exact format depends on the purpose.
+
+But the configuration files aren't that hard really, they're well documented, both
+in the manual and in the files themselves. They are very easy to edit by basically
+anyone who understands variable=setting, because this is what they are. They're
+hardly code, they're just function calls. And can easily be edited by just reading
+the comments and bdoc and then deciding to which button you want to have that
+feature, and then edit that to the button you want. You don't even have to understand
+lua or ion or code at all.
+
+And anyway, Lua was *designed* to be embedded in ways like this. That's also the
+reason alot of games use Lua for scripting and configuration.  If you know just a
+litle bit of lua and a litle bit ion you can really make ion much better then just
+the defaults by making small scripts/functions that do stuff. And the reason for
+this is that you can bind any lua (or even C) function you write to a key thanks
+to the easy-to-use-but-powerful-config files.  Taking this away would take alot
+of fun from ion.
+
+-jurjen
+
+ps. maybe the real problem is people in online articles claiming lua is complicated
+and difficult -or even needed to understand- and so scaring new users :P
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000642.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+	<LI>Next message: <A HREF="000652.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#650">[ date ]</a>
+              <a href="thread.html#650">[ thread ]</a>
+              <a href="subject.html#650">[ subject ]</a>
+              <a href="author.html#650">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

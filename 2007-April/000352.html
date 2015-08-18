@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> sending keystroke to unfocused window
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20sending%20keystroke%20to%20unfocused%20window&In-Reply-To=%3Cm04pnoyc3m.fsf%40ge-research.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000349.html">
+   <LINK REL="Next"  HREF="000354.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>sending keystroke to unfocused window</H1>
+    <B>Stefan Reich&#246;r</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20sending%20keystroke%20to%20unfocused%20window&In-Reply-To=%3Cm04pnoyc3m.fsf%40ge-research.com%3E"
+       TITLE="sending keystroke to unfocused window">stefan at xsteve.at
+       </A><BR>
+    <I>Tue Apr 10 08:31:25 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000349.html">Distributions and Xinerama etc.
+</A></li>
+        <LI>Next message: <A HREF="000354.html">sending keystroke to unfocused window
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#352">[ date ]</a>
+              <a href="thread.html#352">[ thread ]</a>
+              <a href="subject.html#352">[ subject ]</a>
+              <a href="author.html#352">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Renee Klawitter writes:
+
+&gt;<i> Hi!!
+</I>&gt;<i>
+</I>&gt;<i> Is it possible to send a keystroke to an unfocused window ? What I
+</I>&gt;<i> think of is emacslike C-M-v to scroll down in another (emacs-)window.
+</I>&gt;<i>
+</I>&gt;<i> If you have your editor on one side of a splitted frame and maybe a
+</I>&gt;<i> xpdf on the other, pressing META-v will send the &lt;down key&gt; event to
+</I>&gt;<i> xpdf. The appropriate keystroke could be chosen by the receiving
+</I>&gt;<i> window's window-info; and the receiving window itself could be chosen
+</I>&gt;<i> by tagging it.
+</I>&gt;<i>
+</I>&gt;<i> Could this be done by a script ? And if so, how ?
+</I>
+You can use xautomation to send keystrokes.
+
+I have written an emacs interface for xte. You can find it here:
+<A HREF="http://www.xsteve.at/prg/emacs/xte.el">http://www.xsteve.at/prg/emacs/xte.el</A>
+
+I have a similar demand. The following two functions jump to the
+recent window, send prior/next and switch back to the actual one:
+
+(defun xte-recent-win-page-up ()
+  (interactive)
+  (xte [(hyper ?k) ?k prior sleep (hyper ?k) ?k]))
+
+(defun xte-recent-win-page-down ()
+  (interactive)
+  (xte [(hyper ?k) ?k next sleep (hyper ?k) ?k]))
+
+
+Note: I use hyper ?k ?k to switch to the most recent window.
+
+Stefan.
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000349.html">Distributions and Xinerama etc.
+</A></li>
+	<LI>Next message: <A HREF="000354.html">sending keystroke to unfocused window
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#352">[ date ]</a>
+              <a href="thread.html#352">[ thread ]</a>
+              <a href="subject.html#352">[ subject ]</a>
+              <a href="author.html#352">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

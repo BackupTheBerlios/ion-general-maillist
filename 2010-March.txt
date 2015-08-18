@@ -1,0 +1,305 @@
+From ion at themel.com  Wed Mar  3 09:50:53 2010
+From: ion at themel.com (Thomas Themel)
+Date: Wed, 03 Mar 2010 09:50:53 +0100
+Subject: System Tray
+Message-ID: <1267606039-sup-6383@eristoteles.iwoars.net>
+
+Hi,
+
+is mod_dock supposed to implement the freedesktop system tray spec? I'm asking
+because recent versions of both knetworkmanager and nm-applet fail to show up
+in the dock for me, which is slightly annoying. Does this work for anyone, are
+there workarounds? In ancient days, I could attach missing dock windows by
+name, but apparently in this case they don't show up.
+
+ciao,
+-- 
+[*Thomas  Themel*] Usenet is not fair. After all, who shall decide what's fair?
+[extended contact] For that matter, if someone is behaving unfairly, who's going
+[info provided in] to stop him? Neither you nor I, that's certain.
+[*message header*]  - <http://www.cs.indiana.edu/docproject/zen/zen-1.0_6.html>
+
+
+From treibholz-ion at sozial-inkompetent.de  Wed Mar  3 11:21:19 2010
+From: treibholz-ion at sozial-inkompetent.de (Klaus Umbach)
+Date: Wed, 3 Mar 2010 11:21:19 +0100
+Subject: System Tray
+In-Reply-To: <1267606039-sup-6383@eristoteles.iwoars.net>
+References: <1267606039-sup-6383@eristoteles.iwoars.net>
+Message-ID: <20100303102119.GB19709@umbach-racing.de>
+
+On 03.03.10 09:50, Thomas Themel wrote:
+> is mod_dock supposed to implement the freedesktop system tray spec? I'm asking
+> because recent versions of both knetworkmanager and nm-applet fail to show up
+> in the dock for me, which is slightly annoying. Does this work for anyone, are
+> there workarounds? In ancient days, I could attach missing dock windows by
+> name, but apparently in this case they don't show up.
+
+No, it implements only the KDE(3?)-standard, you need to use something additional
+I use docker for everything else, embedded in the statusbar.
+
+-
+        Klaus
+
+
+From ion at themel.com  Wed Mar  3 16:02:13 2010
+From: ion at themel.com (Thomas Themel)
+Date: Wed, 03 Mar 2010 16:02:13 +0100
+Subject: System Tray
+In-Reply-To: <20100303145602.GB17516@edgar.terramar.selidor.net>
+References: <1267606039-sup-6383@eristoteles.iwoars.net>
+	<20100303145602.GB17516@edgar.terramar.selidor.net>
+Message-ID: <1267628433-sup-6427@eristoteles.iwoars.net>
+
+Hi,
+Excerpts from Ivan Vilata i Balaguer's message of Wed Mar 03 15:56:02 +0100 2010:
+> If mod_dock doesn't work for you, you can always use Trayion:
+> http://code.google.com/p/trayion/
+
+Thanks, that does indeed give me network manager icons in my ion dock.
+
+ciao,
+-- 
+[*Thomas  Themel*] "Wenn jemand fragt, was Hacken ist, und jemand anderes
+[extended contact]  antwortet, haben es beide nicht verstanden."
+[info provided in]
+[*message header*]    - <http://yadocfaq.fefe.de/#dumm>
+
+
+From bduggan at matatu.org  Sat Mar  6 15:04:43 2010
+From: bduggan at matatu.org (Brian Duggan)
+Date: Sat, 6 Mar 2010 09:04:43 -0500
+Subject: System Tray
+In-Reply-To: <1267606039-sup-6383@eristoteles.iwoars.net>
+References: <1267606039-sup-6383@eristoteles.iwoars.net>
+Message-ID: <20100306140443.GA13338@matatu.org>
+
+On Wednesday, March  3, Thomas Themel wrote: 
+> [...] recent versions of both knetworkmanager and nm-applet fail to show up
+> in the dock for me, which is slightly annoying. Does this work for anyone, are
+> there workarounds?
+
+Not sure, but an alternative combo would be wicd-client + trayion.  I
+find that they work well together.
+
+Brian
+
+
+
+
+From mrawash at gmail.com  Fri Mar 19 13:33:41 2010
+From: mrawash at gmail.com (M. Rawash)
+Date: Fri, 19 Mar 2010 14:33:41 +0200
+Subject: disabling mouse focus
+Message-ID: <e0165c2c1003190533u2165b949ld2f83a3166617d39@mail.gmail.com>
+
+hi, is there a simple way to disable 'mousefocus' on certain clients
+(a on-screen keyboard, for example)?
+
+
+From tuomov at iki.fi  Mon Mar 22 14:12:22 2010
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 22 Mar 2010 14:12:22 +0100
+Subject: disabling mouse focus
+In-Reply-To: <e0165c2c1003190533u2165b949ld2f83a3166617d39@mail.gmail.com>
+References: <e0165c2c1003190533u2165b949ld2f83a3166617d39@mail.gmail.com>
+Message-ID: <20100322131222.GA8894@coffee.modeemi.cs.tut.fi>
+
+On 2010-03-19 14:33 +0200, M. Rawash wrote:
+> hi, is there a simple way to disable 'mousefocus' on certain clients
+> (a on-screen keyboard, for example)?
+
+There's the 'passive' winprop. There should be examples in the
+list archives, maybe even something in the scripts repository.
+
+-- 
+Tuomo
+
+
+From mrawash at gmail.com  Tue Mar 23 00:36:33 2010
+From: mrawash at gmail.com (M. Rawash)
+Date: Tue, 23 Mar 2010 01:36:33 +0200
+Subject: disabling mouse focus
+In-Reply-To: <20100322131222.GA8894@coffee.modeemi.cs.tut.fi>
+References: <e0165c2c1003190533u2165b949ld2f83a3166617d39@mail.gmail.com>
+	<20100322131222.GA8894@coffee.modeemi.cs.tut.fi>
+Message-ID: <e0165c2c1003221636oae18f63g127d5ce432373efb@mail.gmail.com>
+
+On 22/03/2010, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2010-03-19 14:33 +0200, M. Rawash wrote:
+>> hi, is there a simple way to disable 'mousefocus' on certain clients
+>> (a on-screen keyboard, for example)?
+>
+> There's the 'passive' winprop. There should be examples in the
+> list archives, maybe even something in the scripts repository.
+>
+> --
+> Tuomo
+>
+
+thanks, i thought there must be a more obvious way, but this is what i did:
+
+defwinprop{
+  class = "Something",
+  float = true,
+  userpos = true,
+  switchto = false,
+  no_focus = true,
+}
+
+nmfcwins = {}
+
+function no_mfocus(cwin,t)
+  local winprop = ioncore.getwinprop(cwin)
+  if winprop and winprop.no_focus then
+    nmfcwins[cwin:xid()] = cwin:xid()
+    ioncore.set{mousefocus="disabled"}
+  end
+end
+
+function ret_mfocus(cxid)
+  if nmfcwins[cxid]==cxid then
+    nmfcwins[cxid]=nil
+    if table.maxn(nmfcwins)==0 then
+      ioncore.set{mousefocus="sloppy"}
+    end
+  end
+end
+
+ioncore.get_hook('clientwin_mapped_hook'):add(no_mfocus)
+ioncore.get_hook('clientwin_unmapped_hook'):add(ret_mfocus)
+
+this is only good for a few cases (i.e. a on-screen keyboard, that's
+activated from the systray), but it does the job for me; i'll
+investigate the passive property further, i noticed it before, but
+wasn't sure how to use it in this case.
+
+regards,
+M Rawash
+
+
+From Albert.Shih at obspm.fr  Tue Mar 30 22:13:32 2010
+From: Albert.Shih at obspm.fr (Albert Shih)
+Date: Tue, 30 Mar 2010 22:13:32 +0200
+Subject: Grab the keyboard
+Message-ID: <20100330201332.GA83134@obspm.fr>
+
+Hi all.
+
+How can I tell ION to NOT grab the keyboard ?
+
+I've ask that because I try to use some ?complexe? software (in fact
+blender), and he have use lot of F1 --> F12 keyboard shortcuts. I don't
+known how to change that (and I'm don't want to).
+
+So I would like to known if it's easy to make ION don't do anything when I
+launch blender all ION is disable ? 
+
+Regards.
+
+NB: Tuomov : where is your web page about ION ?
+http://www.modeemi.cs.tut.fi/~tuomov/ion/ give me a error.
+-- 
+Albert SHIH
+SIO batiment 15
+Observatoire de Paris Meudon
+5 Place Jules Janssen
+92195 Meudon Cedex
+T?l?phone : 01 45 07 76 26/06 86 69 95 71
+Heure local/Local time:
+Mar 30 mar 2010 22:09:32 CEST
+
+
+From mrawash at gmail.com  Wed Mar 31 01:25:24 2010
+From: mrawash at gmail.com (M. Rawash)
+Date: Wed, 31 Mar 2010 01:25:24 +0200
+Subject: Grab the keyboard
+In-Reply-To: <20100330201332.GA83134@obspm.fr>
+References: <20100330201332.GA83134@obspm.fr>
+Message-ID: <e0165c2c1003301625g75945762i5ad9d0562001dea2@mail.gmail.com>
+
+On , Albert Shih <Albert.Shih at obspm.fr> wrote:
+> Hi all.
+>
+>
+>
+> How can I tell ION to NOT grab the keyboard ?
+>
+>
+>
+> I've ask that because I try to use some ?complexe? software (in fact
+>
+> blender), and he have use lot of F1 --> F12 keyboard shortcuts. I don't
+>
+> known how to change that (and I'm don't want to).
+>
+>
+>
+> So I would like to known if it's easy to make ION don't do anything when I
+>
+> launch blender all ION is disable ?
+>
+>
+>
+> Regards.
+>
+
+It's possible to use 'WClientWin.quote_next(cwin)' to send the next
+keypress to the client window, but to get exactly what you're
+describing here, you'd have to use a ion hook of some kind to switch
+(or turn off) key bindings, RTFM/lookup some examples for details.
+(and yes, it's easy)
+
+Also, there's always the possibility of changing ion keybinds so that
+they don't intersect with blender's. (using an extra modifier key, for
+example)
+
+>
+> NB: Tuomov : where is your web page about ION ?
+>
+> http://www.modeemi.cs.tut.fi/~tuomov/ion/ give me a error.
+>
+
+I'd like to know about that too...
+
+Regards,
+M Rawash
+
+
+From olejorgenb at yahoo.no  Wed Mar 31 11:07:03 2010
+From: olejorgenb at yahoo.no (=?utf-8?Q?Ole_J=C3=B8rgen_Br=C3=B8nner?=)
+Date: Wed, 31 Mar 2010 11:07:03 +0200
+Subject: Grab the keyboard
+In-Reply-To: <20100330201332.GA83134@obspm.fr>
+References: <20100330201332.GA83134@obspm.fr>
+Message-ID: <op.vafcxztnvocxtk@tabole>
+
+Not sure what's up with the homepage. I've uploaded the manual here http://folk.ntnu.no/bronner/temp/ionconf/ (I don't have the
+
+As for the bindings, the quickest solution is probably to use the switch_bindings (attached here) script to temporally disable all ion bindings. A better, but more time consuming, solution would be to use a hook to disable/enable only the keybindings that conflicts, as M Rawash suggests.
+
+On Tue, 30 Mar 2010 22:13:32 +0200, Albert Shih <Albert.Shih at obspm.fr> wrote:
+
+> Hi all.
+>
+> How can I tell ION to NOT grab the keyboard ?
+>
+> I've ask that because I try to use some ?complexe? software (in fact
+> blender), and he have use lot of F1 --> F12 keyboard shortcuts. I don't
+> known how to change that (and I'm don't want to).
+>
+> So I would like to known if it's easy to make ION don't do anything when I
+> launch blender all ION is disable ?
+>
+> Regards.
+>
+> NB: Tuomov : where is your web page about ION ?
+> http://www.modeemi.cs.tut.fi/~tuomov/ion/ give me a error.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: switch_bindings.lua
+Type: application/octet-stream
+Size: 1741 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20100331/a4be3df3/attachment.obj>
+

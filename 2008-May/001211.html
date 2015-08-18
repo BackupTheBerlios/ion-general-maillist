@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Open frame to the right of the parent window
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Open%20frame%20to%20the%20right%20of%20the%20parent%20window&In-Reply-To=%3C779975.62839.qm%40web53203.mail.re2.yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001208.html">
+   <LINK REL="Next"  HREF="001212.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Open frame to the right of the parent window</H1>
+    <B>Daniel Clemente</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Open%20frame%20to%20the%20right%20of%20the%20parent%20window&In-Reply-To=%3C779975.62839.qm%40web53203.mail.re2.yahoo.com%3E"
+       TITLE="Open frame to the right of the parent window">dcl441-bugs at yahoo.com
+       </A><BR>
+    <I>Fri May 23 12:37:24 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001208.html">Ion3 wishlist / a note about Ion4
+</A></li>
+        <LI>Next message: <A HREF="001212.html">Open frame to the right of the parent window
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1211">[ date ]</a>
+              <a href="thread.html#1211">[ thread ]</a>
+              <a href="subject.html#1211">[ subject ]</a>
+              <a href="author.html#1211">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hi,
+  there's just one thing I still couldn't configure in
+ion3, namely a solution to cases like the following:
+  - a slow program will open shortly in workspace 3,
+and I must stay waiting at workspace 3 because I want
+it to be really in workspace 3 (and no other) when it
+pops up
+  - I am in workspace 2, and a program in workspace 3
+opens a window. The window shows up in the current
+workspace 2 and interrupts what I was doing
+
+  The problem is just one: when a new window was
+opened from a frame which is not the current one, the
+window opens up in the current frame instead of in the
+original one.
+
+  You can reproduce this by issuing &#8222;sleep 2;
+xeyes&#8220; from a terminal, then switching to
+another workspace.
+
+  The behavior I want is that the window opens in the
+tab to the right of the tab of the parent window. By
+&#8222;parent window&#8220; I mean the window which
+decided to open the new one.
+  
+  There is a variable for controlling where to open
+new frames:
+    
+    -- Default index for windows in frames: one of
+'last', 'next' (for
+    -- after current), or 'next-act' (for after
+current and anything with
+    -- activity right after it).
+    --frame_default_index='next',
+
+  I suggest adding a parameter
+frame_default_index='parent-next' or similar to mean
+&#8222;after the window who issued the request (even
+if it's in another frame)&#8220;.
+
+
+  Note that if switchto=true, then the focus could
+switch to other frame/workspace just because a new
+window opened up there. Another parameter might be
+needed to mean &#8222;switchto=true, but only if it
+doesn't imply moving the focus to another frame or
+workspace&#8220;.
+
+
+  What do you think?
+
+  Thanks,
+Daniel
+
+
+
+
+      ______________________________________________ 
+Enviado desde Correo Yahoo! La bandeja de entrada m&#225;s inteligente.
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001208.html">Ion3 wishlist / a note about Ion4
+</A></li>
+	<LI>Next message: <A HREF="001212.html">Open frame to the right of the parent window
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1211">[ date ]</a>
+              <a href="thread.html#1211">[ thread ]</a>
+              <a href="subject.html#1211">[ subject ]</a>
+              <a href="author.html#1211">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

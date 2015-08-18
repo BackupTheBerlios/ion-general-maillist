@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> ion-statusd eating up 100% cpu
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-June/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion-statusd%20eating%20up%20100%25%20cpu&In-Reply-To=%3C20080623194007.48143008%40gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001254.html">
+   <LINK REL="Next"  HREF="001257.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>ion-statusd eating up 100% cpu</H1>
+    <B>Christian Glindkamp</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion-statusd%20eating%20up%20100%25%20cpu&In-Reply-To=%3C20080623194007.48143008%40gmail.com%3E"
+       TITLE="ion-statusd eating up 100% cpu">christian.glindkamp at gmail.com
+       </A><BR>
+    <I>Mon Jun 23 19:40:07 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001254.html">ion-statusd eating up 100% cpu
+</A></li>
+        <LI>Next message: <A HREF="001257.html">ion-statusd eating up 100% cpu
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1256">[ date ]</a>
+              <a href="thread.html#1256">[ thread ]</a>
+              <a href="subject.html#1256">[ subject ]</a>
+              <a href="author.html#1256">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+&gt;<i> On 2008-06-10 19:00 +0200, Jens Jahnke wrote:  
+</I>&gt;<i> &gt; I've had the 100% cpu after some minutes but
+</I>&gt;<i> &gt; right now I'm logged on for hours and it behaves normal. I'll keep
+</I>&gt;<i> &gt; an eye on it and report if there is something more reproducable.
+</I>&gt;<i>
+</I>&gt;<i> One thing you could try is attach to it with strace (-p pid), to
+</I>&gt;<i> try to see what it's doing. Another thing is to attach with gdb
+</I>&gt;<i> (--pid), but this is of little use if you have debugging symbols
+</I>&gt;<i> disabled (as they by default are), or if the code is in lua.
+</I>&gt;<i> 
+</I>
+I have seen a similar behaviour and used strace to examine the
+situation. At first, it makes no difference whether I start ion-statusd
+from the console or through ion.
+
+When ion-statusd consumes 100% cpu, strace gives the following output
+in an endless loop:
+
+  --- SIGALRM (Alarm clock) @ 0 (0) ---
+  sigreturn()                             = ? (mask now [])
+  --- SIGALRM (Alarm clock) @ 0 (0) ---
+  sigreturn()                             = ? (mask now [])
+
+I further noticed that ion-statusd returns to normal behaviour after
+detaching from the process most of the time. In my strace logfile I've
+done on the console without attaching to a running process I have also
+seen one instance of the strace output above, but intermixed with
+single calls to different functions. This loop later stopped and statusd
+returned to normal behaviour without manipulation by myself.
+This incident started with
+
+  clock_gettime(CLOCK_MONOTONIC, {13941, 540036351}) = 0
+  clock_gettime(CLOCK_MONOTONIC, {13941, 540067869}) = 0
+  setitimer(ITIMER_REAL, {it_interval={0, 179}, it_value={0, 179}}, NULL) = 0
+  clock_gettime(CLOCK_MONOTONIC, {13941, 540187362}) = 0
+  setitimer(ITIMER_REAL, {it_interval={0, 59}, it_value={0, 59}}, NULL) = 0
+  write(1, &quot;.\n&quot;, 2)                      = 2
+  --- SIGALRM (Alarm clock) @ 0 (0) ---
+  sigreturn()                             = ? (mask now [])
+  --- SIGALRM (Alarm clock) @ 0 (0) ---
+  sigreturn()                             = ? (mask now [])
+
+and ended with
+
+  --- SIGALRM (Alarm clock) @ 0 (0) ---
+  sigreturn()                             = ? (mask now [])
+  --- SIGALRM (Alarm clock) @ 0 (0) ---
+  sigreturn()                             = ? (mask now [])
+  setitimer(ITIMER_REAL, {it_interval={0, 815411}, it_value={0, 815411}}, NULL) = 0
+  --- SIGALRM (Alarm clock) @ 0 (0) ---
+  sigreturn()                             = ? (mask now [])
+  clock_gettime(CLOCK_MONOTONIC, {13941, 591428682}) = 0
+  setitimer(ITIMER_REAL, {it_interval={0, 814784}, it_value={0, 814784}}, NULL) = 0
+  clock_gettime(CLOCK_MONOTONIC, {13941, 591488730}) = 0
+  clock_gettime(CLOCK_MONOTONIC, {13941, 591515976}) = 0
+
+The loop, which didn't stop started with
+
+  clock_gettime(CLOCK_MONOTONIC, {14538, 463099728}) = 0
+  clock_gettime(CLOCK_MONOTONIC, {14538, 463131462}) = 0
+  setitimer(ITIMER_REAL, {it_interval={0, 19}, it_value={0, 19}}, NULL) = 0
+  --- SIGALRM (Alarm clock) @ 0 (0) ---
+  sigreturn()                             = ? (mask now [])
+  --- SIGALRM (Alarm clock) @ 0 (0) ---
+  sigreturn()                             = ? (mask now [])
+(I aborted it after over 100000 lines of strace output)
+
+I still use ion3-20080207 but I hope that is no problem as this issue
+seems to exist in the recent version, too. ion-statusd is configured to
+use the following meters: exec, binclock, netmon, sysmon, date, load,
+mocp
+As you have implied it may be broken kernel support: I am currently
+running Linux version 2.6.26-rc5.
+
+If wished, I will try to reproduce this behaviour with minimal set of
+meters and a current version of ion3, and even other kernel versions.
+
+I hope this helps a bit in analyzing the problem.
+
+Regard,
+Christian Glindkamp
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001254.html">ion-statusd eating up 100% cpu
+</A></li>
+	<LI>Next message: <A HREF="001257.html">ion-statusd eating up 100% cpu
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1256">[ date ]</a>
+              <a href="thread.html#1256">[ thread ]</a>
+              <a href="subject.html#1256">[ subject ]</a>
+              <a href="author.html#1256">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

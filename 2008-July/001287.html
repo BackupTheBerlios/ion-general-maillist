@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Warnings for missing keys for non-critical key bindings
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Warnings%20for%20missing%20keys%20for%20non-critical%20key%20bindings&In-Reply-To=%3Cslrng8ep00.ltp.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001284.html">
+   <LINK REL="Next"  HREF="001289.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Warnings for missing keys for non-critical key bindings</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Warnings%20for%20missing%20keys%20for%20non-critical%20key%20bindings&In-Reply-To=%3Cslrng8ep00.ltp.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Warnings for missing keys for non-critical key bindings">tuomov at iki.fi
+       </A><BR>
+    <I>Wed Jul 23 19:01:52 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001284.html">Warnings for missing keys for non-critical key bindings
+</A></li>
+        <LI>Next message: <A HREF="001289.html">Warnings for missing keys for non-critical key bindings
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1287">[ date ]</a>
+              <a href="thread.html#1287">[ thread ]</a>
+              <a href="subject.html#1287">[ subject ]</a>
+              <a href="author.html#1287">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-07-20, Ben Hutchings &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">ben at decadent.org.uk</A>&gt; wrote:
+&gt;<i> Some of the standard bindings refer to keys that aren't in all keymaps
+</I>&gt;<i> (e.g. Home in this case).  Thankfully they are redundant with other
+</I>&gt;<i> bindings.  So it seems like it would be OK to suppress the warnings for
+</I>&gt;<i> those bindings.
+</I>&gt;<i>
+</I>&gt;<i> I came up with a patch that makes that change, which I'd like to apply
+</I>&gt;<i> to the Debian package.  What do you think of this approach?
+</I>
+Too hacky, and complicates the config files.
+
+Better to just have a switch to make all the warnings non-logged
+(ioncore_warn_nolog), or something. Or maybe it should be the default;
+it's not that critical that keysym to keycode conversion fails, while
+string to keysym conversion is a clear config error that should be
+more prominently notified of.
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001284.html">Warnings for missing keys for non-critical key bindings
+</A></li>
+	<LI>Next message: <A HREF="001289.html">Warnings for missing keys for non-critical key bindings
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1287">[ date ]</a>
+              <a href="thread.html#1287">[ thread ]</a>
+              <a href="subject.html#1287">[ subject ]</a>
+              <a href="author.html#1287">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Feature freeze imminent
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Feature%20freeze%20imminent&In-Reply-To=%3Cslrneu63el.sjk.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000152.html">
+   <LINK REL="Next"  HREF="000159.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Feature freeze imminent</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Feature%20freeze%20imminent&In-Reply-To=%3Cslrneu63el.sjk.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Feature freeze imminent">tuomov at iki.fi
+       </A><BR>
+    <I>Mon Feb 26 17:41:57 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000152.html">Feature freeze imminent
+</A></li>
+        <LI>Next message: <A HREF="000159.html">Feature freeze imminent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#154">[ date ]</a>
+              <a href="thread.html#154">[ thread ]</a>
+              <a href="subject.html#154">[ subject ]</a>
+              <a href="author.html#154">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2007-02-26, Ted Zlatanov &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tzz at lifelogs.com</A>&gt; wrote:
+&gt;<i> After reading this, I think users will complain bitterly when they
+</I>&gt;<i> can't just tag two things the same way.  So the system needs to have
+</I>&gt;<i> an easy way to say: &quot;OK, this file is exactly like the other one,
+</I>&gt;<i> except for one thing.  What is it?&quot;
+</I>&gt;<i>
+</I>&gt;<i> Then the original file and the new one can both have their tag set
+</I>&gt;<i> extended, with the original set of tags becoming a &quot;directory-level&quot;
+</I>&gt;<i> tag set.  
+</I>
+This is precisely one thing that I want to avoid, the names of files 
+changing automatically. If one were to allow for that, one might be able
+to work with a standard metacrap file system. In the &quot;SetFS&quot;, as I call 
+it, you'll just have to add an additional tag to any &quot;followup&quot; files.
+Yes, every &quot;file&quot; is a both a directory and a file, when you map
+SetFS to the conventional unix file hierarchies. So, if you have
+the file 'foo/bar' and want another file with the same tags, you'll
+just have to use 'foo/bar/1' or something, and maybe manually rename
+the original 'foo/bar/0', if you really want that.
+
+One should less think of SetFS as a database file system with lots of
+tags applied to each file, and more of as a plain old file system but
+without the hierarchy. Of course, one could always add an additional set 
+of meta-tags that do not contribute to the name of the file, just like
+one could do filtering by creation date, etc. for search, but not 
+addressing a particular file. (Accessing a particular file would just
+ignore specially formed path elements.)
+
+&gt;<i> After years of doing text and GUI work, I'm convinced that the best UI
+</I>&gt;<i> is the simplest one.  Thus, people who hate writing UIs should
+</I>&gt;<i> probably be doing it, because you can rely on them to do their best to
+</I>&gt;<i> simplify the UI :)  
+</I>
+I agree. Too bad few people who hate it, get into it.
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000152.html">Feature freeze imminent
+</A></li>
+	<LI>Next message: <A HREF="000159.html">Feature freeze imminent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#154">[ date ]</a>
+              <a href="thread.html#154">[ thread ]</a>
+              <a href="subject.html#154">[ subject ]</a>
+              <a href="author.html#154">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

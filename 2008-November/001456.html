@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Ion rewriting
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-November/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion%20rewriting&In-Reply-To=%3C20081110131203.GA29432%40sirih%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001455.html">
+   <LINK REL="Next"  HREF="001457.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Ion rewriting</H1>
+    <B>Roy Lanek</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion%20rewriting&In-Reply-To=%3C20081110131203.GA29432%40sirih%3E"
+       TITLE="Ion rewriting">lanek at novenine.com
+       </A><BR>
+    <I>Mon Nov 10 14:12:03 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001455.html">Ion rewriting
+</A></li>
+        <LI>Next message: <A HREF="001457.html">Ion rewriting
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1456">[ date ]</a>
+              <a href="thread.html#1456">[ thread ]</a>
+              <a href="subject.html#1456">[ subject ]</a>
+              <a href="author.html#1456">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+&gt;<i> Rewrites in The Language of the Day are lame (see also the .signature), for
+</I>&gt;<i> people with a lot of time in their hands and no original ideas.
+</I>
+Haskell language-of-the-day ... why?, because xmonad is using it? (Nor was
+I thinking at an 1-1 rewrite, it would not work well in general even among
+languages of the same class.)
+
+&gt;<i> C works quite well, especially combined with Lua for the tasks that
+</I>&gt;<i> are not nicely done in C.
+</I>
+True: Eiffel, Ada, Modula-3, ..., even Haskell generate intermediary C code.
+(Works well apparently ... minus the setjmp and family thing.)
+
+&gt;<i> into the limitations of C, because I have my frameworks written ages ago.
+</I>
+Oh dear, hello Moses- (the illiterate who brought back the astonishing
+writings) alike, or Muhammad- (ditto [illiterate]) alike. And who did write
+your &quot;frameworks&quot; &quot;ages ago&quot;?
+
+&gt;<i> The language just isn't meant for that kind of stuff.
+</I>
+Can't tell now. On the other hand:
+
+    Haskell Hacking: a journal of Haskell programming
+    2007-05-17
+    Roll Your Own Window Manager: Tracking Focus with a Zipper
+    <A HREF="http://cgi.cse.unsw.edu.au/~dons/blog/2007/05/17">http://cgi.cse.unsw.edu.au/~dons/blog/2007/05/17</A>
+
+&gt;<i> Dynamic data structures (e.g. objects) are _pain_ ...
+</I>
+You do have a good, comfortable life, there in Finland, eh? :) Anyway, I don't
+remember such a &quot;_pain_.&quot; (I am thinking back at a semester exercise in Hope
+of a bank-simulation: no _pain_.)
+
+&gt;<i> Bullshit. It's very very laboursome to make fast Haskell code, and
+</I>&gt;<i> especially such that doesn't eat gigabytes of memory for breakfast.
+</I>
+Hmmm ...
+
+I am sure you have seen those classic examples from the physiology ... one
+looks at image, and sees something. Then one looks again, and ... oh surprise,
+another, different thing can be discovered. Alternatively, you may have seen
+those examples which would implement the, e.g., Fibonacci function in a
+terribly inefficient way using recursion too naively ... and those solutions
+to thankfully *fix* that too.
+
+I have, e.g., *met* reference counting in the *real world* for the first time
+once we had to implement it for reusing allocated memory (Pascal on VAX)
+because we were larding objects on the left and on the right (paging) in a
+very inefficient way. (I have later discovered a similar situation described
+in Programmin Pearls, by the way.)
+
+/Roy
+-- 
+:::::::::::::::::::::::::::::::::::<i>;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;::
+</I>::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::<i>9::
+</I>::::::::::<i>;::@@@:::::::::::::::@P:::::::::::::::::::::::::::::::::::::::9::
+</I>:::::::<i>@@@@::::@::L;:;;:::::;;;7F:;LL:;;;::::;LL:;L::;:::LLL:;;::;L;::::9::
+</I>:::::::<i>@@L@::::@::7@@FH@:::@FH@&gt;@@@@7:9F7::::77@;:<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">H at MH</A>@;:77@@<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">FHF at F77</A>@:::@::
+</I>:::::::::<i>7@::::@:::@:::7E:H4::7&gt;F::7@:@:::9L::::@:@F:::@:::@L:::F:;;@::::::
+</I>::::::<i>@@F:@L:::@:::@::::@:@::::&gt;F:::@:@:::9L::::@:A::::@:::@::::@:777::::::
+</I>::<i>B:::@:::@:;:@@:::@L;;@@:AL:::::::;@:7@@@@L@:;@F:7@;:;@:::@::::7@@L:::::::
+</I>::<i>E:::7@@@57HM7@@@L:<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">7HF7 at M</A>:@@@::::@@E:@@@<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">77L at HN7</A>:::7HMF@@::@::::@;;@L::::::
+</I>::<i>E:::::::::::::::::::::::::::::::::::::::9@:::::::::::::::@@L::@7F7:::::::
+</I>::<i>E::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+</I>::<i>AMMMMMMMMMM Slackware Linux MMMMMMMMMM:::::::::::::::::::::::::::::::::::
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001455.html">Ion rewriting
+</A></li>
+	<LI>Next message: <A HREF="001457.html">Ion rewriting
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1456">[ date ]</a>
+              <a href="thread.html#1456">[ thread ]</a>
+              <a href="subject.html#1456">[ subject ]</a>
+              <a href="author.html#1456">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

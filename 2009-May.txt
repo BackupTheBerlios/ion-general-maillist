@@ -1,0 +1,1136 @@
+From ion at themel.com  Fri May 15 11:37:21 2009
+From: ion at themel.com (Thomas Themel)
+Date: Fri, 15 May 2009 11:37:21 +0200
+Subject: Keypresses when closing the mod_sp window?
+Message-ID: <20090515093721.GI19311@themel.com>
+
+Hi,
+
+When closing the mod_sp window, it seems that the window that is
+underneath also gets the keypress (in my default case, META.."space")
+that I use to close the window. Is this a bug?
+
+ciao,
+-- 
+[*Thomas  Themel*] You're A Nationalist, But I'm A Rationalist! I Disapprove
+[extended contact] Of What You Say, And I'll Defend To The Death My Right To
+[info provided in] Kill You For It!
+[*message header*]      - Anonymous on frost
+
+
+From tuomov at iki.fi  Mon May 18 09:53:22 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 18 May 2009 07:53:22 +0000 (UTC)
+Subject: Keypresses when closing the mod_sp window?
+References: <20090515093721.GI19311@themel.com>
+Message-ID: <slrnh124vi.p12.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-05-15, Thomas Themel <ion at themel.com> wrote:
+> When closing the mod_sp window, it seems that the window that is
+> underneath also gets the keypress (in my default case, META.."space")
+> that I use to close the window. Is this a bug?
+
+It will get the release event, not the press (unless the key is pressed
+long enough to start repeating), and if it's a stupid app, it will act
+on it.
+
+Generally Ion ungrabs the keyboard in grabbed binding handler to avoid
+problems with the keyboard being grabbed on application startup etc...
+and there might have been other reasons too. This will cause subsequent
+release events to "fall through". However, I'm not 100% sure that removing
+this hack would help in this case without other workaround, because the
+window is being hidden, and thus X should kill the grab in any case.
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and the cycle paths 
+have been replaced with polluted motorways.
+
+
+
+From tuomov at iki.fi  Tue May 26 19:41:03 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 26 May 2009 17:41:03 +0000 (UTC)
+Subject: Patch collection
+Message-ID: <slrnh1oadf.96j.tuomov@jolt.modeemi.cs.tut.fi>
+
+Some of the latest changes to Ion, including the scripts repository,
+can be downloaded from
+
+    http://iki.fi/tuomov/ion/patches.html
+
+pending my VCS switch eternity project. (All version control systems
+suck. Only darcs developers have devoted more than two brain cells 
+to the UI. But GHC sucks donkey balls and thus there's no cygwin
+version of darcs, and the native Windows version of darcs sucks.
+That's the biggest hurdle of my windows switch: lack of decent
+vcs/darcs. Otherwise I'm very happy to have taken broken away 
+from the feces-throwing competition known as linux.)
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and the cycle paths 
+have been replaced with polluted motorways.
+
+
+
+From ciprian.craciun at gmail.com  Tue May 26 20:33:44 2009
+From: ciprian.craciun at gmail.com (Ciprian Dorin, Craciun)
+Date: Tue, 26 May 2009 21:33:44 +0300
+Subject: Patch collection
+In-Reply-To: <slrnh1oadf.96j.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnh1oadf.96j.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <8e04b5820905261133t13fe7c7el503c33f103039620@mail.gmail.com>
+
+On Tue, May 26, 2009 at 8:41 PM, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> Some of the latest changes to Ion, including the scripts repository,
+> can be downloaded from
+>
+> ? ?http://iki.fi/tuomov/ion/patches.html
+>
+> pending my VCS switch eternity project. (All version control systems
+> suck. Only darcs developers have devoted more than two brain cells
+> to the UI. But GHC sucks donkey balls and thus there's no cygwin
+> version of darcs, and the native Windows version of darcs sucks.
+> That's the biggest hurdle of my windows switch: lack of decent
+> vcs/darcs. Otherwise I'm very happy to have taken broken away
+> from the feces-throwing competition known as linux.)
+>
+> --
+> In 1995, Linux was almost a bicycle; an alternative way of live to the
+> Windows petrol beasts that had to be taken to the dealer for service.
+> By 2008, Linux has bloated into a gas-guzzler, and the cycle paths
+> have been replaced with polluted motorways.
+
+    Hy there Tuomo!
+
+    I admire both your window manager (which I use for more that 3 or
+4 years), and your rage against the current state of affairs in the IT
+industry. (I'm myself disgusted by 99% of the IT industry.)
+
+    But I wonder: you like darcs (or at least compared with others),
+and you have searched for other distributed VCS's but all of them
+"suck", what is wrong about (for example) Hg or Git? I mean what are
+your thoughts about this topic.
+    (Disclaimer: I've switched all my repositories from CVS to SVN and
+then to Git... and until now, I'm happy... Indeed the Windows support
+is a little bit brittle, but under Cygwin it should work...)
+
+    Thank you for your insight,
+    Ciprian Craciun.
+
+    P.S.: I've even found a nice usage for Ion: a "safe" window
+manager for my parents, which I'm sure they are not able to break
+(pressing random keys, clicking random icons, and all the glorified
+Gnome/KDE stuff)... (With OpenOffice or Firefox it is not the same...
+It took a little bit of training not to break them...)
+
+
+From tuomov at iki.fi  Tue May 26 21:12:07 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 26 May 2009 19:12:07 +0000 (UTC)
+Subject: Patch collection
+References: <slrnh1oadf.96j.tuomov@jolt.modeemi.cs.tut.fi>
+	<8e04b5820905261133t13fe7c7el503c33f103039620@mail.gmail.com>
+Message-ID: <slrnh1ofo7.juu.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-05-26, Ciprian Dorin, Craciun <ciprian.craciun at gmail.com> wrote:
+>     But I wonder: you like darcs (or at least compared with others),
+> and you have searched for other distributed VCS's but all of them
+> "suck", what is wrong about (for example) Hg or Git? I mean what are
+> your thoughts about this topic.
+>     (Disclaimer: I've switched all my repositories from CVS to SVN and
+> then to Git... and until now, I'm happy... Indeed the Windows support
+> is a little bit brittle, but under Cygwin it should work...)
+
+Actually, it doesn't. The packaged version (cygwin 1.7) doesn't
+do anything when you run it. And I couldn't compile it myself.
+(The build failed at some point, although it did build the git
+binary, that failed similarly to the cygwin-packaged version.)
+
+What annoys the shit out of me in hg, is its manual configuration
+approach to everything. Darcs is interactive. It asks you
+for your name/email when you first use it in a repository
+(unless you have globally configured them); hg used to assume
+username at hostname, which is 99% of the time crap, so you ruined
+your repository, and have to fix it. This days it iirc refuses
+to run until you configure. But at least this is an action you
+have to do only once on each computer. 
+
+Unfortunately, the same single brain cell approach persists in
+default push locations. Darcs is nice, and it by
+defaults remembers the previous push/pull location, defaulting
+subsequent pushes and pulls there. And it is interactive, so
+unless you pass -a that just pushes everything without questions
+asked, you'll get to see where and what it is trying to push.
+Also you can't completely ruin your repository with darcs,
+because you can just unpull patches. Now, with hg, it only
+remembers where you first cloned from, and always defaults
+there.. if you've cloned from anywhere. push/pull don't make
+it remember the location. Also, push just pushes the patches
+to the default location, no questions asked, and with hg you
+can ruin the repository this way: there's no way to get rid
+of the patches. If the target repository was wrong, you have
+to figure out what was pushed, and try to fork from an earlier
+point. They want you to do extra work and first do 'hg outgoing'
+to check what would be pushed where, and only after that 'hg push'.
+'darcs push', by contrast, includes the 'outgoing' functionality
+in its default interactive mode, so you can safely type the command.
+Also, to push by default somewhere else than the initial default
+(none unless a cloned repository), you always have manually edit
+a configuration file in .hg. That sucks.
+
+Bazaar has rather similar idiotic push location behaviour, but
+at least there's a --remember switch to push. Git.. I haven't
+tried a recent version, as remarked above. But a few years ago
+[1], its email push support was a complete joke, equivalent to
+just sending a plain old diff and applying it, without any
+inter-repository tracking. Same, I think, with bazaar. hg at
+least seems to try to do its best within its traditional
+'kludge based on three-way diff' approach to version control,
+that is to be contrasted with the more advanced theories behind 
+darcs.
+
+  [1] http://iki.fi/tuomov/b/archives/2006/10/29/T16_57_00/
+
+That is, indeed, another major problem with the VCS switch... 
+it does not seem in general possible to convert _multiple_ 
+interoperable darcs repositories (e.g. ion-3, ion-3plus)
+into a three-way-diff-kludge vcs, and maintain inter-operability.
+In some limited cases (if the patches in ion-3 and ion-3plus
+were cleanly ordered) it might be possible, but would demand
+a lot of manual effort.
+
+...
+
+What sucks about the Windows darcs? Well, it's no posix program,
+so a lot of things won't work from cygwin shell. ^C either won't
+work, or will just kill it without cleaning up locks. single-key
+queries won't work; you have to press enter. Generally line-editing
+keys are broken.
+
+Time zones are printed in a non-standard format that other programs
+(such as thost that convert to other VCSs) fail to parse: 'W. Europe
+Standard Time' instead of WEDT. Also, if you set the TZ environment
+variable in cygwin, darcs gets totally confused __although it
+shouldn't see the variable, as it's no cygwin program!__
+
+ssh won't work using cygwin-ssh and the keys stored in ssh-agent;
+you'd have to set up separate putty pagent setup for it... and a key
+setup is _required_, which is just shit. 
+
+Also, at least this version of darcs I have, is just broken, 'reading
+pristine' *all the fucking time*, whatever you do. It's dog-slow.
+(Also seems to be compiled with a shitty compiler, and is generally
+slow.)
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+
+From tuomov at iki.fi  Tue May 26 21:15:39 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 26 May 2009 19:15:39 +0000 (UTC)
+Subject: Patch collection
+References: <slrnh1oadf.96j.tuomov@jolt.modeemi.cs.tut.fi>
+	<8e04b5820905261133t13fe7c7el503c33f103039620@mail.gmail.com>
+	<slrnh1ofo7.juu.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnh1ofur.omu.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-05-26, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> Time zones are printed in a non-standard format that other programs
+> (such as thost that convert to other VCSs) fail to parse: 'W. Europe
+> Standard Time' instead of WEDT. 
+
+Um... WEST, of course. (Idiotic DST kludge. Just looked up the 
+current zone from 'date', not being familiar with these western
+europe zone abbreviations, .fi being EET/EEST, and that patch 
+was from before the DST switch.)
+
+-- 
+Stop Gnomes and other pests! Purchase Windows today!
+
+
+
+From ciprian.craciun at gmail.com  Tue May 26 22:01:37 2009
+From: ciprian.craciun at gmail.com (Ciprian Dorin, Craciun)
+Date: Tue, 26 May 2009 23:01:37 +0300
+Subject: Patch collection
+In-Reply-To: <slrnh1ofo7.juu.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnh1oadf.96j.tuomov@jolt.modeemi.cs.tut.fi>
+	<8e04b5820905261133t13fe7c7el503c33f103039620@mail.gmail.com>
+	<slrnh1ofo7.juu.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <8e04b5820905261301r7bc23bdelff2b84217c2ae106@mail.gmail.com>
+
+On Tue, May 26, 2009 at 10:12 PM, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2009-05-26, Ciprian Dorin, Craciun <ciprian.craciun at gmail.com> wrote:
+>> ? ? But I wonder: you like darcs (or at least compared with others),
+>> and you have searched for other distributed VCS's but all of them
+>> "suck", what is wrong about (for example) Hg or Git? I mean what are
+>> your thoughts about this topic.
+>> ? ? (Disclaimer: I've switched all my repositories from CVS to SVN and
+>> then to Git... and until now, I'm happy... Indeed the Windows support
+>> is a little bit brittle, but under Cygwin it should work...)
+>
+> Actually, it doesn't. The packaged version (cygwin 1.7) doesn't
+> do anything when you run it. And I couldn't compile it myself.
+> (The build failed at some point, although it did build the git
+> binary, that failed similarly to the cygwin-packaged version.)
+>
+> What annoys the shit out of me in hg, is its manual configuration
+> approach to everything. Darcs is interactive. It asks you
+> for your name/email when you first use it in a repository
+> (unless you have globally configured them); hg used to assume
+> username at hostname, which is 99% of the time crap, so you ruined
+> your repository, and have to fix it. This days it iirc refuses
+> to run until you configure. But at least this is an action you
+> have to do only once on each computer.
+>
+> Unfortunately, the same single brain cell approach persists in
+> default push locations. Darcs is nice, and it by
+> defaults remembers the previous push/pull location, defaulting
+> subsequent pushes and pulls there. And it is interactive, so
+> unless you pass -a that just pushes everything without questions
+> asked, you'll get to see where and what it is trying to push.
+> Also you can't completely ruin your repository with darcs,
+> because you can just unpull patches. Now, with hg, it only
+> remembers where you first cloned from, and always defaults
+> there.. if you've cloned from anywhere. push/pull don't make
+> it remember the location. Also, push just pushes the patches
+> to the default location, no questions asked, and with hg you
+> can ruin the repository this way: there's no way to get rid
+> of the patches. If the target repository was wrong, you have
+> to figure out what was pushed, and try to fork from an earlier
+> point. They want you to do extra work and first do 'hg outgoing'
+> to check what would be pushed where, and only after that 'hg push'.
+> 'darcs push', by contrast, includes the 'outgoing' functionality
+> in its default interactive mode, so you can safely type the command.
+> Also, to push by default somewhere else than the initial default
+> (none unless a cloned repository), you always have manually edit
+> a configuration file in .hg. That sucks.
+>
+> Bazaar has rather similar idiotic push location behaviour, but
+> at least there's a --remember switch to push. Git.. I haven't
+> tried a recent version, as remarked above. But a few years ago
+> [1], its email push support was a complete joke, equivalent to
+> just sending a plain old diff and applying it, without any
+> inter-repository tracking. Same, I think, with bazaar. hg at
+> least seems to try to do its best within its traditional
+> 'kludge based on three-way diff' approach to version control,
+> that is to be contrasted with the more advanced theories behind
+> darcs.
+>
+> ?[1] http://iki.fi/tuomov/b/archives/2006/10/29/T16_57_00/
+>
+> That is, indeed, another major problem with the VCS switch...
+> it does not seem in general possible to convert _multiple_
+> interoperable darcs repositories (e.g. ion-3, ion-3plus)
+> into a three-way-diff-kludge vcs, and maintain inter-operability.
+> In some limited cases (if the patches in ion-3 and ion-3plus
+> were cleanly ordered) it might be possible, but would demand
+> a lot of manual effort.
+>
+> ...
+>
+> What sucks about the Windows darcs? Well, it's no posix program,
+> so a lot of things won't work from cygwin shell. ^C either won't
+> work, or will just kill it without cleaning up locks. single-key
+> queries won't work; you have to press enter. Generally line-editing
+> keys are broken.
+>
+> Time zones are printed in a non-standard format that other programs
+> (such as thost that convert to other VCSs) fail to parse: 'W. Europe
+> Standard Time' instead of WEDT. Also, if you set the TZ environment
+> variable in cygwin, darcs gets totally confused __although it
+> shouldn't see the variable, as it's no cygwin program!__
+>
+> ssh won't work using cygwin-ssh and the keys stored in ssh-agent;
+> you'd have to set up separate putty pagent setup for it... and a key
+> setup is _required_, which is just shit.
+>
+> Also, at least this version of darcs I have, is just broken, 'reading
+> pristine' *all the fucking time*, whatever you do. It's dog-slow.
+> (Also seems to be compiled with a shitty compiler, and is generally
+> slow.)
+
+    Thank you for your opinion! It is insightful about the usability
+and impact on the user. (I've never thought about defaults and
+configuring at first usage by questions. I've always liked to edit
+configuration files.)
+
+    Some comments though: I don't know Hg to well myself, but at least
+Git does not suffer from these problems:
+    * you can track multiple branches (ion3, ion3-plus);
+    * it allows you to configure push target (even a default one);
+(using them like "git push github" or "git push");
+    * it is smarter than the three-way diff solution; (it allows
+arbitrary number of merge parents);
+    * it is interoperable at least with SVN;
+    * indeed it has a problem with the configuration... You have to do
+it manually (by issuing a git command, or editing a file), but also it
+doesn't allow you to commit without setting up an email address (or at
+least this was the case some versions ago)...
+
+    I remember installing Git on a Windows: http://code.google.com/p/msysgit
+
+    Ciprian Craciun.
+
+
+From mason at f2s.com  Wed May 27 02:02:56 2009
+From: mason at f2s.com (Sam Mason)
+Date: Wed, 27 May 2009 01:02:56 +0100
+Subject: Patch collection
+In-Reply-To: <8e04b5820905261301r7bc23bdelff2b84217c2ae106@mail.gmail.com>
+References: <slrnh1oadf.96j.tuomov@jolt.modeemi.cs.tut.fi>
+	<8e04b5820905261133t13fe7c7el503c33f103039620@mail.gmail.com>
+	<slrnh1ofo7.juu.tuomov@jolt.modeemi.cs.tut.fi>
+	<8e04b5820905261301r7bc23bdelff2b84217c2ae106@mail.gmail.com>
+Message-ID: <20090527000256.GA15898@samason.me.uk>
+
+On Tue, May 26, 2009 at 11:01:37PM +0300, Ciprian Dorin, Craciun wrote:
+>     Some comments though: I don't know Hg to well myself, but at least
+> Git does not suffer from these problems:
+
+Try using darcs for a few days it seems to just do the right thing so
+much more than any other VCS I've ever used.  Git is painful to use, you
+have to have exactly the right mental model for how it works before it
+makes sense (or at least that's why I think I failed to grep it).  Hg
+I've used a bit, and it seemed to work somewhat OK but doesn't "feel"
+distributed like darcs does.
+
+-- 
+  Sam  http://samason.me.uk/
+
+
+From timandahaf+dev at gmail.com  Wed May 27 04:51:29 2009
+From: timandahaf+dev at gmail.com (Timandahaf)
+Date: Tue, 26 May 2009 22:51:29 -0400
+Subject: VirtualBox seamless mode
+In-Reply-To: <slrngtv8ur.e24.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20090409200536.GA19882@fl.fami.org>
+	<slrngtto15.625.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090410170731.GA9093@fl.fami.org>
+	<20090410194336.GA19255@umbach-racing.de>
+	<slrngtv8ur.e24.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <alpine.LFD.2.00.0905262248460.15619@localhost.localdomain>
+
+On Fri, 10 Apr 2009, Tuomo Valkonen wrote:
+
+> On 2009-04-10, Klaus Umbach <treibholz-ion at sozial-inkompetent.de> wrote:
+>> Just use VirtualBox in standard-fullscreen-mode on a separate Workspace.
+>> That's the most acceptable pain.
+>
+> No, that's Ion-in-cygwin-X-on-windows, after changing Mod1+Tab
+> to Mod1+Q in Ion. Integrates much better than a fully
+> keyboard-grabbing VM... albeit not perfectly :(.
+
+What works best for me is to run VirtualBox's VRDP server, and use
+rdesktop from Linux to interact with your VM, instead of using
+VirtualBox's standard fullscreen mode. The biggest advantage of this (in
+addition to things being snappier) is that 'rdesktop -K' will not do any
+keyboard grabbing:
+
+
+-K     Do not override window manager key bindings.  By default rdesktop
+        attempts to grab all keyboard input when it is in focus. [1]
+
+[1] rdesktop man page.
+
+
+
+
+From timandahaf+dev at gmail.com  Wed May 27 06:23:53 2009
+From: timandahaf+dev at gmail.com (Timandahaf)
+Date: Wed, 27 May 2009 00:23:53 -0400 (EDT)
+Subject: RPM spec file for ion3 for Fedora
+Message-ID: <alpine.LFD.2.00.0905270001050.16621@localhost.localdomain>
+
+I have an rpm spec file to build ion3 rpms for Fedora. I've been using
+these for a long while on all my systems and I've been meaning to put
+them up somewhere.
+
+This is tested under Fedora Core 6, and Fedora Releases 7 through 10, on
+i386 and x86_64.
+
+To create your own rpm file, run the following commands (tested to work
+on a Fedora system):
+
+$ sudo -c "yum install gcc rpm-build rpmdevtools lua lua-devel libX11-devel libSM-devel gettext"
+$ rpmdev-setuptree 
+$ cd ~/rpmbuild/SOURCES
+$ wget http://iki.fi/tuomov/dl/ion-3-20090110.tar.gz
+$ cd ~/rpmbuild/SPEC
+$ mv ~/ion.spec ~/rpmbuild/SPEC
+$ rpmbuild -ba ion.spec
+
+
+Voila. You should find your rpm in ~/rpmbuild/RPMS/<arch>/ion*.rpm.
+-------------- next part --------------
+Name:           ion
+Version:        3
+Release:        20090110
+Summary:        Ion is a tiling window manager
+
+Group:          User Interface/Desktops
+License:        LGPLv2 with exceptions
+URL:            http://modeemi.fi/~tuomov/ion
+Source0:        http://iki.fi/tuomov/dl/ion-3-20090110.tar.gz
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+BuildRequires:  lua lua-devel libX11-devel libSM-devel libXext-devel gettext 
+Requires:       lua filesystem man
+
+%description
+Ion is a tiling tabbed window manager designed with keyboard users in mind.
+
+%prep
+%setup -n ion-3-20090110
+
+sed 's-/usr/local-/usr-' system.mk > system.mk.$$
+cp -f system.mk.$$ system.mk
+sed 's/^ETCDIR\(.*\)\$(PREFIX)\(.*\)$/ETCDIR\1\2/' system.mk > system.mk.$$
+cp -f system.mk.$$ system.mk
+rm -f system.mk.$$
+
+%build
+make
+
+
+%install
+rm -rf $RPM_BUILD_ROOT
+mkdir $RPM_BUILD_ROOT
+sed "s%^PREFIX=.*%PREFIX=$RPM_BUILD_ROOT/usr%" system.mk > system.mk.install.$$
+cp -f system.mk.install.$$ system.mk
+sed "s%ETCDIR=\(.*$\)%ETCDIR=$RPM_BUILD_ROOT\1%" system.mk > system.mk.install.$$
+cp -f system.mk.install.$$ system.mk
+rm -f system.mk.install.$$
+make install
+%find_lang %{name}3
+#cd $RPM_BUILD_ROOT && find usr -type d | grep -v '^usr/share$' | grep -v '^usr/lib$' | grep -v '^usr/bin$' | grep -v '^usr$' | grep -v '^etc/$' | grep -v '^usr/share/doc$' | grep -v '$usr/share/man$'  | grep -v '^usr/share/man/man1$' | sed 's-^-%dir /-' > DIRLIST.RPM
+# find usr -type d | grep ion3 | sed 's-^-%dir /-' > DIRLIST.RPM
+#cd $RPM_BUILD_ROOT && find usr -type f | sed 's-^-/-' | grep -v '^/usr/lib/debug' > FILELIST.RPM
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files -f %{name}3.lang
+#%files -f FILELIST.RPM
+%defattr(-,root,root,-)
+#%doc LICENSE
+%config(noreplace) /etc/*
+
+%dir /usr/share/doc/ion3
+%dir /usr/share/ion3
+%dir /usr/lib/ion3
+%dir /usr/lib/ion3/bin
+%dir /usr/lib/ion3/lc
+%dir /usr/lib/ion3/mod
+
+/usr/bin/ion3
+/usr/bin/pwm3
+/usr/share/man/man1/pwm3.1.gz
+/usr/share/man/man1/ion3.1.gz
+/usr/share/man/fi/man1/pwm3.1.gz
+/usr/share/man/fi/man1/ion3.1.gz
+/usr/share/man/cs/man1/pwm3.1.gz
+/usr/share/man/cs/man1/ion3.1.gz
+/usr/share/doc/ion3/LICENSE
+/usr/share/doc/ion3/RELNOTES
+/usr/share/doc/ion3/ChangeLog
+/usr/share/doc/ion3/README
+/usr/share/ion3/welcome.txt
+/usr/share/ion3/welcome.fi.txt
+/usr/share/ion3/ion-completeman
+/usr/share/ion3/welcome.cs.txt
+/usr/share/ion3/ion-runinxterm
+/usr/lib/ion3/bin/ion-statusd
+/usr/lib/ion3/bin/ion-completefile
+/usr/lib/ion3/lc/ioncore_ext.lc
+/usr/lib/ion3/lc/ioncore_winprops.lc
+/usr/lib/ion3/lc/ioncore_tabnum.lc
+/usr/lib/ion3/lc/ioncore_bindings.lc
+/usr/lib/ion3/lc/de.lc
+/usr/lib/ion3/lc/ioncore_luaext.lc
+/usr/lib/ion3/lc/ioncore_wd.lc
+/usr/lib/ion3/lc/statusd_mail.lc
+/usr/lib/ion3/lc/mod_statusbar.lc
+/usr/lib/ion3/lc/mod_sm.lc
+/usr/lib/ion3/lc/statusd_load.lc
+/usr/lib/ion3/lc/mod_query.lc
+/usr/lib/ion3/lc/ioncore_misc.lc
+/usr/lib/ion3/lc/mod_query_chdir.lc
+/usr/lib/ion3/lc/statusd_date.lc
+/usr/lib/ion3/lc/ioncore_efbb.lc
+/usr/lib/ion3/lc/ioncore_quasiact.lc
+/usr/lib/ion3/lc/mod_dock.lc
+/usr/lib/ion3/lc/mod_tiling.lc
+/usr/lib/ion3/lc/mod_sp.lc
+/usr/lib/ion3/lc/ioncore_menudb.lc
+/usr/lib/ion3/lc/mod_menu.lc
+/usr/lib/ion3/mod/mod_menu.so
+/usr/lib/ion3/mod/mod_statusbar.so
+/usr/lib/ion3/mod/mod_sp.so
+/usr/lib/ion3/mod/de.so
+/usr/lib/ion3/mod/mod_query.so
+/usr/lib/ion3/mod/mod_tiling.so
+/usr/lib/ion3/mod/mod_sm.so
+/usr/lib/ion3/mod/mod_dock.so
+
+
+
+%changelog
+* Sat Feb 7 2009 Timandahaf <timandahaf at gmail.com> 3-20090110
+  - Upgraded to the 20090110 version.
+* Fri Oct 17 2008 Timandahaf <timandahaf at gmail.com> 3-20081002
+  - Upgraded to the 20081002 version.
+* Tue Sep 23 2008 Timandahaf <timandahaf at gmail.com> 3-20080825
+  - Upgraded to the 20080825 version.
+* Sat Jan 05 2008 Timandahaf <timandahaf at gmail.com> 3-0.1.rc.20080103
+  - Upgraded to the 20080103 version.
+* Mon Dec 12 2007 Timandahaf <timandahaf at gmail.com> 3-0.1.rc.20071130
+  - Initial build.
+
+From timandahaf+dev at gmail.com  Wed May 27 06:27:51 2009
+From: timandahaf+dev at gmail.com (Timandahaf)
+Date: Wed, 27 May 2009 00:27:51 -0400
+Subject: RPM spec file for ion3 for Fedora
+In-Reply-To: <alpine.LFD.2.00.0905270001050.16621@localhost.localdomain>
+References: <alpine.LFD.2.00.0905270001050.16621@localhost.localdomain>
+Message-ID: <alpine.LFD.2.00.0905270025040.24103@localhost.localdomain>
+
+Tuomo,
+Any chance you'd be willing to host this RPM .spec file anywhere in your
+darcs repo? It'd be very helpful to users who have an rpm based system.
+
+I'd also love to contribute prebuilt i386, x86_64, and ppc RPM files for
+ion 3 for Fedora 7,8,9,10. I've not done so only due to concerns about
+your licensing model. So let me know if you feel it's okay for me to
+either submit rpm files that you can host, or if you think I should host
+them myself (or not).
+
+Thanks!
+
+
+On Wed, 27 May 2009, Timandahaf wrote:
+
+> I have an rpm spec file to build ion3 rpms for Fedora. I've been using
+> these for a long while on all my systems and I've been meaning to put
+> them up somewhere.
+>
+> This is tested under Fedora Core 6, and Fedora Releases 7 through 10, on
+> i386 and x86_64.
+>
+> To create your own rpm file, run the following commands (tested to work
+> on a Fedora system):
+>
+> $ sudo -c "yum install gcc rpm-build rpmdevtools lua lua-devel libX11-devel 
+> libSM-devel gettext"
+> $ rpmdev-setuptree $ cd ~/rpmbuild/SOURCES
+> $ wget http://iki.fi/tuomov/dl/ion-3-20090110.tar.gz
+> $ cd ~/rpmbuild/SPEC
+> $ mv ~/ion.spec ~/rpmbuild/SPEC
+> $ rpmbuild -ba ion.spec
+>
+>
+> Voila. You should find your rpm in ~/rpmbuild/RPMS/<arch>/ion*.rpm.
+
+
+
+From tuomov at iki.fi  Wed May 27 16:07:58 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 27 May 2009 14:07:58 +0000 (UTC)
+Subject: Patch collection
+References: <slrnh1oadf.96j.tuomov@jolt.modeemi.cs.tut.fi>
+	<8e04b5820905261133t13fe7c7el503c33f103039620@mail.gmail.com>
+	<slrnh1ofo7.juu.tuomov@jolt.modeemi.cs.tut.fi>
+	<8e04b5820905261301r7bc23bdelff2b84217c2ae106@mail.gmail.com>
+Message-ID: <slrnh1qi9u.3m7.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-05-26, Ciprian Dorin, Craciun <ciprian.craciun at gmail.com> wrote:
+>     * you can track multiple branches (ion3, ion3-plus);
+
+I've never got why anyone would want multiple branches within
+a single DVCS repository. Multiple repositories does it much
+more simply.
+
+>     * it allows you to configure push target (even a default one);
+> (using them like "git push github" or "git push");
+
+Yup, configure, just like all the other designs that were devoted
+just two brain cells.
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and the cycle paths 
+have been replaced with polluted motorways.
+
+
+
+From tuomov at iki.fi  Wed May 27 16:10:07 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 27 May 2009 14:10:07 +0000 (UTC)
+Subject: RPM spec file for ion3 for Fedora
+References: <alpine.LFD.2.00.0905270001050.16621@localhost.localdomain>
+	<alpine.LFD.2.00.0905270025040.24103@localhost.localdomain>
+Message-ID: <slrnh1qidv.3m7.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-05-27, Timandahaf <timandahaf+dev at gmail.com> wrote:
+> Any chance you'd be willing to host this RPM .spec file anywhere in your
+> darcs repo? It'd be very helpful to users who have an rpm based system.
+
+I have no public repositories that I could update. And anything that
+requires additional manual effort from me to update, is totally out
+of the question.
+
+-- 
+Stop Gnomes and other pests! Purchase Windows today!
+
+
+
+From amosat+ion at gmail.com  Wed May 27 23:06:36 2009
+From: amosat+ion at gmail.com (mosi)
+Date: Wed, 27 May 2009 23:06:36 +0200
+Subject: confirm 852223f5c787b0857a42616c26c0a94208eae60a
+In-Reply-To: <mailman.0.1243456574.11778.ion-general@lists.berlios.de>
+References: <mailman.0.1243456574.11778.ion-general@lists.berlios.de>
+Message-ID: <544191d90905271406s72912366w56892f52b5592940@mail.gmail.com>
+
+Hi all,
+
+first, thank you for being active in one of the most important aspects of
+machine usability - a WM.
+
+second - I used almost exclusively PWM for the last 6 years for some serious
+work & play.
+
+The following are questions generally regarding the ion family of WMs.
+
+I tried running Lyx 1.6 on pwm last week, but some windows like "Find"
+appeared only once and were hidden after use. Second invocation of the
+once-used window does not work anymore. The same problem was corrected in
+the wmii window manager.
+
+After that, I tried ion2 in pwm mode. Lyx works.
+I know pwm is obsolete, but pwm2 is not configured to behave "correclty",
+according to my pwm experience.
+
+Any idea, how could I reproduce the keyboard shortcuts for ion2 or ion3 to
+behave in the same way as the old pwm?
+
+I am just an ordinary user, and don`t want to spend a week studying ion -
+lua manual just to change my keyboard config.
+I did spent ca. 4 days with the configuration and still cannot achieve whats
+expected, maybe somebody could help.
+
+The most important shortcuts I am missing and can not find in the manual
+are:
+ctrl+shift+M for maximizing/minimizing toggle of an active window
+Mod1+Enter for "start resizing/moving window mode, unless Enter is pressed
+again"
+Mod1+Tab for switching focus to next window  on active desktop
+(this did work at the beginning, I changed some option, now it switches to
+next window, but if it is a last window on current desktop, it`ll switch to
+next window on a next desktop)
+--
+Another question:
+Alt+F11 will put a window into a fullscreen mode. If the window was on
+Desktop 1 before, now it is on Desktop 0.  Is this the default?
+
+Thank you very much for support,
+I hope this post does not violate a rule of obsolete software support, as
+the questions are more or less general.
+
+Best regards,
+mosi
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20090527/ee6c903a/attachment.html>
+
+From marc.hartstein at alum.vassar.edu  Wed May 27 23:47:29 2009
+From: marc.hartstein at alum.vassar.edu (Marc Hartstein)
+Date: Wed, 27 May 2009 17:47:29 -0400
+Subject: confirm 852223f5c787b0857a42616c26c0a94208eae60a
+In-Reply-To: <544191d90905271406s72912366w56892f52b5592940@mail.gmail.com>
+References: <mailman.0.1243456574.11778.ion-general@lists.berlios.de>
+	<544191d90905271406s72912366w56892f52b5592940@mail.gmail.com>
+Message-ID: <1243460341-sup-9180@cabinet>
+
+Excerpts from mosi's message of Wed May 27 17:06:36 -0400 2009:
+> Any idea, how could I reproduce the keyboard shortcuts for ion2 or ion3 to
+> behave in the same way as the old pwm?
+
+Editing the bindings isn't too hard, especially as it looks like much of
+what you want to do is already bound to *something*.  You'll want to
+look in /etc/X11/ion3/cfg_*.lua
+
+To change the configuration, copy a file from there into ~/.ion3/ and
+edit your local copy.  Just replace the current key symbol with the one
+you want.  Most of them will probably be in cfg_ioncore.lua
+
+> Mod1+Enter for "start resizing/moving window mode, unless Enter is pressed
+> again"
+
+You may need to remove whatever current binding exists for Mod1+Enter,
+then find "Begin move/resize mode." in cfg_ioncore.lua and replace the
+keybinding.  Pressing Return again should end move/resize mode
+already...or are you looking for a different behavior there?  (You could
+change that, it's defined in the WMoveresMode bindings)
+
+That should get you started.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 198 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20090527/719ece2c/attachment.pgp>
+
+From olejorgenb at yahoo.no  Thu May 28 11:36:56 2009
+From: olejorgenb at yahoo.no (=?utf-8?Q?Ole_J=C3=B8rgen_Br=C3=B8nner?=)
+Date: Thu, 28 May 2009 11:36:56 +0200
+Subject: confirm 852223f5c787b0857a42616c26c0a94208eae60a
+In-Reply-To: <544191d90905271406s72912366w56892f52b5592940@mail.gmail.com>
+References: <mailman.0.1243456574.11778.ion-general@lists.berlios.de>
+	<544191d90905271406s72912366w56892f52b5592940@mail.gmail.com>
+Message-ID: <op.uumvnuytvocxtk@tabole-debian>
+
+The following apply to ion3. (I haven't used pwm2/3 or ion2)
+
+As marc said, you should copy the cfg_ioncore.lua file to you ~/.ion3  
+directory. The cfg_* files are in /usr/local/etc/ion3 if you've installed  
+normally from source, or /etc/X11/ion3 if you used the debian/ubuntu  
+package.
+
+Changing basic bindings shouldn't really require that much knowledge of  
+lua.
+
+> The most important shortcuts I am missing and can not find in the manual
+> are:
+> ctrl+shift+M for maximizing/minimizing toggle of an active window
+Find this section in cfg_ioncore.lua:
+
+defbindings("WFrame", {
+     submap(META.."K", {
+         bdoc("Maximize the frame horizontally/vertically."),
+         kpress("H", "WFrame.maximize_horiz(_)"),
+         kpress("V", "WFrame.maximize_vert(_)"),
+     }),
+
+change it to:
+
+defbindings("WFrame", {
+     kpress("Control+Shift+M", ""WFrame.maximize_horiz(_)  
+WFrame.maximize_vert(_)"),
+
+
+> Mod1+Enter for "start resizing/moving window mode, unless Enter is  
+> pressed
+> again"
+Replace (in the 'defbindings("WFrame", {' section)
+     kpress(META.."R", "WFrame.begin_kbresize(_)"),
+with
+     kpress(META.."Return", "WFrame.begin_kbresize(_)"),
+and remove
+     kpress_wait(META.."Return", "WGroup.set_fullscreen(_, 'toggle')"),
+ from defbindings("WGroupCW", {
+
+> Mod1+Tab for switching focus to next window  on active desktop
+> (this did work at the beginning, I changed some option, now it switches  
+> to
+> next window, but if it is a last window on current desktop, it`ll switch  
+> to
+> next window on a next desktop)
+Yes, this should be the default behavior. (I guess you've done something  
+about nowrap)
+
+> --
+> Another question:
+> Alt+F11 will put a window into a fullscreen mode. If the window was on
+> Desktop 1 before, now it is on Desktop 0.  Is this the default?
+Well, META+Return is the standard binding for fullscreen, and this should  
+place the window back where it came from.
+
+This is the most relevant section in the documentation:
+http://modeemi.fi/~tuomov/ion-doc-3/ionconf/node4.html#SECTION00433000000000000000
+
+-- 
+Ole J?rgen Br?nner
+
+
+
+From olejorgenb at yahoo.no  Thu May 28 12:09:45 2009
+From: olejorgenb at yahoo.no (=?utf-8?Q?Ole_J=C3=B8rgen_Br=C3=B8nner?=)
+Date: Thu, 28 May 2009 12:09:45 +0200
+Subject: confirm 852223f5c787b0857a42616c26c0a94208eae60a
+In-Reply-To: <op.uumvnuytvocxtk@tabole-debian>
+References: <mailman.0.1243456574.11778.ion-general@lists.berlios.de>
+	<544191d90905271406s72912366w56892f52b5592940@mail.gmail.com>
+	<op.uumvnuytvocxtk@tabole-debian>
+Message-ID: <op.uumw6j0avocxtk@tabole-debian>
+
+>> Another question:
+>> Alt+F11 will put a window into a fullscreen mode. If the window was on
+>> Desktop 1 before, now it is on Desktop 0.  Is this the default?
+> Well, META+Return is the standard binding for fullscreen, and this  
+> should place the window back where it came from.
+
+ie. when the window is in fullscreen it will be placed on a new workspace.  
+When you switch back it should be moved to its origianl position.
+
+--
+Ole J?rgen Br?nner
+
+
+
+From amosat+ion at gmail.com  Thu May 28 20:47:54 2009
+From: amosat+ion at gmail.com (mosi)
+Date: Thu, 28 May 2009 20:47:54 +0200
+Subject: confirm 852223f5c787b0857a42616c26c0a94208eae60a
+In-Reply-To: <op.uumw6j0avocxtk@tabole-debian>
+References: <mailman.0.1243456574.11778.ion-general@lists.berlios.de>
+	<544191d90905271406s72912366w56892f52b5592940@mail.gmail.com>
+	<op.uumvnuytvocxtk@tabole-debian> <op.uumw6j0avocxtk@tabole-debian>
+Message-ID: <544191d90905281147i2ef8a5c2w39e07103edde50d8@mail.gmail.com>
+
+Hi,
+it works!
+Now I feel at home again ;-)
+And as a bonus, the lua query in the new ion3.
+I suppose one can do marvelous things with it, but for the lack of time, I
+always look rather quickly over the features list and cannot relate the
+function descriptions to the actions on the desktop.
+
+Thank you very much for the quick help and hints.
+Best regards,
+mosi
+
+
+
+
+/o>
+|/
+
+
+2009/5/28 Ole J?rgen Br?nner <olejorgenb at yahoo.no>
+
+> Another question:
+>>> Alt+F11 will put a window into a fullscreen mode. If the window was on
+>>> Desktop 1 before, now it is on Desktop 0.  Is this the default?
+>>>
+>> Well, META+Return is the standard binding for fullscreen, and this should
+>> place the window back where it came from.
+>>
+>
+> ie. when the window is in fullscreen it will be placed on a new workspace.
+> When you switch back it should be moved to its origianl position.
+>
+> --
+> Ole J?rgen Br?nner
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20090528/c5faa37d/attachment.html>
+
+From amosat+ion at gmail.com  Thu May 28 23:51:48 2009
+From: amosat+ion at gmail.com (mosi)
+Date: Thu, 28 May 2009 23:51:48 +0200
+Subject: confirm 852223f5c787b0857a42616c26c0a94208eae60a
+In-Reply-To: <544191d90905281147i2ef8a5c2w39e07103edde50d8@mail.gmail.com>
+References: <mailman.0.1243456574.11778.ion-general@lists.berlios.de>
+	<544191d90905271406s72912366w56892f52b5592940@mail.gmail.com>
+	<op.uumvnuytvocxtk@tabole-debian> <op.uumw6j0avocxtk@tabole-debian>
+	<544191d90905281147i2ef8a5c2w39e07103edde50d8@mail.gmail.com>
+Message-ID: <544191d90905281451o77ab2f33gcac1154dca876131@mail.gmail.com>
+
+Hi,
+few more things I cannot find in the manual,
+
+1. in the old pwm, you could set number of workspaces to use at start in a
+config file. Currently ion3 patched starts in pwm mode with 1 workspace
+accessible under META.."1" More workspaces are created manually. The wish is
+to always have 10.
+
+2. Now I understood, you could name some of the workspaces, e.g.
+
+defwinprop{
+    class = "XTerm",
+    instance = "sysmon",
+    target = "terminals",
+}
+
+and by invocation of "XTerm -name terminals"
+the xterm should be started in a named workspace terminals.
+After renaming WS2
+
+mod_query.query_renameframe(_)
+
+to "terminals" and invoking the aforementioned command from WS1, the new
+frame stays on WS1 instead of being created in WS2 = terminals. ?
+
+3. According to Tuomo, there is no "sticky" window option anymore.
+I looked for something like WFrame.move_to_WS(x) in order to move the
+currently selected Frame  (or window) to a workspace X, by default
+accessible by keypress META.."X", where X is a number.
+
+Any ideas how this could be done?
+
+And something for open discussion:
+ion3 grew into a huge WS offering through lua a lot of options on
+workspaces, frames, splitting, scripting, etc.
+As an ordinary user, I find it really difficult to configure it.
+The old plain pwm .cfg files were less time consuming to set-up, and very
+understandable. I must also say, that I have no previous lua experience. The
+need to reconfigure arises from the unlucky choice of several default
+keybindings, already used in many programs (firefox, emacs, mc).
+I know META could be re-binded to ModX in X, but the first impression from
+the WM is VERY important for new users.
+
+My subjective suggestion would be to significantly simplify the basic
+version of pwm3 configuration with just a few, unified keybindings for such
+users. Advanced users could use for example ion3.
+
+Does anybody know what is the size of the userbase?
+
+Thank you once again for your efforts, making life easier on desktop is much
+appreciated.
+
+Best regards,
+mosi
+
+/o>
+|/
+
+
+2009/5/28 mosi <amosat+ion at gmail.com <amosat%2Bion at gmail.com>>
+
+> Hi,
+> it works!
+> Now I feel at home again ;-)
+> And as a bonus, the lua query in the new ion3.
+> I suppose one can do marvelous things with it, but for the lack of time, I
+> always look rather quickly over the features list and cannot relate the
+> function descriptions to the actions on the desktop.
+>
+> Thank you very much for the quick help and hints.
+> Best regards,
+> mosi
+>
+>
+>
+>
+> /o>
+> |/
+>
+>
+> 2009/5/28 Ole J?rgen Br?nner <olejorgenb at yahoo.no>
+>
+>  Another question:
+>>>> Alt+F11 will put a window into a fullscreen mode. If the window was on
+>>>> Desktop 1 before, now it is on Desktop 0.  Is this the default?
+>>>>
+>>> Well, META+Return is the standard binding for fullscreen, and this should
+>>> place the window back where it came from.
+>>>
+>>
+>> ie. when the window is in fullscreen it will be placed on a new workspace.
+>> When you switch back it should be moved to its origianl position.
+>>
+>> --
+>> Ole J?rgen Br?nner
+>>
+>>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20090528/5f5a7fa0/attachment.html>
+
+From timandahaf+dev at gmail.com  Fri May 29 08:49:22 2009
+From: timandahaf+dev at gmail.com (Timandahaf)
+Date: Fri, 29 May 2009 02:49:22 -0400
+Subject: VirtualBox seamless mode
+In-Reply-To: <slrngtv8ur.e24.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20090409200536.GA19882@fl.fami.org>
+	<slrngtto15.625.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090410170731.GA9093@fl.fami.org>
+	<20090410194336.GA19255@umbach-racing.de>
+	<slrngtv8ur.e24.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <alpine.LFD.2.00.0905290248280.30299@localhost.localdomain>
+
+On Fri, 10 Apr 2009, Tuomo Valkonen wrote:
+
+> On 2009-04-10, Klaus Umbach <treibholz-ion at sozial-inkompetent.de> wrote:
+>> Just use VirtualBox in standard-fullscreen-mode on a separate Workspace.
+>> That's the most acceptable pain.
+>
+> No, that's Ion-in-cygwin-X-on-windows, after changing Mod1+Tab
+> to Mod1+Q in Ion. Integrates much better than a fully
+> keyboard-grabbing VM... albeit not perfectly :(.
+
+What works best for me is to run VirtualBox's VRDP server, and use
+rdesktop from Linux to interact with your VM, instead of using
+VirtualBox's standard fullscreen mode. The biggest advantage of this (in
+addition to things being snappier) is that 'rdesktop -K' will not do any
+keyboard grabbing:
+
+
+-K     Do not override window manager key bindings.  By default rdesktop
+         attempts to grab all keyboard input when it is in focus. [1]
+
+[1] rdesktop man page.
+
+
+
+
+From olejorgenb at yahoo.no  Sat May 30 14:37:58 2009
+From: olejorgenb at yahoo.no (=?utf-8?Q?Ole_J=C3=B8rgen_Br=C3=B8nner?=)
+Date: Sat, 30 May 2009 14:37:58 +0200
+Subject: confirm 852223f5c787b0857a42616c26c0a94208eae60a
+In-Reply-To: <544191d90905281451o77ab2f33gcac1154dca876131@mail.gmail.com>
+References: <mailman.0.1243456574.11778.ion-general@lists.berlios.de>
+	<544191d90905271406s72912366w56892f52b5592940@mail.gmail.com>
+	<op.uumvnuytvocxtk@tabole-debian> <op.uumw6j0avocxtk@tabole-debian>
+	<544191d90905281147i2ef8a5c2w39e07103edde50d8@mail.gmail.com>
+	<544191d90905281451o77ab2f33gcac1154dca876131@mail.gmail.com>
+Message-ID: <op.uuqtdkqsvocxtk@tabole-debian>
+
+> Hi,
+> few more things I cannot find in the manual,
+>
+> 1. in the old pwm, you could set number of workspaces to use at start in  
+> a
+> config file. Currently ion3 patched starts in pwm mode with 1 workspace
+> accessible under META.."1" More workspaces are created manually. The  
+> wish is
+> to always have 10.
+I'm not sure how you can easily force the number to be exacly 10, but ion3
+will remember your layout, so if you create 10 workspaces manually they  
+should still be there after a restart.
+
+> 2. Now I understood, you could name some of the workspaces, e.g.
+>
+> defwinprop{
+>     class = "XTerm",
+>     instance = "sysmon",
+>     target = "terminals",
+> }
+>
+> and by invocation of "XTerm -name terminals"
+> the xterm should be started in a named workspace terminals.
+> After renaming WS2
+>
+> mod_query.query_renameframe(_)
+>
+> to "terminals" and invoking the aforementioned command from WS1, the new
+> frame stays on WS1 instead of being created in WS2 = terminals. ?
+Almost. -name sets the instance atom, so you would do: 'xterm -name
+sysmon'. You should use mod_query.query_rename_workspace(_) (or META+m
+workspace/rename) if you want it to be started on a workspace and not a
+specific frame.
+
+
+

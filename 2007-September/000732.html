@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Not all bindings are defined in cfg_ioncore.lua
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-September/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Not%20all%20bindings%20are%20defined%20in%20cfg_ioncore.lua&In-Reply-To=%3Cslrnff9ehh.bs5.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000731.html">
+   <LINK REL="Next"  HREF="000733.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Not all bindings are defined in cfg_ioncore.lua</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Not%20all%20bindings%20are%20defined%20in%20cfg_ioncore.lua&In-Reply-To=%3Cslrnff9ehh.bs5.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Not all bindings are defined in cfg_ioncore.lua">tuomov at iki.fi
+       </A><BR>
+    <I>Sat Sep 22 08:46:09 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000731.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+        <LI>Next message: <A HREF="000733.html">Bug#409612: xlibs-data: Modifier mappings broken
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#732">[ date ]</a>
+              <a href="thread.html#732">[ thread ]</a>
+              <a href="subject.html#732">[ subject ]</a>
+              <a href="author.html#732">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2007-09-22, Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt; wrote:
+&gt;<i> Tthe console version of the
+</I>&gt;<i> UI (menuconfig) also seems to be using termios directly, instead of 
+</I>&gt;<i> curses, or even a higher-level library on top of curses. *sigh*. 
+</I>
+Actually, I didn't look into the right place. The dialog-generating
+thing _does_ use curses, and is actually just a copy of a primitive
+version of dialog(1), but is executed by the actual config program 
+for every menu separately. Ugly.
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000731.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+	<LI>Next message: <A HREF="000733.html">Bug#409612: xlibs-data: Modifier mappings broken
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#732">[ date ]</a>
+              <a href="thread.html#732">[ thread ]</a>
+              <a href="subject.html#732">[ subject ]</a>
+              <a href="author.html#732">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

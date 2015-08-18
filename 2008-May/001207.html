@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Main window's focus with active transient
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Main%20window%27s%20focus%20with%20active%20transient&In-Reply-To=%3C20080523095301.GE4932%40anita%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001192.html">
+   <LINK REL="Next"  HREF="001209.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Main window's focus with active transient</H1>
+    <B>Konstantin Kletschke</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Main%20window%27s%20focus%20with%20active%20transient&In-Reply-To=%3C20080523095301.GE4932%40anita%3E"
+       TITLE="Main window's focus with active transient">lists at ku-gbr.de
+       </A><BR>
+    <I>Fri May 23 11:53:01 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001192.html">Main window's focus with active transient
+</A></li>
+        <LI>Next message: <A HREF="001209.html">Main window's focus with active transient
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1207">[ date ]</a>
+              <a href="thread.html#1207">[ thread ]</a>
+              <a href="subject.html#1207">[ subject ]</a>
+              <a href="author.html#1207">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Am 2008-05-21 08:30 +0000 schrieb Tuomo Valkonen:
+&gt;<i> &gt; When the application is tiled, I can switch focus back to it with mouse
+</I>&gt;<i> &gt; but not type keys to it.
+</I>&gt;<i> 
+</I>&gt;<i> If you can't type in it, you can't switch focus to it.. unless the
+</I>
+May be I was misleaded by the fact, that the color of the titlebar keeps
+color style of focused frame but in the frame the transient does not
+give focus away though.
+
+&gt;<i> application is itself refusing the input. Focus means keyboard input,
+</I>
+Thats not the case here, this works fine in float mode.
+
+&gt;<i> although some toolkits also expect the pointer to be in the field and
+</I>&gt;<i> indicate that.
+</I>
+Yes :-) Even more annoying this is.
+
+&gt;<i> I consider all transients modal. They're _transient_ windows, after
+</I>
+But not in float mode, right? In float mode of these Application the
+DRC-Error Box is above the Main Application though, but I can move back
+to Main Window and type keys into it then.
+
+When i invoke the application in float mode and activate the DRC-Error
+toolbox and tag main application and attach it to a new tiled frame, 
+still I can input keys into main application and use the tool box.
+
+Only when invoked from tiled mode this tool box seems to not give 
+keyboard focus away. I realize now in order to poke around with xprops.
+This is what me annoys a bit since the &quot;not not givefocus away&quot; is my
+desired behaviour...
+
+Before there is misunderstanding on my side, is this a transient?
+tool box involed in float mode:
+
+_NET_WM_STATE(ATOM) =
+WM_STATE(WM_STATE):
+                window state: Normal
+                icon window: 0x0
+_NET_WM_NAME(UTF8_STRING) = 0x44, 0x52, 0x43, 0x20, 0x45, 0x72, 0x72, 0x6f, 0x72
+, 0x73
+WM_CLIENT_LEADER(WINDOW): window id # 0x1400008
+WM_WINDOW_ROLE(STRING) = &quot;Dialog.Errors&quot;
+_NET_WM_PID(CARDINAL) = 3466
+_NET_WM_WINDOW_TYPE(ATOM) = _NET_WM_WINDOW_TYPE_DIALOG, _NET_WM_WINDOW_TYPE_NORM
+AL
+WM_PROTOCOLS(ATOM): protocols  WM_DELETE_WINDOW, WM_TAKE_FOCUS, _NET_WM_PING, _N
+ET_WM_CONTEXT_HELP
+WM_NAME(STRING) = &quot;DRC Errors&quot;
+WM_LOCALE_NAME(STRING) = &quot;en_US.UTF-8&quot;
+WM_CLASS(STRING) = &quot;eagle&quot;, &quot;eagle&quot;
+WM_HINTS(WM_HINTS):
+                Client accepts input or input focus: True
+                Initial state is Normal State.
+                bitmap id # to use for icon: 0x1400268
+                bitmap id # of mask for icon: 0x1400269
+                window id # of group leader: 0x140026b
+WM_NORMAL_HINTS(WM_SIZE_HINTS):
+                user specified location: 738, 269
+                program specified location: 738, 269
+                user specified size: 323 by 443
+                program specified size: 323 by 443
+                program specified minimum size: 175 by 133
+                window gravity: NorthWest
+WM_CLIENT_MACHINE(STRING) = &quot;elektra&quot;
+WM_TRANSIENT_FOR(WINDOW): window id # 0x140026b
+
+invoked in tiled mode:
+
+WM_STATE(WM_STATE):
+                window state: Normal
+                icon window: 0x0
+_NET_WM_STATE(ATOM) =
+WM_ICON_NAME(STRING) = &quot;untitled.brd&quot;
+_NET_WM_NAME(UTF8_STRING) = 0x31, 0x20, 0x42, 0x6f, 0x61, 0x72, 0x64, 0x20, 0x2d, 0x20, 0x2f, 0x68, 0x6f, 0x6d, 0x65, 0x2f, 0x6b, 0x6f, 0x6e, 0x73, 0x74, 0x69, 0x2f, 0x75, 0x6e, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x64, 0x2e, 0x62, 0x72, 0x64, 0x20, 0x2d, 0x20, 0x45, 0x41, 0x47, 0x4c, 0x45, 0x20, 0x34, 0x2e, 0x31, 0x36, 0x72, 0x32, 0x20, 0x50, 0x72, 0x6f, 0x66, 0x65, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x61, 0x6c
+XdndAware(ATOM) = ATOM
+_MOTIF_DRAG_RECEIVER_INFO(_MOTIF_DRAG_RECEIVER_INFO) = 0x6c, 0x0, 0x5, 0x8, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x10, 0x0, 0x0, 0x0
+_QT_SIZEGRIP(WINDOW): window id # 0x1400275
+WM_CLIENT_LEADER(WINDOW): window id # 0x1400008
+WM_WINDOW_ROLE(STRING) = &quot;unnamed&quot;
+_NET_WM_PID(CARDINAL) = 3466
+_NET_WM_WINDOW_TYPE(ATOM) = _NET_WM_WINDOW_TYPE_NORMAL
+WM_PROTOCOLS(ATOM): protocols  WM_DELETE_WINDOW, WM_TAKE_FOCUS, _NET_WM_PING
+WM_NAME(STRING) = &quot;1 Board - /home/konsti/untitled.brd - EAGLE 4.16r2 Professional&quot;
+WM_LOCALE_NAME(STRING) = &quot;en_US.UTF-8&quot;
+WM_CLASS(STRING) = &quot;eagle&quot;, &quot;eagle&quot;
+WM_HINTS(WM_HINTS):
+                Client accepts input or input focus: True
+                Initial state is Normal State.
+                bitmap id # to use for icon: 0x1400268
+                bitmap id # of mask for icon: 0x1400269
+WM_NORMAL_HINTS(WM_SIZE_HINTS):
+                program specified minimum size: 263 by 161
+                window gravity: NorthWest
+WM_CLIENT_MACHINE(STRING) = &quot;elektra&quot;
+
+Semi-PS.:
+Such Dialogs invoked in tiled frames are strechted about the horizontal
+width completely, can this be switched off somewhere?
+
+&gt;<i> all. Separate _toolbox windows_ -- which are in themselves a fundamental 
+</I>&gt;<i> design flaw -- should not be marked as transient. 
+</I>
+I agree completely, this is a rotten mess...
+
+&gt;<i> client in the current frame. The 'float' winprop might do something more
+</I>&gt;<i> useful. Maybe some of the scripts in the scripts repository also did 
+</I>&gt;<i> something useful; check it. 
+</I>
+Nice Idea, I woll check this area for something like this now.
+
+&gt;<i> It is also possible to put windows managed in the group of a main window 
+</I>&gt;<i> on a non-modal stacking level. This will, however, require a custom
+</I>&gt;<i> clientwin_do_manage_alt hook handler or an attach script, as it is only
+</I>&gt;<i> possible to set the stacking level from a WMPlex.attach[_new] call. 
+</I>&gt;<i> (Levels starting from 1024 are modal.) Maybe someone can write a script...
+</I>
+This also sounds useful and I am interested getting a point to look at
+where and how to start such a script :-)
+
+Kind Regards, Konsti
+
+
+-- 
+GPG KeyID EF62FCEF
+Fingerprint: 13C9 B16B 9844 EC15 CC2E  A080 1E69 3FDA EF62 FCEF
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001192.html">Main window's focus with active transient
+</A></li>
+	<LI>Next message: <A HREF="001209.html">Main window's focus with active transient
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1207">[ date ]</a>
+              <a href="thread.html#1207">[ thread ]</a>
+              <a href="subject.html#1207">[ subject ]</a>
+              <a href="author.html#1207">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

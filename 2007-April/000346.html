@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Xinerama
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-April/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Xinerama&In-Reply-To=%3C20070406234214.GU13216%40themel.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000345.html">
+   <LINK REL="Next"  HREF="000347.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Xinerama</H1>
+    <B>Thomas Themel</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Xinerama&In-Reply-To=%3C20070406234214.GU13216%40themel.com%3E"
+       TITLE="Xinerama">ion at themel.com
+       </A><BR>
+    <I>Sat Apr  7 01:42:14 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000345.html">Documentation errata mod_query.
+</A></li>
+        <LI>Next message: <A HREF="000347.html">Xinerama
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#346">[ date ]</a>
+              <a href="thread.html#346">[ thread ]</a>
+              <a href="subject.html#346">[ subject ]</a>
+              <a href="author.html#346">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi,
+
+I just had a first stab at implementing a Xinerama module as outlined in
+Tuomo's 2007-01-17 post[0], see attached mod_xinerama.c.
+
+I get my two screens well enough, but whenever I switch from one to the
+other, the non-focused screen &quot;goes blank&quot;, ie all windows are unmapped
+from it. I take it that this is the standard behaviour for switching
+inside an mplex, but couldn't figure out how to prevent it.
+
+Hints?
+
+[0] &lt;<A HREF="http://www.mail-archive.com/ion-general@lists.berlios.de/msg01581.html">http://www.mail-archive.com/ion-general@lists.berlios.de/msg01581.html</A>&gt;
+
+ciao,
+-- 
+[*Thomas  Themel*] &quot;As the world's richest, most powerful software company,
+[extended contact] Microsoft is number one. And you, the millions of
+[info provided in] consumers who use our products, are the zeroes.&quot;
+[*message header*] &lt;<A HREF="http://www.theonion.com/content/node/29130">http://www.theonion.com/content/node/29130</A>&gt;
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: mod_xinerama.c
+Type: text/x-csrc
+Size: 2261 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20070407/27c76669/attachment.c">https://lists.berlios.de/pipermail/ion-general/attachments/20070407/27c76669/attachment.c</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000345.html">Documentation errata mod_query.
+</A></li>
+	<LI>Next message: <A HREF="000347.html">Xinerama
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#346">[ date ]</a>
+              <a href="thread.html#346">[ thread ]</a>
+              <a href="subject.html#346">[ subject ]</a>
+              <a href="author.html#346">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Rezise window to fixed size.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2011-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Rezise%20window%20to%20fixed%20size.&In-Reply-To=%3C20110102223704.108113f8%40Chewbacca.cub%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="001950.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Rezise window to fixed size.</H1>
+    <B>ebik</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Rezise%20window%20to%20fixed%20size.&In-Reply-To=%3C20110102223704.108113f8%40Chewbacca.cub%3E"
+       TITLE="Rezise window to fixed size.">ebik at drak.ucw.cz
+       </A><BR>
+    <I>Sun Jan  2 22:37:04 CET 2011</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="001950.html">Rezise window to fixed size.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1949">[ date ]</a>
+              <a href="thread.html#1949">[ thread ]</a>
+              <a href="subject.html#1949">[ subject ]</a>
+              <a href="author.html#1949">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Fri, 31 Dec 2010 07:09:22 -0800 (PST)
+&#163;ukasz &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">blurrpp at yahoo.com</A>&gt; wrote:
+
+&gt;<i> 
+</I>&gt;<i> --- On Thu, 12/30/10, ebik &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">ebik at drak.ucw.cz</A>&gt; wrote:
+</I>&gt;<i> 
+</I>&gt;<i> &gt; From: ebik &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">ebik at drak.ucw.cz</A>&gt;
+</I>&gt;<i> &gt; Subject: Re: Saving/restore session
+</I>&gt;<i> &gt; To: <A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">ion-general at lists.berlios.de</A>
+</I>&gt;<i> &gt; Date: Thursday, December 30, 2010, 8:20 PM
+</I>&gt;<i> &gt; On Thu, 30 Dec 2010 07:55:43 -0800
+</I>&gt;<i> &gt; (PST)
+</I>&gt;<i> &gt; &#163;ukasz &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">blurrpp at yahoo.com</A>&gt;
+</I>&gt;<i> &gt; wrote:
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; &gt; But i have another question. I'm using ion2/pwm2 and i
+</I>&gt;<i> &gt; want to resize
+</I>&gt;<i> &gt; &gt; actual window to some fixed sizes (maximize_vert and
+</I>&gt;<i> &gt; &gt; maximize_horiz_works only as they explicit say
+</I>&gt;<i> &gt; MAXIMALY ) i used
+</I>&gt;<i> &gt; &gt; request_geom(WRegion,size_table) but i have probelm
+</I>&gt;<i> &gt; with gettin
+</I>&gt;<i> &gt; &gt; current WRegion ( i read cerfully all manual and
+</I>&gt;<i> &gt; couldnt find
+</I>&gt;<i> &gt; &gt; function like WRegion WRegion.current() which would
+</I>&gt;<i> &gt; gave me handle to
+</I>&gt;<i> &gt; &gt; current region),s ohow to get it and maybe there is
+</I>&gt;<i> &gt; another way to
+</I>&gt;<i> &gt; &gt; fixed resize .
+</I>&gt;<i> &gt; &gt; 
+</I>&gt;<i> &gt; &gt; Regards Lukas
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; You should use correct binding (i.e., binding for WFrame or
+</I>&gt;<i> &gt; something
+</I>&gt;<i> &gt; like that, I have no ion manual here), then the variable
+</I>&gt;<i> &gt; '_'
+</I>&gt;<i> &gt; should contain the object, which was the binding triggered
+</I>&gt;<i> &gt; for. See
+</I>&gt;<i> &gt; the part of manual that describes bindings.
+</I>&gt;<i> 
+</I>&gt;<i> Thanx, u are talking about ion3 not ion2 but any wy i just moved to
+</I>&gt;<i> ion3 and i have the same problem. Trying to set key to rezise
+</I>&gt;<i> windowes to fixed size, so ok i use WMoveresMode functions 
+</I>&gt;<i> 
+</I>&gt;<i> defbindings(&quot;WMoveresMode&quot;, {
+</I>&gt;<i>    ...
+</I>&gt;<i>    ...
+</I>&gt;<i>    ...
+</I>&gt;<i>    kpress(META..&quot;R&quot;,     &quot;WMoveresMode.rqgeom(_,{10,10,100,100})&quot;),
+</I>&gt;<i> })
+</I>&gt;<i> 
+</I>&gt;<i> Let say that META+&quot;R&quot; switches to 'resize' mode. So now pressing
+</I>&gt;<i> META+&quot;R&quot; than &quot;R&quot; shold rezise window ... buy nothing happen, other
+</I>&gt;<i> functions like WMoveresMode.resize(_,...)  works ok. So where is
+</I>&gt;<i> mistake in this example.
+</I>&gt;<i> 
+</I>&gt;<i> Lukasz
+</I> 
+I think that it should read:
+WMoveresMode.rqgeom(_,{x=10,y=10,w=100,h=100})
+(Not sure about the syntax right now, but the table has named entries.)
+
+Second &quot;R&quot; should be pressed also with META in your example.
+
+The triggered error probably wrote something to ion's stderr. I keep
+ion's stdout and stderr explicitly to ~/.xsession-errors, so I can check
+ion's output in case of bad bindings, kludges or other errors, that
+occur in &quot;safe environment&quot; -- being triggered by some event.
+
+-- 
+                                 Tom&#225;&#353; 'eb&#237;k' Ebenlendr
+                                 PF 2011.00528440512
+
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 230 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20110102/801dd48f/attachment.pgp">https://lists.berlios.de/pipermail/ion-general/attachments/20110102/801dd48f/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="001950.html">Rezise window to fixed size.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1949">[ date ]</a>
+              <a href="thread.html#1949">[ thread ]</a>
+              <a href="subject.html#1949">[ subject ]</a>
+              <a href="author.html#1949">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

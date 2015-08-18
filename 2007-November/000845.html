@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Experimental ZeroInstall feed [Was: ion-3rc-20071109]
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Experimental%20ZeroInstall%20feed%20%5BWas%3A%20ion-3rc-20071109%5D&In-Reply-To=%3Cslrnfjgfb1.8du.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000844.html">
+   <LINK REL="Next"  HREF="000849.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Experimental ZeroInstall feed [Was: ion-3rc-20071109]</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Experimental%20ZeroInstall%20feed%20%5BWas%3A%20ion-3rc-20071109%5D&In-Reply-To=%3Cslrnfjgfb1.8du.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Experimental ZeroInstall feed [Was: ion-3rc-20071109]">tuomov at iki.fi
+       </A><BR>
+    <I>Mon Nov 12 12:47:45 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000844.html">Experimental ZeroInstall feed [Was: ion-3rc-20071109]
+</A></li>
+        <LI>Next message: <A HREF="000849.html">Experimental ZeroInstall feed [Was: ion-3rc-20071109]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#845">[ date ]</a>
+              <a href="thread.html#845">[ thread ]</a>
+              <a href="subject.html#845">[ subject ]</a>
+              <a href="author.html#845">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2007-11-12, Joerg van den Hoff &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">j.van_den_hoff at fzd.de</A>&gt; wrote:
+&gt;<i> don't  know  if it helps, but `man -d ion3' shows the actual
+</I>&gt;<i> command which is executed when you call `man ion3':
+</I>&gt;<i>
+</I>&gt;<i>  (cd /opt/local/share/man &amp;&amp; /usr/bin/gunzip -c
+</I>&gt;<i>  '/opt/local/share/man/man1/ion3.1.gz' | /usr/bin/tbl | /usr/bin/groff
+</I>&gt;<i>  -Wall -mtty-char -Tascii -mandoc -c | less -fR)
+</I>&gt;<i>
+</I>&gt;<i> is'nt this sufficient for your  purpose? 
+</I>
+Seems rather complicated to make any use of that, as the command line
+could be anything, Ion's man pages arent't gzipped by default, and so on.
+On the FC4 system at work I get for `man ls`
+
+  (cd /usr/share/man &amp;&amp; (echo &quot;.ll 8.1i&quot;; echo &quot;.nr LL 8.1i&quot;; echo &quot;.pl
+  1100i&quot;; /usr/bin/gunzip -c '/usr/share/man/man1/ls.1.gz'; echo &quot;.\\\&quot;&quot;;
+  echo &quot;.pl \n(nlu+10&quot;) | /usr/bin/gtbl | /usr/bin/nroff -c --legacy
+  ISO-8859-1 -mandoc 2&gt;/dev/null | /usr/bin/less -is)
+
+which is quite a bit more complicated.
+
+And anyway, in the end it's not really what I'm after: `man ion3` should
+work directly, at least in the environment that Ion is running in. Ben 
+Hutchings already suggested that -M has been around quite long (although
+it probably also isn't standard). However, the problem is that it overrides
+all of manpath, and there's no portable way to get the standard manual path
+to append to. Of course, the ZeroInstall build is unfortunately just for 
+Linux ATM, where the `mathpath` command is quite standard (and in fact the
+man page completion feature uses it, if available and MANPATH isn't set).
+But I'd still like to have a cleaner solution..
+
+It's unfortunate that ZeroInstall doesn't AFAIK let you set/append 
+environment variables based on the location of the package in question, 
+only dependencies. This way it could just handle all those crummy details,
+and use a sane default setting. Likewise, programs wouldn't have to use $0
+to figure out their location, but could take it from the environment.
+Of course, setting a complete MANPATH sucks when there's `manpath`, and
+`man` should really support extra paths or databases instead of total
+overrides... An extra 0man wrapper (aliased to man in the shell) could
+of course do stuff like that. But it's again not something that Ion
+should provide.
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000844.html">Experimental ZeroInstall feed [Was: ion-3rc-20071109]
+</A></li>
+	<LI>Next message: <A HREF="000849.html">Experimental ZeroInstall feed [Was: ion-3rc-20071109]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#845">[ date ]</a>
+              <a href="thread.html#845">[ thread ]</a>
+              <a href="subject.html#845">[ subject ]</a>
+              <a href="author.html#845">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

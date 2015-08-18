@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Ion3 wishlist / a note about Ion4
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion3%20wishlist%20/%20a%20note%20about%20Ion4&In-Reply-To=%3C20080523095201.GA26613%40tardis.terramar.selidor.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001205.html">
+   <LINK REL="Next"  HREF="001208.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Ion3 wishlist / a note about Ion4</H1>
+    <B>Ivan Vilata i Balaguer</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion3%20wishlist%20/%20a%20note%20about%20Ion4&In-Reply-To=%3C20080523095201.GA26613%40tardis.terramar.selidor.net%3E"
+       TITLE="Ion3 wishlist / a note about Ion4">ivan at selidor.net
+       </A><BR>
+    <I>Fri May 23 11:52:01 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001205.html">Ion3 wishlist / a note about Ion4
+</A></li>
+        <LI>Next message: <A HREF="001208.html">Ion3 wishlist / a note about Ion4
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1206">[ date ]</a>
+              <a href="thread.html#1206">[ thread ]</a>
+              <a href="subject.html#1206">[ subject ]</a>
+              <a href="author.html#1206">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Tuomo Valkonen (el 2008-05-23 a les 09:17:46 +0000) va dir::
+
+&gt;<i> On 2008-05-23, Ivan Vilata i Balaguer &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">ivan at selidor.net</A>&gt; wrote:
+</I>&gt;<i> &gt; +1 on my side, too.  It turns out that Ion lets me switch windows so
+</I>&gt;<i> &gt; fast I have to wait for them to redraw!  A compositing manager could
+</I>&gt;<i> &gt; take all that flickering away.
+</I>&gt;<i> 
+</I>&gt;<i> .. by turning it all slow by constant swapping. Seriously, all apps
+</I>&gt;<i> initially drawing into backbuffers is an absurd and unnecessary waste
+</I>&gt;<i> of memory (and natural resources). It may not show when you run a single
+</I>&gt;<i> program with one big window along with a few auxiliary windows, which is
+</I>&gt;<i> most the WIMP interface can really handle. But Ion you typically have 
+</I>&gt;<i> dozens of windows open. Now consider all of them having a backbuffer 
+</I>&gt;<i> constantly allocated. Is there any way to turn it off (discarding drawing
+</I>&gt;<i> requests as normal) for (invisible) windows, when not needed? I haven't
+</I>&gt;<i> studied the protocols in detail. 
+</I>
+Umm, I was curious about what the real memory consumption would be.  For
+instance, let's imagine having no less than 30 windows taking a full
+1024x768, 32-bit screen (a *really* bad case, I currently have 12
+windows, only three of them near-fullscreen: 30 * 1024 * 768 * 4 = 90
+Mib, 150 MiB for 1280x1024.  That's not so much by today's standards,
+given graphics memory size, main memory size and intelligent memory
+swapping techniques.  It may not be right for a small system, but I
+think it's OK for a desktop system, if the user makes the decision to go
+into compositing.
+
+Regarding your question, I don't know the answer either, but maybe some
+kind of LRU strategy could be used for selecting which windows have the
+backbuffer enabled.
+
+&gt;<i> I do, however, think that in general a proxy program (compositing manager) 
+</I>&gt;<i> copying damaged regions is a wasteful na&#239;ve/ad hoc approach plagued various
+</I>&gt;<i> problems, such as memory waste and programs needing speedy redraws
+</I>&gt;<i> (requiring lots of communication and multiple context switches between
+</I>&gt;<i> the original program, X, and the compositing manager, unless the program
+</I>&gt;<i> is set to bypass the compositing manager). An approach reminiscent of pixel
+</I>&gt;<i> and vertex shader programs would probably be better. Instead of uploading
+</I>&gt;<i> shaders to a graphics card, you'd upload a transformation program on the X 
+</I>&gt;<i> server, in a non-Turing complete language with guaranteed time bounds.
+</I>&gt;<i> (Of course that program might also specify shaders.) You might then also
+</I>&gt;<i> support general drawing programs, being able to just upload widget drawing
+</I>&gt;<i> programs and stuff, instead of sending all the commands over the socket
+</I>&gt;<i> each time, improving performance over slow networks.
+</I>
+Nice, that slightly reminds me of the architecture of the NeWS window
+system, which used PostScript as that drawing language (a very
+interesting system and an also interesting read):
+<A HREF="http://en.wikipedia.org/wiki/NeWS">http://en.wikipedia.org/wiki/NeWS</A>
+
+Cheers,
+
+::<i>
+</I>
+  Ivan Vilata i Balaguer   @ Welcome to the European Banana Republic! @
+  <A HREF="http://www.selidor.net/">http://www.selidor.net/</A>  @     <A HREF="http://www.nosoftwarepatents.com/">http://www.nosoftwarepatents.com/</A>    @
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 307 bytes
+Desc: Digital signature
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20080523/f1e4e18d/attachment.pgp">https://lists.berlios.de/pipermail/ion-general/attachments/20080523/f1e4e18d/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001205.html">Ion3 wishlist / a note about Ion4
+</A></li>
+	<LI>Next message: <A HREF="001208.html">Ion3 wishlist / a note about Ion4
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1206">[ date ]</a>
+              <a href="thread.html#1206">[ thread ]</a>
+              <a href="subject.html#1206">[ subject ]</a>
+              <a href="author.html#1206">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

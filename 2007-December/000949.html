@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> I'm very sad...
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20I%27m%20very%20sad...&In-Reply-To=%3Cb85d58c40712300912t3165dd0did83fe9b999dd2a69%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000932.html">
+   <LINK REL="Next"  HREF="000950.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>I'm very sad...</H1>
+    <B>Quentin Huys</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20I%27m%20very%20sad...&In-Reply-To=%3Cb85d58c40712300912t3165dd0did83fe9b999dd2a69%40mail.gmail.com%3E"
+       TITLE="I'm very sad...">quentinhuys at gmail.com
+       </A><BR>
+    <I>Sun Dec 30 18:12:20 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000932.html">I'm very sad...
+</A></li>
+        <LI>Next message: <A HREF="000950.html">I'm very sad...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#949">[ date ]</a>
+              <a href="thread.html#949">[ thread ]</a>
+              <a href="subject.html#949">[ subject ]</a>
+              <a href="author.html#949">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Sorry for the repeat posting--I seem to have lost the thread, so am replying
+to this one.
+
+I'm also trying to compile ion on macosx, and not managing. As Joerg, I'd
+really like there to be some repository where I can get it as a binary...
+
+Anyway, while that' s not looking likely I'm enjoying running after
+dependencies. When I run make, I get the following:
+
+set -e; for i in libtu libextl libmainloop mod_tiling mod_query mod_menu
+mod_dock mod_sp mod_sm mod_statusbar de ioncore ion pwm etc utils man po ;
+do make -C $i; done
+gcc -Os -W -Wimplicit -Wreturn-type -Wswitch -Wcomment -Wtrigraphs -Wformat
+-Wchar-subscripts -Wparentheses -pedantic -Wuninitialized
+-DCF_XFREE86_TEXTPROP_BUG_WORKAROUND -DHAVE_SNPRINTF      -c output.c -o
+output.o
+In file included from output.c:23:
+private.h:15:21: error: libintl.h: No such file or directory
+output.c: In function 'fallback_warn':
+output.c:116: warning: implicit declaration of function 'dgettext'
+output.c:116: warning: incompatible implicit declaration of built-in
+function 'dgettext'
+make[1]: *** [output.o] Error 1
+make: *** [subdirs] Error 2
+
+I don't really understand why it doesn't find libintl.h. When I run locate
+libintl.h I get:
+
+/opt/local/include/libintl.h
+/opt/local/var/macports/build/_opt_local_var_macports_sources_rsync.macports.org_release_ports_cross_avr-gcc/work/build/intl/libintl.h
+/opt/local/var/macports/software/gettext/0.17_2/opt/local/include/libintl.h
+/sw/include/libintl.h
+
+In the system.mk file, I've set
+
+PREFIX=/opt/local
+
+and
+
+LUA_DIR=/opt/local
+
+which is where things are on macosx when installing from macports...
+
+Any chance you might be able to help me out? I've been trying all kinds of
+things but can't get it to work...
+
+Thanks a lot
+Quentin
+
+
+
+On Dec 21, 2007 11:24 AM, Joerg van den Hoff &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">j.van_den_hoff at fzd.de</A>&gt; wrote:
+
+&gt;<i> On Fri, Dec 14, 2007 at 03:36:41AM +0200, Tuomo Valkonen wrote:
+</I>&gt;<i> &gt; On 2007-12-14 01:55 +0100, Albert Shih wrote:
+</I>&gt;<i> &gt; &gt; Of course It's what I'm going to do (try), but the ports collection
+</I>&gt;<i> make all
+</I>&gt;<i> &gt; &gt; dependency, and it's very fine technics.
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; Ion doesn't have many non-standard dependencies. Most systems have X11R6
+</I>&gt;<i> &gt; libraries installed, of which no particular version is needed (aside
+</I>&gt;<i> from
+</I>&gt;<i> &gt; bugs in some versions, in particular in relation to
+</I>&gt;<i> XGetTextProperty...).
+</I>&gt;<i> &gt; Some libc related aspects need to be configured in system.mk (some
+</I>&gt;<i> systems
+</I>&gt;<i> &gt; have some components sanely as separate, and others have monolithic
+</I>&gt;<i> libc),
+</I>&gt;<i> &gt; but aside from that, the only non-standard dependency that needs
+</I>&gt;<i> &gt; installation, is Lua. Lua is also quite easy to install: it has ANSI C
+</I>&gt;<i> &gt; as its only dependency. (However, some versions of Lua's Makefiles set
+</I>&gt;<i> &gt; broken permissions... But installing from ports or so may fix them.)
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; --
+</I>&gt;<i> &gt; Tuomo
+</I>&gt;<i> &gt;
+</I>&gt;<i>
+</I>&gt;<i> if  you  say  so... maybe right w.r.t. dependencies on libs.
+</I>&gt;<i> otherwise:
+</I>&gt;<i>
+</I>&gt;<i> I  tried it again with yesterday's version and I should have
+</I>&gt;<i> known better: trying to compile ion3 &quot;manually&quot; under MacOSX
+</I>&gt;<i> is  a  nightmare  for  anybody  not  up  to his waist in the
+</I>&gt;<i> internals of gcc and differences introduced by apple.
+</I>&gt;<i>
+</I>&gt;<i> is  there  *anbody*  out  there  able  to  compile  it under
+</I>&gt;<i> macos???
+</I>&gt;<i>
+</I>&gt;<i> I gave up (again...). problems (to the extent that they have
+</I>&gt;<i> surfaced) are related to several gcc/ld flags not  available
+</I>&gt;<i> under MacOS:
+</I>&gt;<i>
+</I>&gt;<i> -shared
+</I>&gt;<i> -whole-archive
+</I>&gt;<i> -export-dynamic
+</I>&gt;<i>
+</I>&gt;<i> and  librt:  is  that  supposedly  a  standard lib? it's not
+</I>&gt;<i> there.
+</I>&gt;<i>
+</I>&gt;<i> tuomo,  man, get a hold of yourself (or, rather, the licence
+</I>&gt;<i> text), so that it is again sufficient that _one_ guy  solves
+</I>&gt;<i> it  _once_  and  puts in back in the repository. it can't be
+</I>&gt;<i> that much fun to see users suffer. or can it? I,  at  least,
+</I>&gt;<i> am fed up with trying. that's no longer a manageble average-
+</I>&gt;<i> user task.
+</I>&gt;<i>
+</I>&gt;<i> and,  of  course,  if  in  the  end it were possible to find
+</I>&gt;<i> makefiles and/or system.mk  versions  on  your  side,  it'll
+</I>&gt;<i> help.  but  I'm  at  least  obviously  not  in a position to
+</I>&gt;<i> contribute  these  for  MacOSX.  (and  it  only   seems   an
+</I>&gt;<i> unnecessary  complication  in comparison to having it in the
+</I>&gt;<i> repositories. but I suspect your attitude is uncorrectable.)
+</I>&gt;<i>
+</I>&gt;<i> joerg
+</I>&gt;<i>
+</I>-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20071230/a03c7303/attachment.html">https://lists.berlios.de/pipermail/ion-general/attachments/20071230/a03c7303/attachment.html</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000932.html">I'm very sad...
+</A></li>
+	<LI>Next message: <A HREF="000950.html">I'm very sad...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#949">[ date ]</a>
+              <a href="thread.html#949">[ thread ]</a>
+              <a href="subject.html#949">[ subject ]</a>
+              <a href="author.html#949">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

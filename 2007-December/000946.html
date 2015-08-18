@@ -1,0 +1,247 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Nagware version
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Nagware%20version&In-Reply-To=%3C20071229152546.GA22341%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000945.html">
+   <LINK REL="Next"  HREF="000947.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Nagware version</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Nagware%20version&In-Reply-To=%3C20071229152546.GA22341%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Nagware version">tuomov at iki.fi
+       </A><BR>
+    <I>Sat Dec 29 16:25:46 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000945.html">Compile error under cygwin
+</A></li>
+        <LI>Next message: <A HREF="000947.html">Nagware version
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#946">[ date ]</a>
+              <a href="thread.html#946">[ thread ]</a>
+              <a href="subject.html#946">[ subject ]</a>
+              <a href="author.html#946">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I've been considering releasing (as a patch) a separate nagware version
+of Ion, which would have a license without the 28-day clause. The patch 
+is included as a draft (without any accompanied permission yet to treat
+it as an insignificant change). Presently it checks the latest release
+redirection [1] every 28 days. An annoying call-home feature, I know,
+which would not be featured in the standard release (including my
+ZeroInstall feed). As is apparent from the README changes, the patch
+requires luacurl [2]. Discuss it if you want. I however doubt that the
+unconstructive distros motivated by ideology and maintaining their own
+power, would accept even that, although the resulting license should be
+&quot;free&quot; (and would be GPLv3 compatible, if based on it intead of LGPLv2.1).
+And yet, the package management system is the right place for this kind 
+of features, not programs themselves (reinventing a half-assed package 
+management system).
+
+  [1]: <A HREF="http://modeemi.fi/~tuomov/ion-3-latest.tar.gz">http://modeemi.fi/~tuomov/ion-3-latest.tar.gz</A>
+
+  [2]: <A HREF="http://luaforge.net/projects/luacurl/">http://luaforge.net/projects/luacurl/</A>
+
+-- 
+Tuomo
+-------------- next part --------------
+Sat Dec 29 17:14:55 EET 2007  Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt;
+  * README and LICENSE updates
+Sat Dec 29 15:31:29 EET 2007  Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt;
+  * Oops
+Sat Dec 29 14:23:30 EET 2007  Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt;
+  * Handle updates better in version check
+Sat Dec 29 14:14:09 EET 2007  Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt;
+  * Only http-check version once every 28 days
+Sat Dec 29 13:50:38 EET 2007  Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt;
+  * Version check hack with luacurl
+diff -rN -u old-ion-3-curl/LICENSE new-ion-3-curl/LICENSE
+--- old-ion-3-curl/LICENSE	2007-12-29 17:15:04.546539787 +0200
++++ new-ion-3-curl/LICENSE	2007-12-29 17:15:04.590531981 +0200
+@@ -11,11 +11,6 @@
+     - A version that does not significantly differ from one of the
+       copyright holder's releases, must be provided by default.
+ 
+-    - Versions not based on the copyright holder's latest release (on 
+-      the corresponding &quot;branch&quot;, such as Ion3(tm)), must within 28 days
+-      of this release, be prominently marked as (potentially) obsolete
+-      and unsupported.
+-
+     - Significantly altered versions may be provided only if the user
+       explicitly requests for those modifications to be applied, and 
+       is prominently notified that the software is no longer considered 
+@@ -60,17 +55,6 @@
+ standard behaviour, are insignificant. Everything else is significant, 
+ unless expressly declared otherwise by the copyright holder. 
+ 
+-Distributions: For example, suppose an aggregate distribution of software
+-provides an `installpkg` command for installing packages. Then the action
+-`installpkg ion3` (resp. `installpkg ion`) should provide the latest release
+-of Ion3 (resp. the latest stable release) 28 days from release date at the
+-latest, or prominently notify the user that the provided version is (likely
+-to be) obsolete and unsupported. The latest release being provided by
+-default, or prominently appearing in a listing, constitutes prominent
+-marking of earlier releases as obsolete. Specific versions (including
+-modified versions) may be provided if the user explicitly requests for
+-those, within the constraints set above.
+-
+ The intent of these terms is to curb the power that &quot;distributions&quot;, as
+ the primary sources of software for many users, have in defining what
+ is perceived as Ion. By providing significantly modified versions and
+diff -rN -u old-ion-3-curl/README new-ion-3-curl/README
+--- old-ion-3-curl/README	2007-12-29 17:15:04.546539787 +0200
++++ new-ion-3-curl/README	2007-12-29 17:15:04.594531272 +0200
+@@ -16,8 +16,9 @@
+    with, of course, standard X11 and libc stuff).
+ 
+     * GNU make &lt;<A HREF="http://www.gnu.org/software/make/">http://www.gnu.org/software/make/</A>&gt;
+-    * Lua 5.1 &lt;<A HREF="http://www.lua.org/">http://www.lua.org/</A>&gt;
+     * gettext &lt;<A HREF="http://www.gnu.org/software/gettext/">http://www.gnu.org/software/gettext/</A>&gt;
++    * Lua 5.1 &lt;<A HREF="http://www.lua.org/">http://www.lua.org/</A>&gt;
++    * luacurl &lt;<A HREF="http://luaforge.net/projects/luacurl/">http://luaforge.net/projects/luacurl/</A>&gt;
+ 
+ 2. Edit `system.mk` to suit your system. Most GNU/Linux users should
+    need very few changes.
+diff -rN -u old-ion-3-curl/ioncore/ioncore_ext.lua new-ion-3-curl/ioncore/ioncore_ext.lua
+--- old-ion-3-curl/ioncore/ioncore_ext.lua	2007-12-29 17:15:04.550539077 +0200
++++ new-ion-3-curl/ioncore/ioncore_ext.lua	2007-12-29 17:15:04.570535529 +0200
+@@ -93,3 +93,103 @@
+     TR(&quot;Context menu:&quot;)
+     TR(&quot;Main menu:&quot;)
+ end
++
++--
++-- Version check
++--
++
++
++local msgwins={}
++
++local function disp(msg)
++    local binding=META..&quot;Escape&quot;
++    
++    local scrs={}
++    local function ds(scr)
++        scrs[scr]=true
++        return true
++    end
++    ioncore.region_i(ds, &quot;WScreen&quot;)
++    
++    for scr, _ in pairs(scrs) do
++        local foo=scr:attach_new{
++            type=&quot;WInfoWin&quot;,
++            sizepolicy=&quot;southeast&quot;,
++            unnumbered=true,
++            level=10,
++            passive=true,
++        }
++        -- Hack: attach_new doesn't get geometries right if we pass msg 
++        -- directly to it.
++        foo:set_text(msg..&quot; [&quot;..binding..&quot;]&quot;, scr:geom().w)
++        msgwins[foo]=true
++    end
++    
++    local function hide()
++        for msgwin, _ in pairs(msgwins) do
++            msgwin:rqclose()
++        end
++        ioncore.defbindings(&quot;WScreen&quot;, {kpress(binding, nil)})
++    end
++    
++    ioncore.defbindings(&quot;WScreen&quot;, {kpress(binding, hide)})
++end
++
++----
++
++local vinfo=ioncore.read_savefile('vcheck')
++local version=ioncore.version()
++
++----
++
++local curlok, err = pcall(function() return require('curl') end)
++
++if not curlok then
++    ioncore.warn(err)
++end
++
++local function do_vcheck()
++    vinfo=nil
++    if curl then
++        local latest
++        
++        local function procheader(s, l)
++            --local v=string.match(s, &quot;^Location:.*/ion%-3.?.?%-(%d%d%d%d%d%d%d%d)%.&quot;)
++            local v=string.match(s, &quot;^Location:.*/ion%-([^.]*)&quot;)
++            if v then
++                latest=v
++            end
++            return l, nil
++        end
++
++        c=curl.easy_init()
++        c:setopt(curl.OPT_URL, '<A HREF="http://modeemi.fi/~tuomov/dl/ion-3-latest.tar.gz">http://modeemi.fi/~tuomov/dl/ion-3-latest.tar.gz</A>')
++        --c:setopt(curl.OPT_URL,'<A HREF="http://iki.fi/tuomov/dl/ion-3-latest.tar.gz">http://iki.fi/tuomov/dl/ion-3-latest.tar.gz</A>')
++        c:setopt(curl.OPT_HEADERFUNCTION, procheader)
++        c:setopt(curl.OPT_NOBODY, 1)
++        c:perform()
++
++        if latest then
++            vinfo={time=os.time(), latest=latest, version=version}
++            ioncore.write_savefile('vcheck', vinfo)
++        end
++    end
++end
++
++----
++
++local VCHECK_SECS=28*24*60*60 -- 28 days
++local dt=os.difftime(os.time(), vinfo.time)
++
++local vinfo_ok=(vinfo and vinfo.time and vinfo.latest and vinfo.version==version)
++
++if (not vinfo_ok) or dt &gt; VCHECK_SECS or dt &lt; 0 then
++    do_vcheck()
++end
++
++if not vinfo then
++    disp(TR(&quot;Unable to check version. This version of Ion3 may be obsolete and unsupported.&quot;))
++elseif vinfo.latest~=version --[[and version~=&quot;(snapshot)&quot;]] then
++    disp(TR(&quot;Latest version is %s. This version of Ion3 is obsolete and unsupported.&quot;, 
++            vinfo.latest))
++end
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000945.html">Compile error under cygwin
+</A></li>
+	<LI>Next message: <A HREF="000947.html">Nagware version
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#946">[ date ]</a>
+              <a href="thread.html#946">[ thread ]</a>
+              <a href="subject.html#946">[ subject ]</a>
+              <a href="author.html#946">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

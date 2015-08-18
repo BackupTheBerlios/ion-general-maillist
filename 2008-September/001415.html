@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Move frames to and from scratchpad
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Move%20frames%20to%20and%20from%20scratchpad&In-Reply-To=%3C874p45m9m5.fsf%40yahoo.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001414.html">
+   <LINK REL="Next"  HREF="001416.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Move frames to and from scratchpad</H1>
+    <B>Daniel Clemente</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Move%20frames%20to%20and%20from%20scratchpad&In-Reply-To=%3C874p45m9m5.fsf%40yahoo.com%3E"
+       TITLE="Move frames to and from scratchpad">dcl441-bugs at yahoo.com
+       </A><BR>
+    <I>Thu Sep 25 01:01:38 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001414.html">Move frames to and from scratchpad
+</A></li>
+        <LI>Next message: <A HREF="001416.html">Move frames to and from scratchpad
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1415">[ date ]</a>
+              <a href="thread.html#1415">[ thread ]</a>
+              <a href="subject.html#1415">[ subject ]</a>
+              <a href="author.html#1415">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt; writes:
+
+&gt;<i> Your _ probably points wrong, i.e. your in the wrong bindings section. 
+</I>&gt;<i> _:screen_of() should always give the screen. (Note that it's shorter 
+</I>&gt;<i> to call _:mx_current() or _:screen_of():mx_current() than to type the 
+</I>&gt;<i> full function names.)
+</I>&gt;<i>
+</I>
+  After trying several combinations, I found one that correctly brings a frame from scratchpad to the background frame:
+In Lua console:    _:screen_of():mx_current():current():current():attach(_sub)
+In a key binding: kpress(META..&quot;Shift+k&quot;, &quot;_:screen_of():mx_current():current():current():attach(_)&quot;),
+
+  Note the difference between _sub and _. So yes, my _ was wrong.
+
+So the current working set of keybindings for my proposal is:
+
+defbindings(&quot;WClientWin&quot;, {
+ kpress(META..&quot;k&quot;, &quot;WMPlex.attach(ioncore.lookup_region('*scratchpad*'),_)&quot;),
+ kpress(META..&quot;Shift+k&quot;, &quot;_:screen_of():mx_current():current():current():attach(_)&quot;),
+})
+
+  Maybe this needs some tweaks, for instance: when I move to scratchpad and the open the scratchpad, I expect to find the moved frame selected; without having to move to the right of the active on.
+  Also I would like to use a single key instead of no: If the scratchpad is open, do one thing. If it is closed do another
+
+
+  Is this useful for other people? How would you improve it?
+
+
+  Thanks
+
+Daniel
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001414.html">Move frames to and from scratchpad
+</A></li>
+	<LI>Next message: <A HREF="001416.html">Move frames to and from scratchpad
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1415">[ date ]</a>
+              <a href="thread.html#1415">[ thread ]</a>
+              <a href="subject.html#1415">[ subject ]</a>
+              <a href="author.html#1415">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

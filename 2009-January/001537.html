@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Keyboard%20focus%20lost%20in%20Swing%20applications%20%28ex%3A%20Netbeans%29%20after%0A%09changing%20to%20window&In-Reply-To=%3C87sknkgbd6.fsf%40CPU107.opentrends.net%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001536.html">
+   <LINK REL="Next"  HREF="001538.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window</H1>
+    <B>Daniel Clemente</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Keyboard%20focus%20lost%20in%20Swing%20applications%20%28ex%3A%20Netbeans%29%20after%0A%09changing%20to%20window&In-Reply-To=%3C87sknkgbd6.fsf%40CPU107.opentrends.net%3E"
+       TITLE="Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window">dcl441-bugs at yahoo.com
+       </A><BR>
+    <I>Thu Jan 15 10:35:49 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001536.html">[SEMI-OT] Applications in a typical ion3 desktop environment
+</A></li>
+        <LI>Next message: <A HREF="001538.html">Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1537">[ date ]</a>
+              <a href="thread.html#1537">[ thread ]</a>
+              <a href="subject.html#1537">[ subject ]</a>
+              <a href="author.html#1537">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+Hi, sorry if this message comes twice (I posted yesterday via NNTP without being subscribed to the list).
+
+
+  ion3 is stealing keyboard focus to Swing applications. This happens for instance with Netbeans 6.5:
+
+1. Open netbeans and some other programs in tabs next to it.
+2. Select netbeans and open an editor with some code; the cursor is inside the editor
+3. Select another tab (either clicking teh tab or with keyboard).
+4. Select netbeans again (either clicking the tab or with keyboard).
+5. Try to continue typing, but you can't. The cursor is nowhere, and *no key* works (space, cursors, A-S-o, ... all gone). You must click again in the editor and then you can type again.
+
+In fact any Swing application has this problem. You can use this one to test:
+
+--- TypeInSwing.java ----------------------------------------
+
+import javax.swing.JFrame;
+import javax.swing.JTextField;
+
+public class TypeInSwing {
+  public static void main(String[] args) {
+    JFrame frame = new JFrame(&quot;HelloWorldSwing&quot;);
+    final JTextField field = new JTextField(&quot;type here&quot;);
+
+    frame.getContentPane().add(field);
+
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.pack();
+    frame.setVisible(true);
+  }
+}
+
+--------------------------------------------------------------
+
+It happens with latest version 20090110 (with 20080207 too).
+
+I am using:
+
+$ java -version
+java version &quot;1.6.0_06&quot;
+Java(TM) SE Runtime Environment (build 1.6.0_06-b02)
+Java HotSpot(TM) Server VM (build 10.0-b22, mixed mode)
+
+
+  Why is it so?
+
+
+Daniel
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001536.html">[SEMI-OT] Applications in a typical ion3 desktop environment
+</A></li>
+	<LI>Next message: <A HREF="001538.html">Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1537">[ date ]</a>
+              <a href="thread.html#1537">[ thread ]</a>
+              <a href="subject.html#1537">[ subject ]</a>
+              <a href="author.html#1537">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

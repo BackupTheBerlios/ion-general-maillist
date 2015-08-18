@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Abandoning darcs
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Abandoning%20darcs&In-Reply-To=%3Cslrngt3llh.qfu.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001612.html">
+   <LINK REL="Next"  HREF="001588.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Abandoning darcs</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Abandoning%20darcs&In-Reply-To=%3Cslrngt3llh.qfu.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Abandoning darcs">tuomov at iki.fi
+       </A><BR>
+    <I>Tue Mar 31 10:39:13 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001612.html">Abandoning darcs
+</A></li>
+        <LI>Next message: <A HREF="001588.html">[SEMI-OT] Applications in a typical ion3 desktop environment
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1613">[ date ]</a>
+              <a href="thread.html#1613">[ thread ]</a>
+              <a href="subject.html#1613">[ subject ]</a>
+              <a href="author.html#1613">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2009-03-31, Adam Duck &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">adam.ian.duck at gmail.com</A>&gt; wrote:
+&gt;<i> Yes, it is possible to _create_ such file names, but you can't use 
+</I>&gt;<i> them.  Here at WinXP I can create (best under &quot;Desktop&quot;) dirs close to 
+</I>&gt;<i> 255 chars.
+</I>
+Actually, I've been succesfully using file names with colons in them
+in Linux on NTFS (stupid NTFS-3g not failing on such names), and
+Windows shows them, but you can't access them.
+
+Actually, there is a low path length limit not in NTFS but in the some
+old versions of the _Windows API_ itself.  This is probably what the FUD
+was about. (And if you consider an API originating for 8+3 names -- if
+this is the case -- 255 is a tolerable limitation for path length.)
+
+<A HREF="http://msdn.microsoft.com/en-us/library/aa365247.aspx">http://msdn.microsoft.com/en-us/library/aa365247.aspx</A>
+
+&quot;&quot;&quot;
+In the Windows API (with some exceptions discussed in the following
+paragraphs), the maximum length for a path is MAX_PATH, which is defined as
+260 characters. A local path is structured in the following order: drive
+letter, colon, backslash, components separated by backslashes, and a
+terminating null character. For example, the maximum path on drive D is
+&quot;D:\&lt;some 256 character path string&gt;&lt;NUL&gt;&quot; where &quot;&lt;NUL&gt;&quot; represents the
+invisible terminating null character for the current system codepage. (The
+characters &lt; &gt; are used here for visual clarity and cannot be part of a
+valid path string.)
+
+Note  File I/O functions in the Windows API convert &quot;/&quot; to &quot;\&quot; as part of
+converting the name to an NT-style name, except when using the &quot;\\?\&quot; prefix
+as detailed in the following sections.
+
+The Windows API has many functions that also have Unicode versions to permit
+an extended-length path for a maximum total path length of 32,767 characters
+&quot;&quot;&quot;
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and the cycle paths 
+have been replaced with polluted motorways.
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001612.html">Abandoning darcs
+</A></li>
+	<LI>Next message: <A HREF="001588.html">[SEMI-OT] Applications in a typical ion3 desktop environment
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1613">[ date ]</a>
+              <a href="thread.html#1613">[ thread ]</a>
+              <a href="subject.html#1613">[ subject ]</a>
+              <a href="author.html#1613">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

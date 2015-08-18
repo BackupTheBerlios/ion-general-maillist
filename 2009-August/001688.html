@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> window titlebar
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-August/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20window%20titlebar&In-Reply-To=%3Cb2f21c20908051056s44ff71eeg550cf82ed53742ed%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001687.html">
+   <LINK REL="Next"  HREF="001690.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>window titlebar</H1>
+    <B>Maximilian W. Zeller</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20window%20titlebar&In-Reply-To=%3Cb2f21c20908051056s44ff71eeg550cf82ed53742ed%40mail.gmail.com%3E"
+       TITLE="window titlebar">mawize at gmail.com
+       </A><BR>
+    <I>Wed Aug  5 19:56:31 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001687.html">window titlebar
+</A></li>
+        <LI>Next message: <A HREF="001690.html">window titlebar
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1688">[ date ]</a>
+              <a href="thread.html#1688">[ thread ]</a>
+              <a href="subject.html#1688">[ subject ]</a>
+              <a href="author.html#1688">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>thank you all ... these things helped a lot
+
+i have another question though: Is there a possibility to set absolute
+position for floating windows through defwinprop?
+
+thanks in advance
+max
+
+On Wed, Aug 5, 2009 at 5:49 PM, Matthieu Moy&lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">Matthieu.Moy at imag.fr</A>&gt; wrote:
+&gt;<i> &quot;Maximilian W. Zeller&quot; &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">mawize at gmail.com</A>&gt; writes:
+</I>&gt;<i>
+</I>&gt;&gt;<i> hi
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> 1. i was wondering if it is possible to remove the window titlebar of
+</I>&gt;&gt;<i> a specific floating window? maybe with defwinprop?
+</I>&gt;<i>
+</I>&gt;<i> defbindings(&quot;WMPlex.toplevel&quot;, {
+</I>&gt;<i> &#160; &#160; &#160; &#160; &#160; &#160; &#160; kpress(META..&quot;Escape&quot;, &quot;toggle_tab(_)&quot;),
+</I>&gt;<i> &#160; &#160; &#160; &#160; &#160; &#160;})
+</I>&gt;<i>
+</I>&gt;<i> and I can show/hide the titlebar with meta+escape.
+</I>&gt;<i>
+</I>&gt;<i> --
+</I>&gt;<i> Matthieub
+</I>&gt;<i>
+</I>
+&gt;&gt;<i> 2. or maybe is it possible to make the titlebar of a floating window
+</I>&gt;&gt;<i> fit its width?
+</I>&gt;<i>
+</I>&gt;<i>I acheive #2 by adding:
+</I>&gt;<i>  bar = &quot;inside&quot;
+</I>&gt;<i>
+</I>&gt;<i>to the frame-floating style in my look.lua file.
+</I>&gt;<i>
+</I>&gt;<i>My specific setup:
+</I>&gt;<i>
+</I>&gt;<i>  de.defstyle(&quot;frame-floating&quot;, {
+</I>&gt;<i>     based_on = &quot;frame&quot;,
+</I>&gt;<i>     bar = &quot;inside&quot;,
+</I>&gt;<i>     padding_pixels = 0,
+</I>&gt;<i>     highlight_pixels = 1,
+</I>&gt;<i>     shadow_pixels = 1,
+</I>&gt;<i>     spacing = 0,
+</I>&gt;<i>  })
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001687.html">window titlebar
+</A></li>
+	<LI>Next message: <A HREF="001690.html">window titlebar
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1688">[ date ]</a>
+              <a href="thread.html#1688">[ thread ]</a>
+              <a href="subject.html#1688">[ subject ]</a>
+              <a href="author.html#1688">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

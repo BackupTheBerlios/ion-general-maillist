@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> 1)Moving tagged windows to current WS. 2) Rearange WS's
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2011-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%201%29Moving%20tagged%20windows%20to%20current%20WS.%202%29%20Rearange%20WS%27s&In-Reply-To=%3C20110104153201.24437184%40u-pl5.ms.mff.cuni.cz%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001951.html">
+   <LINK REL="Next"  HREF="001953.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>1)Moving tagged windows to current WS. 2) Rearange WS's</H1>
+    <B>ebik</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%201%29Moving%20tagged%20windows%20to%20current%20WS.%202%29%20Rearange%20WS%27s&In-Reply-To=%3C20110104153201.24437184%40u-pl5.ms.mff.cuni.cz%3E"
+       TITLE="1)Moving tagged windows to current WS. 2) Rearange WS's">ebik at drak.ucw.cz
+       </A><BR>
+    <I>Tue Jan  4 15:32:01 CET 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001951.html">1)Moving tagged windows to current WS. 2) Rearange WS's
+</A></li>
+        <LI>Next message: <A HREF="001953.html">1)Moving tagged windows to current WS. 2) Rearange WS's
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1952">[ date ]</a>
+              <a href="thread.html#1952">[ thread ]</a>
+              <a href="subject.html#1952">[ subject ]</a>
+              <a href="author.html#1952">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Mon, 3 Jan 2011 10:24:19 -0800 (PST)
+&#163;ukasz &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">blurrpp at yahoo.com</A>&gt; wrote:
+
+&gt;<i> Hi ,
+</I>&gt;<i> its me again :). Let say that i tagged few windows on some
+</I>&gt;<i> workspaces, i moved to another one and i want all tagged windows
+</I>&gt;<i> moved here. Simple function which do it is 
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i> local function tagged_move(group)
+</I>&gt;<i>    local
+</I>&gt;<i> region=WMPlex.attach_new(group,{type=&quot;WGroupWS&quot;,name=&quot;name&quot;,...})
+</I>&gt;<i> ioncore.tagged_attach(region) end
+</I>&gt;<i> 
+</I>&gt;<i> it works ok when destination ws is empty, problems appears when its
+</I>&gt;<i> not. I think the nice way to do it woild be by using
+</I>&gt;<i> 'ioncore.tagged_first(true)' or 'ioncore.tagged_i()' but first one
+</I>&gt;<i> some how doesnt want to return tagged region. Im sure that there is
+</I>&gt;<i> some extremely simple solution for it so if somebody knows it  pls
+</I>&gt;<i> help.
+</I>
+Umm, what should be the result? I tag few windows and then attach them
+into one frame (as many &quot;tabs&quot;) into selected frame just by
+ioncore.tagged_attach(that_frame). There is context menu entry for this
+in ion3plus (it should be in ion3 as well). I do not use floating
+windows, thus I cannot imagine what result you want.
+
+&gt;<i> My second question is if it's possible to rearange WS and how to do
+</I>&gt;<i> it?. Till now i havent had enough time to think about it but it wold
+</I>&gt;<i> be nice possibility
+</I>
+What do you mean by rearanging?
+
+* If you want to switch order of tabs, then there is function
+   WMPlex.dec_index and WMPlex.inc_index
+
+* If yoy want to add and move some splits, just do it manually and save
+  it to your session.
+
+  If you want such workspace to be created &quot;dynamically&quot;, then you can
+  isolate this workspace from your session
+  file (saved_layout.lua) and use ioncore.create_ws(scr, tmpl, layout)
+  and ioncore.deflayout(name, tab).
+
+  Note that I did not ever tried that. I just created one workspace
+  which satisfies all my needs. Namely I discared all splits (to have
+  one frame) on my laptop, then I attached new WTiling into this frame
+  and I split this WTiling. Thus my windows are nearly fullscreen
+  (if it is sibbling of the nested WTiling) or they occupy smaller
+  part, if they are descendants of the nested WTiling. I can switch
+  between them with my pen (I have tablet) or mouse. This is especially
+  good when the main work is browsing internet, as browsing is
+  traditionally mouse-oriented (some technologies from hell, such
+  as adobe flash requires use of mouse when browsing internet).
+
+&gt;<i> Best Regards
+</I>&gt;<i> Lukas
+</I>&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i>       
+</I>&gt;<i> 
+</I>
+
+
+-- 
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 230 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20110104/b311c566/attachment.pgp">https://lists.berlios.de/pipermail/ion-general/attachments/20110104/b311c566/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001951.html">1)Moving tagged windows to current WS. 2) Rearange WS's
+</A></li>
+	<LI>Next message: <A HREF="001953.html">1)Moving tagged windows to current WS. 2) Rearange WS's
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1952">[ date ]</a>
+              <a href="thread.html#1952">[ thread ]</a>
+              <a href="subject.html#1952">[ subject ]</a>
+              <a href="author.html#1952">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,283 @@
+From timandahaf+dev at gmail.com  Sun Jul  5 20:45:33 2009
+From: timandahaf+dev at gmail.com (Timandahaf)
+Date: Sun, 5 Jul 2009 13:45:33 -0500
+Subject: Winsplit-revolution - window "manager" for MS-WindowsXP etc.
+In-Reply-To: <slrnh2hoeq.v74.tuomov@jolt.modeemi.cs.tut.fi>
+References: <alpine.LNX.2.00.0906050039200.5393@india.ece.cmu.edu>
+	<slrnh2hoeq.v74.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <alpine.LFD.2.00.0907051342290.11817@localhost.localdomain>
+
+> I find that tiling w/o tabbing is rather useless.
+
+Makes perfect sense, now that I've used winsplit-revolution for a few
+weeks (though less than 5% of my computing time is spent in a Windows
+environment). I still find the tiling function more useful over Windows'
+basic tiling options, but it's nowhere in the league of ion that I hoped
+it might be.
+
+> And it's the tabbing part that takes extra effort to
+> implement under Windows.
+
+I see, thanks for the brief explanation.
+
+
+
+
+From timandahaf+dev at gmail.com  Sun Jul  5 21:18:09 2009
+From: timandahaf+dev at gmail.com (Timandahaf)
+Date: Sun, 5 Jul 2009 14:18:09 -0500
+Subject: RPM spec file for ion3 for Fedora
+In-Reply-To: <alpine.LFD.2.00.0905270001050.16621@localhost.localdomain>
+References: <alpine.LFD.2.00.0905270001050.16621@localhost.localdomain>
+Message-ID: <alpine.LFD.2.00.0907051410220.11817@localhost.localdomain>
+
+An rpm for i386, and the rpm spec file for ion3 are now available at:
+
+http://timandahaf.googlepages.com/ion3rpms
+
+These are mainly for Fedora/RHEL systems, but might work on other rpm
+based distros too. I will keep these updated as best as I can. x86_64
+rpms will be added soon.
+
+
+
+
+From timandahaf+dev at gmail.com  Sun Jul  5 21:18:52 2009
+From: timandahaf+dev at gmail.com (Timandahaf)
+Date: Sun, 5 Jul 2009 14:18:52 -0500
+Subject: ion-3-20090110
+In-Reply-To: <slrngmfksf.lkl.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrngmfksf.lkl.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <alpine.LFD.2.00.0907051418330.11817@localhost.localdomain>
+
+> This is yet another maintenance release.
+
+Fedora/RHEL rpms at:
+
+http://timandahaf.googlepages.com/ion3rpms
+
+
+
+From olekhov at butovo.com  Wed Jul  8 13:38:07 2009
+From: olekhov at butovo.com (Olekhov Vasiliy)
+Date: Wed, 08 Jul 2009 15:38:07 +0400
+Subject: Weird font rendering
+Message-ID: <4A54851F.5080801@butovo.com>
+
+Greetings.
+
+To begin with, here is screenshot: 
+http://forumbgz.ru/user/upload/file10231.png
+
+the system is Gentoo, font "Terminus". this is raster font.
+As you can see, xterm recognizes it and renders it perfect.
+The titletabs and statusbar use same font, but cyrillic characters are 
+substituted from another font.
+The locale is ru_RU.UTF-8, and ion recognizes it. At least at 
+ioncore/ioncore.c check_encoding()
+returns TRUE and sets ioncore_g.enc_mb=TRUE and enc_utf8=TRUE.
+
+any suggestions?
+
+
+From skuratovich at gmail.com  Wed Jul  8 14:04:26 2009
+From: skuratovich at gmail.com (Vladimir Skuratovich)
+Date: Wed, 8 Jul 2009 15:04:26 +0300
+Subject: Weird font rendering
+In-Reply-To: <4A54851F.5080801@butovo.com>
+References: <4A54851F.5080801@butovo.com>
+Message-ID: <20090708120426.GA6147@sunbird>
+
+Hi Vasiliy,
+
+On Wed, Jul 08, 2009 at 03:38:07PM +0400, Olekhov Vasiliy wrote:
+> Greetings.
+> 
+> To begin with, here is screenshot: 
+> http://forumbgz.ru/user/upload/file10231.png
+> 
+> the system is Gentoo, font "Terminus". this is raster font.
+> As you can see, xterm recognizes it and renders it perfect.
+> The titletabs and statusbar use same font, but cyrillic characters are 
+> substituted from another font.
+> The locale is ru_RU.UTF-8, and ion recognizes it. At least at 
+> ioncore/ioncore.c check_encoding()
+> returns TRUE and sets ioncore_g.enc_mb=TRUE and enc_utf8=TRUE.
+> 
+> any suggestions?
+
+
+This is because of an incorrect X locale (en_US.UTF-8 for older Xlib
+versions, ru_RU.UTF-8 for newer), and is mentioned on the Ion website
+(http://modeemi.fi/~tuomov/ion/faq/broken_software.html).
+
+You'll need to replace the file
+/usr/share/X11/locale/en_US.UTF-8/XLC_LOCALE to something like this:
+
+https://files.getdropbox.com/u/725005/XLC_LOCALE
+
+
+
+If you are using Gentoo, I suggest you to use the following modified
+ebuild for Xlib:
+
+https://files.getdropbox.com/u/725005/libX11-1.1.5.ebuild
+
+(it expects to find the replacement XLC_LOCALE in its files
+directory).
+
+With best regards,
+     Vladimir
+
+
+
+From tuomov at iki.fi  Wed Jul  8 15:35:21 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 8 Jul 2009 13:35:21 +0000 (UTC)
+Subject: Weird font rendering
+References: <4A54851F.5080801@butovo.com>
+Message-ID: <slrnh5984p.vb8.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-07-08, Olekhov Vasiliy <olekhov at butovo.com> wrote:
+> any suggestions?
+
+You mean you want some other font in Ion for cyrillic?
+You can _try_ to specify multiple fonts in the fontspec,
+separated by commas.... But it probably won't work in
+an UTF-8 locale. That part of Xlib is broken, and the
+fucktards in power refuse to fix it, instead insisting
+that you use their "modern" blur-fascist wheel-reinventing
+crap.
+
+A better solution is to just switch to Windows.
+
+-- 
+If I can't choose the music, it's not my revolution.
+
+
+
+From pupykin.s at gmail.com  Thu Jul  9 11:29:57 2009
+From: pupykin.s at gmail.com (Sergej Pupykin)
+Date: Thu, 9 Jul 2009 13:29:57 +0400
+Subject: Weird font rendering
+In-Reply-To: <slrnh5984p.vb8.tuomov@jolt.modeemi.cs.tut.fi>
+References: <4A54851F.5080801@butovo.com>
+	<slrnh5984p.vb8.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <2bb4a8220907090229k60956fe4j6abffa8722c18d87@mail.gmail.com>
+
+> A better solution is to just switch to Windows.
+
+Better solution is adding ru_RU.UTF-8 to Xorg. I don't know why they
+still didn't it. Most of distros have it without additional
+installations.
+
+
+From Albert.Shih at obspm.fr  Thu Jul 23 22:56:14 2009
+From: Albert.Shih at obspm.fr (Albert Shih)
+Date: Thu, 23 Jul 2009 22:56:14 +0200
+Subject: Compilation pb on FreeBSD.
+Message-ID: <20090723205614.GA94356@obspm.fr>
+
+Hi all.
+
+I'm using ion3 and I never change the version (ok that's bad, I known).
+
+But when I have a new computer, I need to re-install ion3. I using FreeBSD
+7.2 and after some time I make ion3 working (last version I find on
+website).
+
+But when I use F12 to exit ion that's don't work (only thing). 
+
+After I press F12 I've got 
+
+	Main menu --> session/sortir (I using French)
+
+and I've a
+	
+	No entry for 'session/sortir'
+
+Where I'm make my mistake ? 
+
+Thanks for advance. 
+
+Regards.
+
+-- 
+Albert SHIH
+SIO batiment 15
+Observatoire de Paris Meudon
+5 Place Jules Janssen
+92195 Meudon Cedex
+Heure local/Local time:
+Jeu 23 jul 2009 22:52:07 CEST
+
+
+From tuomov at iki.fi  Sat Jul 25 13:00:53 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 25 Jul 2009 11:00:53 +0000 (UTC)
+Subject: Compilation pb on FreeBSD.
+References: <20090723205614.GA94356@obspm.fr>
+Message-ID: <slrnh6lpf5.1v8.tuomov@beer.modeemi.cs.tut.fi>
+
+On 2009-07-23, Albert Shih <Albert.Shih at obspm.fr> wrote:
+> After I press F12 I've got 
+>
+> 	Main menu --> session/sortir (I using French)
+>
+> and I've a
+> 	
+> 	No entry for 'session/sortir'
+
+Does it show up in tab-completion? Could there be some
+accent issue? Are the locales correct in that case?
+
+-- 
+Off the dope since 2009;
+  http://iki.fi/tuomov/b/archives/2009/07/21/T17_26_09/
+
+
+
+From Albert.Shih at obspm.fr  Mon Jul 27 22:35:22 2009
+From: Albert.Shih at obspm.fr (Albert Shih)
+Date: Mon, 27 Jul 2009 22:35:22 +0200
+Subject: Compilation pb on FreeBSD.
+In-Reply-To: <slrnh6lpf5.1v8.tuomov@beer.modeemi.cs.tut.fi>
+References: <20090723205614.GA94356@obspm.fr>
+	<slrnh6lpf5.1v8.tuomov@beer.modeemi.cs.tut.fi>
+Message-ID: <20090727203522.GA53549@obspm.fr>
+
+ Le 25/07/2009 ? 11:00:53+0000, Tuomo Valkonen a ?crit
+> On 2009-07-23, Albert Shih <Albert.Shih at obspm.fr> wrote:
+> > After I press F12 I've got 
+> >
+> > 	Main menu --> session/sortir (I using French)
+> >
+> > and I've a
+> > 	
+> > 	No entry for 'session/sortir'
+
+Thanks for your answer.
+
+I'm not sure what happen but now it's working, maybe my computer
+fear.....when you answer my mail.
+
+> Does it show up in tab-completion? Could there be some
+> accent issue? Are the locales correct in that case?
+
+Yes I think, something like that, because now it's working but the command
+is in english (not a problem for me, event my english is very poor).
+
+Thanks again.
+
+Regards.
+-- 
+Albert SHIH
+SIO batiment 15
+Observatoire de Paris Meudon
+5 Place Jules Janssen
+92195 Meudon Cedex
+T?l?phone : 01 45 07 76 26/06 86 69 95 71
+Heure local/Local time:
+Lun 27 jul 2009 22:31:25 CEST
+
+

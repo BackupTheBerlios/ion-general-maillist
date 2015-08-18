@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Detach a transient from a frame
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Detach%20a%20transient%20from%20a%20frame&In-Reply-To=%3Cvpqk5us20ax.fsf%40bauges.imag.fr%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000508.html">
+   <LINK REL="Next"  HREF="000511.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Detach a transient from a frame</H1>
+    <B>Matthieu Moy</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Detach%20a%20transient%20from%20a%20frame&In-Reply-To=%3Cvpqk5us20ax.fsf%40bauges.imag.fr%3E"
+       TITLE="Detach a transient from a frame">Matthieu.Moy at imag.fr
+       </A><BR>
+    <I>Mon May 28 21:52:22 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000508.html">Detach a transient from a frame
+</A></li>
+        <LI>Next message: <A HREF="000511.html">split at root broken when statusbar is full screen
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#509">[ date ]</a>
+              <a href="thread.html#509">[ thread ]</a>
+              <a href="subject.html#509">[ subject ]</a>
+              <a href="author.html#509">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt; writes:
+
+&gt;<i> On 2007-05-28, Matthieu Moy &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">Matthieu.Moy at imag.fr</A>&gt; wrote:
+</I>&gt;&gt;<i> It should be unnecessary, but there's a bug. The name remains
+</I>&gt;&gt;<i> WGroupCW&lt;something&gt; until the first redraw (resize the frame or so).
+</I>&gt;<i>
+</I>&gt;<i> Hmm. Maybe I'd call it a feature :). The name of the group does not
+</I>&gt;<i> change, and displayname changes are not signalled at all.
+</I>&gt;<i>
+</I>&gt;<i> However, if you do as I explained in the follow-up posting, the name
+</I>&gt;<i> should be initially correct.
+</I>
+OK, I didn't understand the explanations at first (btw, {bottom = ...}
+and {reg = ...} are not documented on
+<A HREF="http://modeemi.cs.tut.fi/~tuomov/ion-doc-3/ionconf/node7.html">http://modeemi.cs.tut.fi/~tuomov/ion-doc-3/ionconf/node7.html</A> ).
+
+I think I've got it now:
+
+
+detach = {
+   
+}
+
+function detach.topmost_transient(cwin, float)
+   local reg = cwin
+   while obj_typename(reg) ~= &quot;WGroupCW&quot; do
+      reg = reg:manager()
+   end
+   ioncore.defer(function ()
+                    local cwing = {}
+                    if float then
+                       cwing = cwin:geom()
+                    end
+                    local managed_list = {{ reg = cwin, bottom = true}}
+                    local newparam = {type = 'WGroupCW', sizepolicy = 'free', switchto = true, managed = managed_list, geom = cwing}
+                    local g = reg:manager():attach_new(newparam)
+                    if float then
+                       ioncore.detach(g, 'set')
+                       g:goto()
+                    end
+                 end)
+   return false
+end
+
+-- 
+Matthieu
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000508.html">Detach a transient from a frame
+</A></li>
+	<LI>Next message: <A HREF="000511.html">split at root broken when statusbar is full screen
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#509">[ date ]</a>
+              <a href="thread.html#509">[ thread ]</a>
+              <a href="subject.html#509">[ subject ]</a>
+              <a href="author.html#509">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Shit-or-rama [Was: mod_xinerama]
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-September/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Shit-or-rama%20%5BWas%3A%20mod_xinerama%5D&In-Reply-To=%3Cslrngdhvj2.ibd.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001404.html">
+   <LINK REL="Next"  HREF="001406.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Shit-or-rama [Was: mod_xinerama]</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Shit-or-rama%20%5BWas%3A%20mod_xinerama%5D&In-Reply-To=%3Cslrngdhvj2.ibd.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Shit-or-rama [Was: mod_xinerama]">tuomov at iki.fi
+       </A><BR>
+    <I>Tue Sep 23 16:34:10 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001404.html">Shit-or-rama [Was: mod_xinerama]
+</A></li>
+        <LI>Next message: <A HREF="001406.html">mod_xinerama
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1412">[ date ]</a>
+              <a href="thread.html#1412">[ thread ]</a>
+              <a href="subject.html#1412">[ subject ]</a>
+              <a href="author.html#1412">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-09-22, Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt; wrote:
+&gt;<i> 20:27 &lt;tuomov&gt; maybe someone can write a shitorama setup that doesn't use 
+</I>&gt;<i>                virtual roots
+</I>&gt;<i> 20:27 &lt;tuomov&gt; by rewriting the configs
+</I>&gt;<i> 20:27 &lt;tuomov&gt; but I don't want to have anything to do with that
+</I>&gt;<i> 20:27 &lt;tuomov&gt; and it will also be fucked up, because then float workspaces on 
+</I>&gt;<i>                the screens won't be properly separate
+</I>&gt;<i> 20:27 &lt;tuomov&gt; it won't emulate separate screens
+</I>&gt;<i> 20:28 &lt;tuomov&gt; shit-o-rama is just _shit_
+</I>&gt;<i> 20:28 &lt;tuomov&gt; it can't work, it won't work. it's as simple as that.
+</I>&gt;<i> 20:28 &lt;tuomov&gt; traditional X multihead offers the correct separate-screen model 
+</I>&gt;<i>                for displays that don't merge well
+</I>&gt;<i> 20:28 &lt;tuomov&gt; but the dicheads and fuckwits running things, are obsoleting it
+</I>&gt;<i> 20:28 &lt;tuomov&gt; and not updating it to reflect new requirements
+</I>&gt;<i> 20:29 &lt;tuomov&gt; (such as reparents between screens)
+</I>
+Regarding this, it should be actually quite straightforward to
+manually create layouts that are suited to a static area configuration,
+provided one is content with workspaces spanning all the areas, and
+navigation between the areas possibly being non-geometrical.
+Just see cfg_layouts.lua, and modify the mktiling function to
+generate separate tilings for the areas, using the geom field, etc.
+
+A module could also dynamically resize/create those tilings, and 
+provide a variant WGroupWS that overrides the non-geometrical navigation 
+of groups. Independent switching of the tilings displayed in each
+area can also be achieved by scripts that just hide/show tilings
+from a selection (essentially implementing a non-window-backed
+WMPlex), but detecting on which area to change the displayed tiling
+gets kludgy, because there's no backing window to receive the event;
+intead one has to listen on the root, or on the frames. But if 
+there's no frame, you need to kludge with dummy windows for the
+focus... 
+
+Having a proper root window is simple and easy; Shit-o-rama makes
+things over-complicated. That said, the ideas of I have for Ion4
+might be more shit-o-rama -friendly.. if I just ever had time to
+work on it.
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001404.html">Shit-or-rama [Was: mod_xinerama]
+</A></li>
+	<LI>Next message: <A HREF="001406.html">mod_xinerama
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1412">[ date ]</a>
+              <a href="thread.html#1412">[ thread ]</a>
+              <a href="subject.html#1412">[ subject ]</a>
+              <a href="author.html#1412">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

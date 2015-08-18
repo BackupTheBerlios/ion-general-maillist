@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Problems with winprops
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Problems%20with%20winprops&In-Reply-To=%3C940ef3c00711212355g23e95878ta73a42c50e75f44d%40mail.gmail.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000875.html">
+   <LINK REL="Next"  HREF="000868.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Problems with winprops</H1>
+    <B>Alte</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Problems%20with%20winprops&In-Reply-To=%3C940ef3c00711212355g23e95878ta73a42c50e75f44d%40mail.gmail.com%3E"
+       TITLE="Problems with winprops">alex.barinov at gmail.com
+       </A><BR>
+    <I>Thu Nov 22 08:55:54 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000875.html">License clarifications [Was: A devious little hack...]
+</A></li>
+        <LI>Next message: <A HREF="000868.html">Problems with winprops
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#867">[ date ]</a>
+              <a href="thread.html#867">[ thread ]</a>
+              <a href="subject.html#867">[ subject ]</a>
+              <a href="author.html#867">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi!,
+
+For all the time using ion I have been using kludges to work with
+gimp. Something like:
+
+defwinprop{
+    name = &quot;GIMP&quot;,
+    class = &quot;Gimp-2,4&quot;,
+    role = &quot;gimp-toolbox&quot;,
+    instance = &quot;gimp-2.4&quot;,
+    target = &quot;gimp-left&quot;,
+}
+defwinprop{
+    class = &quot;Gimp-2.4&quot;,
+    instance = &quot;gimp-2.4&quot;,
+    target = &quot;gimp-right&quot;,
+}
+
+However, recently ALL gimp windows started to go to &quot;gimp-right&quot;. I
+cannot tell exactly, what &quot;recently&quot; means as I have not been using
+gimp for several months, but on latest ion this does not work. To
+restore expected behaviur I had co comment out 'class = &quot;Gimp-2,4&quot;'
+line. Window information shows that this class name is right, but
+adding it to winprop makes it fail.
+
+I am not sure whether it is a bug report or I have missed some changes
+in winprop internals, so I will be glad to receive any ideas.
+
+Regards,
+
+-- 
+Sasha
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000875.html">License clarifications [Was: A devious little hack...]
+</A></li>
+	<LI>Next message: <A HREF="000868.html">Problems with winprops
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#867">[ date ]</a>
+              <a href="thread.html#867">[ thread ]</a>
+              <a href="subject.html#867">[ subject ]</a>
+              <a href="author.html#867">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

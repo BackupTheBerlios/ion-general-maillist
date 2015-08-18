@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Toggle horizontal/vertical maximize behaviour
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Toggle%20horizontal/vertical%20maximize%20behaviour&In-Reply-To=%3Cslrngm9ctg.mn6.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001514.html">
+   <LINK REL="Next"  HREF="001515.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Toggle horizontal/vertical maximize behaviour</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Toggle%20horizontal/vertical%20maximize%20behaviour&In-Reply-To=%3Cslrngm9ctg.mn6.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Toggle horizontal/vertical maximize behaviour">tuomov at iki.fi
+       </A><BR>
+    <I>Wed Jan  7 14:52:48 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001514.html">Toggle horizontal/vertical maximize behaviour
+</A></li>
+        <LI>Next message: <A HREF="001515.html">path, alias with F3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1518">[ date ]</a>
+              <a href="thread.html#1518">[ thread ]</a>
+              <a href="subject.html#1518">[ subject ]</a>
+              <a href="author.html#1518">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2009-01-05, Chris Burkhardt &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">chris at mretc.net</A>&gt; wrote:
+&gt;<i> Ah, I see. But what I think is still a bug is that after performing a 'Mod1-K V'
+</I>&gt;<i> in the other top frame (as in step 5 in my example), then the originally
+</I>&gt;<i> maximized frame forgets its original height. 'Mod1-TAB'ing to it and trying to
+</I>&gt;<i> un-maximize it with 'Mod1-K V' has no effect, although even with the intended
+</I>&gt;<i> per-frame maximize I would expect it to (right?). 
+</I>
+The logic is that frames store their size when they're specifically
+shaded or maximised, and forget the stored size whenever they are
+otherwise resized -- including resizing is enforced in a tiled layout
+whenever some other frame is resized. Fixing these annoyances you've
+pointed out, involves a different kind of logic not based on maximizing
+individual frames, but altering the entire layout somehow.
+
+&gt;<i> Thanks for everything, I hope your PhD defense/preparations went (are going)
+</I>&gt;<i> well for you.
+</I>
+It was on the 22th of December already. 
+
+-- 
+&quot;[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months.&quot; -- Oscar Wilde
+&quot;The computer industry is the only industry that is more fashion-driven
+ than women's fashion.&quot; -- RMS
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001514.html">Toggle horizontal/vertical maximize behaviour
+</A></li>
+	<LI>Next message: <A HREF="001515.html">path, alias with F3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1518">[ date ]</a>
+              <a href="thread.html#1518">[ thread ]</a>
+              <a href="subject.html#1518">[ subject ]</a>
+              <a href="author.html#1518">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

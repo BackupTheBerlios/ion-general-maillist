@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> attach_new problems
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20attach_new%20problems&In-Reply-To=%3C1203873202.3431.12.camel%40twin%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001113.html">
+   <LINK REL="Next"  HREF="001115.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>attach_new problems</H1>
+    <B>Alexander Barinov</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20attach_new%20problems&In-Reply-To=%3C1203873202.3431.12.camel%40twin%3E"
+       TITLE="attach_new problems">alex.barinov at gmail.com
+       </A><BR>
+    <I>Sun Feb 24 18:13:22 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001113.html">attach_new problems
+</A></li>
+        <LI>Next message: <A HREF="001115.html">attach_new problems
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1114">[ date ]</a>
+              <a href="thread.html#1114">[ thread ]</a>
+              <a href="subject.html#1114">[ subject ]</a>
+              <a href="author.html#1114">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Yes, 'set_mode' operates as expected, modifying the right frame.
+
+A couple of hints that can help you to track down the issue:
+
+First, this code operates inside 'clientwin_do_manage_alt' hook.  Inside
+another 'clientwin_do_manage_alt' hook doing absolutely different thing
+I have the same problem - the window is not added to a newly created
+WGroupCW.
+
+Second, attaching WClientWin to the same frame in ioncore.defer works
+just fine.  This could be a solution, but I cannot create an empty
+WGroupCW and later attach WClientWin in ioncore.defer instead of
+'clientwin_do_manage_alt' hook.
+
+On Sun, 2008-02-24 at 15:51 +0000, Tuomo Valkonen wrote:
+&gt;<i> On 2008-02-24, Alte &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">alex.barinov at gmail.com</A>&gt; wrote:
+</I>&gt;<i> &gt; fr:set_mode(&quot;tiled-alt&quot;)
+</I>&gt;<i> &gt; fr:attach_new({type = &quot;WGroupCW&quot;, switchto = t.switchto, managed =
+</I>&gt;<i> &gt; {{reg = cwin, bottom = true}}})
+</I>&gt;<i> &gt;
+</I>&gt;<i> &gt; This gives no errors, but cwin gets attached to WFrame named
+</I>&gt;<i> &gt; &quot;WFrameSS&quot; (a top one), and not to a newly created &quot;Gimp-right&quot;
+</I>&gt;<i> &gt; WFrame.  Once again, I have no idea at all how this happens, the code
+</I>&gt;<i> &gt; worked just fine under previous versions of ion3.
+</I>&gt;<i> 
+</I>&gt;<i> It should work. Does set_mode operate on the correct frame?
+</I>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001113.html">attach_new problems
+</A></li>
+	<LI>Next message: <A HREF="001115.html">attach_new problems
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1114">[ date ]</a>
+              <a href="thread.html#1114">[ thread ]</a>
+              <a href="subject.html#1114">[ subject ]</a>
+              <a href="author.html#1114">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

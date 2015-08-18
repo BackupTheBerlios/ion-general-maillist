@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Feature freeze imminent
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Feature%20freeze%20imminent&In-Reply-To=%3Cslrneu668g.174.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000156.html">
+   <LINK REL="Next"  HREF="000158.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Feature freeze imminent</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Feature%20freeze%20imminent&In-Reply-To=%3Cslrneu668g.174.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Feature freeze imminent">tuomov at iki.fi
+       </A><BR>
+    <I>Mon Feb 26 18:29:52 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000156.html">Feature freeze imminent
+</A></li>
+        <LI>Next message: <A HREF="000158.html">Feature freeze imminent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#157">[ date ]</a>
+              <a href="thread.html#157">[ thread ]</a>
+              <a href="subject.html#157">[ subject ]</a>
+              <a href="author.html#157">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2007-02-26, Sam Mason &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">mason at f2s.com</A>&gt; wrote:
+&gt;<i> Sounds similar to &quot;bitmap indexes&quot; as used by databases.  For read-only
+</I>&gt;<i> access they are great but AFAIK every implementation I've every heard of
+</I>&gt;<i> kills concurrent modification.  It may all work out here, but just to
+</I>&gt;<i> warn you!
+</I>
+Well, I don't really need concurrent modifications. File creation
+or deletion can be considered atomic.
+
+&gt;<i> By pruning I'm guessing you mean getting single references out to each
+</I>&gt;<i> file, if so I think I must be missing something.  I don't see why any
+</I>&gt;<i> algorithm would ever return more than one reference to the same file and
+</I>&gt;<i> hence you would ever need to do any pruning.
+</I>
+By pruning I mean producing suitable output for 'ls' or so. I search
+on SetFS by a set of tags simply returns a list of files/objects, whose
+sets of tags contains all of those tags (plus other possible filtering).
+But you don't want to display all of the results: you want to, if you
+will, 'cluster' them, so as to produce a hierarchy of results. That's
+what I call pruning: displaying a minimal set of tags that can be used
+to access all the results.
+
+Suppose the search for 'foo' returns the following files
+
+        foo/bar
+	foo/baz/quk
+	foo/baz/zum
+
+(Note, there is no file 'foo/baz' in this example!) We don't want 'ls' 
+to display all of these results, but instead want to prune for the 
+following output:
+
+	$ ls foo
+	bar
+	baz
+
+&gt;<i> Your alternative sounds a lot like what I was trying to say in my last
+</I>&gt;<i> email.
+</I>
+Maybe, but this is strictly at the implementation level: applications 
+are unuaware of any ordering of tags.
+
+&gt;<i> Postgres has reasonable support for BLOBs, providing an interface very
+</I>&gt;<i> similar to Unix's open/read/write/close.
+</I>
+I hate programs that want to run bloated server software on my computer.
+SQLite or Berkeley DB I could deal with, but I don't think a normal DB
+is of much help.
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000156.html">Feature freeze imminent
+</A></li>
+	<LI>Next message: <A HREF="000158.html">Feature freeze imminent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#157">[ date ]</a>
+              <a href="thread.html#157">[ thread ]</a>
+              <a href="subject.html#157">[ subject ]</a>
+              <a href="author.html#157">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

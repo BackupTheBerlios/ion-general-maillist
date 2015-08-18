@@ -1,0 +1,1854 @@
+From chris at mretc.net  Fri Jan  2 06:02:37 2009
+From: chris at mretc.net (Chris Burkhardt)
+Date: Thu, 01 Jan 2009 22:02:37 -0700
+Subject: Toggle horizontal/vertical maximize behaviour
+In-Reply-To: <20081230172629.GA10480@jolt.modeemi.cs.tut.fi>
+References: <494687D8.40909@noo.ru>	<slrngkd3ql.p1c.tuomov@jolt.modeemi.cs.tut.fi>
+	<20081230172629.GA10480@jolt.modeemi.cs.tut.fi>
+Message-ID: <gjk75h$d80$1@ger.gmane.org>
+
+Tuomo Valkonen wrote:
+> On 2008-12-15 17:09 +0000, Tuomo Valkonen wrote:
+>>> resize commands. (E.g. I see only tab heading, but if I switch to that
+>>> heading and try to do ALT+K-V or even ALT+R-N, there's no reaction.) The
+>>> only way to unshrink it is to resize main frame.
+>> I may look into this more closely next year; now I have
+>> other things to concentrate on.
+> 
+> Ok, attached is a patch that might help with the issue, also
+> available from the darcs repository. Please let me know if it
+> helps, so I can finally make the new maintenance release that's
+> been pending (getting through with PhD defence busyness).
+
+Hi Tuomo, thanks for the patch. Unfortunately I still experience problems with
+frames getting stuck at 0 width or height after doing a 'Mod1-K V' or 'Mod1-K H'
+in a neighboring frame. Fortunately I can reproduce it reliably:
+
+1) Start with a 'full' tiled workspace containing a single frame.
+2) Mod1-S to do a vertical split
+3) In the top frame repeated 'Mod1-K V' toggle the bottom frame from 0 height
+and then back to half the screen height, as expected.
+4) Again in the top frame do a 'Mod1-K S' to do a horizontal split.
+5) In one of the top frames do a 'Mod1-K V' to collapse the bottom frame. Then
+'Mod1-TAB' to the other top frame and 'Mod1-K V'... the bottom frame
+unexpectedly stays at 0!
+
+(The same thing happens using 'Mod1-K H' in horizontal-split frames.) The key to
+reproducing the problem is to switch between maximized frames while the
+minimized frame is at 0 height/width, it then becomes impossible to resize the
+minimized frame from the keyboard.
+
+Let me know if you need a better description (or if I'm experiencing some
+user-error/misconception).
+
+- Chris Burkhardt
+
+
+
+From tuomov at iki.fi  Mon Jan  5 20:42:19 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 5 Jan 2009 19:42:19 +0000 (UTC)
+Subject: Toggle horizontal/vertical maximize behaviour
+References: <494687D8.40909@noo.ru>
+	<slrngkd3ql.p1c.tuomov@jolt.modeemi.cs.tut.fi>
+	<20081230172629.GA10480@jolt.modeemi.cs.tut.fi>
+	<gjk75h$d80$1@ger.gmane.org>
+Message-ID: <slrngm4okr.87b.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-01-02, Chris Burkhardt <chris at mretc.net> wrote:
+> 4) Again in the top frame do a 'Mod1-K S' to do a horizontal split.
+> 5) In one of the top frames do a 'Mod1-K V' to collapse the bottom frame. Then
+> 'Mod1-TAB' to the other top frame and 'Mod1-K V'... the bottom frame
+> unexpectedly stays at 0!
+
+Ah... well I'd classify that as an (unintentional) feature then. 
+Maximise is completely unaware of tiling/layout, it just works on
+a per-frame basis. It should be done somewhat differently (snapshotting
+entire layout instead of just saving the size of a single frame) for 
+what you want to work. It'st hus will not be changed in the stable 
+Ion3. For Ion3plus a good-quality patch would certainly be accepted;
+if I ever find the time, I may even do it myself.
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+
+From chris at mretc.net  Mon Jan  5 21:49:02 2009
+From: chris at mretc.net (Chris Burkhardt)
+Date: Mon, 05 Jan 2009 13:49:02 -0700
+Subject: Toggle horizontal/vertical maximize behaviour
+In-Reply-To: <slrngm4okr.87b.tuomov@jolt.modeemi.cs.tut.fi>
+References: <494687D8.40909@noo.ru>	<slrngkd3ql.p1c.tuomov@jolt.modeemi.cs.tut.fi>	<20081230172629.GA10480@jolt.modeemi.cs.tut.fi>	<gjk75h$d80$1@ger.gmane.org>
+	<slrngm4okr.87b.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <gjtro1$9oh$1@ger.gmane.org>
+
+Tuomo Valkonen wrote:
+> On 2009-01-02, Chris Burkhardt <chris at mretc.net> wrote:
+>> 4) Again in the top frame do a 'Mod1-K S' to do a horizontal split.
+>> 5) In one of the top frames do a 'Mod1-K V' to collapse the bottom frame. Then
+>> 'Mod1-TAB' to the other top frame and 'Mod1-K V'... the bottom frame
+>> unexpectedly stays at 0!
+> 
+> Ah... well I'd classify that as an (unintentional) feature then. 
+> Maximise is completely unaware of tiling/layout, it just works on
+> a per-frame basis.
+
+Ah, I see. But what I think is still a bug is that after performing a 'Mod1-K V'
+in the other top frame (as in step 5 in my example), then the originally
+maximized frame forgets its original height. 'Mod1-TAB'ing to it and trying to
+un-maximize it with 'Mod1-K V' has no effect, although even with the intended
+per-frame maximize I would expect it to (right?). Also, resizing ('Mod1-R') in
+the bottom frame has no effect at this point, it is stuck at 0 height.
+
+> It should be done somewhat differently (snapshotting
+> entire layout instead of just saving the size of a single frame) for 
+> what you want to work.
+
+Yes, that's what I really want. Hopefully it will annoy me enough that I'll
+finally take a little time to learn enough of the Ion3plus code that I can turn
+out a patch that's at least good enough for my purposes.
+
+Thanks for everything, I hope your PhD defense/preparations went (are going)
+well for you.
+
+- Chris Burkhardt
+
+
+
+From colin.cartade at ens-cachan.fr  Wed Jan  7 12:22:33 2009
+From: colin.cartade at ens-cachan.fr (Colin Cartade)
+Date: Wed, 7 Jan 2009 12:22:33 +0100
+Subject: path, alias with F3
+Message-ID: <20090107112233.GA3633@cartade>
+
+Is there a way to let ion know I have scripts in ~/bin/ (like path in
+the terminal) ?
+I also wonder if it is possible to use alias with F3.
+
+
+From ebik at drak.ucw.cz  Wed Jan  7 13:52:33 2009
+From: ebik at drak.ucw.cz (ebik)
+Date: Wed, 7 Jan 2009 13:52:33 +0100
+Subject: path, alias with F3
+In-Reply-To: <20090107112233.GA3633@cartade>
+References: <20090107112233.GA3633@cartade>
+Message-ID: <20090107135233.4b05eb12@Logran.cub>
+
+On Wed, 7 Jan 2009 12:22:33 +0100
+Colin Cartade <colin.cartade at ens-cachan.fr> wrote:
+
+> Is there a way to let ion know I have scripts in ~/bin/ (like path in
+> the terminal) ?
+
+Which scripts? If you set environment variable PATH for ion to contain
+~/bin, it will search executables there also. You can check your PATH
+setting in ion by Mod1+F3 (opens Query for lua code to exectute), then
+you type:
+
+ mod_query.message(_, os.get_env('PATH'))
+
+This lets you see the content of your PATH variable for ion.
+
+Setting PATH variable depends on the way how you launch ion.
+
+> I also wonder if it is possible to use alias with F3.
+> 
+
+
+-- 
+                                 Tom?? 'eb?k' Ebenlendr
+                                 http://get.to/ebik
+                                 PF 2009.01800139523
+
+
+
+From tuomov at iki.fi  Wed Jan  7 14:44:56 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 7 Jan 2009 13:44:56 +0000 (UTC)
+Subject: path, alias with F3
+References: <20090107112233.GA3633@cartade>
+	<20090107135233.4b05eb12@Logran.cub>
+Message-ID: <slrngm9ceo.lvb.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-01-07, ebik <ebik at drak.ucw.cz> wrote:
+> Which scripts? If you set environment variable PATH for ion to contain
+> ~/bin, it will search executables there also. 
+
+Ion also has its own search path for its scripts. You can set
+it from the command line, or modifying the searchpath field of
+ioncore.set/get_paths.
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+
+From tuomov at iki.fi  Wed Jan  7 14:52:48 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 7 Jan 2009 13:52:48 +0000 (UTC)
+Subject: Toggle horizontal/vertical maximize behaviour
+References: <494687D8.40909@noo.ru>
+	<slrngkd3ql.p1c.tuomov@jolt.modeemi.cs.tut.fi>
+	<20081230172629.GA10480@jolt.modeemi.cs.tut.fi>
+	<gjk75h$d80$1@ger.gmane.org>
+	<slrngm4okr.87b.tuomov@jolt.modeemi.cs.tut.fi>
+	<gjtro1$9oh$1@ger.gmane.org>
+Message-ID: <slrngm9ctg.mn6.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-01-05, Chris Burkhardt <chris at mretc.net> wrote:
+> Ah, I see. But what I think is still a bug is that after performing a 'Mod1-K V'
+> in the other top frame (as in step 5 in my example), then the originally
+> maximized frame forgets its original height. 'Mod1-TAB'ing to it and trying to
+> un-maximize it with 'Mod1-K V' has no effect, although even with the intended
+> per-frame maximize I would expect it to (right?). 
+
+The logic is that frames store their size when they're specifically
+shaded or maximised, and forget the stored size whenever they are
+otherwise resized -- including resizing is enforced in a tiled layout
+whenever some other frame is resized. Fixing these annoyances you've
+pointed out, involves a different kind of logic not based on maximizing
+individual frames, but altering the entire layout somehow.
+
+> Thanks for everything, I hope your PhD defense/preparations went (are going)
+> well for you.
+
+It was on the 22th of December already. 
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+
+From colin.cartade at ens-cachan.fr  Wed Jan  7 20:24:11 2009
+From: colin.cartade at ens-cachan.fr (Colin Cartade)
+Date: Wed, 7 Jan 2009 20:24:11 +0100
+Subject: path, alias with F3
+In-Reply-To: <20090107112233.GA3633@cartade>
+References: <20090107112233.GA3633@cartade>
+Message-ID: <20090107192116.GA4186@cartade>
+
+> Which scripts? If you set environment variable PATH for ion to contain
+> ~/bin, it will search executables there also. You can check your PATH
+> setting in ion by Mod1+F3 (opens Query for lua code to exectute), then
+> you type:
+>
+> mod_query.message(_, os.get_env('PATH'))
+>
+> This lets you see the content of your PATH variable for ion.
+>
+> Setting PATH variable depends on the way how you launch ion.
+
+I meant bash scripts or executables not ion scripts.
+
+I tried
+    mod_query.message(_, os.get_env('PATH'))
+but I got an error :
+    attempt to call field 'get_env' (a nil value)
+
+I launch ion with exec ion3 in my .xsession and gdm.
+
+
+From tuomov at iki.fi  Wed Jan  7 20:39:50 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 7 Jan 2009 19:39:50 +0000 (UTC)
+Subject: path, alias with F3
+References: <20090107112233.GA3633@cartade> <20090107192116.GA4186@cartade>
+Message-ID: <slrngma186.42d.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-01-07, Colin Cartade <colin.cartade at ens-cachan.fr> wrote:
+> I tried
+>     mod_query.message(_, os.get_env('PATH'))
+> but I got an error :
+>     attempt to call field 'get_env' (a nil value)
+
+It's getenv. (There's also a shorter way to display values
+from queries, as the Lua print function is overridden in them:
+print(os.getenv("PATH")) )
+
+> I launch ion with exec ion3 in my .xsession and gdm.
+
+Then set PATH in your .xsession before launching Ion.
+setenv is also provided by the Lua posix module, but
+it's better to set the PATH by loading some .bashenv or
+something from .xsession. 
+
+(Actually, it's all a big mess, because the crappy display 
+managers don't load the shells' environment from anywhere, 
+but you should do redundant work by defining the stuff in 
+.xsession again. But .xsession is also sometimes loaded by
+stock xinitrc these days, and in that case then you shouldn't 
+load the environment definitions again.)
+
+-- 
+In 1988, automated information processing, ATK (automaattinen
+tietojenk??sittely), was a budding new field.
+By 2008, it has become known as IT, information technology, 
+manually operated by human slaves. 
+
+
+
+From colin.cartade at ens-cachan.fr  Wed Jan  7 21:58:52 2009
+From: colin.cartade at ens-cachan.fr (Colin Cartade)
+Date: Wed, 7 Jan 2009 21:58:52 +0100
+Subject: path, alias with F3
+In-Reply-To: <slrngma186.42d.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20090107112233.GA3633@cartade> <20090107192116.GA4186@cartade>
+	<slrngma186.42d.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20090107205852.GA5117@cartade>
+
+On 19:39  07-01, Tuomo Valkonen wrote:
+> > I tried
+> >     mod_query.message(_, os.get_env('PATH'))
+> > but I got an error :
+> >     attempt to call field 'get_env' (a nil value)
+> 
+> It's getenv. (There's also a shorter way to display values
+> from queries, as the Lua print function is overridden in them:
+> print(os.getenv("PATH")) )
+> 
+> > I launch ion with exec ion3 in my .xsession and gdm.
+> 
+> Then set PATH in your .xsession before launching Ion.
+> setenv is also provided by the Lua posix module, but
+> it's better to set the PATH by loading some .bashenv or
+> something from .xsession. 
+> 
+> (Actually, it's all a big mess, because the crappy display 
+> managers don't load the shells' environment from anywhere, 
+> but you should do redundant work by defining the stuff in 
+> .xsession again. But .xsession is also sometimes loaded by
+> stock xinitrc these days, and in that case then you shouldn't 
+> load the environment definitions again.)
+
+Thanks, it works very well. If there's a better way than using gdm, I am
+interested (I don't like gnome very much).
+
+
+From christian.glindkamp at gmail.com  Wed Jan  7 22:16:53 2009
+From: christian.glindkamp at gmail.com (Christian Glindkamp)
+Date: Wed, 7 Jan 2009 22:16:53 +0100
+Subject: path, alias with F3
+In-Reply-To: <20090107205852.GA5117@cartade>
+References: <20090107112233.GA3633@cartade> <20090107192116.GA4186@cartade>
+	<slrngma186.42d.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090107205852.GA5117@cartade>
+Message-ID: <20090107221653.53b1480c@gmail.com>
+
+On Wed, 7 Jan 2009 21:58:52 +0100 Colin Cartade <colin.cartade at ens-cachan.fr> wrote:
+> On 19:39  07-01, Tuomo Valkonen wrote:
+> > > I tried
+> > >     mod_query.message(_, os.get_env('PATH'))
+> > > but I got an error :
+> > >     attempt to call field 'get_env' (a nil value)
+> > 
+> > It's getenv. (There's also a shorter way to display values
+> > from queries, as the Lua print function is overridden in them:
+> > print(os.getenv("PATH")) )
+> > 
+> > > I launch ion with exec ion3 in my .xsession and gdm.
+> > 
+> > Then set PATH in your .xsession before launching Ion.
+> > setenv is also provided by the Lua posix module, but
+> > it's better to set the PATH by loading some .bashenv or
+> > something from .xsession. 
+> > 
+> > (Actually, it's all a big mess, because the crappy display 
+> > managers don't load the shells' environment from anywhere, 
+> > but you should do redundant work by defining the stuff in 
+> > .xsession again. But .xsession is also sometimes loaded by
+> > stock xinitrc these days, and in that case then you shouldn't 
+> > load the environment definitions again.)
+> 
+> Thanks, it works very well. If there's a better way than using gdm, I am
+> interested (I don't like gnome very much).
+
+Why don't you just login on a text console and run startx?
+
+I also have the following code in my .bash_profile, which automatically
+starts X, when I log in from the first text console:
+
+if [ "$(tty)" = "/dev/tty1" -o "$(tty)" = "/dev/vc/1" ] ; then
+	startx
+fi
+
+This way I don't need a display manager and still have the only
+functionality from them I used (startup of the X session on login).
+
+If you still want a graphical display manager, you could try slim[1].
+It is much lighter.
+
+[1] http://slim.berlios.de/
+
+
+
+From tuomov at iki.fi  Fri Jan  9 23:45:35 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 9 Jan 2009 22:45:35 +0000 (UTC)
+Subject: ion-3-20090110
+Message-ID: <slrngmfksf.lkl.tuomov@jolt.modeemi.cs.tut.fi>
+
+
+This is yet another maintenance release.
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and local vendors and
+artisans have had to yield to "all under one roof" big box hypermarkets.
+
+
+
+From treibholz-ion at sozial-inkompetent.de  Sun Jan 11 17:39:16 2009
+From: treibholz-ion at sozial-inkompetent.de (Klaus Umbach)
+Date: Sun, 11 Jan 2009 17:39:16 +0100
+Subject: [SEMI-OT] Applications in a typical ion3 desktop environment
+Message-ID: <20090111163916.GA9245@umbach-racing.de>
+
+Hi,
+Just out of curiosity, I'm interessted in what you are using on your
+desktop/notebook. I just want to have new ideas. Maybe other ion3 users
+have the same needs as I, but found better solutions.
+
+Here is my list:
+
+Terminal emulator: rxvt-unicode
+Text editor: vim
+Mail: mutt with offlineimap and lbdb to read my Palm's addressbook.
+Browser: Firefox with "It's All Text", "vimperator" and "FireGestures"
+IM: psi (+ skype)
+Video-Player: mplayer
+Audio-Player: amarok (looking for something better with ipod, DAAP and
+              podcast-support!)
+Display Manager: xdm
+IRC: irssi
+Shell: zsh
+Calculator: bc
+Dock: docker
+Backup: rsnapshot
+
+other stuff: gkrellm, xfce-mcs-manager, xscreensaver (bsod), unclutter,
+             gnupod, jpilot
+
+and only on the Netbook: gnome-power-manager, bluetooth-applet, nm-applet
+
+
+Screenshot: http://www.sozial-inkompetent.de/ion3/cyberdeck.png
+
+Cheers
+        Treibholz
+
+-- 
+BOFH excuse #169:
+
+broadcast packets on wrong frequency
+
+
+From sky at viridian-project.de  Sun Jan 11 18:55:28 2009
+From: sky at viridian-project.de (Leslie P. Polzer)
+Date: Sun, 11 Jan 2009 18:55:28 +0100 (CET)
+Subject: [SEMI-OT] Applications in a typical ion3 desktop environment
+In-Reply-To: <20090111163916.GA9245@umbach-racing.de>
+References: <20090111163916.GA9245@umbach-racing.de>
+Message-ID: <63647.88.73.248.171.1231696528.squirrel@mail.stardawn.org>
+
+
+> Terminal emulator: rxvt-unicode
+
+I use mlterm and have also found xterm to be an alternative.
+
+
+> IM: psi (+ skype)
+
+I use Pidgin and Freetalk.
+Judging from your other apps and setup you might like Freetalk.
+
+
+> Audio-Player: amarok (looking for something better with ipod, DAAP and
+>               podcast-support!)
+
+Yeah, all currently available music players suck in some way or
+another.
+
+
+> Display Manager: xdm
+
+There are some slim alternative login managers.
+
+
+> Calculator: bc
+
+Try 'calc'[1].
+
+  Leslie
+
+
+[1] http://www.isthe.com/chongo/tech/comp/calc/
+
+-- 
+LinkedIn Profile: http://www.linkedin.com/in/polzer
+Xing Profile: https://www.xing.com/profile/LeslieP_Polzer
+Blog: http://blog.viridian-project.de/
+
+
+
+From tuomov at iki.fi  Sun Jan 11 19:23:29 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 11 Jan 2009 18:23:29 +0000 (UTC)
+Subject: [SEMI-OT] Applications in a typical ion3 desktop environment
+References: <20090111163916.GA9245@umbach-racing.de>
+Message-ID: <slrngmke91.7ka.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-01-11, Klaus Umbach <treibholz-ion at sozial-inkompetent.de> wrote:
+> Hi,
+> Just out of curiosity, I'm interessted in what you are using on your
+> desktop/notebook. I just want to have new ideas. Maybe other ion3 users
+> have the same needs as I, but found better solutions.
+
+Windows 7. If it's come out when I get a notebook.
+
+If one can find an affordable notebook with a *matte* screen anymore,
+when I finally need a mobile computer; right now I don't. Glossy 
+*trinkets* attract the herd like fly traps attract flies, and so it's
+hard to find anything that doesn't hurt your eyes anymore. Another 
+thing I've noticed is that even tabletops tend to come with _shitty_
+laptop-like keyboards these days with too short movement of the keys
+to be comfortable to type. But the herd is happy with them, and so
+all the time it becomes more and more trouble to find even something
+half-decent -- that was standard a few years before -- let alone 
+something actually good.
+
+Yes, W7 is Hitlery [1], but better than Vista (or Modern Linux, 
+and worse than XP or Old Unix. But you need Modern OS to run
+a Modern Browser to use Modern Internet Services, etc. All 
+of them shit, but all the time getting more complicated to
+live without. Unfortunately.)
+
+All the glyphs look like swastikas, they're so blurred [2].
+
+They've actually finally _removed_ the option to disable font 
+blurring from the panel where it was easily accessible in XP, 
+and which you had to hunt a bit in Vista, and even after then
+didn't disable all blurring. They've added a Smeartype tuner 
+that lets you choose between a zillion types of blurring, but
+not to disable it altogether. But it still seems to be possible
+to disable blurring by a) switching to a theme with non-shitty
+fonts, e.g., the W98-lookalike (Segui UI is shit), and b) setting
+some FontSmoothing values in the registry to zero. (However, 
+switching the theme resets them.)
+
+Other than that, W7 seems clearly faster than Vista -- it's even
+usable in VMWare after some initial disk crunching on my Athlon
+XP 2500+ / 768MB. The sorry attempts at tiling by throwing the
+window to the side of the screen seem like they could be quite
+nice on a tablet, but clearly doesn't scale due to lack of tabbing.
+The Ribbon UI actually seems like it could be quite nice if it
+served as _documentation_, displaying the keys corresponding to
+the buttons etc. when e.g. a modifier is pressed. But of course,
+since Vista, Windows has _hidden_ all the keyboard shortcut 
+(*beep* the term "shortcut" implies fundamentally flawed design)
+by default; you've had to enable them fron the accessibility 
+options in the control panel.
+
+> Terminal emulator: rxvt-unicode
+
+pfft. xterm.
+
+> Text editor: vim
+
+pfft. joe. (joe.sf.net)
+
+> Mail: mutt with offlineimap and lbdb to read my Palm's addressbook.
+> Browser: Firefox with "It's All Text", "vimperator" and "FireGestures"
+
+All browsers that can the technological shithole of the World (Wide
+Web), can do nothing but suck, but Opera sucks the least.
+
+> Audio-Player: amarok (looking for something better with ipod, DAAP and
+>               podcast-support!)
+
+http://moc.daper.net/
+
+A simple player that lets me use the file system for organising 
+my music, instead of reinventing the wheel and enforcing an
+aoverbearing playlist system. (The ever so popular mpd sucks 
+donkey balls.)
+
+I've heard good words about foobar2000, though.
+
+> Calculator: bc
+
+bc? What use is it? Try calc. 
+
+(Probably http://sourceforge.net/projects/calc/ as I get
+
+~$ calc -v
+C-style arbitrary precision calculator (version 2.12.1.5)
+
+)
+
+> Backup: rsnapshot
+
+I've yet to find a backup tool that wouldn't suck. For *nix anyway.
+
+Using duplicity ATM (to another local disk), because I had plans 
+of a network backup. But it can't handle file moves sanely, i.e., 
+just storing the action, not a new copy of the file. Brackup
+seemed like it would be nice, being based on hashes, but it's
+just broken. But *nix has got these inode numbers which would
+really suffice...
+
+
+  [1]: http://xkcd.com/528/
+
+  [2]: http://iki.fi/tuomov/b/archives/2008/03/20/T13_47_17/
+
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+
+From ivan at selidor.net  Sun Jan 11 19:04:13 2009
+From: ivan at selidor.net (Ivan Vilata i Balaguer)
+Date: Sun, 11 Jan 2009 19:04:13 +0100
+Subject: [SEMI-OT] Applications in a typical ion3 desktop environment
+In-Reply-To: <20090111163916.GA9245@umbach-racing.de>
+References: <20090111163916.GA9245@umbach-racing.de>
+Message-ID: <20090111180413.GC26213@tardis.terramar.selidor.net>
+
+Klaus Umbach (el 2009-01-11 a les 17:39:16 +0100) va dir::
+
+> Just out of curiosity, I'm interessted in what you are using on your
+> desktop/notebook. I just want to have new ideas. Maybe other ion3 users
+> have the same needs as I, but found better solutions.
+
+I guess we'll see lots of interesting coincidences in this thread...
+
+* Terminal emulator: rxvt-unicode
+* Text editor: vim & emacs
+* Mail: mutt, studying mairix for indexing until tracker does Maildir
+* Browser: Firefox + It's All Text + lots of incremental search + profiles
+* RSS reader: used to use newsbeuter
+* Calendar: remind + wyrd
+* Notes: emacs muse
+* Video player: VLC
+* Audio player: MPD + mpdscrible + ncmpc, sometimes MOC, lastfm
+* IM: pidgin
+* Dock: trayion
+* Others: xwrits (one instance for micropauses, one for long rests), unclutter,
+  xscreensaver (black screen), tracker
+* Backup: unison, rdiff-backup
+
+I no longer use it, but the giFT project had an extraordinarily elegant P2P
+client called giFTcurs that would be nice to see revived (at least in spirit).
+
+::
+
+  Ivan Vilata i Balaguer   @ Intellectual property is the worst offense @
+  http://www.selidor.net/  @        against human intelligence.         @
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 315 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20090111/56f5c1c9/attachment.pgp>
+
+From nickmurdoch at gmail.com  Sun Jan 11 19:54:27 2009
+From: nickmurdoch at gmail.com (Nick Murdoch)
+Date: Sun, 11 Jan 2009 18:54:27 -0000
+Subject: [SEMI-OT] Applications in a typical ion3 desktop environment
+In-Reply-To: <20090111163916.GA9245@umbach-racing.de>
+References: <20090111163916.GA9245@umbach-racing.de>
+Message-ID: <op.unlv41b2q54ctd@localhost>
+
+On Sun, 11 Jan 2009 16:39:16 -0000, Klaus Umbach <treibholz-ion at sozial-inkompetent.de> wrote:
+
+On my desktop box:
+
+Terminal emulator: roxterm
+Text editor: vim
+Mail: Opera
+Browser: Opera
+IM: bitlbee via irssi
+Video-Player: mplayer
+Audio-Player: vlc or mplayer
+Display Manager: gdm or xdm
+IRC: irssi
+Shell: bash
+Calculator: python
+Dock: none
+Backup: rsync/ssh
+
+other stuff: screen, xscreensaver
+
+
+On my laptop I have OS X :)
+
+Terminal emulator: Terminal.app
+Text editor: vim
+Mail: n/a
+Browser: Opera
+IM: ssh to desktop screen with bitlbee/irssi
+Video-Player: vkc
+Audio-Player: vlc
+Display Manager: n/a
+IRC: ssh to desktop screen with irssi
+Shell: bash
+Calculator: python
+Dock: Dock
+Backup: rsync/ssh
+
+other stuff: Chicken of the VNC, Adium (on occasion), VirtualBox
+
+
+From sylvain.abelard at gmail.com  Sun Jan 11 20:13:26 2009
+From: sylvain.abelard at gmail.com (=?UTF-8?Q?Sylvain_Ab=C3=A9lard?=)
+Date: Sun, 11 Jan 2009 20:13:26 +0100
+Subject: [SEMI-OT] Applications in a typical ion3 desktop environment
+In-Reply-To: <slrngmke91.7ka.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20090111163916.GA9245@umbach-racing.de>
+	<slrngmke91.7ka.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <9c6605e40901111113r7e0c3e2pa57149d948085fe4@mail.gmail.com>
+
+> If one can find an affordable notebook with a *matte* screen anymore,
+
+I share your hate of glossy screens. It's been a few harsh years.
+
+I happened to see a few matte-screen-laptops from Samsung recently,
+maybe you can finally find one.
+But then, it was quite a small-size (10 to 12") and probably
+widescreen resolution.
+
+I also heard you can find companies that replace MacBooks screens with
+matte ones for $100.
+FYI, the "matte screen" option is $100, only available on the biggest $2500 Mac.
+
+
+Of course, you probably hate the Mac's UI and its lack of possible
+customizations.
+It certainly lacks configuration possibilities, but the multitouch
+gestures make mac-WM less painful.
+GeekBind did much about this, but does not work on the latest MacOS versions.
+Maybe Nick has more MacOS WM-tricks, because I'm really new to Mac.
+
+
+Good luck,
+
+-- 
+Sylvain Ab?lard
+"J'ai d?cid? d'?tre heureux, c'est meilleur pour la sant?." -Voltaire
+
+From nickmurdoch at gmail.com  Sun Jan 11 21:11:36 2009
+From: nickmurdoch at gmail.com (Nick Murdoch)
+Date: Sun, 11 Jan 2009 20:11:36 -0000
+Subject: [SEMI-OT] Applications in a typical ion3 desktop environment
+In-Reply-To: <9c6605e40901111113r7e0c3e2pa57149d948085fe4@mail.gmail.com>
+References: <20090111163916.GA9245@umbach-racing.de>
+	<slrngmke91.7ka.tuomov@jolt.modeemi.cs.tut.fi>
+	<9c6605e40901111113r7e0c3e2pa57149d948085fe4@mail.gmail.com>
+Message-ID: <op.unlzpmsoq54ctd@localhost>
+
+On Sun, 11 Jan 2009 19:13:26 -0000, Sylvain Ab??lard <sylvain.abelard at gmail.com> wrote:
+> Of course, you probably hate the Mac's UI and its lack of possible
+> customizations.
+> It certainly lacks configuration possibilities, but the multitouch
+> gestures make mac-WM less painful.
+> GeekBind did much about this, but does not work on the latest MacOS  
+> versions.
+> Maybe Nick has more MacOS WM-tricks, because I'm really new to Mac.
+
+I suspect I'm just as new! The keyboard shortcuts for OS X do seem particularly difficult to remember (I have to look up screenshot and how to select the menu bar every time).
+
+I only really use OS X as a casual OS; I can't manage without ion these days; floating wms just seem a pain in comparison.
+
+
+From tuomov at iki.fi  Sun Jan 11 21:47:37 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 11 Jan 2009 20:47:37 +0000 (UTC)
+Subject: [SEMI-OT] Applications in a typical ion3 desktop environment
+References: <20090111163916.GA9245@umbach-racing.de>
+	<slrngmke91.7ka.tuomov@jolt.modeemi.cs.tut.fi>
+	<9c6605e40901111113r7e0c3e2pa57149d948085fe4@mail.gmail.com>
+Message-ID: <slrngmkmn9.v14.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-01-11, Sylvain Ab??lard <sylvain.abelard at gmail.com> wrote:
+> I also heard you can find companies that replace MacBooks screens with
+> matte ones for $100.
+> FYI, the "matte screen" option is $100, only available on the biggest $2500 Mac.
+
+Yeah, they only seem to sell matte displays on corporate-priced stuff
+worth more than your monthly salary. To people who want quality and 
+are ready to pay for it. The typical idiot consumer is all wet over 
+a 19" (wow, big number!) dragtop with a glossy (shineee! my precious!)
+finish.
+
+Matte display finish is like green paint: worth more than the device
+it is covered with. \end{army joke}
+
+(In theory e.g. the el cheapo Thinkpad SL400 should be available in 
+matte, but all the shops only seem to carry glossy versions.)
+
+-- 
+Dreams of the past: Computers will automate menial tasks. Paperless office.
+Reality: Paper forms replaced by a hundred times more electronic forms 
+required to be filled by human slaves for management departments.
+
+
+
+From ion at zum-news-lesen.genoetigt.de  Sun Jan 11 21:54:01 2009
+From: ion at zum-news-lesen.genoetigt.de (Tobias Hommel)
+Date: Sun, 11 Jan 2009 21:54:01 +0100
+Subject: ion-3-20090110
+In-Reply-To: <slrngmfksf.lkl.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrngmfksf.lkl.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20090111205401.GA17852@shell>
+
+On Fri, Jan 09, 2009 at 10:45:35PM +0000, Tuomo Valkonen wrote:
+> 
+> This is yet another maintenance release.
+> 
+I updated the gentoo ebuild, the new version can be found here:
+https://svn.keksbude.net/repos/keks-overlay/x11-wm/ion3/
+
+-- 
+"There are 10 types of people in the world: those who understand binary, and those who don't."
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 197 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20090111/11154dfb/attachment.pgp>
+
+From ion at rutschle.net  Mon Jan 12 14:27:10 2009
+From: ion at rutschle.net (ion at rutschle.net)
+Date: Mon, 12 Jan 2009 14:27:10 +0100
+Subject: [SEMI-OT] Applications in a typical ion3 desktop environment
+In-Reply-To: <20090111163916.GA9245@umbach-racing.de>
+References: <20090111163916.GA9245@umbach-racing.de>
+Message-ID: <20090112132710.GT32734@naryves.com>
+
+On Sun, Jan 11, 2009 at 05:39:16PM +0100, Klaus Umbach
+wrote:
+> Browser: Firefox with "It's All Text", "vimperator" and
+> "FireGestures"
+
+FWIW, vimperator opens text areas in your editor of choice
+with ctrl-i. I don't remember how to configure it though.
+
+Y
+
+
+From jan0sch at gmx.net  Mon Jan 12 15:12:37 2009
+From: jan0sch at gmx.net (Jens Jahnke)
+Date: Mon, 12 Jan 2009 15:12:37 +0100
+Subject: [SEMI-OT] Applications in a typical ion3 desktop environment
+In-Reply-To: <20090111163916.GA9245@umbach-racing.de>
+References: <20090111163916.GA9245@umbach-racing.de>
+Message-ID: <20090112151237.c4d4676c.jan0sch@gmx.net>
+
+Here we go: :)
+
+Term    : urxvtc
+Editor  : vim
+Mail    : sylpheed
+News    : snownews
+Browser : Opera / elinks
+IM      : bitlbee via irssi
+IRC     : irssi
+Video P.: mplayer
+Audio P.: moc
+Shell   : zsh
+Dock    : docker
+
+Screenshot :
+http://jan0sch.deviantart.com/art/ion3-rocks-the-desktop-93554668
+
+greetings,
+
+jens
+
+-- 
+12. Hartung 2009, 15:02
+Homepage : http://www.jan0sch.de
+
+Inara: "This is pointless, you know."
+
+Early: "200,000 seems fairly pointed to me."
+				--Episode #14, "Objects in Space"
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 697 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20090112/7701d006/attachment.pgp>
+
+From kevin.granade at gmail.com  Tue Jan 13 00:10:33 2009
+From: kevin.granade at gmail.com (kevin granade)
+Date: Mon, 12 Jan 2009 17:10:33 -0600
+Subject: [SEMI-OT] Applications in a typical ion3 desktop environment
+Message-ID: <7004b08e0901121510y9371161u8cf76e016ff5b341@mail.gmail.com>
+
+Terminal emulator: xterm
+Text editor: emacs, OO (when required to use .doc files at work)
+Mail: Thunderbird/gmail
+Browser: Firefox with "FireGestures"
+IM: gaim, gchat
+Video-Player: mplayer
+Audio-Player: Songbird
+Display Manager: xdm or startx, depending on my mood when installing
+Shell: bash
+Calculator: python
+Dock: mod_dock
+Torrent:  bittornado
+
+other stuff: Dia, xpdf, Inkscape, eagle, Xephyr
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20090112/a1b0ffc7/attachment.html>
+
+From tuomov at iki.fi  Tue Jan 13 00:39:41 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 12 Jan 2009 23:39:41 +0000 (UTC)
+Subject: [SEMI-OT] Applications in a typical ion3 desktop environment
+References: <7004b08e0901121510y9371161u8cf76e016ff5b341@mail.gmail.com>
+Message-ID: <slrngmnl5t.9a3.tuomov@jolt.modeemi.cs.tut.fi>
+
+
+> other stuff
+
+latex, rubber, 
+
+
+... dramatic pause ...
+
+
+bibtex, metapost, xdvi, xpdf, gv, psbind -3 [*], dvipdfm.
+
+And should we start listing latex packages too?
+
+
+Seriously though, this listing of all the software one uses
+and that is far removed from setting up a consistent "ionic" 
+operating (no desktops here!) environment, could be seen as 
+spamming the list. A wiki would be a better location for this
+sort of stuff but, alas, it's too much of a hassle to set up
+one that wouldn't start sucking. 
+
+Maybe some site offers "ad hoc wikis", a bit akin to pastebots?
+
+
+[*] With narrow text column classes such as amsart, three pages 
+fit on one side of an A4 just fine with psbind, and saves a lot 
+of paper -- together with duplex printing, of course.
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and the cycle paths 
+have been replaced with polluted motorways.
+
+
+
+From dcl441-bugs at yahoo.com  Thu Jan 15 10:35:49 2009
+From: dcl441-bugs at yahoo.com (Daniel Clemente)
+Date: Thu, 15 Jan 2009 10:35:49 +0100
+Subject: Keyboard focus lost in Swing applications (ex: Netbeans) after
+	changing to window
+Message-ID: <87sknkgbd6.fsf@CPU107.opentrends.net>
+
+
+Hi, sorry if this message comes twice (I posted yesterday via NNTP without being subscribed to the list).
+
+
+  ion3 is stealing keyboard focus to Swing applications. This happens for instance with Netbeans 6.5:
+
+1. Open netbeans and some other programs in tabs next to it.
+2. Select netbeans and open an editor with some code; the cursor is inside the editor
+3. Select another tab (either clicking teh tab or with keyboard).
+4. Select netbeans again (either clicking the tab or with keyboard).
+5. Try to continue typing, but you can't. The cursor is nowhere, and *no key* works (space, cursors, A-S-o, ... all gone). You must click again in the editor and then you can type again.
+
+In fact any Swing application has this problem. You can use this one to test:
+
+--- TypeInSwing.java ----------------------------------------
+
+import javax.swing.JFrame;
+import javax.swing.JTextField;
+
+public class TypeInSwing {
+  public static void main(String[] args) {
+    JFrame frame = new JFrame("HelloWorldSwing");
+    final JTextField field = new JTextField("type here");
+
+    frame.getContentPane().add(field);
+
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.pack();
+    frame.setVisible(true);
+  }
+}
+
+--------------------------------------------------------------
+
+It happens with latest version 20090110 (with 20080207 too).
+
+I am using:
+
+$ java -version
+java version "1.6.0_06"
+Java(TM) SE Runtime Environment (build 1.6.0_06-b02)
+Java HotSpot(TM) Server VM (build 10.0-b22, mixed mode)
+
+
+  Why is it so?
+
+
+Daniel
+
+
+
+
+From tuomov at iki.fi  Thu Jan 15 18:21:53 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 15 Jan 2009 17:21:53 +0000 (UTC)
+Subject: Keyboard focus lost in Swing applications (ex: Netbeans) after
+	changing to window
+References: <87sknkgbd6.fsf@CPU107.opentrends.net>
+Message-ID: <slrngmus5h.fv6.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-01-15, Daniel Clemente <dcl441-bugs at yahoo.com> wrote:
+> In fact any Swing application has this problem. You can use this one to test:
+
+CBA going through all the trouble of installing java compilers
+and whatever dependencies there may be. Java on Linux is pain;
+already been too much trouble installing the VM back in the day.
+
+>   Why is it so?
+
+Probably because Swing is crap and sets the focus somewhere where
+it shouldn't be -- in violation of the ICCCM. X doesn't forward 
+focus changes to the WM is requests, but rather obeys each and 
+every one (unless the target window is hidden, etc.), so the 
+WM should have to start fighting agianst them.
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and the cycle paths 
+have been replaced with polluted motorways.
+
+
+
+From sylvain.abelard at gmail.com  Thu Jan 15 18:40:42 2009
+From: sylvain.abelard at gmail.com (=?UTF-8?Q?Sylvain_Ab=C3=A9lard?=)
+Date: Thu, 15 Jan 2009 18:40:42 +0100
+Subject: Keyboard focus lost in Swing applications (ex: Netbeans) after
+	changing to window
+In-Reply-To: <slrngmus5h.fv6.tuomov@jolt.modeemi.cs.tut.fi>
+References: <87sknkgbd6.fsf@CPU107.opentrends.net>
+	<slrngmus5h.fv6.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <9c6605e40901150940g7f650b68j52e01bfb03c4c8cd@mail.gmail.com>
+
+> Java on Linux is pain
+But the MacOS JVM sucks,
+the Windows ecosystem makes Java not portable,
+the "exotic platforms" Java Editions lacks the libraries (not portable again),
+and Java for the web was stillborn, dead, resurrected and will keep
+being a zombie.
+
+"Java is pain" is enough.
+
+-- 
+Sylvain Ab?lard
+"J'ai d?cid? d'?tre heureux, c'est meilleur pour la sant?." -Voltaire
+
+From tuomov at iki.fi  Thu Jan 15 21:17:34 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 15 Jan 2009 20:17:34 +0000 (UTC)
+Subject: Keyboard focus lost in Swing applications (ex: Netbeans) after
+	changing to window
+References: <87sknkgbd6.fsf@CPU107.opentrends.net>
+Message-ID: <slrngmv6eu.34l.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-01-15, Daniel Clemente <dcl441-bugs at yahoo.com> wrote:
+> In fact any Swing application has this problem. 
+
+Tried; works for me.
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+
+From ion at benizi.com  Fri Jan 16 08:31:52 2009
+From: ion at benizi.com (Benjamin R. Haskell)
+Date: Fri, 16 Jan 2009 02:31:52 -0500 (EST)
+Subject: Multi-, different- monitors is multi-hopeless?
+Message-ID: <alpine.LNX.2.00.0901160131060.5209@acer.home.local>
+
+I have a laptop with an LCD w/ 1280x800 resolution, and an external CRT 
+that's either at 1024x768, 1280x960, or unavailable (depending on whether 
+I'm at work, home, or somewhere else, respectively).
+
+
+Here's what I've settled on in Enlightenment (E17): I have four "desktops" 
+on each monitor. Alt+F1 through Alt+F4 jump to their respective desktops. 
+Alt+F? on the LCD doesn't change the desktop on the CRT. Alt+F? on the CRT 
+doesn't change the desktop on the LCD. They're independent. The 'xrandr' 
+command allows me to switch the CRT to one of the three modes I need 
+(work/home/off).
+
+But, really, the only reason I've stayed with E17 so long is that it's the 
+only window manager that handles multi-monitors the way I want it done. A 
+lot of the choices behind Ion jive really well with what I actually want 
+in a WM. (keyboard ?ber alles, window manager that actually *manages*, and 
+Lua(yay!))
+
+
+Based mostly on the latest "Shit-or-rama [Was: mod_xinerama]" thread [1], 
+I'm not optimistic about Ion emulating this setup. But is it an accurate 
+statement that there is no nice way to use ion3 such that I get:
+
+1. per-monitor workspaces
+
+2. ability to move windows between monitors
+
+3. ability to switch CRT resolution/presence w/out restarting X
+
+(...part of the difficulty being that my monitor heights don't match up)
+
+
+If it's true that there's no "nice" way: does anyone have convoluted 
+workarounds or horrible hacks that might require lots of setup (but 
+minimal effort thereafter) that manage to achieve these goals?
+
+As an example of "horrible/convoluted": several months ago, when I last 
+went through a "This window manager sucks; I should try some new ones that 
+support my monitors" phase, I was optimistic about "XMOVE: A pseudoserver 
+for X window movement" [2]. Or maybe running a couple or several X VNC 
+servers would work.  E.g. "left half" (LCD) = frame with Xvnc :0 and Xvnc 
+:1, "right half" (CRT) = frame with Xvnc :2. Then "moving windows" 
+becomes: "close vncviewer :1 on LCD, open it on CRT".
+
+
+And, if it's true that there's not even a horrible way to get all three, 
+what are the various X settings that I need to enable/disable to get 2/3 
+of the desired properties (Looks easiest to sacrifice "ability to move 
+windows between monitors")?
+
+Obviously: disable XRandR and Xinerama. (Problem there: I can't seem to 
+find the correct incantation to disable Xinerama. I'm planning to just 
+recompile X without it.
+...Though another workaround (rename Xiner SHIToR /usr/lib/libXiner* ) is 
+slightly more amusing.)
+
+and in xorg.conf, I'd need:
+
+three "Monitor" sections: 1 for LCD, 1 for home CRT, 1 for work CRT
+three "Screen" sections: 1 for 1280x800, 1 for 1280x960, 1 for 1024x768
+three "ServerLayout" sections: 1 for LCD+home, 1 for LCD+work, 1 for LCD-only
+
+Sound right?
+
+Thanks for any help. I really like everything I've seen in Ion so far, 
+except for this multi-monitor business. (And I realize it's not Ion that's 
+to blame.)
+
+Best,
+Ben
+
+
+
+[1] "Shit-or-rama [Was: mod_xinerama]"
+https://lists.berlios.de/pipermail/ion-general/2008-September/002190.html
+
+[2] "XMOVE: A pseudoserver for X Window movement"
+http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.30.589
+
+From dcl441-bugs at yahoo.com  Fri Jan 16 09:27:15 2009
+From: dcl441-bugs at yahoo.com (Daniel Clemente)
+Date: Fri, 16 Jan 2009 09:27:15 +0100
+Subject: Keyboard focus lost in Swing applications (ex: Netbeans) after
+	changing to window
+References: <87sknkgbd6.fsf@CPU107.opentrends.net>
+	<slrngmv6eu.34l.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <87sknjejvg.fsf@CPU107.opentrends.net>
+
+Tuomo Valkonen <tuomov at iki.fi> writes:
+
+> On 2009-01-15, Daniel Clemente <dcl441-bugs at yahoo.com> wrote:
+>> In fact any Swing application has this problem. 
+>
+> Tried; works for me.
+
+  I was using Ubuntu GNU/Linux 8.04.1 with these packages:
+
+ii  linux-image-generic        2.6.24.21.23               Generic Linux kernel image
+ii  sun-java6-bin              6-06-0ubuntu1              Sun Java(TM) Runtime Environment (JRE) 6 (architecture dependent fil
+ii  xorg                       1:7.3+10ubuntu10.2         X.Org X Window System
+
+
+  I will check it again in other systems. 
+
+
+
+
+From ebik at drak.ucw.cz  Fri Jan 16 09:30:49 2009
+From: ebik at drak.ucw.cz (=?iso-8859-2?Q?Tom=E1=B9_Ebenlendr?=)
+Date: Fri, 16 Jan 2009 09:30:49 +0100 (CET)
+Subject: Multi-, different- monitors is multi-hopeless?
+In-Reply-To: <alpine.LNX.2.00.0901160131060.5209@acer.home.local>
+References: <alpine.LNX.2.00.0901160131060.5209@acer.home.local>
+Message-ID: <44371.88.146.1.38.1232094649.squirrel@drak.ucw.cz>
+
+On Fri, 16 Jan 2009 02:31:52 -0500 (EST)
+"Benjamin R. Haskell" <ion at benizi.com> wrote:
+
+> Based mostly on the latest "Shit-or-rama [Was: mod_xinerama]" thread
+> [1], I'm not optimistic about Ion emulating this setup. But is it an
+> accurate statement that there is no nice way to use ion3 such that I
+> get:
+> ...
+
+I use mod_xinerama, xrandr, and lua script that changes ion's session
+string via ioncore.set_paths(). This suffices, as I need to restart ion3
+(but not X nor applications) every time I switch xrandr configuration.
+This way I have one saved layout for each xrandr configuration I tried.
+
+Also I created lua binding to attach a client to _root_ window ->
+"both screens full screen". I use global variable to remember which
+frame was the client attached to, thus the function is able to put the
+client to "normal" state again.
+
+Note that I use patched mod_xinerama, because original mod_xinerama
+doesn't allow ion3 to shutdown/restart properly. The one line change was
+posted to the list by someone already.
+
+-- 
+                                 Tom?? 'eb?k' Ebenlendr
+                                 http://get.to/ebik
+                                 PF 2009.04213248351
+
+
+
+
+From treibholz-ion at sozial-inkompetent.de  Fri Jan 16 09:35:45 2009
+From: treibholz-ion at sozial-inkompetent.de (Klaus Umbach)
+Date: Fri, 16 Jan 2009 09:35:45 +0100
+Subject: Multi-, different- monitors is multi-hopeless?
+In-Reply-To: <alpine.LNX.2.00.0901160131060.5209@acer.home.local>
+References: <alpine.LNX.2.00.0901160131060.5209@acer.home.local>
+Message-ID: <20090116083545.GD12091@umbach-racing.de>
+
+On 16/01/09 02:31, Benjamin R. Haskell wrote:
+> But, really, the only reason I've stayed with E17 so long is that it's 
+> the only window manager that handles multi-monitors the way I want it 
+> done. A lot of the choices behind Ion jive really well with what I 
+> actually want in a WM. (keyboard ?ber alles, window manager that actually 
+> *manages*, and Lua(yay!))
+>
+> Based mostly on the latest "Shit-or-rama [Was: mod_xinerama]" thread [1], 
+> I'm not optimistic about Ion emulating this setup. But is it an accurate  
+> statement that there is no nice way to use ion3 such that I get:
+
+JEHOVA!!!!!!
+
+http://wannabehacker.com/repos/mod_xinerama-3/
+
+Works perfectly here on my workstation, but tuomov will not help you in any
+way, when you use it. If you have a problem: remove the module and
+reproduce it.
+
+> 1. per-monitor workspaces
+>
+> 2. ability to move windows between monitors
+
+These two points work perfectly. ion3+mod_xinerama, e17 and awesome are the
+only windowmanagers, I know with this feature.
+
+> 3. ability to switch CRT resolution/presence w/out restarting X
+>
+> (...part of the difficulty being that my monitor heights don't match up)
+
+Should work with xrandr, never tried it, but you need to restart ion3 in
+any way.
+
+Cheers
+	Treibholz
+
+
+-- 
+BOFH excuse #282:
+
+High altitude condensation from U.S.A.F prototype aircraft has contaminated the primary subnet mask. Turn off your computer for 9 days to avoid damaging it.
+
+
+From tuomov at iki.fi  Fri Jan 16 09:41:36 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 16 Jan 2009 08:41:36 +0000 (UTC)
+Subject: Keyboard focus lost in Swing applications (ex: Netbeans) after
+	changing to window
+References: <87sknkgbd6.fsf@CPU107.opentrends.net>
+	<slrngmv6eu.34l.tuomov@jolt.modeemi.cs.tut.fi>
+	<87sknjejvg.fsf@CPU107.opentrends.net>
+Message-ID: <slrngn0i20.pr8.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-01-16, Daniel Clemente <dcl441-bugs at yahoo.com> wrote:
+>   I was using Ubuntu GNU/Linux 8.04.1 with these packages:
+>
+> ii  sun-java6-bin              6-06-0ubuntu1              Sun Java(TM) Runtime Environment (JRE) 6 (architecture dependent fil
+
+Etch, sun-java5-bin.
+Also, just now whatever they've got on this FC4. (
+$ java --version
+java version "1.4.2"
+gij (GNU libgcj) version 4.0.2 20051125 (Red Hat 4.0.2-8)
+)
+
+-- 
+"[Fashion] is usually a form of ugliness so intolerable that we have
+ to alter it every six months." -- Oscar Wilde
+"The computer industry is the only industry that is more fashion-driven
+ than women's fashion." -- RMS
+
+
+
+From ion at benizi.com  Fri Jan 16 23:55:53 2009
+From: ion at benizi.com (Benjamin R. Haskell)
+Date: Fri, 16 Jan 2009 17:55:53 -0500 (EST)
+Subject: Multi-, different- monitors is multi-hopeless?
+In-Reply-To: <44371.88.146.1.38.1232094649.squirrel@drak.ucw.cz>
+References: <alpine.LNX.2.00.0901160131060.5209@acer.home.local>
+	<44371.88.146.1.38.1232094649.squirrel@drak.ucw.cz>
+Message-ID: <alpine.LNX.2.00.0901161522440.10643@acer.home.local>
+
+On Fri, 16 Jan 2009, Tom?? Ebenlendr wrote:
+
+> I use mod_xinerama, xrandr, and lua script that changes ion's session 
+> string via ioncore.set_paths(). This suffices, as I need to restart ion3 
+> (but not X nor applications) every time I switch xrandr configuration. 
+> This way I have one saved layout for each xrandr configuration I tried.
+>
+
+Argh. I'm an idiot. I assumed since mod_xrandr was loaded that 
+mod_xinerama had been loaded, too. This is working well for me, too, now. 
+Thanks, and sorry for the noise.
+
+
+> [...]
+>
+> Note that I use patched mod_xinerama, because original mod_xinerama 
+> doesn't allow ion3 to shutdown/restart properly. The one line change was 
+> posted to the list by someone already.
+
+Yep, in the same "shit-or-rama" thread I mentioned.
+
+BTW, Tobias Hommel: I'm using your ebuild from a few days ago, and it 
+doesn't seem to have that patch. (It has mod_xinerama-20080902 rather than 
+-20080923.) Putting that in was just a matter of: grabbing the tar.gz from 
+http://wannabehacker.com/src/mod_xinerama-20080923.tar.gz (Thanks 
+Thomas!), tar -zxf'ing, renaming the root dir, tar -jcf'ing, and bumping 
+the module's _PV.
+
+Thanks all,
+Ben
+
+From psnowber at nd.edu  Sat Jan 17 00:14:29 2009
+From: psnowber at nd.edu (Philip Snowberger)
+Date: Fri, 16 Jan 2009 15:14:29 -0800
+Subject: [SEMI-OT] Applications in a typical ion3 desktop environment
+In-Reply-To: <slrngmke91.7ka.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20090111163916.GA9245@umbach-racing.de>
+	<slrngmke91.7ka.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <f813e820901161514i193d076bhcf238edf47fc81b3@mail.gmail.com>
+
+On Sun, Jan 11, 2009 at 10:23 AM, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> If one can find an affordable notebook with a *matte* screen anymore,
+> when I finally need a mobile computer; right now I don't. Glossy
+> *trinkets* attract the herd like fly traps attract flies, and so it's
+> hard to find anything that doesn't hurt your eyes anymore. Another
+> thing I've noticed is that even tabletops tend to come with _shitty_
+> laptop-like keyboards these days with too short movement of the keys
+> to be comfortable to type. But the herd is happy with them, and so
+> all the time it becomes more and more trouble to find even something
+> half-decent -- that was standard a few years before -- let alone
+> something actually good.
+
+I happened to be awake when the 50% off lenovo x61s coupon code was
+posted and got one with docking station + overpriced dvd burner and
+4-year warranty for about $1100 incl tax, much lower than when I
+bought almost an identical x61s about 18 months previous.  That said,
+it's kinda sad that the only reason it could be considered
+'affordable' is that Lenovo was blowing them out so that they can
+hurry up and end-of-life them (I guess?).
+
+
+Back on the topic at hand:
+
+Terminal emulator: rxvt-unicode (invoked as 'urxvtcd'), sometimes xterms
+Text editor: emacs
+IM+IRC:  ssh to {screen + irssi + bitlbee}
+video player:  mplayer
+audio player: mpd + ncmpc
+display manager: xdm
+calculator:  ti89 or just google/"feel lucky" if I find I'm too
+feebleminded at the moment to figure it in my head
+Mail: gmail (for better or for worse, since it entails a browser) [1]
+Calendar: google calendar (for better or for worse, since it entails a
+browser) [2]
+Browser: Firefox (with "It's All Text" if I want to format code or whatever)
+
+Firefox makes me die a little inside each time I interact with it.  I
+fucking hate it, and it's all the worse because I noticed the suck
+back between the 1.0 -> 1.5 transition, and it's only gotten worse.
+Maybe I'll give opera another shot sometime.  Looking forward to
+chrome on linux.
+
+[1] on the topic of mail clients, I haven't seen anybody mention 'sup'
+( http://sup.rubyforge.org/ ), which didn't completely suck last time
+I tried it (early 2008).  Then again, shortly after I stopped using
+it, I noticed on the mailing list lots of Architecture Astronaut talk
+about splitting it into "sup the service" and "sup the client".  YMMV,
+it may be shit by now.
+
+[2] I used to use remind + wyrd with great success and much happiness
+until I started using google calendar+mail for work.  The only thing
+I'd really need for remind to keep working for me is a better backup
+solution for ~/reminders than I had at the time.  Every once in a
+while I think about going back to remind+wyrd.
+
+
+From tuomov at iki.fi  Sat Jan 17 01:21:07 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 17 Jan 2009 00:21:07 +0000 (UTC)
+Subject: [SEMI-OT] Applications in a typical ion3 desktop environment
+References: <20090111163916.GA9245@umbach-racing.de>
+	<slrngmke91.7ka.tuomov@jolt.modeemi.cs.tut.fi>
+	<f813e820901161514i193d076bhcf238edf47fc81b3@mail.gmail.com>
+Message-ID: <slrngn293j.in.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-01-16, Philip Snowberger <psnowber at nd.edu> wrote:
+> On Sun, Jan 11, 2009 at 10:23 AM, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> bought almost an identical x61s about 18 months previous.  That said,
+> it's kinda sad that the only reason it could be considered
+> 'affordable' is that Lenovo was blowing them out so that they can
+> hurry up and end-of-life them (I guess?).
+
+One thing I've been wondering is, whether a widescreen display on
+a laptop (not a dragtop!) is actually a bad idea too. And it's the
+trend. For most _sane_ documents, the height of the screen is more
+important than width. (The Modern Web counts as sheer lunacy. In
+a few years, given the trend, it will require triple-widescreen 
+configurations for all the advertisements and other crap, yet still
+have a single 5cm text column in the middle.)
+
+You'd need at least 15.4" WS (1.6 aspect) to fit a single A5-sized 
+document (21cm tall) on the screen without noticeable downscaling. 
+Such a laptop is already quite huge width-wise. In 4:3 aspect ratio
+14" is enough, and width-wise it's about the same as 13.1" WS, which
+just about fits a keyboard without it looking crammed. (I don't 
+have much direct experience with laptops.) And a 12" 4:3 is 
+approximately as tall as a 14.1" WS.
+
+(A5 is what you get when you print two pages on one A4 sheet, and
+anything noticeably smaller than that is too small for documents
+that you have not specifically prepared for printing small --
+see earlier post. In fact, an approx A4 sized screen -- A4 has
+14.5" diameter -- with sqrt(2)/1=~1.4 aspect ratio, which is wider 
+than  4:3=~1.3 but taller than 1.6, could be quite nice on a laptop.
+The WS laptopss themselves actually have about the aspect ratio of A4,
+but tend to have huge uneven borders around the screen. 
+
+> [1] on the topic of mail clients, I haven't seen anybody mention 'sup'
+> ( http://sup.rubyforge.org/ ), which didn't completely suck last time
+> I tried it (early 2008).  
+
+I've heard of it before and on principle it seemed almost what I've
+wanted. However, at least then it suffered from some limitations that
+I can't recall now, so I didn't bother trying it. 
+I also read mail on a remote computer that I don't control, so
+installing programs written in one of the Popular Bloated Scripting
+Languages isn't very straightforward.
+
+
+> it, I noticed on the mailing list lots of Architecture Astronaut talk
+> about splitting it into "sup the service" and "sup the client".  YMMV,
+> it may be shit by now.
+
+That sounds bad.
+
+> [2] I used to use remind + wyrd with great success and much happiness
+> until I started using google calendar+mail for work.  The only thing
+> I'd really need for remind to keep working for me is a better backup
+> solution for ~/reminders than I had at the time.  Every once in a
+> while I think about going back to remind+wyrd.
+
+I use a combination of xmessages and the cell phone for reminders,
+depending on the importance of the reminder and whether I should
+be near a computer anyway to act on it. (Why can't computer calendar
+software be as simple as that in cell phones? Wait! Probably they've
+managed to ruin them in them too with increased screen size and CPU 
+power.)
+
+
+~$ cat bin/atxm 
+#!/bin/sh
+
+if test $# -lt 1; then
+        echo 'Usage: atxm time [message]'
+        exit 0
+fi
+
+TIME=$1
+
+shift
+
+cd /
+
+(
+    echo '(iconv --to=latin1 | xmessage -display :0.0 -file -) << "EOF"'
+    if test $# -gt 0; then
+        echo "$@"
+    else
+        cat
+    fi
+    echo EOF
+) | at $TIME
+
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+
+From sylvain.abelard at gmail.com  Sat Jan 17 11:47:45 2009
+From: sylvain.abelard at gmail.com (=?UTF-8?Q?Sylvain_Ab=C3=A9lard?=)
+Date: Sat, 17 Jan 2009 11:47:45 +0100
+Subject: [SEMI-OT] Applications in a typical ion3 desktop environment
+In-Reply-To: <slrngn293j.in.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20090111163916.GA9245@umbach-racing.de>
+	<slrngmke91.7ka.tuomov@jolt.modeemi.cs.tut.fi>
+	<f813e820901161514i193d076bhcf238edf47fc81b3@mail.gmail.com>
+	<slrngn293j.in.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <9c6605e40901170247u6d892e40n96b645b10dee13b2@mail.gmail.com>
+
+> One thing I've been wondering is, whether a widescreen display on
+> a laptop (not a dragtop!) is actually a bad idea too. And it's the
+> trend. For most _sane_ documents, the height of the screen is more
+> important than width.
+
+That is completely true. WS and X-black-shiny-crap have been forced
+upon us, nobody sane would like that, and we're pretty much fucked up.
+But maybe some guy will get it right someday.
+
+> (The Modern Web counts as sheer lunacy. In
+> a few years, given the trend, it will require triple-widescreen
+> configurations for all the advertisements and other crap, yet still
+> have a single 5cm text column in the middle.)
+
+The Web will not require a triple-wide screen since the trend seems
+precisely to get the content on a third of the width, two thirds being
+empty white (or styled) borders. And, preferably, long pages and large
+headers, so it's frequent not to be able to even read half of the
+latest post without scrolling. Just have a look at Blogger, Wordpress
+and DotClear default and most used themes.
+
+Yes, the Web has the exact inverse trend than the screens. I am still
+wondering about that too. Who can tell what crap the
+Web-for-phones-and-devices will give us next ?
+
+> In fact, an approx A4 sized screen [...] could be quite nice on a laptop.
+
+That would be great, readable, and not to mention easier to fit in normal bags.
+
+-- 
+Sylvain Ab?lard
+"J'ai d?cid? d'?tre heureux, c'est meilleur pour la sant?." -Voltaire
+
+From tuomov at iki.fi  Sat Jan 17 12:36:37 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 17 Jan 2009 13:36:37 +0200
+Subject: [SEMI-OT] Applications in a typical ion3 desktop environment
+In-Reply-To: <9c6605e40901170247u6d892e40n96b645b10dee13b2@mail.gmail.com>
+References: <20090111163916.GA9245@umbach-racing.de>
+	<slrngmke91.7ka.tuomov@jolt.modeemi.cs.tut.fi>
+	<f813e820901161514i193d076bhcf238edf47fc81b3@mail.gmail.com>
+	<slrngn293j.in.tuomov@jolt.modeemi.cs.tut.fi>
+	<9c6605e40901170247u6d892e40n96b645b10dee13b2@mail.gmail.com>
+Message-ID: <20090117113637.GA31367@jolt.modeemi.cs.tut.fi>
+
+On 2009-01-17 11:47 +0100, Sylvain Ab?lard wrote:
+> 
+> > (The Modern Web counts as sheer lunacy. In
+> > a few years, given the trend, it will require triple-widescreen
+> > configurations for all the advertisements and other crap, yet still
+> > have a single 5cm text column in the middle.)
+> 
+> The Web will not require a triple-wide screen since the trend seems
+> precisely to get the content on a third of the width, two thirds being
+> empty white (or styled) borders. 
+
+The two thirds are mega-wide and force the text out of view in narrow
+browsers for sane content (such as my slightly smaller than portrait A4
+or "letter" window on a 17" 4:3 display) and viewing other stuff on the
+side. You need the tripe-wide screen configuration to not have
+to scroll horizontally to get to the text.
+
+> > In fact, an approx A4 sized screen [...] could be quite nice on a laptop.
+> 
+> That would be great, readable, and not to mention easier to fit in normal bags.
+
+Of course, it would also be great if you could use it as a tablet in
+portrait mode... with an e-paper display mode. The current "tablet PCs"
+seem horribly kludgy, though, and, in fact, it might be better for the
+tablet mode to be the default, with the computer behind the screen and
+no keyboard except on a docking station that perhaps can be attached
+to the computer nicely for transportation. At least I don't think 
+I'd miss the keyboard much when travelling lightly. The keyboard 
+does work as a screen cover, though, and there needs to be something
+to replace that function. Surely it can be made lighter and less 
+fragile than esp. tablet hinges. Or maybe the docking station can
+be made to fill this function, essentially making the computer
+of two detachable parts, so the tablet can be made less clunky.
+
+In fact, maybe you could also split the eletronics and battery
+between the two components, further reducing the tablet weight.
+E.g., a primary storage HD (or SSD) could go in the KB part, as 
+well as any optical drives -- actually, it sucks that you have to 
+again pay extra for a laptop that doesn't waste space for one;
+this is again something that belongs in a docking station or
+otherwise external device -- with a smaller SSD on the tablet
+part for the OS and some documents etc. The mechanical coupling
+between the parts of course has to be made reliable.
+
+-- 
+Tuomo
+
+
+From ebik at drak.ucw.cz  Sun Jan 18 10:26:53 2009
+From: ebik at drak.ucw.cz (ebik)
+Date: Sun, 18 Jan 2009 10:26:53 +0100
+Subject: Multi-, different- monitors is multi-hopeless?
+In-Reply-To: <alpine.LNX.2.00.0901161522440.10643@acer.home.local>
+References: <alpine.LNX.2.00.0901160131060.5209@acer.home.local>
+	<44371.88.146.1.38.1232094649.squirrel@drak.ucw.cz>
+	<alpine.LNX.2.00.0901161522440.10643@acer.home.local>
+Message-ID: <20090118102653.7755fe7a@Logran.cub>
+
+On Fri, 16 Jan 2009 17:55:53 -0500 (EST)
+"Benjamin R. Haskell" <ion at benizi.com> wrote:
+> Argh. I'm an idiot. I assumed since mod_xrandr was loaded that 
+> mod_xinerama had been loaded, too. This is working well for me, too,
+> now. Thanks, and sorry for the noise.
+
+I don't use mod_xrandr, for me it is useless since it doesn't support
+xrandr 1.2. I'm thinking about writing new mod_xrandr (a replace for
+old mod_xrandr and mod_xinerama), which can also read or write display
+proprerties. (This way I can control backlight on my laptop.) Also, the
+module should be more scriptable, providing xrandr functions to lua.
+
+-- 
+                                 Tom?? 'eb?k' Ebenlendr
+                                 http://get.to/ebik
+                                 PF 2009.04775405885
+
+
+
+From tuomov at iki.fi  Sun Jan 18 10:48:52 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 18 Jan 2009 09:48:52 +0000 (UTC)
+Subject: Multi-, different- monitors is multi-hopeless?
+References: <alpine.LNX.2.00.0901160131060.5209@acer.home.local>
+	<44371.88.146.1.38.1232094649.squirrel@drak.ucw.cz>
+	<alpine.LNX.2.00.0901161522440.10643@acer.home.local>
+	<20090118102653.7755fe7a@Logran.cub>
+Message-ID: <slrngn5uo4.8ue.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-01-18, ebik <ebik at drak.ucw.cz> wrote:
+> I don't use mod_xrandr, for me it is useless since it doesn't support
+> xrandr 1.2. 
+
+Xrandr 1.2 itself is useless shit-o-rama shit. *nix is dead.
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and local vendors and
+artisans have had to yield to "all under one roof" big box hypermarkets.
+
+
+
+From ebik at drak.ucw.cz  Sun Jan 18 11:06:15 2009
+From: ebik at drak.ucw.cz (ebik)
+Date: Sun, 18 Jan 2009 11:06:15 +0100
+Subject: Multi-, different- monitors is multi-hopeless?
+In-Reply-To: <slrngn5uo4.8ue.tuomov@jolt.modeemi.cs.tut.fi>
+References: <alpine.LNX.2.00.0901160131060.5209@acer.home.local>
+	<44371.88.146.1.38.1232094649.squirrel@drak.ucw.cz>
+	<alpine.LNX.2.00.0901161522440.10643@acer.home.local>
+	<20090118102653.7755fe7a@Logran.cub>
+	<slrngn5uo4.8ue.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20090118110615.37fcd429@Logran.cub>
+
+On Sun, 18 Jan 2009 09:48:52 +0000 (UTC)
+Tuomo Valkonen <tuomov at iki.fi> wrote:
+
+> On 2009-01-18, ebik <ebik at drak.ucw.cz> wrote:
+> > I don't use mod_xrandr, for me it is useless since it doesn't
+> > support xrandr 1.2. 
+> 
+> Xrandr 1.2 itself is useless shit-o-rama shit. *nix is dead.
+> 
+
+Sorry for useless spamming the list. But for me xrandr just sucks, but
+it is useful. WIMP sucks more, thus I use ION and *nix. If there will
+be ion-like (pseudo)windowmanager for windows, I will use windows more.
+And using more than one screen is very convenient for my work. Most of
+the time I use laptop screen in vertical position to show compiled tex
+page and desktop lcd to show editor of tex source and sources of my
+work.
+
+Sometimes I use Xrandr to set up beamer, so that I can present my
+slides with notes for the speaker on screen of the laptop. And when
+administrating a cluster of servers I use cssh, to do same things on all
+servers at once. Then I'm glad for any space for my terminals. There is
+currently no option to multiple screens than xrandr today.
+
+-- 
+                                 Tom?? 'eb?k' Ebenlendr
+                                 http://get.to/ebik
+                                 PF 2009.04781513191
+
+
+From tuomov at iki.fi  Sun Jan 18 13:53:36 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 18 Jan 2009 12:53:36 +0000 (UTC)
+Subject: Multi-, different- monitors is multi-hopeless?
+References: <alpine.LNX.2.00.0901160131060.5209@acer.home.local>
+	<44371.88.146.1.38.1232094649.squirrel@drak.ucw.cz>
+	<alpine.LNX.2.00.0901161522440.10643@acer.home.local>
+	<20090118102653.7755fe7a@Logran.cub>
+	<slrngn5uo4.8ue.tuomov@jolt.modeemi.cs.tut.fi>
+	<20090118110615.37fcd429@Logran.cub>
+Message-ID: <slrngn69ig.2dk.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-01-18, ebik <ebik at drak.ucw.cz> wrote:
+> There is
+> currently no option to multiple screens than xrandr today.
+
+Yes there is: it's called plain-old-X-multihead, or _the clean
+solution_ that doesn't smell of a rotten kludge to the other side
+of the globe. *Eugh*, adding more screens by pre-allocating a huge
+root window and then adding views to it, *eugh*, *puke*, *blaargh*.
+And that's the approach taken to everything these days in 
+Futile/fascist Open Sore Software. (Futile, because it's destined
+to become just another incredibly poor bastard son of Windows and
+MacOS, instead of offering a real choice. Fascist, because it
+offers no practical choice anymore; only the _purely theoretical_
+choice of forking the code yourself, wasting your life on it.)
+
+How about just creating new root windows dynamically? And using 
+the same old APIs that are used for any other windows?
+
+-- 
+In 1995, Linux was almost a bicycle; an alternative way of live to the
+Windows petrol beasts that had to be taken to the dealer for service.
+By 2008, Linux has bloated into a gas-guzzler, and the cycle paths 
+have been replaced with polluted motorways.
+
+
+
+From dcl441-bugs at yahoo.com  Wed Jan 21 02:34:41 2009
+From: dcl441-bugs at yahoo.com (Daniel Clemente)
+Date: Wed, 21 Jan 2009 02:34:41 +0100
+Subject: Keyboard focus lost in Swing applications (ex: Netbeans) after
+	changing to window
+References: <87sknkgbd6.fsf@CPU107.opentrends.net>
+	<slrngmv6eu.34l.tuomov@jolt.modeemi.cs.tut.fi>
+	<87sknjejvg.fsf@CPU107.opentrends.net>
+Message-ID: <8763k9fnm6.fsf@yahoo.com>
+
+Daniel Clemente <dcl441-bugs at yahoo.com> writes:
+
+>
+>   I will check it again in other systems. 
+
+
+Hi,
+  I tried it with Sun's Java 1.6.0_10 on Debian (another machine). The bug is still present.
+  However, on the same machine, Sun's Java 1.5.0_16-b02 makes my example work as expected (focus is not lost).
+
+  And with libgcj... well, the example didn't work correctly and I didn't see the text field. My version:
+java version "1.5.0"
+gij (GNU libgcj) version 4.3.3 20090110 (prerelease)
+
+  With OpenJDK 1.6.0_0-b11, the bug shows up.
+  With the unreleased Java 1.7.0-ea-b43, the same (bug present).
+
+  So the focus problem seems to be a regression introduced in version 1.6 of Java and still not corrected...
+  Or maybe it is indeed a bug in ion3; since other window managers (ex: icewm) do work with Java 1.6.
+
+  In any case, I sent this bug to Java (sorry, it's not public yet). I will report progress here.
+
+-- Daniel
+
+
+
+From tuomov at iki.fi  Wed Jan 21 08:06:59 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 21 Jan 2009 07:06:59 +0000 (UTC)
+Subject: Keyboard focus lost in Swing applications (ex: Netbeans) after
+	changing to window
+References: <87sknkgbd6.fsf@CPU107.opentrends.net>
+	<slrngmv6eu.34l.tuomov@jolt.modeemi.cs.tut.fi>
+	<87sknjejvg.fsf@CPU107.opentrends.net> <8763k9fnm6.fsf@yahoo.com>
+Message-ID: <slrngndicj.6hp.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-01-21, Daniel Clemente <dcl441-bugs at yahoo.com> wrote:
+
+>   So the focus problem seems to be a regression introduced in version 1.6
+>   of Java and still not corrected... Or maybe it is indeed a bug in ion3;
+>   since other window managers (ex: icewm) do work with Java 1.6.
+
+It seems that at most it could be related to different interpretations
+of the ICCCM that's a bit vague at this point, race conditions, etc.
+
+One possible problem is the handling of the WM_TAKE_FOCUS call, 
+although most "modern" toolkits just seem to ignore X focus
+for any widgets, and do their own complicated buggy focus tracking,
+(cause of the legendary firefox/gtk focus bug that took years to fix,
+and only by an Ion user, not the gtk lamers) so WM_TAKE_FOCUS should
+pretty much be ignored.
+
+Try moving the region_finalise_focusing call to the beginning of
+clientwin_do_set_focus. This could help -- and seems to be the more
+logical order of the calls -- but it will probably break some other
+applications. The ICCCM doesn't seem to specify in which order the
+WM should set the focus to the application top level window, and
+send the WM_TAKE_FOCUS message that tells the client to give the
+focus to a more specific widget. Also, since there's no (simple) 
+way to coordinate the timestamp of the actual focus change call
+with Xlib, and the timestamp for the client message has to be 
+obtained by a hack, this could cause problems. 
+
+Probably it won't help, and will break other things, but it
+seems worth a try.
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+

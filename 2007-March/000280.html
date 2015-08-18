@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> If it is still unclear to someone...
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20If%20it%20is%20still%20unclear%20to%20someone...&In-Reply-To=%3C20070319171315.GB4772%40marco.fz-rossendorf.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000277.html">
+   <LINK REL="Next"  HREF="000283.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>If it is still unclear to someone...</H1>
+    <B>Joerg van den Hoff</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20If%20it%20is%20still%20unclear%20to%20someone...&In-Reply-To=%3C20070319171315.GB4772%40marco.fz-rossendorf.de%3E"
+       TITLE="If it is still unclear to someone...">j.van_den_hoff at fzd.de
+       </A><BR>
+    <I>Mon Mar 19 18:13:15 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000277.html">If it is still unclear to someone...
+</A></li>
+        <LI>Next message: <A HREF="000283.html">If it is still unclear to someone...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#280">[ date ]</a>
+              <a href="thread.html#280">[ thread ]</a>
+              <a href="subject.html#280">[ subject ]</a>
+              <a href="author.html#280">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Mon, Mar 19, 2007 at 11:14:34AM -0400, Ted Zlatanov wrote:
+&gt;<i> On Sun, 18 Mar 2007 10:30:48 +0100 csant &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">csant at csant.info</A>&gt; wrote: 
+</I>&gt;<i> 
+</I>&gt;<i> &gt;&gt; I think this kind of help should actually live in the scratchpad, it's
+</I>&gt;<i> &gt;&gt; exactly the right pop-up model.
+</I>&gt;<i> 
+</I>&gt;<i> c&gt; Just make sure that the user first discovers how to pop up the
+</I>&gt;<i> c&gt; scratchpad - and how to pop it away again :) (FWIW, IMHO some
+</I>&gt;<i> c&gt; minibuffer would be a  better location)
+</I>&gt;<i> 
+</I>&gt;<i> So you and Tuomo noted that the user sees the status bar, but doesn't
+</I>&gt;<i> see the scratch pad by default.  Thus, the status bar should say
+</I>&gt;<i> &quot;Press MOD+F1 (MOD is 'Alt' on most keyboards) to see the pop-up help&quot;
+</I>&gt;<i> and the scratchpad should come up on that keypress, showing the
+</I>&gt;<i> manual.  That's how I would set things up.
+</I>
+I'd rather not interfere with the standard  keybindings here: scratchpad
+pops up with mod1+space. 
+
+as I said already, I think the best way to pop up the tutorial would be
+mod1+F1 which currently is bound to ion3 manpage (as is F1&lt;RET&gt;, which suffices
+for getting to the manpage). I really don't see a point in popping up the help
+in the scratchpad frame: it's by default and for good reason a rather small frame in
+the middle of the screen. that's exactly what one wants here most of the time: a
+small window where one can issue `make' or whatever). if you display a longer
+document here, one _always_ would need to maximize the scratchpad first (if one
+knows how to do it...). I find the current approach taken with the manpages via F1 much
+more sensible: use whichever frame you happen to be in. same should
+happen with the tutorial  when issuing mod1+F1.
+usually this will than display in a large frame allowing to read the document in a sensible
+way.
+
+question: what are the ideas for achieving formatting? should this be written as a troff
+manpage like the real manpage (might be OK)? or what else? I'd definitely
+advocate to use something which allows to get sensible formatted output to the
+terminal (just as `man'). if people are comfortable with it, I'd propose 'troff/ms'
+wich would allow better control over formatting. (a bit of advertising for this
+dinosaur: it's always there, just as `troff/man',  
+it's definitely not more complicated than the `troff/man' macros and
+it would allow easy integration of nicely formatted tables via the `tbl'
+preprocessor' even for terminal output -- might be helpful for the keybinding
+lists... and maybe(...) I could at least take over formatting if you feel
+uncomfortable with it).
+
+in eithcer case `man' and `ms' would allow to format into pdf, html, too. yes. TeX
+would be working too (but not for sensible terminal output), but talking of
+bloatware... and please, please: not texinfo... I think the best thing is to have
+(as far as possible) nicely formatted output in a terminal which is piped
+through `less' for navigation/searching.
+
+and finally: I would'nt like to  have a permanent 'help' entry in the statusbar. 
+I feel it should go in the F12 menu (together with `about', 'help'. here I would
+argue to occupy the `help' entry with the new stuff and change the current
+'help' to 'manpages' or 'man' because that's what it is). the user must somehow
+have learned initially of the F12 menu otherwise he/she won't get out of ion3 at
+all. another hint to the tutorial should go in the manpage (SEE ALSO), 
+which one can expect that every users has had a look at .
+
+joerg
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000277.html">If it is still unclear to someone...
+</A></li>
+	<LI>Next message: <A HREF="000283.html">If it is still unclear to someone...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#280">[ date ]</a>
+              <a href="thread.html#280">[ thread ]</a>
+              <a href="subject.html#280">[ subject ]</a>
+              <a href="author.html#280">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

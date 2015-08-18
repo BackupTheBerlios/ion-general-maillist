@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> A devious little hack...
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20A%20devious%20little%20hack...&In-Reply-To=%3C87ve7wugsa.fsf%40jbms.ath.cx%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000858.html">
+   <LINK REL="Next"  HREF="000863.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>A devious little hack...</H1>
+    <B>Jeremy Maitin-Shepard</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20A%20devious%20little%20hack...&In-Reply-To=%3C87ve7wugsa.fsf%40jbms.ath.cx%3E"
+       TITLE="A devious little hack...">jbms at cmu.edu
+       </A><BR>
+    <I>Wed Nov 21 09:47:01 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000858.html">A devious little hack...
+</A></li>
+        <LI>Next message: <A HREF="000863.html">A devious little hack...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#862">[ date ]</a>
+              <a href="thread.html#862">[ thread ]</a>
+              <a href="subject.html#862">[ subject ]</a>
+              <a href="author.html#862">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Perhaps there is a simpler, less radical way you can achieve what you
+want.
+
+It seems that you want Ion to be a great piece of software for you to
+use yourself and also for others to use.  Us users are all very
+appreciative that you have made Ion available.  (Certainly you could
+decide not to make any new releases of Ion publicly available anymore at
+all, but I imagine that you, like myself and other free software
+developers, enjoy seeing others benefiting from your work.)
+
+Certainly users cannot have any expectation of support from you, even if
+they are using the latest version; clearly they are better off getting
+the Ion source code from you without support than not getting Ion at
+all.
+
+If you decide you are willing to provide support for the latest
+unmodified version, that is, of course, an added bonus.
+
+It seems that your primary motivations for the recent
+licensing/trademark/distribution changes are twofold:
+
+1. You do not want the reputation of Ion (and your work) to be hurt due
+to distributions associating the name Ion with old or patched (and
+therefore possibly worse) versions of Ion.
+
+2. You do not want to have to deal with support requests for old or
+modified versions of Ion.
+
+In addition, you might also want to ensure that everyone using Ion is
+using the best possible version (which you assume to be the current,
+unmodified version), and therefore would like to make sure that the
+current version is the one most readily available/convenient for all
+users.  (Therefore, you'd like to ensure that if distributions make Ion
+available as a package (thus more convenient than downloading it from
+the Ion web page directly), the current version is the one that will be
+available.)
+
+I'll address the first two objectives below, but I'll explain first why
+this last objective does not need to be considered: I think that it
+really is reasonable for distributions to decide what version of Ion to
+provide users; it doesn't make sense to try to force users of some
+&quot;stable&quot; distribution, like Debian stable, to use the very latest
+version of Ion.  One significant reason users pick a distribution is
+because they _want_ to follow the judgment of the distribution packagers
+in selecting particular versions of packages and particular patches to
+apply.  You might not agree with the decisions made by the distribution
+packagers, but except to the extent that it relates to the first two
+objectives, I don't think you should be concerned about users being
+given convenient access to &quot;sub-standard&quot; versions of Ion.
+
+As far as the first objective, it is common knowledge that distributions
+often make significant patches to the packages they distribute, and
+sometimes those patches can change the behavior of the package in
+certain ways, or in the worst case introduce bugs.  It is also common
+knowledge that distributions typically don't always distribute the
+latest version of a package.  Distributions typically will still call
+the package by its original name, but users should know that the program
+they receive from the distribution package is not exactly the same as
+the latest version of the original package.  More importantly, though,
+you can ensure that this fact is very clear by requesting that
+distributions include a very prominent message in any packages of Ion
+that are modified or not current.  The message can state very clearly
+that the distribution-created package provides a modified version of Ion
+that may have additional bugs or missing features compared to the
+current official version.  This message can be displayed both during
+installation, and also perhaps upon the first launch after an upgrade
+and upon the very first launch after a new installation.  I think this
+simple request should suffice for satisfying the first objective.
+
+As far as the second objective, the problem seems to come down to
+eliminating what you would consider to be effectively junk e-mails
+(support requests for old/modified Ion versions) from the Ion mailing
+list.  I think this can be achieved by requesting that distributions add
+a notice to packages for old/modified versions of Ion that users should
+not spam the Ion mailing list with support requests, but rather should
+send the request to the distribution package maintainer.  Furthermore,
+you could include a message by all places that list the address for the
+Ion mailing list that you are willing to provide support for the current
+official Ion version, but you don't have time to provide support for old
+or modified versions of Ion, and therefore support questions regarding
+old or modified versions of Ion should not be sent to the list.  You can
+request, also, that any support request should explicitly state at the
+beginning of the message what version of Ion is used, such that you can
+easily filter an inappropriate support requests.
+
+I think distributions should certainly try to respect your wishes
+regarding the packaging of Ion, regardless of whether you find a way to
+legally enforce that; as I see it, laws govern the interactions of
+enemies, not the interactions of friends, and I'd like to think that
+there can be a friendly relationship between distribution package
+maintainers, users, and free software developers.  Trying to impose
+these various additional license/trademark restrictions will only create
+additional hassle for everyone, while providing little real gain for
+you; in the end, fewer people will be able to benefit from your work,
+either because they don't bother to try Ion because it is not included
+in their distribution (even if such a user would eventually build Ion
+from source, someone merely looking to &quot;check out&quot; Ion is less likely to
+do so if it requires manually obtaining the source code, building it,
+and installing it), or because they would like to incorporate some code
+from Ion into another project, but because of the license restrictions,
+cannot do this.
+
+-- 
+Jeremy Maitin-Shepard
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000858.html">A devious little hack...
+</A></li>
+	<LI>Next message: <A HREF="000863.html">A devious little hack...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#862">[ date ]</a>
+              <a href="thread.html#862">[ thread ]</a>
+              <a href="subject.html#862">[ subject ]</a>
+              <a href="author.html#862">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

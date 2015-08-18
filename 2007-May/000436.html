@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> License change
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20License%20change&In-Reply-To=%3Cslrnf45rf0.e21.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000435.html">
+   <LINK REL="Next"  HREF="000437.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>License change</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20License%20change&In-Reply-To=%3Cslrnf45rf0.e21.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="License change">tuomov at iki.fi
+       </A><BR>
+    <I>Thu May 10 12:03:12 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000435.html">License change
+</A></li>
+        <LI>Next message: <A HREF="000437.html">License change
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#436">[ date ]</a>
+              <a href="thread.html#436">[ thread ]</a>
+              <a href="subject.html#436">[ subject ]</a>
+              <a href="author.html#436">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2007-05-10, Matti Bickel &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">mabi at gentoo.org</A>&gt; wrote:
+&gt;<i> I don't personally use it, to begin with. But there have been users
+</I>&gt;<i> inquiring about, providing patches, and as it's really just a one line
+</I>&gt;<i> change, i added it for their convience. Might make that conditional on
+</I>&gt;<i> --as-needed being in LDFLAGS, though.
+</I>
+I've seen some of those patches, and they're ugly workarounds to
+--as-needed being broken. They should not be needed, if the flag
+weren't broken. (Although perhaps it would be better to include some
+more explicit library dependencies in modules' Makefiles. Few of 
+Ion's modules specify the libraries they use -- and can not at build
+time be linked against ioncore, as the symbols are expected to be 
+provided by the binary. Some modules don't compile with --as-needed
+without specifying some of their library dependencies, but others do,
+and yet --as-needed is supposed to only remove unnecessary explicitly 
+specified dependencies.)
+
+&gt;<i> _rc will include a postinstall message that tells users to reproduce
+</I>&gt;<i> with a vanilla build before reporting bugs upstream plus a note that
+</I>&gt;<i> encourages users to go file the bugs at bugs.gentoo.org first.
+</I>
+And how easy it is to overlook such a message? In a huge batch build?
+Is this also mentioned where the extra flags are documented 
+(or &quot;documented&quot;)?
+
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000435.html">License change
+</A></li>
+	<LI>Next message: <A HREF="000437.html">License change
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#436">[ date ]</a>
+              <a href="thread.html#436">[ thread ]</a>
+              <a href="subject.html#436">[ subject ]</a>
+              <a href="author.html#436">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,257 @@
+From dcl441-bugs at yahoo.com  Sun Feb  8 21:52:18 2009
+From: dcl441-bugs at yahoo.com (Daniel Clemente)
+Date: Sun, 08 Feb 2009 21:52:18 +0100
+Subject: Keyboard focus lost in Swing applications (ex: Netbeans) after
+	changing to window
+References: <87sknkgbd6.fsf@CPU107.opentrends.net>
+	<slrngmv6eu.34l.tuomov@jolt.modeemi.cs.tut.fi>
+	<87sknjejvg.fsf@CPU107.opentrends.net> <8763k9fnm6.fsf@yahoo.com>
+	<slrngndicj.6hp.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <87zlgwy7lp.fsf@yahoo.com>
+
+
+Hi; thanks for the helpful explanations.
+
+  I tried doing that change and it stayed the same. I also tried doing a sleep(2) before sending the WM_TAKE_FOCUS (with the +2s timestamp), but without success.
+
+  What did work is this:
+
+static void clientwin_do_set_focus(WClientWin *cwin, bool warp)
+{
+    if(cwin->flags&CLIENTWIN_P_WM_TAKE_FOCUS){
+        Time stmp=ioncore_get_timestamp();
+        send_clientmsg(cwin->win, ioncore_g.atom_wm_take_focus, stmp);
+    } else {
+        region_finalise_focusing((WRegion*)cwin, cwin->win, warp);
+    }
+    
+    XSync(ioncore_g.dpy, 0);
+}
+
+
+  I just added the ?else? keyword so that region_finalise_focusing is not called if the WM_TAKE_FOCUS is sent. I don't know the meaning of this, but only that it solves all problems with Netbeans and my example Swing application. Focus is set to the last active widget.
+  This, however, makes Konqueror 4 stop receiving focus. This makes me think:
+- Konqueror has flag CLIENTWIN_P_WM_TAKE_FOCUS and apparently needs both the WM_TAKE_FOCUS call and the region_finalise_focusing
+- Netbeans/Swing also has flag CLIENTWIN_P_WM_TAKE_FOCUS, but if you run the region_finalise_focusing code on it, it loses focus
+
+  Maybe region_finalise_focusing should sometimes be doing nothing in windows like Netbeans.
+  Or maybe Swing should be correctly handling the XSetInputFocus(ioncore_g.dpy, win, RevertToParent, CurrentTime) in region_finalise_focusing.
+
+  It is exactly at that XSetInputFocus where the text field at the Swing application loses the keyboard focus (I tested it inserting sleeps between calls).
+
+
+  I filed this bug to Sun but I don't know whether they think the bug is in JDK. The bug report is at http://bugs.sun.com/view_bug.do?bug_id=6798064
+
+  Greetings,
+Daniel
+
+
+
+
+From tuomov at iki.fi  Sun Feb  8 23:37:16 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 9 Feb 2009 00:37:16 +0200
+Subject: Keyboard focus lost in Swing applications (ex: Netbeans) after
+	changing to window
+In-Reply-To: <87zlgwy7lp.fsf@yahoo.com>
+References: <87sknkgbd6.fsf@CPU107.opentrends.net>
+	<slrngmv6eu.34l.tuomov@jolt.modeemi.cs.tut.fi>
+	<87sknjejvg.fsf@CPU107.opentrends.net> <8763k9fnm6.fsf@yahoo.com>
+	<slrngndicj.6hp.tuomov@jolt.modeemi.cs.tut.fi>
+	<87zlgwy7lp.fsf@yahoo.com>
+Message-ID: <20090208223716.GA29391@jolt.modeemi.cs.tut.fi>
+
+On 2009-02-08 21:52 +0100, Daniel Clemente wrote:
+> 
+> Hi; thanks for the helpful explanations.
+> 
+>   I tried doing that change and it stayed the same. I also tried doing a sleep(2) before sending the WM_TAKE_FOCUS (with the +2s timestamp), but without success.
+> 
+>   What did work is this:
+
+Try the attached patch. (Disclaimer: I haven't particularly tried it; 
+just quickly threw it together.)
+
+-- 
+Stop Gnomes and other pests! Purchase Windows today!
+
+-------------- next part --------------
+diff -rN -u old-ion-3/ioncore/clientwin.c new-ion-3/ioncore/clientwin.c
+--- old-ion-3/ioncore/clientwin.c	2009-02-09 00:35:07.380883290 +0200
++++ new-ion-3/ioncore/clientwin.c	2009-02-09 00:35:07.488878930 +0200
+@@ -1015,10 +1015,11 @@
+ {
+     if(cwin->flags&CLIENTWIN_P_WM_TAKE_FOCUS){
+         Time stmp=ioncore_get_timestamp();
++        region_finalise_focusing((WRegion*)cwin, cwin->win, warp, stmp);
+         send_clientmsg(cwin->win, ioncore_g.atom_wm_take_focus, stmp);
++    }else{
++        region_finalise_focusing((WRegion*)cwin, cwin->win, warp, CurrentTime);
+     }
+-
+-    region_finalise_focusing((WRegion*)cwin, cwin->win, warp);
+     
+     XSync(ioncore_g.dpy, 0);
+ }
+diff -rN -u old-ion-3/ioncore/focus.c new-ion-3/ioncore/focus.c
+--- old-ion-3/ioncore/focus.c	2009-02-09 00:35:07.368883774 +0200
++++ new-ion-3/ioncore/focus.c	2009-02-09 00:35:07.484879092 +0200
+@@ -347,7 +347,7 @@
+ /*Time ioncore_focus_time=CurrentTime;*/
+ 
+ 
+-void region_finalise_focusing(WRegion* reg, Window win, bool warp)
++void region_finalise_focusing(WRegion* reg, Window win, bool warp, Time time)
+ {
+     if(warp)
+         region_do_warp(reg);
+@@ -356,10 +356,7 @@
+         return;
+     
+     region_set_await_focus(reg);
+-    /*xwindow_do_set_focus(win);*/
+-    XSetInputFocus(ioncore_g.dpy, win, RevertToParent, 
+-                   CurrentTime/*ioncore_focus_time*/);
+-    /*ioncore_focus_time=CurrentTime;*/
++    XSetInputFocus(ioncore_g.dpy, win, RevertToParent, time);
+ }
+ 
+ 
+diff -rN -u old-ion-3/ioncore/focus.h new-ion-3/ioncore/focus.h
+--- old-ion-3/ioncore/focus.h	2009-02-09 00:35:07.368883774 +0200
++++ new-ion-3/ioncore/focus.h	2009-02-09 00:35:07.484879092 +0200
+@@ -23,7 +23,7 @@
+ extern void region_warp(WRegion *reg); /* maybewarp TRUE */
+ extern void region_set_focus(WRegion *reg); /* maybewarp FALSE */
+ 
+-extern void region_finalise_focusing(WRegion* reg, Window win, bool warp);
++extern void region_finalise_focusing(WRegion* reg, Window win, bool warp, Time time);
+ 
+ DYNFUN void region_do_set_focus(WRegion *reg, bool warp);
+ extern void region_do_warp(WRegion *reg);
+diff -rN -u old-ion-3/ioncore/group.c new-ion-3/ioncore/group.c
+--- old-ion-3/ioncore/group.c	2009-02-09 00:35:07.272887653 +0200
++++ new-ion-3/ioncore/group.c	2009-02-09 00:35:07.460880061 +0200
+@@ -241,7 +241,7 @@
+     if(st!=NULL && st->reg!=NULL)
+         region_do_set_focus(st->reg, warp);
+     else
+-        region_finalise_focusing((WRegion*)ws, ws->dummywin, warp);
++        region_finalise_focusing((WRegion*)ws, ws->dummywin, warp, CurrentTime);
+ }
+ 
+ 
+diff -rN -u old-ion-3/ioncore/window.c new-ion-3/ioncore/window.c
+--- old-ion-3/ioncore/window.c	2009-02-09 00:35:07.332885230 +0200
++++ new-ion-3/ioncore/window.c	2009-02-09 00:35:07.480879252 +0200
+@@ -182,7 +182,7 @@
+ 
+ void window_do_set_focus(WWindow *wwin, bool warp)
+ {
+-    region_finalise_focusing((WRegion*)wwin, wwin->win, warp);
++    region_finalise_focusing((WRegion*)wwin, wwin->win, warp, CurrentTime);
+ }
+ 
+ 
+diff -rN -u old-ion-3/mod_tiling/tiling.c new-ion-3/mod_tiling/tiling.c
+--- old-ion-3/mod_tiling/tiling.c	2009-02-09 00:35:07.124893627 +0200
++++ new-ion-3/mod_tiling/tiling.c	2009-02-09 00:35:07.416881837 +0200
+@@ -158,7 +158,7 @@
+ 
+ void tiling_fallback_focus(WTiling *ws, bool warp)
+ {
+-    region_finalise_focusing((WRegion*)ws, ws->dummywin, warp);
++    region_finalise_focusing((WRegion*)ws, ws->dummywin, warp, CurrentTime);
+ }
+ 
+ 
+
+
+From dcl441-bugs at yahoo.com  Mon Feb  9 01:22:55 2009
+From: dcl441-bugs at yahoo.com (Daniel Clemente)
+Date: Mon, 09 Feb 2009 01:22:55 +0100
+Subject: Keyboard focus lost in Swing applications (ex: Netbeans) after
+	changing to window
+References: <87sknkgbd6.fsf@CPU107.opentrends.net>
+	<slrngmv6eu.34l.tuomov@jolt.modeemi.cs.tut.fi>
+	<87sknjejvg.fsf@CPU107.opentrends.net> <8763k9fnm6.fsf@yahoo.com>
+	<slrngndicj.6hp.tuomov@jolt.modeemi.cs.tut.fi>
+	<87zlgwy7lp.fsf@yahoo.com>
+	<20090208223716.GA29391@jolt.modeemi.cs.tut.fi>
+Message-ID: <87vdrkxxuo.fsf@yahoo.com>
+
+
+>
+> Try the attached patch. (Disclaimer: I haven't particularly tried it; 
+> just quickly threw it together.)
+
+  Well, it improved lots of things. It works perfectly with gtk, qt, tk, keyboard, mouse, ?
+  The example code now works when I use Java 1.6.0_12-b04. But if I compile and run it with the unreleased 1.7.0-ea-b43, the focus is still buggy: not only the text field misses focus after going to that window, but also I can't restore the focus to the text field even if I click into it many times. Even with JDK 1.7, this doesn't happen in other window managers (I tried wmaker).
+
+
+
+
+From aldleonm at gmail.com  Mon Feb  9 04:48:29 2009
+From: aldleonm at gmail.com (Antonio De Leon)
+Date: Sun, 8 Feb 2009 22:48:29 -0500
+Subject: signal 11 from X 1.4.2 with nvidia driver
+Message-ID: <7cb80b4d0902081948p6ed0e930p37a46d4899787fac@mail.gmail.com>
+
+Im getting a signal 11 from X using the nvidia drivers from nvidia
+180.22 and fixed it
+passing   "Option     "SWcursor"                   "true" " in the
+Device section of xorg.conf,
+
+it only happens when using ion3 from 200808 onwards. xfce and others
+work normally.
+
+running on slackware 12.2 / xorg 1.4.2
+
+
+From tuomov at iki.fi  Tue Feb 10 11:48:04 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 10 Feb 2009 10:48:04 +0000 (UTC)
+Subject: Keyboard focus lost in Swing applications (ex: Netbeans) after
+	changing to window
+References: <87sknkgbd6.fsf@CPU107.opentrends.net>
+	<slrngmv6eu.34l.tuomov@jolt.modeemi.cs.tut.fi>
+	<87sknjejvg.fsf@CPU107.opentrends.net> <8763k9fnm6.fsf@yahoo.com>
+	<slrngndicj.6hp.tuomov@jolt.modeemi.cs.tut.fi>
+	<87zlgwy7lp.fsf@yahoo.com>
+	<20090208223716.GA29391@jolt.modeemi.cs.tut.fi>
+	<87vdrkxxuo.fsf@yahoo.com>
+Message-ID: <slrngp2mr4.dtv.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-02-09, Daniel Clemente <dcl441-bugs at yahoo.com> wrote:
+>   Well, it improved lots of things. It works perfectly with gtk, qt, tk,
+>   keyboard, mouse, ??? The example code now works when I use Java
+>   1.6.0_12-b04. But if I compile and run it with the unreleased
+>   1.7.0-ea-b43, the focus is still buggy: 
+
+You could, again, try reversing the order of the finalise_focus and
+sendmsg in the TAKE_FOCUS branch of the clientwin focus function.
+
+-- 
+Stop Gnomes and other pests! Purchase Windows today!
+
+
+
+
+From tuomov at iki.fi  Tue Feb 10 11:48:42 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 10 Feb 2009 10:48:42 +0000 (UTC)
+Subject: signal 11 from X 1.4.2 with nvidia driver
+References: <7cb80b4d0902081948p6ed0e930p37a46d4899787fac@mail.gmail.com>
+Message-ID: <slrngp2msa.dtv.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2009-02-09, Antonio De Leon <aldleonm at gmail.com> wrote:
+> it only happens when using ion3 from 200808 onwards. xfce and others
+> work normally.
+
+Sounds like an Xorg bug. 
+
+-- 
+Stop Gnomes and other pests! Purchase Windows today!
+
+
+

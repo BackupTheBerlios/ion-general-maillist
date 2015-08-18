@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Preventing windows from grabbing the focus
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-August/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Preventing%20windows%20from%20grabbing%20the%20focus&In-Reply-To=%3Cslrngal8hm.763.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001322.html">
+   <LINK REL="Next"  HREF="001324.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Preventing windows from grabbing the focus</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Preventing%20windows%20from%20grabbing%20the%20focus&In-Reply-To=%3Cslrngal8hm.763.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Preventing windows from grabbing the focus">tuomov at iki.fi
+       </A><BR>
+    <I>Tue Aug 19 12:36:38 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001322.html">Preventing windows from grabbing the focus
+</A></li>
+        <LI>Next message: <A HREF="001324.html">Preventing windows from grabbing the focus
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1323">[ date ]</a>
+              <a href="thread.html#1323">[ thread ]</a>
+              <a href="subject.html#1323">[ subject ]</a>
+              <a href="author.html#1323">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-08-19, Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt; wrote:
+&gt;<i> Unfortunately, focus change is not a &quot;request&quot;, unlike geometry change.
+</I>&gt;<i> Geometry changes get forwarded for the WM to act upon, and according
+</I>&gt;<i> to the ICCCM, it can do as it pleases, and the app must not fight
+</I>&gt;<i> back. (Many do, these days!) Focus change messages are acted upon by
+</I>&gt;<i> the server, and are honoured when they can be (i.e. the window is 
+</I>&gt;<i> visible, no active grabs, and so). AFAIK ICCCM does not discuss 
+</I>&gt;<i> whether the WM is allowed to overrule such changes by switching
+</I>&gt;<i> focus back.
+</I>
+PS. A more proper way for apps to actually _request_ the WM to
+give focus, instead of forcing it, is the NET_WM_ACTIVE_WINDOW 
+protocol. Ion ignores it by default, although it can be activated
+with winprops.
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001322.html">Preventing windows from grabbing the focus
+</A></li>
+	<LI>Next message: <A HREF="001324.html">Preventing windows from grabbing the focus
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1323">[ date ]</a>
+              <a href="thread.html#1323">[ thread ]</a>
+              <a href="subject.html#1323">[ subject ]</a>
+              <a href="author.html#1323">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> ion3 license
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion3%20license&In-Reply-To=%3C4766B87C.9050402%40ubuntu.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000902.html">
+   <LINK REL="Next"  HREF="000905.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>ion3 license</H1>
+    <B>Mariano Mara</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion3%20license&In-Reply-To=%3C4766B87C.9050402%40ubuntu.com%3E"
+       TITLE="ion3 license">marplatense at ubuntu.com
+       </A><BR>
+    <I>Mon Dec 17 18:57:16 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000902.html">ion3 license
+</A></li>
+        <LI>Next message: <A HREF="000905.html">ion3 license
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#904">[ date ]</a>
+              <a href="thread.html#904">[ thread ]</a>
+              <a href="subject.html#904">[ subject ]</a>
+              <a href="author.html#904">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Quentin Huys wrote:
+&gt;<i> 
+</I>&gt;<i> PS: and as we're here: This is what I get when trying to compile:
+</I>&gt;<i> 
+</I>&gt;<i> ql:~/Desktop/ion-3rc-20071130% make
+</I>&gt;<i> set -e; for i in libtu libextl libmainloop mod_tiling mod_query mod_menu 
+</I>&gt;<i> mod_dock mod_sp mod_sm mod_statusbar de ioncore ion pwm etc utils man po 
+</I>&gt;<i> ; do make -C $i; done
+</I>&gt;<i> gcc -Os -W -Wimplicit -Wreturn-type -Wswitch -Wcomment -Wtrigraphs 
+</I>&gt;<i> -Wformat -Wchar-subscripts -Wparentheses -pedantic -Wuninitialized 
+</I>&gt;<i> -DCF_XFREE86_TEXTPROP_BUG_WORKAROUND -DHAVE_SNPRINTF      -c output.c -o 
+</I>&gt;<i> output.o
+</I>&gt;<i> In file included from output.c:23:
+</I>&gt;<i> private.h:15:21: error: libintl.h: No such file or directory
+</I>&gt;<i> output.c: In function 'fallback_warn':
+</I>&gt;<i> output.c:116: warning: implicit declaration of function 'dgettext'
+</I>&gt;<i> output.c:116: warning: incompatible implicit declaration of built-in 
+</I>&gt;<i> function 'dgettext'
+</I>&gt;<i> make[1]: *** [output.o] Error 1
+</I>&gt;<i> make: *** [subdirs] Error 2
+</I>&gt;<i> 
+</I>
+At least in linux, libintl.c is in libc6-dev. Install that package and 
+that error should go away.
+
+I installed ion3 from the official RC on an ubuntu server I use in my 
+notebook (so that I didnt have to deal with gnome from the start) and 
+when compiling it, I found a lot of missing dependencies and errors, 
+however they were not hard to track and fix.
+I guess if you guys wanna give it a try from the source, if you face 
+errors you can post them here. At least I don't mind helping out with them.
+
+Saludos.
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000902.html">ion3 license
+</A></li>
+	<LI>Next message: <A HREF="000905.html">ion3 license
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#904">[ date ]</a>
+              <a href="thread.html#904">[ thread ]</a>
+              <a href="subject.html#904">[ subject ]</a>
+              <a href="author.html#904">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

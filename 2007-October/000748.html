@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Life, universe, and ION3
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-October/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Life%2C%20universe%2C%20and%20ION3&In-Reply-To=%3C20071009153329.GA28831%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000777.html">
+   <LINK REL="Next"  HREF="000750.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Life, universe, and ION3</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Life%2C%20universe%2C%20and%20ION3&In-Reply-To=%3C20071009153329.GA28831%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Life, universe, and ION3">tuomov at iki.fi
+       </A><BR>
+    <I>Tue Oct  9 17:33:29 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000777.html">Oberon/Acme/etc. mouse heavy interfaces [Was: Re: Life, universe,	and ION3]
+</A></li>
+        <LI>Next message: <A HREF="000750.html">Life, universe, and ION3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#748">[ date ]</a>
+              <a href="thread.html#748">[ thread ]</a>
+              <a href="subject.html#748">[ subject ]</a>
+              <a href="author.html#748">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2007-10-09 14:47 +0100, Sam Mason wrote:
+&gt;<i> I hope the &quot;inferior minds&quot; comment below was intended as a joke --
+</I>
+Not really. Not everyone is up to the task of designing a programming
+language, and certainly not a beautiful and useful one (certainly not
+the C++ designers!), whereas it is comparatively easy to write a
+crappy library up to a specification of what it must provide access 
+to. Designing a beautiful library -- now that takes effort again.
+
+&gt;<i> On Tue, Oct 09, 2007 at 12:48:58PM +0000, Tuomo Valkonen wrote:
+</I>&gt;<i> What makes these libraries/frameworks
+</I>&gt;<i> &quot;inferior&quot;, rather than just different and/or unsuitable for solving the
+</I>&gt;<i> problems you're (currently) interested in?
+</I>
+I'm not saying unsuitable, I'm saying they suck aesthetically.
+
+Good programming is art, science, and engineering. In present
+practise the engineering -- i.e. ugly kludges to get things
+working now, fast -- aspect is dominant almost to the exclusion
+of the two others.
+
+&gt;<i> Has Haskell gone out of favour with you, or is it just GHC/Hugs'
+</I>&gt;<i> byzantine libraries.
+</I>
+As I already said, the language itself (well, Haskell'98 anyway 
+-- the extensions are rather crummy) is rather nice, but the 
+libraries suffer from YAMMBHE.
+
+&gt;<i> If you know of a better way, than a hierachy, of organising large
+</I>&gt;<i> amounts of (generally interdependant) code then I'd be interested to
+</I>&gt;<i> hear it.
+</I>
+C doesn't need organisation... Now, namespaces would be nice, but
+I don't think they should form a global rigid hierarchy that will
+run without central bureaucratic control into conflicts just like 
+a global (non-cryptographic) flat namespace. I think libraries 
+should be imported locally in a given namespace. You know, like
+Haskell already lets you import libraries from the Huge Hierarchy
+locally in modules with a different name
+
+    import qualified Some.Deeply.Nested.Crummy.Shit as S
+
+with Some.Deeply.Nested.Crummy.Shit actually provided by
+'-package foobar' on the command line, when it isn't part
+of the standard MegaCollection. So why not have various
+small libraries living in the operating system's namespace
+(the file system) and import them locally with some name,
+using the file name directly (instead of the compiler system,
+like GHC, having a crummy wheel-reinventing database for its
+own packages)
+
+    -package S=/pkg/libfoobar-1/lib/libfoobar.so
+
+(Then further combine this with the cryptographic namespace
+of a package capability system [1].)
+
+  [1]: <A HREF="http://iki.fi/tuomov/b/archives/2007/07/16/T22_41_22/">http://iki.fi/tuomov/b/archives/2007/07/16/T22_41_22/</A>
+
+-- 
+Tuomo
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000777.html">Oberon/Acme/etc. mouse heavy interfaces [Was: Re: Life, universe,	and ION3]
+</A></li>
+	<LI>Next message: <A HREF="000750.html">Life, universe, and ION3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#748">[ date ]</a>
+              <a href="thread.html#748">[ thread ]</a>
+              <a href="subject.html#748">[ subject ]</a>
+              <a href="author.html#748">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

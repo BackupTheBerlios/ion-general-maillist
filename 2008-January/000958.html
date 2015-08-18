@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> I'm very sad...
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20I%27m%20very%20sad...&In-Reply-To=%3C20080102132858.GB5689%40marco.fz-rossendorf.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000957.html">
+   <LINK REL="Next"  HREF="000959.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>I'm very sad...</H1>
+    <B>Joerg van den Hoff</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20I%27m%20very%20sad...&In-Reply-To=%3C20080102132858.GB5689%40marco.fz-rossendorf.de%3E"
+       TITLE="I'm very sad...">j.van_den_hoff at fzd.de
+       </A><BR>
+    <I>Wed Jan  2 14:28:58 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000957.html">Happy New Year
+</A></li>
+        <LI>Next message: <A HREF="000959.html">I'm very sad...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#958">[ date ]</a>
+              <a href="thread.html#958">[ thread ]</a>
+              <a href="subject.html#958">[ subject ]</a>
+              <a href="author.html#958">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Fri, Dec 21, 2007 at 04:45:36PM +0000, Tuomo Valkonen wrote:
+&gt;<i> On 2007-12-21, Joerg van den Hoff &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">j.van_den_hoff at fzd.de</A>&gt; wrote:
+</I>&gt;<i> &gt; -shared
+</I>&gt;<i> &gt; -whole-archive
+</I>&gt;<i> &gt; -export-dynamic
+</I>&gt;<i> 
+</I>&gt;<i> system.mk:
+</I>&gt;<i> 
+</I>&gt;<i> # Set PRELOAD_MODULES=1 if your system does not support dynamically loaded
+</I>&gt;<i> # modules through 'libdl' or has non-standard naming conventions.
+</I>&gt;<i> #PRELOAD_MODULES=1
+</I>&gt;<i> 
+</I>&gt;<i> That one option takes care of all that.
+</I>&gt;<i> 
+</I>&gt;<i> &gt; and  librt:  is  that  supposedly  a  standard lib? it's not
+</I>&gt;<i> &gt; there.
+</I>&gt;<i> 
+</I>&gt;<i> # clock_gettime for monotonic time
+</I>&gt;<i> EXTRA_LIBS += -lrt
+</I>&gt;<i> 
+</I>&gt;<i> (I suppose this could be better explained..)
+</I>&gt;<i> 
+</I>&gt;<i> Disable that, and if the MacOS X isn't totally brain-damaged,
+</I>&gt;<i> things should work (aside from setting the system clock confusing
+</I>&gt;<i> Ion's timers, if the POSIX monotonic clock isn't available through
+</I>&gt;<i> libc directly or so. But that's just an annoyance that was only
+</I>&gt;<i> recently fixed with support for the monotonic clock, where
+</I>&gt;<i> available).
+</I>&gt;<i> 
+</I>&gt;<i> ...
+</I>&gt;<i> 
+</I>&gt;<i> See, it's not so difficult, once you get rid of the autocrap
+</I>&gt;<i> mindset. Of course, I'd also prefer not having to edit a file
+</I>&gt;<i> to compile a program, but this is still better than the autocrap
+</I>&gt;<i> solution.
+</I>&gt;<i> 
+</I>&gt;<i> Also, if people reported more complex settings required for 
+</I>&gt;<i> particular systems back upstream, instead of just working on
+</I>&gt;<i> their silent forks, things would be easier. But in the Distro
+</I>&gt;<i> Code Of Conduct, it's forbidden to have any contact with
+</I>&gt;<i> authors.
+</I>&gt;<i> 
+</I>&gt;<i> &gt; but I suspect your attitude is uncorrectable.)
+</I>&gt;<i> 
+</I>&gt;<i> It seems to be me, that the distros' and the FOSS herd's attitude
+</I>&gt;<i> is uncorrectable. And their present attitude is incompatible with
+</I>&gt;<i> me.
+</I>&gt;<i> 
+</I>&gt;<i> -- 
+</I>&gt;<i> Tuomo
+</I>&gt;<i> 
+</I>
+thanks  to  everybody  giving  hints.  I actually can report
+success: first time ever &quot;manual&quot; compile  of  `ion3'  under
+MacOSX.
+
+here is the diff:
+
+===============================CUT=========================================
+--- system.mk	2007-12-20 19:46:46.000000000 +0100
++++ system.mk.mod	2008-01-02 12:46:09.000000000 +0100
+@@ -6,7 +6,7 @@
+ ## Installation paths
+ ##
+ 
+-PREFIX=/usr/local
++PREFIX=/home/vdh/Desktop/ion3
+ 
+ # For relocatable build, use the following, and start with absolute path.
+ # RELOCATABLE=1
+@@ -47,7 +47,7 @@
+ 
+ # Set PRELOAD_MODULES=1 if your system does not support dynamically loaded
+ # modules through 'libdl' or has non-standard naming conventions.
+-#PRELOAD_MODULES=1
++PRELOAD_MODULES=1
+ 
+ # Flags to link with libdl.
+ DL_LIBS=-ldl
+@@ -59,7 +59,7 @@
+ 
+ # If you have installed Lua 5.1 from the official tarball without changing
+ # paths, this should do it.
+-LUA_DIR=/usr/local
++LUA_DIR=/opt/local
+ LUA_LIBS = -L$(LUA_DIR)/lib -llua
+ LUA_INCLUDES = -I$(LUA_DIR)/include
+ LUA=$(LUA_DIR)/bin/lua
+@@ -115,11 +115,11 @@
+ #DEFINES += -DCF_NO_LOCALE -DCF_NO_GETTEXT
+ 
+ # On some other systems you may something like this:
+-#EXTRA_LIBS += -lintl
+-#EXTRA_INCLUDES +=
++EXTRA_LIBS += -lintl
++EXTRA_INCLUDES += -I/opt/local/include
+ 
+ # clock_gettime for monotonic time
+-EXTRA_LIBS += -lrt
++#EXTRA_LIBS += -lrt
+ 
+ 
+ ##
+@@ -135,7 +135,7 @@
+ 	-Wparentheses -pedantic -Wuninitialized
+ 
+ CFLAGS=-Os $(WARN) $(DEFINES) $(EXTRA_INCLUDES) $(INCLUDES)
+-LDFLAGS=-Os $(EXTRA_LIBS) $(LIBS)
++LDFLAGS=-Os -L/opt/local/lib $(EXTRA_LIBS) $(LIBS)
+ EXPORT_DYNAMIC=-Xlinker --export-dynamic
+ 
+ # The following options are mainly for development use and can be used
+===============================CUT=========================================
+
+for those interested: put this in a file &quot;macpatch.diff&quot;
+
+in the ion tarball directory and then in this directory do
+
+patch -b &lt; macpatch.diff
+
+which   should  keep  a  copy  `system.mk.orig'  and  modify
+system.mk  so  that  it  works  with  macos   10.4.11   (but
+definitely not with 10.5 because of the move from xfree86 to
+xorg).
+
+my   modficiations  assume  that  you  are  otherwise  using
+`macports' for installing  additional  software  (especially
+lua), thus all references to `/opt/local'.
+
+note,  that  finally  you still need to adjust PREFIX in the
+resulting `system.mk' to something sensible (the above patch
+leads  to a test installation in a directory on my &quot;Desktop&quot;
+-- you won't have this one, I presume :-)).
+
+tuomo:   you  know  that  I  don't  like  this  scenario  of
+&quot;everybody compiles from scratch on  his  own&quot;   (it  simply
+burns  time  again  and again) and I know you probably won't
+alter your attitude. so, maybe you could  start  to  provide
+alternate  `system.mk' versions or at least the patch files?
+this one could be called, e.g.
+
+system.mk-macos10.4.11_patch.diff
+
+the  crucial  hint here was yours: activate PRELOAD_MODULES.
+you might point out that the modifications are  minor  (true
+in  retrospect), but the necessity to do this is not obvious
+for the average user (including me) from the outset.   patch
+files  introduce  additional assumptions but probably remove
+the crucial problems,  at  least  (the  search  path  issues
+should be managable more easily).
+
+hth
+
+joerg
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000957.html">Happy New Year
+</A></li>
+	<LI>Next message: <A HREF="000959.html">I'm very sad...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#958">[ date ]</a>
+              <a href="thread.html#958">[ thread ]</a>
+              <a href="subject.html#958">[ subject ]</a>
+              <a href="author.html#958">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

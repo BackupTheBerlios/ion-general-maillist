@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Main window's focus with active transient
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Main%20window%27s%20focus%20with%20active%20transient&In-Reply-To=%3Cslrng3d64h.p24.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001207.html">
+   <LINK REL="Next"  HREF="001210.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Main window's focus with active transient</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Main%20window%27s%20focus%20with%20active%20transient&In-Reply-To=%3Cslrng3d64h.p24.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Main window's focus with active transient">tuomov at iki.fi
+       </A><BR>
+    <I>Fri May 23 12:12:33 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001207.html">Main window's focus with active transient
+</A></li>
+        <LI>Next message: <A HREF="001210.html">Main window's focus with active transient
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1209">[ date ]</a>
+              <a href="thread.html#1209">[ thread ]</a>
+              <a href="subject.html#1209">[ subject ]</a>
+              <a href="author.html#1209">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-05-23, Konstantin Kletschke &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">lists at ku-gbr.de</A>&gt; wrote:
+&gt;&gt;<i> I consider all transients modal. They're _transient_ windows, after
+</I>&gt;<i>
+</I>&gt;<i> But not in float mode, right? 
+</I>
+That consideration is simply not enforced on float mode...
+
+&gt;<i> Before there is misunderstanding on my side, is this a transient?
+</I>&gt;<i> tool box involed in float mode:
+</I>
+&gt;<i> WM_TRANSIENT_FOR(WINDOW): window id # 0x140026b
+</I>
+Yes.
+
+&gt;<i> Semi-PS.:
+</I>&gt;<i> Such Dialogs invoked in tiled frames are strechted about the horizontal
+</I>&gt;<i> width completely, can this be switched off somewhere?
+</I>
+There's a per-group transient_szplcy setting that can be altered by
+WGroupCW.toggle_transients_pos, but it only supports moving them up/down
+IIRC. It would be simple to add support for alternative (default) size
+policies.
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001207.html">Main window's focus with active transient
+</A></li>
+	<LI>Next message: <A HREF="001210.html">Main window's focus with active transient
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1209">[ date ]</a>
+              <a href="thread.html#1209">[ thread ]</a>
+              <a href="subject.html#1209">[ subject ]</a>
+              <a href="author.html#1209">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

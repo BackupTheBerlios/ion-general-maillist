@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Multi-, different- monitors is multi-hopeless?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Multi-%2C%20different-%20monitors%20is%20multi-hopeless%3F&In-Reply-To=%3Calpine.LNX.2.00.0901160131060.5209%40acer.home.local%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001556.html">
+   <LINK REL="Next"  HREF="001543.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Multi-, different- monitors is multi-hopeless?</H1>
+    <B>Benjamin R. Haskell</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Multi-%2C%20different-%20monitors%20is%20multi-hopeless%3F&In-Reply-To=%3Calpine.LNX.2.00.0901160131060.5209%40acer.home.local%3E"
+       TITLE="Multi-, different- monitors is multi-hopeless?">ion at benizi.com
+       </A><BR>
+    <I>Fri Jan 16 08:31:52 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001556.html">Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window
+</A></li>
+        <LI>Next message: <A HREF="001543.html">Multi-, different- monitors is multi-hopeless?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1541">[ date ]</a>
+              <a href="thread.html#1541">[ thread ]</a>
+              <a href="subject.html#1541">[ subject ]</a>
+              <a href="author.html#1541">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>I have a laptop with an LCD w/ 1280x800 resolution, and an external CRT 
+that's either at 1024x768, 1280x960, or unavailable (depending on whether 
+I'm at work, home, or somewhere else, respectively).
+
+
+Here's what I've settled on in Enlightenment (E17): I have four &quot;desktops&quot; 
+on each monitor. Alt+F1 through Alt+F4 jump to their respective desktops. 
+Alt+F? on the LCD doesn't change the desktop on the CRT. Alt+F? on the CRT 
+doesn't change the desktop on the LCD. They're independent. The 'xrandr' 
+command allows me to switch the CRT to one of the three modes I need 
+(work/home/off).
+
+But, really, the only reason I've stayed with E17 so long is that it's the 
+only window manager that handles multi-monitors the way I want it done. A 
+lot of the choices behind Ion jive really well with what I actually want 
+in a WM. (keyboard &#252;ber alles, window manager that actually *manages*, and 
+Lua(yay!))
+
+
+Based mostly on the latest &quot;Shit-or-rama [Was: mod_xinerama]&quot; thread [1], 
+I'm not optimistic about Ion emulating this setup. But is it an accurate 
+statement that there is no nice way to use ion3 such that I get:
+
+1. per-monitor workspaces
+
+2. ability to move windows between monitors
+
+3. ability to switch CRT resolution/presence w/out restarting X
+
+(...part of the difficulty being that my monitor heights don't match up)
+
+
+If it's true that there's no &quot;nice&quot; way: does anyone have convoluted 
+workarounds or horrible hacks that might require lots of setup (but 
+minimal effort thereafter) that manage to achieve these goals?
+
+As an example of &quot;horrible/convoluted&quot;: several months ago, when I last 
+went through a &quot;This window manager sucks; I should try some new ones that 
+support my monitors&quot; phase, I was optimistic about &quot;XMOVE: A pseudoserver 
+for X window movement&quot; [2]. Or maybe running a couple or several X VNC 
+servers would work.  E.g. &quot;left half&quot; (LCD) = frame with Xvnc :0 and Xvnc 
+:<i>1, &quot;right half&quot; (CRT) = frame with Xvnc :2. Then &quot;moving windows&quot; 
+</I>becomes: &quot;close vncviewer :1 on LCD, open it on CRT&quot;.
+
+
+And, if it's true that there's not even a horrible way to get all three, 
+what are the various X settings that I need to enable/disable to get 2/3 
+of the desired properties (Looks easiest to sacrifice &quot;ability to move 
+windows between monitors&quot;)?
+
+Obviously: disable XRandR and Xinerama. (Problem there: I can't seem to 
+find the correct incantation to disable Xinerama. I'm planning to just 
+recompile X without it.
+...Though another workaround (rename Xiner SHIToR /usr/lib/libXiner* ) is 
+slightly more amusing.)
+
+and in xorg.conf, I'd need:
+
+three &quot;Monitor&quot; sections: 1 for LCD, 1 for home CRT, 1 for work CRT
+three &quot;Screen&quot; sections: 1 for 1280x800, 1 for 1280x960, 1 for 1024x768
+three &quot;ServerLayout&quot; sections: 1 for LCD+home, 1 for LCD+work, 1 for LCD-only
+
+Sound right?
+
+Thanks for any help. I really like everything I've seen in Ion so far, 
+except for this multi-monitor business. (And I realize it's not Ion that's 
+to blame.)
+
+Best,
+Ben
+
+
+
+[1] &quot;Shit-or-rama [Was: mod_xinerama]&quot;
+<A HREF="https://lists.berlios.de/pipermail/ion-general/2008-September/002190.html">https://lists.berlios.de/pipermail/ion-general/2008-September/002190.html</A>
+
+[2] &quot;XMOVE: A pseudoserver for X Window movement&quot;
+<A HREF="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.30.589">http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.30.589</A>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001556.html">Keyboard focus lost in Swing applications (ex: Netbeans) after	changing to window
+</A></li>
+	<LI>Next message: <A HREF="001543.html">Multi-, different- monitors is multi-hopeless?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1541">[ date ]</a>
+              <a href="thread.html#1541">[ thread ]</a>
+              <a href="subject.html#1541">[ subject ]</a>
+              <a href="author.html#1541">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

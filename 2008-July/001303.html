@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> How to include Debian menu in to Ion3 installed from source?
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20How%20to%20include%20Debian%20menu%20in%20to%20Ion3%20installed%20from%20source%3F&In-Reply-To=%3C87ej5glljg.fsf%40debian-asztal.csanyi-pal.info%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001302.html">
+   <LINK REL="Next"  HREF="001304.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>How to include Debian menu in to Ion3 installed from source?</H1>
+    <B>Csanyi Pal</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20How%20to%20include%20Debian%20menu%20in%20to%20Ion3%20installed%20from%20source%3F&In-Reply-To=%3C87ej5glljg.fsf%40debian-asztal.csanyi-pal.info%3E"
+       TITLE="How to include Debian menu in to Ion3 installed from source?">csanyipal at gmail.com
+       </A><BR>
+    <I>Sat Jul 26 17:20:19 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001302.html">Installing Ion3 on Debian Etch
+</A></li>
+        <LI>Next message: <A HREF="001304.html">How to include Debian menu in to Ion3 installed from source?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1303">[ date ]</a>
+              <a href="thread.html#1303">[ thread ]</a>
+              <a href="subject.html#1303">[ subject ]</a>
+              <a href="author.html#1303">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hello!
+
+I have installed from source the last stable Ion3 release on Debian
+GNU/Linux Etch en Half.
+
+When I used Ion2 I have Debian menu but now I havn't.
+
+I tried to edit cfg_ioncore.lua to include Debian menu but this is not
+enough:
+
+---------------
+defmenu(&quot;mainmenu&quot;, {
+    menuentry(&quot;Run...&quot;,         &quot;mod_query.query_exec(_)&quot;),
+    menuentry(&quot;Terminal&quot;,       &quot;ioncore.exec_on(_, XTERM or 'xterm')&quot;),
+    menuentry(&quot;Lock screen&quot;,    &quot;ioncore.exec_on(_, 'xlock')&quot;),
+    menuentry(&quot;Help&quot;,           &quot;mod_query.query_man(_)&quot;),
+    menuentry(&quot;About Ion&quot;,      &quot;mod_query.show_about_ion(_)&quot;),
+    submenu(&quot;Styles&quot;,           &quot;stylemenu&quot;),
+    submenu(&quot;Session&quot;,          &quot;sessionmenu&quot;),
+    submenu(&quot;Debian&quot;, 		&quot;Debian&quot;),
+})
+---------------
+
+I open the old file ion-menus.lua from Ion2 to see this setup and find
+a line like the line abowe:
+
+submenu(&quot;Debian&quot;, &quot;Debian&quot;),
+
+and this lines: 
+
+-------------------------
+-- Auto-generated Debian menu definitions
+if os.execute(&quot;test -x /usr/bin/update-menus&quot;) == 0 then
+    if ioncore_is_i18n() then
+        include(&quot;debian-menu-i18n&quot;)
+    else
+        include(&quot;debian-menu&quot;)
+    end
+end
+-------------
+
+These lines can't to use in Ion3.
+
+Somehow I must to include debian-menu but how?
+
+-- 
+Regards, Paul Csanyi
+<A HREF="http://www.freewebs.com/csanyi-pal/index.htm">http://www.freewebs.com/csanyi-pal/index.htm</A>
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001302.html">Installing Ion3 on Debian Etch
+</A></li>
+	<LI>Next message: <A HREF="001304.html">How to include Debian menu in to Ion3 installed from source?
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1303">[ date ]</a>
+              <a href="thread.html#1303">[ thread ]</a>
+              <a href="subject.html#1303">[ subject ]</a>
+              <a href="author.html#1303">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

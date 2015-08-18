@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Experimental ZeroInstall feed [Was: ion-3rc-20071109]
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Experimental%20ZeroInstall%20feed%20%5BWas%3A%20ion-3rc-20071109%5D&In-Reply-To=%3C20071112110652.GA13380%40marco.fz-rossendorf.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000843.html">
+   <LINK REL="Next"  HREF="000845.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Experimental ZeroInstall feed [Was: ion-3rc-20071109]</H1>
+    <B>Joerg van den Hoff</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Experimental%20ZeroInstall%20feed%20%5BWas%3A%20ion-3rc-20071109%5D&In-Reply-To=%3C20071112110652.GA13380%40marco.fz-rossendorf.de%3E"
+       TITLE="Experimental ZeroInstall feed [Was: ion-3rc-20071109]">j.van_den_hoff at fzd.de
+       </A><BR>
+    <I>Mon Nov 12 12:06:52 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000843.html">Experimental ZeroInstall feed [Was: ion-3rc-20071109]
+</A></li>
+        <LI>Next message: <A HREF="000845.html">Experimental ZeroInstall feed [Was: ion-3rc-20071109]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#844">[ date ]</a>
+              <a href="thread.html#844">[ thread ]</a>
+              <a href="subject.html#844">[ subject ]</a>
+              <a href="author.html#844">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Fri, Nov 09, 2007 at 03:27:07PM +0000, Tuomo Valkonen wrote:
+&gt;<i> There's also now an experimental ZeroInstall [1] feed for Ion. To use 
+</I>&gt;<i> it, just put
+</I>&gt;<i> 
+</I>&gt;<i>     0launch <A HREF="http://iki.fi/tuomov/dl/Ion3.xml">http://iki.fi/tuomov/dl/Ion3.xml</A>
+</I>&gt;<i> 
+</I>&gt;<i> directly in your `.xsession`, assuming you have all the libaries it wants,
+</I>&gt;<i> and compatible hardware and OS (built on Linux 2.6/i386). Alternatively,
+</I>&gt;<i> create an alias
+</I>&gt;<i> 
+</I>&gt;<i>     0alias ion3 <A HREF="http://iki.fi/tuomov/dl/Ion3.xml">http://iki.fi/tuomov/dl/Ion3.xml</A>
+</I>&gt;<i> 
+</I>&gt;<i> and use that.
+</I>&gt;<i> 
+</I>&gt;<i> Presently the library requirements appear to be:
+</I>&gt;<i> 
+</I>&gt;<i>     $ ldd bin/ion3 |cut -f 1 -d ' '
+</I>&gt;<i>         linux-gate.so.1
+</I>&gt;<i>         librt.so.1
+</I>&gt;<i>         libX11.so.6
+</I>&gt;<i>         libXext.so.6
+</I>&gt;<i>         libdl.so.2
+</I>&gt;<i>         libm.so.6
+</I>&gt;<i>         libc.so.6
+</I>&gt;<i>         libpthread.so.0
+</I>&gt;<i>         /lib/ld-linux.so.2
+</I>&gt;<i>         libXau.so.6
+</I>&gt;<i>         libXdmcp.so.6
+</I>&gt;<i> 
+</I>&gt;<i> and I don't think I can express these in ZeroInstall in any way, there
+</I>&gt;<i> being no packages for them to my knowledge. It's rather standard stuff,
+</I>&gt;<i> however, so most Linux folks shouldn't have a problem. I wanted to create
+</I>&gt;<i> a static binary, but apparently GNU libc is just utter and total crap 
+</I>&gt;<i> these days, and it can not be linked against statically, with libc.a
+</I>&gt;<i> (as installable on etch) depending on dynamically loaded modules. 
+</I>&gt;<i> Sigh. A megatonne monolith with pretensions of dynamics.
+</I>&gt;<i> 
+</I>&gt;<i> The binary does not appear to entirely work in FreeBSD, statusd in
+</I>&gt;<i> particular having some timing troubles and even encountering illegal
+</I>&gt;<i> instructions or so. I thought of adding a native Frisbee binary, but
+</I>&gt;<i> as my previous experience from years ago suggests, source and 
+</I>&gt;<i> autocrap-based packaging systems and the all-in-one-basket unix
+</I>&gt;<i> file system hierarchy are hopeless crap, and I was unable to build
+</I>&gt;<i> ZeroInstall, so would be unable to fully test it. 
+</I>&gt;<i> 
+</I>&gt;<i> ...
+</I>&gt;<i> 
+</I>&gt;<i> Some things are broken, such as display of Ion's own man page, and
+</I>&gt;<i> paths within it. There's no good way around that, because there's
+</I>&gt;<i> no easy and portable way to display a particular _file_ with `man`.
+</I>
+
+don't  know  if it helps, but `man -d ion3' shows the actual
+command which is executed when you call `man ion3':
+
+ (cd /opt/local/share/man &amp;&amp; /usr/bin/gunzip -c '/opt/local/share/man/man1/ion3.1.gz' | /usr/bin/tbl | /usr/bin/groff -Wall -mtty-char -Tascii -mandoc -c | less -fR)
+
+is'nt this sufficient for your  purpose? 
+
+joerg
+
+&gt;<i> 
+</I>&gt;<i> 
+</I>&gt;<i>   [1]: <A HREF="http://0install.net/">http://0install.net/</A>
+</I>&gt;<i> 
+</I>&gt;<i> -- 
+</I>&gt;<i> Tuomo
+</I>&gt;<i> 
+</I>
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000843.html">Experimental ZeroInstall feed [Was: ion-3rc-20071109]
+</A></li>
+	<LI>Next message: <A HREF="000845.html">Experimental ZeroInstall feed [Was: ion-3rc-20071109]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#844">[ date ]</a>
+              <a href="thread.html#844">[ thread ]</a>
+              <a href="subject.html#844">[ subject ]</a>
+              <a href="author.html#844">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

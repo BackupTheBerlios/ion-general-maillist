@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Feature freeze imminent
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Feature%20freeze%20imminent&In-Reply-To=%3C20070227210325.GM13216%40samason.me.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000185.html">
+   <LINK REL="Next"  HREF="000165.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Feature freeze imminent</H1>
+    <B>Sam Mason</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Feature%20freeze%20imminent&In-Reply-To=%3C20070227210325.GM13216%40samason.me.uk%3E"
+       TITLE="Feature freeze imminent">mason at f2s.com
+       </A><BR>
+    <I>Tue Feb 27 22:03:25 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000185.html">Feature freeze imminent
+</A></li>
+        <LI>Next message: <A HREF="000165.html">Feature freeze imminent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#179">[ date ]</a>
+              <a href="thread.html#179">[ thread ]</a>
+              <a href="subject.html#179">[ subject ]</a>
+              <a href="author.html#179">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Tue, Feb 27, 2007 at 06:53:50PM +0000, Tuomo Valkonen wrote:
+&gt;<i> On 2007-02-27, Sam Mason &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">mason at f2s.com</A>&gt; wrote:
+</I>&gt;<i> &gt; In more human terms I would have a table of files, the purpose of which
+</I>&gt;<i> &gt; is to give you the fileid (sort of like the inode number), a table of
+</I>&gt;<i> &gt; tags that define what tags are known, and a table containing the pairs
+</I>&gt;<i> &gt; (tag,fileid) that define what files have what tags.
+</I>&gt;<i> 
+</I>&gt;<i> Yeah, that's one quite simple layout but how would you make the
+</I>&gt;<i> intersection of the search results for different tags then? 
+</I>
+It looks as though Ted has shown you how to use INTERSECT, another
+(hacky) option is:
+
+  SELECT fileid
+  FROM filetags
+  WHERE tag IN ('foo', 'bar')
+  GROUP BY fileid
+  HAVING COUNT(*) = 2;
+
+&gt;<i> A
+</I>&gt;<i> simple &quot;same row&quot; intersection doesn't work anymore. Does SQL 
+</I>&gt;<i> have a more complicated intersection operation? And how efficient
+</I>&gt;<i> would it be? That's the bottleneck, I think. 
+</I>
+Efficient? I thought this was supposed to be an initial exploration of
+the problem!  It'll be fine for a few thousand objects, but I really
+don't know.
+
+&gt;<i> Plus there's no 
+</I>&gt;<i> structure for quick access to a known file name, which would seem
+</I>&gt;<i> mportant to me. 
+</I>
+There's nothing in the database to check to see that the set of tags are
+actually unique either.  I'd put a column in the files table and use a
+trigger to keep it up to date.  You could put a unique constraint on the
+key to make the database check that the key remains unique and use this
+table to find the file associated with a key.
+
+I've just written some code[1] for Postgres that should do everything
+I've mentioned.  I've not played much with triggers before so if anyone
+knows how to do it better let me know!
+
+&gt;<i> (Yes, I am total newbie wrt. SQL.)
+</I>
+We all have to start somewhere!  Like all languages, it VERY good for
+solving some problems in and crap at others.  It's a reasonable fit
+here, but not perfect.
+
+
+  Sam
+
+ [1] <A HREF="http://sam.samason.me.uk/~sam/repos/setfs/filetags.sql">http://sam.samason.me.uk/~sam/repos/setfs/filetags.sql</A>
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000185.html">Feature freeze imminent
+</A></li>
+	<LI>Next message: <A HREF="000165.html">Feature freeze imminent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#179">[ date ]</a>
+              <a href="thread.html#179">[ thread ]</a>
+              <a href="subject.html#179">[ subject ]</a>
+              <a href="author.html#179">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

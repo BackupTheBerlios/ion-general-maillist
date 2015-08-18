@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> SetFS [Was: Re: Feature freeze imminent]
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20SetFS%20%5BWas%3A%20Re%3A%20Feature%20freeze%20imminent%5D&In-Reply-To=%3Cslrneu93h4.fd6.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000174.html">
+   <LINK REL="Next"  HREF="000178.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>SetFS [Was: Re: Feature freeze imminent]</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20SetFS%20%5BWas%3A%20Re%3A%20Feature%20freeze%20imminent%5D&In-Reply-To=%3Cslrneu93h4.fd6.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="SetFS [Was: Re: Feature freeze imminent]">tuomov at iki.fi
+       </A><BR>
+    <I>Tue Feb 27 21:01:40 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000174.html">Feature freeze imminent
+</A></li>
+        <LI>Next message: <A HREF="000178.html">SetFS [Was: Re: Feature freeze imminent]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#176">[ date ]</a>
+              <a href="thread.html#176">[ thread ]</a>
+              <a href="subject.html#176">[ subject ]</a>
+              <a href="author.html#176">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2007-02-27, Sam Mason &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">mason at f2s.com</A>&gt; wrote:
+&gt;<i> If you can think up any cases where you're not going to have a similar
+</I>&gt;<i> number of tags to files then I'd be interested to know, I'm failing.
+</I>
+Well, I suppose all the cases I can come up with are quite artificial.
+There do tend to be a lot of files with unique names, and the rest
+of the components of the path simply help locating them.
+
+&gt;<i> It's up to the users to find the optimal way to use the tools isn't it?
+</I>
+And the optimal tools.
+
+&gt;<i> Wouldn't there be the same number of occurrences for each tag? If so,
+</I>&gt;<i> how does the pruner know which one to pick?
+</I>
+It depends on all the results. And, yes, if there are tags with the
+same frequencies (and same covered objects), the decision is arbitrary.
+
+&gt;<i> I thought the point was to remove the hierarchy!
+</I>
+The point is to remove any fixed hierarchy. But the user isn't going
+to like looking for a needle in a haystack. Therefore you want to 
+present a dynamic hierarchy of results for each query: to somehow
+prsent in multiple clusters all the files whose sets of tags contain
+the search set of tags. These are naturally partially ordered by further
+set inclusions, and in some interfaces you might want to show clusters 
+by that partial order, i.e. show the files with minimal tag sets among 
+the results. (These are also expensive to find: if we had the minimal tag
+sets, the pruning would be trivial.) However, to map the results to the 
+unix file system, that is not sufficient: readdir should return a list of 
+tags, not a list of sets of tags. Therefore we must essentially add
+the intervening &quot;directories&quot; between the search set, and the minimal
+result tag sets.
+
+&gt;&gt;<i> foo/#created:year=2006/#prune:alltags/ (demonstrating also the
+</I>&gt;&gt;<i> additional filters).
+</I>&gt;<i>
+</I>&gt;:<i>) you said you wanted to keep it simple earlier and now you're
+</I>&gt;<i> proposing some ad-hock language to &quot;fix&quot; the pruning process?
+</I>
+Well, additional search filters, for which I've thought the 
+#filter:params path elements (and that are ignored for single
+file operations as opposed to listings), is one of the few 
+features that I've considered something to have there, although
+not necessarily in the first versions. They are also a quite
+simple faeture: you just essentially 'and' the tag bitmaps with
+yet another bitmap. (On the implementation level, this should 
+probably be just a functional composition of filters, like unix
+pipes.) Obviously it should be possible to add such filters by 
+plugins. The #prune control is not exactly such a filter, but 
+you could still have it there without significantly complicating
+things...
+
+&gt;<i> You mentioned earlier that you'd come up with lots of ideas and
+</I>&gt;<i> discarded them because they didn't really solve anything.  I'm not
+</I>&gt;<i> really sure what problems you're trying to solve!  
+</I>
+You mentioned that hierarchy naturally suits code trees, and I
+agree. So I've thought about ways of having such things on SetFS,
+but it just gets too complicated. SetFS simply isn't a tool for
+code trees, at least not as we presently think of them.
+
+&gt;<i> I would be personally interested to see if we could turn this into
+</I>&gt;<i> something that would be usable as a file system that could be mounted
+</I>&gt;<i> to look after most of the files in a user's home directory.
+</I>
+Not necessarily most files in the home directory (there's a lot of
+code trees in my $HOME), but most of the data that tends to collect
+there almost unorganised -- largely thanks to the cumbersomeness
+of saving random cruft on a hierarchical FS, or at least so it would
+seem. One needs to experiment and have tools that support the tagged
+way of working to find out if it really helps.
+
+&gt;<i> How far apart are our goals?
+</I>
+Not necessarily that far apart.
+
+&gt;<i> p.s. I hope this is somewhat interesting to you, I tend to get carried
+</I>&gt;<i> away with these sorts of discussions!
+</I>
+Sure.. and hopefully others on the list too :).
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000174.html">Feature freeze imminent
+</A></li>
+	<LI>Next message: <A HREF="000178.html">SetFS [Was: Re: Feature freeze imminent]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#176">[ date ]</a>
+              <a href="thread.html#176">[ thread ]</a>
+              <a href="subject.html#176">[ subject ]</a>
+              <a href="author.html#176">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

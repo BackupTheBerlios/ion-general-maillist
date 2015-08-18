@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> min_tabs with latest ion.
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-May/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20min_tabs%20with%20latest%20ion.&In-Reply-To=%3C87ejlj4cs1.fsf%40lrde.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000450.html">
+   <LINK REL="Next"  HREF="000463.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>min_tabs with latest ion.</H1>
+    <B>Micha&#235;l Cadilhac</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20min_tabs%20with%20latest%20ion.&In-Reply-To=%3C87ejlj4cs1.fsf%40lrde.org%3E"
+       TITLE="min_tabs with latest ion.">michael at cadilhac.name
+       </A><BR>
+    <I>Mon May 14 17:59:10 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000450.html">darcs repo problems
+</A></li>
+        <LI>Next message: <A HREF="000463.html">min_tabs with latest ion.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#462">[ date ]</a>
+              <a href="thread.html#462">[ thread ]</a>
+              <a href="subject.html#462">[ subject ]</a>
+              <a href="author.html#462">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi!
+
+I've just updated a very old revision of ion3 to the latest RC. It
+appears that one of the script I use, min_tabs, stopped working.
+
+I modified the MOD1 to META thing, but there's still a problem with
+floating workspaces.  I'm just some kind of lusers, but as such, what
+I see is that windows in a floating workspaces are now frames [1] and
+the test
+
+    if obj_typename(fp) ~= &quot;WFrame&quot; then
+	-- Escape: floatws thing should not be handled
+        return
+    end
+
+never fails (the obj_typename is always WFrame).
+
+Any idea how to fix that ?
+
+Thanks !
+
+Footnotes: 
+[1]  Speaking of which, is there a way to restore the old behavior of
+     the &#171; mouse on window selects it &#187; ? Or at least, when clicking on
+     a window ? Well, and my M-&lt;tab&gt; doesn't work now, but it's probably
+     just a wrong config line.
+
+-- 
+ |   Micha&#235;l `Micha' Cadilhac       |  Isn't vi that text editor with        |
+ |   <A HREF="http://michael.cadilhac.name">http://michael.cadilhac.name</A>   |   two modes... One that beeps and      |
+ |   JID/MSN:                       |     one that corrupts your file?       |
+ `----  <A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">michael.cadilhac at gmail.com</A>  |           -- Dan Jacobson         -  --'
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 188 bytes
+Desc: not available
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20070514/8701d9b1/attachment.pgp">https://lists.berlios.de/pipermail/ion-general/attachments/20070514/8701d9b1/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000450.html">darcs repo problems
+</A></li>
+	<LI>Next message: <A HREF="000463.html">min_tabs with latest ion.
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#462">[ date ]</a>
+              <a href="thread.html#462">[ thread ]</a>
+              <a href="subject.html#462">[ subject ]</a>
+              <a href="author.html#462">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

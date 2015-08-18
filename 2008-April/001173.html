@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Ion3 wishlist / a note about Ion4
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-April/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion3%20wishlist%20/%20a%20note%20about%20Ion4&In-Reply-To=%3C86zlrixbug.fsf%40lifelogs.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001172.html">
+   <LINK REL="Next"  HREF="001174.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Ion3 wishlist / a note about Ion4</H1>
+    <B>Ted Zlatanov</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion3%20wishlist%20/%20a%20note%20about%20Ion4&In-Reply-To=%3C86zlrixbug.fsf%40lifelogs.com%3E"
+       TITLE="Ion3 wishlist / a note about Ion4">tzz at lifelogs.com
+       </A><BR>
+    <I>Fri Apr 25 16:12:23 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001172.html">Ion3 wishlist / a note about Ion4
+</A></li>
+        <LI>Next message: <A HREF="001174.html">Ion3 wishlist / a note about Ion4
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1173">[ date ]</a>
+              <a href="thread.html#1173">[ thread ]</a>
+              <a href="subject.html#1173">[ subject ]</a>
+              <a href="author.html#1173">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Fri, 25 Apr 2008 09:48:32 +0300 Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt; wrote: 
+
+TV&gt;   * An ELisp-style binding command system might be nice, complete with
+TV&gt;     queries for parameters if not given, although it's extra work to 
+TV&gt;     maintain compared to the mere Lua programming interface [5].
+TV&gt;     But then again, menus already do contain the same definitions,
+TV&gt;     so one could just extend the menu definitions, and use menu names
+TV&gt;     as the commands (with translation support!), a bit like Opera has
+TV&gt;     clear-text command names.
+
+TV&gt;   [5]: <A HREF="http://iki.fi/tuomov/b/archives/2007/02/02/T18_49_51/">http://iki.fi/tuomov/b/archives/2007/02/02/T18_49_51/</A>
+
+God, yes please.  I'd be really happy to avoid Lua, and might get some
+real work done with Ion extensions if they used something Lisp-like.
+Every time I try to get going with Lua I end up annoyed.
+
+It's not a lot of work to support such a language because Lisp itself is
+almost trivial to parse and there's a million embeddable Lisp parsers
+out there.
+
+TV&gt;   * Maybe, especially in conjunction of the previous feature, the 
+TV&gt;     config could be more tree-form, storable in arbitrary structural
+TV&gt;     files (incl. a single Lua table). 
+
+Just use JSON, every major language these days can parse it.  It's far
+from perfect, but compared to XML and others it's a joy to use.  It has
+the essentials (hashes, arrays, strings, numbers, and real null values),
+and it's not verbose.
+
+Ted
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001172.html">Ion3 wishlist / a note about Ion4
+</A></li>
+	<LI>Next message: <A HREF="001174.html">Ion3 wishlist / a note about Ion4
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1173">[ date ]</a>
+              <a href="thread.html#1173">[ thread ]</a>
+              <a href="subject.html#1173">[ subject ]</a>
+              <a href="author.html#1173">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

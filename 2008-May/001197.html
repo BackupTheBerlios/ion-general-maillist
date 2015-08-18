@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Ion3 wishlist / a note about Ion4
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-May/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion3%20wishlist%20/%20a%20note%20about%20Ion4&In-Reply-To=%3Cslrng38271.dae.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001194.html">
+   <LINK REL="Next"  HREF="001198.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Ion3 wishlist / a note about Ion4</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Ion3%20wishlist%20/%20a%20note%20about%20Ion4&In-Reply-To=%3Cslrng38271.dae.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Ion3 wishlist / a note about Ion4">tuomov at iki.fi
+       </A><BR>
+    <I>Wed May 21 13:34:57 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001194.html">Ion3 wishlist / a note about Ion4
+</A></li>
+        <LI>Next message: <A HREF="001198.html">Ion3 wishlist / a note about Ion4
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1197">[ date ]</a>
+              <a href="thread.html#1197">[ thread ]</a>
+              <a href="subject.html#1197">[ subject ]</a>
+              <a href="author.html#1197">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-05-21, Alain-Pierre Manine &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">apmanine at free.fr</A>&gt; wrote:
+&gt;<i> 1) An easy way to save a workspace configuration to cfg_layouts.lua: after  
+</I>&gt;<i> have set frames configuration of a workspace to fit a specific task, I  
+</I>&gt;<i> would like to save it, just in case.
+</I>
+This should be implementable as a script with WRegion.get_configuration,
+ioncore.write/read_savefile, and WMPlex.attach_new (after possibly
+filtering the results a bit from stuff related to currently attached
+client windows).
+
+&gt;<i> 2) A &quot;modal&quot; keyboard handling (VI-like): for instance, a default &quot;App  
+</I>&gt;<i> Mode&quot;, in which all keys would be handling by the application, until the  
+</I>&gt;<i> user presses an &quot;echap&quot; key, which would allow to switch between several  
+</I>&gt;<i> modes (frames modes, tabs mode, resize mode, etc.). 
+</I>
+On my old TODO-list there indeed was an entry for locking submaps
+(that are only explicitly terminated). I however never got around to 
+doing that, although it shouldn't be too difficult. A nice simple
+exercise for the budding Ion hacker. (Properly altering _ and _sub
+passed to binding handlers after focus change within the mode demands 
+a bit more work, although initially it can be emulated within the
+binding handlers.)
+
+&gt;<i> 3) A screen-like &quot;detach&quot; functionality: I already use scripts to, when I  
+</I>&gt;<i> press a key, open a new terminal in a screen session named according to  
+</I>&gt;<i> the workspace name. That allows to &quot;import&quot; consoles of a workspace into a  
+</I>&gt;<i> distant computer, and continue the work where we left it. Nevertheless, it  
+</I>&gt;<i> would be great to have this feature built-in in the WM, in order to import  
+</I>&gt;<i> a complete distant Ion workspace, including the frame configuration. The  
+</I>&gt;<i> only work I know related to this is done here:  
+</I>&gt;<i> <A HREF="http://partiwm.org/wiki/xpra">http://partiwm.org/wiki/xpra</A> .
+</I>
+An interesting hack, but *eugh*. I think VNC is quite enough for access of
+running remote programs (if VNC implementations itself didn't suck). For
+finer workspace/task or even single program level control I'd rather do 
+this through proper session management: instead of saving individual 
+workspaces as above, you could save the state of all the programs on that
+workspace and start the session anywhere, even after reboots. I'd like my
+tasks/workspaces to be truly mobile, their state possibly living anywhere 
+in cyberspace, and attachable/restartable on any computer I might stumble
+upon (and deem safe enough), possibly without constant a high-speed internet
+connection.
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001194.html">Ion3 wishlist / a note about Ion4
+</A></li>
+	<LI>Next message: <A HREF="001198.html">Ion3 wishlist / a note about Ion4
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1197">[ date ]</a>
+              <a href="thread.html#1197">[ thread ]</a>
+              <a href="subject.html#1197">[ subject ]</a>
+              <a href="author.html#1197">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Feature freeze imminent
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Feature%20freeze%20imminent&In-Reply-To=%3C20070226150340.GC13216%40samason.me.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000149.html">
+   <LINK REL="Next"  HREF="000151.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Feature freeze imminent</H1>
+    <B>Sam Mason</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Feature%20freeze%20imminent&In-Reply-To=%3C20070226150340.GC13216%40samason.me.uk%3E"
+       TITLE="Feature freeze imminent">mason at f2s.com
+       </A><BR>
+    <I>Mon Feb 26 16:03:40 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000149.html">Feature freeze imminent
+</A></li>
+        <LI>Next message: <A HREF="000151.html">Feature freeze imminent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#150">[ date ]</a>
+              <a href="thread.html#150">[ thread ]</a>
+              <a href="subject.html#150">[ subject ]</a>
+              <a href="author.html#150">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>[[ sorry if you recieve this message twice, I sent it last time from an
+address that isn't registered with the mailing list. ]]
+
+On Sun, Feb 25, 2007 at 10:19:19PM +0000, Tuomo Valkonen wrote:
+&gt;<i>   [2]: <A HREF="http://iki.fi/tuomov/b/archives/2006/03/01/T17_55_20/">http://iki.fi/tuomov/b/archives/2006/03/01/T17_55_20/</A>
+</I>
+I've thought a similar idea would be useful many times before.  GMail is
+the closest implementation that springs to mind.  The idea of putting
+the tags into a (partial?) ordering is interesting and I've not come
+across it before.  Do you mind if I ask a few questions about it?
+
+Having a poset of tags seems to imply that this ordering should exist
+independently of the actual tagging of files.  From your example,
+specifying that &quot;foo&quot; lives below &quot;cfg&quot;.  This ordering should probably
+exist independently of any files that have these two tags.  If so how do
+you deal with bootstrapping this hierarchy; i.e. two programs (developed
+independently) require two tags to have a different ordering?
+
+One way to neatly sidestep this problem would be to remove the ordering
+and just require the set of tags associated with each file to be unique.
+As far as I can tell, the implementation wouldn't be too complicated,
+store the tags associated with a file lexicographically sorted and
+you can just use a hash table (probably not a hash table in a real
+implementation but I hope you get the idea) for the uniqueness check.
+Something else would be needed to search for files efficiently, but I
+don't see why it couldn't be done close to O(log N) time if not too many
+files were returned from a search.
+
+I hope I've interpreted your note correctly!
+
+
+  Sam
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000149.html">Feature freeze imminent
+</A></li>
+	<LI>Next message: <A HREF="000151.html">Feature freeze imminent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#150">[ date ]</a>
+              <a href="thread.html#150">[ thread ]</a>
+              <a href="subject.html#150">[ subject ]</a>
+              <a href="author.html#150">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

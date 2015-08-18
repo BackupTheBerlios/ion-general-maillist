@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Not all bindings are defined in cfg_ioncore.lua
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-August/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Not%20all%20bindings%20are%20defined%20in%20cfg_ioncore.lua&In-Reply-To=%3Cm2r6mksg0n.fsf%40lifelogs.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000648.html">
+   <LINK REL="Next"  HREF="000645.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Not all bindings are defined in cfg_ioncore.lua</H1>
+    <B>Ted Zlatanov</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Not%20all%20bindings%20are%20defined%20in%20cfg_ioncore.lua&In-Reply-To=%3Cm2r6mksg0n.fsf%40lifelogs.com%3E"
+       TITLE="Not all bindings are defined in cfg_ioncore.lua">tzz at lifelogs.com
+       </A><BR>
+    <I>Fri Aug  3 19:07:52 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000648.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+        <LI>Next message: <A HREF="000645.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#649">[ date ]</a>
+              <a href="thread.html#649">[ thread ]</a>
+              <a href="subject.html#649">[ subject ]</a>
+              <a href="author.html#649">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Thu, 2 Aug 2007 21:50:24 -0400 Etan Reisner &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">deryni at unreliablesource.net</A>&gt; wrote: 
+
+ER&gt; On Thu, Aug 02, 2007 at 05:28:05PM -0400, Ted Zlatanov wrote:
+&gt;&gt;<i> On Thu, 2 Aug 2007 16:57:08 -0400 Etan Reisner &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">deryni at unreliablesource.net</A>&gt; wrote:
+</I>&gt;&gt;<i> 
+</I>ER&gt; Also, the fact that the bindings are in lua is unrelated to the
+ER&gt; difficulty in editing them for normal people, lua is designed to be
+ER&gt; used for configuration services and as such can be made to look
+ER&gt; rather config-file-like.
+&gt;&gt;<i> 
+</I>&gt;&gt;<i> IMO Lua is not a good configuration language no matter what.  Neither
+</I>&gt;&gt;<i> are Perl, shell, etc.  When the author punts the software configurations
+</I>&gt;&gt;<i> to code, either the users learn to code that language, or they walk
+</I>&gt;&gt;<i> away.  If you have a better Lua syntax, that's great, but remember it
+</I>&gt;&gt;<i> has to be better than a regular configuration file too, because that's
+</I>&gt;&gt;<i> what end users expect.
+</I>
+ER&gt; What is a 'regular configuration file'? INI syntax? resolv.conf syntax?
+ER&gt; xorg.conf syntax? xml? What 'standard' configuration files do users deal
+ER&gt; with at this point? (Or really ever?)
+
+Excellent question :)
+
+Unix users expect readable configurations without code.  sendmail.cf is
+horrible.  /etc/passwd is nice.  /etc/hosts is beautifully simple.
+
+The exact format depends on the purpose.  Configuring X resources is
+very different from configuring host names.  So there's no single
+&quot;perfect&quot; format, although I personally like YAML because it's flexible
+enough to handle any reasonable data structure.
+
+ER&gt; And I should point out that lua can handle 'standard':
+
+ER&gt;     variable = value
+ER&gt;     variable = value
+
+ER&gt; syntax just fine. So you wouldn't even need to know it was lua in
+ER&gt; the simple case.
+
+That would be great!  Unfortunately it's not the case today...
+
+ER&gt; I think you seriously overestimate the appeal of something like ion3 with
+ER&gt; the sort of people who would need such a simplified config file
+ER&gt; syntax.
+
+Maybe I do.  I personally know 2 people that liked my tiling Ion3 setup
+that were turned off by the Lua configurations.  That's a small sample
+size for sure.  But I have written an article on Ion3 for IBM
+developerWorks and the main complaint I got from readers was about the
+configuration syntax (8 e-mails).
+
+ER&gt; And I might very well consider attempting a simplified syntax parsing
+ER&gt; script. Though seeing as how I have been comfortably using the lua
+ER&gt; configuration stuff for a long time now I am not at all sure I am going to
+ER&gt; be able to come up with useful 'names' for things people want to do.
+
+Cool, I'll be glad to help any way I can.
+
+Ted
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000648.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+	<LI>Next message: <A HREF="000645.html">Not all bindings are defined in cfg_ioncore.lua
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#649">[ date ]</a>
+              <a href="thread.html#649">[ thread ]</a>
+              <a href="subject.html#649">[ subject ]</a>
+              <a href="author.html#649">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> ZeroInstall &amp; Package systems [Was: Re: Dock padding_pixels	suggestion]
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-July/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ZeroInstall%20%26%20Package%20systems%20%5BWas%3A%20Re%3A%20Dock%20padding_pixels%0A%09suggestion%5D&In-Reply-To=%3Cf732v8%245op%241%40sea.gmane.org%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000596.html">
+   <LINK REL="Next"  HREF="000606.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>ZeroInstall &amp; Package systems [Was: Re: Dock padding_pixels	suggestion]</H1>
+    <B>Thomas Leonard</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ZeroInstall%20%26%20Package%20systems%20%5BWas%3A%20Re%3A%20Dock%20padding_pixels%0A%09suggestion%5D&In-Reply-To=%3Cf732v8%245op%241%40sea.gmane.org%3E"
+       TITLE="ZeroInstall &amp; Package systems [Was: Re: Dock padding_pixels	suggestion]">talex5 at gmail.com
+       </A><BR>
+    <I>Wed Jul 11 19:11:04 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000596.html">ZeroInstall &amp; Package systems [Was: Re: Dock padding_pixels	suggestion]
+</A></li>
+        <LI>Next message: <A HREF="000606.html">ZeroInstall &amp; Package systems [Was: Re: Dock padding_pixels	suggestion]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#605">[ date ]</a>
+              <a href="thread.html#605">[ thread ]</a>
+              <a href="subject.html#605">[ subject ]</a>
+              <a href="author.html#605">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Wed, 11 Jul 2007 06:51:58 +0000, Tuomo Valkonen wrote:
+
+&gt;<i> On 2007-07-11, Thomas Leonard &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">talex5 at gmail.com</A>&gt; wrote:
+</I>&gt;&gt;<i> Same thing then... you're using a tool to create the HTML/XML for you.
+</I>&gt;<i> 
+</I>&gt;<i> And which tool would let me edit a package description in a decent format?
+</I>
+I'd suggest you use 0publish-gui to create the feed. GUI's aren't very
+scriptable, but you're only doing it once. Then add to it by calling the
+command-line tool (0publish) in your release script.
+
+If you want to convert XML to a more friendly format, there are other tools
+for that:
+
+<A HREF="http://slip.sourceforge.net/">http://slip.sourceforge.net/</A>
+<A HREF="http://www.langdale.com.au/SOX/">http://www.langdale.com.au/SOX/</A>
+
+My text editor (Vim) understands XML somewhat anyway, so I haven't felt
+the need to use them.
+
+&gt;&gt;<i> &lt;requires interface=&quot;<A HREF="http://0install.net/2007/3rd-party/libsvn1.xml">http://0install.net/2007/3rd-party/libsvn1.xml</A>&quot;&gt;
+</I>&gt;&gt;<i>    &lt;environment insert=&quot;usr/lib&quot; name=&quot;LD_LIBRARY_PATH&quot;/&gt;
+</I>&gt;&gt;<i> &lt;/requires&gt;
+</I>&gt;<i> 
+</I>&gt;<i> Well, at least it has a package (although not capability) based
+</I>&gt;<i> dependency system unlike autopackage. (Actually, that definition does
+</I>&gt;<i> include a partial description of how the depended-upon library provides
+</I>&gt;<i> a wanted capability: with 'insert=&quot;usr/lib&quot; name=&quot;LD_LIBRARY_PATH&quot;'.
+</I>&gt;<i> It's just in the wrong place: it should be in the libsvn1 description,
+</I>&gt;<i> with Subversion depending only on the capability.)
+</I>
+It uses the 'dependency injection' model (AKA 'inversion of control').
+Instead of each component finding its dependencies (e.g. by searching
+/usr/lib), each component is told where to find its dependencies. So, this
+is an input to the 'svn' component, telling it which 'libsvn' to use.
+
+But, it's not clear from that example because I'm using the unmodified
+Debian subversion binaries and the only way to tell svn &quot;Use this libsvn&quot;
+is to stick it in LD_LIBRARY_PATH and let it find it by searching. Ideally,
+it would be:
+
+   &lt;environment insert=&quot;usr/lib&quot; name=&quot;LIB_SVN_DIR&quot; mode=&quot;replace&quot;/&gt;
+
+And you'd link it (if ld supported this) with something like:
+
+  $ gcc ... -l&quot;$LIB_SVN_DIR/libsvn.so&quot;
+
+Or, in a really ideal world you wouldn't have to specify the binding
+method at all, because there would be a standard way to tell a component
+where its libraries are.
+
+
+-- 
+Dr Thomas Leonard		<A HREF="http://rox.sourceforge.net">http://rox.sourceforge.net</A>
+GPG: 9242 9807 C985 3C07 44A6  8B9A AE07 8280 59A5 3CC1
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000596.html">ZeroInstall &amp; Package systems [Was: Re: Dock padding_pixels	suggestion]
+</A></li>
+	<LI>Next message: <A HREF="000606.html">ZeroInstall &amp; Package systems [Was: Re: Dock padding_pixels	suggestion]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#605">[ date ]</a>
+              <a href="thread.html#605">[ thread ]</a>
+              <a href="subject.html#605">[ subject ]</a>
+              <a href="author.html#605">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

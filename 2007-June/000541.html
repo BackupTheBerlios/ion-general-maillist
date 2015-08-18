@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> no updates in statusbar meters
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-June/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20no%20updates%20in%20statusbar%20meters&In-Reply-To=%3Cslrnf7i2d3.m9a.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000540.html">
+   <LINK REL="Next"  HREF="000542.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>no updates in statusbar meters</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20no%20updates%20in%20statusbar%20meters&In-Reply-To=%3Cslrnf7i2d3.m9a.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="no updates in statusbar meters">tuomov at iki.fi
+       </A><BR>
+    <I>Wed Jun 20 13:04:03 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000540.html">no updates in statusbar meters
+</A></li>
+        <LI>Next message: <A HREF="000542.html">no updates in statusbar meters
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#541">[ date ]</a>
+              <a href="thread.html#541">[ thread ]</a>
+              <a href="subject.html#541">[ subject ]</a>
+              <a href="author.html#541">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2007-06-20, Joerg van den Hoff &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">j.van_den_hoff at fzd.de</A>&gt; wrote:
+&gt;<i> not that this would get the clock running, though...
+</I>
+They could start by stopping to claim that it is there. All the
+documentation I have found says either that a) _POSIX_MONOTONIC_CLOCK
+is defined when CLOCK_MONOTONIC is available, or b) must be defined
+to the value 200112L (or so). I'd prefer the latter (since it's a
+POSIX version check too), but glibc is also crapware, and the header
+/usr/include/bits/posix_opt.h simply defines:
+
+/* The monotonic clock might be available.  */ 
+#define _POSIX_MONOTONIC_CLOCK  0
+
+Note the moronic &quot;might&quot;.
+
+But, oh, in the world of FOSS herdware it is _forbidden_ for things to
+work just like that: you're supposed to use autocrap scripts (broken
+and unmaintainable themselves) to test for every possible form of brain
+damage the author of some other piece of software -- and distributors --
+might be suffering from.
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000540.html">no updates in statusbar meters
+</A></li>
+	<LI>Next message: <A HREF="000542.html">no updates in statusbar meters
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#541">[ date ]</a>
+              <a href="thread.html#541">[ thread ]</a>
+              <a href="subject.html#541">[ subject ]</a>
+              <a href="author.html#541">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

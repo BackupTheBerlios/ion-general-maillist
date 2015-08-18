@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Can't type into queries
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Can%27t%20type%20into%20queries&In-Reply-To=%3Cslrnfn4o59.mau.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000936.html">
+   <LINK REL="Next"  HREF="000940.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Can't type into queries</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Can%27t%20type%20into%20queries&In-Reply-To=%3Cslrnfn4o59.mau.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Can't type into queries">tuomov at iki.fi
+       </A><BR>
+    <I>Wed Dec 26 15:09:45 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000936.html">Can't type into queries
+</A></li>
+        <LI>Next message: <A HREF="000940.html">&quot;BAD signature&quot;
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#939">[ date ]</a>
+              <a href="thread.html#939">[ thread ]</a>
+              <a href="subject.html#939">[ subject ]</a>
+              <a href="author.html#939">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2007-12-25, Bryan Richter &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">bryan.richter at gmail.com</A>&gt; wrote:
+&gt;<i> Like I said, I'm just throwing this out there. I haven't done any debugging at
+</I>&gt;<i> all. I just wanted to see if I suffer alone.
+</I>
+This is a mystery problem that people now and then complain about, but
+nobody can provide hard evidence. Maybe it's some X locale support 
+fuckup, with XmbLookupString failing to translate keystrokes into
+strings. Or maybe it's libc locale fuckup, causing the control character
+filter to fail. Try messing with insstr in ioncore/key.c, to see what 
+happens. Try to see what xev prints.
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000936.html">Can't type into queries
+</A></li>
+	<LI>Next message: <A HREF="000940.html">&quot;BAD signature&quot;
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#939">[ date ]</a>
+              <a href="thread.html#939">[ thread ]</a>
+              <a href="subject.html#939">[ subject ]</a>
+              <a href="author.html#939">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

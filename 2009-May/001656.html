@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> confirm 852223f5c787b0857a42616c26c0a94208eae60a
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-May/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20confirm%20852223f5c787b0857a42616c26c0a94208eae60a&In-Reply-To=%3Cop.uumvnuytvocxtk%40tabole-debian%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001655.html">
+   <LINK REL="Next"  HREF="001657.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>confirm 852223f5c787b0857a42616c26c0a94208eae60a</H1>
+    <B>Ole J&#248;rgen Br&#248;nner</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20confirm%20852223f5c787b0857a42616c26c0a94208eae60a&In-Reply-To=%3Cop.uumvnuytvocxtk%40tabole-debian%3E"
+       TITLE="confirm 852223f5c787b0857a42616c26c0a94208eae60a">olejorgenb at yahoo.no
+       </A><BR>
+    <I>Thu May 28 11:36:56 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001655.html">confirm 852223f5c787b0857a42616c26c0a94208eae60a
+</A></li>
+        <LI>Next message: <A HREF="001657.html">confirm 852223f5c787b0857a42616c26c0a94208eae60a
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1656">[ date ]</a>
+              <a href="thread.html#1656">[ thread ]</a>
+              <a href="subject.html#1656">[ subject ]</a>
+              <a href="author.html#1656">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>The following apply to ion3. (I haven't used pwm2/3 or ion2)
+
+As marc said, you should copy the cfg_ioncore.lua file to you ~/.ion3  
+directory. The cfg_* files are in /usr/local/etc/ion3 if you've installed  
+normally from source, or /etc/X11/ion3 if you used the debian/ubuntu  
+package.
+
+Changing basic bindings shouldn't really require that much knowledge of  
+lua.
+
+&gt;<i> The most important shortcuts I am missing and can not find in the manual
+</I>&gt;<i> are:
+</I>&gt;<i> ctrl+shift+M for maximizing/minimizing toggle of an active window
+</I>Find this section in cfg_ioncore.lua:
+
+defbindings(&quot;WFrame&quot;, {
+     submap(META..&quot;K&quot;, {
+         bdoc(&quot;Maximize the frame horizontally/vertically.&quot;),
+         kpress(&quot;H&quot;, &quot;WFrame.maximize_horiz(_)&quot;),
+         kpress(&quot;V&quot;, &quot;WFrame.maximize_vert(_)&quot;),
+     }),
+
+change it to:
+
+defbindings(&quot;WFrame&quot;, {
+     kpress(&quot;Control+Shift+M&quot;, &quot;&quot;WFrame.maximize_horiz(_)  
+WFrame.maximize_vert(_)&quot;),
+
+
+&gt;<i> Mod1+Enter for &quot;start resizing/moving window mode, unless Enter is  
+</I>&gt;<i> pressed
+</I>&gt;<i> again&quot;
+</I>Replace (in the 'defbindings(&quot;WFrame&quot;, {' section)
+     kpress(META..&quot;R&quot;, &quot;WFrame.begin_kbresize(_)&quot;),
+with
+     kpress(META..&quot;Return&quot;, &quot;WFrame.begin_kbresize(_)&quot;),
+and remove
+     kpress_wait(META..&quot;Return&quot;, &quot;WGroup.set_fullscreen(_, 'toggle')&quot;),
+ from defbindings(&quot;WGroupCW&quot;, {
+
+&gt;<i> Mod1+Tab for switching focus to next window  on active desktop
+</I>&gt;<i> (this did work at the beginning, I changed some option, now it switches  
+</I>&gt;<i> to
+</I>&gt;<i> next window, but if it is a last window on current desktop, it`ll switch  
+</I>&gt;<i> to
+</I>&gt;<i> next window on a next desktop)
+</I>Yes, this should be the default behavior. (I guess you've done something  
+about nowrap)
+
+&gt;<i> --
+</I>&gt;<i> Another question:
+</I>&gt;<i> Alt+F11 will put a window into a fullscreen mode. If the window was on
+</I>&gt;<i> Desktop 1 before, now it is on Desktop 0.  Is this the default?
+</I>Well, META+Return is the standard binding for fullscreen, and this should  
+place the window back where it came from.
+
+This is the most relevant section in the documentation:
+<A HREF="http://modeemi.fi/~tuomov/ion-doc-3/ionconf/node4.html#SECTION00433000000000000000">http://modeemi.fi/~tuomov/ion-doc-3/ionconf/node4.html#SECTION00433000000000000000</A>
+
+-- 
+Ole J&#248;rgen Br&#248;nner
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001655.html">confirm 852223f5c787b0857a42616c26c0a94208eae60a
+</A></li>
+	<LI>Next message: <A HREF="001657.html">confirm 852223f5c787b0857a42616c26c0a94208eae60a
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1656">[ date ]</a>
+              <a href="thread.html#1656">[ thread ]</a>
+              <a href="subject.html#1656">[ subject ]</a>
+              <a href="author.html#1656">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

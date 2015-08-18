@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Bug#462690: flashplugin-nonfree's new fullscreen mode doesn't	work with ion3
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Bug%23462690%3A%20flashplugin-nonfree%27s%20new%20fullscreen%20mode%20doesn%27t%0A%09work%20with%20ion3&In-Reply-To=%3C1201444547.3704.37.camel%40deadeye.i.decadent.org.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001022.html">
+   <LINK REL="Next"  HREF="001024.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Bug#462690: flashplugin-nonfree's new fullscreen mode doesn't	work with ion3</H1>
+    <B>Ben Hutchings</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Bug%23462690%3A%20flashplugin-nonfree%27s%20new%20fullscreen%20mode%20doesn%27t%0A%09work%20with%20ion3&In-Reply-To=%3C1201444547.3704.37.camel%40deadeye.i.decadent.org.uk%3E"
+       TITLE="Bug#462690: flashplugin-nonfree's new fullscreen mode doesn't	work with ion3">ben at decadent.org.uk
+       </A><BR>
+    <I>Sun Jan 27 15:35:47 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001022.html">autocomplete for ssh
+</A></li>
+        <LI>Next message: <A HREF="001024.html">Bug#462690: flashplugin-nonfree's new fullscreen mode doesn't	work with ion3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1023">[ date ]</a>
+              <a href="thread.html#1023">[ thread ]</a>
+              <a href="subject.html#1023">[ subject ]</a>
+              <a href="author.html#1023">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Sun, 2008-01-27 at 12:24 +0100, Johannes Weiss wrote:
+&gt;<i> Hi,
+</I>&gt;<i> 
+</I>&gt;<i> &gt; &gt; Package: ion3
+</I>&gt;<i> &gt; &gt; Version: 20080103-1
+</I>&gt;<i> &gt; &gt; Severity: normal
+</I>&gt;<i> &gt; &gt; 
+</I>&gt;<i> &gt; &gt; the fullscreen window opens shortly but closes immediately...
+</I>&gt;<i> &gt; &gt; In GNOME it works.
+</I>&gt;<i> &gt; 
+</I>&gt;<i> &gt; I noticed a similar problem myself on one web site, but assumed it was a
+</I>&gt;<i> &gt; site-specific scripting bug.  If it affects Flash full-screen mode in
+</I>&gt;<i> &gt; general, this is probably a bug in Flash - it's very unlikely that Ion3
+</I>&gt;<i> &gt; is telling the window to close.  However it may be possible to configure
+</I>&gt;<i> &gt; a kluge-rule for Ion3 that will work around the bug.  Can you point to a
+</I>&gt;<i> &gt; specific web site that demonstrates this problem?
+</I>&gt;<i> 
+</I>&gt;<i> It affects the NEW (since flash 9.0.115.0) fullscreen-mode in general.
+</I>&gt;<i> In older flashplayers it was not possible (under Linux) to switch to
+</I>&gt;<i> fullscreen-mode on an existing window. That was very bad, because you had
+</I>&gt;<i> to watch e.g. youtube-videos from the beginning when you wanted to switch to
+</I>&gt;<i> fullscreen.
+</I>&gt;<i> That is now fixed with a real flash fullscreen mode, but it does work with ion
+</I>&gt;<i> at all. Some sample sites:
+</I>&gt;<i> 
+</I>&gt;<i> - <A HREF="http://youtube.com">http://youtube.com</A> -- choose any video and press fullscreen
+</I>&gt;<i> - <A HREF="http://myvideo.de">http://myvideo.de</A> -- the same thing
+</I>&gt;<i> - <A HREF="http://flowplayer.org/demo/h264">http://flowplayer.org/demo/h264</A>
+</I>&gt;<i> 
+</I>&gt;<i> be sure to have installed
+</I>&gt;<i> ii  flashplugin-nonfree 9.0.115.0.1         Adobe Flash Player plugin installer
+</I>
+This seems to be a bug in Flash.  I was able to workaround this by
+adding a nasty hack to cfg_ion.lua:
+
+-- Flash player opens full-screen windows from Firefox with size request
+-- 200x200.  It closes them if they lose focus, but also if they get focus
+-- too quickly.  Therefore delay focus for 100 ms.
+-- Note that we can't create a timer in the match function, and we can't
+-- change switchto in the hook function, so we need both.
+
+defwinprop {
+   class = &quot;Firefox-bin&quot;,
+   match = function(prop, cwin, id)
+	      local geom = cwin:geom()
+	      return geom.w == 200 and geom.h == 200
+	   end,
+   switchto = false,
+}
+
+ioncore.get_hook(&quot;clientwin_do_manage_alt&quot;):add(
+   function(cwin, table)
+      local ident = cwin:get_ident()
+      local geom = cwin:geom()
+      if ident.class == &quot;Firefox-bin&quot; and geom.w == 200 and geom.h == 200 then
+	 local timer = ioncore.create_timer()
+	 timer:set(100, function() cwin:goto() end)
+	 return true
+      else
+	 return false
+      end
+   end
+)
+
+Ben.
+
+-- 
+Ben Hutchings
+One of the nice things about standards is that there are so many of them.
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: This is a digitally signed message part
+URL: &lt;<A HREF="https://lists.berlios.de/pipermail/ion-general/attachments/20080127/89482384/attachment.pgp">https://lists.berlios.de/pipermail/ion-general/attachments/20080127/89482384/attachment.pgp</A>&gt;
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001022.html">autocomplete for ssh
+</A></li>
+	<LI>Next message: <A HREF="001024.html">Bug#462690: flashplugin-nonfree's new fullscreen mode doesn't	work with ion3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1023">[ date ]</a>
+              <a href="thread.html#1023">[ thread ]</a>
+              <a href="subject.html#1023">[ subject ]</a>
+              <a href="author.html#1023">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

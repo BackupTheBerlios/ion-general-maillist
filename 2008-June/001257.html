@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> ion-statusd eating up 100% cpu
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-June/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion-statusd%20eating%20up%20100%25%20cpu&In-Reply-To=%3C20080623192553.GA29807%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001256.html">
+   <LINK REL="Next"  HREF="001258.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>ion-statusd eating up 100% cpu</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20ion-statusd%20eating%20up%20100%25%20cpu&In-Reply-To=%3C20080623192553.GA29807%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="ion-statusd eating up 100% cpu">tuomov at iki.fi
+       </A><BR>
+    <I>Mon Jun 23 21:25:53 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001256.html">ion-statusd eating up 100% cpu
+</A></li>
+        <LI>Next message: <A HREF="001258.html">ion-statusd eating up 100% cpu
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1257">[ date ]</a>
+              <a href="thread.html#1257">[ thread ]</a>
+              <a href="subject.html#1257">[ subject ]</a>
+              <a href="author.html#1257">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-06-23 19:40 +0200, Christian Glindkamp wrote:
+&gt;<i>   setitimer(ITIMER_REAL, {it_interval={0, 19}, it_value={0, 19}}, NULL) = 0
+</I>&gt;<i>   --- SIGALRM (Alarm clock) @ 0 (0) ---
+</I>
+Ok, there's a small chance that it may be as I already suspected: 
+For some reason (bitrot maybe; I didn't actually write the code, 
+IIRC), the timer code sets it_interval, although it does not need
+the signal repeated at static intervals. So, when this interval
+is very short, Ion may never actually get far from returning
+from the signal handler, until the signal is delivered again.
+
+The attached patch might fix the issue, if this is the case.
+However, now there's a potential for another race condition:
+what if the signal gets delivered before we call select()?
+Without repetion, we might never return from select() to
+handle the timer signal. pselect() would solve this problem,
+but it was not implemented in linux until 2.6.16, and glibc
+has an emulation prone to the same race conditions. Also
+the changes needed maybe too big for inclusion into Ion3.
+(The patch is found in the Ion3+ darcs repository, however.)
+
+-- 
+Tuomo
+-------------- next part --------------
+Wed Jun 18 13:06:21 EEST 2008  Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt;
+  * We don't really need it_interval
+diff -rN -u old-ion-3-work1.1/libmainloop/signal.c new-ion-3-work1.1/libmainloop/signal.c
+--- old-ion-3-work1.1/libmainloop/signal.c	2008-06-23 22:16:51.504899340 +0300
++++ new-ion-3-work1.1/libmainloop/signal.c	2008-06-23 22:16:51.564907535 +0300
+@@ -112,8 +112,8 @@
+         return;
+     }
+ 
+-    val.it_interval.tv_usec=val.it_value.tv_usec;
+-    val.it_interval.tv_sec=val.it_value.tv_sec;
++    val.it_interval.tv_usec=0;
++    val.it_interval.tv_sec=0;
+     
+     if((setitimer(ITIMER_REAL, &amp;val, NULL))){
+         had_tmr=TRUE;
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001256.html">ion-statusd eating up 100% cpu
+</A></li>
+	<LI>Next message: <A HREF="001258.html">ion-statusd eating up 100% cpu
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1257">[ date ]</a>
+              <a href="thread.html#1257">[ thread ]</a>
+              <a href="subject.html#1257">[ subject ]</a>
+              <a href="author.html#1257">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> rdesktop
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-December/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20rdesktop&In-Reply-To=%3Calpine.LNX.2.00.0812130012230.5516%40acer.home.local%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001499.html">
+   <LINK REL="Next"  HREF="001501.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>rdesktop</H1>
+    <B>Benjamin R. Haskell</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20rdesktop&In-Reply-To=%3Calpine.LNX.2.00.0812130012230.5516%40acer.home.local%3E"
+       TITLE="rdesktop">ion at benizi.com
+       </A><BR>
+    <I>Sat Dec 13 06:18:58 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001499.html">rdesktop
+</A></li>
+        <LI>Next message: <A HREF="001501.html">Toggle horizontal/vertical maximize behaviour
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1500">[ date ]</a>
+              <a href="thread.html#1500">[ thread ]</a>
+              <a href="subject.html#1500">[ subject ]</a>
+              <a href="author.html#1500">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Thu, 11 Dec 2008, Albert Shih wrote:
+
+&gt;<i> Le 11/12/2008 &#224; 10:14:52+0100, Albert Shih a &#233;crit
+</I>&gt;&gt;<i> Hi all,
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> I'm using....sorry...a old version of ion.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> I've a problem, I don't knwon if it's come from my old version or it's 
+</I>&gt;&gt;<i> because my config is not complete.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> My version of ION is 3rc-20070927 on FreeBSD.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> My problem is with rdesktop :
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> 	Sometime I need rdesktop to connect on a windows server.
+</I>&gt;&gt;<i> 	After rdesktop is launch I can not use the short-key to change
+</I>&gt;&gt;<i> 	workplace (only the workplace where run rdesktop). I need to click
+</I>&gt;&gt;<i> 	on the top of the workplace, after that i can use short-key.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> of course that's not big problem. But if you can tell me how can I fix 
+</I>&gt;&gt;<i> it.
+</I>&gt;&gt;<i>
+</I>&gt;&gt;<i> Thanks for your help ?
+</I>&gt;<i>
+</I>&gt;<i> Someone tell me the solution (thanks to him).
+</I>&gt;<i>
+</I>&gt;<i> In fact it's rdesktop to grab the keyboard.
+</I>&gt;<i>
+</I>&gt;<i> So to avoid this problem :
+</I>&gt;<i>
+</I>&gt;<i> 	rdesktop -K instead rdesktop
+</I>&gt;<i>
+</I>&gt;<i> regards.
+</I>
+I haven't fully committed to Ion yet, but it always annoyed me that 
+rdesktop did this. It was surprisingly easy to add a keyboard shortcut to 
+get rdesktop to release the keyboard. The attached patch is against 
+rdesktop-1.6.0.
+
+I chose Ctrl+Alt+Shift+Enter as the key to perform the &quot;un-grab&quot;. (Mainly 
+because it's very unlikely I'd ever use that in Windows, but also because 
+there was already a shortcut for Ctrl+Alt+Enter.)
+
+Best,
+Ben
+-------------- next part --------------
+--- xkeymap.c.orig	2007-10-08 08:34:05.000000000 -0400
++++ xkeymap.c	2008-12-12 23:55:00.000000000 -0500
+@@ -514,10 +514,17 @@
+ 			    &amp;&amp; (get_key_state(state, XK_Control_L)
+ 				|| get_key_state(state, XK_Control_R)))
+ 			{
+-				/* Ctrl-Alt-Enter: toggle full screen */
+-				if (pressed)
+-					xwin_toggle_fullscreen();
+-				return True;
++				if (get_key_state(state, XK_Shift_L) || get_key_state(state, XK_Shift_R))
++				{
++					/* Ctrl-Alt-Shift-Enter: release keyboard */
++					XUngrabKeyboard(g_display, CurrentTime);
++					return True;
++				} else {
++					/* Ctrl-Alt-Enter: toggle full screen */
++					if (pressed)
++						xwin_toggle_fullscreen();
++					return True;
++				}
+ 			}
+ 			break;
+ 
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001499.html">rdesktop
+</A></li>
+	<LI>Next message: <A HREF="001501.html">Toggle horizontal/vertical maximize behaviour
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1500">[ date ]</a>
+              <a href="thread.html#1500">[ thread ]</a>
+              <a href="subject.html#1500">[ subject ]</a>
+              <a href="author.html#1500">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

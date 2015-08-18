@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Toggle horizontal/vertical maximize behaviour
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-December/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Toggle%20horizontal/vertical%20maximize%20behaviour&In-Reply-To=%3C20081230172629.GA10480%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001502.html">
+   <LINK REL="Next"  HREF="001506.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Toggle horizontal/vertical maximize behaviour</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Toggle%20horizontal/vertical%20maximize%20behaviour&In-Reply-To=%3C20081230172629.GA10480%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Toggle horizontal/vertical maximize behaviour">tuomov at iki.fi
+       </A><BR>
+    <I>Tue Dec 30 18:26:29 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001502.html">Toggle horizontal/vertical maximize behaviour
+</A></li>
+        <LI>Next message: <A HREF="001506.html">Toggle horizontal/vertical maximize behaviour
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1508">[ date ]</a>
+              <a href="thread.html#1508">[ thread ]</a>
+              <a href="subject.html#1508">[ subject ]</a>
+              <a href="author.html#1508">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-12-15 17:09 +0000, Tuomo Valkonen wrote:
+&gt;<i> &gt; resize commands. (E.g. I see only tab heading, but if I switch to that
+</I>&gt;<i> &gt; heading and try to do ALT+K-V or even ALT+R-N, there's no reaction.) The
+</I>&gt;<i> &gt; only way to unshrink it is to resize main frame.
+</I>&gt;<i> 
+</I>&gt;<i> I may look into this more closely next year; now I have
+</I>&gt;<i> other things to concentrate on.
+</I>
+Ok, attached is a patch that might help with the issue, also
+available from the darcs repository. Please let me know if it
+helps, so I can finally make the new maintenance release that's
+been pending (getting through with PhD defence busyness).
+
+-- 
+In 1988, automated information processing, ATK (automaattinen
+tietojenk&#228;sittely), was a budding new field.
+By 2008, it has become known as IT, information technology, 
+manually operated by human slaves. 
+-------------- next part --------------
+
+                                                                    
+Tue Dec 30 19:11:19 EET 2008  Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt;
+  * Apply FRAME_SHADED_TOGGLE hack in WFrame.maximize_vert
+  for correct unshaded size hints to rqgeom handlers.
+diff -rN -u old-ion-3/ioncore/resize.c new-ion-3/ioncore/resize.c
+--- old-ion-3/ioncore/resize.c	2008-12-30 19:15:31.000000000 +0200
++++ new-ion-3/ioncore/resize.c	2008-12-30 19:15:31.000000000 +0200
+@@ -756,9 +756,11 @@
+     int oy, oh;
+     
+     if(frame-&gt;flags&amp;FRAME_SHADED || frame-&gt;flags&amp;FRAME_MAXED_VERT){
++        if(frame-&gt;flags&amp;FRAME_SHADED)
++            frame-&gt;flags|=FRAME_SHADED_TOGGLE;
+         if(frame-&gt;flags&amp;FRAME_SAVED_VERT)
+             rqh(frame, frame-&gt;saved_y, frame-&gt;saved_h);
+-        frame-&gt;flags&amp;=~(FRAME_MAXED_VERT|FRAME_SAVED_VERT);
++        frame-&gt;flags&amp;=~(FRAME_MAXED_VERT|FRAME_SAVED_VERT|FRAME_SHADED_TOGGLE);
+         return;
+     }
+ 
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001502.html">Toggle horizontal/vertical maximize behaviour
+</A></li>
+	<LI>Next message: <A HREF="001506.html">Toggle horizontal/vertical maximize behaviour
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1508">[ date ]</a>
+              <a href="thread.html#1508">[ thread ]</a>
+              <a href="subject.html#1508">[ subject ]</a>
+              <a href="author.html#1508">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Feature freeze imminent
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Feature%20freeze%20imminent&In-Reply-To=%3Cg69zm6znzij.fsf%40dhcp-65-162.kendall.corp.akamai.com%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000173.html">
+   <LINK REL="Next"  HREF="000177.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Feature freeze imminent</H1>
+    <B>Ted Zlatanov</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Feature%20freeze%20imminent&In-Reply-To=%3Cg69zm6znzij.fsf%40dhcp-65-162.kendall.corp.akamai.com%3E"
+       TITLE="Feature freeze imminent">tzz at lifelogs.com
+       </A><BR>
+    <I>Tue Feb 27 20:58:44 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000173.html">Feature freeze imminent
+</A></li>
+        <LI>Next message: <A HREF="000177.html">Feature freeze imminent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#175">[ date ]</a>
+              <a href="thread.html#175">[ thread ]</a>
+              <a href="subject.html#175">[ subject ]</a>
+              <a href="author.html#175">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Tue, 27 Feb 2007 18:53:50 +0000 (UTC) Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt; wrote: 
+
+TV&gt; On 2007-02-27, Sam Mason &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">mason at f2s.com</A>&gt; wrote:
+&gt;&gt;<i> In more human terms I would have a table of files, the purpose of which
+</I>&gt;&gt;<i> is to give you the fileid (sort of like the inode number), a table of
+</I>&gt;&gt;<i> tags that define what tags are known, and a table containing the pairs
+</I>&gt;&gt;<i> (tag,fileid) that define what files have what tags.
+</I>
+TV&gt; Yeah, that's one quite simple layout, but how would you make the
+TV&gt; intersection of the search results for different tags then? A
+TV&gt; simple &quot;same row&quot; intersection doesn't work anymore. Does SQL 
+TV&gt; have a more complicated intersection operation? And how efficient
+TV&gt; would it be? That's the bottleneck, I think. Plus there's no 
+TV&gt; structure for quick access to a known file name, which would seem
+
+SQL is pretty good about about searching, especially if you index your
+columns well.  Something like this, from the Oracle docs, should be
+available in most good databases:
+
+INTERSECT Example
+
+The following statement combines the results with the INTERSECT
+operator, which returns only those rows returned by both queries:
+
+SELECT part 
+    FROM orders_list1 
+INTERSECT 
+SELECT part 
+    FROM orders_list2;
+
+PART 
+---------- 
+TAILPIPE 
+
+So for your case, it would be
+
+SELECT fileid FROM tagset WHERE tag = 'A'
+INTERSECT
+SELECT fileid FROM tagset WHERE tag = 'B'
+
+The known file name is just an extra column in the files table, and
+searching for it is fast if the column is indexed.
+
+Ted
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000173.html">Feature freeze imminent
+</A></li>
+	<LI>Next message: <A HREF="000177.html">Feature freeze imminent
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#175">[ date ]</a>
+              <a href="thread.html#175">[ thread ]</a>
+              <a href="subject.html#175">[ subject ]</a>
+              <a href="author.html#175">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

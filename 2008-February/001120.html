@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> attach_new problems
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-February/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20attach_new%20problems&In-Reply-To=%3C1203882362.7141.8.camel%40twin%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001119.html">
+   <LINK REL="Next"  HREF="001121.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>attach_new problems</H1>
+    <B>Alexander Barinov</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20attach_new%20problems&In-Reply-To=%3C1203882362.7141.8.camel%40twin%3E"
+       TITLE="attach_new problems">alex.barinov at gmail.com
+       </A><BR>
+    <I>Sun Feb 24 20:46:01 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001119.html">attach_new problems
+</A></li>
+        <LI>Next message: <A HREF="001121.html">frame without borders
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1120">[ date ]</a>
+              <a href="thread.html#1120">[ thread ]</a>
+              <a href="subject.html#1120">[ subject ]</a>
+              <a href="author.html#1120">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Sun, 2008-02-24 at 19:17 +0000, Tuomo Valkonen wrote:
+&gt;<i> Do you get anything in stderr?
+</I>No
+
+&gt;<i> What does the attach call itself return?
+</I>nil.  My understanding is it should return WRegion.  Thus, I quote the
+call again:
+
+local t = ft:attach_new({type = &quot;WGroupCW&quot;, switchto = t.switchto,
+managed = {{reg = cwin, bottom = true}}})
+
+t in nil after that.  ft is non-nil.
+
+&gt;<i> Is the group created?
+</I>Yes.  It appears alongside the mapped window.  As I said, ft is pointing
+at correct WFrame.
+
+&gt;<i> Are you sure cwin points to the correct object?
+</I>Judging by cwin:name(), it does.
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001119.html">attach_new problems
+</A></li>
+	<LI>Next message: <A HREF="001121.html">frame without borders
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1120">[ date ]</a>
+              <a href="thread.html#1120">[ thread ]</a>
+              <a href="subject.html#1120">[ subject ]</a>
+              <a href="author.html#1120">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

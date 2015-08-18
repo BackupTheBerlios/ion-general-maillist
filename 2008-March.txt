@@ -1,0 +1,733 @@
+From ebik at drak.ucw.cz  Sat Mar  1 01:41:34 2008
+From: ebik at drak.ucw.cz (=?iso-8859-2?Q?Tom=E1=B9_Ebenlendr?=)
+Date: Sat, 1 Mar 2008 01:41:34 +0100 (CET)
+Subject: thinkpad x31 keys
+In-Reply-To: <000901c87b15$212df9d0$4001a8c0@bigfish>
+References: <000901c87b15$212df9d0$4001a8c0@bigfish>
+Message-ID: <1833.88.146.1.38.1204332094.squirrel@drak.ucw.cz>
+
+Try 'xev'. It can say you what events the 'xev' window receives. So you
+can see if it is some key of keyboard, or if it is "mouse wheel" (mouse
+wheel often behave as next/previous in firefox - as it generates mouse
+button 4 & 5 click*). Then you can edit your ion config files to set
+apropriate binding (kpress or mpress).
+
+*) Another X-related braindead thing...
+
+Dne 29 ?nor 2008, 21:53, tmudku at gmail.com napsal(a):
+> Hello, I have an ibm thinkpad x31. it has two ?special? keys near the
+> cursor keys. They are used as ?next? and ?previous? on firefox. Can I use
+> these ?special? buttons instead of the alt-k-n and alt-k-p?thanks
+>
+>
+>
+> No virus found in this outgoing message.
+> Checked by AVG Free Edition.
+> Version: 7.5.516 / Virus Database: 269.21.2/1304 - Release Date: 2/29/2008
+>  8:18 AM
+
+-- 
+
+                            Tomas Ebenlendr
+                            http://drak.ucw.cz/~ebik
+
+
+
+From sunwayforever at gmail.com  Sat Mar  1 09:22:58 2008
+From: sunwayforever at gmail.com (sunway)
+Date: Sat, 1 Mar 2008 16:22:58 +0800
+Subject: how to remove some windows from the focuslist?
+Message-ID: <20080301082258.GA2689@sunway>
+
+the window displayed on the systray is also listed in the focuslist, how to remove it?
+
+-- 
+sunway
+
+
+From tuomov at iki.fi  Sat Mar  1 21:21:32 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 1 Mar 2008 20:21:32 +0000 (UTC)
+Subject: how to remove some windows from the focuslist?
+References: <20080301082258.GA2689@sunway>
+Message-ID: <slrnfsjemc.she.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-03-01, sunway <sunwayforever at gmail.com> wrote:
+> the window displayed on the systray is also listed in the focuslist, how
+> to remove it?
+
+Rewrite the list generator :).
+
+-- 
+Tuomo
+
+
+
+From wertigon at gmail.com  Sat Mar  1 22:33:08 2008
+From: wertigon at gmail.com (=?ISO-8859-1?Q?Per_Ekstr=F6m?=)
+Date: Sat, 1 Mar 2008 22:33:08 +0100
+Subject: Wish item; workspace templates
+Message-ID: <16726be0803011333h33d48d07k747ba4172176d492@mail.gmail.com>
+
+Hi!
+
+I like the concept of Ion, though I have yet to try it "for real" (I've only
+been playing around in it so far). Kudos for such a nice WM. :)
+
+There's just one thing I miss, that I haven't found in any of the tiling WMs
+so far; There's no way to set up templates to tell your apps where they
+should go. :(
+
+What I mean, is this; Say that I have a few workspaces.  I use one for
+internet things (web, IM, chat), one for multimedia and handling my files,
+one for the GIMP, and one for developing stuff.
+
+My internet workspace has the contact list and RSS feed in two areas to the
+right, a bar at the bottom is for chat stuff (IM and IRC), and in the space
+left is my browser.  Browser has perhaps  80%*80% of the workspace.
+
+My GIMP workspace has the toolbars to the right, and everything else is
+floating on top of the grid, with the toolbars being on top of course (for
+easy access).
+
+My multimedia/file window, meanwhile, has a media player in a narrow strip
+at the bottom and a file manager with commander-like structure at the top.
+About a 60/40 ratio. If I play, say, a movie, I want it to appear as a
+floating window on top of this.
+
+Finally, my developer workspace, has a terminal at the bottom, and Emacs at
+the top, 75/25 ratio with Emacs taking up the upper part of the screen.
+
+Now, I hope most persons here are mature enough to see that this is not
+ideal for everyone; it sucks on a small resolution for one thing. But I like
+it this way. Only problem is, it doesn't get saved when I have to reboot
+(damn kernel devs can't design a proper secure kernel... ;)). So I have to
+spend 10-20 minutes on getting everything up-to-speed again.
+
+So, I'd like to see what I call "Workspace Templates" - You basicly define
+which programs open where (per default that is). This would require a small
+configuration change. Below is an example of such a file (modify it as you
+see fit);
+
+[Workspace 1]
+name=Internet
+
+[area]
+workspace=Internet
+dimensions=80 80           // In percentage
+location=left top
+name=browsers
+
+[area]
+workspace=Internet
+dimensions=20 50           // In percentage
+location=right top
+name=rss
+
+[area]
+workspace=Internet
+dimensions=20 50           // In percentage
+location=right  bottom
+name=contacts
+
+[area]
+workspace=Internet
+dimensions=40 20           // In percentage
+location=left  bottom
+name=irc
+
+[area]
+workspace=Internet
+dimensions=40 20           // In percentage
+location=left top
+name=imchat
+
+[programs]
+item=firefox browser
+item=akregator rss
+item=pidgin contacts
+item=pidgin-chat imchat
+item=xchat irc
+
+There's only one thing missing for this puzzle; how to handle child windows
+from applications? Otherwise I think it should be pretty straightforward to
+develop. Though, I am not really a developer, so I might be wrong.
+
+Thoughts? Comments?
+
+Regards,
+- Per Ekstr?m
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080301/c6579e4b/attachment.html>
+
+From csant at csant.info  Sun Mar  2 08:58:13 2008
+From: csant at csant.info (csant)
+Date: Sun, 02 Mar 2008 08:58:13 +0100
+Subject: Wish item; workspace templates
+In-Reply-To: <16726be0803011333h33d48d07k747ba4172176d492@mail.gmail.com>
+References: <16726be0803011333h33d48d07k747ba4172176d492@mail.gmail.com>
+Message-ID: <op.t7dprbjfd84skq@fiore.malebolge>
+
+On Sat, 01 Mar 2008 22:33:08 +0100, Per Ekstr?m <wertigon at gmail.com> wrote:
+
+> There's no way to set up templates to tell your apps where they
+> should go. :(
+
+Do winprops not help?  Or did I misunderstand you?
+/c
+
+
+
+From ebik at drak.ucw.cz  Sun Mar  2 13:36:32 2008
+From: ebik at drak.ucw.cz (=?iso-8859-2?Q?Tom=E1=B9_Ebenlendr?=)
+Date: Sun, 2 Mar 2008 13:36:32 +0100 (CET)
+Subject: Wish item; workspace templates
+In-Reply-To: <16726be0803011333h33d48d07k747ba4172176d492@mail.gmail.com>
+References: <16726be0803011333h33d48d07k747ba4172176d492@mail.gmail.com>
+Message-ID: <1517.88.146.1.38.1204461392.squirrel@drak.ucw.cz>
+
+
+Dne 1 B?ezen 2008, 22:33, Per Ekstr?m napsal(a):
+> Now, I hope most persons here are mature enough to see that this is not
+> ideal for everyone; it sucks on a small resolution for one thing. But I
+> like it this way. Only problem is, it doesn't get saved when I have to
+> reboot (damn kernel devs can't design a proper secure kernel... ;)). So I
+> have to spend 10-20 minutes on getting everything up-to-speed again.
+
+Hmm, and your workspaces were not autosaved? Did you terminated ion, or
+just killed/crashed it? Try quitting/restarting ion after you set up the
+workspaces (via ion's menu or appropriate lua functions). The layout
+(i.e. framework without applications) should get saved.
+
+> There's only one thing missing for this puzzle; how to handle child
+> windows from applications? Otherwise I think it should be pretty
+> straightforward to develop. Though, I am not really a developer, so I
+> might be wrong.
+
+As csant wrote, winprops are for placing new windows in correct frames.
+You can also disable it afterwards, if you want the default place under
+pointer behaviour later.
+
+-- 
+Tomas Ebenlendr
+                            http://drak.ucw.cz/~ebik
+
+
+
+From tuomov at iki.fi  Sun Mar  2 15:38:36 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 2 Mar 2008 14:38:36 +0000 (UTC)
+Subject: Wish item; workspace templates
+References: <16726be0803011333h33d48d07k747ba4172176d492@mail.gmail.com>
+Message-ID: <slrnfslevc.3lm.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-03-01, Per Ekstr?m <wertigon at gmail.com> wrote:
+> ------=_Part_14584_20378963.1204407188085
+> Content-Type: text/plain; charset=ISO-8859-1
+> Content-Transfer-Encoding: quoted-printable
+> Content-Disposition: inline
+>
+> Hi!
+>
+> I like the concept of Ion, though I have yet to try it "for real" (I've onl=
+> y
+> been playing around in it so far). Kudos for such a nice WM. :)
+>
+> There's just one thing I miss, that I haven't found in any of the tiling WM=
+> s
+> so far; There's no way to set up templates to tell your apps where they
+> should go. :(
+
+As others have pointed out, there's "winprops" [1], that can be used to
+some extent. In particular the 'target' and 'new_group' properties are
+useful in this case. The former will specify an existing frame or so,
+and the latter the name of a stored layout for a new group to be created,
+if the 'target' didn't exist. You can copy-paste the configuration of
+a group you have created from the layout savefile (removing references
+to client windows), and pass it to ioncore.deflayout to give it a name.
+(Also see cfg_layout.lua for examples of layout definitions.) Give useful
+(unique) names to the frames within the layout, and you have a sort of 
+template system. It's a bit clumsy, but then apps don't exactly help us
+here, and haven't found myself wanting an improved version of the feature.
+You could do something better with Lua scripting, perhaps.
+
+  [1]: http://iki.fi/tuomov/ion-doc-3/ionconf/node4.html#SECTION00450000000000000000
+
+
+-- 
+Tuomo
+
+
+
+From sunwayforever at gmail.com  Mon Mar  3 18:01:50 2008
+From: sunwayforever at gmail.com (sunway)
+Date: Tue, 4 Mar 2008 01:01:50 +0800
+Subject: a question about mod_query and the completor
+Message-ID: <20080303170150.GA4880@sunway>
+
+if there is only one candidate matching the input, we mustn't  press TAB
+to complete it.
+
+
+
+-- 
+sunway
+
+"It is impossible to defeat an ignorant man in argument. "
+
+
+From deryni at unreliablesource.net  Tue Mar  4 03:34:55 2008
+From: deryni at unreliablesource.net (Etan Reisner)
+Date: Mon, 3 Mar 2008 21:34:55 -0500
+Subject: a question about mod_query and the completor
+In-Reply-To: <20080303170150.GA4880@sunway>
+References: <20080303170150.GA4880@sunway>
+Message-ID: <20080304023455.GG11492@aran>
+
+On Tue, Mar 04, 2008 at 01:01:50AM +0800, sunway wrote:
+> if there is only one candidate matching the input, we mustn't  press TAB
+> to complete it.
+>
+> --
+> sunway
+
+Are you asking to be able to type a unique leading section and then just
+hit enter to activate the full match? So assuming "foo" has only one
+possible completion "foobar", you want to be able to hit your query
+keybinding, type 'foo' then hit enter directly?
+
+    -Etan
+
+
+From sunwayforever at gmail.com  Tue Mar  4 05:11:13 2008
+From: sunwayforever at gmail.com (sunway)
+Date: Tue, 4 Mar 2008 12:11:13 +0800
+Subject: a question about mod_query and the completor
+In-Reply-To: <20080304023455.GG11492@aran>
+References: <20080303170150.GA4880@sunway> <20080304023455.GG11492@aran>
+Message-ID: <20080304041113.GA1330@sunway>
+
+yes.
+if i type "oo", if there is only one possible completion "foobar", i could hit
+enter directly.
+
+On Mon, Mar 03, 2008 at 09:34:55PM -0500, Etan Reisner wrote:
+>On Tue, Mar 04, 2008 at 01:01:50AM +0800, sunway wrote:
+>
+>Are you asking to be able to type a unique leading section and then just
+>hit enter to activate the full match? So assuming "foo" has only one
+>possible completion "foobar", you want to be able to hit your query
+>keybinding, type 'foo' then hit enter directly?
+>
+>    -Etan
+
+-- 
+sunway
+
+"Humility is the foundation of glory."
+
+
+From tuomov at iki.fi  Tue Mar  4 12:13:36 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 4 Mar 2008 11:13:36 +0000 (UTC)
+Subject: a question about mod_query and the completor
+References: <20080303170150.GA4880@sunway> <20080304023455.GG11492@aran>
+	<20080304041113.GA1330@sunway>
+Message-ID: <slrnfsqbn0.ere.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-03-04, sunway <sunwayforever at gmail.com> wrote:
+> yes.
+> if i type "oo", if there is only one possible completion "foobar", i could hit
+> enter directly.
+
+"Autocompletion" is generally an annoyance. Ion only has "auto-show
+completions" (as well as more traditional tab-completion;
+mod_query.set{autoshowcompl=false}).
+
+-- 
+Tuomo
+
+
+
+From lanek at novenine.com  Wed Mar  5 14:11:44 2008
+From: lanek at novenine.com (Roy Lanek)
+Date: Wed, 5 Mar 2008 20:11:44 +0700
+Subject: Option clash for package hyperref--okay again
+Message-ID: <20080305131144.GA6801@sirih>
+
+With reference my previous problems with rubber and building ion's doc:
+
+> > I am the only one seeing this, do I have messed up with my TeX/etc.
+> > environment?
+> 
+> [Tuomo] Works for me at home, not at work.
+
+I just have rebuilt rubber [via: darcs get
+http://www.pps.jussieu.fr/~beffara/darcs/rubber/, not from some source
+tarball], and the problems seem to be gone--or, in any case, I can rebuild
+ion's doc. (It would also have been the first time I could _not_ have ... to
+rebuild the doc I mean.) :,(
+
+:)
+
+Cheers,
+
+/Roy
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS   tak ada rotan, akar pun jadi
+SSSSS . s l a c k w a r e  SSSSSS   no rattans, roots will do [if you are
+SSSSS +------------ linux  SSSSSS   desperate, you must not be choosy]
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+
+
+From tuomov at iki.fi  Wed Mar  5 19:05:00 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 5 Mar 2008 18:05:00 +0000 (UTC)
+Subject: Option clash for package hyperref--okay again
+References: <20080305131144.GA6801@sirih>
+Message-ID: <slrnfsto6c.uvl.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-03-05, Roy Lanek <lanek at novenine.com> wrote:
+> I just have rebuilt rubber [via: darcs get
+> http://www.pps.jussieu.fr/~beffara/darcs/rubber/, not from some source
+> tarball], and the problems seem to be gone--or, in any case, I can rebuild
+> ion's doc. (It would also have been the first time I could _not_ have ... to
+> rebuild the doc I mean.) :,(
+
+There's also a potential fix in the darcs repo for ion-doc-3,
+changing the load order of the html package after hyperref.
+
+-- 
+Tuomo
+
+
+
+From alaborie at gmail.com  Thu Mar  6 11:07:21 2008
+From: alaborie at gmail.com (Alex)
+Date: Thu, 6 Mar 2008 11:07:21 +0100
+Subject: FreeBSD 7 & ion3 (man page can't view)
+Message-ID: <26056dfc0803060207o642600abj6979a918a9beab2d@mail.gmail.com>
+
+Hi,
+
+I have install ion3 on my freeBSD 7, I only needed to tweak system.mk like
+this:
+* Comment for dl library
+#DL_LIBS=-ldl
+* Uncomment this line
+DEFINES += -DCF_NO_LOCALE -DCF_NO_GETTEXT
+* And set value for the LUA.
+
+So, compilation work perfecly and ion3 use work fine. But I can't access to
+the ion3 man page (No manual entry for ion3). But when I search ion3 man
+page on my disk, I found that:
+/usr/local/share/man/man1/ion3.1
+/usr/local/share/man/fi/man1/ion3.1
+/usr/local/share/man/cs/man1/ion3.1
+
+Someone know why I can't view ion3 man page ? Maybe there are no link
+between man page system and ion3 man page. In fact, I really don't know how
+work the man page system...
+
+Thanks for your future help...
+
+Alex
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20080306/228214bf/attachment.html>
+
+From tuomov at iki.fi  Thu Mar  6 11:39:04 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 6 Mar 2008 10:39:04 +0000 (UTC)
+Subject: FreeBSD 7 & ion3 (man page can't view)
+References: <26056dfc0803060207o642600abj6979a918a9beab2d@mail.gmail.com>
+Message-ID: <slrnfsvie8.t1k.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-03-06, Alex <alaborie at gmail.com> wrote:
+> Someone know why I can't view ion3 man page ? Maybe there are no link
+> between man page system and ion3 man page. In fact, I really don't know how
+> work the man page system...
+
+What's your manpath (echo $MANPATH, manpath, ...?)?
+Do the local man pages go in /usr/local/share/man or /usr/local/man?
+
+-- 
+Tuomo
+
+
+
+From Albert.Shih at obspm.fr  Thu Mar  6 12:57:39 2008
+From: Albert.Shih at obspm.fr (Albert Shih)
+Date: Thu, 6 Mar 2008 12:57:39 +0100
+Subject: FreeBSD 7 & ion3 (man page can't view)
+In-Reply-To: <26056dfc0803060207o642600abj6979a918a9beab2d@mail.gmail.com>
+References: <26056dfc0803060207o642600abj6979a918a9beab2d@mail.gmail.com>
+Message-ID: <20080306115739.GK67780@pcjas.obspm.fr>
+
+ Le 06/03/2008 ? 11:07:21+0100, Alex a ?crit
+> Hi,
+> 
+> I have install ion3 on my freeBSD 7, I only needed to tweak system.mk like
+> this:
+> * Comment for dl library
+> #DL_LIBS=-ldl
+> * Uncomment this line
+> DEFINES += -DCF_NO_LOCALE -DCF_NO_GETTEXT
+> * And set value for the LUA.
+> 
+> So, compilation work perfecly and ion3 use work fine. But I can't access to the
+> ion3 man page (No manual entry for ion3). But when I search ion3 man page on my
+> disk, I found that:
+> /usr/local/share/man/man1/ion3.1
+> /usr/local/share/man/fi/man1/ion3.1
+> /usr/local/share/man/cs/man1/ion3.1
+
+In FreeBSD the man page ?must? in
+
+	/usr/local/man/
+
+so just do
+
+	mv /usr/local/share/man/man1/ion3.1 /usr/local/man/man1
+	mv /usr/local/share/man/fi/man1/ion3.1 /usr/local/man/fi/man1/
+	mv /usr/local/share/man/cs/man1/ion3.1 /usr/local/man/cs/man1/
+
+Regards.
+ 
+--
+Albert SHIH
+SIO batiment 15
+Observatoire de Paris Meudon
+5 Place Jules Janssen
+92195 Meudon Cedex
+Heure local/Local time:
+Jeu 6 mar 2008 12:56:15 CET
+
+
+From tuomov at iki.fi  Thu Mar  6 13:13:14 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 6 Mar 2008 12:13:14 +0000 (UTC)
+Subject: FreeBSD 7 & ion3 (man page can't view)
+References: <26056dfc0803060207o642600abj6979a918a9beab2d@mail.gmail.com>
+	<20080306115739.GK67780@pcjas.obspm.fr>
+Message-ID: <slrnfsvnuq.6q7.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-03-06, Albert Shih <Albert.Shih at obspm.fr> wrote:
+> In FreeBSD the man page ?must? in
+>
+> 	/usr/local/man/
+>
+> so just do
+
+or change the location in system.mk
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue Mar 11 08:19:49 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 11 Mar 2008 07:19:49 +0000 (UTC)
+Subject: Nagware version
+References: <20071229152546.GA22341@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnftcckl.28h.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-12-29, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> I've been considering releasing (as a patch) a separate nagware version
+> of Ion, which would have a license without the 28-day clause. 
+
+Since little (no) interest has been expressed in this, don't hold
+your breath.
+
+-- 
+Tuomo
+
+
+
+From lanek at novenine.com  Tue Mar 11 10:34:52 2008
+From: lanek at novenine.com (Roy Lanek)
+Date: Tue, 11 Mar 2008 16:34:52 +0700
+Subject: Nagware version
+In-Reply-To: <slrnftcckl.28h.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20071229152546.GA22341@jolt.modeemi.cs.tut.fi>
+	<slrnftcckl.28h.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20080311093452.GA30521@sirih>
+
+> Since little (no) interest has been expressed in this, don't hold your
+> breath.
+
+"Don't hold your breath." Sure will not. 8-)
+
+I have met a cobra in the bathroom, two-three nights ago. No kidding. Of
+course it has attacked, given the limited dimensions of a bathroom. (In
+one-two seconds up in a 'S' position, loudly exhaling--the sound is exactly
+the same--like an angered cat, and then jumping forward with the speed of a
+dart at the fourth-fifth second.
+
+I have managed--still can't believe it--to not be bitten. In my
+rationalizations, I have been rescued because of the exhaling of the cobra: it
+has changed tonality [because of the effort] the moment the snake has begun to
+project itself forward ... I was not believing at my eyes otherwise and would
+have been to slow/late. I have jumped in the air backward like a cat [have
+grown within cats in a family who was mad for/loving cats] Long life, anyway,
+to the PS2 games [with reference: motoric and reaction training] I play from
+time to time.)
+
+Off-topic, I know.
+
+Cheers,
+
+/Roy
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  habis manis sepah dibuang--after the sweet
+SSSSS . s l a c k w a r e  SSSSSS  part is finished and becomes tasteless,
+SSSSS +------------ linux  SSSSSS  the cane is thrown away [when we only call
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  our friends if we need help]
+
+
+From ion at rrod.net  Tue Mar 18 15:49:23 2008
+From: ion at rrod.net (Jarrod Lowe)
+Date: Tue, 18 Mar 2008 14:49:23 +0000
+Subject: ion-3-20080207 won't compile: lua incompatibility?
+Message-ID: <15f314a40803180749j6a2856d8hfacb74d7151d6355@mail.gmail.com>
+
+I try to compile ion-3-20080207, and get the following:
+
+Scanning main.c for exports.
+/usr/local/bin/lua: ../libextl/libextl-mkexports:211: 'string.gfind'
+was renamed to 'string.gmatch'
+stack traceback:
+        [C]: in function 'gfind'
+        ../libextl/libextl-mkexports:211: in function 'do_do_export'
+        ../libextl/libextl-mkexports:288: in function 'minfn'
+        ../libextl/libextl-mkexports:352: in function 'do_parse'
+        ../libextl/libextl-mkexports:335: in function 'parse'
+        ../libextl/libextl-mkexports:777: in main chunk
+        [C]: ?
+make[1]: *** [exports.c] Error 1
+make[1]: Leaving directory `/tmp/ion-3-20080207/mod_tiling'
+make: *** [subdirs] Error 2
+
+
+
+Making the obvious change, and re-running make:
+
+/usr/local/bin/lua: ../libextl/libextl-mkexports:30: bad argument #2
+to 'format' (number expected, got string)
+stack traceback:
+        [C]: in function 'format'
+        ../libextl/libextl-mkexports:30: in function 'fprintf'
+        ../libextl/libextl-mkexports:432: in function 'writechnd'
+        ../libextl/libextl-mkexports:519: in function 'write_exports'
+        ../libextl/libextl-mkexports:795: in main chunk
+        [C]: ?
+make[1]: *** [exports.c] Error 1
+make[1]: Leaving directory `/tmp/ion-3-20080207/mod_tiling'
+make: *** [subdirs] Error 2
+
+
+...At which point I am starting to think that this could go on for a while.
+
+$ lua -v
+Lua 5.1.3  Copyright (C) 1994-2008 Lua.org, PUC-Rio
+
+Is Ion not compatible with this version of lua?
+
+
+-- 
+Jarrod Lowe
+
+
+From tuomov at iki.fi  Tue Mar 18 16:47:21 2008
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 18 Mar 2008 15:47:21 +0000 (UTC)
+Subject: ion-3-20080207 won't compile: lua incompatibility?
+References: <15f314a40803180749j6a2856d8hfacb74d7151d6355@mail.gmail.com>
+Message-ID: <slrnftvp09.qeb.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2008-03-18, Jarrod Lowe <ion at rrod.net> wrote:
+> $ lua -v
+> Lua 5.1.3  Copyright (C) 1994-2008 Lua.org, PUC-Rio
+>
+> Is Ion not compatible with this version of lua?
+
+
+"""
+7 - Incompatibilities with the Previous Version
+
+Here we list the incompatibilities that may be found when moving a program
+from Lua 5.0 to Lua 5.1. You can avoid most of the incompatibilities
+compiling Lua with appropriate options (see file luaconf.h). However, all
+these compatibility options will be removed in the next version of Lua.
+
+...
+
+  * Function string.gfind was renamed string.gmatch. (Option LUA_COMPAT_GFIND)
+"""
+
+file://localhost/usr/share/doc/lua5.1-doc/doc/manual.html
+
+(Or the same doc from web, the but lua.org is dead-slow, so I can't
+be bothered accessing it.)
+
+So it should bejust your compile that is incompatible. Or have they
+changed the compile options between 5.1.2 and 5.1.3? Which would be 
+fucking braindead. (I can get them completely removing gfind for 5.2, 
+but not changing options between 5.1 releases. Or just disabling it
+by default in the whole 5.1 series -- which would've made discovery
+of this change easier -- but net between 5.1 releases.)
+
+-- 
+Tuomo
+
+
+
+From ion at rrod.net  Tue Mar 18 18:40:37 2008
+From: ion at rrod.net (Jarrod Lowe)
+Date: Tue, 18 Mar 2008 17:40:37 +0000
+Subject: Gentoo ebuild overlay for ion
+Message-ID: <15f314a40803181040u6ca315e8gd855d31df68e3881@mail.gmail.com>
+
+I have managed to get an ebuild for gentoo to install ion3-20080207
+(the latest, according to the website).
+
+It will also install the mod_xinerama module that was posted on this
+list a while ago, if you specify both "xinerama" *and* "unsupported".
+
+http://gentoo-wiki.com/HOWTO_Installing_3rd_Party_Ebuilds tells you
+how to add the ebuild into your portage system.
+
+-- 
+Jarrod Lowe
+
+
+From deryni at unreliablesource.net  Tue Mar 18 21:45:20 2008
+From: deryni at unreliablesource.net (Etan Reisner)
+Date: Tue, 18 Mar 2008 16:45:20 -0400
+Subject: ion-3-20080207 won't compile: lua incompatibility?
+In-Reply-To: <15f314a40803180749j6a2856d8hfacb74d7151d6355@mail.gmail.com>
+References: <15f314a40803180749j6a2856d8hfacb74d7151d6355@mail.gmail.com>
+Message-ID: <20080318204520.GU11492@aran>
+
+On Tue, Mar 18, 2008 at 02:49:23PM +0000, Jarrod Lowe wrote:
+> I try to compile ion-3-20080207, and get the following:
+>
+> Scanning main.c for exports.
+> /usr/local/bin/lua: ../libextl/libextl-mkexports:211: 'string.gfind'
+> was renamed to 'string.gmatch'
+
+Given that your path to lua is /usr/local/bin I'm going to assume you
+built lua yourself (though I suppose you could be running a bsd as well)
+and that you probably just didn't build with the compatability defines on
+(the ones that Tuomo mentioned).
+
+So you can either fix all the locations that need fixing or rebuild with
+the compatability defines turned on.
+
+<snip>
+
+    -Etan
+
+

@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Tutorial vs. help screen [Was: Re: If it is still unclear to	someone...]
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-March/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Tutorial%20vs.%20help%20screen%20%5BWas%3A%20Re%3A%20If%20it%20is%20still%20unclear%20to%0A%09someone...%5D&In-Reply-To=%3C200703211229.41532.gilesc%40hyperlink-interactive.co.uk%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000302.html">
+   <LINK REL="Next"  HREF="000305.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Tutorial vs. help screen [Was: Re: If it is still unclear to	someone...]</H1>
+    <B>Giles Constant</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Tutorial%20vs.%20help%20screen%20%5BWas%3A%20Re%3A%20If%20it%20is%20still%20unclear%20to%0A%09someone...%5D&In-Reply-To=%3C200703211229.41532.gilesc%40hyperlink-interactive.co.uk%3E"
+       TITLE="Tutorial vs. help screen [Was: Re: If it is still unclear to	someone...]">gilesc at hyperlink-interactive.co.uk
+       </A><BR>
+    <I>Wed Mar 21 13:29:41 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000302.html">Tutorial vs. help screen [Was: Re: If it is still unclear to	someone...]
+</A></li>
+        <LI>Next message: <A HREF="000305.html">Tutorial vs. help screen [Was: Re: If it is still unclear to	someone...]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#303">[ date ]</a>
+              <a href="thread.html#303">[ thread ]</a>
+              <a href="subject.html#303">[ subject ]</a>
+              <a href="author.html#303">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On Wednesday 21 March 2007 12:20:46 Tuomo Valkonen wrote:
+&gt;<i> On 2007-03-21, Giles Constant &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">gilesc at hyperlink-interactive.co.uk</A>&gt; wrote:
+</I>&gt;<i> &gt; At risk of starting a flamewar, I personally dislike all the ctrl-k
+</I>&gt;<i> &gt; shortcuts, so I reconfigured them.  I don't want to have to hit three
+</I>&gt;<i> &gt; keys at different ends of the keyboard to do a simple action!  If you're
+</I>&gt;<i> &gt; doing it repeatedly, it can get very clumsy.
+</I>&gt;<i>
+</I>&gt;<i> Try hitting Control+x and then some other key at the same end of the
+</I>&gt;<i> keyboard -- impossible, unless your hands are made of rubber.
+</I>
+I've got this lot.  I also disabled F3/F5/F6, because many apps use F3 
+for &quot;find next&quot;, F5 for &quot;reload&quot;, and F6 for &quot;highlight location bar&quot; (in web 
+browsers).
+
+    kpress(MOD1..&quot;XF86AudioNext&quot;, &quot;ioncore.exec_on(_, 'mpc seek +00:00:10')&quot;),
+    kpress(MOD1..&quot;XF86AudioPrev&quot;, &quot;ioncore.exec_on(_, 'mpc seek -00:00:10')&quot;),
+    kpress(&quot;XF86Standby&quot;, &quot;ioncore.exec_on(_, 'xlock')&quot;),
+    kpress(MOD1..&quot;T&quot;, &quot;WRegion.set_tagged(_sub, 'toggle')&quot;, &quot;_sub:non-nil&quot;),
+    kpress(MOD1..&quot;A&quot;, &quot;WFrame.attach_tagged(_)&quot;),
+        ^^^  got rid of the alt-k
+    kpress(MOD1..&quot;I&quot;, &quot;WFrame.switch_next(_)&quot;),
+    kpress(MOD1..&quot;U&quot;, &quot;WFrame.switch_prev(_)&quot;),
+        ^^^ easy to switch around with the right hand.
+    kpress(MOD1..&quot;P&quot;, &quot;WIonWS.goto_dir(_, 'above')&quot;),
+    kpress(MOD1..&quot;N&quot;, &quot;WIonWS.goto_dir(_, 'below')&quot;),
+    kpress(MOD1..&quot;F&quot;, &quot;WIonWS.goto_dir(_, 'right')&quot;),
+    kpress(MOD1..&quot;B&quot;, &quot;WIonWS.goto_dir(_, 'left')&quot;),
+        ^^^^ emacs-style window navigation
+    kpress(&quot;XF86AudioLowerVolume&quot;, &quot;ioncore.exec_on(_, 'umix vol 4-')&quot;),
+    kpress(&quot;XF86AudioRaiseVolume&quot;, &quot;ioncore.exec_on(_, 'umix vol 4+')&quot;),
+    kpress(&quot;XF86AudioPlay&quot;, &quot;ioncore.exec_on(_, 'mpc toggle')&quot;),
+    kpress(&quot;XF86AudioStop&quot;, &quot;ioncore.exec_on(_, 'mpc stop')&quot;),
+    kpress(&quot;XF86AudioNext&quot;, &quot;ioncore.exec_on(_, 'mpc next')&quot;),
+    kpress(&quot;XF86AudioPrev&quot;, &quot;ioncore.exec_on(_, 'mpc prev')&quot;),
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000302.html">Tutorial vs. help screen [Was: Re: If it is still unclear to	someone...]
+</A></li>
+	<LI>Next message: <A HREF="000305.html">Tutorial vs. help screen [Was: Re: If it is still unclear to	someone...]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#303">[ date ]</a>
+              <a href="thread.html#303">[ thread ]</a>
+              <a href="subject.html#303">[ subject ]</a>
+              <a href="author.html#303">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

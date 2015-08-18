@@ -1,0 +1,4322 @@
+From tuomov at iki.fi  Thu Feb  1 00:34:19 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 31 Jan 2007 23:34:19 +0000 (UTC)
+Subject: Xinerama support
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<87sle26dnk.fsf@cenderis.demon.co.uk>
+	<slrnera8te.1rm.tuomov@jolt.modeemi.cs.tut.fi>
+	<200702010827.34495.joseph@goncalves.id.au>
+Message-ID: <slrnes29rr.a7a.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-01-31, Joseph Goncalves <joseph at goncalves.id.au> wrote:
+> If it wasn't working on my laptop then I wouldn't of started using Linux=20
+> on my laptop. Luckily for me suspend2 works well on my laptops.
+
+All I've ever had swsusp do, is crash and panic. And even if it didn't 
+crash, I seriously doubt it works seamlessly with X (and the proprietary
+NVidia drivers). Not that I have been able to try it recently, because 
+upgrade the kernel is practically impossible. And how about encrypted 
+swaps? Probably needs some serious hacking not nicely and _safely_ 
+integrated into distros to get it working.
+
+[[Running over a year old 2.6.14. Newer versions AFAIK no longer have
+decent SATA drivers with the devices as predictable /dev/hde etc., 
+instead demanding random SCSI mapping insanity and hence udev. An udev
+itself is crypto-slugware, the kid of crap that I will not have on my 
+system. Plus compiling the kernel is a week long task: one day trying 
+make oldconfig to notice that it doesn't work, a few days for the 
+initial configuration, a few more days fixing it, and then a few days
+trying to restore the  system to be able to run the old kernel. 
+Linux sucks. 
+
+And the stock kernels in the distributions boot years loading every
+single module in a random order, so that you dont't get the integrated
+buzzchip as the first sound card, the wrong ethernet interface as eth0
+and so on. And the tools to customise the initrd demand -- you guessed
+it -- the plague of udev. Linux sucks.
+
+Today the network went down and apparently the kernel can't handle my
+static and dynamic IP not being in the same subnets now, not finding
+the routes. Newer kernels might not have the bug, but I can't upgrade
+for the above-mentioned reasons. Linux sucks.
+
+I wish FreeBSD got ice1712 driver so I could perhaps switch to
+Debian/kFreeBSD. Linux sucks.]]
+
+-- 
+Tuomo
+
+
+
+From Matthieu.Moy at imag.fr  Thu Feb  1 11:17:19 2007
+From: Matthieu.Moy at imag.fr (Matthieu Moy)
+Date: Thu, 01 Feb 2007 11:17:19 +0100
+Subject: Xinerama support
+In-Reply-To: <slrnes29rr.a7a.tuomov@jolt.modeemi.cs.tut.fi> (Tuomo Valkonen's
+	message of "Wed\, 31 Jan 2007 23\:34\:19 +0000 \(UTC\)")
+References: <slrneqsrvn.27a.tuomov@jolt.modeemi.cs.tut.fi>
+	<87sle26dnk.fsf@cenderis.demon.co.uk>
+	<slrnera8te.1rm.tuomov@jolt.modeemi.cs.tut.fi>
+	<200702010827.34495.joseph@goncalves.id.au>
+	<slrnes29rr.a7a.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <vpqd54uyyfk.fsf@olympe.imag.fr>
+
+Tuomo Valkonen <tuomov at iki.fi> writes:
+
+> All I've ever had swsusp do, is crash and panic.
+
+I had a funny suspend to RAM too: suspend worked perfectly, but is
+just forgot to resume, so, I had to hard-reboot the box to restart it.
+Hmm, it slightly decreases the advantage of suspend to RAM ;-).
+
+-- 
+Matthieu
+
+
+From drosophila at nmental.com  Thu Feb  1 23:21:36 2007
+From: drosophila at nmental.com (G.H.)
+Date: Thu, 1 Feb 2007 17:21:36 -0500
+Subject: Xinerama support
+In-Reply-To: <mailman.25.1170327626.23193.ion-general@lists.berlios.de>
+References: <mailman.25.1170327626.23193.ion-general@lists.berlios.de>
+Message-ID: <20070201222136.GA8814@mail.gh-nmental.net>
+
+I will point some things about Xinerama which I don't found in the list, but I am
+tempted to expose some non-Xinerama issues which many people have pointed too.
+So skip until Multihead section if you are interested but don't have time enough.
+
+Athcool:
+I have tried any software possible (?) but I prefer 'powernowd' which was successful
+in mad tasks such as my old amd64 3500's overclocking: I used to have my processor with
+his default fan at speed limits not googled ;> and even impossible rates for Windows XP
+(which downsized by a half the bogomips in my old machine) craziness [...] The thing
+remained cool all the time.
+
+Suspend:
+In the Linux side, other capabilities like software suspend really sucked in every computer
+tested, including my new Laptop HP dv8305. And I even don't need to repeat anything about
+'network interfaces', /dev/cryptopsy, neither including 5 in 1 cards support or the mystery
+behind the Linux keyboard support: my keyboard lost 4 keys.
+
+However, HP dv8000 series are good enough and I can't realize how to adjust the budget
+only for suspending my chick: Thinkpads are actually expensive. And I think the main goal on
+using GNU/Linux is about pushing out the capabilities of cheap hardware... I know...
+
+Video Drivers:
+I have tortured my self trying to get ati drivers working. Though I realized how to
+get the 3D extension working properly after _three months_ of struggling with linux 2.6.17
++ Xorg 7.1 + fglrx drivers. I find interesting ati drivers doesn't depend at all
+on Xinerama to get 'multihead' support, there is 'MergedFB'. I think nvidia has already an
+extension like that, but I cannot remember.
+
+Multihead:
+---------------------------
+I don't agree with some arguments proposed in early posts. There are very many ways of serious
+criticism on the techno-empiricism exposed here: In my modest opinion (which is not mine indeed)
+the brain is just tied to the senses but no directly "co-responsible" in the cognitive functions,
+so is not possible to measure the cognitive capabilities of one individual or his psychical-motor
+development in the perspective of his angle of vision [...] That is indeed a reductionist
+explanation, and the possibilities into the multihead settings are not just focused on vision
+but rater in the interaction and expressiveness. 
+----------------------------
+
+That said, multihead would be a good "penis extension" if you think about graphic design,
+the torturing GUI programming (there are no VIS nowadays ;)), writing in pdf-latex and so on.
+Ion 3ds-20061223 is great, behaves better with those named floating windows, but dividing
+the screen by two in 17" monitors perhaps is not good enough.    
+      
+Finally, I am just thinking about the technical possibility of making work Ion with some
+Xinerama alternative, perhaps MergedFB on ati devices. Maybe repeating somebody in the list,
+would be possible to point in that direction considering there are not much documentation about?
+
+Ion is the best thing that happened into the GNU/Linux 'desktops' (a true revolution which
+perhaps Tuomo itself even don't realize) so I don't abandon the hope ... 
+
+-- 
+If god exists, would be not necessary to invent him.
+Mario G.H.
+
+
+
+From tuomov at iki.fi  Fri Feb  2 01:02:40 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 2 Feb 2007 00:02:40 +0000 (UTC)
+Subject: Doing more with less & Re: Xinerama support
+References: <mailman.25.1170327626.23193.ion-general@lists.berlios.de>
+	<20070201222136.GA8814@mail.gh-nmental.net>
+Message-ID: <slrnes4vt0.b59.tuomov@jolt.modeemi.cs.tut.fi>
+
+(Perhaps it would be better to take the part of this thread not directly
+related to Xinerama off-list. Some people may be getting annoyed. But,
+whatever: I don't particularly like on-topic police myself, due to crappy
+technologies. Mailing lists suck, as there's no simple light-weight way to
+redirect discussions elsewhere, as in Usenet. But Usenet/NNTP is also too
+clumsy too with its rigid or spammed hierarchies.)
+
+
+On 2007-02-01, G.H. <drosophila at nmental.com> wrote:
+> Athcool: I have tried any software possible (?) but I prefer 'powernowd'
+> which was successful in mad tasks such as my old amd64 3500's
+
+"old"? Doesn't sound old at all. My AthlonXP 2500+ (from mid-2003, IIRC) 
+doesn't even have that frequency control shit yet, and I don't consider
+it old. It only supports whatever athcool turns on (it doesn't actively
+control anything). (My older Duron 1GHz would, indeed, be quite sufficient
+for my needs, but its mobo leaked the juices out of its capacitors only
+after a year, without showing any signs until later, and so I had to get
+new mobo/cpu/memory, as finding out the broken one of them would've 
+been too laboursome.)
+
+> And I think the main goal on using GNU/Linux is about pushing out the
+> capabilities of cheap hardware... I know...
+
+Doesn't seem like people are doing that. No, they're getting bigger
+penis enlargements instead of...
+
+> Multihead:
+> ---------------------------
+> I don't agree with some arguments proposed in early posts. There are very
+> many ways of serious criticism on the techno-empiricism exposed here: In
+> my modest opinion (which is not mine indeed) the brain is just tied to the
+> senses but no directly "co-responsible" in the cognitive functions, so is
+> not possible to measure the cognitive capabilities of one individual or
+> his psychical-motor development in the perspective of his angle of vision
+> [...] That is indeed a reductionist explanation, and the possibilities
+> into the multihead settings are not just focused on vision but rater in
+> the interaction and expressiveness.
+> ----------------------------
+
+... doing more with less. That's what my multihead criticism is all about:
+doing more with less. Multihead is wasteful: you don't technically need it
+to do what you want to do, unless penis enlargement is precisely what you
+want. As for the psychological side, i.e. your need for penis enlargements,
+I don't care. I just care what you purportedly need that wasteful extra
+screen (or other gizmo) for, and whether you technically really need it for
+that. I can be the judge of technical need if you provide the necessary
+information, and most of the time, there is not one, because people don't
+dare to say that it's penis enlargement precisely, what they want.
+
+You know, you probably could survive without that computer too. You 
+don't need it to survive. But you need it for many other things, that
+I can agree with. And a screen too. But you don't need multiple screens,
+or a really big screen to do these things, just a modest-sized screen.
+You also shouldn't need a very powerful computer, and certainly not
+an x86 frying pan, but unfortunately these things are a bit out of
+any single person's control... 
+
+(There are processors that demand far less energy for the same computing
+power as the x86 mount de manure, although their peak power may not be as
+high. But by using multiple low-power processors (or multicore) in parallel,
+you could get a lot of computing... That's where I think things will
+eventually head, if people get into their senses: many low-power 
+computing units instead of a single centralised frying pan.)
+
+As you can see, it's all about doing more with less, and multihead is
+antithetic to that for most uses. As for a penis enlargement, well,
+rather a screen than a car, if people would just admit that's what they
+want it for. But better without either. (An urban automobile is like a
+penis with AIDS and pus, and an SUV the over-bloated same. Now, a
+train/metro/etc., that's a decent-sized healthy penis... and far more
+energy-efficient than that gas-guzzling murderous tin can.)
+
+> but dividing the screen by two in 17" monitors perhaps is not good
+> enough.
+
+It is. That's all I've ever had, and works great. For programming, for
+latex+pdf/dvi, for everything I've ever had to do. At least with Ion. And
+if you're using something worse, well, you could do more with less by
+switching to Ion. Or creating something even better. Of course you might
+be doing something that I don't do, that really does demand more screen
+space even in my opinion, but those handful of people most certainly
+people do not include techno-toy fetists bragging about their zillion
+monitor configurations, and crying after broken Xinerama support in Ion.
+
+> Finally, I am just thinking about the technical possibility of making
+> work Ion with some Xinerama alternative, perhaps MergedFB on ati
+> devices. Maybe repeating somebody in the list, would be possible to
+> point in that direction considering there are not much documentation
+> about?
+
+As far as I'm concerned, Xinerama is a protocol, for communicating
+geometries of physical screens on the root window, not a particular X
+server module. NVidias drivers also don't use the standard modules, but
+they use the same protocol: hence they provide Xinerama. The case is
+likely to be the same with ATIs. As far as applications are concerned,
+it's Xinerama.
+
+X has supported non-Xinerama multihead for ages, however..
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sat Feb  3 16:12:46 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 3 Feb 2007 15:12:46 +0000 (UTC)
+Subject: ion-3ds-20070203
+Message-ID: <slrnes99je.3kg.tuomov@jolt.modeemi.cs.tut.fi>
+
+Release notes:
+
+  * There's been changes in padding/spacing usage in styles. Frames
+    now surround stuff inside borders not with `spacing` pixels, but
+    with `padding_pixels`. Spacing is only used to space things within
+    the borders (all the tabs and the client window from each other).
+    Consequently, custom styles may need to be updated to reflect this,
+    by increasing the padding, possibly also altering/removing colour
+    (to set it to background colour).
+
+  * The use of drawing engine attributes has also changed, and strict
+    ordering of them in the styles is no longer necessary. Additionally,
+    much more attributes are supported, including the name of every
+    statusbar meter.
+
+  * Xinerama support is gone. In addition to being problematic as such,
+    it had bit-rotted, and I will not waste time fixing it.
+
+  * `ioncore.set` no longer supports the `default_ws_params parameter
+    for configuring the default layout. It is replaced by
+    `ioncore.deflayout("default", { ... })`, which allows configuring
+    other layouts as well, known by `mod_query.query_workspace` (F9).
+    Some default layouts are configured in `cfg_layout.lua`.
+
+  * It is now possible to automatically create new workspaces for
+    windows with the `new_group` winprop.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Mon Feb  5 13:01:54 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 5 Feb 2007 12:01:54 +0000 (UTC)
+Subject: Not-a-wiki (do we need a "community editable" site?)
+Message-ID: <slrnese75i.oo5.tuomov@jolt.modeemi.cs.tut.fi>
+
+
+The past attempts at an Ion wiki set up by various people,
+have not been huge successes: they've quickly degenerated
+into awful mishmashes. Therefore I will not be linking to
+any future attempts: they will fail anyway. The big problem
+with such a separate wiki seems to be, that there's no
+maintainer to clean up random edits with little regard for
+decent layout and style. I personally don't like working
+through a Web form for bigger edits, so a normal Wiki is
+also no option for a site that I would maintain. I am also
+no fan of the usual over-complicated Wiki markup syntaxes.
+
+But do we need a "community editable" site for Ion? I am
+not so sure. There is some demand occasionally, but the
+amount of contributions to the past wikis has not been that
+huge. Nevertheless, every contributed FAQ entry and such
+would ease my workload.
+
+As is known, the Ion home page is actually presently
+generated by ikiwiki, which can be used through various
+version control systems, not necessitating the use of
+inferior Web UIs. It would therefore, in theory, be
+possible to turn it into a proper wiki. However, that would
+demand servers that I can easily run the software I want on
+(which is not presently the case). But, you know what, I
+rather maintain the FAQ than a (virtual) server to
+maintain...  and pay for it. Servers contributed by random
+people are too unreliable.
+
+There's, however, the "poor man's wiki" option left: put
+the darcs repository of the home page available on the Web,
+and send contributions by email (with 'darcs send'), and
+manually apply/moderate them, just like is done with the
+scripts repository presently. Enabling that would demand me
+to add kludges to my synchronisation scripts (yuck), and
+clean up things a bit, so I have not done that yet. (This
+would enable turning the scripts repository into an ikiwiki
+site as well, with scripts indices generated by a suitable
+plugin from descriptions in the source files.) And I won't
+do that if there isn't any interest in contributing to such
+a non-wiki. Is there?
+
+-- 
+Tuomo
+
+
+
+From mathieu at justbudget.com  Thu Feb  8 12:34:00 2007
+From: mathieu at justbudget.com (Mathieu Jobin)
+Date: Thu, 8 Feb 2007 20:34:00 +0900
+Subject: dock icons
+Message-ID: <78181ce60702080334h76378a46ncfa9fd37af63cf20@mail.gmail.com>
+
+Hi there....
+
+I had to rebuild my entire gentoo system during the weekend for a gcc
+upgrade, to save ram and to prevent problems, I did most of it from the
+console. after a few days, I was missing lots of X tools and since KDE and
+everything was not totally done. I used ion3 which was already installed on
+my system. In a few days, I got used to it very quickly and I must say I'm
+loving it ;) and here I am on the mailing list ;)
+
+I am very impress of how KDE applications are working well under ion3.
+especially those with a dock (systray) icon. I had no idea they would
+automatically fit in the corner of my screen.
+
+I have two problems though.
+
+Although KDE applications get trapped wonderfully in the doc. Skype, does
+not. the icon isn't there and If I close the main window, I can't get it
+back. I suppose that Skype use some unstandard way. but KDE supports it and
+I believe Gnome has no problem with it either. I see this as a possible
+improvement for ion3.
+
+second, I use skim (kde frontend to scim) to type Japanese. it works fine
+with all KDE application, but not in Firefox, or in Skype. but it works in
+all apps under KDE. anything I could do to fix it? I mostly need to type
+Japanese in these two applications. And I don't really want to switch input
+system, as skim is working fantastically.
+
+thanks and keep up your wonderful work.
+
+oh, another question, how to I quit the wm with the keyboard? I did not find
+a hotkey in the man page. right now, I go in the menu (F12) and I scroll
+with the arrows through Session -> Quit.
+
+thanks
+
+Mathieu
+
+
+-- 
+http://blog.somekool.net
+gcc -O0  -DRUBY_EXPORT   -rdynamic -Wl,-export-dynamic -L.   main.o
+-lruby-static
+-ldl -lcrypt -lm   -o ruby
+Everyone is trying their hardest to do their job but management has set it
+up so that it's impossible.
+Take the control over your money, track your expenses http://justbudget.com
+
+Mathieu
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070208/eac76b80/attachment.html>
+
+From tuomov at iki.fi  Thu Feb  8 13:24:03 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 8 Feb 2007 12:24:03 +0000 (UTC)
+Subject: dock icons
+References: <78181ce60702080334h76378a46ncfa9fd37af63cf20@mail.gmail.com>
+Message-ID: <slrnesm5j3.529.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-08, Mathieu Jobin <mathieu at justbudget.com> wrote:
+> Although KDE applications get trapped wonderfully in the doc. Skype, does
+> not. 
+
+http://iki.fi/tuomov/ion/faq/entries/Tray_icons.html
+
+> oh, another question, how to I quit the wm with the keyboard? I did not find
+> a hotkey in the man page. right now, I go in the menu (F12) and I scroll
+> with the arrows through Session -> Quit.
+
+F12 ex<tab><enter> ... if you used the (default) query-menus.
+Exit is not supposed to be used so often to merit a key being 
+wasted on it.
+
+-- 
+Tuomo
+
+
+
+From roman.cheplyaka at gmail.com  Thu Feb  8 13:38:20 2007
+From: roman.cheplyaka at gmail.com (Roman Cheplyaka)
+Date: Thu, 8 Feb 2007 14:38:20 +0200
+Subject: dock icons
+In-Reply-To: <78181ce60702080334h76378a46ncfa9fd37af63cf20@mail.gmail.com>
+References: <78181ce60702080334h76378a46ncfa9fd37af63cf20@mail.gmail.com>
+Message-ID: <20070208123820.GA10134@localdomain>
+
+* Mathieu Jobin <mathieu at justbudget.com> [2007-02-08 20:34:00+0900]
+> oh, another question, how to I quit the wm with the keyboard? I did not find
+> a hotkey in the man page. right now, I go in the menu (F12) and I scroll
+> with the arrows through Session -> Quit.
+
+You can easily define a keybinding for it.
+E.g. insert 
+    defbindings("WScreen", {kpress("F10", "ioncore.shutdown()")})
+in any of your Ion configuration files.
+
+-- 
+Roman I. Cheplyaka
+???? ??? ??????? ????????????? ???????, ????? ?????????? ????? ?????????
+?????????????????? ?????????. (c) xaxam
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 307 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070208/44c2e6f1/attachment.pgp>
+
+From gilesc at hyperlink-interactive.co.uk  Thu Feb  8 13:32:04 2007
+From: gilesc at hyperlink-interactive.co.uk (Giles Constant)
+Date: Thu, 8 Feb 2007 12:32:04 +0000
+Subject: dock icons
+In-Reply-To: <78181ce60702080334h76378a46ncfa9fd37af63cf20@mail.gmail.com>
+References: <78181ce60702080334h76378a46ncfa9fd37af63cf20@mail.gmail.com>
+Message-ID: <200702081232.04876.gilesc@hyperlink-interactive.co.uk>
+
+On Thursday 08 February 2007 11:34:00 Mathieu Jobin wrote:
+> Hi there....
+>
+> I had to rebuild my entire gentoo system during the weekend for a gcc
+> upgrade
+
+It shouldn't be this drastic - "emerge --deep --update --newuse world" 
+followed by "revdep-rebuild" should take care of most of this.
+
+Differences in performance/ram usage between gcc 3.4 and gcc 4.1 are trivial 
+(although if you went from 4.0 to 4.1, then 4.1 will carry more significant 
+performance increases in some cases, but it's best to deal with these kinds 
+of things on a case by case basis).
+
+> , to save ram and to prevent problems, I did most of it from the 
+> console. after a few days, I was missing lots of X tools and since KDE and
+> everything was not totally done. I used ion3 which was already installed on
+> my system. In a few days, I got used to it very quickly and I must say I'm
+> loving it ;) and here I am on the mailing list ;)
+
+Well, as long as you discovered ion :-)
+
+> Although KDE applications get trapped wonderfully in the doc. Skype, does
+> not. the icon isn't there and If I close the main window, I can't get it
+> back. I suppose that Skype use some unstandard way. but KDE supports it and
+> I believe Gnome has no problem with it either. I see this as a possible
+> improvement for ion3.
+
+Yes, skype is broken.  It's not even 100% perfect when used with kwin/kde.  
+The CVS version of kopete has rudimentary skype support.. you might find it's 
+enough for your needs.
+
+> oh, another question, how to I quit the wm with the keyboard? I did not
+> find a hotkey in the man page. right now, I go in the menu (F12) and I
+> scroll with the arrows through Session -> Quit.
+
+Bind a key to "ioncore.shutdown()".
+
+
+From csant at csant.info  Thu Feb  8 18:55:27 2007
+From: csant at csant.info (csant)
+Date: Thu, 08 Feb 2007 18:55:27 +0100
+Subject: Not-a-wiki (do we need a "community editable" site?)
+In-Reply-To: <slrnese75i.oo5.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnese75i.oo5.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <op.tnfyqpbnd84skq@fiore.malebolge>
+
+On Mon, 05 Feb 2007 13:01:54 +0100, Tuomo Valkonen <tuomov at iki.fi> wrote:
+
+> But do we need a "community editable" site for Ion? I am
+> not so sure. There is some demand occasionally, but the
+> amount of contributions to the past wikis has not been that
+> huge. Nevertheless, every contributed FAQ entry and such
+> would ease my workload.
+
+The benefit of a wiki is to collect pointers to postings to the ML,  
+suggestions picked up during some IRC, or personal experiences, as well as  
+adding to the FAQ - leaving this work to the community can lift away some  
+workload from you: but might add the additionl supervising/clean-up task -  
+which, of course, could be distributed among some core ion users or  
+volunteers. However, I wouldn't count on their steadyness and dedication  
+much more than those that made their servers available for wikis in the  
+past...
+
+> There's, however, the "poor man's wiki" option left: put
+> the darcs repository of the home page available on the Web,
+> and send contributions by email (with 'darcs send'),
+
+This could be a nice approach to also tackle somehow the spam issue: there  
+aren't *that* many spammers out there that have a darcs repo set up *and*  
+a proper MTA setup... Speaking of which: you ask people to send in patches  
+via darcs, but occasionally some contributors don't manage to get their  
+configuration right. There aren't that many external contributions, but  
+how often do you have to take over those patches sent in via some other  
+way? That might give a rough indication on a possible (in)success rate of  
+the "poor man's wiki" approach.
+
+/c
+
+
+From tuomov at iki.fi  Thu Feb  8 21:09:31 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 8 Feb 2007 20:09:31 +0000 (UTC)
+Subject: Not-a-wiki (do we need a "community editable" site?)
+References: <slrnese75i.oo5.tuomov@jolt.modeemi.cs.tut.fi>
+	<op.tnfyqpbnd84skq@fiore.malebolge>
+Message-ID: <slrnesn0rr.gjc.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-08, csant <csant at csant.info> wrote:
+> leaving this work to the community can lift away some  
+> workload from you: but might add the additionl supervising/clean-up task -  
+> which, of course, could be distributed among some core ion users or  
+> volunteers. 
+
+I wouldn't mind cleaning things up that much, if I didn't have to do
+it through a poor editing box in a Web browser... and fight spam all
+the time.
+
+> Speaking of which: you ask people to send in patches  
+> via darcs, but occasionally some contributors don't manage to get their  
+> configuration right. There aren't that many external contributions, but  
+> how often do you have to take over those patches sent in via some other  
+> way? 
+
+I reject patches sent in other ways... nobody has sent an important
+enough patch yet to not be able to reject it. It's too much work
+applying a plain-old-diff, figuring out what new files need to
+be added under version control, thinking of a log message, whether
+the author of the patch should be listed somewhere, and so on.
+With darcs patches, all I have to do is type '|darcs apply' in
+mutt, in the working directory with the email selected, 'darcs push' 
+to the "local central repository" and then run my 'darcs_sync' script
+to push the changes online and generate the feeds. And it is this
+latter script that should be improved to actually generated and push
+some content as well, if a poor man's wiki were created. Additionally
+for regular contributors, perhaps some GnuPG key and .procmailrc 
+automation should be created...
+
+-- 
+Tuomo
+
+
+
+From klawitter at email.de  Sun Feb 11 12:49:14 2007
+From: klawitter at email.de (Renee Klawitter)
+Date: Sun, 11 Feb 2007 12:49:14 +0100
+Subject: sending keystroke to unfocused window
+Message-ID: <87wt2ohq2t.fsf@Ishmael.Pequod>
+
+
+Hi!!
+
+Is it possible to send a keystroke to an unfocused window ? What I
+think of is emacslike C-M-v to scroll down in another (emacs-)window.
+
+If you have your editor on one side of a splitted frame and maybe a
+xpdf on the other, pressing META-v will send the <down key> event to
+xpdf. The appropriate keystroke could be chosen by the receiving
+window's window-info; and the receiving window itself could be chosen
+by tagging it.
+
+Could this be done by a script ? And if so, how ?
+
+/Renee.
+
+
+
+
+
+-- 
+For contacting me: klawitter(at)email(dot)de
+--
+"The major difference between a thing  that might go wrong and a thing
+    that cannot  possibly go  wrong is that  when a thing  that cannot
+    possibly go wrong goes wrong it usually turns out to be impossible
+    to get at or repair."  Douglas Adams, Mostly Harmless
+
+
+
+From elmico.filos at gmail.com  Mon Feb 12 16:21:37 2007
+From: elmico.filos at gmail.com (=?ISO-8859-1?Q?Mico_Fil=F3s?=)
+Date: Mon, 12 Feb 2007 16:21:37 +0100
+Subject: Possible? Toggle statusbar
+Message-ID: <e700999f0702120721j67ef6d53j840048be812f6f2e@mail.gmail.com>
+
+Hi all,
+
+is it possible to toggle the statusbar on and off?
+I like to work in an 'almost-fullscreen' mode. The problem is that
+from time to time I need to check the battery monitor, the clock, or
+any of the information usually included in the statusbar. It would be
+great for me to toggle the statusbar in the same way the scratchpad
+can be toggled, not necessarily popping up at the center of the screen
+(it is ok for me that the status bar appears where it usually does).
+
+Thanks a lot in advance.
+
+dani
+
+
+From bruce+ion at cenderis.demon.co.uk  Mon Feb 12 19:26:16 2007
+From: bruce+ion at cenderis.demon.co.uk (Bruce Stephens)
+Date: Mon, 12 Feb 2007 18:26:16 +0000
+Subject: Possible? Toggle statusbar
+In-Reply-To: <e700999f0702120721j67ef6d53j840048be812f6f2e@mail.gmail.com>
+	(Mico =?iso-8859-1?Q?Fil=F3s's?= message of "Mon\,
+	12 Feb 2007 16\:21\:37 +0100")
+References: <e700999f0702120721j67ef6d53j840048be812f6f2e@mail.gmail.com>
+Message-ID: <87ire7b5br.fsf@cenderis.demon.co.uk>
+
+"Mico Fil?s" <elmico.filos at gmail.com> writes:
+
+> is it possible to toggle the statusbar on and off?
+
+I don't know.
+
+> I like to work in an 'almost-fullscreen' mode. The problem is that
+> from time to time I need to check the battery monitor, the clock, or
+> any of the information usually included in the statusbar. It would be
+> great for me to toggle the statusbar in the same way the scratchpad
+> can be toggled, not necessarily popping up at the center of the screen
+> (it is ok for me that the status bar appears where it usually does).
+
+Have you considered using the dock?
+
+
+From csant at csant.info  Mon Feb 12 20:57:12 2007
+From: csant at csant.info (csant)
+Date: Mon, 12 Feb 2007 20:57:12 +0100
+Subject: Possible? Toggle statusbar
+In-Reply-To: <87ire7b5br.fsf@cenderis.demon.co.uk>
+References: <e700999f0702120721j67ef6d53j840048be812f6f2e@mail.gmail.com>
+	<87ire7b5br.fsf@cenderis.demon.co.uk>
+Message-ID: <op.tnni1mjwd84skq@fiore.malebolge>
+
+>> I like to work in an 'almost-fullscreen' mode. The problem is that
+>> from time to time I need to check the battery monitor, the clock, or
+>> any of the information usually included in the statusbar.
+
+> Have you considered using the dock?
+
+Have you considered using XOSD?
+
+/c
+
+
+
+From ugggg at hotmail.com  Mon Feb 12 22:25:59 2007
+From: ugggg at hotmail.com (Canaan Hadley-Voth)
+Date: Mon, 12 Feb 2007 13:25:59 -0800
+Subject: Possible? Toggle statusbar
+In-Reply-To: <e700999f0702120721j67ef6d53j840048be812f6f2e@mail.gmail.com>
+Message-ID: <BAY13-F221F4D7E3AB3E9AD3DA900BA910@phx.gbl>
+
+>is it possible to toggle the statusbar on and off?
+
+You can create and destroy the statusbar, which might be good enough.  This 
+is one of the tips I had put into the wiki when that was around.  It worked 
+for text statusbars, but icons would get dumped into some other frame.
+
+function toggle_statusbar()
+    local sbar=ioncore.region_list'WStatusBar'[1]
+    if sbar then
+	sbar:rqclose()
+    elseif mod_statusbar then
+	dopath'cfg_statusbar'
+    else
+	dopath'mod_statusbar'
+    end
+end
+
+_________________________________________________________________
+Search for grocery stores. Find gratitude. Turn a simple search into 
+something more. 
+http://click4thecause.live.com/search/charity/default.aspx?source=hmemtagline_gratitude&FORM=WLMTAG
+
+
+
+From tuomov at iki.fi  Tue Feb 13 14:18:14 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 13 Feb 2007 13:18:14 +0000 (UTC)
+Subject: sending keystroke to unfocused window
+References: <87wt2ohq2t.fsf@Ishmael.Pequod>
+Message-ID: <slrnet3ekm.vad.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-11, Renee Klawitter <klawitter at email.de> wrote:
+> Is it possible to send a keystroke to an unfocused window ? 
+
+If you write a program to send it, yes. The target window might not
+want to handle it, though. And you can't easily target a particular
+widget. (Modern crap tends to have its own [broken][1] focus tracking
+code, though, and handle all events as if they were sent to their
+top-level windows.)
+
+Ion does not have a function to send arbitrary keypresses, and I'm
+not sure I want it there. It really isn't the job of a window manager.
+It's an ugly hack. Even quote_next is a huge concession to programs
+with brain-damaged bindings. (Plus it is difficult to do with an 
+external program, because there would have to be a moment where the
+keyboard is not grabbed between Ion/X releasing the grab for the 
+quote_next prefix, and the program obtaining one for getting the
+next key. But there is no such problem in sending predefined 
+sequences.)
+
+  [1]: http://iki.fi/tuomov/ion/faq/entries/GTK2_focus_bug.html
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue Feb 13 14:23:15 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 13 Feb 2007 13:23:15 +0000 (UTC)
+Subject: Possible? Toggle statusbar
+References: <e700999f0702120721j67ef6d53j840048be812f6f2e@mail.gmail.com>
+Message-ID: <slrnet3eu3.vad.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-12, Mico Fil?s <elmico.filos at gmail.com> wrote:
+> is it possible to toggle the statusbar on and off?
+
+The point of the Ion statusbar is, that it squeezes into as little
+space as possible, module the workspace layout. I don't think there
+should be a toggle feature for such a statusbar, and therefore will
+not add real support it. However, as others have pointed out, it is
+possible to kludge a toggle. Also, if multi-line support is ever
+added[*], it would be natural for the zero-line case to squeeze into
+just a few pixels vertically, and then there would be another way to
+kludge it... (You could also kludge toggle between single and n-line
+versions.)
+
+
+ [*] Just go ahead and implement it, if you want it. I'm not going
+     to have time for that any time soon.
+
+-- 
+Tuomo
+
+
+
+From elmico.filos at gmail.com  Thu Feb 15 15:03:15 2007
+From: elmico.filos at gmail.com (=?ISO-8859-1?Q?Mico_Fil=F3s?=)
+Date: Thu, 15 Feb 2007 15:03:15 +0100
+Subject: Possible? Toggle statusbar
+In-Reply-To: <op.tnnchoy6pl9hl7@localhost>
+References: <e700999f0702120721j67ef6d53j840048be812f6f2e@mail.gmail.com>
+	<op.tnnchoy6pl9hl7@localhost>
+Message-ID: <e700999f0702150603ybfdca36ge79f50687580fb3d@mail.gmail.com>
+
+You are absolutely right, the status bar is quite small and hardly
+consumes any space in the screen. It's more an obsession of mine. I
+want my windows to take up as much space as possible; I have reduced
+paddings, margins, font-sizes and borders to the lowest values. The
+only window-manager-related space I can afford are the tabs (although
+I start wondering if they are really necessary too :). Call it
+obsession and you'll be right. After all, this is precisely why I
+chose Ion3 as window-manager; it perfectly suits my picky needs.
+
+
+From csant at csant.info  Thu Feb 15 17:25:16 2007
+From: csant at csant.info (csant)
+Date: Thu, 15 Feb 2007 17:25:16 +0100
+Subject: Are title-bars/tabs necessary? (was Re: Possible? Toggle statusbar)
+In-Reply-To: <e700999f0702150603ybfdca36ge79f50687580fb3d@mail.gmail.com>
+References: <e700999f0702120721j67ef6d53j840048be812f6f2e@mail.gmail.com>
+	<op.tnnchoy6pl9hl7@localhost>
+	<e700999f0702150603ybfdca36ge79f50687580fb3d@mail.gmail.com>
+Message-ID: <op.tnss8ewdd84skq@fiore.malebolge>
+
+> only window-manager-related space I can afford are the tabs (although
+> I start wondering if they are really necessary too :).
+
+I have been wondering about that too - and even tried it for a while. But  
+I am afraid I at some point lost track... The main problem usually is that  
+*terminals* (which are the majority of client windows on my system) don't  
+really tell you in the the window title what you were busy with on them...  
+although probably this is a problem that could be solved. Any good  
+suggestions on a "better" management without title bars are welcome. :)
+
+/c
+
+
+
+From sylvain.abelard at gmail.com  Thu Feb 15 17:50:51 2007
+From: sylvain.abelard at gmail.com (=?ISO-8859-1?Q?Sylvain_Ab=E9lard?=)
+Date: Thu, 15 Feb 2007 17:50:51 +0100
+Subject: Are title-bars/tabs necessary? (was Re: Possible? Toggle
+	statusbar)
+In-Reply-To: <op.tnss8ewdd84skq@fiore.malebolge>
+References: <e700999f0702120721j67ef6d53j840048be812f6f2e@mail.gmail.com>
+	<op.tnnchoy6pl9hl7@localhost>
+	<e700999f0702150603ybfdca36ge79f50687580fb3d@mail.gmail.com>
+	<op.tnss8ewdd84skq@fiore.malebolge>
+Message-ID: <9c6605e40702150850lbaa9bd4j8ea5cd835616eb2a@mail.gmail.com>
+
+> The main problem usually is that *terminals*
+> (which are the majority of client windows on my system) don't
+> really tell you in the the window title what you were busy with on them...
+> although probably this is a problem that could be solved. Any good
+> suggestions on a "better" management without title bars are welcome. :)
+
+I don't think this can be solved. Some programs do think about you and
+print their status on the term's titlebar, such as Gentoo's "emerge"
+command. This is made by the guys who code their app, you can't ask
+for every console program and script to do that.
+
+This is just like asking every graphical app developer to follow ICCCM
+and to set the 'role' winprop cleverly so that you could organize them
+well in ion. I especially think of IM programs and their chat windows,
+which is one of the things I tried to automagically tidy in my ion3.
+
+
+I am not on an unix right now and I can't test what I'm about to say,
+but even if I'm not right on every point, I'm positive at least some
+of them are true :
+
+For a console app, what you could do would recode the term (that's
+without me, pal) to print on its titlebar either the program in action
+or the pwd when not told otherwise. That could help, but I'm sure
+you'll find cases in which this is still not the perfect solution.
+
+For example, when executing a shellscript, maybe you want to print
+only the name or $0, or every arg. Perhaps you want it to describe
+changes to the cwd, and every command it's using, perhaps not.
+
+And you may not want anything to change your terminal window's title,
+so you can do funky stuff with ion and not having to bother to write a
+cleverest parsing in Lua to recognize your original window.
+
+-- 
+Sylvain Abelard,
+Railer Rubyist. Epita MTI 2008.
+
+
+From jbms at cmu.edu  Thu Feb 15 19:45:18 2007
+From: jbms at cmu.edu (Jeremy Maitin-Shepard)
+Date: Thu, 15 Feb 2007 13:45:18 -0500
+Subject: Are title-bars/tabs necessary?
+In-Reply-To: <op.tnss8ewdd84skq@fiore.malebolge> (csant@csant.info's message
+	of "Thu, 15 Feb 2007 17:25:16 +0100")
+References: <e700999f0702120721j67ef6d53j840048be812f6f2e@mail.gmail.com>
+	<op.tnnchoy6pl9hl7@localhost>
+	<e700999f0702150603ybfdca36ge79f50687580fb3d@mail.gmail.com>
+	<op.tnss8ewdd84skq@fiore.malebolge>
+Message-ID: <87zm7fgszl.fsf@jbms.ath.cx>
+
+csant <csant at csant.info> writes:
+
+>> only window-manager-related space I can afford are the tabs (although
+>> I start wondering if they are really necessary too :).
+
+> I have been wondering about that too - and even tried it for a while. But  
+> I am afraid I at some point lost track... The main problem usually is that  
+> *terminals* (which are the majority of client windows on my system) don't  
+> really tell you in the the window title what you were busy with on them...  
+> although probably this is a problem that could be solved.
+
+It certainly can be.  Shells like zsh can be programmed to keep the
+title bar updated with useful information like user at hostname, the
+current working directory, the current running command line, or the
+previous command that was run if no command is currently running.  In
+many cases this allows the title bar to indicate rather well the
+contents of the window.
+
+-- 
+Jeremy Maitin-Shepard
+
+
+From j.van_den_hoff at fzd.de  Thu Feb 15 22:39:46 2007
+From: j.van_den_hoff at fzd.de (joerg van den hoff)
+Date: Thu, 15 Feb 2007 22:39:46 +0100
+Subject: Are title-bars/tabs necessary?
+In-Reply-To: <87zm7fgszl.fsf@jbms.ath.cx>
+References: <e700999f0702120721j67ef6d53j840048be812f6f2e@mail.gmail.com>
+	<op.tnnchoy6pl9hl7@localhost>
+	<e700999f0702150603ybfdca36ge79f50687580fb3d@mail.gmail.com>
+	<op.tnss8ewdd84skq@fiore.malebolge> <87zm7fgszl.fsf@jbms.ath.cx>
+Message-ID: <20070215213946.GA20871@kati.fz-rossendorf.de>
+
+On Thu, Feb 15, 2007 at 01:45:18PM -0500, Jeremy Maitin-Shepard wrote:
+> csant <csant at csant.info> writes:
+> 
+> >> only window-manager-related space I can afford are the tabs (although
+> >> I start wondering if they are really necessary too :).
+> 
+> > I have been wondering about that too - and even tried it for a while. But  
+> > I am afraid I at some point lost track... The main problem usually is that  
+> > *terminals* (which are the majority of client windows on my system) don't  
+> > really tell you in the the window title what you were busy with on them...  
+> > although probably this is a problem that could be solved.
+> 
+> It certainly can be.  Shells like zsh can be programmed to keep the
+> title bar updated with useful information like user at hostname, the
+> current working directory, the current running command line, or the
+> previous command that was run if no command is currently running.  In
+> many cases this allows the title bar to indicate rather well the
+> contents of the window.
+> 
+> -- 
+> Jeremy Maitin-Shepard
+
+
+well, in case someone is not aware of it: for xterm and the like
+(and every 'sufficiently standard' terminal emulator (say, `rxvt')
+there is at least always the possibility to use some escape
+sequences to directly write into the title bar and use 
+this facility within some aliases to get meaningful headings.
+so, one does not need specific shells to do this.
+
+e.g., I use tcsh and have set the following in `.cshrc`
+(would be rather similar with bash and `.profile')
+
+alias label   'echo -n "]2;\!*"'
+alias cd      'cd \!*;label "$hostbasename":$PWD'
+
+don't know, how the above comes across via mail but in
+the  first line the `echo` command uses
+<ESC>]2 (escape right bracket followed by `2;')
+and than inserts some text (placeholder \!*)
+given on the command line, e.g. 
+
+label "my_title"
+
+and than ends with <CTRL>G
+
+I don't remember, but it is somewhere in the xterm-docs or on the net
+what escape sequences excactly are understood by xterm.
+
+in effect, this allows to set the title bar text with
+the `label' alias. more importantly, the `cd' alias sets the
+title bar automatically to the current machine and directory 
+after each `cd' command. 
+the latter serves me fine 99% of the time (for the rest
+the `label' command is OK. of course one can construct one's
+own favorite information which should be dumped into the
+title bar with appropriate modification of the above.
+
+maybe this is of use for someone.
+
+joerg
+
+
+From jbms at cmu.edu  Thu Feb 15 22:45:56 2007
+From: jbms at cmu.edu (Jeremy Maitin-Shepard)
+Date: Thu, 15 Feb 2007 16:45:56 -0500
+Subject: Are title-bars/tabs necessary?
+In-Reply-To: <20070215213946.GA20871@kati.fz-rossendorf.de> (joerg van den
+	hoff's message of "Thu, 15 Feb 2007 22:39:46 +0100")
+References: <e700999f0702120721j67ef6d53j840048be812f6f2e@mail.gmail.com>
+	<op.tnnchoy6pl9hl7@localhost>
+	<e700999f0702150603ybfdca36ge79f50687580fb3d@mail.gmail.com>
+	<op.tnss8ewdd84skq@fiore.malebolge> <87zm7fgszl.fsf@jbms.ath.cx>
+	<20070215213946.GA20871@kati.fz-rossendorf.de>
+Message-ID: <87vei3gkmj.fsf@jbms.ath.cx>
+
+joerg van den hoff <j.van_den_hoff at fzd.de> writes:
+
+> [snip]
+
+> so, one does not need specific shells to do this.
+
+> [snip]
+
+The reason I mentioned zsh is that it can easily be programmed to
+display the current running command as well as the previously executed
+command, by the use of the "precmd" and "preexec" features.  It may be
+possible with little or no modification to achieve this as well on other
+shells, but I was not able to achieve it on bash without modification.
+
+-- 
+Jeremy Maitin-Shepard
+
+
+From tuomov at iki.fi  Thu Feb 15 22:51:51 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 15 Feb 2007 21:51:51 +0000 (UTC)
+Subject: Are title-bars/tabs necessary?
+References: <e700999f0702120721j67ef6d53j840048be812f6f2e@mail.gmail.com>
+	<op.tnnchoy6pl9hl7@localhost>
+	<e700999f0702150603ybfdca36ge79f50687580fb3d@mail.gmail.com>
+	<op.tnss8ewdd84skq@fiore.malebolge> <87zm7fgszl.fsf@jbms.ath.cx>
+	<20070215213946.GA20871@kati.fz-rossendorf.de>
+	<87vei3gkmj.fsf@jbms.ath.cx>
+Message-ID: <slrnet9lfn.6ok.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-15, Jeremy Maitin-Shepard <jbms at cmu.edu> wrote:
+> The reason I mentioned zsh is that it can easily be programmed to
+> display the current running command as well as the previously executed
+> command, by the use of the "precmd" and "preexec" features.  It may be
+> possible with little or no modification to achieve this as well on other
+> shells, but I was not able to achieve it on bash without modification.
+
+It took me ages to be able to achieve even semi-decent completion 
+behaviour on zsh (i.e. at least a bit like bash), and it keeps breaking
+down every now and then. zsh sucks (and yet they only provide that shit
+as login shell on the system I'm typing this message on).
+
+-- 
+Tuomo
+
+
+
+From psionic at csh.rit.edu  Thu Feb 15 23:23:51 2007
+From: psionic at csh.rit.edu (Jordan Sissel)
+Date: Thu, 15 Feb 2007 17:23:51 -0500
+Subject: Are title-bars/tabs necessary? 
+In-Reply-To: <20070215213946.GA20871@kati.fz-rossendorf.de> 
+References: <e700999f0702120721j67ef6d53j840048be812f6f2e@mail.gmail.com>
+	<op.tnnchoy6pl9hl7@localhost>
+	<e700999f0702150603ybfdca36ge79f50687580fb3d@mail.gmail.com>
+	<op.tnss8ewdd84skq@fiore.malebolge> <87zm7fgszl.fsf@jbms.ath.cx>
+	<20070215213946.GA20871@kati.fz-rossendorf.de>
+Message-ID: <20070215222351.82068509AD@scorn.csh.rit.edu>
+
+On 15 February 2007 at 22:39, joerg van den hoff <j.van_den_hoff at fzd.de> wrote:
+> On Thu, Feb 15, 2007 at 01:45:18PM -0500, Jeremy Maitin-Shepard wrote:
+> well, in case someone is not aware of it: for xterm and the like
+> (and every 'sufficiently standard' terminal emulator (say, `rxvt')
+> there is at least always the possibility to use some escape
+> sequences to directly write into the title bar and use=20
+> this facility within some aliases to get meaningful headings.
+> so, one does not need specific shells to do this.
+> 
+> e.g., I use tcsh and have set the following in `.cshrc`
+> (would be rather similar with bash and `.profile')
+> 
+> alias label   'echo -n "=1B]2;\!*=07"'
+> alias cd      'cd \!*;label "$hostbasename":$PWD'
+> 
+
+tcsh has 'precmd' and 'postcmd' aliases so you can do that kind of thing.
+
+alias precmd echo "pre"
+alias postcmd echo "post"
+
+> echo "hi"
+post
+hi
+pre
+
+
+-Jordan
+
+
+From dg135 at torfree.net  Sun Feb 18 04:28:28 2007
+From: dg135 at torfree.net (Mark Grieveson)
+Date: Sat, 17 Feb 2007 22:28:28 -0500
+Subject: settings
+Message-ID: <20070217222828.0fdf4ca3@debian.example.com>
+
+Hello.  I use Debian Etch, with its setup of Ion3.  However, instead of the black background that I was used to, it's now blue, and the behaviour of the Windows is strange.  They'll be smaller, with several of them in one screen, instead of occupying the whole screen.  There used to be a listing on the top of the screen, listing the opened Windows that I could toggle.  No more.  
+I somehow did something, and I don't know how to get Ion3 back to it's default behaviour.
+
+Mark
+
+
+From hiroyuki.sakai at gmx.at  Sun Feb 18 15:54:45 2007
+From: hiroyuki.sakai at gmx.at (Hiroyuki Sakai)
+Date: Sun, 18 Feb 2007 15:54:45 +0100
+Subject: ion2 cons and ion3 finish date
+Message-ID: <45D868B5.9070302@gmx.at>
+
+i've been using ion2 for quite a long time now (2 years i think) and i'm 
+really looking forward to the third major release. i know this question 
+must be posed really often but: when will ion3 be finished??
+
+furthermore i found some peanuts in ion2 bugging:
+
+- starting an application and waiting with the mouse-pointer for it to 
+load into a certain frame.
+    i know applications can be designated to certain frames with 
+winprops but certain applications just need to be dynamically designated 
+at 'run-time'.
+
+- NEVER used the floating workspace... only when i started to use ion by 
+playing around with the features... i think floating windows aren't 
+necessary and somehow chunky to use. this isn't really annoying, i just 
+don't need them.
+
+well... i think that was it.
+
+hiro
+
+p.s.: forgive me, english isn't my mother tongue. :)
+
+
+
+
+From tuomov at iki.fi  Sun Feb 18 16:45:15 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 18 Feb 2007 15:45:15 +0000 (UTC)
+Subject: ion2 cons and ion3 finish date
+References: <45D868B5.9070302@gmx.at>
+Message-ID: <slrnetgt4b.alm.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-18, Hiroyuki Sakai <hiroyuki.sakai at gmx.at> wrote:
+> i've been using ion2 for quite a long time now (2 years i think) and i'm 
+> really looking forward to the third major release. i know this question 
+> must be posed really often but: when will ion3 be finished??
+
+When it's finished. Maybe in a decade, but you can help! 
+(See the ML archives.)
+
+> - starting an application and waiting with the mouse-pointer for it to 
+> load into a certain frame.
+>     i know applications can be designated to certain frames with 
+> winprops but certain applications just need to be dynamically designated 
+> at 'run-time'.
+
+Support for the fuglydesktop.org startup specification is something 
+that people could help in implementing... I'm not sure if I'm going
+to bother with it myself, as few of the apps I use (xterm) support 
+it. But it's still something I'd like to have there before "stable"
+Ion3 is released.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Mon Feb 19 00:03:44 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 18 Feb 2007 23:03:44 +0000 (UTC)
+Subject: settings
+References: <20070217222828.0fdf4ca3@debian.example.com>
+Message-ID: <slrnethmqg.iq3.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-18, Mark Grieveson <dg135 at torfree.net> wrote:
+> I somehow did something, and I don't know how to get Ion3 back to it's
+> default behaviour.
+
+rm -rf ~/.ion3/
+
+RTF release notes.
+
+HTH HAND
+
+-- 
+Tuomo
+
+
+
+From dg135 at torfree.net  Mon Feb 19 01:04:53 2007
+From: dg135 at torfree.net (Mark Grieveson)
+Date: Sun, 18 Feb 2007 19:04:53 -0500
+Subject: settings
+In-Reply-To: <slrnethmqg.iq3.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070217222828.0fdf4ca3@debian.example.com>
+	<slrnethmqg.iq3.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070218190453.40906de3@debian.example.com>
+
+On Sun, 18 Feb 2007 23:03:44 +0000 (UTC)
+Tuomo Valkonen <tuomov at iki.fi> wrote:
+
+> On 2007-02-18, Mark Grieveson <dg135 at torfree.net> wrote:
+> > I somehow did something, and I don't know how to get Ion3 back to it's
+> > default behaviour.
+> 
+> rm -rf ~/.ion3/
+> 
+> RTF release notes.
+> 
+> HTH HAND
+> 
+
+That did help, thanks.
+
+Mark
+
+
+From mark81 at gmail.com  Wed Feb 21 04:49:03 2007
+From: mark81 at gmail.com (Mark Mitchell)
+Date: Tue, 20 Feb 2007 22:49:03 -0500
+Subject: latest ion3
+Message-ID: <449f4cf70702201949v5f923d7fr339eaa17f9279b39@mail.gmail.com>
+
+Hey,
+
+On the latest source tree I've been getting compilation problems:
+
+../ioncore/ioncore.a(gr.o): In function `gr_stylespec_add':
+/home/test/Desktop/ion/darcs/ion-3/ioncore/gr.c:337: undefined reference to
+`stringstore_ref'
+../ioncore/ioncore.a(gr.o): In function `gr_stylespec_do_init_from':
+/home/test/Desktop/ion/darcs/ion-3/ioncore/gr.c:396: undefined
+reference to `stringstore_ref'
+../ioncore/ioncore.a(gr.o): In function `gr_stylespec_load_':
+/home/test/Desktop/ion/darcs/ion-3/ioncore/gr.c:248: undefined
+reference to `stringstore_alloc_n'
+
+Is either libtu/stringstore.(c|h) out of date?
+(or have I just not used darcs properly / have some other issue)
+
+I am building on xubuntu, and until about a week ago have always been
+able to successfully build the latest version from darcs...
+
+Regards,
+-Mark
+
+
+From mark81 at gmail.com  Wed Feb 21 14:48:05 2007
+From: mark81 at gmail.com (Mark Mitchell)
+Date: Wed, 21 Feb 2007 08:48:05 -0500
+Subject: latest ion3
+In-Reply-To: <20070221044337.GV10207@aran>
+References: <449f4cf70702201949v5f923d7fr339eaa17f9279b39@mail.gmail.com>
+	<20070221044337.GV10207@aran>
+Message-ID: <449f4cf70702210548o47374474t4341e4d8b5ae8d95@mail.gmail.com>
+
+Thanks for the reply, figured the problem was me... found this link on the site:
+
+http://modeemi.fi/~tuomov/repos/
+
+Didn't realize that libtu and libextl were in separate repositories...
+ I had not remembered that I had originally download the source as for
+a **snapshot** build doing:
+
+darcs get --partial http://iki.fi/tuomov/repos/ion-3/
+cd ion-3
+sh predist.sh -snapshot
+
+[from http://modeemi.cs.tut.fi/~tuomov/ion/download.html]
+
+Looking into predist.sh, it gets libtu and libextl from different
+darcs repositories and then deletes the darcs information, so my darcs
+pulls in those dirs didn't go to the correct repository.  Just thought
+I would share this for others who may have first downloaded a
+**shapshot** build.
+
+Of course, this is easily fixed by getting both libtu and libextl from
+their respective darcs repositories -- then darc pulls down there will
+retrieve patches.
+
+Regards,
+-Mark
+
+
+
+On 2/20/07, Etan S. C. Reisner <deryni at unreliablesource.net> wrote:
+> On Tue, Feb 20, 2007 at 10:49:03PM -0500, Mark Mitchell wrote:
+> > Is either libtu/stringstore.(c|h) out of date?
+> > (or have I just not used darcs properly / have some other issue)
+> >
+> > I am building on xubuntu, and until about a week ago have always been
+> > able to successfully build the latest version from darcs...
+> >
+> > Regards,
+> > -Mark
+>
+> Are you using libtu/libextl from darcs as well? If you are then you need
+> to make sure you have run darcs pull in both of them as well as in ion3.
+>
+> The patch that added stringstore_ref to libtu was recorded on 2007-02-21.
+>
+>     -Etan
+>
+
+
+From tuomov at iki.fi  Thu Feb 22 16:18:01 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 22 Feb 2007 15:18:01 +0000 (UTC)
+Subject: Feature freeze imminent
+Message-ID: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+
+I'm tired of working on the project. I will therefore be seriously
+cutting down on the features planned for Ion3. I will only finish a
+few incomplete ones, and fix all the bugs and other brokenness and
+ugliness, possibly also removing some features (simplifying/cleaning
+up the Lua API). Then that will be the final stable Ion3. If you,
+however, want some more features, patches are accepted for some time
+still (it will take a few months/years/decades for the above-mentioned
+stuff to be finished), and I can add hooks necessary for the 
+implementation of other things as modules at a later date. I am,
+however, _extremely_ unlikely to implement any feature requests 
+myself. So if something is missing that you want now, you'll just
+have to write it yourself.
+
+-- 
+Tuomo
+
+
+
+From roman.cheplyaka at gmail.com  Thu Feb 22 20:52:49 2007
+From: roman.cheplyaka at gmail.com (Roman Cheplyaka)
+Date: Thu, 22 Feb 2007 21:52:49 +0200
+Subject: Feature freeze imminent
+In-Reply-To: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070222195249.GB13364@localdomain>
+
+* Tuomo Valkonen <tuomov at iki.fi> [2007-02-22 15:18:01+0000]
+> I'm tired of working on the project.
+
+Very sad to read this. Thanks for your work.
+
+-- 
+Roman I. Cheplyaka
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 307 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070222/7909e6a0/attachment.pgp>
+
+From sylvain.abelard at gmail.com  Thu Feb 22 21:19:08 2007
+From: sylvain.abelard at gmail.com (=?ISO-8859-1?Q?Sylvain_Ab=E9lard?=)
+Date: Thu, 22 Feb 2007 21:19:08 +0100
+Subject: Feature freeze imminent
+In-Reply-To: <20070222195249.GB13364@localdomain>
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070222195249.GB13364@localdomain>
+Message-ID: <9c6605e40702221219r42856259ib86096ba31fba434@mail.gmail.com>
+
+On 2/22/07, Roman Cheplyaka <roman.cheplyaka at gmail.com> wrote:
+> * Tuomo Valkonen <tuomov at iki.fi> [2007-02-22 15:18:01+0000]
+> > I'm tired of working on the project.
+>
+> Very sad to read this. Thanks for your work.
+
+Yes. Sorry for saying such common things, but ion is a great window
+manager, and we all thank you for making our computer-using lives
+better.
+
+Isn't there a way to send you beers or something so we can subtly try
+to get your motivation up ? ;)
+
+-- 
+Sylvain Abelard,
+Railer Rubyist. Epita MTI 2008.
+
+
+From tuomov at iki.fi  Thu Feb 22 22:09:27 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 22 Feb 2007 21:09:27 +0000 (UTC)
+Subject: Feature freeze imminent
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070222195249.GB13364@localdomain>
+	<9c6605e40702221219r42856259ib86096ba31fba434@mail.gmail.com>
+Message-ID: <slrnets1k7.kra.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-22, Sylvain Ab?lard <sylvain.abelard at gmail.com> wrote:
+> Isn't there a way to send you beers or something so we can subtly try
+> to get your motivation up ? ;)
+
+You can always send me beer, but it won't help. Ion3 has taken 
+far too long (stable Ion2 was released three years ago, 2004-02-07),
+and I really need a break from the project. Counting from PWM, 
+I've been working on it for the last 8 years, a bit almost every
+week. I've said a long time ago, that I will take a long (if not
+even permanent) break from Ion after Ion3 has been finished. But
+it seems that is not going to happen in the next few years, unless
+I simply decide to drop a lot of planned features. I simply have
+neither the time nor interest. 
+
+I never wanted Ion to become a major software development project, 
+but that's what has happened with Ion3. I'd rather it be just 
+research code, and that's where I'll get back into with Ion4, if
+I ever start working on it: trying out ideas, instead of polishing
+them. But for now, I've got far more pressing research to do, and 
+other more interesting, _small_, project ideas to occasionally 
+hack on. Ion is too big.
+
+-- 
+Tuomo
+
+
+
+From klawitter at email.de  Thu Feb 22 23:23:11 2007
+From: klawitter at email.de (Renee Klawitter)
+Date: Thu, 22 Feb 2007 23:23:11 +0100
+Subject: Feature freeze imminent
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070222195249.GB13364@localdomain>
+	<9c6605e40702221219r42856259ib86096ba31fba434@mail.gmail.com>
+	<slrnets1k7.kra.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <87irdtu90w.fsf@Queequeg.Pequod>
+
+Tuomo Valkonen <tuomov at iki.fi> writes:
+
+> it seems that is not going to happen in the next few years, unless
+> I simply decide to drop a lot of planned features. I simply have
+
+Perhaps you can list your planned features somewhere and others might
+take over ? 
+
+Would like to myself, but I lack the time, C skill and determination
+for that; what I've thought of after looking over your code some time
+ago was a C++ port/rewrite with the use of XComposite's
+possibilies. Your 'Class' constructions just suggested C++ to me, but
+spending a lot of time on recreating something thats already there and
+very usable too, seemed not worth the while ( while probably being an
+euphemism here ). In addition I do not know how well xlib can be used 
+with C++ - probably would have learned a lot, though.
+
+Okay, my point here: Thanks for ion!
+
+/Renee.
+ 
+
+
+
+
+From benji.wakely at gmail.com  Thu Feb 22 23:58:36 2007
+From: benji.wakely at gmail.com (Benji Wakely)
+Date: Fri, 23 Feb 2007 09:58:36 +1100
+Subject: Feature freeze imminent
+In-Reply-To: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <693b1460702221458n7b040406ta05f52f653cecb56@mail.gmail.com>
+
+Tuomo:
+
+Just wanted to let you know that we really appreciate the time and
+effort you've put into creating ion.
+
+That you're feeling tired and want to move on is entirely fair,
+and if anyone has a harsh word to say about that, they're off their rocker.
+
+I hope the project has been rewarding for you, both in terms of
+research and learning,
+but also in that you've created something interesting that is of
+genuine use to people.
+
+Thank you.
+
+--Benji, another happy ion user
+
+On 2/23/07, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> I'm tired of working on the project. I will therefore be seriously
+> cutting down on the features planned for Ion3. I will only finish a
+> few incomplete ones, and fix all the bugs and other brokenness and
+> ugliness, possibly also removing some features (simplifying/cleaning
+> up the Lua API). Then that will be the final stable Ion3. If you,
+> however, want some more features, patches are accepted for some time
+> still (it will take a few months/years/decades for the above-mentioned
+> stuff to be finished), and I can add hooks necessary for the
+> implementation of other things as modules at a later date. I am,
+> however, _extremely_ unlikely to implement any feature requests
+> myself. So if something is missing that you want now, you'll just
+> have to write it yourself.
+>
+> --
+> Tuomo
+>
+>
+
+
+From tuomov at iki.fi  Fri Feb 23 00:01:29 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 22 Feb 2007 23:01:29 +0000 (UTC)
+Subject: Feature freeze imminent
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070222195249.GB13364@localdomain>
+	<9c6605e40702221219r42856259ib86096ba31fba434@mail.gmail.com>
+	<slrnets1k7.kra.tuomov@jolt.modeemi.cs.tut.fi>
+	<87irdtu90w.fsf@Queequeg.Pequod>
+Message-ID: <slrnets869.usv.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-22, Renee Klawitter <klawitter at email.de> wrote:
+> Perhaps you can list your planned features somewhere and others might
+> take over ? 
+
+TODO.riot
+
+> Would like to myself, but I lack the time, C skill and determination
+> for that; what I've thought of after looking over your code some time
+> ago was a C++ port/rewrite 
+
+Rewrites: lame, for kids with a lot of time in their hands.
+
+C++: *yuck*. Too complex beast. There are four essential features
+that would make C much less painful, only of which C++ does have,
+and even it comes with too much complex baggage:
+
+  1. subtyping, i.e. the basic mechanism for the type system
+     to understand inheritance. Would rid object-style C code
+     from lots of ugly and unsafe casts, and make object system
+     far nicer to use.
+
+  2. Tagged unions/algebraic data types/pattern matching. So you
+     can have stuff like:
+
+	data Maybe a = Nothing | Just a
+
+	...
+
+	case x of
+	    Nothing -> No parameter set
+	    Just y -> Woot! Parameter set.
+
+     This would again rid C code of many unsafe C unions and other
+     hacks for unspecified parameter and so on.
+
+  3. Multiple return values for functions.
+
+  4. Function closures/first class functions. Hmm... might demand
+     a garbage collector for safe _and_ convenient implementation. 
+     In any case, they're an essential feature of a language nice 
+     to program in.
+
+I think the first two and maybe the third are featured in some C 
+derivatives that still remain "low-level" languages...
+
+-- 
+Tuomo
+
+
+
+From andreas.bernauer at gmx.de  Fri Feb 23 00:11:11 2007
+From: andreas.bernauer at gmx.de (Andreas Bernauer)
+Date: Fri, 23 Feb 2007 00:11:11 +0100
+Subject: Feature freeze imminent
+In-Reply-To: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070222231111.GA32204@informatik.uni-tuebingen.de>
+
+Tuomo Valkonen wrote on Thu, Feb 22 2007 at 15:18 (+0000):
+> I'm tired of working on the project. 
+
+Thanks for your good work, Tuomo.  I appreciate it a lot.  Although it
+sounds sad that you cease your work on Ion3, I can understand it (and
+other certainly do so, too).
+
+Be assured you made a lot of people's life easier, mine included.
+
+[I just switched to ion3 after using ion2 for a long time.]
+
+Good luck with your other projects!
+
+Cheers,
+
+Andreas--yet another happy user.
+
+
+From tilman.baumann at collax.com  Fri Feb 23 00:51:43 2007
+From: tilman.baumann at collax.com (Tilman Baumann)
+Date: Fri, 23 Feb 2007 00:51:43 +0100
+Subject: Feature freeze imminent
+In-Reply-To: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <74E20573-7748-4FC1-9EF0-7DFBEAF2E7E5@collax.com>
+
+How sad. I hope ion will not suffer from this loss. I'm really only a  
+user, so i can't do anything usefull take it forward.
+
+I deeply respect your work. You have created something very nice and  
+usefull for me and many others.
+Revolutions don't happen very often. But ion certainly is one.
+
+Thank you and may the force be with you. ;)
+
+
+Am 22.02.2007 um 16:18 schrieb Tuomo Valkonen:
+
+> I'm tired of working on the project. I will therefore be seriously
+> cutting down on the features planned for Ion3. I will only finish a
+> few incomplete ones, and fix all the bugs and other brokenness and
+> ugliness, possibly also removing some features (simplifying/cleaning
+> up the Lua API). Then that will be the final stable Ion3. If you,
+> however, want some more features, patches are accepted for some time
+> still (it will take a few months/years/decades for the above-mentioned
+> stuff to be finished), and I can add hooks necessary for the
+> implementation of other things as modules at a later date. I am,
+> however, _extremely_ unlikely to implement any feature requests
+> myself. So if something is missing that you want now, you'll just
+> have to write it yourself.
+>
+> -- 
+> Tuomo
+>
+
+
+
+From seth.arnold at suse.de  Fri Feb 23 02:18:41 2007
+From: seth.arnold at suse.de (Seth Arnold)
+Date: Thu, 22 Feb 2007 17:18:41 -0800
+Subject: Feature freeze imminent
+In-Reply-To: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070223011841.GA27643@suse.de>
+
+On Thu, Feb 22, 2007 at 03:18:01PM +0000, Tuomo Valkonen wrote:
+> I'm tired of working on the project. I will therefore be seriously
+> cutting down on the features planned for Ion3. I will only finish a
+> few incomplete ones, and fix all the bugs and other brokenness and
+> ugliness, possibly also removing some features (simplifying/cleaning
+> up the Lua API). Then that will be the final stable Ion3. If you,
+
+Tuomo, thank you for your fantastic window manager, your desire to
+polish off a few remaining aspects, and all your efforts to give us more
+reasonable computer interfaces.
+
+-- A happy user :)
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: not available
+Type: application/pgp-signature
+Size: 189 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070222/c92eb393/attachment.pgp>
+
+From dg135 at torfree.net  Fri Feb 23 04:24:31 2007
+From: dg135 at torfree.net (Mark Grieveson)
+Date: Thu, 22 Feb 2007 22:24:31 -0500
+Subject: Feature freeze imminent
+Message-ID: <20070222222431.22bcea49@debian.example.com>
+
+> You can always send me beer, but it won't help.
+
+Not even Canadian beer?  Wow.
+
+> Ion is too big.
+
+Yup.  Bloatware just like Gnome.
+
+I looked at your site, and could not find an address to send the Canuck beers to (or, at least, a cheque for the beer).  So, what's the address that I can send the brewskies to?
+
+Mark  
+
+
+From mvanier at cs.caltech.edu  Fri Feb 23 04:24:12 2007
+From: mvanier at cs.caltech.edu (Michael Vanier)
+Date: Thu, 22 Feb 2007 19:24:12 -0800
+Subject: Feature freeze imminent
+In-Reply-To: <20070222222431.22bcea49@debian.example.com>
+References: <20070222222431.22bcea49@debian.example.com>
+Message-ID: <45DE5E5C.1040706@cs.caltech.edu>
+
+Mark Grieveson wrote:
+
+>> Ion is too big.
+> 
+> Yup.  Bloatware just like Gnome.
+> 
+
+So make the next release a feature-reduction release ;-)  Personally, I'm happy 
+with ion2 anyway.  What's smaller than an ion... proton?
+
+Thanks, Tuomo, for the great WM.
+
+Mike
+
+
+
+From niklas.koponen at iki.fi  Fri Feb 23 07:38:03 2007
+From: niklas.koponen at iki.fi (Niklas Koponen)
+Date: Fri, 23 Feb 2007 08:38:03 +0200
+Subject: Feature freeze imminent
+In-Reply-To: <74E20573-7748-4FC1-9EF0-7DFBEAF2E7E5@collax.com>
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+	<74E20573-7748-4FC1-9EF0-7DFBEAF2E7E5@collax.com>
+Message-ID: <20070223063803.GA10261@bacon>
+
+On Fri, Feb 23, 2007 at 12:51:43AM +0100, Tilman Baumann wrote:
+>
+> Revolutions don't happen very often. But ion certainly is one.
+> 
+
+I agree. I can't even imagine what life without Ion would be! Can't wait
+what your coming research efforts will bring to this world.
+
+Thank you Tuomo!
+
+-Niklas
+-- 
+Niklas Koponen | +358 40 757 1459 | Antbackantie 4 B 11, FIN-02400 KIRKKONUMMI
+
+
+From j.van_den_hoff at fzd.de  Fri Feb 23 12:22:33 2007
+From: j.van_den_hoff at fzd.de (Joerg van den Hoff)
+Date: Fri, 23 Feb 2007 12:22:33 +0100
+Subject: Feature freeze imminent
+In-Reply-To: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070223112233.GA27110@marco.fz-rossendorf.de>
+
+On Thu, Feb 22, 2007 at 03:18:01PM +0000, Tuomo Valkonen wrote:
+> I'm tired of working on the project. I will therefore be seriously
+> cutting down on the features planned for Ion3. I will only finish a
+> few incomplete ones, and fix all the bugs and other brokenness and
+> ugliness, possibly also removing some features (simplifying/cleaning
+> up the Lua API). Then that will be the final stable Ion3. If you,
+> however, want some more features, patches are accepted for some time
+> still (it will take a few months/years/decades for the above-mentioned
+> stuff to be finished), and I can add hooks necessary for the 
+> implementation of other things as modules at a later date. I am,
+> however, _extremely_ unlikely to implement any feature requests 
+> myself. So if something is missing that you want now, you'll just
+> have to write it yourself.
+> 
+> -- 
+> Tuomo
+> 
+I simply want to queue with the others and say a big 'thank you'
+for this great window manager. maybe it all sounds a bit to definitive
+and obituary-like, but anyway. and maybe the last word is not spoken after
+all -- hope never harms :-).
+
+for the final(?) wish-list:
+/
+if a feature freeze is there and the definitive final version out,
+maybe the community can somehow put together a good(!) comprehensive(!!)
+HOWTO user manual for all the pedestrian users (more or less counting
+myself under these) which do not really want to dive into the source
+code and/or full-fledged lua-programming, but want to configure
+ion3 to their liking and get their work done (think, e.g. of
+`mutt' or `vim' documentation, although especially the latter is a
+bit on the hypertrophic side...).
+
+at one point I tried to compile ion2 myself under OSX. I failed (to many
+library collisions, missing header files etc etc). which
+does only say that much, namely that many potential users would have stopped at
+that point and that's a pity.  as of now there is 3ds-20060524
+available by one package management system (port) but no version at all by the
+more wide-spread (debian derived) other (fink). I don't know how to
+provide a package via these systems, but maybe someone out there
+does.  I believe it would help to draw more attention to ion3 (which
+it deserves) if it were possible to inject the final version into
+as many package management systems as possible (don't know how it
+stands with all the 'big' unix-es, linux-es and BSDs at the moment).
+
+
+
+
+and last not least:
+all the best for you and your future plans,
+
+joerg
+
+
+
+
+From cptsalek at gmail.com  Fri Feb 23 13:06:16 2007
+From: cptsalek at gmail.com (Christian Walther)
+Date: Fri, 23 Feb 2007 13:06:16 +0100
+Subject: Feature freeze imminent
+In-Reply-To: <20070223112233.GA27110@marco.fz-rossendorf.de>
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070223112233.GA27110@marco.fz-rossendorf.de>
+Message-ID: <14989d6e0702230406l46f89691od190f5319f39de58@mail.gmail.com>
+
+I'll add myself to this list, too.
+Thanks for all the work you spend on developing and improving ion3. It
+is my favorite Window Manager available. And I've seen a lot, but I
+never was quite satisfied with any of them.
+It all started years ago with ctwm, then I encountered Enlightenment
+(which was at DR12 at this time). I tried *step, FVWM, wmii, larswm,
+ratpoison. and I guess some more I've just forgotten.
+But I only found in ion3 the freedom of doing exactly what I wanted to
+do (not to mention that ion3s default behaviour was nearly what I
+wanted.) There was just this one moment when you removed WIonWS and
+WPaneWS where I was about to start crying. ;)
+
+So, I hope that this is not the end of ion3, because it certainly is
+the most usable Window Manager and it would be a pity if it would
+become unavailable/technically unusable eventually.
+
+I can understand that you feel it's time to do something different.
+Projects must come to an end eventually, especially when they are done
+privately.
+
+I too wish you all the best for your future!
+Christian
+
+
+From tuomov at iki.fi  Fri Feb 23 13:17:27 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 23 Feb 2007 12:17:27 +0000 (UTC)
+Subject: Feature freeze imminent
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070223112233.GA27110@marco.fz-rossendorf.de>
+	<14989d6e0702230406l46f89691od190f5319f39de58@mail.gmail.com>
+Message-ID: <slrnettmqn.4fe.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-23, Christian Walther <cptsalek at gmail.com> wrote:
+> So, I hope that this is not the end of ion3, because it certainly is
+> the most usable Window Manager and it would be a pity if it would
+> become unavailable/technically unusable eventually.
+
+It will be the end of Ion3, unless someone else continues with
+Ion3plus or something. Whether there will be Ion4 is an open 
+question. I do have some ideas I'd like to be tried, but whether
+I'll ever get to implementing them (the dirty work) is not certain
+at all... Maybe I'll settle for writing about them after I've
+thought about them more thoroughly: it's much more fun.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Fri Feb 23 19:21:15 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Fri, 23 Feb 2007 18:21:15 +0000 (UTC)
+Subject: Feature freeze imminent
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070223112233.GA27110@marco.fz-rossendorf.de>
+	<14989d6e0702230406l46f89691od190f5319f39de58@mail.gmail.com>
+	<slrnettmqn.4fe.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrnetuc4r.5um.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-23, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> It will be the end of Ion3, unless someone else continues with
+> Ion3plus or something. 
+
+Yes, I will still fix any bugs found that can not be considered 
+features, but there won't be any real development on Ion3: it
+will be stable, frozen, final.
+
+-- 
+Tuomo
+
+
+
+From hans.ekbrand at gmail.com  Sat Feb 24 00:04:40 2007
+From: hans.ekbrand at gmail.com (Hans Ekbrand)
+Date: Sat, 24 Feb 2007 00:04:40 +0100
+Subject: Feature freeze imminent
+In-Reply-To: <slrnetuc4r.5um.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070223112233.GA27110@marco.fz-rossendorf.de>
+	<14989d6e0702230406l46f89691od190f5319f39de58@mail.gmail.com>
+	<slrnettmqn.4fe.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrnetuc4r.5um.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070223230440.GB4479@localhost.localdomain>
+
+On Fri, Feb 23, 2007 at 06:21:15PM +0000, Tuomo Valkonen wrote:
+> On 2007-02-23, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> > It will be the end of Ion3, unless someone else continues with
+> > Ion3plus or something. 
+> 
+> Yes, I will still fix any bugs found that can not be considered 
+> features, but there won't be any real development on Ion3: it
+> will be stable, frozen, final.
+
+I would also like to thank you for ion(3). That ion3 is at end of
+development is not too bad though, since it is so good. Before I
+switched to ion3 some months ago, I had used twm for 7 years and twm
+has been stable, or frozen, since 15 years or so.
+
+While I sometimes find it unusual or almost unnatural to use software
+that is no longer developed, I guess there will be more and more of
+that as free software matures.
+
+Again, thanks for giving the world a lovely window manager which I am
+sure will be in use for a long time!
+
+-- 
+Hans Ekbrand
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 191 bytes
+Desc: Digital signature
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20070224/dc418b24/attachment.pgp>
+
+From gilesc at hyperlink-interactive.co.uk  Sat Feb 24 01:48:27 2007
+From: gilesc at hyperlink-interactive.co.uk (Giles Constant)
+Date: Sat, 24 Feb 2007 00:48:27 +0000
+Subject: Feature freeze imminent
+In-Reply-To: <20070223230440.GB4479@localhost.localdomain>
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrnetuc4r.5um.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070223230440.GB4479@localhost.localdomain>
+Message-ID: <200702240048.27648.gilesc@hyperlink-interactive.co.uk>
+
+On Friday 23 February 2007 23:04:40 Hans Ekbrand wrote:
+>
+> I would also like to thank you for ion(3).
+
+Me too.. I've had arguments with tuomo about features (namely AA fonts :-D), 
+but I wouldn't have been here having those arguments if I wasn't using it.
+
+Good work Tuomo.
+
+
+From chris at altbit.org  Sat Feb 24 19:43:50 2007
+From: chris at altbit.org (Christopher Hobbs)
+Date: Sat, 24 Feb 2007 12:43:50 -0600
+Subject: Feature freeze imminent
+Message-ID: <8153bba90702241043t7fd2e2fay2eeaf0e37ecdd736@mail.gmail.com>
+
+I just wanted to chime in with a "me too".  Thank you so much for ion,
+ion2, and ion3.  Ion3 has been my absolute favorite window manager for
+more than a year now.
+
+I, too, went through many a wm:  *step, fvwm, vtwm, enlightenment,
+ratpoison, pwm, and then ion.  I'm sure many others were used as well
+that I don't even recall.  Ion does everything I wanted and needed
+right out of the box.  Thank you so much for working so hard on this
+project.
+
+Will the ion site remain online?  If it's the end of ion, I'd still
+like to be able to use it in the future, and I'm sure others will as
+well.  Should we download the last release of it and keep it for
+archives?  Would you like it mirrored?  I'd be more than happy to
+provide space for something like that as well.
+
+Godspeed, Tuomo!  Thank you again!
+-- 
+C. M. Hobbs, KD5RYO
+http://altbit.org
+
+
+From tuomov at iki.fi  Sat Feb 24 20:35:24 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sat, 24 Feb 2007 19:35:24 +0000 (UTC)
+Subject: Feature freeze imminent
+References: <8153bba90702241043t7fd2e2fay2eeaf0e37ecdd736@mail.gmail.com>
+Message-ID: <slrneu14rs.dgl.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-24, Christopher Hobbs <chris at altbit.org> wrote:
+> Will the ion site remain online?  If it's the end of ion, 
+
+Of course the site will remain online, and hopefully the script
+repository will remain active. And maybe the site could be turned
+into a poor man's wiki, with contributed extra documentation as has
+been suggested, and so on. 
+
+This is not the end of Ion: it just the end of Ion3 development.
+Ion3 itself can still be extended by users by scripts and additional
+modules, and other people can continue working on Ion3plus or 
+something like that, which I can moderate contributions to just 
+like before. I just won't be actively working on new Ion code myself
+anymore for some unspecified number of years.
+
+-- 
+Tuomo
+
+
+
+From Matthieu.Moy at imag.fr  Sat Feb 24 20:42:04 2007
+From: Matthieu.Moy at imag.fr (Matthieu Moy)
+Date: Sat, 24 Feb 2007 20:42:04 +0100
+Subject: Feature freeze imminent
+In-Reply-To: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi> (Tuomo Valkonen's
+	message of "Thu\, 22 Feb 2007 15\:18\:01 +0000 \(UTC\)")
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <vpqzm73uyur.fsf@olympe.imag.fr>
+
+Tuomo Valkonen <tuomov at iki.fi> writes:
+
+> I'm tired of working on the project. I will therefore be seriously
+> cutting down on the features planned for Ion3. I will only finish a
+> few incomplete ones, and fix all the bugs and other brokenness and
+> ugliness, possibly also removing some features (simplifying/cleaning
+> up the Lua API). 
+
+At the moment, I didn't manage to get back all the features of
+detach.lua with the last releases of ion and their different
+management of "float on top of split". Unfortunately, I didn't have
+time to investigate, and see what comes from my config and lua, and
+what comes from ion itself. I'm sad to head that you're tired
+developing ion3, but not willing to contribute significantly. So, I'm
+not happy, but not in a position to complain ;-).
+
+Thanks for the good work on ion. From PWM introducing tabs to ion
+itself and its really novel management of windows, I can say that ion
+has been a great research project, and a great window-manager.
+
+Now, I'm not sure whether I'll stay with ion3 and try to fix my
+config, or migrate to something else. Perhaps WMII?
+
+-- 
+Matthieu
+
+
+From kkapelon at freemail.gr  Sun Feb 25 22:11:29 2007
+From: kkapelon at freemail.gr (Kapelonis Kostis)
+Date: Sun, 25 Feb 2007 23:11:29 +0200
+Subject: Feature freeze imminent
+In-Reply-To: <slrnettmqn.4fe.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>	<20070223112233.GA27110@marco.fz-rossendorf.de>	<14989d6e0702230406l46f89691od190f5319f39de58@mail.gmail.com>
+	<slrnettmqn.4fe.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <45E1FB81.9020101@freemail.gr>
+
+Tuomo Valkonen wrote:
+> On 2007-02-23, Christian Walther <cptsalek at gmail.com> wrote:
+>> So, I hope that this is not the end of ion3, because it certainly is
+>> the most usable Window Manager and it would be a pity if it would
+>> become unavailable/technically unusable eventually.
+> 
+> It will be the end of Ion3, unless someone else continues with
+> Ion3plus or something. Whether there will be Ion4 is an open 
+> question. I do have some ideas I'd like to be tried, but whether
+> I'll ever get to implementing them (the dirty work) is not certain
+> at all... Maybe I'll settle for writing about them after I've
+> thought about them more thoroughly: it's much more fun.
+> 
+Could you give us some hints on your ideas?
+An implementation of  VIS?
+
+
+UI oriented? Another window manager ?
+A new GUI toolkit?
+Something else?
+
+I will also have to add that ion3 was/is a great window
+manager.
+
+
+
+From tuomov at iki.fi  Sun Feb 25 23:19:19 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 25 Feb 2007 22:19:19 +0000 (UTC)
+Subject: Feature freeze imminent
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070223112233.GA27110@marco.fz-rossendorf.de>
+	<14989d6e0702230406l46f89691od190f5319f39de58@mail.gmail.com>
+	<slrnettmqn.4fe.tuomov@jolt.modeemi.cs.tut.fi>
+	<45E1FB81.9020101@freemail.gr>
+Message-ID: <slrneu42r7.ot9.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-25, Kapelonis Kostis <kkapelon at freemail.gr> wrote:
+> Could you give us some hints on your ideas?
+
+First of all, I want my [Riot][1] TODO list shorter. Some of the
+ideas these are related to another [idea of mine][2]. Essentially
+I will be turning Riot into a file system browser, and using a 
+non-hierarchical file system for storage (that Riot should be able
+access directly, without a FUSE module too).
+
+  [1]: http://iki.fi/tuomov/riot/
+
+  [2]: http://iki.fi/tuomov/b/archives/2006/03/01/T17_55_20/
+
+> UI oriented?
+
+I hate writing UIs. 
+
+> An implementation of  VIS?
+
+Nah, too big a project. Now, I could perhaps write a Vis core one
+day, but I'd hate writing the UI plugins. Vis would make writing UIs
+not so hateable, however... 
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Sun Feb 25 23:28:38 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Sun, 25 Feb 2007 22:28:38 +0000 (UTC)
+Subject: Feature freeze imminent
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070223112233.GA27110@marco.fz-rossendorf.de>
+	<14989d6e0702230406l46f89691od190f5319f39de58@mail.gmail.com>
+	<slrnettmqn.4fe.tuomov@jolt.modeemi.cs.tut.fi>
+	<45E1FB81.9020101@freemail.gr>
+	<slrneu42r7.ot9.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrneu43cm.q2i.tuomov@jolt.modeemi.cs.tut.fi>
+
+> On 2007-02-25, Kapelonis Kostis <kkapelon at freemail.gr> wrote:
+>> Could you give us some hints on your ideas?
+
+Hmm.. reading the quoted part, you were probably referring to Ion4
+ideas after all, and not what I will be working on after I've got
+rid of Ion3, which the rest of the message would indicate. 
+
+No, I'm not yet ready to share Ion4 ideas yet. But one thing is for 
+sure: I want to make it much simpler than Ion3. Ion1 was based on a 
+simple idea, but by Ion3 it has got too complex and kludged. I think
+I have a much simpler model figured out for Ion4, but the details 
+are still a bit blurry.
+
+-- 
+Tuomo
+
+
+
+From mason at f2s.com  Mon Feb 26 16:03:40 2007
+From: mason at f2s.com (Sam Mason)
+Date: Mon, 26 Feb 2007 15:03:40 +0000
+Subject: Feature freeze imminent
+In-Reply-To: <slrneu42r7.ot9.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070223112233.GA27110@marco.fz-rossendorf.de>
+	<14989d6e0702230406l46f89691od190f5319f39de58@mail.gmail.com>
+	<slrnettmqn.4fe.tuomov@jolt.modeemi.cs.tut.fi>
+	<45E1FB81.9020101@freemail.gr>
+	<slrneu42r7.ot9.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070226150340.GC13216@samason.me.uk>
+
+[[ sorry if you recieve this message twice, I sent it last time from an
+address that isn't registered with the mailing list. ]]
+
+On Sun, Feb 25, 2007 at 10:19:19PM +0000, Tuomo Valkonen wrote:
+>   [2]: http://iki.fi/tuomov/b/archives/2006/03/01/T17_55_20/
+
+I've thought a similar idea would be useful many times before.  GMail is
+the closest implementation that springs to mind.  The idea of putting
+the tags into a (partial?) ordering is interesting and I've not come
+across it before.  Do you mind if I ask a few questions about it?
+
+Having a poset of tags seems to imply that this ordering should exist
+independently of the actual tagging of files.  From your example,
+specifying that "foo" lives below "cfg".  This ordering should probably
+exist independently of any files that have these two tags.  If so how do
+you deal with bootstrapping this hierarchy; i.e. two programs (developed
+independently) require two tags to have a different ordering?
+
+One way to neatly sidestep this problem would be to remove the ordering
+and just require the set of tags associated with each file to be unique.
+As far as I can tell, the implementation wouldn't be too complicated,
+store the tags associated with a file lexicographically sorted and
+you can just use a hash table (probably not a hash table in a real
+implementation but I hope you get the idea) for the uniqueness check.
+Something else would be needed to search for files efficiently, but I
+don't see why it couldn't be done close to O(log N) time if not too many
+files were returned from a search.
+
+I hope I've interpreted your note correctly!
+
+
+  Sam
+
+
+
+From tuomov at iki.fi  Mon Feb 26 16:38:57 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 26 Feb 2007 15:38:57 +0000 (UTC)
+Subject: Feature freeze imminent
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070223112233.GA27110@marco.fz-rossendorf.de>
+	<14989d6e0702230406l46f89691od190f5319f39de58@mail.gmail.com>
+	<slrnettmqn.4fe.tuomov@jolt.modeemi.cs.tut.fi>
+	<45E1FB81.9020101@freemail.gr>
+	<slrneu42r7.ot9.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226150340.GC13216@samason.me.uk>
+Message-ID: <slrneu5voh.ksf.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-26, Sam Mason <mason at f2s.com> wrote:
+> One way to neatly sidestep this problem would be to remove the ordering
+> and just require the set of tags associated with each file to be unique.
+> As far as I can tell, the implementation wouldn't be too complicated,
+
+That's what I intend. At the file system level, there's no ordering
+as such: files are addressed by sets of tags, and this set is enforced
+to be unique for each file. The programs (or a FUSE plugin, for getdir) 
+can then do some ordering for nicer listings. 
+
+As for the implementation, yes it shouldn't be too complicated. 
+My present plan is that each tag has a sparse bitmap associated 
+with it, with the bit for each object ID that has that tag set, set
+to one. Then you just 'and' these bitmaps when you search for the
+subset of files having the given tags set. This should be quite
+efficient given a suitable sparse structure for the bitmaps. 
+However, pruning the results (there can be a lot of them), may
+demand a bit more effort. But it should not be a problem in a Riot
+scale application. Note that these tag-based bitmaps could be 'and'ed
+with further filters, such as a date one, that do not, however, 
+constitute a part of the file name, unlike the tags. 
+
+There's, however, another structure needed for looking up a particular
+file with exactly given set of tags. One approach would be to use a 
+binary self-balancing tree (red-black, AVL), but I'm afraid that could
+be too inefficient on a file system, as multiple 'inodes' all around the
+disk would have to be accessed on each lookup. An alternative, possibly
+more efficient, approach would be to order the identifier sets by tag ID,
+and use a nested B-tree for looking up the files as if they were on a 
+normal hierachical file system. In fact, you could store the files on 
+a normal underlying file system in that hierarchy. I do not plan to do
+so, however, although I do intend to use (at least initially) a normal
+FS for storing the files, with an additional file for the indices.
+
+I have not looked in detail into how LFS (Logic File System) does this,
+and maybe I could in fact use it, but the last I checked, it was gone,
+and the first time I checked, I couldn't build it.
+
+-- 
+Tuomo
+
+
+
+From tzz at lifelogs.com  Mon Feb 26 17:24:21 2007
+From: tzz at lifelogs.com (Ted Zlatanov)
+Date: Mon, 26 Feb 2007 11:24:21 -0500
+Subject: Feature freeze imminent
+In-Reply-To: <slrneu42r7.ot9.tuomov@jolt.modeemi.cs.tut.fi> (Tuomo Valkonen's
+	message of "Sun\, 25 Feb 2007 22\:19\:19 +0000 \(UTC\)")
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070223112233.GA27110@marco.fz-rossendorf.de>
+	<14989d6e0702230406l46f89691od190f5319f39de58@mail.gmail.com>
+	<slrnettmqn.4fe.tuomov@jolt.modeemi.cs.tut.fi>
+	<45E1FB81.9020101@freemail.gr>
+	<slrneu42r7.ot9.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <g69hct8sx8q.fsf@dhcp-65-162.kendall.corp.akamai.com>
+
+On Sun, 25 Feb 2007 22:19:19 +0000 (UTC) Tuomo Valkonen <tuomov at iki.fi> wrote: 
+
+TV>   [2]: http://iki.fi/tuomov/b/archives/2006/03/01/T17_55_20/
+
+After reading this, I think users will complain bitterly when they
+can't just tag two things the same way.  So the system needs to have
+an easy way to say: "OK, this file is exactly like the other one,
+except for one thing.  What is it?"
+
+Then the original file and the new one can both have their tag set
+extended, with the original set of tags becoming a "directory-level"
+tag set.  You probably also want to consider backups as a special case
+of tagging transparent to the user; this has good and bad
+implications.
+
+As with any powerful metadata system, the scary thing is that if the
+metadata is corrupted, the system will be in bad shape.
+
+I think this is an exciting research path.  Hans Reiser was talking
+about plugins for the next version of ReiserFS that will almost
+certainly do what you want, but depending on a particular FS is of
+course dangerous.  I am eager to find out more about your plans.
+
+>> UI oriented?
+
+TV> I hate writing UIs.
+
+After years of doing text and GUI work, I'm convinced that the best UI
+is the simplest one.  Thus, people who hate writing UIs should
+probably be doing it, because you can rely on them to do their best to
+simplify the UI :)  I think Ion is actually a reflection of the truth
+of this statement.  The simplicity of Ion's UI is why I love it.
+
+Ted
+
+
+From tzz at lifelogs.com  Mon Feb 26 17:14:02 2007
+From: tzz at lifelogs.com (Ted Zlatanov)
+Date: Mon, 26 Feb 2007 11:14:02 -0500
+Subject: Feature freeze imminent
+In-Reply-To: <slrneu5voh.ksf.tuomov@jolt.modeemi.cs.tut.fi> (Tuomo Valkonen's
+	message of "Mon\, 26 Feb 2007 15\:38\:57 +0000 \(UTC\)")
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070223112233.GA27110@marco.fz-rossendorf.de>
+	<14989d6e0702230406l46f89691od190f5319f39de58@mail.gmail.com>
+	<slrnettmqn.4fe.tuomov@jolt.modeemi.cs.tut.fi>
+	<45E1FB81.9020101@freemail.gr>
+	<slrneu42r7.ot9.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226150340.GC13216@samason.me.uk>
+	<slrneu5voh.ksf.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <g69lkiksxpx.fsf@dhcp-65-162.kendall.corp.akamai.com>
+
+On Mon, 26 Feb 2007 15:38:57 +0000 (UTC) Tuomo Valkonen <tuomov at iki.fi> wrote: 
+
+TV> My present plan is that each tag has a sparse bitmap associated 
+TV> with it, with the bit for each object ID that has that tag set, set
+TV> to one. Then you just 'and' these bitmaps when you search for the
+TV> subset of files having the given tags set. This should be quite
+TV> efficient given a suitable sparse structure for the bitmaps. 
+
+You probably want inversion lists for this.  They are very efficient
+for sparse membership, and extend to N members easily since they are
+just linked lists internally.
+
+TV> There's, however, another structure needed for looking up a particular
+TV> file with exactly given set of tags. One approach would be to use a 
+TV> binary self-balancing tree (red-black, AVL), but I'm afraid that could
+TV> be too inefficient on a file system, as multiple 'inodes' all around the
+TV> disk would have to be accessed on each lookup. An alternative, possibly
+TV> more efficient, approach would be to order the identifier sets by tag ID,
+TV> and use a nested B-tree for looking up the files as if they were on a 
+TV> normal hierachical file system. In fact, you could store the files on 
+TV> a normal underlying file system in that hierarchy. I do not plan to do
+TV> so, however, although I do intend to use (at least initially) a normal
+TV> FS for storing the files, with an additional file for the indices.
+
+Have you considered SQLite or something similar?  Even if you don't
+use on a DB backend eventually, I think using it at first would make
+your life easier because the prototype will be easier to produce.
+
+I also think the tag ideas would apply nicely to Ion3 elements.  Right
+now, "goto window," for example, has just the tab-completion interface
+by name.  It could use tags by window class, workspace type and
+number, etc.  Just a thought for Ion3plus.
+
+Ted
+
+
+From tuomov at iki.fi  Mon Feb 26 17:41:57 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 26 Feb 2007 16:41:57 +0000 (UTC)
+Subject: Feature freeze imminent
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070223112233.GA27110@marco.fz-rossendorf.de>
+	<14989d6e0702230406l46f89691od190f5319f39de58@mail.gmail.com>
+	<slrnettmqn.4fe.tuomov@jolt.modeemi.cs.tut.fi>
+	<45E1FB81.9020101@freemail.gr>
+	<slrneu42r7.ot9.tuomov@jolt.modeemi.cs.tut.fi>
+	<g69hct8sx8q.fsf@dhcp-65-162.kendall.corp.akamai.com>
+Message-ID: <slrneu63el.sjk.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-26, Ted Zlatanov <tzz at lifelogs.com> wrote:
+> After reading this, I think users will complain bitterly when they
+> can't just tag two things the same way.  So the system needs to have
+> an easy way to say: "OK, this file is exactly like the other one,
+> except for one thing.  What is it?"
+>
+> Then the original file and the new one can both have their tag set
+> extended, with the original set of tags becoming a "directory-level"
+> tag set.  
+
+This is precisely one thing that I want to avoid, the names of files 
+changing automatically. If one were to allow for that, one might be able
+to work with a standard metacrap file system. In the "SetFS", as I call 
+it, you'll just have to add an additional tag to any "followup" files.
+Yes, every "file" is a both a directory and a file, when you map
+SetFS to the conventional unix file hierarchies. So, if you have
+the file 'foo/bar' and want another file with the same tags, you'll
+just have to use 'foo/bar/1' or something, and maybe manually rename
+the original 'foo/bar/0', if you really want that.
+
+One should less think of SetFS as a database file system with lots of
+tags applied to each file, and more of as a plain old file system but
+without the hierarchy. Of course, one could always add an additional set 
+of meta-tags that do not contribute to the name of the file, just like
+one could do filtering by creation date, etc. for search, but not 
+addressing a particular file. (Accessing a particular file would just
+ignore specially formed path elements.)
+
+> After years of doing text and GUI work, I'm convinced that the best UI
+> is the simplest one.  Thus, people who hate writing UIs should
+> probably be doing it, because you can rely on them to do their best to
+> simplify the UI :)  
+
+I agree. Too bad few people who hate it, get into it.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Mon Feb 26 17:44:14 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 26 Feb 2007 16:44:14 +0000 (UTC)
+Subject: Feature freeze imminent
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070223112233.GA27110@marco.fz-rossendorf.de>
+	<14989d6e0702230406l46f89691od190f5319f39de58@mail.gmail.com>
+	<slrnettmqn.4fe.tuomov@jolt.modeemi.cs.tut.fi>
+	<45E1FB81.9020101@freemail.gr>
+	<slrneu42r7.ot9.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226150340.GC13216@samason.me.uk>
+	<slrneu5voh.ksf.tuomov@jolt.modeemi.cs.tut.fi>
+	<g69lkiksxpx.fsf@dhcp-65-162.kendall.corp.akamai.com>
+Message-ID: <slrneu63iu.sjk.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-26, Ted Zlatanov <tzz at lifelogs.com> wrote:
+> You probably want inversion lists for this.  They are very efficient
+> for sparse membership, and extend to N members easily since they are
+> just linked lists internally.
+
+Yes, they also don't sound bad.
+
+> I also think the tag ideas would apply nicely to Ion3 elements.  Right
+> now, "goto window," for example, has just the tab-completion interface
+> by name.  It could use tags by window class, workspace type and
+> number, etc.  Just a thought for Ion3plus.
+
+Actually, the new drawing engine attribute matching code uses very
+closely related ideas. And this tagging of windows, you can script
+it...
+
+-- 
+Tuomo
+
+
+
+From mason at f2s.com  Mon Feb 26 18:12:17 2007
+From: mason at f2s.com (Sam Mason)
+Date: Mon, 26 Feb 2007 17:12:17 +0000
+Subject: Feature freeze imminent
+In-Reply-To: <slrneu5voh.ksf.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070226150340.GC13216@samason.me.uk>
+	<slrneu5voh.ksf.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070226171217.GD13216@samason.me.uk>
+
+On Mon, Feb 26, 2007 at 03:38:57PM +0000, Tuomo Valkonen wrote:
+> On 2007-02-26, Sam Mason <mason at f2s.com> wrote:
+> > One way to neatly sidestep this problem would be to remove the ordering
+> > and just require the set of tags associated with each file to be unique.
+> > As far as I can tell, the implementation wouldn't be too complicated,
+> 
+> That's what I intend. At the file system level, there's no ordering
+> as such: files are addressed by sets of tags, and this set is enforced
+> to be unique for each file. The programs (or a FUSE plugin, for getdir) 
+> can then do some ordering for nicer listings. 
+
+OK, I've just re-read your original note on the subject and I was
+originally confused about what you meant---everything seems more
+coherent now.
+
+> As for the implementation, yes it shouldn't be too complicated. 
+> My present plan is that each tag has a sparse bitmap associated 
+> with it, with the bit for each object ID that has that tag set, set
+> to one. Then you just 'and' these bitmaps when you search for the
+> subset of files having the given tags set. This should be quite
+> efficient given a suitable sparse structure for the bitmaps. 
+
+Sounds similar to "bitmap indexes" as used by databases.  For read-only
+access they are great but AFAIK every implementation I've every heard of
+kills concurrent modification.  It may all work out here, but just to
+warn you!
+
+> However, pruning the results (there can be a lot of them), may
+> demand a bit more effort. But it should not be a problem in a Riot
+> scale application. Note that these tag-based bitmaps could be 'and'ed
+> with further filters, such as a date one, that do not, however, 
+> constitute a part of the file name, unlike the tags. 
+
+By pruning I'm guessing you mean getting single references out to each
+file, if so I think I must be missing something.  I don't see why any
+algorithm would ever return more than one reference to the same file and
+hence you would ever need to do any pruning.
+
+I agree with keeping the dates separate from tags, and with your rants
+on meta-data.  One of my issues is that metadata belong in the file so
+it doesn't disappear when you copy the file to a filesystem or over a
+protocol that doesn't honour all the latest shiny new features.  I also
+think we've all had to deal with recording the same information twice
+and them getting out of sync.
+
+> There's, however, another structure needed for looking up a particular
+> file with exactly given set of tags. One approach would be to use a 
+> binary self-balancing tree (red-black, AVL), but I'm afraid that could
+> be too inefficient on a file system, as multiple 'inodes' all around the
+> disk would have to be accessed on each lookup.  An alternative, possibly
+> more efficient, approach would be to order the identifier sets by tag ID,
+> and use a nested B-tree for looking up the files as if they were on a 
+> normal hierachical file system. In fact, you could store the files on 
+> a normal underlying file system in that hierarchy. 
+
+Your alternative sounds a lot like what I was trying to say in my last
+email.
+
+> I do not plan to do
+> so, however, although I do intend to use (at least initially) a normal
+> FS for storing the files, with an additional file for the indices.
+
+Sounds like a very reasonable way to start.
+
+> I have not looked in detail into how LFS (Logic File System) does this,
+> and maybe I could in fact use it, but the last I checked, it was gone,
+> and the first time I checked, I couldn't build it.
+
+I started to write an IMAP server that supported a similar method
+of tagging messages.  I used a traditional database (Postgres) to
+store everything in but didn't get very far as the IMAP spec is so
+impressively byzantine and every email client seems to use it's own
+subset.
+
+Postgres has reasonable support for BLOBs, providing an interface very
+similar to Unix's open/read/write/close.
+
+
+  Sam
+
+
+From tuomov at iki.fi  Mon Feb 26 18:29:52 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Mon, 26 Feb 2007 17:29:52 +0000 (UTC)
+Subject: Feature freeze imminent
+References: <20070226150340.GC13216@samason.me.uk>
+	<slrneu5voh.ksf.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226171217.GD13216@samason.me.uk>
+Message-ID: <slrneu668g.174.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-26, Sam Mason <mason at f2s.com> wrote:
+> Sounds similar to "bitmap indexes" as used by databases.  For read-only
+> access they are great but AFAIK every implementation I've every heard of
+> kills concurrent modification.  It may all work out here, but just to
+> warn you!
+
+Well, I don't really need concurrent modifications. File creation
+or deletion can be considered atomic.
+
+> By pruning I'm guessing you mean getting single references out to each
+> file, if so I think I must be missing something.  I don't see why any
+> algorithm would ever return more than one reference to the same file and
+> hence you would ever need to do any pruning.
+
+By pruning I mean producing suitable output for 'ls' or so. I search
+on SetFS by a set of tags simply returns a list of files/objects, whose
+sets of tags contains all of those tags (plus other possible filtering).
+But you don't want to display all of the results: you want to, if you
+will, 'cluster' them, so as to produce a hierarchy of results. That's
+what I call pruning: displaying a minimal set of tags that can be used
+to access all the results.
+
+Suppose the search for 'foo' returns the following files
+
+        foo/bar
+	foo/baz/quk
+	foo/baz/zum
+
+(Note, there is no file 'foo/baz' in this example!) We don't want 'ls' 
+to display all of these results, but instead want to prune for the 
+following output:
+
+	$ ls foo
+	bar
+	baz
+
+> Your alternative sounds a lot like what I was trying to say in my last
+> email.
+
+Maybe, but this is strictly at the implementation level: applications 
+are unuaware of any ordering of tags.
+
+> Postgres has reasonable support for BLOBs, providing an interface very
+> similar to Unix's open/read/write/close.
+
+I hate programs that want to run bloated server software on my computer.
+SQLite or Berkeley DB I could deal with, but I don't think a normal DB
+is of much help.
+
+-- 
+Tuomo
+
+
+
+From mason at f2s.com  Mon Feb 26 20:23:46 2007
+From: mason at f2s.com (Sam Mason)
+Date: Mon, 26 Feb 2007 19:23:46 +0000
+Subject: Feature freeze imminent
+In-Reply-To: <slrneu668g.174.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070226150340.GC13216@samason.me.uk>
+	<slrneu5voh.ksf.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226171217.GD13216@samason.me.uk>
+	<slrneu668g.174.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070226192346.GE13216@samason.me.uk>
+
+On Mon, Feb 26, 2007 at 05:29:52PM +0000, Tuomo Valkonen wrote:
+> On 2007-02-26, Sam Mason <mason at f2s.com> wrote:
+> > Sounds similar to "bitmap indexes" as used by databases.  For read-only
+> > access they are great but AFAIK every implementation I've every heard of
+> > kills concurrent modification.  It may all work out here, but just to
+> > warn you!
+> 
+> Well, I don't really need concurrent modifications. File creation
+> or deletion can be considered atomic.
+
+File lookups would have to stop while tags were being modified though.
+But yes, it's much less of an issue for file systems than for databases.
+
+> > By pruning I'm guessing you mean getting single references out to each
+> > file, if so I think I must be missing something.  I don't see why any
+> > algorithm would ever return more than one reference to the same file and
+> > hence you would ever need to do any pruning.
+> 
+> By pruning I mean producing suitable output for 'ls' or so. I search
+> on SetFS by a set of tags simply returns a list of files/objects, whose
+> sets of tags contains all of those tags (plus other possible filtering).
+> But you don't want to display all of the results: you want to, if you
+> will, 'cluster' them, so as to produce a hierarchy of results. That's
+> what I call pruning: displaying a minimal set of tags that can be used
+> to access all the results.
+
+Yes that makes sense now, thanks!
+
+> Suppose the search for 'foo' returns the following files
+> 
+>         foo/bar
+> 	foo/baz/quk
+> 	foo/baz/zum
+> 
+> (Note, there is no file 'foo/baz' in this example!) We don't want 'ls' 
+> to display all of these results, but instead want to prune for the 
+> following output:
+> 
+> 	$ ls foo
+> 	bar
+> 	baz
+
+Why not [bar,baz,quk,zum]? all of these tags appear in files once you've
+filtered out the ones that don't have foo in.  But yes, I see why
+pruning could be problematic.  I'll have to think about it more!
+
+> > Your alternative sounds a lot like what I was trying to say in my last
+> > email.
+> 
+> Maybe, but this is strictly at the implementation level: applications 
+> are unuaware of any ordering of tags.
+
+Yes.
+
+> > Postgres has reasonable support for BLOBs, providing an interface very
+> > similar to Unix's open/read/write/close.
+> 
+> I hate programs that want to run bloated server software on my computer.
+> SQLite or Berkeley DB I could deal with, but I don't think a normal DB
+> is of much help.
+
+If you're still exploring the problem they can be very good at providing
+a flexible data store.  When you more beyond the prototyping phase then
+I'd think about something a bit more specific.
+
+
+  Sam
+
+
+From samer.abdallah at elec.qmul.ac.uk  Mon Feb 26 21:03:40 2007
+From: samer.abdallah at elec.qmul.ac.uk (Samer Abdallah)
+Date: Mon, 26 Feb 2007 20:03:40 +0000
+Subject: Feature freeze imminent
+In-Reply-To: <slrnettmqn.4fe.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070223112233.GA27110@marco.fz-rossendorf.de>
+	<14989d6e0702230406l46f89691od190f5319f39de58@mail.gmail.com>
+	<slrnettmqn.4fe.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <04BE16F7-88FB-4A78-93C8-DD127FFB69A6@elec.qmul.ac.uk>
+
+Speaking of ideas for Ion4, if such a thing should ever come to pass,
+has anyone come across/have opinions about acme (from plan9)?
+Personally, I quit like the way it manages its windows, and also the
+way you can sort of create your own user interface on the fly by
+typing commands anywhere - they instantly become clickable elements
+that trigger the command they contain. On the whole, I find it not
+quite usable, especially its interaction with terminal based
+applications, but it has some nice ideas in it. At least someone has
+thought about how to make the mouse a more powerful tool instead
+of just an irritating appendage.
+
+btw, I'll add myself to the chorus of 'thanks for ion' - it is the only
+usable window manager, plus people who see it, as well as being
+slightly baffled, always say it looks cool.
+
+samer
+
+
+
+
+From tuomov at iki.fi  Tue Feb 27 07:34:23 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 27 Feb 2007 06:34:23 +0000 (UTC)
+Subject: Bug#408563: ion3: swichto config option broken in testing
+References: <20070126203918.17892.84019.reportbug@localhost>
+	<20070126211516.GA18251@kyllikki.home.inittab.de>
+	<45E39358.8080806@pipapo.org>
+Message-ID: <slrneu7k7f.8ho.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-27, Christian Thaeter <ct at pipapo.org> wrote:
+> Unfortunally I have to tell you that 20061223-1 which is now in testing
+
+... is ancient.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue Feb 27 07:45:38 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 27 Feb 2007 06:45:38 +0000 (UTC)
+Subject: Feature freeze imminent
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070223112233.GA27110@marco.fz-rossendorf.de>
+	<14989d6e0702230406l46f89691od190f5319f39de58@mail.gmail.com>
+	<slrnettmqn.4fe.tuomov@jolt.modeemi.cs.tut.fi>
+	<04BE16F7-88FB-4A78-93C8-DD127FFB69A6@elec.qmul.ac.uk>
+Message-ID: <slrneu7ksi.8ho.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-26, Samer Abdallah <samer.abdallah at elec.qmul.ac.uk> wrote:
+> Speaking of ideas for Ion4, if such a thing should ever come to pass,
+> has anyone come across/have opinions about acme (from plan9)?
+
+Sucks on the tabletop computer, being heavily pointing-device oriented
+in an application requiring textual input. Whereas combined use of the
+mouse and the keyboard can work great in applications like Blender and 
+FPS games, it simply won't work in applications where you type a lot.
+Not with the standard two-handed keyboards, and I've yet to see a better
+text input method.
+
+Such a "type/store commands somewhere" interface could, however, work 
+nicely on a pocket book sized touch screen tablet (a real lightweight 
+one, not a bloated pseudo-tablet of the hinged laptops) with hand-writing 
+recognition, where the keyboard would necessarily be too crappy to have 
+at all.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue Feb 27 08:30:32 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 27 Feb 2007 07:30:32 +0000 (UTC)
+Subject: Feature freeze imminent
+References: <20070226150340.GC13216@samason.me.uk>
+	<slrneu5voh.ksf.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226171217.GD13216@samason.me.uk>
+	<slrneu668g.174.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226192346.GE13216@samason.me.uk>
+Message-ID: <slrneu7ngo.8ho.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-26, Sam Mason <mason at f2s.com> wrote:
+> File lookups would have to stop while tags were being modified though.
+> But yes, it's much less of an issue for file systems than for databases.
+
+Actually, with suitable structures for the bitmaps, it might only be
+necessary to lock suitable ranges of the bitmaps containing the ID of 
+the object to be added/removed, so that other threads could continue 
+working on searches on the remaining parts, until they reach a locked
+part. 
+
+But it's not really that important on my toy file system. I primarily 
+want to test the concept in an application where efficiencies should 
+not be a big issue: riot. Of course, if it works out, I'd like to
+store other random data as well that way... I hate trying to remember 
+the exact paths for random Web saves and stuff. But saving by metadata
+pre-entered by others isn't going to work either: the unusefulness of
+ID3 tags in MP3s is evidence of that. Non-hierarchical tags should 
+work better. (Now, if you could still combine this with that: 
+<http://iki.fi/tuomov/b/archives/2006/06/16/T18_23_18/>).
+
+> Why not [bar,baz,quk,zum]? all of these tags appear in files once you've
+> filtered out the ones that don't have foo in.  But yes, I see why
+> pruning could be problematic.  I'll have to think about it more!
+
+Because that would not be much of a pruning, would it? It would make
+for more predictable results, however, when the pruning would otherwise
+resort to tag frequencies. (If there are objects with immediate successor
+tag sets to the search set, the extra tags _must_ be included in the
+result, and therefore creating even such dummy "directories" will let
+one control the results.)
+
+Whereas in the worst case, the computational complexity of even the
+frequency-based pruning operation can be quite high(*) (let alone the
+optimal Minimum Hitting Set, which is NP-complete), I doubt it is 
+a big problem in practise. What I do find problematic, is storing all 
+the search results in memory for pruning: there can be quite a few 
+results for the top-level empty search. However, it is possible to 
+do even more sub-optimal pruning by working on smaller (fixed-length)
+blocks of results at a time, and thus also providing a O(log n_tags)
+average time bound for producing a single result (a tag).
+
+(*) The number of tags per object can probably have a fixed upper limit,
+so the number of tags an object has plays no role in the complexities,
+as does not the length of the query. A very conservative estimate for 
+inserting all the tags in the found objects in a frequency-counting 
+search tree, and also inserting the objects in a search tree, is 
+O(n_objects * log n_tags). Likewise, a _very_ conservative estimate 
+for working through all the tags, removing objects listed after the tag
+from an object search tree, and removing the tags no longer referenced 
+to by any object from the tag search tree, is
+O(n_tags * n_objects * max(log n_objects, log n_tags)).
+The n_objects term is the estimate for number objects for each tag
+and is, of course, a serious over-estimation in practise. Also, if one
+tag (not in the search set) has all the objects, there's nothing to be
+done after that. The n_tags factor also a heavy over-estimation in 
+practise, as the tags  get removed along the way.
+
+> If you're still exploring the problem they can be very good at providing
+> a flexible data store.  
+
+I don't know about that.. The thing is, I like writing algorithms and
+data structures more than learning others' APIs, and the help provided
+by a DB isn't _that_ big...
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue Feb 27 13:07:24 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 27 Feb 2007 12:07:24 +0000 (UTC)
+Subject: Feature freeze imminent
+References: <20070226150340.GC13216@samason.me.uk>
+	<slrneu5voh.ksf.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226171217.GD13216@samason.me.uk>
+	<slrneu668g.174.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226192346.GE13216@samason.me.uk>
+	<slrneu7ngo.8ho.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrneu87ns.6s9.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-27, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> I don't know about that.. The thing is, I like writing algorithms and
+> data structures more than learning others' APIs, and the help provided
+> by a DB isn't _that_ big...
+
+There's one considerable benefit from using a ready DB, though: one
+could write the thing in Haskell, as no low-level bit manipulation
+is needed (which is practically impossible in Haskell and other 
+high-level languages). But then again, if one decides to write a 
+more efficient implementation at a later date, a complete rewrite
+is needed. (It's quite stupid to wrap from low-level C code to 
+Haskell and then back to C for FUSE.)
+
+-- 
+Tuomo
+
+
+
+From tzz at lifelogs.com  Tue Feb 27 15:50:12 2007
+From: tzz at lifelogs.com (Ted Zlatanov)
+Date: Tue, 27 Feb 2007 09:50:12 -0500
+Subject: Feature freeze imminent
+In-Reply-To: <slrneu7ksi.8ho.tuomov@jolt.modeemi.cs.tut.fi> (Tuomo Valkonen's
+	message of "Tue\, 27 Feb 2007 06\:45\:38 +0000 \(UTC\)")
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070223112233.GA27110@marco.fz-rossendorf.de>
+	<14989d6e0702230406l46f89691od190f5319f39de58@mail.gmail.com>
+	<slrnettmqn.4fe.tuomov@jolt.modeemi.cs.tut.fi>
+	<04BE16F7-88FB-4A78-93C8-DD127FFB69A6@elec.qmul.ac.uk>
+	<slrneu7ksi.8ho.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <g698xejr6xn.fsf@dhcp-65-162.kendall.corp.akamai.com>
+
+On Tue, 27 Feb 2007 06:45:38 +0000 (UTC) Tuomo Valkonen <tuomov at iki.fi> wrote: 
+
+TV> Such a "type/store commands somewhere" interface could, however, work 
+TV> nicely on a pocket book sized touch screen tablet (a real lightweight 
+TV> one, not a bloated pseudo-tablet of the hinged laptops) with hand-writing 
+TV> recognition, where the keyboard would necessarily be too crappy to have 
+TV> at all.
+
+I actually own such a device (the Nokia N800) and indeed, being able
+to do something like that would be very useful.  The onscreen keyboard
+is OK for short input, but not for complicated things.
+
+The built-in window manager is rather limited (very well suited to the
+majority of users, I think), and I've given thought to putting Ion3
+there.  The majority of the work would be in eliminating right-click
+actions, to be replaced with tap-and-hold, and in ensuring that the
+keyboard is not needed.  Any other Ion3 users with interest in the N800?
+
+Ted
+
+
+From mason at f2s.com  Tue Feb 27 16:13:52 2007
+From: mason at f2s.com (Sam Mason)
+Date: Tue, 27 Feb 2007 15:13:52 +0000
+Subject: Feature freeze imminent
+In-Reply-To: <slrneu7ngo.8ho.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070226150340.GC13216@samason.me.uk>
+	<slrneu5voh.ksf.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226171217.GD13216@samason.me.uk>
+	<slrneu668g.174.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226192346.GE13216@samason.me.uk>
+	<slrneu7ngo.8ho.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070227151352.GG13216@samason.me.uk>
+
+On Tue, Feb 27, 2007 at 07:30:32AM +0000, Tuomo Valkonen wrote:
+> On 2007-02-26, Sam Mason <mason at f2s.com> wrote:
+> > File lookups would have to stop while tags were being modified though.
+> > But yes, it's much less of an issue for file systems than for databases.
+> 
+> Actually, with suitable structures for the bitmaps, it might only be
+> necessary to lock suitable ranges of the bitmaps containing the ID of 
+> the object to be added/removed, so that other threads could continue 
+> working on searches on the remaining parts, until they reach a locked
+> part. 
+
+Definitly possible, but you'd have to be very careful about
+deadlocking.  Think about the case when you're extending the bitmap
+somewhere in the middle.
+
+> But it's not really that important on my toy file system. 
+
+I agree, it's also way outside any real programming experience I've ever
+had.
+
+> I primarily 
+> want to test the concept in an application where efficiencies should 
+> not be a big issue: riot. Of course, if it works out, I'd like to
+> store other random data as well that way... I hate trying to remember 
+> the exact paths for random Web saves and stuff. But saving by metadata
+> pre-entered by others isn't going to work either: the unusefulness of
+> ID3 tags in MP3s is evidence of that. Non-hierarchical tags should 
+> work better. (Now, if you could still combine this with that: 
+> <http://iki.fi/tuomov/b/archives/2006/06/16/T18_23_18/>).
+
+I tend to get annoyed when things fit into several categories and having
+to choose between one.  For example I have a "projects" directory
+containing the projects I'm working on at the moment and a "people"
+directory for stuff that doesn't fit into a specific project.  But
+really I'd like to be able to say that a file is from this person and
+also belongs to this project.
+
+> > Why not [bar,baz,quk,zum]? all of these tags appear in files once you've
+> > filtered out the ones that don't have foo in.  But yes, I see why
+> > pruning could be problematic.  I'll have to think about it more!
+> 
+> Because that would not be much of a pruning, would it? 
+
+I thought that was because as the filesystem grew there would be many
+more files relative to tags.  If this was the case then it would help;
+but maybe there would always be a similar number of tags to files.
+You'll probably have a few files called "index.html" on your computer
+but most other files are going to have unique names (the basename in a
+hierachial system).
+
+If these names were treated the same as the rest of the tags thos
+would kill my naive pruning attempts.  One possible fix would be to
+diffrentiate between the filename and it's tags.  This is very different
+from what you wanted to do, but I'm not sure if it would be bad in
+practice.  After all, the latest Firefox browser just tends to dump
+downloaded files into your home directory with just the name taken from
+the URL.
+
+> It would make
+> for more predictable results, however, when the pruning would otherwise
+> resort to tag frequencies. 
+
+Yes, and, as you noted, reconstructing a hierachy dynamically is not an
+easy thing to do.  Additionally there are potentially lots of ways of
+doing it which /could/ lead to confusion when the defaults change.
+
+> (If there are objects with immediate successor
+> tag sets to the search set, the extra tags _must_ be included in the
+> result, and therefore creating even such dummy "directories" will let
+> one control the results.)
+
+I'm not sure how you would identify these by looking at the frequency
+of occurance, wouldn't you just get two tags occuring with the same
+frequency?
+
+> Whereas in the worst case, the computational complexity of even the
+> frequency-based pruning operation can be quite high(*) (let alone the
+> optimal Minimum Hitting Set, which is NP-complete), I doubt it is 
+> a big problem in practise. What I do find problematic, is storing all 
+> the search results in memory for pruning: there can be quite a few 
+> results for the top-level empty search.  However, it is possible to 
+> do even more sub-optimal pruning by working on smaller (fixed-length)
+> blocks of results at a time, and thus also providing a O(log n_tags)
+> average time bound for producing a single result (a tag).
+
+> (*) The number of tags per object can probably have a fixed upper limit,
+> so the number of tags an object has plays no role in the complexities,
+> as does not the length of the query. A very conservative estimate for 
+> inserting all the tags in the found objects in a frequency-counting 
+> search tree, and also inserting the objects in a search tree, is 
+> O(n_objects * log n_tags). Likewise, a _very_ conservative estimate 
+> for working through all the tags, removing objects listed after the tag
+> from an object search tree, and removing the tags no longer referenced 
+> to by any object from the tag search tree, is
+> O(n_tags * n_objects * max(log n_objects, log n_tags)).
+> The n_objects term is the estimate for number objects for each tag
+> and is, of course, a serious over-estimation in practise. Also, if one
+> tag (not in the search set) has all the objects, there's nothing to be
+> done after that. The n_tags factor also a heavy over-estimation in 
+> practise, as the tags  get removed along the way.
+
+That all sounds like quite a hard problem for any reasonable number of
+objects and tags.
+
+
+  Sam
+
+
+From mason at f2s.com  Tue Feb 27 16:43:56 2007
+From: mason at f2s.com (Sam Mason)
+Date: Tue, 27 Feb 2007 15:43:56 +0000
+Subject: Feature freeze imminent
+In-Reply-To: <slrneu87ns.6s9.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070226150340.GC13216@samason.me.uk>
+	<slrneu5voh.ksf.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226171217.GD13216@samason.me.uk>
+	<slrneu668g.174.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226192346.GE13216@samason.me.uk>
+	<slrneu7ngo.8ho.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneu87ns.6s9.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070227154356.GI13216@samason.me.uk>
+
+On Tue, Feb 27, 2007 at 12:07:24PM +0000, Tuomo Valkonen wrote:
+> On 2007-02-27, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> > I don't know about that.. The thing is, I like writing algorithms and
+> > data structures more than learning others' APIs, and the help provided
+> > by a DB isn't _that_ big...
+> 
+> There's one considerable benefit from using a ready DB, though: one
+> could write the thing in Haskell, as no low-level bit manipulation
+> is needed (which is practically impossible in Haskell and other 
+> high-level languages). 
+
+There are some very nice high-level libraries available[1] for Haskell
+that abstract away even writing the SQL.  Of these I've only played with
+HaskellDB and was reasonably impressed, but I think a lot has changed
+since then and it may be even better.
+
+> But then again, if one decides to write a 
+> more efficient implementation at a later date, a complete rewrite
+> is needed. (It's quite stupid to wrap from low-level C code to 
+> Haskell and then back to C for FUSE.)
+
+I don't think it's implemented anywhere at the moment, but have you
+seen the ICFP2005 paper by Iavor Diatchi et. al.[2]?  The reason I
+heard about it was through a safe low-level langauge I'm interested
+in called BitC[3] that's thinking of using a similar technique for
+representing "(low level hardware) data-structures which involve nested
+union discriminators"[4].  BitC has a bootstrapping compiler written in
+C++ at the moment, but hasn't reached the self-hosting stage yet.
+
+
+  Sam
+
+ [1] http://www.haskell.org/haskellwiki/Libraries_and_tools/Database_interfaces
+ [2] http://www.cse.ogi.edu/~diatchki/papers/bitdata.pdf
+ [3] http://www.coyotos.org/docs/bitc/spec.html
+ [4] http://www.coyotos.org/pipermail/bitc-dev/2007-February/000881.html
+
+
+From tuomov at iki.fi  Tue Feb 27 17:39:27 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 27 Feb 2007 16:39:27 +0000 (UTC)
+Subject: Feature freeze imminent
+References: <20070226150340.GC13216@samason.me.uk>
+	<slrneu5voh.ksf.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226171217.GD13216@samason.me.uk>
+	<slrneu668g.174.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226192346.GE13216@samason.me.uk>
+	<slrneu7ngo.8ho.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227151352.GG13216@samason.me.uk>
+Message-ID: <slrneu8nlv.rbq.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-27, Sam Mason <mason at f2s.com> wrote:
+> I tend to get annoyed when things fit into several categories and having
+> to choose between one.  
+
+Yeah, and I hate also deciding between "todo/ion" and "ion/todo", 
+and such cases.
+
+> I thought that was because as the filesystem grew there would be many
+> more files relative to tags.  
+
+It depends on the use I guess. If, say, you would be saving email in
+the SetFS, each with its MessageID as one tag, and other information
+as other tags (say, 'ion/list/tuomov at iki.fi/msg.123098asdfasdf234'),
+there would be more tags than files. But in many other use cases the
+situation might be the opposite.
+
+> If these names were treated the same as the rest of the tags thos
+> would kill my naive pruning attempts.  One possible fix would be to
+> diffrentiate between the filename and it's tags.  This is very different
+> from what you wanted to do, but I'm not sure if it would be bad in
+> practice.  
+
+I've thought about a lot of extensions to the basic scheme, because,
+well it is not perfect, and there are still many situations where
+it is difficult to decide how one should tag things. (Even that
+example above, 'ion/list/tuomov at iki.fi/msg.123098asdfasdf234' could
+be rendered in various different ways.) However, I've decided against
+most of these, because they would unnecessarily complicate the system,
+without really solving anything. One of these things is a distinguished
+file name component. KISS. 
+
+>> (If there are objects with immediate successor
+>> tag sets to the search set, the extra tags _must_ be included in the
+>> result, and therefore creating even such dummy "directories" will let
+>> one control the results.)
+>
+> I'm not sure how you would identify these by looking at the frequency
+> of occurance, wouldn't you just get two tags occuring with the same
+> frequency?
+
+Suppose you search by 'foo/bar', and get 'foo/bar/baz' among the 
+(fully qualified) results. The you absolutely have to list 'baz'
+in the output, because there's no other route to it, there being
+no additional tags. However, if you get the result 'foo/bar/baz/quk',
+but do _not_ get 'foo/bar/baz', you do not have to list 'baz', as
+'quk' provides a path to the result 'foo/bar/baz/quk'. 
+
+You see, if you have a file with the set A of tags, and a file with
+the set B of tags, superset of A, you do not have to have the files
+with the sets of tags C_i, where C_i is between A and B. However, 
+if you want to, you can create such dummy files ("directories"), and
+thus direct the pruner.
+
+The pruning operation would be unnecessary/automatic if we, instead 
+of tag bitmaps, stored the partial order of the tag sets in the FS. 
+Such a partial order would also immediately provide the structure to
+use for search for a file with exactly the given set of tags. However,
+the partial order structure seems intractable to maintain. (Consider 
+the number of subsets of a set.) Not that I've given it careful 
+thought yet...
+
+> That all sounds like quite a hard problem for any reasonable number of
+> objects and tags.
+
+Yes, the optimal pruning (at least without bounds on the number of
+tags per file) is (NP-) hard. However, sub-optimal should suffice.
+Of course, the pruning method can be user-tunable, and perhaps even
+some simple greedy lexicographical pruning would suffice sometimes
+(i.e. if an object is not covered by one of the tags seen yet, take
+the first of its tags in, say, lexicographical order, not part of the
+search set). Or maybe one could use the total occurence frequencies 
+of the tags (which can be stored on the fs) when there are many 
+results, and use the frequency within the results, when there aren't
+that many. Infact, if some program one wants particular kind of
+results, this could be configured in some path element:
+foo/#created:year=2006/#prune:alltags/ (demonstrating also the
+additional filters).
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue Feb 27 17:44:52 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 27 Feb 2007 16:44:52 +0000 (UTC)
+Subject: Feature freeze imminent
+References: <20070226150340.GC13216@samason.me.uk>
+	<slrneu5voh.ksf.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226171217.GD13216@samason.me.uk>
+	<slrneu668g.174.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226192346.GE13216@samason.me.uk>
+	<slrneu7ngo.8ho.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneu87ns.6s9.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227154356.GI13216@samason.me.uk>
+Message-ID: <slrneu8o04.rbq.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-27, Sam Mason <mason at f2s.com> wrote:
+> There are some very nice high-level libraries available[1] for Haskell
+> that abstract away even writing the SQL.  Of these I've only played with
+> HaskellDB and was reasonably impressed, but I think a lot has changed
+> since then and it may be even better.
+
+I actually looked into it today, but: HaskellDB doesn't not seem to
+support creating new tables on the fly, as it demands a static
+definition of the database. And I think the way to implement this,
+would be to have a table for each tag, listing the objects having
+tha tag. Is INTERSECT how efficient usually, btw.?
+
+> I don't think it's implemented anywhere at the moment, but have you
+> seen the ICFP2005 paper by Iavor Diatchi et. al.[2]?  
+
+Nope. It would be nice to have something that provides nice and simple
+bit-level access, though... Or just some low-level language that isn't
+as painful as C.
+
+-- 
+Tuomo
+
+
+
+From realblades at gmail.com  Tue Feb 27 17:52:18 2007
+From: realblades at gmail.com (Harri Haataja)
+Date: Tue, 27 Feb 2007 18:52:18 +0200
+Subject: Feature freeze imminent
+In-Reply-To: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <74e3492a0702270852i59dad343i1c26a86b679feb3f@mail.gmail.com>
+
+On 22/02/07, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> I'm tired of working on the project.
+
+> Then that will be the final stable Ion3.
+
+Let me also add the thanks and praise I've been repeating on #ion.
+Ion3 is still is by far the most comfortable place for me to be in,
+window system wise. Even the people are nice and helpful.. and full of
+personality.
+
+I think ion3 is quite "old" and would be fine moved to a stable state.
+It isn't the end of it but a step forward. I also fear the project
+being eventually left to rot, of course. But I doubt that's going to
+happen. Unless there's some ui revolution ahead :)
+
+-- 
+I appear to be temporarily using gmail's horrible interface. I
+apologise for any failure in my part in trying to make it do the right
+thing with post formatting.
+
+
+From samer.abdallah at elec.qmul.ac.uk  Tue Feb 27 17:56:36 2007
+From: samer.abdallah at elec.qmul.ac.uk (Samer Abdallah)
+Date: Tue, 27 Feb 2007 16:56:36 +0000
+Subject: Feature freeze imminent
+In-Reply-To: <slrneu7ksi.8ho.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070223112233.GA27110@marco.fz-rossendorf.de>
+	<14989d6e0702230406l46f89691od190f5319f39de58@mail.gmail.com>
+	<slrnettmqn.4fe.tuomov@jolt.modeemi.cs.tut.fi>
+	<04BE16F7-88FB-4A78-93C8-DD127FFB69A6@elec.qmul.ac.uk>
+	<slrneu7ksi.8ho.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <A619E328-BA0B-4D5A-A26B-5F26DC10DE66@elec.qmul.ac.uk>
+
+
+On 27 Feb 2007, at 06:45, Tuomo Valkonen wrote:
+
+> On 2007-02-26, Samer Abdallah <samer.abdallah at elec.qmul.ac.uk> wrote:
+>> Speaking of ideas for Ion4, if such a thing should ever come to pass,
+>> has anyone come across/have opinions about acme (from plan9)?
+>
+> Sucks on the tabletop computer, being heavily pointing-device oriented
+> in an application requiring textual input. Whereas combined use of the
+> mouse and the keyboard can work great in applications like Blender and
+> FPS games, it simply won't work in applications where you type a lot.
+Agreed, the worst thing is *forcing* the user to switch rapidly between
+mouse and keyboard, but not all applications involve a lot of text  
+input.
+I think it's good to have the option of doing as much as possible one
+way or the other, because I find it helps combat fatigue and muscle  
+strain
+to be able to switch from pure keyboard use to, say, leaning back,
+changing position, and doing things with the mouse for a while. If you
+give people the option, they can choose whichever mode is most  
+comfortable
+for them *at that time*.
+
+As far as this relates to ion, the keyboard-orientation aspect
+is orthogonal to the tiled/tabbed window management aspect and there is
+no reason that a window manager like ion can't extract the maximum  
+utility
+from the mouse. It's actually not too bad as it is, and the cfg_mouse  
+script does
+a bit more. The main problem is the overall lack of creative ideas  
+(everywhere
+that is, not specifically in ion) about how to do useful and powerful  
+things
+with the mouse without it being too fiddly and taking up a lot of  
+screen space
+with pointless and ugly widgets.
+
+> Not with the standard two-handed keyboards, and I've yet to see a  
+> better
+> text input method.
+>
+> Such a "type/store commands somewhere" interface could, however, work
+> nicely on a pocket book sized touch screen tablet (a real lightweight
+> one, not a bloated pseudo-tablet of the hinged laptops) with hand- 
+> writing
+> recognition, where the keyboard would necessarily be too crappy to  
+> have
+> at all.
+I tried morse code on my iPod linux once, which was ..um..  
+interesting. At least
+it doesn't use any screen space.
+
+Some other ideas:
+	http://www.strout.net/info/ideas/hexinput.html
+	http://www.speedscript.biz/default.aspx
+	http://www.inference.phy.cam.ac.uk/dasher/
+A common problem with these is that they take up a lot of screen  
+space, but I
+think the gestural aspects of the first two along with the predictive
+aspect of dasher could be quite promising, especially when the  
+predictive
+model could be specialised for different applications, eg English  
+language text
+vs coding vs terminal session etc.
+
+Samer
+
+
+
+>
+> -- 
+> Tuomo
+>
+
+
+
+From tuomov at iki.fi  Tue Feb 27 19:29:05 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 27 Feb 2007 18:29:05 +0000 (UTC)
+Subject: Feature freeze imminent
+References: <slrnetrd19.lsj.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070223112233.GA27110@marco.fz-rossendorf.de>
+	<14989d6e0702230406l46f89691od190f5319f39de58@mail.gmail.com>
+	<slrnettmqn.4fe.tuomov@jolt.modeemi.cs.tut.fi>
+	<04BE16F7-88FB-4A78-93C8-DD127FFB69A6@elec.qmul.ac.uk>
+	<slrneu7ksi.8ho.tuomov@jolt.modeemi.cs.tut.fi>
+	<A619E328-BA0B-4D5A-A26B-5F26DC10DE66@elec.qmul.ac.uk>
+Message-ID: <slrneu8u3h.9if.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-27, Samer Abdallah <samer.abdallah at elec.qmul.ac.uk> wrote:
+> space, but I think the gestural aspects of the first two along 
+> with the predictive aspect of dasher could be quite promising, 
+
+Yeah, dasher is quite interesting, but it seemed a bit too.. umm..
+"nervous". Hmm.. Perhaps a pie menu sort of predictive thingy would
+work, to some extent: you hit a letter, and the most likely next
+letters appear around it in a pie, and the rest further away.
+The problem is, that the menu moves... but maybe you could write
+a word at a time that way. 
+
+The "predictive" (I wouldn't call it predictive, though) input
+method of cell phones isn't all bad either. Perhaps a pie menu
+of similar combinations would be.. umm.. more predictable (heh-heh)
+than a real predictive input system. 
+
+-- 
+Tuomo
+
+
+
+From mason at f2s.com  Tue Feb 27 19:30:45 2007
+From: mason at f2s.com (Sam Mason)
+Date: Tue, 27 Feb 2007 18:30:45 +0000
+Subject: Feature freeze imminent
+In-Reply-To: <slrneu8o04.rbq.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070226150340.GC13216@samason.me.uk>
+	<slrneu5voh.ksf.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226171217.GD13216@samason.me.uk>
+	<slrneu668g.174.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226192346.GE13216@samason.me.uk>
+	<slrneu7ngo.8ho.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneu87ns.6s9.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227154356.GI13216@samason.me.uk>
+	<slrneu8o04.rbq.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070227183045.GK13216@samason.me.uk>
+
+On Tue, Feb 27, 2007 at 04:44:52PM +0000, Tuomo Valkonen wrote:
+> On 2007-02-27, Sam Mason <mason at f2s.com> wrote:
+> > There are some very nice high-level libraries available[1] for Haskell
+> > that abstract away even writing the SQL.  Of these I've only played with
+> > HaskellDB and was reasonably impressed, but I think a lot has changed
+> > since then and it may be even better.
+> 
+> I actually looked into it today, but: HaskellDB doesn't not seem to
+> support creating new tables on the fly, as it demands a static
+> definition of the database. And I think the way to implement this,
+> would be to have a table for each tag, listing the objects having
+> tha tag. Is INTERSECT how efficient usually, btw.?
+
+Tables are never normally created by code.  That would be akin to Python
+code generating a source file with a slightly different class definition
+in it and telling the interpreter to load it.  You can do it, but it's
+not recommended!  I would probably have a schema more like:
+
+  files:
+    fileid  INTEGER  NOT NULL  PRIMARY KEY
+
+  tags:
+    tag         TEXT  NOT NULL  PRIMARY KEY,
+    description TEXT
+
+  filetags:
+    tag    TEXT     NOT NULL  REFERENCES tags,
+    fileid INTEGER  NOT NULL  REFERENCES files ON DELETE CASCADE,
+      PRIMARY KEY (tag, fileid)
+
+In more human terms I would have a table of files, the purpose of which
+is to give you the fileid (sort of like the inode number), a table of
+tags that define what tags are known, and a table containing the pairs
+(tag,fileid) that define what files have what tags.
+
+I would rely on the database to optimise things where necessary---big
+databases are fairly amazing at this, Postgres has a good planner and
+MySql doesn't.  Tables should have few columns (I tend to think of them
+as generalisations of functions) and lots of rows.  I'm working with
+a dataset (under Postgres) that has several tables with >100million
+rows and everything is fine, rows are not a problem.
+
+If you've ever done any logic programming (Mercury[1] is nice if you're
+used to Haskell) then relations (tables) are similar to predicates in
+that functions don't just have to return one value.  A bit like lifting
+things into Maybe or List Monads in Haskell, except even cleaner than
+Haskell.  You know up front if they're going to return either one result
+or fail (zero results), or return many (zero or more) results.
+
+Hope that makes sense!
+
+> > I don't think it's implemented anywhere at the moment, but have you
+> > seen the ICFP2005 paper by Iavor Diatchi et. al.[2]?  
+> 
+> Nope. It would be nice to have something that provides nice and simple
+> bit-level access, though... Or just some low-level language that isn't
+> as painful as C.
+
+Yes it would!
+
+
+  Sam
+
+ [1] http://www.cs.mu.oz.au/research/mercury/
+
+
+From tuomov at iki.fi  Tue Feb 27 19:53:50 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 27 Feb 2007 18:53:50 +0000 (UTC)
+Subject: Feature freeze imminent
+References: <20070226150340.GC13216@samason.me.uk>
+	<slrneu5voh.ksf.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226171217.GD13216@samason.me.uk>
+	<slrneu668g.174.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226192346.GE13216@samason.me.uk>
+	<slrneu7ngo.8ho.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneu87ns.6s9.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227154356.GI13216@samason.me.uk>
+	<slrneu8o04.rbq.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227183045.GK13216@samason.me.uk>
+Message-ID: <slrneu8vhu.bnf.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-27, Sam Mason <mason at f2s.com> wrote:
+> In more human terms I would have a table of files, the purpose of which
+> is to give you the fileid (sort of like the inode number), a table of
+> tags that define what tags are known, and a table containing the pairs
+> (tag,fileid) that define what files have what tags.
+
+Yeah, that's one quite simple layout, but how would you make the
+intersection of the search results for different tags then? A
+simple "same row" intersection doesn't work anymore. Does SQL 
+have a more complicated intersection operation? And how efficient
+would it be? That's the bottleneck, I think. Plus there's no 
+structure for quick access to a known file name, which would seem
+mportant to me. (Yes, I am total newbie wrt. SQL.)
+
+-- 
+Tuomo
+
+
+
+From mason at f2s.com  Tue Feb 27 20:22:35 2007
+From: mason at f2s.com (Sam Mason)
+Date: Tue, 27 Feb 2007 19:22:35 +0000
+Subject: Feature freeze imminent
+In-Reply-To: <slrneu8nlv.rbq.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070226150340.GC13216@samason.me.uk>
+	<slrneu5voh.ksf.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226171217.GD13216@samason.me.uk>
+	<slrneu668g.174.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226192346.GE13216@samason.me.uk>
+	<slrneu7ngo.8ho.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227151352.GG13216@samason.me.uk>
+	<slrneu8nlv.rbq.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070227192235.GL13216@samason.me.uk>
+
+On Tue, Feb 27, 2007 at 04:39:27PM +0000, Tuomo Valkonen wrote:
+> On 2007-02-27, Sam Mason <mason at f2s.com> wrote:
+> > I thought that was because as the filesystem grew there would be many
+> > more files relative to tags.  
+> 
+> It depends on the use I guess. If, say, you would be saving email in
+> the SetFS, each with its MessageID as one tag, and other information
+> as other tags (say, 'ion/list/tuomov at iki.fi/msg.123098asdfasdf234'),
+> there would be more tags than files. But in many other use cases the
+> situation might be the opposite.
+
+If you can think up any cases where you're not going to have a similar
+number of tags to files then I'd be interested to know, I'm failing.
+The only one I can think of would be if you treated the tags like
+the digits of a binary number, I can't see anyone doing that in
+practise---the number tags would grow to the log of the files though!
+
+> > If these names were treated the same as the rest of the tags thos
+> > would kill my naive pruning attempts.  One possible fix would be to
+> > diffrentiate between the filename and it's tags.  This is very different
+> > from what you wanted to do, but I'm not sure if it would be bad in
+> > practice.  
+> 
+> I've thought about a lot of extensions to the basic scheme, because,
+> well it is not perfect, and there are still many situations where
+> it is difficult to decide how one should tag things. (Even that
+> example above, 'ion/list/tuomov at iki.fi/msg.123098asdfasdf234' could
+> be rendered in various different ways.) However, I've decided against
+> most of these, because they would unnecessarily complicate the system,
+> without really solving anything. One of these things is a distinguished
+> file name component. KISS. 
+
+It's up to the users to find the optimal way to use the tools isn't it?
+
+> Suppose you search by 'foo/bar', and get 'foo/bar/baz' among the 
+> (fully qualified) results. The you absolutely have to list 'baz'
+> in the output, because there's no other route to it, there being
+> no additional tags. However, if you get the result 'foo/bar/baz/quk',
+> but do _not_ get 'foo/bar/baz', you do not have to list 'baz', as
+> 'quk' provides a path to the result 'foo/bar/baz/quk'. 
+
+OK
+
+> You see, if you have a file with the set A of tags, and a file with
+> the set B of tags, superset of A, you do not have to have the files
+> with the sets of tags C_i, where C_i is between A and B. However, 
+> if you want to, you can create such dummy files ("directories"), and
+> thus direct the pruner.
+
+Wouldn't there be the same number of occurrences for each tag? If so,
+how does the pruner know which one to pick?
+
+> The pruning operation would be unnecessary/automatic if we, instead 
+> of tag bitmaps, stored the partial order of the tag sets in the FS. 
+> Such a partial order would also immediately provide the structure to
+> use for search for a file with exactly the given set of tags. However,
+> the partial order structure seems intractable to maintain. (Consider 
+> the number of subsets of a set.) Not that I've given it careful 
+> thought yet...
+
+I thought the point was to remove the hierarchy!
+
+More usefully, if you're sold on having a pruner then it sounds like
+the only way to get sensible answers out is to have some order in there
+somewhere.
+
+> > That all sounds like quite a hard problem for any reasonable number of
+> > objects and tags.
+> 
+> Yes, the optimal pruning (at least without bounds on the number of
+> tags per file) is (NP-) hard. However, sub-optimal should suffice.
+> Of course, the pruning method can be user-tunable, and perhaps even
+> some simple greedy lexicographical pruning would suffice sometimes
+> (i.e. if an object is not covered by one of the tags seen yet, take
+> the first of its tags in, say, lexicographical order, not part of the
+> search set). Or maybe one could use the total occurence frequencies 
+> of the tags (which can be stored on the fs) when there are many 
+> results, and use the frequency within the results, when there aren't
+> that many. Infact, if some program one wants particular kind of
+> results, this could be configured in some path element:
+> foo/#created:year=2006/#prune:alltags/ (demonstrating also the
+> additional filters).
+
+:) you said you wanted to keep it simple earlier and now you're
+proposing some ad-hock language to "fix" the pruning process?
+
+
+You mentioned earlier that you'd come up with lots of ideas and
+discarded them because they didn't really solve anything.  I'm not
+really sure what problems you're trying to solve!  I would be personally
+interested to see if we could turn this into something that would be
+usable as a file system that could be mounted to look after most of the
+files in a user's home directory.
+
+I think that hierarchical file systems are going to exist for a
+while---they are very good ways of organising code.  But unless you're
+doing something that naturally breaks down into a hierarchy, like code,
+(i.e. most things) then the tag concept is probably more useful.
+
+How far apart are our goals?
+
+
+  Sam
+
+p.s. I hope this is somewhat interesting to you, I tend to get carried
+away with these sorts of discussions!
+
+
+From tzz at lifelogs.com  Tue Feb 27 20:58:44 2007
+From: tzz at lifelogs.com (Ted Zlatanov)
+Date: Tue, 27 Feb 2007 14:58:44 -0500
+Subject: Feature freeze imminent
+In-Reply-To: <slrneu8vhu.bnf.tuomov@jolt.modeemi.cs.tut.fi> (Tuomo Valkonen's
+	message of "Tue\, 27 Feb 2007 18\:53\:50 +0000 \(UTC\)")
+References: <20070226150340.GC13216@samason.me.uk>
+	<slrneu5voh.ksf.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226171217.GD13216@samason.me.uk>
+	<slrneu668g.174.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226192346.GE13216@samason.me.uk>
+	<slrneu7ngo.8ho.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneu87ns.6s9.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227154356.GI13216@samason.me.uk>
+	<slrneu8o04.rbq.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227183045.GK13216@samason.me.uk>
+	<slrneu8vhu.bnf.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <g69zm6znzij.fsf@dhcp-65-162.kendall.corp.akamai.com>
+
+On Tue, 27 Feb 2007 18:53:50 +0000 (UTC) Tuomo Valkonen <tuomov at iki.fi> wrote: 
+
+TV> On 2007-02-27, Sam Mason <mason at f2s.com> wrote:
+>> In more human terms I would have a table of files, the purpose of which
+>> is to give you the fileid (sort of like the inode number), a table of
+>> tags that define what tags are known, and a table containing the pairs
+>> (tag,fileid) that define what files have what tags.
+
+TV> Yeah, that's one quite simple layout, but how would you make the
+TV> intersection of the search results for different tags then? A
+TV> simple "same row" intersection doesn't work anymore. Does SQL 
+TV> have a more complicated intersection operation? And how efficient
+TV> would it be? That's the bottleneck, I think. Plus there's no 
+TV> structure for quick access to a known file name, which would seem
+
+SQL is pretty good about about searching, especially if you index your
+columns well.  Something like this, from the Oracle docs, should be
+available in most good databases:
+
+INTERSECT Example
+
+The following statement combines the results with the INTERSECT
+operator, which returns only those rows returned by both queries:
+
+SELECT part 
+    FROM orders_list1 
+INTERSECT 
+SELECT part 
+    FROM orders_list2;
+
+PART 
+---------- 
+TAILPIPE 
+
+So for your case, it would be
+
+SELECT fileid FROM tagset WHERE tag = 'A'
+INTERSECT
+SELECT fileid FROM tagset WHERE tag = 'B'
+
+The known file name is just an extra column in the files table, and
+searching for it is fast if the column is indexed.
+
+Ted
+
+
+From tuomov at iki.fi  Tue Feb 27 21:01:40 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 27 Feb 2007 20:01:40 +0000 (UTC)
+Subject: SetFS [Was: Re: Feature freeze imminent]
+References: <20070226150340.GC13216@samason.me.uk>
+	<slrneu5voh.ksf.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226171217.GD13216@samason.me.uk>
+	<slrneu668g.174.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226192346.GE13216@samason.me.uk>
+	<slrneu7ngo.8ho.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227151352.GG13216@samason.me.uk>
+	<slrneu8nlv.rbq.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227192235.GL13216@samason.me.uk>
+Message-ID: <slrneu93h4.fd6.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-27, Sam Mason <mason at f2s.com> wrote:
+> If you can think up any cases where you're not going to have a similar
+> number of tags to files then I'd be interested to know, I'm failing.
+
+Well, I suppose all the cases I can come up with are quite artificial.
+There do tend to be a lot of files with unique names, and the rest
+of the components of the path simply help locating them.
+
+> It's up to the users to find the optimal way to use the tools isn't it?
+
+And the optimal tools.
+
+> Wouldn't there be the same number of occurrences for each tag? If so,
+> how does the pruner know which one to pick?
+
+It depends on all the results. And, yes, if there are tags with the
+same frequencies (and same covered objects), the decision is arbitrary.
+
+> I thought the point was to remove the hierarchy!
+
+The point is to remove any fixed hierarchy. But the user isn't going
+to like looking for a needle in a haystack. Therefore you want to 
+present a dynamic hierarchy of results for each query: to somehow
+prsent in multiple clusters all the files whose sets of tags contain
+the search set of tags. These are naturally partially ordered by further
+set inclusions, and in some interfaces you might want to show clusters 
+by that partial order, i.e. show the files with minimal tag sets among 
+the results. (These are also expensive to find: if we had the minimal tag
+sets, the pruning would be trivial.) However, to map the results to the 
+unix file system, that is not sufficient: readdir should return a list of 
+tags, not a list of sets of tags. Therefore we must essentially add
+the intervening "directories" between the search set, and the minimal
+result tag sets.
+
+>> foo/#created:year=2006/#prune:alltags/ (demonstrating also the
+>> additional filters).
+>
+>:) you said you wanted to keep it simple earlier and now you're
+> proposing some ad-hock language to "fix" the pruning process?
+
+Well, additional search filters, for which I've thought the 
+#filter:params path elements (and that are ignored for single
+file operations as opposed to listings), is one of the few 
+features that I've considered something to have there, although
+not necessarily in the first versions. They are also a quite
+simple faeture: you just essentially 'and' the tag bitmaps with
+yet another bitmap. (On the implementation level, this should 
+probably be just a functional composition of filters, like unix
+pipes.) Obviously it should be possible to add such filters by 
+plugins. The #prune control is not exactly such a filter, but 
+you could still have it there without significantly complicating
+things...
+
+> You mentioned earlier that you'd come up with lots of ideas and
+> discarded them because they didn't really solve anything.  I'm not
+> really sure what problems you're trying to solve!  
+
+You mentioned that hierarchy naturally suits code trees, and I
+agree. So I've thought about ways of having such things on SetFS,
+but it just gets too complicated. SetFS simply isn't a tool for
+code trees, at least not as we presently think of them.
+
+> I would be personally interested to see if we could turn this into
+> something that would be usable as a file system that could be mounted
+> to look after most of the files in a user's home directory.
+
+Not necessarily most files in the home directory (there's a lot of
+code trees in my $HOME), but most of the data that tends to collect
+there almost unorganised -- largely thanks to the cumbersomeness
+of saving random cruft on a hierarchical FS, or at least so it would
+seem. One needs to experiment and have tools that support the tagged
+way of working to find out if it really helps.
+
+> How far apart are our goals?
+
+Not necessarily that far apart.
+
+> p.s. I hope this is somewhat interesting to you, I tend to get carried
+> away with these sorts of discussions!
+
+Sure.. and hopefully others on the list too :).
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue Feb 27 21:06:43 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 27 Feb 2007 20:06:43 +0000 (UTC)
+Subject: Feature freeze imminent
+References: <20070226150340.GC13216@samason.me.uk>
+	<slrneu5voh.ksf.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226171217.GD13216@samason.me.uk>
+	<slrneu668g.174.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226192346.GE13216@samason.me.uk>
+	<slrneu7ngo.8ho.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneu87ns.6s9.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227154356.GI13216@samason.me.uk>
+	<slrneu8o04.rbq.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227183045.GK13216@samason.me.uk>
+	<slrneu8vhu.bnf.tuomov@jolt.modeemi.cs.tut.fi>
+	<g69zm6znzij.fsf@dhcp-65-162.kendall.corp.akamai.com>
+Message-ID: <slrneu93qj.fd6.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-27, Ted Zlatanov <tzz at lifelogs.com> wrote:
+> SELECT fileid FROM tagset WHERE tag = 'A'
+> INTERSECT
+> SELECT fileid FROM tagset WHERE tag = 'B'
+
+Oh, yes, you can select single columns. I still wonder about the
+efficiency of INTERSECT, though. 
+
+> The known file name is just an extra column in the files table, and
+> searching for it is fast if the column is indexed.
+
+But aren't there limits on the lengths of strings? I seem to recall
+there being. You could, of course, have one column for each tag up
+to a maximum number of tags, and sort the tags lexicographically 
+(or by ID, if the IDs listed in a table of tags are used instead),
+but that might be inefficient with the, say, max. 64 tags?
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Tue Feb 27 21:15:35 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 27 Feb 2007 20:15:35 +0000 (UTC)
+Subject: SetFS [Was: Re: Feature freeze imminent]
+References: <20070226150340.GC13216@samason.me.uk>
+	<slrneu5voh.ksf.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226171217.GD13216@samason.me.uk>
+	<slrneu668g.174.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226192346.GE13216@samason.me.uk>
+	<slrneu7ngo.8ho.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227151352.GG13216@samason.me.uk>
+	<slrneu8nlv.rbq.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227192235.GL13216@samason.me.uk>
+	<slrneu93h4.fd6.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrneu94b7.jou.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-27, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> (These are also expensive to find: if we had the minimal tag
+> sets, the pruning would be trivial.) 
+
+Actually, the triviality part isn't true. All the results could have
+a minimal tag set, and there could still be pruning done by generating
+sets contained by all or many of them.
+
+-- 
+Tuomo
+
+
+
+From mason at f2s.com  Tue Feb 27 22:03:25 2007
+From: mason at f2s.com (Sam Mason)
+Date: Tue, 27 Feb 2007 21:03:25 +0000
+Subject: Feature freeze imminent
+In-Reply-To: <slrneu8vhu.bnf.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrneu5voh.ksf.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226171217.GD13216@samason.me.uk>
+	<slrneu668g.174.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226192346.GE13216@samason.me.uk>
+	<slrneu7ngo.8ho.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneu87ns.6s9.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227154356.GI13216@samason.me.uk>
+	<slrneu8o04.rbq.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227183045.GK13216@samason.me.uk>
+	<slrneu8vhu.bnf.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070227210325.GM13216@samason.me.uk>
+
+On Tue, Feb 27, 2007 at 06:53:50PM +0000, Tuomo Valkonen wrote:
+> On 2007-02-27, Sam Mason <mason at f2s.com> wrote:
+> > In more human terms I would have a table of files, the purpose of which
+> > is to give you the fileid (sort of like the inode number), a table of
+> > tags that define what tags are known, and a table containing the pairs
+> > (tag,fileid) that define what files have what tags.
+> 
+> Yeah, that's one quite simple layout but how would you make the
+> intersection of the search results for different tags then? 
+
+It looks as though Ted has shown you how to use INTERSECT, another
+(hacky) option is:
+
+  SELECT fileid
+  FROM filetags
+  WHERE tag IN ('foo', 'bar')
+  GROUP BY fileid
+  HAVING COUNT(*) = 2;
+
+> A
+> simple "same row" intersection doesn't work anymore. Does SQL 
+> have a more complicated intersection operation? And how efficient
+> would it be? That's the bottleneck, I think. 
+
+Efficient? I thought this was supposed to be an initial exploration of
+the problem!  It'll be fine for a few thousand objects, but I really
+don't know.
+
+> Plus there's no 
+> structure for quick access to a known file name, which would seem
+> mportant to me. 
+
+There's nothing in the database to check to see that the set of tags are
+actually unique either.  I'd put a column in the files table and use a
+trigger to keep it up to date.  You could put a unique constraint on the
+key to make the database check that the key remains unique and use this
+table to find the file associated with a key.
+
+I've just written some code[1] for Postgres that should do everything
+I've mentioned.  I've not played much with triggers before so if anyone
+knows how to do it better let me know!
+
+> (Yes, I am total newbie wrt. SQL.)
+
+We all have to start somewhere!  Like all languages, it VERY good for
+solving some problems in and crap at others.  It's a reasonable fit
+here, but not perfect.
+
+
+  Sam
+
+ [1] http://sam.samason.me.uk/~sam/repos/setfs/filetags.sql
+
+
+From mason at f2s.com  Tue Feb 27 22:22:40 2007
+From: mason at f2s.com (Sam Mason)
+Date: Tue, 27 Feb 2007 21:22:40 +0000
+Subject: SetFS
+In-Reply-To: <slrneu93h4.fd6.tuomov@jolt.modeemi.cs.tut.fi>
+References: <20070226150340.GC13216@samason.me.uk>
+	<slrneu5voh.ksf.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226171217.GD13216@samason.me.uk>
+	<slrneu668g.174.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226192346.GE13216@samason.me.uk>
+	<slrneu7ngo.8ho.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227151352.GG13216@samason.me.uk>
+	<slrneu8nlv.rbq.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227192235.GL13216@samason.me.uk>
+	<slrneu93h4.fd6.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070227212239.GN13216@samason.me.uk>
+
+On Tue, Feb 27, 2007 at 08:01:40PM +0000, Tuomo Valkonen wrote:
+> On 2007-02-27, Sam Mason <mason at f2s.com> wrote:
+> > If you can think up any cases where you're not going to have a similar
+> > number of tags to files then I'd be interested to know, I'm failing.
+> 
+> Well, I suppose all the cases I can come up with are quite artificial.
+> There do tend to be a lot of files with unique names, and the rest
+> of the components of the path simply help locating them.
+
+That sounds similar to where I ended up!
+
+> > It's up to the users to find the optimal way to use the tools isn't it?
+> 
+> And the optimal tools.
+
+Indeed.
+
+> > Wouldn't there be the same number of occurrences for each tag? If so,
+> > how does the pruner know which one to pick?
+> 
+> It depends on all the results. And, yes, if there are tags with the
+> same frequencies (and same covered objects), the decision is arbitrary.
+
+Good to know, I thought I was missing something.
+
+> The point is to remove any fixed hierarchy. But the user isn't going
+> to like looking for a needle in a haystack.
+
+I'm wondering if the name should be specific attribute seperate from the
+tags.  This would shrink the set of tag down a lot and I think that may
+be all that's needed.
+
+I'd also be tempted to split the tags into two groups "identifier"
+tags and "informational" tags.  The unique name check would be done on
+(identifier tags,name) and the informational tags would exist to make
+searching easier.
+
+> Therefore you want to 
+> present a dynamic hierarchy of results for each query: to somehow
+> prsent in multiple clusters all the files whose sets of tags contain
+> the search set of tags. These are naturally partially ordered by further
+> set inclusions, and in some interfaces you might want to show clusters 
+> by that partial order, i.e. show the files with minimal tag sets among 
+> the results. (These are also expensive to find: if we had the minimal tag
+> sets, the pruning would be trivial.) However, to map the results to the 
+> unix file system, that is not sufficient: readdir should return a list of 
+> tags, not a list of sets of tags. Therefore we must essentially add
+> the intervening "directories" between the search set, and the minimal
+> result tag sets.
+
+I'm still not sold on the pruning idea.  It could be because I've not
+done anything like it before and therefore I'm just worried about it
+because I don't know much about it.  I've rationalised this as thinking
+there will be problems with scaling, but to be honest I don't know.
+
+> >:) you said you wanted to keep it simple earlier and now you're
+> > proposing some ad-hock language to "fix" the pruning process?
+> 
+> Well, additional search filters, for which I've thought the 
+> #filter:params path elements (and that are ignored for single
+> file operations as opposed to listings), is one of the few 
+> features that I've considered something to have there, although
+> not necessarily in the first versions. They are also a quite
+> simple faeture: you just essentially 'and' the tag bitmaps with
+> yet another bitmap. (On the implementation level, this should 
+> probably be just a functional composition of filters, like unix
+> pipes.) Obviously it should be possible to add such filters by 
+> plugins. The #prune control is not exactly such a filter, but 
+> you could still have it there without significantly complicating
+> things...
+
+I don't like plugin for things like this, they force you to expose
+too many implementation details, make things brittle and resistent to
+change.
+
+> You mentioned that hierarchy naturally suits code trees, and I
+> agree. So I've thought about ways of having such things on SetFS,
+> but it just gets too complicated. SetFS simply isn't a tool for
+> code trees, at least not as we presently think of them.
+
+I agree.  I've got a couple of ideas about how to reconsile the view,
+but I'll leave it to another note as this one is getting pretty
+gigantine already.
+
+> > I would be personally interested to see if we could turn this into
+> > something that would be usable as a file system that could be mounted
+> > to look after most of the files in a user's home directory.
+> 
+> Not necessarily most files in the home directory (there's a lot of
+> code trees in my $HOME), but most of the data that tends to collect
+> there almost unorganised -- largely thanks to the cumbersomeness
+> of saving random cruft on a hierarchical FS, or at least so it would
+> seem. One needs to experiment and have tools that support the tagged
+> way of working to find out if it really helps.
+
+I was meaning, at least initally, that you would probably have a couple
+of file systems in your home directory.  One hierachial for code and
+other things that suit the hieralial view and another for the tagging.
+It would obviously be better if these differences could be reconsiled,
+but one step at a time.
+
+> > p.s. I hope this is somewhat interesting to you, I tend to get carried
+> > away with these sorts of discussions!
+> 
+> Sure.. and hopefully others on the list too :).
+
+Lets hope so!
+
+
+  Sam
+
+
+From tuomov at iki.fi  Tue Feb 27 22:53:51 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Tue, 27 Feb 2007 21:53:51 +0000 (UTC)
+Subject: SetFS
+References: <20070226150340.GC13216@samason.me.uk>
+	<slrneu5voh.ksf.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226171217.GD13216@samason.me.uk>
+	<slrneu668g.174.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226192346.GE13216@samason.me.uk>
+	<slrneu7ngo.8ho.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227151352.GG13216@samason.me.uk>
+	<slrneu8nlv.rbq.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227192235.GL13216@samason.me.uk>
+	<slrneu93h4.fd6.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227212239.GN13216@samason.me.uk>
+Message-ID: <slrneu9a3f.pug.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-27, Sam Mason <mason at f2s.com> wrote:
+> I'm wondering if the name should be specific attribute seperate from the
+> tags.  This would shrink the set of tag down a lot and I think that may
+> be all that's needed.
+
+You shouldn't need this conceptual split for the optimisation: just
+consider every tag with global frequency of just one, a "filename"
+in the pruning code, and ignore them initially, only adding them
+to the result, for the objects that the other tags didn't cover.
+This, of course, depends on knowing the frequency one tags, and
+in a basic implementation loading that information from the disk, 
+which adds some overhead. You could, however, have a special ID 
+range reserved for the frequency one tags. It would complicate
+things a bit, though, as you have to change the tag IDs, as the
+frequencies change (but only for one object, so it's not expensive).
+
+> I'd also be tempted to split the tags into two groups "identifier"
+> tags and "informational" tags.  The unique name check would be done on
+> (identifier tags,name) and the informational tags would exist to make
+> searching easier.
+
+Identifier tags would essentially be another filter :). You would
+also want to mark them in a special manner in the name, so they
+can be ignored for single file operations, for storing the
+location of a file, and so on.
+
+One related thing that I've thought about (a little but not enough)
+is typed tags or meta-tags. So e.g. the tag 'ion' could have the 
+meta-tag 'project'. The path component #project would then filter
+out everything that doesn't have a 'project' meta-tagged tag. 
+Furthermore creating an object with tags ion.project/foo/bar, would 
+fail if 'ion' isn't meta-tagged 'project', and if the ion tag doesn't
+exist, meta-tag it a project. 
+
+Alternatively, the meta-tags could only apply to tags within objects,
+and could be used to further filter the results, so that only things 
+with the 'project' meta-tag applied to the 'ion' tag would show up. 
+However, the meta-tag would still not contribute to the name, and you
+could not have both 'ion.bar/foo' and 'ion.baz/foo', as both would 
+still have the name 'ion/foo'.
+
+Or something like that. Like I said, it's a fancy idea that I 
+haven't thought enough about, and I'm not sure I want that 
+complexity... It's starting to sound like metacrap :).
+
+> I'm still not sold on the pruning idea.  It could be because I've not
+> done anything like it before and therefore I'm just worried about it
+> because I don't know much about it.  I've rationalised this as thinking
+> there will be problems with scaling, but to be honest I don't know.
+
+It is an expensive operation, but as I've mentioned, various 
+not-so-expensive approximations can be devised, that might still
+provide more useful results than a simple listing of all tags seen.
+It's something to be researched and tried out. The particular 
+pruning method seems unlikely to be something integral to the 
+design of the FS, although some optimisations might be stored
+(in just another file within the FS, if it even were a full FS).
+
+> I don't like plugin for things like this, they force you to expose
+> too many implementation details, make things brittle and resistent to
+> change.
+
+Not necessarily. Just consider the plugins storing another table
+within a DB for their index.
+
+-- 
+Tuomo
+
+
+
+From tuomov at iki.fi  Wed Feb 28 11:20:33 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 28 Feb 2007 10:20:33 +0000 (UTC)
+Subject: SetFS
+References: <20070226150340.GC13216@samason.me.uk>
+	<slrneu5voh.ksf.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226171217.GD13216@samason.me.uk>
+	<slrneu668g.174.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226192346.GE13216@samason.me.uk>
+	<slrneu7ngo.8ho.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227151352.GG13216@samason.me.uk>
+	<slrneu8nlv.rbq.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227192235.GL13216@samason.me.uk>
+	<slrneu93h4.fd6.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227212239.GN13216@samason.me.uk>
+	<slrneu9a3f.pug.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <slrneualrh.3de.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-27, Tuomo Valkonen <tuomov at iki.fi> wrote:
+> On 2007-02-27, Sam Mason <mason at f2s.com> wrote:
+>> I'm wondering if the name should be specific attribute seperate from the
+>> tags.  This would shrink the set of tag down a lot and I think that may
+>> be all that's needed.
+>
+> You shouldn't need this conceptual split for the optimisation: just
+> consider every tag with global frequency of just one, a "filename"
+> in the pruning code, and ignore them initially, only adding them
+> to the result, for the objects that the other tags didn't cover.
+
+In fact, for tab-completion to work nicely, most tags should 
+perhaps be listed. Ideally the application in question would 
+do the pruning/clustering as suited to the task at hand, but 
+in a FUSE plugin for applications (mostly) unaware of SetFS, 
+we do not have the luxury of that. But for 'ls' output the whole
+list can be unusably long. Perhaps a reasonable compromise 
+(for the default pruning) would then indeed be to display all
+except the frequency one tags, unless needed (being the sole 
+missing tag for some file from the search set). Well, it demands
+research and testing...
+
+-- 
+Tuomo
+
+
+
+From tzz at lifelogs.com  Wed Feb 28 15:30:46 2007
+From: tzz at lifelogs.com (Ted Zlatanov)
+Date: Wed, 28 Feb 2007 09:30:46 -0500
+Subject: SetFS
+In-Reply-To: <slrneualrh.3de.tuomov@jolt.modeemi.cs.tut.fi> (Tuomo Valkonen's
+	message of "Wed\, 28 Feb 2007 10\:20\:33 +0000 \(UTC\)")
+References: <20070226150340.GC13216@samason.me.uk>
+	<slrneu5voh.ksf.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226171217.GD13216@samason.me.uk>
+	<slrneu668g.174.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226192346.GE13216@samason.me.uk>
+	<slrneu7ngo.8ho.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227151352.GG13216@samason.me.uk>
+	<slrneu8nlv.rbq.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227192235.GL13216@samason.me.uk>
+	<slrneu93h4.fd6.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227212239.GN13216@samason.me.uk>
+	<slrneu9a3f.pug.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneualrh.3de.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <g69hct6cq21.fsf@dhcp-65-162.kendall.corp.akamai.com>
+
+On Wed, 28 Feb 2007 10:20:33 +0000 (UTC) Tuomo Valkonen <tuomov at iki.fi> wrote: 
+
+TV> In fact, for tab-completion to work nicely, most tags should 
+TV> perhaps be listed. Ideally the application in question would 
+TV> do the pruning/clustering as suited to the task at hand, but 
+TV> in a FUSE plugin for applications (mostly) unaware of SetFS, 
+TV> we do not have the luxury of that. But for 'ls' output the whole
+TV> list can be unusably long. 
+
+Just like `ls', I don't think you should filter out results, just
+write a filter tool or an option to make the list usable.
+
+Also, tag age is an important attribute, as are tag owner (and owner
+group) and tag permissions.
+
+TV> Perhaps a reasonable compromise (for the default pruning) would
+TV> then indeed be to display all except the frequency one tags,
+TV> unless needed (being the sole missing tag for some file from the
+TV> search set). Well, it demands research and testing...
+
+Assuming it's called "tls" for "tag ls," here are some ideas for
+options (ARGV is not being discussed here, although I do think the *
+and ** patterns, plus the usual shell globbing, should be available):
+
+tls -min 2 # list tags with frequency 2 or higher
+tls -n # print "frequency age owner owner-group permissions tag" for each tag, suitable for piping and sorting
+tls -f # print sorted by frequency
+tls -t # print sorted by tag age
+tls -R # print tags recursively
+tls -o tzz # print tags owned by tzz
+
+Ted
+
+
+From tuomov at iki.fi  Wed Feb 28 16:45:15 2007
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Wed, 28 Feb 2007 15:45:15 +0000 (UTC)
+Subject: SetFS
+References: <20070226150340.GC13216@samason.me.uk>
+	<slrneu5voh.ksf.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226171217.GD13216@samason.me.uk>
+	<slrneu668g.174.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226192346.GE13216@samason.me.uk>
+	<slrneu7ngo.8ho.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227151352.GG13216@samason.me.uk>
+	<slrneu8nlv.rbq.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227192235.GL13216@samason.me.uk>
+	<slrneu93h4.fd6.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227212239.GN13216@samason.me.uk>
+	<slrneu9a3f.pug.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneualrh.3de.tuomov@jolt.modeemi.cs.tut.fi>
+	<g69hct6cq21.fsf@dhcp-65-162.kendall.corp.akamai.com>
+Message-ID: <slrneub8sb.upe.tuomov@jolt.modeemi.cs.tut.fi>
+
+On 2007-02-28, Ted Zlatanov <tzz at lifelogs.com> wrote:
+> On Wed, 28 Feb 2007 10:20:33 +0000 (UTC) Tuomo Valkonen <tuomov at iki.fi> wrote: 
+>
+> TV> In fact, for tab-completion to work nicely, most tags should 
+> TV> perhaps be listed. Ideally the application in question would 
+> TV> do the pruning/clustering as suited to the task at hand, but 
+> TV> in a FUSE plugin for applications (mostly) unaware of SetFS, 
+> TV> we do not have the luxury of that. But for 'ls' output the whole
+> TV> list can be unusably long. 
+>
+> Just like `ls', I don't think you should filter out results, just
+> write a filter tool or an option to make the list usable.
+
+It's not really filtering out anything, just producing a dynamic
+hierarchy for the *nix tools that have been written for hierarchic
+file systems. I think the default behaviour should be adjusted for
+them, not tools aware of SetFS, which can, of course, use other 
+methods.
+
+If a simple list of tags is sufficient, then #options in the path 
+could do it, but if the real search results are wanted, we don't 
+want to cram them down through `readdir`. (I'm thinking of a FUSE 
+plugin here constantly!) Therefore some other communication method 
+is needed. One very simple option is a special read-only file with 
+an additional #listing or some such element in the path. So if our
+file system had the files foo/bar, foo/bar/baz, and foo/quk, then 
+the read-only file foo/#listing could, for example, have the contents
+
+	bar
+	bar/baz
+	quk
+
+(You don't want to pass that slash down readdir!) Some additional
+information might also be passed in this file (or a file with 
+additional #options), if the FS can do it more efficiently during
+the search than it would be for the application to obtain that 
+information for each file separately. 
+
+(If we pass the set identifier down the file instead of an internal 
+numeric object identifier -- inode number, if you will -- the inode 
+will probably need to be accessed during the search for each of the 
+results, and therefore additional information is quickly available 
+during the search. Contrast this with traditional unix file systems, 
+like ext3, where `echo /usr/bin/*` is immediate, while `ls /usr/bin/*`
+is not quite as fast. This is because the latter has to read the inode
+`stat`, whereas the former doesn't. #listing could, of course, just 
+list inode numbers, and another channel be provided for converting 
+inode numbers to tag sets or other information. I'm not sure which 
+behaviour is preferrable, although I do think exposing inode numbers
+is a bit ugly.)
+
+-- 
+Tuomo
+
+
+
+From mason at f2s.com  Wed Feb 28 19:28:17 2007
+From: mason at f2s.com (Sam Mason)
+Date: Wed, 28 Feb 2007 18:28:17 +0000
+Subject: Feature freeze imminent
+In-Reply-To: <slrneu93qj.fd6.tuomov@jolt.modeemi.cs.tut.fi>
+References: <slrneu668g.174.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070226192346.GE13216@samason.me.uk>
+	<slrneu7ngo.8ho.tuomov@jolt.modeemi.cs.tut.fi>
+	<slrneu87ns.6s9.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227154356.GI13216@samason.me.uk>
+	<slrneu8o04.rbq.tuomov@jolt.modeemi.cs.tut.fi>
+	<20070227183045.GK13216@samason.me.uk>
+	<slrneu8vhu.bnf.tuomov@jolt.modeemi.cs.tut.fi>
+	<g69zm6znzij.fsf@dhcp-65-162.kendall.corp.akamai.com>
+	<slrneu93qj.fd6.tuomov@jolt.modeemi.cs.tut.fi>
+Message-ID: <20070228182816.GO13216@samason.me.uk>
+
+On Tue, Feb 27, 2007 at 08:06:43PM +0000, Tuomo Valkonen wrote:
+> But aren't there limits on the lengths of strings? I seem to recall
+> there being.  
+
+Depends on the database, Postgres limits a single field to 1GB[1]
+which should be enough to keep most people happy, MySQL seems to have
+a LONGTEXT datatype that could store up to 4GB of data but in practise
+seems to be limited to a few MB[2] without special effort.
+
+I'm not aware of any limits in Postgres like that of MySQL.  As a test
+I've just tried to put a 256MB string into a TEXT column in Postgres in
+the most naive way possible then counted the number of characters in the
+field, everything went OK.
+
+I'm constantly amazed at why MySQL has such a larger mindshare than
+Postgres, Postgres just works and MySQL doesn't.
+
+> You could, of course, have one column for each tag up
+> to a maximum number of tags, and sort the tags lexicographically 
+> (or by ID, if the IDs listed in a table of tags are used instead),
+> but that might be inefficient with the, say, max. 64 tags?
+
+That would help with Postgres, but not with MySQL.  It's about as
+unidiomatic as you can get though!
+
+
+  Sam
+
+ [1] http://www.postgresql.org/about/
+ [2] http://dev.mysql.com/doc/refman/5.0/en/packet-too-large.html
+
+

@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Life, universe, and ION3
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-October/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Life%2C%20universe%2C%20and%20ION3&In-Reply-To=%3C20071013035004.GA9581%40sirih%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000773.html">
+   <LINK REL="Next"  HREF="000759.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Life, universe, and ION3</H1>
+    <B>Roy Lanek</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Life%2C%20universe%2C%20and%20ION3&In-Reply-To=%3C20071013035004.GA9581%40sirih%3E"
+       TITLE="Life, universe, and ION3">lanek at novenine.com
+       </A><BR>
+    <I>Sat Oct 13 05:50:04 CEST 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000773.html">Life, universe, and ION3
+</A></li>
+        <LI>Next message: <A HREF="000759.html">Oberon/Acme/etc. mouse heavy interfaces [Was: Re: Life, universe,	and ION3]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#758">[ date ]</a>
+              <a href="thread.html#758">[ thread ]</a>
+              <a href="subject.html#758">[ subject ]</a>
+              <a href="author.html#758">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+&gt;<i> I'm really using, and not significantly faster than a Run:
+</I>&gt;<i> dialog (mod1-F3 in the default bindings).
+</I>
+Nice would be somethings like *tools* ... as in Oberon^1.
+
+Reference is: The Oberon System^2
+
+     [C]ommands are entered into a text *viewer* and then
+     executed with the mouse. It is therefore quite natural to
+     prepare a set of frequently used commands in a text which is
+     stored on disk. Such a text is called a *tool*. [Commands
+     may be embedded anywhere in a text.]
+
+     [W]hen displayed, a tool is quite similar to a menu. A set
+     of commands is listed and the user simply executes them
+     with the mouse. However, if the commands request parameter
+     input, there is no need for complex (modal) input or dialog
+     boxes. We deal with an editable text and the parameter can
+     be easily entered, thus recovering the flexibility of the
+     'remember and type' environment.
+
+     [T]he [Oberon] screen is tiled in non-overlapping windows
+     termed *viewers*. Viewers are stacked in two piles called
+     *tracks*. Each viewer displays a document being processed by
+     the users. Documents may be texts, graphics or pictures.
+
+     [W]hile the display shown appears familiar there is a
+     fundamental difference of deep significance: *the modality
+     of texts has been abolished*. What looks like menus in the
+     title bars of the viewers is text too, no different from the
+     editable text of the main viewer area.
+
+     [I]f a command produces output to the screen, a new text
+     viewer is opened with the command's output text. Again,
+     this text may be edited, stored or printed. Oberon commands
+     produce *non-volatile* output.
+
+     [A] user, looking at the screen of a typical computer
+     terminal or personal computer, sees, most of the time, lines
+     of text. He or she has mastered the concept of the cursor, a
+     point where text can be entered or deleted.
+
+     [H]owever, the user will quickly learn that text is not
+     text. It is *volatile* text in the sense that it cannot
+     be saved, printed or edited. Text can only be entered in
+     the bottom line in which case it is a command. This user
+     has discovered that text is *modal*: it is either a system
+     message or editable text or a command.
+
+     [L]ater generations of software introduced menus: commands
+     are displayed in lists, ready for execution by pointing.
+     However, menus are distinct from editable texts. If a menu
+     command requests parameters, a so-called dialog box is
+     opened. A new mode is entered. The user must complete the
+     box before he or she is allowed to continue.
+
+     [T]he Oberon user interface departs radically from the
+     standard models. The concepts of the command line and of
+     menus are absent. Instead, there is simply one kind of text
+     which behaves as an intelligent person not yet spoiled
+     by so-called 'computer-literacy' would expect: it can be
+     changed, edited, printed and stored. &quot;Text is a text,
+     nothing more, nothing less.&quot;
+
+
+Okay, and how does a typical Oberon display look?
+
+                     Tracks [two piles]
+     +----------------------------------------+--------------+
+     |                                        |              |
+     |                                        |              |
+     +----------------------------------------+              |
+     |                                        |              |
+     |                                        +--------------+
+     |                                        |              |
+     |                                        |              |
+     |                                        |              |
+     |                                        +--------------+
+     +----------------------------------------+              |
+     |                                        |              |
+     +----------------------------------------+              |
+     |                                        |              |
+     |                                        |              |
+     |     |                                  |   |          |
+     +----- ----------------------------------+--- ----------+
+           |                                      |
+           |                                      |
+          viewer[i]                              tool[j]
+
+
+
+     1. Niklaus Wirth et al., many titles: Programming in Oberon,
+Project Oberon, etc.
+
+     2. Martin Reiser, The Oberon System: User Guide and
+Programmer's Manual (New York, New York: ACM Press 1991; ISBN
+0-201-54422-9)
+
+
+/Roy
+-- 
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  habis manis sepah dibuang--after the sweet
+SSSSS . s l a c k w a r e  SSSSSS  part is finished and becomes tasteless,
+SSSSS +------------ linux  SSSSSS  the cane is thrown away [when we only call
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  our friends if we need help]
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000773.html">Life, universe, and ION3
+</A></li>
+	<LI>Next message: <A HREF="000759.html">Oberon/Acme/etc. mouse heavy interfaces [Was: Re: Life, universe,	and ION3]
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#758">[ date ]</a>
+              <a href="thread.html#758">[ thread ]</a>
+              <a href="subject.html#758">[ subject ]</a>
+              <a href="author.html#758">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

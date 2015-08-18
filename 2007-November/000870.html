@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Forbiding focus to floating window
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-November/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Forbiding%20focus%20to%20floating%20window&In-Reply-To=%3Cslrnfke5jf.tek.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000866.html">
+   <LINK REL="Next"  HREF="000858.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Forbiding focus to floating window</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Forbiding%20focus%20to%20floating%20window&In-Reply-To=%3Cslrnfke5jf.tek.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Forbiding focus to floating window">tuomov at iki.fi
+       </A><BR>
+    <I>Fri Nov 23 19:05:35 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000866.html">Forbiding focus to floating window
+</A></li>
+        <LI>Next message: <A HREF="000858.html">A devious little hack...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#870">[ date ]</a>
+              <a href="thread.html#870">[ thread ]</a>
+              <a href="subject.html#870">[ subject ]</a>
+              <a href="author.html#870">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2007-11-21, Ivan Vilata i Balaguer &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">ivan at selidor.net</A>&gt; wrote:
+&gt;<i> Yes, it works OK, except when the window happens to pop under the mouse
+</I>&gt;<i> cursor.  In that case it takes focus.  Maybe this is too difficult to
+</I>&gt;<i> avoid without complicating the sloppy focus code...
+</I>
+There's already an ugly region_pointer_focus_hack() method needed to
+avoid windows being unmapped messing with the focus. It was quite
+trivial to add it in other places to (attempt to) avoid pointer 
+EnterWindow event triggered focus change when switchto is false.
+
+Thus the next RC should work differently. (It is likely to be 
+released in the beginning of December; maybe next weekend.)
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000866.html">Forbiding focus to floating window
+</A></li>
+	<LI>Next message: <A HREF="000858.html">A devious little hack...
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#870">[ date ]</a>
+              <a href="thread.html#870">[ thread ]</a>
+              <a href="subject.html#870">[ subject ]</a>
+              <a href="author.html#870">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

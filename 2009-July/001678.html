@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Weird font rendering
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-July/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Weird%20font%20rendering&In-Reply-To=%3C20090708120426.GA6147%40sunbird%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001677.html">
+   <LINK REL="Next"  HREF="001679.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Weird font rendering</H1>
+    <B>Vladimir Skuratovich</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Weird%20font%20rendering&In-Reply-To=%3C20090708120426.GA6147%40sunbird%3E"
+       TITLE="Weird font rendering">skuratovich at gmail.com
+       </A><BR>
+    <I>Wed Jul  8 14:04:26 CEST 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001677.html">Weird font rendering
+</A></li>
+        <LI>Next message: <A HREF="001679.html">Weird font rendering
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1678">[ date ]</a>
+              <a href="thread.html#1678">[ thread ]</a>
+              <a href="subject.html#1678">[ subject ]</a>
+              <a href="author.html#1678">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi Vasiliy,
+
+On Wed, Jul 08, 2009 at 03:38:07PM +0400, Olekhov Vasiliy wrote:
+&gt;<i> Greetings.
+</I>&gt;<i> 
+</I>&gt;<i> To begin with, here is screenshot: 
+</I>&gt;<i> <A HREF="http://forumbgz.ru/user/upload/file10231.png">http://forumbgz.ru/user/upload/file10231.png</A>
+</I>&gt;<i> 
+</I>&gt;<i> the system is Gentoo, font &quot;Terminus&quot;. this is raster font.
+</I>&gt;<i> As you can see, xterm recognizes it and renders it perfect.
+</I>&gt;<i> The titletabs and statusbar use same font, but cyrillic characters are 
+</I>&gt;<i> substituted from another font.
+</I>&gt;<i> The locale is ru_RU.UTF-8, and ion recognizes it. At least at 
+</I>&gt;<i> ioncore/ioncore.c check_encoding()
+</I>&gt;<i> returns TRUE and sets ioncore_g.enc_mb=TRUE and enc_utf8=TRUE.
+</I>&gt;<i> 
+</I>&gt;<i> any suggestions?
+</I>
+
+This is because of an incorrect X locale (en_US.UTF-8 for older Xlib
+versions, ru_RU.UTF-8 for newer), and is mentioned on the Ion website
+(<A HREF="http://modeemi.fi/~tuomov/ion/faq/broken_software.html">http://modeemi.fi/~tuomov/ion/faq/broken_software.html</A>).
+
+You'll need to replace the file
+/usr/share/X11/locale/en_US.UTF-8/XLC_LOCALE to something like this:
+
+<A HREF="https://files.getdropbox.com/u/725005/XLC_LOCALE">https://files.getdropbox.com/u/725005/XLC_LOCALE</A>
+
+
+
+If you are using Gentoo, I suggest you to use the following modified
+ebuild for Xlib:
+
+<A HREF="https://files.getdropbox.com/u/725005/libX11-1.1.5.ebuild">https://files.getdropbox.com/u/725005/libX11-1.1.5.ebuild</A>
+
+(it expects to find the replacement XLC_LOCALE in its files
+directory).
+
+With best regards,
+     Vladimir
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001677.html">Weird font rendering
+</A></li>
+	<LI>Next message: <A HREF="001679.html">Weird font rendering
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1678">[ date ]</a>
+              <a href="thread.html#1678">[ thread ]</a>
+              <a href="subject.html#1678">[ subject ]</a>
+              <a href="author.html#1678">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,856 @@
+From ugggg at hotmail.com  Sat Dec  5 04:16:23 2009
+From: ugggg at hotmail.com (Canaan Hadley-Voth)
+Date: Fri, 4 Dec 2009 19:16:23 -0800
+Subject: scratchpad sizepolicy problem
+Message-ID: <BAY120-W14487E1FA28587883B067DBA920@phx.gbl>
+
+
+More on this issue:
+
+http://article.gmane.org/gmane.comp.window-managers.ion.general/8897/match=scratchpad (Scratchpad stuck in max size "mode")
+
+If my scratchpad is touching any screen border when I restart, ion will forget to write sizepolicy="free glue" to the saved_layout.lua file, and after restarting it will then take up the whole screen and not be resizeable.  If the scratchpad is not touching any border when I restart, saved_layout will show the "free glue" entry for *scratchpad* and will function properly.
+ 		 	   		  
+_________________________________________________________________
+Windows Live Hotmail gives you a free,exclusive  gift.
+http://www.microsoft.com/windows/windowslive/hotmail_bl1/hotmail_bl1.aspx?ocid=PID23879::T:WLMTAGL:ON:WL:en-ww:WM_IMHM_7:092009
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20091204/7565bf40/attachment.html>
+
+From olejorgenb at yahoo.no  Sun Dec  6 00:05:15 2009
+From: olejorgenb at yahoo.no (=?utf-8?Q?Ole_J=C3=B8rgen_Br=C3=B8nner?=)
+Date: Sun, 06 Dec 2009 00:05:15 +0100
+Subject: scratchpad sizepolicy problem
+In-Reply-To: <BAY120-W14487E1FA28587883B067DBA920@phx.gbl>
+References: <BAY120-W14487E1FA28587883B067DBA920@phx.gbl>
+Message-ID: <op.u4hme1oyvocxtk@tabole-debian>
+
+Thanks a lot for finding the condition for this bug!
+
+The problem is this: Moving the scratchpad eventually ends up in "sizepolicy_free_snap" (seems to have been in-lined in the build I debugged)
+
+#0  sizepolicy (szplcy=0x88f998c, reg=0x88f93e8, rq_geom=0xbfd774cc, rq_flags=<value optimized out>, fp=0xbfd773e0) at sizepolicy.c:194
+#1  0x08073852 in group_managed_rqgeom (ws=0x88f8fa8, reg=0x88f93e8, rq=0xbfd774cc, geomret=0x891d468) at group.c:997
+#2  0x08065c21 in region_managed_rqgeom (mgr=0x88f8fa8, reg=0x88f93e8, rq=0xbfd774cc, geomret=0x891d468) at resize.c:593
+#3  0x08065e83 in region_rqgeom (reg=0x88f93e8, rq=0xbfd774cc, geomret=0x891d468) at resize.c:531
+#4  0x08066514 in moveresmode_do_newgeom (mode=0x891d408, rq=0xbfd774cc) at resize.c:336
+#5  0x0806679b in moveresmode_delta (mode=0x891d408, dx1=<value optimized out>, dx2=<value optimized out>, dy1=-6, dy2=-6, rret=0x0) at resize.c:423
+#6  0x0805ec7d in ioncore_do_handle_motionnotify (ev=0xbfd77644) at pointer.c:176
+#7  0x080653bc in ioncore_handle_buttonpress (ev=0xbfd77644) at eventh.c:493
+#8  0x08065705 in ioncore_handle_event (ev=0xbfd773e0) at eventh.c:81
+#9  0x0807a92d in hook_call_alt (hk=0x88246f8, p=0xbfd77644, m=0x807a8b1 <marshall_alt_p>, em=0) at hooks.c:371
+#10 0x0807a9ff in hook_call_alt_p (hk=0x88246f8, p=0xbfd77644, em=0) at hooks.c:416
+#11 0x0805cd37 in ioncore_x_connection_handler (conn=10, unused=0x0) at event.c:210
+#12 0x0807997c in mainloop_select () at select.c:88
+#13 0x0805ce1f in ioncore_mainloop () at event.c:238
+#14 0x0805b631 in main (argc=) at ion.c:278
+
+Here the sizepolicy is combined with border modifiers (e.g. SIZEPOLICY_HORIZ_LEFT) if the scratchpad is at one of the borders.
+
+This results in a sizepolicy without a string representation (szplcy_specs, sizepolicy.c:311), so when stringpolizy2string is called when the layout is saved it returns NULL.
+
+The following small patch fixes the issue: (done against ion3plus with latest patchset)
+
+hunk ./ioncore/sizepolicy.c 363
+-    return stringintmap_key(szplcy_specs, szplcy, NULL);
++    char* str=stringintmap_key(szplcy_specs, szplcy, NULL);
++    if(str==NULL){
++        /* fall back on policy without modifiers if full name not found */
++        str=stringintmap_key(szplcy_specs, szplcy&0xff, NULL);
++    }
++    return str;
+
+On Sat, 05 Dec 2009 04:16:23 +0100, Canaan Hadley-Voth <ugggg at hotmail.com> wrote:
+
+>
+> More on this issue:
+>
+> http://article.gmane.org/gmane.comp.window-managers.ion.general/8897/match=scratchpad (Scratchpad stuck in max size "mode")
+>
+> If my scratchpad is touching any screen border when I restart, ion will forget to write sizepolicy="free glue" to the saved_layout.lua file, and after restarting it will then take up the whole screen and not be resizeable.  If the scratchpad is not touching any border when I restart, saved_layout will show the "free glue" entry for *scratchpad* and will function properly.
+>  		 	   		
+> _________________________________________________________________
+> Windows Live Hotmail gives you a free,exclusive  gift.
+> http://www.microsoft.com/windows/windowslive/hotmail_bl1/hotmail_bl1.aspx?ocid=PID23879::T:WLMTAGL:ON:WL:en-ww:WM_IMHM_7:092009
+
+
+From ugggg at hotmail.com  Sun Dec  6 03:34:10 2009
+From: ugggg at hotmail.com (Canaan Hadley-Voth)
+Date: Sun, 6 Dec 2009 02:34:10 +0000 (UTC)
+Subject: Youtube fullscreen not working
+References: <alpine.LNX.2.00.0911221458400.24033@india.ece.cmu.edu>
+	<1258928201.3627.63.camel@localhost>
+	<1258930067.16258.2.camel@localhost>
+Message-ID: <loom.20091206T032353-956@post.gmane.org>
+
+Ben Hutchings <ben at ...> writes:
+
+
+> > [1] http://git.decadent.org.uk/gitweb?p=ion3.git;a=blob;f=debian/
+cfg_kludge_flash.lua
+> 
+
+Your script works for me, thanks for solving that.  I was actually fine when 
+this thread started, then Ubuntu 9.10 came along and flash windows would try to 
+fullscreen themselves and quickly fail.  
+
+For others with the same problem, these are the classes and instances I find 
+for that flash window that disappears too fast, for use in the above script:
+
+defwinprop {
+    class = "Operapluginwrapper-ia32-linux",
+    instance = "operapluginwrapper-ia32-linux",
+    match = function(prop, cwin, id) return is_fullscreen(cwin); end,
+    switchto = false,
+    flash_fullscreen = true,
+}
+defwinprop {
+    class = "Firefox",
+    instance = "firefox",
+    name = "Firefox",
+    match = function(prop, cwin, id) return is_fullscreen(cwin); end,
+    switchto = false,
+    flash_fullscreen = true,
+}
+defwinprop {
+    class = "Prism",
+    instance = "prism",
+    match = function(prop, cwin, id) return is_fullscreen(cwin); end,
+    switchto = false,
+    flash_fullscreen = true,
+}
+defwinprop {
+    class = "Exe",  -- google chrome
+    instance = "exe",
+    name = "exe",
+    match = function(prop, cwin, id) return is_fullscreen(cwin); end,
+    switchto = false,
+    flash_fullscreen = true,
+}
+
+
+I understand they vary by distro, so here is a hook to figure out the rest:
+
+ioncore.get_hook('clientwin_do_manage_alt'):add(
+    function(cwin, table)
+    ioncore.write_savefile("windowinfos", cwin:get_ident())
+end)
+
+Then restart ion, fullscreen a flash video and see what got written to ~/.ion3/
+default-session--0/windowinfos.lua
+
+
+
+From timandahaf+dev at gmail.com  Sun Dec  6 23:58:36 2009
+From: timandahaf+dev at gmail.com (Timandahaf)
+Date: Sun, 6 Dec 2009 17:58:36 -0500 (EST)
+Subject: Youtube fullscreen not working
+In-Reply-To: <loom.20091206T032353-956@post.gmane.org>
+References: <alpine.LNX.2.00.0911221458400.24033@india.ece.cmu.edu>
+	<1258928201.3627.63.camel@localhost>
+	<1258930067.16258.2.camel@localhost>
+	<loom.20091206T032353-956@post.gmane.org>
+Message-ID: <alpine.LNX.2.00.0912061754120.30189@india.ece.cmu.edu>
+
+On Sun, 6 Dec 2009, Canaan Hadley-Voth wrote:
+
+> I understand they vary by distro, so here is a hook to figure out the rest:
+> [...]
+> Then restart ion, fullscreen a flash video and see what got written to ~/.ion3/
+> default-session--0/windowinfos.lua
+
+Ah, thank you very much for this hook! I finally got youtube fullscreen
+working perfectly well!
+
+My class,instance for the misbehaving youtube window was
+"Npviewer.bin","npviewer.bin". This is why the original kludge wouldn't
+work (I'd previously used ion3's windowinfo to setup my kludge, but I
+guess this gave me only the parent's info).
+
+
+
+From cc.ldif at gmail.com  Tue Dec  8 18:12:10 2009
+From: cc.ldif at gmail.com (cc)
+Date: Tue, 8 Dec 2009 18:12:10 +0100
+Subject: problem with french keyboard
+Message-ID: <20091208171210.GA4431@gmail.com>
+
+I've a French keyboard and I used
+    META.."oe"
+for the scratchpad (the key left of number 1).
+It worked well when I launched X with gdm.
+
+Now I don't use gdm anymore and launch ion with startx. And the key only
+works after a restart of ion (with F12).
+The other keys seem to work.
+
+Any idea of what gdm does to make that key available and why it works
+after a restart ?
+[I'm on Debian Lenny]
+
+
+From tuomov at iki.fi  Thu Dec 10 18:42:10 2009
+From: tuomov at iki.fi (Tuomo Valkonen)
+Date: Thu, 10 Dec 2009 19:42:10 +0200
+Subject: problem with french keyboard
+In-Reply-To: <20091208171210.GA4431@gmail.com>
+References: <20091208171210.GA4431@gmail.com>
+Message-ID: <20091210174210.GA15855@jolt.modeemi.cs.tut.fi>
+
+On 2009-12-08 18:12 +0100, cc wrote:
+> I've a French keyboard and I used
+>     META.."oe"
+> for the scratchpad (the key left of number 1).
+> It worked well when I launched X with gdm.
+> 
+> Now I don't use gdm anymore and launch ion with startx. And the key only
+> works after a restart of ion (with F12).
+
+You must set up the keymap. Thank the gnometards for 
+reinventing the wheel.
+
+-- 
+Tuomo
+
+
+From tony.emma62 at gmail.com  Sun Dec 13 23:38:34 2009
+From: tony.emma62 at gmail.com (Tony Emma)
+Date: Sun, 13 Dec 2009 23:38:34 +0100
+Subject: Youtube fullscreen not working
+Message-ID: <249287510912131438p55c521c0k9c71f30c0cc787a2@mail.gmail.com>
+
+Hello
+
+thank you for ION.
+
+I have the same problem i can't use fullscreen mode. I try your solution but
+it's don't work.
+
+I had ioncore.write_savefile("windowinfos", cwin:get_ident()) but there is
+not file "windowinfos.lua"
+
+I'm on Debian and i use iceweasel.
+
+uname -a
+Linux LMG 2.6.31-1-amd64 #1 SMP Mon Nov 16 04:44:38 UTC 2009 x86_64
+GNU/Linux
+
+and i use iceweasel. I had the block
+
+defwinprop {
+    class = 'Iceweasel',
+    instance = 'Navigator',
+    match = function(prop, cwin, id) return is_fullscreen(cwin); end,
+    switchto = false,
+    flash_fullscreen = true,
+}
+
+but nothing.
+
+
+
+See my cfg_kludge_flash.lua:
+
+_NET_WM_STATE = ioncore.x_intern_atom('_NET_WM_STATE', false)
+_NET_WM_STATE_FULLSCREEN = ioncore.x_intern_atom('_NET_WM_STATE_FULLSCREEN',
+                                                 false)
+
+function is_fullscreen(cwin)
+    local state = ioncore.x_get_window_property(cwin:xid(), _NET_WM_STATE,
+4,
+                                                1, true)
+    if state then
+        for k, v in pairs(state) do
+            if v == _NET_WM_STATE_FULLSCREEN then
+                return true
+            end
+        end
+    end
+    return false
+end
+
+defwinprop {
+    class = 'Firefox-bin',
+    instance = 'Firefox-bin',
+--    match = function(prop, cwin, id)
+--              local geom = cwin:geom()
+--              return is_fullscreen(cwin) and geom.w == 200 and geom.h ==
+200
+--          end,
+
+    match = function(prop, cwin, id) return is_fullscreen(cwin); end,
+    switchto = false,
+    flash_fullscreen = true,
+}
+
+defwinprop {
+    class = 'Iceweasel',
+    instance = 'Navigator',
+--    match = function(prop, cwin, id)
+--              local geom = cwin:geom()
+--              return is_fullscreen(cwin) and geom.w == 200 and geom.h ==
+200
+--          end,
+
+    match = function(prop, cwin, id) return is_fullscreen(cwin); end,
+    switchto = false,
+    flash_fullscreen = true,
+}
+
+
+ioncore.get_hook('clientwin_do_manage_alt'):add(
+    function(cwin, table)
+        --ioncore.write_savefile("windowinfos", cwin:get_ident())
+        local winprop = ioncore.getwinprop(cwin)
+        if winprop and winprop.flash_fullscreen then
+            local timer = ioncore.create_timer()
+            timer:set(200, function() cwin:goto() end)
+            return true
+        else
+            return false
+        end
+    end
+)
+
+
+Please help me
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20091213/ffb29229/attachment.html>
+
+From ebik at drak.ucw.cz  Mon Dec 14 07:18:47 2009
+From: ebik at drak.ucw.cz (ebik)
+Date: Mon, 14 Dec 2009 07:18:47 +0100
+Subject: Youtube fullscreen not working
+In-Reply-To: <249287510912131438p55c521c0k9c71f30c0cc787a2@mail.gmail.com>
+References: <249287510912131438p55c521c0k9c71f30c0cc787a2@mail.gmail.com>
+Message-ID: <20091214071847.035ba5a0@Chewbacca.cub>
+
+
+I think you were looking  for windowinfos.lua in wrong directory.
+It is not saved into .ion3/ itself, but in .ion3/default-session-0/
+(if you did not changed your ion session directory).
+
+>     class = 'Firefox-bin',
+>     instance = 'Firefox-bin',
+
+Here I think that instance should be lowercase, but I'm not sure.
+First try to omit instance.
+
+Also the script may not work in specific circumstances. I have two
+computers, but only on one is the solution working reliably. (The
+other computer is old, some plugins in iceweasel installed etc.)
+
+-- 
+                                 Tom?? 'eb?k' Ebenlendr
+                                 PF 2009.95150459792
+
+
+
+From tony.emma62 at gmail.com  Mon Dec 14 21:27:47 2009
+From: tony.emma62 at gmail.com (Tony Emma)
+Date: Mon, 14 Dec 2009 21:27:47 +0100
+Subject: Youtube fullscreen not working
+In-Reply-To: <20091214071847.035ba5a0@Chewbacca.cub>
+References: <249287510912131438p55c521c0k9c71f30c0cc787a2@mail.gmail.com>
+	<20091214071847.035ba5a0@Chewbacca.cub>
+Message-ID: <249287510912141227x7748098fo534bac8d0a7424cc@mail.gmail.com>
+
+Hello ebik.
+
+So the problem with the file windowinfos is due to configuration. I must add
+in file cfg_kludges.lua:
+
+dopath("cfg_kludge_flash.lua")
+
+Now i have a file. See the content:
+-- Ce fichier a ?t? g?n?r? par Ion, Ne pas ?diter.
+return {
+    ["instance"] = "xterm",
+    ["class"] = "UXTerm",
+}
+
+I create a block in my file cfg_kludge_flash.lua
+
+defwinprop {
+    class = 'UXTerm',
+    instance = 'xterm',
+    --match = function(prop, cwin, id)
+
+    --          local geom = cwin:geom()
+    --          return is_fullscreen(cwin) and geom.w == 200 and geom.h ==
+200
+    --      end,
+
+    match = function(prop, cwin, id) return is_fullscreen(cwin); end,
+    switchto = false,
+    flash_fullscreen = true,
+}
+
+The fullscreen mode doesn't work. :(
+
+I try this:
+defwinprop {
+    class = 'UXTerm',
+    instance = 'xterm',
+
+    match = function(prop, cwin, id)
+              local geom = cwin:geom()
+              return is_fullscreen(cwin) and geom.w == 200 and geom.h == 200
+          end,
+
+    --match = function(prop, cwin, id) return is_fullscreen(cwin); end,
+    switchto = false,
+    flash_fullscreen = true,
+}
+
+The fullscreen mode stay few seconds then it disappear
+
+Have you any ideas?
+
+Tony
+
+2009/12/14 ebik <ebik at drak.ucw.cz>
+
+>
+> I think you were looking  for windowinfos.lua in wrong directory.
+> It is not saved into .ion3/ itself, but in .ion3/default-session-0/
+> (if you did not changed your ion session directory).
+>
+> >     class = 'Firefox-bin',
+> >     instance = 'Firefox-bin',
+>
+> Here I think that instance should be lowercase, but I'm not sure.
+> First try to omit instance.
+>
+> Also the script may not work in specific circumstances. I have two
+> computers, but only on one is the solution working reliably. (The
+> other computer is old, some plugins in iceweasel installed etc.)
+>
+> --
+>                                 Tom?? 'eb?k' Ebenlendr
+>                                 PF 2009.95150459792
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20091214/b28c9185/attachment.html>
+
+From ugggg at hotmail.com  Mon Dec 14 22:20:12 2009
+From: ugggg at hotmail.com (Canaan Hadley-Voth)
+Date: Mon, 14 Dec 2009 21:20:12 +0000 (UTC)
+Subject: Youtube fullscreen not working
+References: <249287510912131438p55c521c0k9c71f30c0cc787a2@mail.gmail.com>
+	<20091214071847.035ba5a0@Chewbacca.cub>
+	<249287510912141227x7748098fo534bac8d0a7424cc@mail.gmail.com>
+Message-ID: <loom.20091214T220903-378@post.gmane.org>
+
+Tony Emma <tony.emma62 at ...> writes:
+> 
+> ??? class = 'UXTerm',
+> ??? instance = 'xterm',
+> 
+
+I see that you're following the instruction "restart ion, fullscreen a flash 
+video and see what got written to windowinfos.lua" very precisely, but in the 
+act of "see what got written" you're opening an xterm window, and 
+windowinfos.lua only shows you the *last* client window opened, in your case 
+the xterm.  So open xterm first, then fullscreen a flash video, then enter the 
+command in the terminal that would read the file windowinfos.lua.
+
+If it still fails when you get the right class and instance, the author of 
+script warned that the delay may need to be adjusted on some computers, which 
+means changing the number in "timer:set(200, function() cwin:goto() end)".
+
+
+
+From tony.emma62 at gmail.com  Mon Dec 14 23:45:07 2009
+From: tony.emma62 at gmail.com (Tony Emma)
+Date: Mon, 14 Dec 2009 23:45:07 +0100
+Subject: Youtube fullscreen not working
+In-Reply-To: <loom.20091214T220903-378@post.gmane.org>
+References: <249287510912131438p55c521c0k9c71f30c0cc787a2@mail.gmail.com>
+	<20091214071847.035ba5a0@Chewbacca.cub>
+	<249287510912141227x7748098fo534bac8d0a7424cc@mail.gmail.com>
+	<loom.20091214T220903-378@post.gmane.org>
+Message-ID: <249287510912141445y59add69bk86bb6507c33d8f77@mail.gmail.com>
+
+Ok Thank You !!!!
+
+It's work now :)
+
+Sorry i'm not an expert but when i see xterm i was surprised.
+
+the content of file windowinfos.lua is
+-- Ce fichier a ?t? g?n?r? par Ion, Ne pas ?diter.
+return {
+    ["instance"] = "firefox-bin",
+    ["class"] = "Firefox-bin",
+}
+
+FILE cfg_kludge_flash.lua:
+
+-- Flash player opens full-screen windows from Firefox with size
+-- request 200x200.  It closes them if they lose focus, but also if
+-- they get focus too quickly.  Therefore set focus 200 ms after
+-- such a window is mapped (this may need to be adjusted on slower
+-- computers).
+
+_NET_WM_STATE = ioncore.x_intern_atom('_NET_WM_STATE', false)
+_NET_WM_STATE_FULLSCREEN = ioncore.x_intern_atom('_NET_WM_STATE_FULLSCREEN',
+                                                 false)
+
+function is_fullscreen(cwin)
+    local state = ioncore.x_get_window_property(cwin:xid(), _NET_WM_STATE,
+4,
+                                                1, true)
+    if state then
+        for k, v in pairs(state) do
+            if v == _NET_WM_STATE_FULLSCREEN then
+                return true
+            end
+        end
+    end
+    return false
+end
+
+defwinprop {
+    class = 'Firefox-bin',
+    instance = 'firefox-bin',
+--    match = function(prop, cwin, id)
+--              local geom = cwin:geom()
+--              return is_fullscreen(cwin) and geom.w == 200 and geom.h ==
+200
+--          end,
+    match = function(prop, cwin, id) return is_fullscreen(cwin); end,
+    switchto = false,
+    flash_fullscreen = true,
+}
+
+ioncore.get_hook('clientwin_do_manage_alt'):add(
+    function(cwin, table)
+        --ioncore.write_savefile("windowinfos", cwin:get_ident())
+        local winprop = ioncore.getwinprop(cwin)
+        if winprop and winprop.flash_fullscreen then
+            local timer = ioncore.create_timer()
+            timer:set(500, function() cwin:goto() end)
+            return true
+        else
+            return false
+        end
+    end
+)
+
+
+I have changed also the timer to 500 ms. Now it's work.
+
+PS: I have the same problem with VLC or game the fullscreen mode doesn't
+work. It's not a real problem because i can do ALT + ENTER for fullscreen.
+
+Thank very much
+
+
+2009/12/14 Canaan Hadley-Voth <ugggg at hotmail.com>
+
+> Tony Emma <tony.emma62 at ...> writes:
+> >
+> >     class = 'UXTerm',
+> >     instance = 'xterm',
+> >
+>
+> I see that you're following the instruction "restart ion, fullscreen a
+> flash
+> video and see what got written to windowinfos.lua" very precisely, but in
+> the
+> act of "see what got written" you're opening an xterm window, and
+> windowinfos.lua only shows you the *last* client window opened, in your
+> case
+> the xterm.  So open xterm first, then fullscreen a flash video, then enter
+> the
+> command in the terminal that would read the file windowinfos.lua.
+>
+> If it still fails when you get the right class and instance, the author of
+> script warned that the delay may need to be adjusted on some computers,
+> which
+> means changing the number in "timer:set(200, function() cwin:goto() end)".
+>
+>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20091214/ee633ea0/attachment.html>
+
+From olejorgenb at yahoo.no  Mon Dec 14 20:10:24 2009
+From: olejorgenb at yahoo.no (=?utf-8?Q?Ole_J=C3=B8rgen_Br=C3=B8nner?=)
+Date: Mon, 14 Dec 2009 20:10:24 +0100
+Subject: Keyboard focus lost in Swing applications (ex: Netbeans) after
+	changing to window
+References: <87sknkgbd6.fsf@CPU107.opentrends.net>
+Message-ID: <op.u4xzjms6vocxtk@tabole-debian>
+
+This http://code.google.com/p/xmonad/issues/detail?id=177 xmonad bug  
+report is probably relevant. Preventing XSetInputFocus to be called on  
+windows with WM_TAKE_FOCUS set seems to fix the issue for me (ion3plus,  
+sun-java-6)
+
+I will run with the change for a while and see if it breaks other apps.  
+(and possible test other java versions)
+
+On Thu, 15 Jan 2009 10:35:49 +0100, Daniel Clemente  
+<dcl441-bugs at yahoo.com> wrote:
+
+> Hi, sorry if this message comes twice (I posted yesterday via NNTP  
+> without being subscribed to the list).
+>
+>
+>   ion3 is stealing keyboard focus to Swing applications. This happens  
+> for instance with Netbeans 6.5:
+>
+> 1. Open netbeans and some other programs in tabs next to it.
+> 2. Select netbeans and open an editor with some code; the cursor is  
+> inside the editor
+> 3. Select another tab (either clicking teh tab or with keyboard).
+> 4. Select netbeans again (either clicking the tab or with keyboard).
+> 5. Try to continue typing, but you can't. The cursor is nowhere, and *no  
+> key* works (space, cursors, A-S-o, ... all gone). You must click again  
+> in the editor and then you can type again.
+>
+> In fact any Swing application has this problem. You can use this one to  
+> test:
+>
+> --- TypeInSwing.java ----------------------------------------
+>
+> import javax.swing.JFrame;
+> import javax.swing.JTextField;
+>
+> public class TypeInSwing {
+>   public static void main(String[] args) {
+>     JFrame frame = new JFrame("HelloWorldSwing");
+>     final JTextField field = new JTextField("type here");
+>
+>     frame.getContentPane().add(field);
+>
+>     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+>     frame.pack();
+>     frame.setVisible(true);
+>   }
+> }
+>
+> --------------------------------------------------------------
+>
+> It happens with latest version 20090110 (with 20080207 too).
+>
+> I am using:
+>
+> $ java -version
+> java version "1.6.0_06"
+> Java(TM) SE Runtime Environment (build 1.6.0_06-b02)
+> Java HotSpot(TM) Server VM (build 10.0-b22, mixed mode)
+>
+>
+>   Why is it so?
+>
+>
+> Daniel
+>
+>
+>
+
+
+-- 
+Using Opera's revolutionary e-mail client: http://www.opera.com/mail/
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: java-focus.patch
+Type: application/octet-stream
+Size: 249 bytes
+Desc: not available
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20091214/92249202/attachment.obj>
+
+From tony.emma62 at gmail.com  Tue Dec 15 21:29:02 2009
+From: tony.emma62 at gmail.com (Tony Emma)
+Date: Tue, 15 Dec 2009 21:29:02 +0100
+Subject: Youtube fullscreen not working
+In-Reply-To: <249287510912141445y59add69bk86bb6507c33d8f77@mail.gmail.com>
+References: <249287510912131438p55c521c0k9c71f30c0cc787a2@mail.gmail.com>
+	<20091214071847.035ba5a0@Chewbacca.cub>
+	<249287510912141227x7748098fo534bac8d0a7424cc@mail.gmail.com>
+	<loom.20091214T220903-378@post.gmane.org>
+	<249287510912141445y59add69bk86bb6507c33d8f77@mail.gmail.com>
+Message-ID: <249287510912151229t48b659e7ucef9e4d5bd4f6647@mail.gmail.com>
+
+Hello,
+
+Sorry, I still have the problem. In fact it's work for Youtube but not for
+dalymotion and other Flash applications. Why?
+
+Tony
+
+
+
+
+2009/12/14 Tony Emma <tony.emma62 at gmail.com>
+
+> Ok Thank You !!!!
+>
+> It's work now :)
+>
+> Sorry i'm not an expert but when i see xterm i was surprised.
+>
+> the content of file windowinfos.lua is
+>
+> -- Ce fichier a ?t? g?n?r? par Ion, Ne pas ?diter.
+> return {
+>     ["instance"] = "firefox-bin",
+>     ["class"] = "Firefox-bin",
+> }
+>
+> FILE cfg_kludge_flash.lua:
+>
+> -- Flash player opens full-screen windows from Firefox with size
+> -- request 200x200.  It closes them if they lose focus, but also if
+> -- they get focus too quickly.  Therefore set focus 200 ms after
+> -- such a window is mapped (this may need to be adjusted on slower
+> -- computers).
+>
+>
+> _NET_WM_STATE = ioncore.x_intern_atom('_NET_WM_STATE', false)
+> _NET_WM_STATE_FULLSCREEN =
+> ioncore.x_intern_atom('_NET_WM_STATE_FULLSCREEN',
+>                                                  false)
+>
+> function is_fullscreen(cwin)
+>     local state = ioncore.x_get_window_property(cwin:xid(), _NET_WM_STATE,
+> 4,
+>                                                 1, true)
+>     if state then
+>         for k, v in pairs(state) do
+>             if v == _NET_WM_STATE_FULLSCREEN then
+>                 return true
+>             end
+>         end
+>     end
+>     return false
+> end
+>
+> defwinprop {
+>     class = 'Firefox-bin',
+>     instance = 'firefox-bin',
+> --    match = function(prop, cwin, id)
+>
+> --              local geom = cwin:geom()
+> --              return is_fullscreen(cwin) and geom.w == 200 and geom.h ==
+> 200
+> --          end,
+>     match = function(prop, cwin, id) return is_fullscreen(cwin); end,
+>     switchto = false,
+>     flash_fullscreen = true,
+> }
+>
+> ioncore.get_hook('clientwin_do_manage_alt'):add(
+>     function(cwin, table)
+>         --ioncore.write_savefile("windowinfos", cwin:get_ident())
+>         local winprop = ioncore.getwinprop(cwin)
+>         if winprop and winprop.flash_fullscreen then
+>             local timer = ioncore.create_timer()
+>             timer:set(500, function() cwin:goto() end)
+>
+>             return true
+>         else
+>             return false
+>         end
+>     end
+> )
+>
+>
+> I have changed also the timer to 500 ms. Now it's work.
+>
+> PS: I have the same problem with VLC or game the fullscreen mode doesn't
+> work. It's not a real problem because i can do ALT + ENTER for fullscreen.
+>
+> Thank very much
+>
+>
+> 2009/12/14 Canaan Hadley-Voth <ugggg at hotmail.com>
+>
+> Tony Emma <tony.emma62 at ...> writes:
+>> >
+>> >     class = 'UXTerm',
+>> >     instance = 'xterm',
+>> >
+>>
+>> I see that you're following the instruction "restart ion, fullscreen a
+>> flash
+>> video and see what got written to windowinfos.lua" very precisely, but in
+>> the
+>> act of "see what got written" you're opening an xterm window, and
+>> windowinfos.lua only shows you the *last* client window opened, in your
+>> case
+>> the xterm.  So open xterm first, then fullscreen a flash video, then enter
+>> the
+>> command in the terminal that would read the file windowinfos.lua.
+>>
+>> If it still fails when you get the right class and instance, the author of
+>> script warned that the delay may need to be adjusted on some computers,
+>> which
+>> means changing the number in "timer:set(200, function() cwin:goto() end)".
+>>
+>>
+-------------- next part --------------
+An HTML attachment was scrubbed...
+URL: <https://lists.berlios.de/pipermail/ion-general/attachments/20091215/d615c4e4/attachment.html>
+
+From ugggg at hotmail.com  Wed Dec 16 04:12:37 2009
+From: ugggg at hotmail.com (Canaan Hadley-Voth)
+Date: Wed, 16 Dec 2009 03:12:37 +0000 (UTC)
+Subject: Youtube fullscreen not working
+References: <249287510912131438p55c521c0k9c71f30c0cc787a2@mail.gmail.com>
+	<20091214071847.035ba5a0@Chewbacca.cub>
+	<249287510912141227x7748098fo534bac8d0a7424cc@mail.gmail.com>
+	<loom.20091214T220903-378@post.gmane.org>
+	<249287510912141445y59add69bk86bb6507c33d8f77@mail.gmail.com>
+	<249287510912151229t48b659e7ucef9e4d5bd4f6647@mail.gmail.com>
+Message-ID: <loom.20091216T040010-868@post.gmane.org>
+
+Tony Emma <tony.emma62 at ...> writes:
+
+> 
+> Hello,Sorry, I still have the problem. In fact it's work for Youtube but not
+> for dalymotion and other Flash applications. Why?Tony
+
+I find it works on most sites.  Since you mentioned that, I tried some more, and 
+failed with Hulu and Dailymotion.  Hulu, I got to work by increasing the timer 
+from 200 all the way to 2000.  Dailymotion wasn't working with any sort of time 
+delay, so then I removed cwin:goto() from the timer function completely, making 
+it look like this:
+
+timer:set(2000, function() end)
+
+So now it successfully creates the fullscreen window but doesn't switch to it 
+until I do so manually with Alt-G and tab-completion.  And that works.  And it 
+*doesn't* work if I use the "next workspace" bindings.  At the moment I don't 
+really understand why it works.
+
+
+
+From cc.ldif at gmail.com  Thu Dec 17 10:11:53 2009
+From: cc.ldif at gmail.com (cc)
+Date: Thu, 17 Dec 2009 10:11:53 +0100
+Subject: problem with french keyboard
+In-Reply-To: <20091210174210.GA15855@jolt.modeemi.cs.tut.fi>
+References: <20091208171210.GA4431@gmail.com>
+	<20091210174210.GA15855@jolt.modeemi.cs.tut.fi>
+Message-ID: <20091217091153.GA7531@gmail.com>
+
+I did not find how to set the keymap. What are the programs I can use,
+or the file I have to edit ?
+
+On 19:42  10/12, Tuomo Valkonen wrote:
+
+> You must set up the keymap. Thank the gnometards for 
+> reinventing the wheel.
+> 
+> -- 
+> Tuomo
+
+

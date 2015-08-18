@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [SEMI-OT] Applications in a typical ion3 desktop environment
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2009-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20%5BSEMI-OT%5D%20Applications%20in%20a%20typical%20ion3%20desktop%20environment&In-Reply-To=%3Cslrngn293j.in.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001547.html">
+   <LINK REL="Next"  HREF="001549.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[SEMI-OT] Applications in a typical ion3 desktop environment</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20%5BSEMI-OT%5D%20Applications%20in%20a%20typical%20ion3%20desktop%20environment&In-Reply-To=%3Cslrngn293j.in.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="[SEMI-OT] Applications in a typical ion3 desktop environment">tuomov at iki.fi
+       </A><BR>
+    <I>Sat Jan 17 01:21:07 CET 2009</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001547.html">[SEMI-OT] Applications in a typical ion3 desktop environment
+</A></li>
+        <LI>Next message: <A HREF="001549.html">[SEMI-OT] Applications in a typical ion3 desktop environment
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1548">[ date ]</a>
+              <a href="thread.html#1548">[ thread ]</a>
+              <a href="subject.html#1548">[ subject ]</a>
+              <a href="author.html#1548">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2009-01-16, Philip Snowberger &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">psnowber at nd.edu</A>&gt; wrote:
+&gt;<i> On Sun, Jan 11, 2009 at 10:23 AM, Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt; wrote:
+</I>&gt;<i> bought almost an identical x61s about 18 months previous.  That said,
+</I>&gt;<i> it's kinda sad that the only reason it could be considered
+</I>&gt;<i> 'affordable' is that Lenovo was blowing them out so that they can
+</I>&gt;<i> hurry up and end-of-life them (I guess?).
+</I>
+One thing I've been wondering is, whether a widescreen display on
+a laptop (not a dragtop!) is actually a bad idea too. And it's the
+trend. For most _sane_ documents, the height of the screen is more
+important than width. (The Modern Web counts as sheer lunacy. In
+a few years, given the trend, it will require triple-widescreen 
+configurations for all the advertisements and other crap, yet still
+have a single 5cm text column in the middle.)
+
+You'd need at least 15.4&quot; WS (1.6 aspect) to fit a single A5-sized 
+document (21cm tall) on the screen without noticeable downscaling. 
+Such a laptop is already quite huge width-wise. In 4:3 aspect ratio
+14&quot; is enough, and width-wise it's about the same as 13.1&quot; WS, which
+just about fits a keyboard without it looking crammed. (I don't 
+have much direct experience with laptops.) And a 12&quot; 4:3 is 
+approximately as tall as a 14.1&quot; WS.
+
+(A5 is what you get when you print two pages on one A4 sheet, and
+anything noticeably smaller than that is too small for documents
+that you have not specifically prepared for printing small --
+see earlier post. In fact, an approx A4 sized screen -- A4 has
+14.5&quot; diameter -- with sqrt(2)/1=~1.4 aspect ratio, which is wider 
+than  4:3=~1.3 but taller than 1.6, could be quite nice on a laptop.
+The WS laptopss themselves actually have about the aspect ratio of A4,
+but tend to have huge uneven borders around the screen. 
+
+&gt;<i> [1] on the topic of mail clients, I haven't seen anybody mention 'sup'
+</I>&gt;<i> ( <A HREF="http://sup.rubyforge.org/">http://sup.rubyforge.org/</A> ), which didn't completely suck last time
+</I>&gt;<i> I tried it (early 2008).  
+</I>
+I've heard of it before and on principle it seemed almost what I've
+wanted. However, at least then it suffered from some limitations that
+I can't recall now, so I didn't bother trying it. 
+I also read mail on a remote computer that I don't control, so
+installing programs written in one of the Popular Bloated Scripting
+Languages isn't very straightforward.
+
+
+&gt;<i> it, I noticed on the mailing list lots of Architecture Astronaut talk
+</I>&gt;<i> about splitting it into &quot;sup the service&quot; and &quot;sup the client&quot;.  YMMV,
+</I>&gt;<i> it may be shit by now.
+</I>
+That sounds bad.
+
+&gt;<i> [2] I used to use remind + wyrd with great success and much happiness
+</I>&gt;<i> until I started using google calendar+mail for work.  The only thing
+</I>&gt;<i> I'd really need for remind to keep working for me is a better backup
+</I>&gt;<i> solution for ~/reminders than I had at the time.  Every once in a
+</I>&gt;<i> while I think about going back to remind+wyrd.
+</I>
+I use a combination of xmessages and the cell phone for reminders,
+depending on the importance of the reminder and whether I should
+be near a computer anyway to act on it. (Why can't computer calendar
+software be as simple as that in cell phones? Wait! Probably they've
+managed to ruin them in them too with increased screen size and CPU 
+power.)
+
+
+~$ cat bin/atxm 
+#!/bin/sh
+
+if test $# -lt 1; then
+        echo 'Usage: atxm time [message]'
+        exit 0
+fi
+
+TIME=$1
+
+shift
+
+cd /
+
+(
+    echo '(iconv --to=latin1 | xmessage -display :0.0 -file -) &lt;&lt; &quot;EOF&quot;'
+    if test $# -gt 0; then
+        echo &quot;$@&quot;
+    else
+        cat
+    fi
+    echo EOF
+) | at $TIME
+
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001547.html">[SEMI-OT] Applications in a typical ion3 desktop environment
+</A></li>
+	<LI>Next message: <A HREF="001549.html">[SEMI-OT] Applications in a typical ion3 desktop environment
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1548">[ date ]</a>
+              <a href="thread.html#1548">[ thread ]</a>
+              <a href="subject.html#1548">[ subject ]</a>
+              <a href="author.html#1548">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

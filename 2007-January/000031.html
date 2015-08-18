@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Xinerama support
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2007-January/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Xinerama%20support&In-Reply-To=%3Cslrneqsrvn.27a.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000030.html">
+   <LINK REL="Next"  HREF="000032.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Xinerama support</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Xinerama%20support&In-Reply-To=%3Cslrneqsrvn.27a.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Xinerama support">tuomov at iki.fi
+       </A><BR>
+    <I>Wed Jan 17 19:50:31 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000030.html">fliping focus problem
+</A></li>
+        <LI>Next message: <A HREF="000032.html">Xinerama support
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#31">[ date ]</a>
+              <a href="thread.html#31">[ thread ]</a>
+              <a href="subject.html#31">[ subject ]</a>
+              <a href="author.html#31">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>
+The totally bitrotted Xinerama support has now been completely removed. 
+I got annoyed by certain hacks used to make it work, because they made
+the _normal_ case over-complicated, and so turned the dummy WRootWin
+structure into a WScreen, and in the process the bitrot of Xinerama
+support for final and complete. And I won't waste time fixing it.
+
+However, it is possible to re-implement that support as a separate
+module, that should do the following things:
+
+   - Create new WScreen objects within the root window WScreen
+     for each Xinerama screen (mplex_do_attach_new with suitable
+     geometries and size policies).
+
+   - Set the screen id of the root window (WScreen::id) to less
+     than zero for the layout saving and loading code to ignore
+     it. 
+
+   - Number the Xinerama WScreens from 0 upwards
+
+   - Possibly remove bindmaps from the WRootWin, or use other
+     ones, so that they don't overlap with those of the nested
+     WScreens.
+
+Note that this new setup inadvertently provides for the 
+possibility of having both workspaces/windows spanning multiple
+Xinerama screens and single ones. Someone will just have to
+waste time writing and maintaining the module. That someone isn't 
+me.
+
+The mod_xrandr modules provides a suitable skeleton for this
+module, and indeed, as Xrandr support is a separate module,
+it is also fitting for another mutually incompatible, ugly 
+and broken extension to also be a separate module. 
+
+-- 
+Tuomo
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000030.html">fliping focus problem
+</A></li>
+	<LI>Next message: <A HREF="000032.html">Xinerama support
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#31">[ date ]</a>
+              <a href="thread.html#31">[ thread ]</a>
+              <a href="subject.html#31">[ subject ]</a>
+              <a href="author.html#31">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>

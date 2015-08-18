@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> Can't type queries
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ion-general/2008-November/index.html" >
+   <LINK REL="made" HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Can%27t%20type%20queries&In-Reply-To=%3Cslrnght5sl.rqr.tuomov%40jolt.modeemi.cs.tut.fi%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="001487.html">
+   <LINK REL="Next"  HREF="001489.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>Can't type queries</H1>
+    <B>Tuomo Valkonen</B> 
+    <A HREF="mailto:ion-general%40lists.berlios.de?Subject=Re%3A%20Can%27t%20type%20queries&In-Reply-To=%3Cslrnght5sl.rqr.tuomov%40jolt.modeemi.cs.tut.fi%3E"
+       TITLE="Can't type queries">tuomov at iki.fi
+       </A><BR>
+    <I>Sat Nov 15 10:34:14 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="001487.html">Can't type queries
+</A></li>
+        <LI>Next message: <A HREF="001489.html">Can't type queries
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1488">[ date ]</a>
+              <a href="thread.html#1488">[ thread ]</a>
+              <a href="subject.html#1488">[ subject ]</a>
+              <a href="author.html#1488">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>On 2008-11-15, Tuomo Valkonen &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">tuomov at iki.fi</A>&gt; wrote:
+&gt;<i> On 2008-11-14, sughosh ganu &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/ion-general">urwithsughosh at gmail.com</A>&gt; wrote:
+</I>&gt;&gt;<i> So pressing F3 prompts
+</I>&gt;&gt;<i> for a command, but typing does not produce any string. Same is the
+</I>&gt;&gt;<i> case with other keys like F4 and F5.
+</I>&gt;<i>
+</I>&gt;<i> IIRC it's a locale setup fuckup. You have to have the encoding
+</I>&gt;<i> specified as part of LC_CTYPE for X, e.g. LC_CTYPE=fi_FI.ISO-8859-1,
+</I>&gt;<i> and you have to have the locale compiled for libc. (Debian:
+</I>&gt;<i> config /etc/locale.gen, generate: locale-gen.)
+</I>
+Another thing you might look for is, if the startup errors
+(non-logged; you'll have to dig into the console or 
+.xsession-errors of you run a DM and it supports it) 
+has complaints about &quot;input methods&quot; or &quot;input contexts&quot;,
+in the case that you're running in a strange locale
+(as your name might imply). Ion only has very basic support
+for X input managers, so pre-edit windows etc. might not work.
+
+-- 
+Be an early adopter! Beat the herd! Choose Windows today!
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="001487.html">Can't type queries
+</A></li>
+	<LI>Next message: <A HREF="001489.html">Can't type queries
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1488">[ date ]</a>
+              <a href="thread.html#1488">[ thread ]</a>
+              <a href="subject.html#1488">[ subject ]</a>
+              <a href="author.html#1488">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ion-general">More information about the Ion-general
+mailing list</a><br>
+</body></html>
